@@ -34,7 +34,7 @@ Config* configPtr = 0;
 Config *getConfig()
 {
     if(configPtr == 0)
-        configPtr = new Config();
+    {   configPtr = new Config();}
 
     return configPtr;
 }
@@ -53,6 +53,7 @@ Config::Config()
     musicVolume = 50;
     soundEnabled = true;
     musicEnabled = true;
+    carsEnabled = true;
     restartOnChangeScreen = true;
 
     //#define MONTHGRAPH_W 120
@@ -90,9 +91,7 @@ Config::Config()
 Config::~Config()
 {
     if( configPtr == this )
-    {
-        configPtr = 0;
-    }
+    {   configPtr = 0;}
 }
 
 /*
@@ -187,6 +186,8 @@ void Config::load( const std::string& filename ){
                         binary_mode = parseBool(value, true);
                     } else if(strcmp(name, "seed_compression") == 0) {
                         seed_compression = parseBool(value, true);
+                    } else if(strcmp(name, "carsEnabled") == 0) {
+                        carsEnabled = parseBool(value, true);
                     }else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -239,6 +240,7 @@ Config::save(){
         << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
         << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
         << "\" seed_compression=\"" << (seed_compression?"yes":"no")
+        << "\" carsEnabled=\"" << (carsEnabled?"yes":"no")
         << "\" />\n";
     userconfig << "</configuration>\n";
 }

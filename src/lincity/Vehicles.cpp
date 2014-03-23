@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "engine.h"
+#include <cmath>
 
 std::list<Vehicle*> Vehicle::vehicleList;
 
@@ -20,14 +21,18 @@ Vehicle::Vehicle(int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStr
     this->ynext = y0;
     this->xprev = x0;
     this->yprev = y0;
+    this->xold1 = x0;
+    this->yold1 = y0;
+    this->xold2 = x0;
+    this->yold2 = y0;
     this->anim = 0;
     this->death_counter = 100;
     this->alive = true;
-    this->refresh_sprite = false;
+    this->turn_left = true;
     this->headings = 0;
     this->direction = 0;
-    //this->xr = x;
-    //this->yr = y;
+    this->xr = x;
+    this->yr = y;
 
     this->stuff_id = Construction::STUFF_JOBS;
     //TODO Choose a random model for suitable stuff
@@ -46,12 +51,13 @@ Vehicle::Vehicle(int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStr
     {
         case (VEHICLE_BLUECAR):
             frameIt->resourceGroup =  ResourceGroup::resMap["Bluecar"];
-            speed = BLUE_CAR_SPEED;
+            speed0 = BLUE_CAR_SPEED;
             break;
         default:
         std::cout << "default in new vehicle model = " << model << " at x= " << x << " y= " << y << std::endl;
 
     }
+    speed = speed0;
 /*
 #ifdef DEBUG
     std::cout << "new vehicle model = " << model << " at x= " << x << " y= " << y
@@ -98,33 +104,225 @@ void Vehicle::cleanVehicleList()
 void Vehicle::drive(void)
 {
     --death_counter;
-
-    int dx = xnext - xprev;
-    int dy = ynext - yprev;
-    if(dx == 2)
+    speed = speed0;
+    int xstep = xnext - xprev;
+    int ystep = ynext - yprev;
+    if(xstep == 2)
     {   direction = 2;}
-    else if(dx == -2)
+    else if(xstep == -2)
     {   direction = 6;}
-    else if(dy == 2)
+    else if(ystep == 2)
     {   direction = 0;}
-    else if(dy == -2)
+    else if(ystep == -2)
     {   direction = 4;}
-    else if( (dx == 1) && (dy == 1) )
-    {   direction = 1;}
-    else if( (dx == 1) && (dy == -1) )
-    {   direction = 3;}
-    else if( (dx == -1) && (dy == 1) )
-    {   direction = 7;}
-    else if( (dx == -1) && (dy == -1) )
-    {   direction = 5;}
+    else if( (xstep == 1) && (ystep == 1) )
+    {
+        direction = 1;            //vertically down
+        turn_left = (xprev == x); //turning left
+    }
+    else if( (xstep == 1) && (ystep == -1) )
+    {
+        direction = 3; //horizontally right
+        turn_left = (xprev != x); //turning left and YES == is correct
+    }
+    else if( (xstep == -1) && (ystep == 1) )
+    {
+        direction = 7;
+        turn_left = (xprev != x); //turning left and YES == is correct
 
-    move_frame( x + y * world.len() );
+    }
+    else if( (xstep == -1) && (ystep == -1) )
+    {
+        direction = 5;            //vertically up
+        turn_left = (xprev == x); //turning left
+    }
+
+    if(direction&1)
+    {   speed = (turn_left?3:1)*speed0/2;}
+
+    //now advance to position of the vehicle
+    xold2=xold1;
+    yold2=yold1;
+    xold1=xprev;
+    yold1=yprev;
     xprev = x;
     yprev = y;
     x = xnext;
     y = ynext;
-    refresh_sprite = true; //signal to update sprite AFTER ajusting offsets
+
+    if (frameIt->frame < -1)
+    {   ++frameIt->frame;}
+    else
+    {
+        int s = (int)frameIt->resourceGroup->graphicsInfoVector.size();
+        if(s)
+        {   frameIt->frame = direction % s;}
+    }
 }
+
+void Vehicle::walk()
+{
+    double remaining = double(anim-real_time)/speed;
+    double elapsed = 1 - remaining;
+    //mx,my are like continuos coordinates for the map
+    //(0,0) is always the southern corner of the tiles
+    double mx = 0;
+    double my = 0;
+    switch (direction) //pointing towards
+    {
+        case (0): //lower left
+            mx = -0.65;
+            my = -remaining;
+        break;
+        case(4): //upper right
+            mx = -0.27;
+            my = -elapsed;
+        break;
+        case (2): //lower right
+            mx = -remaining;
+            my = -0.27;
+        break;
+        case (6): //upper left
+            mx = -elapsed;
+            my = -0.65;
+        break;
+        case (1): //vertically down
+        {
+            if(turn_left)
+            {
+                mx = -0.65 + elapsed * elapsed;
+                my = -1.13 + 1 * elapsed;
+            }
+            else
+            {
+                mx =  -1 + 0.35 * elapsed;
+                my = -0.27 + 0.27 * elapsed * elapsed;
+            }
+        }
+        break;
+        case (5): //vertically up
+        {
+            if(turn_left)
+            {
+                mx = -0.27 - 0.73 * elapsed * elapsed;
+                my =  -0.65 * elapsed;
+            }
+            else
+            {
+                mx = 0 - 0.23 * elapsed;
+                my = -0.65 - 0.35 * elapsed * elapsed;
+            }
+        }
+        break;
+        case (3): //horizontally right
+        {
+            if(turn_left)
+            {
+                if(elapsed < 0.5)
+                {
+                    mx = -1 + elapsed;
+                    my =  -0.27 - 0.5 * elapsed * elapsed;
+                }
+                else
+                {
+                    mx = -0.27 - 0.5 * remaining * remaining;
+                    my = -1 + remaining;
+                }
+            }
+            else
+            {
+                mx = -0.27 * remaining * remaining;
+                my = -0.27 * elapsed;
+            }
+
+        }
+        break;
+        case (7): //horizontally left
+        {
+            if (turn_left)
+            {
+                mx = -0.65 * elapsed;
+                my = -0.65 + 0.65 * elapsed * elapsed;
+            }
+            else
+            {
+                mx = -0.65 - 0.35 * elapsed * elapsed;
+                my = -1 + 0.35 * elapsed;
+            }
+
+        }
+        break;
+    }
+
+    // a car with (mx,my)==(0,0) has its center in the southern corner
+    mx += 0.25;
+    my += 0.25;
+    //update absolute floating positions
+    xr = (double)xprev + mx;
+    yr = (double)yprev + my;
+    //choose tile for placing the frame
+    int xtile = ceil(xr);
+    int ytile = ceil(yr);
+    //no need to go up or left
+    if( xtile < xprev ) {   xtile = xprev;  }
+    if( ytile < yprev ) {   ytile = yprev;  }
+    //align animation to placement of frame on map
+    mx = xr - (double)xtile;
+    my = yr - (double)ytile;
+    if( xtile +  ytile * world.len() != map_idx)
+    {   move_frame(xtile +  ytile * world.len());}
+
+    //Apply the animation of the sprite
+    //dx, dy are on screen coordinates
+    int dx = (mx - my) * 64;
+    int dy = (mx + my) * 32;
+
+    //Check for bridges and ramps
+    switch(world(xprev,yprev)->getGroup())
+    {
+        case GROUP_TRACK_BRIDGE:
+            dy -= TRACK_BRIDGE_HEIGHT;
+            break;
+        case GROUP_ROAD_BRIDGE:
+            dy -= ROAD_BRIDGE_HEIGHT;
+            break;
+         case GROUP_ROAD:
+            if( world(xnext,ynext)->getGroup() == GROUP_ROAD_BRIDGE
+            ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE)
+            {
+                dy -= (elapsed * ROAD_BRIDGE_HEIGHT/ 2);
+                frameIt->frame = 8 + direction/2; //going up hill
+                if(world(x,y)->getGroup() == GROUP_ROAD_BRIDGE)
+                {dy -= ROAD_BRIDGE_HEIGHT/ 2;}
+            }
+            else if(world(xold2,yold2)->getGroup() == GROUP_ROAD_BRIDGE
+            ||      world(xold1,yold1)->getGroup() == GROUP_ROAD_BRIDGE)
+            {
+                dy -= (remaining * ROAD_BRIDGE_HEIGHT/ 2);
+                frameIt->frame = 12 + direction/2; //going down hill
+                if(world(xold1,yold1)->getGroup() == GROUP_ROAD_BRIDGE)
+                {dy -= ROAD_BRIDGE_HEIGHT/ 2;}
+            }
+            break;
+        case GROUP_TRACK:
+            if( world(x,y)->getGroup() == GROUP_TRACK_BRIDGE )
+            {
+                dy -= (elapsed * TRACK_BRIDGE_HEIGHT);
+                frameIt->frame = 8 + direction/2; //going up hill
+            }
+            else if(world(xold1,yold1)->getGroup() == GROUP_TRACK_BRIDGE)
+            {
+                dy -= (remaining * TRACK_BRIDGE_HEIGHT );
+                frameIt->frame = 12 + direction/2;// going down hill
+            }
+            break;
+    }
+
+    frameIt->move_x = dx;
+    frameIt->move_y = dy;
+
+}
+
 
 void Vehicle::move_frame(int new_idx)
 {
@@ -166,16 +364,17 @@ bool Vehicle::acceptable_heading(int k)
     switch(strategy)
     {
         case VEHICLE_STRATEGY_MAXIMIZE:
-        return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2)*24/25 <
-        world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2) &&
-        initial_cargo*99/100 < world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2);
+            return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2)*24/25 <
+            world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2) &&
+            initial_cargo*99/100 < world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2);
         case VEHICLE_STRATEGY_MINIMIZE:
-        return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2) >
-        world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*24/25
-        && initial_cargo > world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*99/100;
-        default: //silence gcc warning
+            return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2) >
+            world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*24/25
+            && initial_cargo > world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*99/100;
+        default: //silence warning
         return true;
     }
+    return false;
 }
 
 
@@ -249,193 +448,17 @@ void Vehicle::update()
     //get a new heading
     if(x == xnext && y == ynext)
     {   getNewHeadings();}
-
     // check if it is time to make a step
-    bool do_drive = false;
     if( real_time > anim) //move to dest
     {
-        if (frameIt->frame == -2)
+        drive();
+        if (frameIt->frame < 0)
         {   anim = real_time + 50;}
         else
         {   anim = real_time + speed;}
-        //FIXME dirty workaround to avoid jumping sprites
-        do_drive = true;
     }
-
-    //move the sprite on the same tile
-    int remaining = (anim-real_time)*1000/speed;
-    int elapsed = 1000 - remaining;
-    int mvx = 0;
-    int mvy = 0;
-    switch (direction) //pointing towards
-    {
-        case (0): //lower left
-            mvx =  48 - 64 * elapsed / 1000;
-            mvy = -40 + 32 * elapsed / 1000;
-        break;
-        case(4): //upper right
-            mvx =       64 * elapsed / 1000;
-            mvy =     - 32 * elapsed / 1000;
-        break;
-        case (2): //lower right
-            mvx = -64 + 64 * elapsed / 1000;
-            mvy = -32 + 32 * elapsed / 1000;
-        break;
-        case (6): //upper left
-            mvx =  33 - 64 * elapsed / 1000;
-            mvy =  -8 - 32 * elapsed / 1000;
-        break;
-        case (1): //vertically down
-        {
-            if(xprev != x) //turning left
-            {
-                mvx =   4 + 32 * remaining * remaining / 1000000;
-                mvy =   4 - 32 * remaining / 1000;
-            }
-            else
-            {
-                mvx = -30 - 16 * remaining * remaining / 1000000;
-                mvy =  -6 - 16 * remaining / 1000;
-            }
-        }
-        break;
-        case (5): //vertically up
-        {
-            if(xprev != x) //turning left
-            {
-                mvx = -32 + 16 * remaining /1000 + 24 * remaining * elapsed / 250000;
-                mvy = -32 + 32 * remaining / 1000;
-            }
-            else
-            {
-                mvx =  60 - 16 + 16 * elapsed * elapsed / 1000000;
-                mvy = -26 + 16 * remaining /1000;
-            }
-        }
-        break;
-        case (3): //horizontally right
-        {
-            if (xprev != x)
-            {
-                mvx = 0;
-                mvy = 8;
-                if( anim > (real_time + speed/4) )
-                {   anim = real_time + speed/4;}
-            }
-            else
-            {
-                mvx =  50 - 92 * remaining / 1000;
-                mvy = -20 + 12 - 12 * (remaining-500) * (remaining-500) / 250000;
-            }
-        }
-        break;
-        case (7): //horizontally left
-        {
-            if (xprev != x)
-            {
-                //std::cout << "turning right" << std::endl;
-                mvx = -26 + 64 * remaining /1000;
-                mvy = -32 + 8 - 8 * (remaining-500) * (remaining-500) / 250000;
-
-            }
-            else
-            {
-                mvx = -20 + 52 * remaining / 1000;
-                mvy = -2 - 8 + 8 * (remaining-500) * (remaining-500) / 250000;;
-            }
-        }
-        break;
-    }
-
-    //Check for bridges and scan for ramps
-    bool adjust_uphill = false;
-    bool adjust_downhill = false;
-    switch(world(xprev,yprev)->getGroup())
-    {
-        case GROUP_TRACK_BRIDGE:
-            mvy -= TRACK_BRIDGE_HEIGHT;
-            break;
-        case GROUP_ROAD_BRIDGE:
-            mvy -= ROAD_BRIDGE_HEIGHT;
-            break;
-         case GROUP_ROAD:
-            if( world(xnext,ynext)->getGroup() == GROUP_ROAD_BRIDGE
-            ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE)
-            {
-                mvy -= (elapsed * ROAD_BRIDGE_HEIGHT/ 2000);
-                frameIt->frame = 8 + direction/2; //going up hill
-                if(world(x,y)->getGroup() == GROUP_ROAD_BRIDGE)
-                {mvy -= 24;}
-                adjust_uphill = true;
-            }
-            else if(world(3*xprev - 2*x,3*yprev - 2*y)->getGroup() == GROUP_ROAD_BRIDGE
-            ||      world(2*xprev - x,2*yprev - y)->getGroup() == GROUP_ROAD_BRIDGE)
-            {
-                mvy -= (remaining * ROAD_BRIDGE_HEIGHT/ 2000);
-                frameIt->frame = 12 + direction/2; //going down hill
-                if(world(2*xprev - x,2*yprev - y)->getGroup() == GROUP_ROAD_BRIDGE)
-                {mvy -= 24;}
-                adjust_downhill = true;
-            }
-            break;
-        case GROUP_TRACK:
-            if( world(x,y)->getGroup() == GROUP_TRACK_BRIDGE )
-            {
-                mvy -= (elapsed * TRACK_BRIDGE_HEIGHT / 1000);
-                frameIt->frame = 8 + direction/2; //going up hill
-                adjust_uphill = true;
-            }
-            else if(world(2*xprev - x,2*yprev - y)->getGroup() == GROUP_TRACK_BRIDGE)
-            {
-                mvy -= (remaining * TRACK_BRIDGE_HEIGHT / 1000);
-                frameIt->frame = 12 + direction/2;// going down hill
-                adjust_downhill = true;
-            }
-            break;
-    }
-
-    //Now aply offsets of ramps
-    if(adjust_uphill)
-    {
-        switch (direction)
-        {
-            case 0: mvy +=  8;break;
-            case 4: mvy -=  8;break;
-            case 2: mvy +=  6;break;
-        }
-    }
-    else if(adjust_downhill)
-    {
-        switch (direction)
-        {
-            case 0: mvy -= 12;break;
-            case 4: mvy +=  8;break;
-            case 2: mvy -=  2;break;
-        }
-    }
-
-    //Apply the movement of the sprite
-    frameIt->move_x = mvx;
-    frameIt->move_y = mvy;
-
-    //get a new sprite if moved previously
-    if(refresh_sprite)
-    {
-        int s = (int)frameIt->resourceGroup->graphicsInfoVector.size();
-        if(s)
-        {   frameIt->frame = direction % s;}
-        refresh_sprite = false;
-    }
-    // drive if need and sprite was already updated
-    if(do_drive)
-    {
-        drive();
-        frameIt->frame = -1; //hide the jumping frame
-        //TODO resolve the jumping issue
-        //maybe with a movement manager?
-        //TODO manager should also sort the vehicles on a tile from back to front
-    }
-
+    //animate the sprite
+    walk();
     //cars have limited lifespan
     if(death_counter < 0)
     {   alive = false;}

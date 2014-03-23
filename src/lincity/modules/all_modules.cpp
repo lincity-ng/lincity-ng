@@ -150,6 +150,7 @@ void initializeModules() {
 
     //resources for vehicles
     new ResourceGroup("Bluecar");
+    ResourceGroup::resMap["Bluecar"]->is_vehicle = true;
 
 
 }

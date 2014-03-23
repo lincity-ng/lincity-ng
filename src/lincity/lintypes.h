@@ -328,6 +328,7 @@ public:
         resourceID = tag;
         images_loaded = false;
         sounds_loaded = false;
+        is_vehicle = false;
         //std::cout << "new resourceGroup: " << tag << std::endl;
         if (resMap.count(tag))
         {   std::cout << "rejecting " << tag << " as another ResourceGroup"<< std::endl;}
@@ -356,6 +357,7 @@ public:
     std::string resourceID;
     bool images_loaded;
     bool sounds_loaded;
+    bool is_vehicle; //vehicles are always rendered on upper left tile
     std::vector<Mix_Chunk *> chunks;
     std::vector<GraphicsInfo> graphicsInfoVector;
     void growGraphicsInfoVector(void)

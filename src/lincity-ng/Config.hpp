@@ -22,24 +22,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <limits.h>
 #include <float.h>
 
-class Config 
+class Config
 {
 public:
     Config();
     ~Config();
-    
+
     bool useOpenGL;
     bool useFullScreen;
     bool restartOnChangeScreen;
     int videoX, videoY;
     int monthgraphW, monthgraphH;
-    
+
     // sound volume 0..100 (0=silent)
     int soundVolume;
     // music volume 0..100
     int musicVolume;
     bool soundEnabled;
     bool musicEnabled;
+    bool carsEnabled;
     //std::string lincityHome;
     int skipMonthsFast;
     // how fast is fast_time_for_year
@@ -51,7 +52,7 @@ public:
     void save();
 private:
     void load( const std::string& filename );
-    int parseInt(const char* value, int defaultValue, int minValue = INT_MIN, 
+    int parseInt(const char* value, int defaultValue, int minValue = INT_MIN,
             int maxValue = INT_MAX );
     bool parseBool(const char* value, bool defaultvalue);
 };

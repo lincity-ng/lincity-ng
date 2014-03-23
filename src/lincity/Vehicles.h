@@ -10,8 +10,8 @@
 #include <list>
 
 #define BLUE_CAR_SPEED 1500
-#define TRACK_BRIDGE_HEIGHT 24
-#define ROAD_BRIDGE_HEIGHT 48
+#define TRACK_BRIDGE_HEIGHT 22
+#define ROAD_BRIDGE_HEIGHT 44
 
 #define COMMUTER_TRAFFIC_RATE 1024
 
@@ -40,13 +40,13 @@ public:
     ~Vehicle(void);
 
     //location, heading and comming from
-    int x, xnext, xprev;
-    int y, ynext, yprev;
-    //float xr, yr; //TODO maybe simpler to handle position as floats
+    int x, xnext, xprev, xold1, xold2;
+    int y, ynext, yprev, yold1, yold2;
+    float xr, yr;
     int death_counter;
-    bool alive, refresh_sprite;
+    bool alive, turn_left;
     unsigned int headings;
-    size_t direction;
+    int direction;
 
     VehicleModel model; //different vehicles
     Construction::Commodities stuff_id; //cargo
@@ -55,7 +55,7 @@ public:
     std::list<ExtraFrame>::iterator frameIt; //the particular extraframe at the host
     int map_idx;    //index of the maptile with the frame, NOT necessarily the current position
 
-    int speed, anim;
+    int speed0, speed, anim;
     void update();
 
 
@@ -67,6 +67,7 @@ private:
     void getNewHeadings(); //plan ahead for 2 tiles
     bool acceptable_heading(int k); //checks if a move would comply with the strategy
     void drive();          //advance position by 1 tile
+    void walk();           //change the offset of the sprite and evetually choose a tile to attach it to
     void move_frame(int idx); //place the frame on the map aka *world(idx)
 
 

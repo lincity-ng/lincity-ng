@@ -25,6 +25,10 @@
 #include <iostream>
 #include "lincity-ng/Sound.hpp"
 #include "Vehicles.h"
+#include "lincity-ng/MainLincity.hpp"
+#include "lincity-ng/Config.hpp"
+
+extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp
 
 //Ground Declarations
 
@@ -1221,14 +1225,20 @@ void Construction::trade()
         if(transport) //Special for transport
         {
             transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;
-            if(100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2 &&
-            world(x,y)->getTransportGroup() == GROUP_ROAD)
+            if(lincitySpeed != fast_time_for_year
+            && getConfig()->carsEnabled
+            && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
+            && world(x,y)->getTransportGroup() == GROUP_ROAD)
             {
                 int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
+                if(lincitySpeed == MED_TIME_FOR_YEAR) // compensate for overall animation
+                {   yield = (yield+1)/2;}
                 switch (stuff_ID)
                 {
                     case STUFF_JOBS :
-                        if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2)
+                        if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2
+                        && world(x,y)->framesptr //useful check in case the road is bulldozed
+                        &&  world(x,y)->framesptr->size() < 2) //only generate cars on emtpy streets
                         {   new Vehicle(x, y, VEHICLE_BLUECAR,
                                         (flow > 0)? VEHICLE_STRATEGY_MAXIMIZE : VEHICLE_STRATEGY_MINIMIZE);}
                         break;
@@ -1251,25 +1261,7 @@ void Construction::trade()
                 {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
             }
         }
-/*      //OUTCH This is also done upon equlibrating stuff
-        else if ((flow > 0) && (constructionGroup->group != GROUP_MARKET))
-        {
-            switch (stuff_ID)
-                {
-                    case STUFF_JOBS :
-                        income_tax += flow;
-                        break;
-                    case STUFF_GOODS :
-                        goods_tax += flow;
-                        goods_used += flow;
-                    case STUFF_COAL :
-                        coal_tax += flow;
-                        break;
-                    default:
-                        break;
-                }
-        }
-*/
+
         stuff_it->second += flow; //update center_lvl
     } //endfor all different STUFF
 }
@@ -1422,7 +1414,6 @@ int ConstructionGroup::placeItem(int x, int y)
         } //endfor j
     }// endfor i
     world(x, y)->construction = tmpConstr;
-
     constructionCount.add_construction(tmpConstr); //register for Simulation
 
     //now look for neighbors

@@ -1273,7 +1273,36 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                             int old_y = graphicsInfo->y;
                             graphicsInfo->x = old_x - frit->move_x;
                             graphicsInfo->y = old_y - frit->move_y;
-                            drawTexture(painter, lowerRightTile, graphicsInfo);
+                            if( frit->resourceGroup->is_vehicle)
+                            {
+                                //only draw vehicles on top of...
+                                switch (cstgrp->group)
+                                {
+                                    case GROUP_BARE:
+                                    case GROUP_DESERT:
+                                    case GROUP_WATER:
+                                    case GROUP_TRACK:
+                                    case GROUP_TRACK_BRIDGE:
+                                    case GROUP_ROAD:
+                                    case GROUP_ROAD_BRIDGE:
+                                    case GROUP_RAIL:
+                                    case GROUP_RAIL_BRIDGE:
+                                    case GROUP_ORGANIC_FARM:
+                                    case GROUP_WATERWELL:
+                                    case GROUP_SHANTY:
+                                    case GROUP_CRICKET:
+                                    case GROUP_SUBSTATION:
+                                    //add anything else with low northen corner
+                                        drawTexture(painter, upperLeft, graphicsInfo);
+                                    break;
+                                    default:
+                                    break;
+                                }
+
+
+                            }
+                            else
+                            {   drawTexture(painter, lowerRightTile, graphicsInfo);}
                             graphicsInfo->x = old_x;
                             graphicsInfo->y = old_y;
                         }
