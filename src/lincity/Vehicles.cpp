@@ -337,25 +337,14 @@ void Vehicle::move_frame(int new_idx)
     map_idx = new_idx; //remember where the frame was put
 }
 
-bool Vehicle::acceptable_heading(int k)
+bool Vehicle::acceptable_heading(int idx)
 {
     //handle trivial case
     if(strategy == VEHICLE_STRATEGY_RANDOM)
     {   return true;}
 
-    int xtrial = x;
-    int ytrial = y;
-
-    switch (k)
-    {
-        case 0: xtrial = x + 1; break;
-        case 1: xtrial = x - 1; break;
-        case 2: ytrial = y - 1; break;
-        case 3: ytrial = y + 1; break;
-    }
-
     //dont go nowhere
-    if(!world(xtrial,ytrial)->reportingConstruction)
+    if(!world(idx)->reportingConstruction)
     {   return false;}
     //always leave from illegal area
     if(!world(x,y)->reportingConstruction)
@@ -365,12 +354,12 @@ bool Vehicle::acceptable_heading(int k)
     {
         case VEHICLE_STRATEGY_MAXIMIZE:
             return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2)*24/25 <
-            world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2) &&
-            initial_cargo*99/100 < world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2);
+            world(idx)->reportingConstruction->tellstuff(stuff_id, -2) &&
+            initial_cargo*99/100 < world(idx)->reportingConstruction->tellstuff(stuff_id, -2);
         case VEHICLE_STRATEGY_MINIMIZE:
             return world(x,y)->reportingConstruction->tellstuff(stuff_id, -2) >
-            world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*24/25
-            && initial_cargo > world(xtrial,ytrial)->reportingConstruction->tellstuff(stuff_id, -2)*99/100;
+            world(idx)->reportingConstruction->tellstuff(stuff_id, -2)*24/25
+            && initial_cargo > world(idx)->reportingConstruction->tellstuff(stuff_id, -2)*99/100;
         default: //silence warning
         return true;
     }
@@ -383,18 +372,19 @@ void Vehicle::getNewHeadings()
     headings = 0;
     unsigned short g;
     int sum = 0;
+    const int len = world.len();
 
     g = world(x + 1, y)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x >= xprev))
+    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x >= xprev) && acceptable_heading( (x+1) + y*len ) )
     {   headings |= 1; ++sum;}
     g = world(x - 1, y)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x <= xprev))
+    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x <= xprev) && acceptable_heading( (x-1) + y*len ) )
     {   headings |= 2; ++sum;}
     g = world(x , y - 1)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y <= yprev))
+    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y <= yprev) && acceptable_heading( x + (y-1)*len ) )
     {   headings |= 4; ++sum;}
     g = world(x , y + 1)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y >= yprev))
+    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y >= yprev) && acceptable_heading( x + (y+1)*len ) )
     {   headings |= 8; ++sum;}
 
     //absolutely nowhere to go
@@ -402,35 +392,19 @@ void Vehicle::getNewHeadings()
     {   alive = false;  return;}
 
     //choose a random branch
-    int k = -1;
-    do
+    int k = 0;
+    int choice = rand() % sum;
+    int j = 0;
+    for(int i = 1; i < 16; i*=2)
     {
-        if(k != -1) //eliminate the previously failed possibility
+        if(headings&i)
         {
-            headings &= ~(1 << k);
-            --sum;
-            if (!sum) //no more options
-            {   alive = false;  return;}
+            if(choice == j)
+            {   break;}
+            ++j;
         }
-        k = 0;
-        int choice = rand() % sum;
-        int j = 0;
-        for(int i = 1; i < 16; i*=2)
-        {
-            if(headings&i)
-            {
-                if(choice == j)
-                {   break;}
-                ++j;
-            }
-            ++k;
-        }
+        ++k;
     }
-    while (sum && !acceptable_heading(k));
-
-    // nowhere to go
-    if (!sum)
-    {   alive = false;  return;}
 
     //set the next destination
     switch (k)
