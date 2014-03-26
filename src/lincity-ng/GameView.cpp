@@ -1218,15 +1218,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     //Attention map is rotated for displaying
     if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
     {
-        //Construction *cst = world(x,y)->construction;
         resgrp = world(x, y)->getTileResourceGroup();
-/*
-        if(world(x, y)->framesptr)
-        {   resgrp = world(x, y)->framesptr->front().resourceGroup;}
-        else
-        {   resgrp = world(x, y)->getTileResourceGroup();}
-*/
-
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         unsigned short textureType = world(x, y)->getTopType();
@@ -1243,7 +1235,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         //draw visible tiles underneath constructions
         if( (world(x, y)->reportingConstruction || world(x,y)->framesptr) && !(world(x,y)->flags & FLAG_INVISIBLE) )
         {
-            //ResourceGroup *tilegrp = world(x, y)->getTileResourceGroup();
             if (resgrp->images_loaded)
             {
                 size_t s = resgrp->graphicsInfoVector.size();
@@ -1255,9 +1246,11 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 }
             }
         }
+        bool draw_colored_site = true;
 
         if( (size==1 || !hideHigh) )
         {
+            draw_colored_site = false;
             if (world(x,y)->framesptr)
             {
                 for(std::list<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
@@ -1307,6 +1300,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                             graphicsInfo->y = old_y;
                         }
                     }
+                    else
+                    {   draw_colored_site = true;}
                 }
             }
             else
@@ -1319,7 +1314,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 }
             }
         }
-        else
+
+        if(draw_colored_site)
         {
             Rect2D tilerect( 0, 0, size * tileWidth, size * tileHeight );
             Vector2 tileOnScreenPoint = getScreenPoint( lowerRightTile );
