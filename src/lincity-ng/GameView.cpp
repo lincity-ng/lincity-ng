@@ -651,7 +651,7 @@ void GameView::event(const Event& event)
 
             if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             && !areaBulldoze){
-                if( tile != startRoad ){
+                if( tile != startRoad ) {
                     check_bulldoze_area (startRoad.x, startRoad.y);
                     startRoad = tile;
                 }
@@ -748,21 +748,30 @@ void GameView::event(const Event& event)
                         int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
                         int* s1 = ctrDrag ? &stepy: &stepx;
                         int* s2 = ctrDrag ? &stepx: &stepy;
+                        ConstructionGroup* cstgrp = userOperation->constructionGroup;
+                        unsigned short size = cstgrp->size;
+
                         while( *v1 != *l1 )
                         {
                             if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {   place_item(currentTile.x, currentTile.y);}
+                            {
+                                cstgrp->placeItem(currentTile.x, currentTile.y);
+                                connect_transport(currentTile.x - 2, currentTile.y - 2, currentTile.x + size + 1, currentTile.y + size + 1);
+                                desert_water_frontiers(currentTile.x - 1, currentTile.y - 1, size + 2, size + 2);
+                            }
                             *v1 += *s1;
                         }
 
                         while( *v2 != *l2 )
                         {
                             if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {   place_item(currentTile.x, currentTile.y);}
+                            {
+                                userOperation->constructionGroup->placeItem(currentTile.x, currentTile.y);
+                                connect_transport(currentTile.x - 2, currentTile.y - 2, currentTile.x + size + 1, currentTile.y + size + 1);
+                                desert_water_frontiers(currentTile.x - 1, currentTile.y - 1, size + 2, size + 2);
+                            }
                             *v2 += *s2;
                         }
-
-
                     }
                     break;
                 }

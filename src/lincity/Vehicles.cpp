@@ -339,6 +339,23 @@ void Vehicle::move_frame(int new_idx)
 
 bool Vehicle::acceptable_heading(int idx)
 {
+
+    unsigned short g = world(idx)->getTransportGroup();
+
+    if( !( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) )
+    {
+        if(g != GROUP_RAIL)
+        {   return false;}
+        int x_trial = idx % world.len();
+        int y_trial = idx / world.len();
+        if(!world.is_visible(x_trial, y_trial))
+        {   return false;}
+        unsigned short g2 = world(xprev, yprev)->getTransportGroup();
+        unsigned short g3 = world(2*x_trial-x, 2*y_trial-y)->getTransportGroup();
+        if (g2 != g3)
+        {   return false;}
+    }
+
     //handle trivial case
     if(strategy == VEHICLE_STRATEGY_RANDOM)
     {   return true;}
@@ -370,21 +387,18 @@ bool Vehicle::acceptable_heading(int idx)
 void Vehicle::getNewHeadings()
 {
     headings = 0;
-    unsigned short g;
+
     int sum = 0;
     const int len = world.len();
 
-    g = world(x + 1, y)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x >= xprev) && acceptable_heading( (x+1) + y*len ) )
+    //never turn back the car
+    if  (  (x >= xprev) && acceptable_heading( (x+1) + y*len ) )
     {   headings |= 1; ++sum;}
-    g = world(x - 1, y)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (x <= xprev) && acceptable_heading( (x-1) + y*len ) )
+    if  (  (x <= xprev) && acceptable_heading( (x-1) + y*len ) )
     {   headings |= 2; ++sum;}
-    g = world(x , y - 1)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y <= yprev) && acceptable_heading( x + (y-1)*len ) )
+    if ( (y <= yprev) && acceptable_heading( x + (y-1)*len ) )
     {   headings |= 4; ++sum;}
-    g = world(x , y + 1)->getTransportGroup();
-    if ( ( (g == GROUP_TRACK) || (g == GROUP_ROAD) ) && (y >= yprev) && acceptable_heading( x + (y+1)*len ) )
+    if ( (y >= yprev) && acceptable_heading( x + (y+1)*len ) )
     {   headings |= 8; ++sum;}
 
     //absolutely nowhere to go

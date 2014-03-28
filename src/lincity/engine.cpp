@@ -69,7 +69,7 @@ int adjust_money(int value)
     return total_money;
 }
 
-
+//CK place_item is only used once in MapEdit
 int place_item(int x, int y)
 {
     int group =  (userOperation->action == UserOperation::ACTION_BUILD)?userOperation->constructionGroup->group:-1;
@@ -82,18 +82,18 @@ int place_item(int x, int y)
         return -1000;
     }
 
+#ifdef DEBUG
     assert(userOperation->constructionGroup->is_allowed_here(x,y,false));
-
+#endif
     if(userOperation->action == UserOperation::ACTION_BUILD)
     {
         userOperation->constructionGroup->placeItem(x, y);
         size = userOperation->constructionGroup->size;
         adjust_money(-userOperation->constructionGroup->getCosts());
     }
-
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
     desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers(x,y);
+    //connect_rivers(x,y); //CK This should not apply here since water is not a construction
     return 0;
 }
 

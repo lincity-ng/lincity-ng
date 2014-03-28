@@ -10,7 +10,6 @@ public:
     UserOperation();
     ~UserOperation();
     ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
-    //int selected_module_type; //ButtonID for ButtonPanel
     std::string helpName;
 
     enum Action //What User wants to do

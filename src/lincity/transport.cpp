@@ -17,7 +17,7 @@
 
 
 
-void connect_transport(int originx, int originy, int w, int h)
+void connect_transport(int originx, int originy, int lastx, int lasty)
 {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     static const short power_table[16] = {
@@ -37,22 +37,17 @@ void connect_transport(int originx, int originy, int w, int h)
     Construction *cstr = 0;
     /* Adjust originx,originy,w,h to proper range */
     if (originx <= 0)
-    {
-        originx = 1;
-        w -= 1 - originx;
-    }
+    {   originx = 1;}
     if (originy <= 0)
+    {   originy = 1;}
+    if (lastx >= world.len())
+    {   lastx = world.len() - 1;}
+    if (lasty >= world.len())
+    {   lasty = world.len() - 1;}
+
+    for (int y = originy; y <= lasty; ++y)
     {
-        originy = 1;
-        h -= 1 - originy;
-    }
-    if (originx + w >= world.len())
-    {   w = world.len() - originx;}
-    if (originy + h >= world.len())
-    {   h = world.len() - originy;}
-    for (int y = originy; y < originy+h; ++y)
-    {
-        for (int x = originx; x < originx+w; ++x)
+        for (int x = originx; x <= lastx; ++x)
         {
             // First, set up a mask according to directions
             cstr = world(x, y)->construction;
@@ -264,8 +259,16 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
+                    frame = &(cstr->frameIt->frame);
                     *frame = 21;
-                    y = originy;
+                    //rewind the loops
+                    x -= 2;
+                    y -= 2;
+                    if (x < originx)
+                    {   x = originx;}
+                    if (y < originy)
+                    {   y = originy;}
+
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
                          check_group(x, y-1) == GROUP_RAIL &&
@@ -274,8 +277,15 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
+                    frame = &(cstr->frameIt->frame);
                     *frame = 22;
-                    x = originx;
+                    //rewind the loops
+                    x -= 2;
+                    y -= 2;
+                    if (x < originx)
+                    {   x = originx;}
+                    if (y < originy)
+                    {   y = originy;}
                 }
                 else
                 {   *frame = table[mask];}
@@ -287,8 +297,8 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 else
                 {
-                       cstr->flags &= (~FLAG_TRANSPARENT);
-                       world(x,y)->flags |= FLAG_INVISIBLE;
+                   cstr->flags &= (~FLAG_TRANSPARENT);
+                   world(x,y)->flags |= FLAG_INVISIBLE;
                 }
                 break;
 
@@ -399,8 +409,15 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
+                    frame = &(cstr->frameIt->frame);
                     *frame = 23;
-                    y = originy;
+                    //rewind the loops
+                    x -= 2;
+                    y -= 2;
+                    if (x < originx)
+                    {   x = originx;}
+                    if (y < originy)
+                    {   y = originy;}
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
                          check_group(x, y-1) == GROUP_RAIL &&
@@ -409,8 +426,15 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
+                    frame = &(cstr->frameIt->frame);
                     *frame = 24;
-                    x = originx;
+                    //rewind the loops
+                    x -= 2;
+                    y -= 2;
+                    if (x < originx)
+                    {   x = originx;}
+                    if (y < originy)
+                    {   y = originy;}
                 }
                 else
                 {   *frame = table[mask];}
@@ -421,8 +445,8 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 else
                 {
-                       cstr->flags &= (~FLAG_TRANSPARENT);
-                       world(x,y)->flags |= FLAG_INVISIBLE;
+                   cstr->flags &= (~FLAG_TRANSPARENT);
+                   world(x,y)->flags |= FLAG_INVISIBLE;
                 }
                 break;
 
@@ -546,26 +570,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 cstr->flags |= FLAG_TRANSPARENT;
                 world(x,y)->flags &= (~FLAG_INVISIBLE);
                 break;
-/*          // now handled by desert_water_frontiers
-            case GROUP_WATER:
-
-                if ( ((y > 0) && (world(x, y-1)->getGroup() == GROUP_PORT))
-                    || check_water(x, y - 1))
-                {   mask |= 8;}
-
-                if ( ((x > 0) && (world(x - 1, y)->getGroup() == GROUP_PORT))
-                    || check_water(x - 1, y))
-                {   mask |= 4;}
-
-                if (check_water(x + 1, y))
-                {   mask |= 2;}
-
-                if (check_water(x, y + 1))
-                {   mask |= 1;}
-
-                world(x, y)->type = mask;
-                break;
-*/
             }                   /* end switch */
         }                       /* end for y*/
     }                           /* end for x*/
