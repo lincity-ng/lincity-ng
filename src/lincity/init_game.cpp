@@ -66,28 +66,28 @@ static int overfill_lake(int xl, int yl);//, Shoreline *shore, int lake_id);
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
-void clear_game(void)
+
+void destroy_game(void)
 {
-    int i;//x, p;
-    const int len = world.len();
-#ifdef DEBUG
-    assert(len > 0);
-#endif
-    const int area = len * len;
-    //std::cout << "clearing Game" << std::endl;
-    //init_mappoint_array ();
     ConstructionManager::clearRequests();
-    initialize_tax_rates ();
-    init_inventory();
-    //std::cout << "whiping game with " << world.len() << " side length" << std::endl;
-    // Clear engine and UI data.
     Vehicle::clearVehicleList();
+    const int len = world.len();
+    const int area = len * len;
     for (int index = 0; index < area; ++index)
     {
         int xx = index % world.len();
         int yy = index / world.len();
         nullify_mappoint(xx, yy);
     }
+}
+
+void clear_game(void)
+{
+    initialize_tax_rates ();
+    init_inventory();
+    //std::cout << "whiping game with " << world.len() << " side length" << std::endl;
+    destroy_game();
+    // Clear engine and UI data.
     world.dirty = false;
     constructionCount.size(100);
     total_time = 0;
@@ -118,7 +118,7 @@ void clear_game(void)
     unemployed_history = 0;
 
     given_scene[0] = 0;
-    for( i = 0; i < monthgraph_size; i++ )
+    for(int i = 0; i < monthgraph_size; i++ )
     {
         monthgraph_pop[i] = 0;
         monthgraph_starve[i] = 0;
@@ -1305,8 +1305,10 @@ static void remove_river(void)
 static void nullify_mappoint(int x, int y)
 {
     MapTile * tile = world(x,y);
+    ConstructionGroup *constGrp = 0;
     if(tile->construction)
     {
+        constGrp = tile->construction->constructionGroup;
         do_bulldoze_area(x, y);
         //turn fresh desert into grass
         tile->type = CST_GREEN;
@@ -1323,6 +1325,7 @@ static void nullify_mappoint(int x, int y)
 #endif
     if (tile->framesptr)
     {
+        std::cout << "Invalid ExtraFrames at x,y: " << x << "," << y << " " << constGrp->name << std::endl;
         tile->framesptr->clear();
         delete tile->framesptr;
         tile->framesptr = NULL;

@@ -48,7 +48,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
 #include "lincity/lin-city.h"
-#include "lincity/Vehicles.h"
+#include "lincity/init_game.h"
 
 
 #ifdef ENABLE_BINRELOC
@@ -437,7 +437,6 @@ void mainLoop()
         }
         state = nextstate;
     }
-    Vehicle::clearVehicleList();
 }
 
 void parseCommandLine(int argc, char** argv)
@@ -578,6 +577,7 @@ int main(int argc, char** argv)
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
         getConfig()->save();
+        destroy_game();
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";

@@ -411,19 +411,8 @@ std::list<ExtraFrame>::iterator MapTile::createframe(void)
 void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 {
     //what would actually happen if "it" belongs to another maptile?
-#ifdef DEBUG
-    assert(framesptr);
-    std::list<ExtraFrame>::iterator frit;
-    bool found = false;
-    for (frit = framesptr->begin(); frit != framesptr->end(); std::advance(it, 1))
-    {
-        found = true;
-        break;
-    }
-    assert(found);
-#endif
     framesptr->erase(it);
-    if (framesptr->size() == 0)
+    if (framesptr->empty())
     {
         delete framesptr;
         framesptr = NULL;
