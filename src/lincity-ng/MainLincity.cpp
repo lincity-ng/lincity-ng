@@ -168,7 +168,7 @@ void initLincity()
     srand (time (0));
 
     initialize_monthgraph();
-    mps_init();
+    //mps_init(); //CK no implemented
 
     // initialize constructions
     initializeModules();

@@ -34,6 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/modules/shanty.h" //for counting Shanties in housing display
 #include "MiniMap.hpp"
+#include "Game.hpp"
 
 // implement everything here
 
@@ -45,11 +46,11 @@ int mps_style = 0;
 int mps_map_page = 0;
 
 Mps* currentMPS = 0;
-
+/*
 void mps_init()
 {
 }
-
+*/
 int mps_set_silent(int x, int y, int style)
 {
     static int same_square = 0;
@@ -75,6 +76,8 @@ int mps_set_silent(int x, int y, int style)
 
 int mps_set( int x, int y, int style ) /* Attaches an area or global display */
 {
+    if(! getGame()) //there may be no longer a game when shuting down lincity
+    {   return -1;}
     int same_square = mps_set_silent(x, y, style);
     if(same_square)
     {   mps_map_page = (mps_map_page + 1)%MPS_MAP_PAGES;}

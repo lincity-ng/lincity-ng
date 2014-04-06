@@ -27,7 +27,7 @@ static const int MPS_PARAGRAPH_COUNT = 13;
 #define MPS_MAP_PAGES 2
 
 
-void mps_init();
+//void mps_init();
 
 int mps_set(int x, int y, int style); /* Attaches an area or global display */
 void mps_refresh(void); /* refresh the information display's contents */
