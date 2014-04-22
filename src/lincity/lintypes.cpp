@@ -1301,6 +1301,7 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
                     case (STUFF_GOODS) :
                         goods_tax += flow;
                         goods_used += flow;
+                        break;
                     case (STUFF_COAL) :
                         coal_tax += flow;
                         break;

@@ -37,8 +37,11 @@ extern int tpopulation;
 extern int thousing;
 extern int tstarving_population;
 extern int tunemployed_population;
-extern int tbirths, tdeaths;
-extern int ltbirths, ltdeaths;
+extern int tbirths, tdeaths, tunnat_deaths;
+// monthly updated births/deaths for last 12 month
+extern int ltbirths, ltdeaths, ltunnat_deaths;
+//history of last 12 month
+extern std::deque<int> birthq, deathq, unnatdeathq;
 
 /* yearly */
 extern int income_tax;
@@ -78,6 +81,9 @@ extern int ly_rocket_pad_cost;
 extern int ly_interest;
 extern int ly_windmill_cost;
 extern int ly_cricket_cost;
+extern int ly_births; // total births during last 12 month
+extern int ly_deaths; // total deaths during last 12 month
+extern int ly_unnatdeaths; //total unnat deaths during last 12 month
 
 /* Averaging variables */
 extern int data_last_month;

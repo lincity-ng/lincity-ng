@@ -179,9 +179,9 @@ public:
         setMemberSaved(&(this->local_population),"local_population");
         this->job_swingometer = 0;
         this->desireability = 0;
-        this->births = 1;
-        this->deaths = 1;
-        this->pol_deaths = 1;
+        this->births = 120000;
+        this->deaths = 120000;
+        this->pol_deaths = 0;
         if (cstgrp == &residenceLLConstructionGroup)
         {   this->max_population = GROUP_RESIDENCE_LL_MAX_POP;}
         else if (cstgrp == &residenceMLConstructionGroup)

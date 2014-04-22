@@ -149,7 +149,7 @@ void Residence::update()
             {
                 local_population--; //starving maybe deadly
                 ++ddeaths;
-                ++unnat_deaths;
+                ++tunnat_deaths;
                 ++total_starve_deaths;
                 starve_deaths_history += 1.0;
             }
@@ -291,7 +291,7 @@ void Residence::update()
             ++ddeaths;
             if(rand() % 100 < pol_deaths) // deadly pollution
             {
-                unnat_deaths++;
+                tunnat_deaths++;
                 total_pollution_deaths++;
                 pollution_deaths_history += 1.0;
                 bad += 100;
@@ -348,8 +348,8 @@ void Residence::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
     mps_store_sd(i++, N_("Desireability"), desireability);
-    mps_store_sf(i++, N_("Births per year"), (float)1200/births);
-    mps_store_sf(i++, N_("Death per year"), (float)1200/deaths);
+    mps_store_sf(i++, N_("Births p.a."), (float)1200/births);
+    mps_store_sf(i++, N_("Death p.a."), (float)1200/deaths);
     mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
     i++;
     list_commodities(&i);

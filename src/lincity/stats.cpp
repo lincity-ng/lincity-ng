@@ -40,9 +40,11 @@ int tpopulation;
 int thousing;
 int tstarving_population;
 int tunemployed_population;
-int tbirths, tdeaths;
+int tbirths, tdeaths, tunnat_deaths;
 int ltbirths = 0;
 int ltdeaths = 0;
+int ltunnat_deaths = 0;
+std::deque<int> birthq, deathq, unnatdeathq;
 
 /* yearly */
 int income_tax;
@@ -82,6 +84,9 @@ int ly_interest;
 int ly_windmill_cost;
 int ly_cricket_cost;
 int ly_fire_cost;
+int ly_births = 0;
+int ly_deaths = 0;
+int ly_unnatdeaths = 0;
 
 /* Averaging variables */
 int data_last_month;
@@ -104,13 +109,37 @@ void init_monthly(void)
     thousing = 0;
     tstarving_population = 0;
     tunemployed_population = 0;
-    ltunnat_deaths = unnat_deaths;
-    unnat_deaths = 0;
-    ltbirths = tbirths;
-    ltdeaths = tdeaths;
+    init_census();
+    birthq.push_back(tbirths);
+    deathq.push_back(tdeaths);
+    unnatdeathq.push_back(tunnat_deaths);
+    ly_births += tbirths;
+    ly_deaths += tdeaths;
+    ly_unnatdeaths += tunnat_deaths;
+    int s = birthq.size();
+    if(s>12)
+    {
+        ly_births -= birthq.front();
+        ly_deaths -= deathq.front();
+        ly_unnatdeaths -= unnatdeathq.front();
+        --s;
+        birthq.pop_front();
+        deathq.pop_front();
+        unnatdeathq.pop_front();
+        ltbirths = ly_births;
+        ltdeaths = ly_deaths;
+        ltunnat_deaths = ly_unnatdeaths;
+    }
+    else
+    {
+        ltbirths = 12*ly_births/s;
+        ltdeaths = 12*ly_deaths/s;
+        ltunnat_deaths = 12*ly_unnatdeaths/s;
+    }
+
     tbirths = 0;
     tdeaths = 0;
-    init_census();
+    tunnat_deaths = 0;
 }
 
 void init_census()

@@ -187,7 +187,7 @@ static void end_of_month_update(void)
     if (highest_tech_level < tech_level)
     {   highest_tech_level = tech_level;}
 
-    deaths_cost += unnat_deaths * UNNAT_DEATHS_COST;
+    deaths_cost += tunnat_deaths * UNNAT_DEATHS_COST;
 
     for (int i = 0; i < constructionCount.size(); i++)
     {
@@ -211,8 +211,7 @@ static void end_of_year_update(void)
     ly_income_tax = income_tax;
     total_money += income_tax;
 
-    coal_tax = (coal_tax * coal_tax_rate) / 100;
-    // Seems to be reasonable at tax_rate = 1
+    coal_tax = (coal_tax * coal_tax_rate) / 10;
     ly_coal_tax = coal_tax;
     total_money += coal_tax;
 

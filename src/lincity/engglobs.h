@@ -63,7 +63,7 @@ extern int total_money, income_tax_rate, coal_tax_rate;
 extern int dole_rate, transport_cost_rate;
 extern int goods_tax_rate;
 extern int export_tax_rate, import_cost_rate;
-extern int tech_level, highest_tech_level, unnat_deaths, ltunnat_deaths;
+extern int tech_level, highest_tech_level;
 
 extern int total_pollution_deaths, total_starve_deaths, total_unemployed_days;
 extern int total_unemployed_years;
