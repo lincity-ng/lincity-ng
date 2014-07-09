@@ -59,6 +59,10 @@ Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
 
+#ifdef __APPLE__
+     extern char *getBundleSharePath(char *packageName);
+#endif
+
 void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
@@ -147,28 +151,54 @@ void initPhysfs(const char* argv0)
         }
     }
 
-#if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
-    std::string datadir;
-#ifdef ENABLE_BINRELOC
-    BrInitError error;
-    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-                error);
-        printf ("Will fallback to hardcoded default path.\n");
-    }
-
-    char* brdatadir = br_find_data_dir("/usr/local/share");
-    datadir = brdatadir;
-    datadir += "/" PACKAGE_NAME;
-    free(brdatadir);
+#ifndef __APPLE__	
+	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
+	    std::string datadir;
+	#ifdef ENABLE_BINRELOC
+	    BrInitError error;
+	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+	                error);
+	        printf ("Will fallback to hardcoded default path.\n");
+	    }
+	
+	    char* brdatadir = br_find_data_dir("/usr/local/share");
+	    datadir = brdatadir;
+	    datadir += "/" PACKAGE_NAME;
+	    free(brdatadir);
+	#else
+	    datadir = APPDATADIR;
+	#endif
+	
+	    if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
+	        std::cout << "Couldn't add '" << datadir
+	            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+	    }
+	#endif
 #else
-    datadir = APPDATADIR;
-#endif
-
-    if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
-        std::cout << "Couldn't add '" << datadir
-            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
-    }
+	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__ 
+	    std::string datadir;
+	#ifdef ENABLE_BINRELOC
+	    BrInitError error;
+	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+	                error);
+	        printf ("Will fallback to hardcoded default path.\n");
+	    }
+	
+	    char* brdatadir = br_find_data_dir("/usr/local/share");
+	    datadir = brdatadir;
+	    datadir += "/" PACKAGE_NAME;
+	    free(brdatadir);
+	  #else
+	      datadir = APPDATADIR;
+	  #endif
+	     datadir = getBundleSharePath(PACKAGE_NAME);
+	      if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
+	          std::cout << "Couldn't add '" << datadir
+	              << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+	    }
+	#endif
 #endif
 
     // allow symbolic links
