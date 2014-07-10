@@ -1,7 +1,7 @@
                             LinCity-NG
                      a city simulation game
 
-                   http://lincity-ng.berlios.de/
+                   https://code.google.com/p/lincity-ng
 
 Contents:
 1. Introduction
@@ -23,6 +23,9 @@ spaceships.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 2. Building and Installation
+
+
+These are generic instructions, please see the wiki for more specific instructions
 
 2.1 Prerequisites
 
@@ -164,13 +167,12 @@ use shift + direction to scroll faster
 
 4. Contact
 
-Bugs should be reported to the Lincity Wiki on Berlios:
-    http://lincity-ng.berlios.de/wiki/index.php/Bug_Reports
-    (press edit to add or modify bugreports)
+Bugs should be reported to:
+    https://code.google.com/p/lincity-ng/issues/list
     
-You can contact us at the lincity-ng-devel mailinglist at Berlios:
-    http://lists.berlios.de/mailman/listinfo/lincity-ng-devel
+You can contact us at the lincity-ng-devel mailinglist:
+    http://lists.fedorahosted.org/mailman/listinfo/lincity-ng-devel
 or you might be able to catch us in irc at irc.freenode.net #lincity.
 
-Visit our homepage: http://lincity-ng.berlios.de/
+Visit our homepage: https://code.google.com/p/lincity-ng
 
