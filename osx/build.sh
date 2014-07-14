@@ -8,7 +8,7 @@ cd ..
 jam
 jam install
 
-cd ./make_mac
+cd ./osx
 
 echo "* Removing any existing installation"
     rm -rf ./$APP_NAME
