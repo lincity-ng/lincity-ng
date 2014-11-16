@@ -4,19 +4,19 @@
 	<p style="hp">Mit einem Hafen können Sie Waren, Stahl, Erz, Kohle und
     Nahrung im- und exportieren. Import kostet Geld, mit Exporten verdienen
     Sie welches.</p>
-	<p style="hp">Damit ein Hafen funktioniert muss er mit einem Transportweg
-     verbunden sein. Stellen Sie ein, was Sie kaufen und verkaufen möchten,
+	<p style="hp">Damit ein Hafen funktioniert, muss er mit einem Transportweg
+    verbunden sein. Stellen Sie ein, was Sie kaufen und verkaufen möchten,
     indem Sie auf den Hafen doppelklicken. Das öffnet ein Menü, in dem Sie
     eine Auswahl treffen können.</p>
 	<p style="hp">Häfen <b>müssen</b> an schiffbaren Gewässern liegen. Das
     heißt, die ganze Ostseite des Hafens muss am Wasser liegen.</p>
-	<p style="hp">Solange Sie es nicht im Menü eingestellt haben 
+	<p style="hp">Solange Sie es nicht im Menü eingestellt haben, 
     wird nichts ge- oder verkauft.</p>
 	<p style="hp">Es wird so viel wie möglich verkauft. Wenn Sie die Menge
-    beschränken wollen sollten Sie nur einen Transportweg mit geringer
+    beschränken wollen, sollten Sie nur einen Transportweg mit geringer
     Kapazität zum Hafen bauen.</p>
 	<p style="hp">Über einen aktiven Hafen erhält man ein bisschen Technologie.
-    Achtung: Wenn viel exportiert wird sinkt der Verkaufspreis.</p>
+    Achtung: Wenn viel exportiert wird, sinkt der Verkaufspreis.</p>
 
 	<p style="hp">Das ist ein Hafen.</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>

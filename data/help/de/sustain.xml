@@ -28,7 +28,7 @@
 	<li>
 		<span color="yellow">Tech</span> (gelb) Das Technologieniveau ist 
         ansteigend oder es fällt nur unwesentlich. Wenn es um mehr als 1%
-		fällt wird der Zähler zurückgesetzt. Außerdem brauchen Sie
+		fällt, wird der Zähler zurückgesetzt. Außerdem brauchen Sie
         mindestens ein Technologieniveau von 50%.
 	</li>
 	<li>

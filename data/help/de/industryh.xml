@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Schwerindustrie</p>
-	<p style="hp">Die Schwerindustrie produziert Stahl aus Erz, Energie und Arbeitsplätzen. Das Erz wird direkt vom Verkehrsnetz bezogen, genauso wird der produzierte Stahl ans Verkehrsnetz übergeben. Arbeitsplätze werden über einen örtlichen Markt bezogen. Mit dem Verkehr verbunden wird die Schwerindustrie an der linken oberen Ecke</p>
+	<p style="hp">Die Schwerindustrie produziert Stahl aus Erz, Energie und Arbeitsplätzen. Das Erz wird direkt vom Verkehrsnetz bezogen, genauso wird der produzierte Stahl ans Verkehrsnetz übergeben. Arbeitsplätze werden über einen örtlichen Markt bezogen. Mit dem Verkehr verbunden wird die Schwerindustrie an der linken oberen Ecke.</p>
 	<p style="hp">Die Energie kann auf zwei verschiedene Art und Weisen zugeführt werden: 
 		1. Durch Kohle, die direkt aus dem Verkehrsnetz bezogen wird
 		2. Über das Stromnetz, hierzu muss mind. ein Umspannhäuschen in der Reichweite sein. (Windmühlen können <b>keine</b> Energie an die Schwerindustrie liefern, sie sind zu schwach.)</p>

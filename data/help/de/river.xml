@@ -8,16 +8,16 @@
     Wasserflächen, die <b>nicht</b> mit den Flüssen verbunden sind.
     Der Fluss ist zunächst alles Wasser, das zu Spielbeginn da war.
     Beispiel: Sobald eine Erzgrube leer ist läuft sie mit Wasser voll.
-    Falls es mit dem Fluss verbunden ist, ist die neue Wasserfläche 
+    Falls sie mit dem Fluss verbunden ist, ist die neue Wasserfläche 
     Teil des Flusses, ansonsten ein See.</p>
     <p style="hp">Wenn ein Stück des Flusses zugeschüttet wird
         bleiben beide Wasserteile immer noch Teil des Flusses. </p>
     <p style="hp">Um eine Brücke zu errichten bauen Sie den Transportweg
     auf das Wasser.</p>
-	<p style="hp">Sobald eine Wasserfläche einmal Teil des Flusses ist
+	<p style="hp">Sobald eine Wasserfläche einmal Teil des Flusses ist,
     kann sie <b>nicht</b> wieder in einen See verwandelt werden. Wasser,
     das Teil des Flusses ist, wird im <a href="query">Abfragewerkzeug</a>
-    als  <b>schiffbar</b> angezeigt.</p>
+    als <b>schiffbar</b> angezeigt.</p>
 	<p style="hp">Stromleitungen können Strom über <b>ein</b> Wasserfeld 
     hinweg übertragen, genau wie über einen Transportweg.</p>
 </Document>

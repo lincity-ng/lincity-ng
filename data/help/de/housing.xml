@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Bevölkerungsanzeige</p>
-	<p style="hp">Die Bevölkerungsanzeige wird erreicht indem man mehrmals auf das €-Symbol über der Miniaturansicht klickt</p>
+	<p style="hp">Die Bevölkerungsanzeige wird erreicht, indem man mehrmals auf das €-Symbol über der Miniaturansicht klickt</p>
 	<p style="hp">Die Anzeige zeigt folgende Statistiken:</p>
 	<li>Gesamt - Zeigt die Gesamtbevölkerung in ihrer Stadt. Dies zählt Einwohner mit und ohne Wohnung.</li>
 	<li>mit Wohnung - Zeigt die Anzahl der Einwohner mit einer Wohnung.</li>
 	<li>Obdachlos - Zeigt die Anzahl der Leute ohne Wohnung.</li>
 	<li>Barackensiedlungen: Zeigt die Anzahl der Barackensiedlungen in der Stadt.</li>
-	<li>Unn Tdsfl - Zeigt die Anzahl der unnatürlichen Todesfälle, also die Leute die im letzten Monat durch Hunger oder Verschmutzung zu tode gekommen sind.</li>
+	<li>Unn Tdsfl - Zeigt die Anzahl der unnatürlichen Todesfälle, also die Leute die im letzten Monat durch Hunger oder Verschmutzung zu Tode gekommen sind.</li>
 	<li>Arbeitslosigkeit - Ansprüche zeigt die absolute Zahl, die im letzten Monat Anspruch auf Arbeitslosengeld hatten.
         Die Rate ist der Prozentsatz der Einwohner, die ohne Arbeit sind. </li>
 	<li>Verhungert - Fälle zeigt die tatsächlichen Todesfälle an, Rate den Prozentsatz der hungernden Bevölkerung.</li>

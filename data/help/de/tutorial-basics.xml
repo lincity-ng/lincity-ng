@@ -18,8 +18,8 @@ Gebäude an.</p>
 <p style="hp">Der Markt ist ein zentrales Gebäude im Spiel. Er ist für fast
 allen lokalen Warenaustausch zwingend erforderlich. 
 Lesen Sie unbedingt die Hilfsseite um <a href="market">Markt</a>.
-<i>Wenn ein Markt leer ist kann er natürlich keine Waren mehr abgeben. Wenn
-das Lager voll ist wird er keine Waren des jeweiligen Typs mehr ankaufen. Das
+<i>Wenn ein Markt leer ist, kann er natürlich keine Waren mehr abgeben. Wenn
+das Lager voll ist, wird er keine Waren des jeweiligen Typs mehr ankaufen. Das
 ist oft der Grund dafür, dass manchmal ein Gebäude nicht arbeitet. Entweder
 erhält es nicht alle notwendigen Rohstoffe, oder es wird die Produktion
 nicht los.</i> </p>
@@ -34,8 +34,8 @@ Köhlereien beispielsweie benötigen immer eine Verkehrsanbindung.</p>
 
 <p style="hp">Wenn sich ein 'gewöhnliches' Gebäude nicht im Einzugsbereich 
 eines Marktes befindet braucht es eine Verkehrsanbindung. Aber bedenken Sie,
-daß Straßen und Eisenbahnen laufende kosten verursachen. Wenn Sie also
-nicht gerade ein isolierte Einzelgebäude (z.B. ein Denkmal) bauen ist es
+daß Straßen und Eisenbahnen laufende Kosten verursachen. Wenn Sie also
+nicht gerade ein isolierte Einzelgebäude (z.B. ein Denkmal) bauen, ist es
 normalerweise besser und billiger, Märkte zu verwenden.</p>
 
 <p style="hp">Im Startdorf werden die Wege nur für die Produktion der
@@ -58,7 +58,7 @@ Sie ein Gleichgewicht aus den verschiedenen Arten von <a
 href="residential"> Wohngebieten </a> bauen. Diese haben
 verschiedene Geburten- und Sterberaten. Neue Bürger stellen mehr
 Arbeitskräfte, wollen aber auch mehr Nahrung, mehr Waren, mehr
-Arbeitspätze, ...</p>
+Arbeitsplätze, ...</p>
 
 <p style="hp">Sie werden Ihre Produnktion verbessern müssen. Errichten
 Sie weitere Töpfereien und Schmieden. Gleichzeitig müssen Sie deren Vorsorgung
@@ -84,7 +84,7 @@ Wirtschaftsindikatoren verändern.</li>
 <p style="hp"></p>
 
 <p style="hp">Siehe auch:</p>
-<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
+<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
 <li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
 
 <p style="hp"><a href="tutorial">Tutorium</a></p>

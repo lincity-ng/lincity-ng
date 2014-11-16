@@ -10,7 +10,7 @@
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
 
-	<p style="hp">Die Grafik zeigt die Anazahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager der Kohlegrube komplett gefüllt.</p>
+	<p style="hp">Die Grafik zeigt die Anzahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager der Kohlegrube komplett gefüllt.</p>
 	<p style="hp">Ein klick auf die Kohlemine verrät, wieviel Kohle sich im Lager befindet und (noch viel wichtiger!) wieviel Kohle die Ader noch zu bieten hat.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>

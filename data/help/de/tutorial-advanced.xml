@@ -3,10 +3,10 @@
 <p style="htitle">Fortgeschrittene</p>
 <p style="hsubtitle">Märkte und Transportwege</p>
 <p style="hp">Doppelklick auf einen Markt im Hauptfenster öffnet ein Fenster.
-In diesem kann der Warenaustausch der Markes festgelegt werden.</p>
+In diesem kann der Warenaustausch des Marktes festgelegt werden.</p>
 <li>Waren, die gekauft werden, werden von Transportwegen und Produzenten in
 den Markt geholt, der Lagerbestand im Markt steigt</li>
-<li>Waren die verkauft werden gibt der Markt an Transportwege und Verbraucher
+<li>Waren, die verkauft werden, gibt der Markt an Transportwege und Verbraucher
 ab, der Lagerbestand im Markt sinkt.</li>
 
 <p style="hp">Normalerweise behält man die Grundeinstellung "alles
@@ -21,7 +21,7 @@ href="sustain">Nachhaltigkeitsfortschrittsanzeige</a>.  Es wird
 dringend empfohlen, den Spielstand abzuspeichern bevor Sie das Spiel
 längere Zeit unbeaufsichtigt laufen lassen, um zu sehen ob Ihre
 Wirtschaft nachhaltig ist. Wenn etwas schief geht (z.B. weil es zu
-einer Hungersnot kommt) können Sie das Spiel nochmal laden.</p>
+einer Hungersnot kommt), können Sie das Spiel nochmal laden.</p>
 
 <p style="hp">Behalten Sie die Gesammtlagerbestände in der <a href="pbar">
 Statusanzeige</a> im Auge. Das sollte Sie vor Ärger schützen. </p>
