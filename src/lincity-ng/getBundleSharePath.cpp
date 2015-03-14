@@ -1,3 +1,6 @@
+
+#ifdef __APPLE__
+
  /*
  Function : getBundleSharePath()
  Role : localisation shared datas in a bundle
@@ -57,3 +60,5 @@
  	(void)strcat(path, packageName);
  	return path;
  } /* char *getBundleSharePath() */
+
+#endif
