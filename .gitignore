@@ -1,0 +1,18 @@
+# Build Files
+Jamconfig
+Jamconfig.in
+aclocal.m4
+autom4te.cache/
+build/
+config.h
+config.h.in
+config.log
+config.status
+configure
+data/locale/gui/messages.pot
+data/locale/messages.pot
+lincity-ng
+xmlgettext
+
+# Temporary Files
+.*.swp
