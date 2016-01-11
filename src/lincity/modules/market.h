@@ -59,6 +59,9 @@ public:
         commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_IN_MARKET;
         commodityRuleCount[Construction::STUFF_WASTE].take = true;
         commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_IN_MARKET;
+        commodityRuleCount[Construction::STUFF_WATER].take = true;
+        commodityRuleCount[Construction::STUFF_WATER].give = true;
     };
     // overriding method that creates a Market
     virtual Construction *createConstruction(int x, int y);
