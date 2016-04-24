@@ -10,13 +10,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-24 13:43+0200\n"
 "PO-Revision-Date: 2016-04-24 14:58+0100\n"
-"Last-Translator: Tobias L. <tl.groups@t-online.de>\n"
+"Last-Translator: Robert Simai <rsimai@suse.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
 
 #: src/lincity/loadsave.cpp:148
 msgid "Save file"
@@ -95,9 +94,7 @@ msgstr "Sie können hier keine Mine bauen: es gibt hier kein Erz mehr"
 
 #: src/lincity/lintypes.cpp:1527
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr ""
-"Sie können hier keinen Park bauen: es ist eine Wüste und Parks benötigen "
-"Wasser"
+msgstr "Sie können hier keinen Park bauen: es ist eine Wüste und Parks benötigen Wasser"
 
 #: src/lincity/lintypes.cpp:1543
 msgid "You cannot build this item on credit!"
@@ -329,13 +326,8 @@ msgid "You just spent all your money."
 msgstr "Sie haben gerade all Ihr Geld ausgegeben."
 
 #: src/lincity/engine.cpp:81
-msgid ""
-"ERROR: group does not exist. This should not happen! Please consider filling "
-"a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr ""
-"Fehler: nicht vorhandene Gruppe. Das darf nicht passieren. Bitte schreiben "
-"Sie einen Bugreport. Senden Sie Ihn zusammen mit dem Spielstand und einer "
-"Beschreibung, was Sie gemacht haben an das LinCity NG Team."
+msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr "Fehler: nicht vorhandene Gruppe. Das darf nicht passieren. Bitte schreiben Sie einen Bugreport. Senden Sie Ihn zusammen mit dem Spielstand und einer Beschreibung, was Sie gemacht haben an das LinCity NG Team."
 
 #: src/lincity/engine.cpp:187
 msgid "ups, Bulldozer found a dangling reportingConstruction"
@@ -394,14 +386,8 @@ msgid "Dec"
 msgstr "Dez"
 
 #: src/lincity/simulate.cpp:93
-msgid ""
-"Upgrading from old game. You have 10 years to build water wells where "
-"needed. After, starvation will occur!  You should check starvation minimap, "
-"and read waterwell help page :-)"
-msgstr ""
-"Aktualisiere alten Spielstand. Sie haben zehn Jahre Zeit, um die notwendigen "
-"Brunnen zu bauen. Ansonsten werden die Leute verdursten. Überprüfen sie die "
-"Nahrungsversorgungskarte und lesen sie die Hilfeseite über Brunnen."
+msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
+msgstr "Aktualisiere alten Spielstand. Sie haben zehn Jahre Zeit, um die notwendigen Brunnen zu bauen. Ansonsten werden die Leute verdursten. Überprüfen sie die Nahrungsversorgungskarte und lesen sie die Hilfeseite über Brunnen."
 
 #: src/lincity/UserOperation.cpp:13
 msgid "query"
