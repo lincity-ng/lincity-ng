@@ -2,7 +2,7 @@
 ~~~~~~~~~~~~~~~~~~~~
 
 * Install gettext
-* get a snv snapshot of lincity-ng and do the usual autogen.sh, configure.
+* fork the lincity-ng repo and do the usual autogen.sh, configure.
   Make sure configure can find the xgettext application.
     (ie. "checking for xgettext... xgettext")
 * Run 'jam', let it compile. It should create data/locale/messages.pot and
@@ -15,8 +15,7 @@
         msgmerge -U $LANG.po messages.pot
 * Edit the .po files with your favourite Editor or with 1 of the GUI tools
   below.
-* Send the translated .po files to the lincity-devel@lists.sourceforge.net
-  mailing list.
+* Commit/push the changes to your fork and open a pull request agains master.
 * If you want to edit the help texts, then create a directory with your language
   shortcut in the data/help directory (e.g. data/help/de) and write new xml
   files in your language (similar to the ones in the data/help/en directory).
