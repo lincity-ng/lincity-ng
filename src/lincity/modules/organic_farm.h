@@ -78,7 +78,7 @@ public:
         init_resources();
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
-        this->tech_bonus = (tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL;
+        this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
         setMemberSaved(&this->tech_bonus, "tech_bonus");
         this->crop_rotation_key = (rand() % 4) + 1;
         this->month_stagger = rand() % 100;
