@@ -38,7 +38,7 @@ public:
     void showHelpWindow( std::string topic );
 
 private:
-    std::auto_ptr<Component> gui;
+    std::unique_ptr<Component> gui;
     
     bool running;
     MainState quitState;
@@ -46,7 +46,7 @@ private:
     void testAllHelpFiles();
     void quickLoad();
     void quickSave();
-    std::auto_ptr<HelpWindow> helpWindow;
+    std::unique_ptr<HelpWindow> helpWindow;
 };
 
 Game* getGame();

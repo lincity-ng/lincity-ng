@@ -99,8 +99,8 @@ TooltipManager::event(const Event& event)
 void
 TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 {
-    std::auto_ptr<Document> d (new Document());
-    std::auto_ptr<Paragraph> p (new Paragraph());
+    std::unique_ptr<Document> d (new Document());
+    std::unique_ptr<Paragraph> p (new Paragraph());
 
     std::map<std::string, Style>::iterator s = styleRegistry.find("tooltip");
     if(s == styleRegistry.end()) {

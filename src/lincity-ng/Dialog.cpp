@@ -196,7 +196,7 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     if( pos != std::string::npos ){
         filename.replace( pos, 4 ,".xml");
     }
-    std::auto_ptr<Component> myDialogComponent (loadGUIFile( filename ));
+    std::unique_ptr<Component> myDialogComponent (loadGUIFile( filename ));
 
     //set Extra-String
     getParagraph( *myDialogComponent, "ExtraText" )->setText( extraString );

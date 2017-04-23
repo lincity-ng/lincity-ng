@@ -81,15 +81,15 @@ ScrollBar::parse(XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "button1") {
-                std::auto_ptr<Button> button(new Button());
+                std::unique_ptr<Button> button(new Button());
                 button->parse(reader);
                 resetChild(button1(), button.release());
             } else if(element == "button2") {
-                std::auto_ptr<Button> button(new Button());
+                std::unique_ptr<Button> button(new Button());
                 button->parse(reader);
                 resetChild(button2(), button.release());
             } else if(element == "scroller") {
-                std::auto_ptr<Button> button(new Button());
+                std::unique_ptr<Button> button(new Button());
                 button->parse(reader);                                     
                 resetChild(scroller(), button.release());                   
             } else {

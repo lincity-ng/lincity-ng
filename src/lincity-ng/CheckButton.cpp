@@ -236,7 +236,7 @@ CheckButton::parse(XmlReader& reader)
 void
 CheckButton::setChildImage(Child& child, XmlReader& reader)
 {
-    std::auto_ptr<Image> image(new Image());
+    std::unique_ptr<Image> image(new Image());
     image->parse(reader);
     resetChild(child, image.release());
 }
@@ -244,7 +244,7 @@ CheckButton::setChildImage(Child& child, XmlReader& reader)
 void
 CheckButton::setChildText(Child& child, XmlReader& reader)
 {
-    std::auto_ptr<Paragraph> paragraph(new Paragraph());
+    std::unique_ptr<Paragraph> paragraph(new Paragraph());
     paragraph->parse(reader);
     resetChild(child, paragraph.release());
 }

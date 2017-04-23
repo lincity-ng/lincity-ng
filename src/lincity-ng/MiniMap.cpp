@@ -104,7 +104,7 @@ MiniMap* getMiniMap()
 }
 
 MiniMap::MiniMap()
-    : mMode(NORMAL), tilesize(2), border(0), mTexture(0)
+    : mMode(NORMAL), tilesize(2), border(0), mTexture(nullptr)
 {
     assert( miniMapPtr == 0 );
     miniMapPtr = this;
@@ -706,7 +706,7 @@ void MiniMap::draw(Painter &painter)
     // simple and bad implementation
     // FIXME: should be stored SDL_Surface and then blitted
 
-    std::auto_ptr<Painter> mpainter
+    std::unique_ptr<Painter> mpainter
         (painter.createTexturePainter(mTexture.get()));
     Color white;
     white.parse( "white" );

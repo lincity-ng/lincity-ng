@@ -104,7 +104,7 @@ Window::parse(XmlReader& reader)
             if(element == "title") {
                 resetChild(title(), parseEmbeddedComponent(reader));
             } else if(element == "closebutton") {
-                std::auto_ptr<Button> button (new Button());
+                std::unique_ptr<Button> button (new Button());
                 button->parse(reader);
                 resetChild(closeButton(), button.release());
             } else if(element == "contents") {

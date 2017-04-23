@@ -70,7 +70,7 @@ public:                                                                     \
                                                                             \
   virtual Component* createComponent(XmlReader& reader)                     \
   {                                                                         \
-      std::auto_ptr<CLASS> component (new CLASS());                         \
+      std::unique_ptr<CLASS> component (new CLASS());                         \
       component->parse(reader);                                             \
       return component.release();                                           \
   }                                                                         \

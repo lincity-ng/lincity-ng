@@ -66,7 +66,7 @@ HelpWindow::showTopic(const std::string& topic)
         }
         // load new contents
         std::string filename = getHelpFile(topic);
-        std::auto_ptr<Component> contents (loadGUIFile(filename));
+        std::unique_ptr<Component> contents (loadGUIFile(filename));
         Document* document = dynamic_cast<Document*> (contents.get());
         if(document == 0)
             throw std::runtime_error("Help Contents is not a Document");

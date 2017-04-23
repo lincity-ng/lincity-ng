@@ -71,7 +71,7 @@ Document::parse(XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string node = (const char*) reader.getName();
             if(node == "p" || node=="Paragraph" || node == "li") {
-                std::auto_ptr<Paragraph> paragraph (new Paragraph());
+                std::unique_ptr<Paragraph> paragraph (new Paragraph());
                 if(node != "li") {
                     paragraph->parse(reader, style);
                 } else {
@@ -81,7 +81,7 @@ Document::parse(XmlReader& reader)
                     makeCallback(*this, &Document::paragraphLinkClicked));
                 addChild(paragraph.release());
             } else if(node == "img") {
-                std::auto_ptr<DocumentImage> image (new DocumentImage());
+                std::unique_ptr<DocumentImage> image (new DocumentImage());
                 image->parse(reader, style);
                 addChild(image.release());
             } else {

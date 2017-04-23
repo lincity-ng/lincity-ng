@@ -74,12 +74,12 @@ private:
     void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
 
-    std::auto_ptr<Component> mainMenu;
-    std::auto_ptr<Component> newGameMenu;
-    std::auto_ptr<Component> loadGameMenu;
-    std::auto_ptr<Component> saveGameMenu;
-    std::auto_ptr<Component> creditsMenu;
-    std::auto_ptr<Component> optionsMenu;
+    std::unique_ptr<Component> mainMenu;
+    std::unique_ptr<Component> newGameMenu;
+    std::unique_ptr<Component> loadGameMenu;
+    std::unique_ptr<Component> saveGameMenu;
+    std::unique_ptr<Component> creditsMenu;
+    std::unique_ptr<Component> optionsMenu;
     Desktop* currentMenu;
 
     bool running;

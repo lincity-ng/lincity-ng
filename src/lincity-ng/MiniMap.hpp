@@ -85,7 +85,7 @@ private:
     int left, top; //Positioning of minimap
 
     std::vector<CheckButton*> switchButtons;
-    std::auto_ptr<Texture> mTexture;
+    std::unique_ptr<Texture> mTexture;
 
     int mpsXOld, mpsYOld, mpsStyleOld;
 
