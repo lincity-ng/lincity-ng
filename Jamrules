@@ -11,6 +11,8 @@ if ! $(JAMCONFIG_READ)
   EXIT "Couldn't find config. Please run 'configure' first." ;
 }
 
+CXXFLAGS += -std=c++14 ;
+
 if $(USE_STLPORT_DEBUG)
 {
   CXXFLAGS += -I/usr/include/stlport ;
