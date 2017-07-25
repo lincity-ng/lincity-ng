@@ -703,7 +703,7 @@ void GameView::event(const Event& event)
                     rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
                     SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
-                    getButtonPanel()->selectQueryTool();
+                    //getButtonPanel()->selectQueryTool();
                     break;
                 }
                 dragging = false;
