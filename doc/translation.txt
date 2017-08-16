@@ -13,7 +13,7 @@
        (where $LANG is the 2character handle of your language)
      - In case you want to update an existing translation do
         msgmerge -U $LANG.po messages.pot
-* Edit the .po files with your favourite Editor or with 1 of the GUI tools
+* Edit the .po files with your favourite Editor or with one of the GUI tools
   below.
 * Commit/push the changes to your fork and open a pull request agains master.
 * If you want to edit the help texts, then create a directory with your language
@@ -27,6 +27,9 @@
 2. GUI Tools
 ~~~~~~~~~~~~~
 
+ Virtaal     - a free multi-platform editor with TM that can handle multiple
+               translation formats (runs under Windows, Unix and Mac).
+               URL: http://virtaal.translatehouse.org/
  KBabel      - a long dated KDE program that has been maturing over the years,
                and it's really handy by now.
  poEdit      - a multi-platform po editor (runs under Windows and Unix).
