@@ -389,7 +389,7 @@ public:
         //this->images_loaded = false;
         //this->sounds_loaded = false;
        }
-    ~ConstructionGroup()
+    virtual ~ConstructionGroup()
     {/*
         std::vector<GraphicsInfo>::iterator it;
         for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
