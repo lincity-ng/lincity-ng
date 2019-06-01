@@ -652,7 +652,10 @@ void Dialog::editMarket(){
     if( market->commodityRuleCount[Construction::STUFF_WASTE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
     if( market->commodityRuleCount[Construction::STUFF_WASTE].give) cb->check(); else cb->uncheck();
-
+	cb = getCheckButton( *myDialogComponent, "BuyWater" );
+    if( market->commodityRuleCount[Construction::STUFF_WATER].take ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellWater" );
+    if( market->commodityRuleCount[Construction::STUFF_WATER].give) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
@@ -798,6 +801,18 @@ void Dialog::applyMarketButtonClicked( Button* ){
         market->commodityRuleCount[Construction::STUFF_WASTE].give = true;
     } else {
         market->commodityRuleCount[Construction::STUFF_WASTE].give = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "BuyWater" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[Construction::STUFF_WATER].take = true;
+    } else {
+        market->commodityRuleCount[Construction::STUFF_WATER].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellWater" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[Construction::STUFF_WATER].give = true;
+    } else {
+        market->commodityRuleCount[Construction::STUFF_WATER].give = false;
     }
     mps_refresh();
     desktop->remove( myDialogComponent );
