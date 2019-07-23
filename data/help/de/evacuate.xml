@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Räumen</p>
-	<p style="hp">Klick auf das Evakuierungssymbol und benütze den Besen um alle Rohstoffe aus dem Gebäude zu entfernen. Evakuieren ist gratis und verlagert alle Rohstoffe zu benachbarten Transportfeldern und Märkten in der Umgebung.</p>
-	<p style="hp">Die Konsequenzen reichen vom Stillstand der Produktion bis zum Verhungern der Bevölkerung in Wohngebieten.</p>
-	<p style="hp">Einige Gebäude z.B. Transportfelder und Müllkippen können nicht evakuiert werden.</p>
-	<p style="hp">Erschöpfte Erzgruben und Kohlemienen werden automatisch evakuiert bevor sie abgebrochen werden.</p>
+        <p style="htitle">Räumen</p>
+        <p style="hp">Klick auf das Räumungssymbol und benütze den Besen um alle Rohstoffe aus dem Gebäude zu entfernen. Die räumung ist gratis und verlagert alle Rohstoffe zu benachbarten Transportfeldern und Märkten in der Umgebung.</p>
+        <p style="hp">Die Konsequenzen reichen vom Stillstand der Produktion bis zum Verhungern der Bevölkerung in Wohngebieten.</p>
+        <p style="hp">Einige Gebäude z.B. Transportfelder und Müllkippen können nicht geräumt werden.</p>
+        <p style="hp">Erschöpfte Erzgruben und Kohlemienen werden automatisch geräumt bevor sie abgebrochen werden.</p>
 
-  <p style="hp">Das ist das Evakuierungssymbol</p>
+  <p style="hp">Das ist das Räumungssymbol</p>
    <img src="images/gui/buttonpanel/base/broom.png" halign="center"/>
 
   <p style="hsubtitle">Siehe auch:</p>
-	<li><a href="bulldoze">Bulldozer</a></li>
+        <li><a href="bulldoze">Bulldozer</a></li>
 </Document>
