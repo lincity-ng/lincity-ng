@@ -433,7 +433,7 @@ msgstr "Bulldozer"
 
 #: src/lincity/UserOperation.cpp:97
 msgid "Evacuate"
-msgstr "Evakuieren"
+msgstr "Räumen"
 
 #: src/lincity/UserOperation.cpp:104
 msgid "Click right for help."
