@@ -70,6 +70,7 @@ separate *-dev packages. Eg. for physfs you need libphysfs and libphysfs-dev.
 
 To build and install the game use the following commands:
 
+    ./autogen.sh
     ./configure 
     jam
 
