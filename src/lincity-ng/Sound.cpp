@@ -298,7 +298,7 @@ Sound::Sound()
         return;
     } else {
         audioOpen = true;
-        loaderThread = SDL_CreateThread(soundThread, this);
+        loaderThread = SDL_CreateThread(soundThread, "Sound", this);
     }
 
     setMusicVolume(getConfig()->musicVolume);

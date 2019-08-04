@@ -65,6 +65,8 @@ public:
 
     /** create a new painter instance that draws on a texture */
     virtual Painter* createTexturePainter(Texture* texture) = 0;
+
+    virtual void updateScreen() = 0;
 };
 
 #endif

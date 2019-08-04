@@ -30,7 +30,7 @@ class HelpWindow;
 class Game
 {
 public:
-    Game();
+    Game( SDL_Window* window );
     ~Game();
 
     MainState run();
@@ -47,6 +47,7 @@ private:
     void quickLoad();
     void quickSave();
     std::unique_ptr<HelpWindow> helpWindow;
+    SDL_Window* window;
 };
 
 Game* getGame();

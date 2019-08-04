@@ -1135,14 +1135,13 @@ void MiniMap::event(const Event& event) {
 
         }
 */
-
-        if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
-                scrollPageDown(false);
+    } else if (event.type == Event::MOUSEWHEEL) {
+        if (event.scrolly > 0) {
+            scrollPageDown(false);
         }
-        if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
+        if (event.scrolly < 0) {
             scrollPageDown(true);
         }
-
     }
 /*
     else if (event.type == Event::KEYDOWN)

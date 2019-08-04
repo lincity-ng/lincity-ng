@@ -26,7 +26,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "TextureGL.hpp"
 
-PainterGL::PainterGL()
+PainterGL::PainterGL(SDL_Window* _window)
+    : window(_window)
 {
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
@@ -195,7 +196,8 @@ PainterGL::setClipRectangle(const Rect2D& rect)
     GLfloat matrix[16];
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
 
-    int screenHeight = SDL_GetVideoSurface()->h;
+    int screenWidth = 0, screenHeight = 0;
+    SDL_GetWindowSize(window, &screenWidth, &screenHeight);
     glViewport((GLint) (rect.p1.x + matrix[12]),
                (GLint) (screenHeight - rect.getHeight() - (rect.p1.y + matrix[13])),
                (GLsizei) rect.getWidth(),
@@ -210,8 +212,8 @@ PainterGL::setClipRectangle(const Rect2D& rect)
 void
 PainterGL::clearClipRectangle()
 {
-    int width = SDL_GetVideoSurface()->w;
-    int height = SDL_GetVideoSurface()->h;
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -226,6 +228,52 @@ PainterGL::createTexturePainter(Texture* texture)
     return 0;
 }
 
+
+void checkGlErrors()
+{
+    GLenum glerror = glGetError();
+    if( glerror == GL_NO_ERROR ){
+        return;
+    }
+    std::cerr << "glGetError reports";
+    while( glerror != GL_NO_ERROR ){
+        std::cerr << " ";
+        switch( glerror ){
+            case GL_INVALID_ENUM:
+                std::cerr << "GL_INVALID_ENUM";
+                break;
+            case GL_INVALID_VALUE:
+                std::cerr << "GL_INVALID_VALUE";
+                break;
+            case GL_INVALID_OPERATION:
+                std::cerr << "GL_INVALID_OPERATION";
+                break;
+            case GL_STACK_OVERFLOW:
+                std::cerr << "GL_STACK_OVERFLOW";
+                break;
+            case GL_STACK_UNDERFLOW:
+                std::cerr << "GL_STACK_UNDERFLOW";
+                break;
+            case GL_TABLE_TOO_LARGE:
+                std::cerr << "GL_TABLE_TOO_LARGE";
+                break;
+            case GL_OUT_OF_MEMORY:
+                std::cerr << "GL_OUT_OF_MEMORY";
+                break;
+            default:
+                std::cerr << glerror;
+        }
+        glerror = glGetError();
+    }
+    std::cerr << "\n";
+}
+
+void
+PainterGL::updateScreen()
+{
+    checkGlErrors();
+    SDL_GL_SwapWindow(window);
+}
 
 /** @file gui/PainterGL/PainterGL.cpp */
 

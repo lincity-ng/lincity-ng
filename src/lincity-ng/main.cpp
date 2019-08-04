@@ -55,6 +55,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "binreloc.h"
 #endif
 
+SDL_Window* window = NULL;
+SDL_GLContext window_context = NULL;
+SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
@@ -219,8 +222,7 @@ void musicHalted() {
 void initVideo(int width, int height)
 {
     int bpp = 0;
-    int flags = 0;
-    const SDL_VideoInfo* VideoInfo;
+    Uint32 flags = 0;
 
 #ifdef DEBUG
 
@@ -271,46 +273,32 @@ void initVideo(int width, int height)
 
 #endif
 
+    flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
     if( getConfig()->useOpenGL ){
-        flags = SDL_OPENGL | SDL_RESIZABLE;
+        flags |= SDL_WINDOW_OPENGL;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 1);
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-    } else {
-        flags = SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF;
     }
     if(getConfig()->useFullScreen)
-        flags |= SDL_FULLSCREEN;
+        flags |= SDL_WINDOW_FULLSCREEN;
 
-    SDL_Surface* screen
-        = SDL_SetVideoMode(width, height, bpp, flags);
-
-    if(!screen && (width > 1024 || height > 768 )){
-        screen = SDL_SetVideoMode(1024, 768, bpp, flags);
-        std::cerr << "* Fallback to 1024x768.\n";
-    }
-    if(!screen && (width > 800 || height > 600 )){
-        screen = SDL_SetVideoMode(800, 600, bpp, flags);
-        std::cerr << "* Fallback to 800x600.\n";
-    }
-
-    SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
-    if(!screen) {
-        std::stringstream msg;
-        msg << "Couldn't set video mode ("
-            << width << "x" << height
-            << "-" << bpp << "bpp) : " << SDL_GetError() << std::endl;
-
-        if(getConfig()->useOpenGL) {
-            std::cerr << "* Fallback to SDL mode.\n";
-            getConfig()->useOpenGL = false;
-            initVideo(getConfig()->videoX, getConfig()->videoY); //width, height
-            return;
+    if (!window) {
+        window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
+                                  SDL_WINDOWPOS_UNDEFINED,
+                                  SDL_WINDOWPOS_UNDEFINED, width, height,
+                                  flags);
+        if( getConfig()->useOpenGL ){
+            window_context = SDL_GL_CreateContext(window);
+            SDL_GL_SetSwapInterval(1);
+        } else {
+            window_renderer = SDL_CreateRenderer(window, -1, 0);
         }
-        throw std::runtime_error(msg.str());
+    } else {
+        SDL_SetWindowSize(window, width, height);
     }
 
     if(painter)
@@ -318,29 +306,28 @@ void initVideo(int width, int height)
         delete painter;
         painter = 0;
     }
-    VideoInfo = SDL_GetVideoInfo();
     if( getConfig()->useOpenGL ){
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
 
         glClearColor(0, 0, 0, 0);
-        glViewport(0, 0, screen->w, screen->h);
+        glViewport(0, 0, width, height);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, screen->w, screen->h, 0, -1, 1);
+        glOrtho(0, width, height, 0, -1, 1);
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        painter = new PainterGL();
-        std::cout << "\nOpenGL Mode " << VideoInfo->current_w;
-        std::cout << "x" << VideoInfo->current_h << "\n";
+        painter = new PainterGL(window);
+        std::cout << "\nOpenGL Mode " << width;
+        std::cout << "x" << height << "\n";
     } else {
-        painter = new PainterSDL(screen);
-        std::cout << "\nSDL Mode " << VideoInfo->current_w;
-        std::cout << "x"<< VideoInfo->current_h <<"\n";
+        painter = new PainterSDL(window_renderer);
+        std::cout << "\nSDL Mode " << width;
+        std::cout << "x"<< height <<"\n";
     }
 
     if(texture_manager == 0) {
@@ -371,54 +358,10 @@ void initVideo(int width, int height)
 
 }
 
-void checkGlErrors()
-{
-    GLenum glerror = glGetError();
-    if( glerror == GL_NO_ERROR ){
-        return;
-    }
-    std::cerr << "glGetError reports";
-    while( glerror != GL_NO_ERROR ){
-        std::cerr << " ";
-        switch( glerror ){
-            case GL_INVALID_ENUM:
-                std::cerr << "GL_INVALID_ENUM";
-                break;
-            case GL_INVALID_VALUE:
-                std::cerr << "GL_INVALID_VALUE";
-                break;
-            case GL_INVALID_OPERATION:
-                std::cerr << "GL_INVALID_OPERATION";
-                break;
-            case GL_STACK_OVERFLOW:
-                std::cerr << "GL_STACK_OVERFLOW";
-                break;
-            case GL_STACK_UNDERFLOW:
-                std::cerr << "GL_STACK_UNDERFLOW";
-                break;
-            case GL_TABLE_TOO_LARGE:
-                std::cerr << "GL_TABLE_TOO_LARGE";
-                break;
-            case GL_OUT_OF_MEMORY:
-                std::cerr << "GL_OUT_OF_MEMORY";
-                break;
-            default:
-                std::cerr << glerror;
-        }
-        glerror = glGetError();
-    }
-    std::cerr << "\n";
-}
 
 void flipScreenBuffer()
 {
-    if( getConfig()->useOpenGL ){
-        checkGlErrors();
-        SDL_GL_SwapBuffers();
-        //glClear(GL_COLOR_BUFFER_BIT);
-    } else {
-        SDL_Flip(SDL_GetVideoSurface());
-    }
+    painter->updateScreen();
 }
 
 void mainLoop()
@@ -435,7 +378,7 @@ void mainLoop()
             case MAINMENU:
                 {
                     if(menu.get() == 0)
-                    {   menu.reset(new MainMenu());}
+                    {   menu.reset(new MainMenu(window));}
                     nextstate = menu->run();
                 }
                 break;
@@ -443,7 +386,7 @@ void mainLoop()
                 {
                     if(game.get() == 0)
                     {
-                        game.reset(new Game());
+                        game.reset(new Game(window));
 
                         while(!LCPBarPage1 || !LCPBarPage2)
                         {//wait until PBars exist so they can be initalized
@@ -453,7 +396,7 @@ void mainLoop()
                     }
                     nextstate = game->run();
                     if(menu.get() == 0)
-                    {    menu.reset(new MainMenu());}
+                    {    menu.reset(new MainMenu(window));}
                     menu->gotoMainMenu();
 
                 }

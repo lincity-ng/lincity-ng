@@ -246,8 +246,8 @@ void editMap (MapPoint point, int button)
         if( userOperation->constructionGroup == &parklandConstructionGroup ||
             userOperation->constructionGroup == &parkpondConstructionGroup )
         {
-            Uint8 *keystate = SDL_GetKeyState(NULL);
-            if ( keystate[SDLK_w] )
+            const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+            if ( keystate[SDL_SCANCODE_K] )
             {   userOperation->constructionGroup = &parkpondConstructionGroup;}
             else
             {   userOperation->constructionGroup = &parklandConstructionGroup;}
