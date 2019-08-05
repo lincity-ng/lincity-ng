@@ -123,14 +123,14 @@ NP_FINDLIB([SDLIMAGE], [SDL_image], [SDL_image >= 2.0.0],
 	[AC_MSG_ERROR([Please install SDLImage >= 2.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([SDLTTF], [SDL_ttf], [SDL_ttf >= 2.0.8],
+NP_FINDLIB([SDLTTF], [SDL_ttf], [SDL_ttf >= 2.0.12],
 NP_LANG_PROGRAM([#include <SDL_ttf.h>], [if(!TTF_WasInit()) TTF_Init();]),
 	[], [-lSDL2_ttf],
 	[],
-	[AC_MSG_ERROR([Please install SDL_ttf >= 2.0.8])],
+	[AC_MSG_ERROR([Please install SDL_ttf >= 2.0.12])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([SDLGFX], [SDL_gfx], [SDL_gfx >= 1.0.0],
+NP_FINDLIB([SDLGFX], [SDL2_gfx], [SDL2_gfx >= 1.0.0],
 		NP_LANG_PROGRAM([#include <SDL2_gfxPrimitives.h>
 #if SDL2_GFXPRIMITIVES_MAJOR < 1
 # error SDL_GFX too old
@@ -138,7 +138,7 @@ NP_FINDLIB([SDLGFX], [SDL_gfx], [SDL_gfx >= 1.0.0],
 ], [hlineColor(0, 0, 0, 0, 0);]),
 	[], [-lSDL2_gfx],
 	[],
-	[AC_MSG_ERROR([Please install SDL_gfx >= 1.0.0])],
+	[AC_MSG_ERROR([Please install SDL2_gfx >= 1.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
 NP_FINDLIB([PHYSFS], [physfs], [physfs >= 1.0.0],
