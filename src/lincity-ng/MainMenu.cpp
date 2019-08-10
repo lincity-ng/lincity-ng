@@ -610,25 +610,77 @@ This does not actually change the resolution. initVideo has to be called to do t
 @todo sort modes before in ascending order and remove unsupported modes like 640x480
 */
 void MainMenu::changeResolution(bool next) {
-    Uint32 flags = 0;
+    // Create a list of candidate resolutions, including a few fallbacks in
+    // case the window system doesn't provide any
+    std::vector<std::pair<int, int>> resolutions;
+    resolutions.push_back(std::pair<int, int>(800,600));
+    resolutions.push_back(std::pair<int, int>(1024,768));
+    resolutions.push_back(std::pair<int, int>(1280,1024));
 
-    if(getConfig()->useOpenGL){
-        flags = SDL_WINDOW_OPENGL;
-    } else {
-        flags = 0;
+    int display = SDL_GetWindowDisplayIndex(window);
+    int nmodes = SDL_GetNumDisplayModes(display);
+    for (int i = -1; i < nmodes; ++i) {
+        SDL_DisplayMode mode;
+        if (i >= 0) {
+            if (SDL_GetDisplayMode(display, i, &mode) < 0) {
+                std::cerr << "Error: SDL failed to get mode " << i << " for display " << display << "!\n";
+                continue;
+            }
+        } else {
+            /* Special case: half the current display size */
+            if (SDL_GetCurrentDisplayMode(display, &mode) < 0) {
+                std::cerr << "Error: SDL failed to get current mode for display " << display << "!\n";
+                continue;
+            }
+            mode.w /= 2;
+            mode.h /= 2;
+        }
+        bool in_list = false;
+        for (size_t j = 0; j < resolutions.size(); j++) {
+            if (resolutions[j].first == mode.w && resolutions[j].second == mode.h) {
+                in_list = true;
+                break;
+            }
+        }
+        if (!in_list) {
+            resolutions.push_back(std::pair<int, int>(mode.w, mode.h));
+        }
     }
-    flags |= SDL_WINDOW_FULLSCREEN;
+    std::sort(resolutions.begin(), resolutions.end());
 
-    const int width = getConfig()->videoX ;
+    const int width = getConfig()->videoX;
     const int height = getConfig()->videoY;
+    int closest_mode = 0;
+    int min_cost = 1000000000;
+    for (size_t i = 0; i < resolutions.size(); ++i) {
+        int cost = 2 * abs(resolutions[i].first - width) + abs(resolutions[i].second - height);
+        if (cost < min_cost) {
+            closest_mode = int(i);
+            min_cost = cost;
+        }
+    }
 
-    getSound()->playSound("Click");
+    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
+
     std::stringstream mode;
     mode.str("");
-    mode << width << "x" << height;
+    mode << resolutions[closest_mode].first << "x" << resolutions[closest_mode].second;
+
+    int new_mode = closest_mode + (next ? 1 : -1);
+    /* Wrap around */
+    if (new_mode < 0) {
+        new_mode = int(resolutions.size()) - 1;
+    } else if (new_mode >= int(resolutions.size())) {
+        new_mode = 0;
+    }
+
+    mode.str("");
+    mode << resolutions[new_mode].first << "x" << resolutions[new_mode].second;
+
+    getSound()->playSound("Click");
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    getConfig()->videoX = width;
-    getConfig()->videoY = height;
+    getConfig()->videoX = resolutions[new_mode].first;
+    getConfig()->videoY = resolutions[new_mode].second;
 }
 
 void
