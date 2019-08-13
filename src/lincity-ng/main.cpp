@@ -219,59 +219,38 @@ void musicHalted() {
     //FIXME: options menu song entry doesn't update while song changes.
 }
 
+void videoSizeChanged(int width, int height) {
+    if (getConfig()->useOpenGL) {
+        /* Reset OpenGL state */
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+
+        glClearColor(0, 0, 0, 0);
+        glViewport(0, 0, width, height);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, width, height, 0, -1, 1);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+}
+void resizeVideo(int width, int height)
+{
+    SDL_SetWindowSize(window, width, height);
+    // Set fullscreen (video mode change)
+    if (getConfig()->useFullScreen) {
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    } else {
+        SDL_SetWindowFullscreen(window, 0);
+    }
+}
+
 void initVideo(int width, int height)
 {
-    int bpp = 0;
     Uint32 flags = 0;
-
-#ifdef DEBUG
-
-    #define BUFFER_SIZE 256
-    char myBuffer[BUFFER_SIZE];
-    SDL_Rect** modes;
-    int i;
-
-
-    // Obtain the video driver name
-    if (SDL_VideoDriverName(myBuffer, BUFFER_SIZE) != NULL) {
-        std::cout << "\nThe video driver name is " << myBuffer << std::endl;
-    } else {
-        std::cerr << "\nFailed to obtain the video driver name." << std::endl;
-    }
-
-
-    /* Get available fullscreen/hardware modes */
-    modes = SDL_ListModes(NULL, SDL_FULLSCREEN|SDL_HWSURFACE);
-
-    /* Check if there are any modes available */
-    if (modes == (SDL_Rect**)0) {
-        printf("No modes available!\n");
-        exit(-1);
-    }
-
-    /* Check if our resolution is restricted */
-    if (modes == (SDL_Rect**)-1) {
-        printf("All resolutions available.\n");
-    } else {
-        /* Print valid modes */
-        printf("Available Modes\n");
-        for (i=0; modes[i]; ++i)
-            printf("  %d x %d\n", modes[i]->w, modes[i]->h);
-    }
-
-
-    // more info on BEST Video Mode as we request these information *before* calling SDL_SetVideoMode
-    VideoInfo = SDL_GetVideoInfo();
-
-    printf("\n***BEST*** video mode properties\n");
-    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
-    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
-    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
-    printf("VIDEO memory available (on graphic card) (KB) -> %i \n      (only if hw_available == 1, otherwise it is equal to 0)\n", VideoInfo->video_mem);
-    printf("Number of bytes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
-    printf("Window manager available -> %i\n", VideoInfo->wm_available);
-
-#endif
 
     flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
     if( getConfig()->useOpenGL ){
@@ -286,27 +265,14 @@ void initVideo(int width, int height)
     if(getConfig()->useFullScreen)
         flags |= SDL_WINDOW_FULLSCREEN;
 
-    if (!window) {
-        window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
-                                  SDL_WINDOWPOS_UNDEFINED,
-                                  SDL_WINDOWPOS_UNDEFINED, width, height,
-                                  flags);
-        if( getConfig()->useOpenGL ){
-            window_context = SDL_GL_CreateContext(window);
-            SDL_GL_SetSwapInterval(1);
-        } else {
-            window_renderer = SDL_CreateRenderer(window, -1, 0);
-        }
-    } else {
-        SDL_SetWindowSize(window, width, height);
-    }
-
-    if(painter)
-    {
-        delete painter;
-        painter = 0;
-    }
+    window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED, width, height,
+                              flags);
     if( getConfig()->useOpenGL ){
+        window_context = SDL_GL_CreateContext(window);
+        SDL_GL_SetSwapInterval(1);
+
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
 
@@ -324,38 +290,19 @@ void initVideo(int width, int height)
         painter = new PainterGL(window);
         std::cout << "\nOpenGL Mode " << width;
         std::cout << "x" << height << "\n";
+
+        texture_manager = new TextureManagerGL();
     } else {
+        window_renderer = SDL_CreateRenderer(window, -1, 0);
+
         painter = new PainterSDL(window_renderer);
         std::cout << "\nSDL Mode " << width;
         std::cout << "x"<< height <<"\n";
+
+        texture_manager = new TextureManagerSDL();
     }
 
-    if(texture_manager == 0) {
-        if( getConfig()->useOpenGL ) {
-            texture_manager = new TextureManagerGL();
-        } else {
-            texture_manager = new TextureManagerSDL();
-        }
-    }
-
-    if(fontManager == 0) {
-        fontManager = new FontManager();
-    }
-
-#ifdef DEBUG
-    // more info on CURRENT Video Mode
-    VideoInfo = SDL_GetVideoInfo();
-
-    printf("\n***CURRENT*** video mode properties\n");
-    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
-    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
-    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
-    printf("VIDEO memory available (on graphic card) (KB) -> %i\n", VideoInfo->video_mem);
-    printf("Number of butes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
-    printf("Window manager available -> %i\n", VideoInfo->wm_available);
-
-#endif
-
+    fontManager = new FontManager();
 }
 
 

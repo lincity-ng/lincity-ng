@@ -582,13 +582,10 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         }
         else
         {
-            //SDL_IGNORE to avoid forth and back jumping resolution
-            SDL_EventState(SDL_WINDOWEVENT, SDL_IGNORE);
             int width = 0, height = 0;
             SDL_GetWindowSize(window, &width, &height);
-            initVideo(width, height);
+            resizeVideo(width, height);
             currentMenu->resize(width, height);
-            SDL_EventState(SDL_WINDOWEVENT, SDL_ENABLE);
             loadOptionsMenu(); //in case resolution was changed while in fullscreen
         }
     } else if( buttonName == "TrackPrev"){
@@ -838,11 +835,7 @@ MainMenu::optionsBackButtonClicked(Button* )
         }
         else
         {
-            //SDL_IGNORE to avoid forth and back jumping resolution
-            SDL_EventState(SDL_WINDOWEVENT, SDL_IGNORE);
-            initVideo( getConfig()->videoX, getConfig()->videoY);
-            currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
-            SDL_EventState(SDL_WINDOWEVENT, SDL_ENABLE);
+            resizeVideo( getConfig()->videoX, getConfig()->videoY);
             gotoMainMenu();
         }
     }
@@ -1002,8 +995,8 @@ MainMenu::run()
         {
             switch(event.type) {
                 case SDL_WINDOWEVENT:
-                    if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-                        initVideo(event.window.data1, event.window.data2);
+                    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                        videoSizeChanged(event.window.data1, event.window.data2);
                         currentMenu->resize(event.window.data1, event.window.data2);
                         getConfig()->videoX = event.window.data1;
                         getConfig()->videoY = event.window.data2;
@@ -1014,6 +1007,15 @@ MainMenu::run()
                             mode << event.window.data1 << "x" << event.window.data2;
                             getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
                         }
+                    } else if (event.window.event == SDL_WINDOWEVENT_EXPOSED ||
+                               event.window.event == SDL_WINDOWEVENT_ENTER ||
+                               event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
+                    {
+                        /* With SDL 2.0.10 + Wayland, resize events may be
+                         * delayed until the next buffer flip. Trigger
+                         * relayout/render of the main screen, so that any
+                         * visual get resolved. */
+                        currentMenu->reLayout();
                     }
                     break;
                 case SDL_MOUSEMOTION:

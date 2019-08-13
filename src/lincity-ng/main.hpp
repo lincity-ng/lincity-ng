@@ -25,7 +25,8 @@ enum MainState {
 };
 
 
-void initVideo(int width, int height);
+void videoSizeChanged(int width, int height);
+void resizeVideo(int width, int height);
 void flipScreenBuffer();
 
 class Painter;
