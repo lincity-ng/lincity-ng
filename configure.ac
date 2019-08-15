@@ -141,7 +141,7 @@ NP_FINDLIB([SDLGFX], [SDL_gfx], [SDL_gfx >= 2.0.13],
 	[AC_MSG_ERROR([Please install SDL_gfx >= 2.0.13])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([PHYSFS], [physfs], [physfs >= 1.0.0],
+NP_FINDLIB([PHYSFS], [physfs], [physfs >= 2.1.0],
 	NP_LANG_PROGRAM([
 #include <stdio.h>
 #include <physfs.h>
@@ -150,7 +150,7 @@ NP_FINDLIB([PHYSFS], [physfs], [physfs >= 1.0.0],
 #endif]),
 	[], [-lphysfs],
 	[],
-	[AC_MSG_ERROR([Please install physfs >= 1.0])])
+	[AC_MSG_ERROR([Please install physfs >= 2.1])])
     
 AC_INIT_JAM
 AC_CONFIG_FILES([Jamconfig])

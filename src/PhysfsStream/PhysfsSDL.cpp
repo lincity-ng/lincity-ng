@@ -45,7 +45,8 @@ static int funcSeek(struct SDL_RWops* context, int offset, int whence)
             break;
     }
     if(res == 0) {
-        std::cerr << "Error seeking in file: " << PHYSFS_getLastError() << "\n";
+		PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        std::cerr << "Error seeking in file: " << PHYSFS_getErrorByCode(lastError) << "\n";
         return -1;
     }
 
@@ -56,7 +57,7 @@ static int funcRead(struct SDL_RWops* context, void* ptr, int size, int maxnum)
 {
     PHYSFS_file* file = (PHYSFS_file*) context->hidden.unknown.data1;
 
-    int res = PHYSFS_read(file, ptr, size, maxnum);
+    int res = PHYSFS_readBytes(file, ptr, size * maxnum);
     return res;
 }
 
@@ -75,8 +76,9 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename)
     PHYSFS_file* file = (PHYSFS_file*) PHYSFS_openRead(filename.c_str());
     if(!file) {
         std::stringstream msg;
+		PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open '" << filename << "': "
-            << PHYSFS_getLastError();
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
     
