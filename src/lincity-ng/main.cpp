@@ -67,51 +67,49 @@ void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
         std::stringstream msg;
-        msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
+		PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+		msg << "Couldn't initialize physfs: " << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
 
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* application = LC_SAVE_DIR;
-    const char* userdir = PHYSFS_getUserDir();
-    const char* dirsep = PHYSFS_getDirSeparator();
-    char* writedir = new char[strlen(userdir) + strlen(application) + 2];
+	const char* writedir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
 
     // Set configuration directory
-    //sprintf(writedir, "%s.%s", userdir, application);
-    sprintf(writedir, "%s%s", userdir, application);
     if(!PHYSFS_setWriteDir(writedir)) {
         // try to create the directory
-        char* mkdir = new char[strlen(application) + 2];
-        sprintf(mkdir, "%s", application);
-        if(!PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
+		if(!PHYSFS_mkdir(writedir)) {
             std::ostringstream msg;
+			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             msg << "Failed creating configuration directory '" <<
-                writedir << "': " << PHYSFS_getLastError();
-            delete[] writedir;
-            delete[] mkdir;
+				writedir << "': " << PHYSFS_getErrorByCode(lastError);
             throw std::runtime_error(msg.str());
         }
-        delete[] mkdir;
 
         if(!PHYSFS_setWriteDir(writedir)) {
             std::ostringstream msg;
+			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             msg << "Failed to use configuration directory '" <<
-                writedir << "': " << PHYSFS_getLastError();
-            delete[] writedir;
+				writedir << "': " << PHYSFS_getErrorByCode(lastError);
             throw std::runtime_error(msg.str());
         }
     }
-    PHYSFS_addToSearchPath(writedir, 0);
+	PHYSFS_mount(writedir, nullptr, 0);
+
+	const char* userdir = PHYSFS_getUserDir();
+	char oldWritedir[strlen(".lincity-ng") + strlen(userdir)];
+	// add ~/.lincity for old savegames
+	sprintf(oldWritedir, "%s.lincity-ng", userdir);
+	PHYSFS_mount(oldWritedir, nullptr, 1);
 
     // add ~/.lincity for old savegames
-    sprintf(writedir, "%s.lincity", userdir);
-    PHYSFS_addToSearchPath(writedir, 1);
-    delete[] writedir;
+    sprintf(oldWritedir, "%s.lincity", userdir);
+    PHYSFS_mount(oldWritedir, nullptr, 1);
 
   //TODO: add zips later
     // Search for archives and add them to the search path
+    const char* dirsep = PHYSFS_getDirSeparator();
     const char* archiveExt = "zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
@@ -126,7 +124,7 @@ void initPhysfs(const char* argv0)
                 const char* d = PHYSFS_getRealDir(*i);
                 char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
                 sprintf(str, "%s%s%s", d, dirsep, *i);
-                PHYSFS_addToSearchPath(str, 1);
+                PHYSFS_mount(str, nullptr, 1);
                 delete[] str;
             }
         }
@@ -143,10 +141,11 @@ void initPhysfs(const char* argv0)
     FILE* f = fopen(testfname.str().c_str(), "r");
     if(f) {
         fclose(f);
-        if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
+		if(!PHYSFS_mount(dir.c_str(), nullptr, 1)) {
 #ifdef DEBUG
+			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             std::cout << "Warning: Couldn't add '" << dir <<
-                "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+                "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
 #endif
         }
     }
@@ -170,9 +169,10 @@ void initPhysfs(const char* argv0)
 	    datadir = APPDATADIR;
 	#endif
 	
-	    if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
+	    if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
 	        std::cout << "Couldn't add '" << datadir
-	            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+				<< "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
 	    }
 	#endif
 #else
@@ -191,12 +191,13 @@ void initPhysfs(const char* argv0)
 	    datadir += "/" PACKAGE_NAME;
 	    free(brdatadir);
 	  #else
-	      datadir = APPDATADIR;
+	    datadir = APPDATADIR;
 	  #endif
-	     datadir = getBundleSharePath(PACKAGE_NAME);
-	      if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
-	          std::cout << "Couldn't add '" << datadir
-	              << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+	    datadir = getBundleSharePath(PACKAGE_NAME);
+	    if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+			std::cout << "Couldn't add '" << datadir
+				<< "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
 	    }
 	#endif
 #endif

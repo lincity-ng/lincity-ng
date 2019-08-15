@@ -216,15 +216,35 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
                 // you can no longer load from slot 2.
                 if (t == 0) {
                     recentfile = curfile;
-                    t = PHYSFS_getLastModTime(recentfile);
-              } else {
-                    if (PHYSFS_getLastModTime(curfile) > t) {
+					PHYSFS_Stat statRecentfile;
+					int errorCode = PHYSFS_stat(recentfile, &statRecentfile);
+					if(errorCode == 0)
+					{
+						std::cerr << "stat's content are undefined " << recentfile << std::endl;
+					}
+					t = statRecentfile.modtime;
+				}
+				else {
+					PHYSFS_Stat statCurfile;
+					int errorCode = PHYSFS_stat(curfile, &statCurfile);
+					if(errorCode == 0)
+					{
+						std::cerr << "stat's content are undefined " << curfile << std::endl;
+					}
+					if (statCurfile.modtime > t)
+					{
 /*#ifdef DEBUG
                         fprintf(stderr," %s is more recent than previous %s\n",
                                           curfile, recentfile);
 #endif*/
-                        recentfile = curfile;
-                        t = PHYSFS_getLastModTime(recentfile);
+						recentfile = curfile;
+						PHYSFS_Stat statRecentfile;
+						int errorCode = PHYSFS_stat(recentfile, &statRecentfile);
+						if(errorCode == 0)
+						{
+							std::cerr << "stat's content are undefined " << recentfile << std::endl;
+						}
+						t = statRecentfile.modtime;
                     }
                 }
             }

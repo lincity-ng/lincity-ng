@@ -140,8 +140,19 @@ void Game::testAllHelpFiles(){
         fullname.append( *i );
         filename.assign( *i );
 
-        if(PHYSFS_isDirectory(fullname.c_str()))
-            continue;
+		PHYSFS_Stat stat;
+		int errorCode = PHYSFS_stat(fullname.c_str(), &stat);
+		if(errorCode == 0)
+		{
+			std::cerr << "stads content are udefined " << filename << std::endl;
+		}
+		else
+		{
+			if(stat.filetype == PHYSFS_FILETYPE_DIRECTORY)
+			{
+				continue;
+			}
+		}
 
         pos = filename.rfind( ".xml" );
         if( pos != std::string::npos ){

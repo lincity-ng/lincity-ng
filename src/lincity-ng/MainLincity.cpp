@@ -120,8 +120,17 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
-    if( PHYSFS_isDirectory( filename.c_str() ))
-    {   return false;}
+	PHYSFS_Stat statFilename;
+	int errorCode = PHYSFS_stat(filename.c_str(), &statFilename);
+	if(errorCode == 0)
+	{
+		std::cerr << "stads content are udefined " << filename << std::endl;
+	}
+	else
+	{
+		if(statFilename.filetype == PHYSFS_FILETYPE_DIRECTORY)
+		{   return false;}
+	}
 
 
         const char* directory = PHYSFS_getRealDir(filename.c_str());
