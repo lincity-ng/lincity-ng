@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"
 #include "gui/Desktop.hpp"
 #include "gui/Button.hpp"
+#include "gui/Painter.hpp"
 #include "gui/callback/Callback.hpp"
 
 #include "gui_interface/shared_globals.h"
@@ -357,7 +358,11 @@ MainMenu::loadOptionsMenu()
     SDL_GetWindowSize(window, &width, &height);
 
     std::stringstream mode;
-    mode << width << "x" << height;
+    if (getConfig()->useFullScreen) {
+        mode << "fullscreen";
+    } else {
+        mode << width << "x" << height;
+    }
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
     mode.str("");
     mode << world.len();
@@ -584,9 +589,11 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         {
             int width = 0, height = 0;
             SDL_GetWindowSize(window, &width, &height);
-            resizeVideo(width, height);
+            resizeVideo(width, height, getConfig()->useFullScreen);
+            // switching to fullscreen may change window size again
+            SDL_GetWindowSize(window, &width, &height);
             currentMenu->resize(width, height);
-            loadOptionsMenu(); //in case resolution was changed while in fullscreen
+            loadOptionsMenu();
         }
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
@@ -607,6 +614,11 @@ This does not actually change the resolution. initVideo has to be called to do t
 @todo sort modes before in ascending order and remove unsupported modes like 640x480
 */
 void MainMenu::changeResolution(bool next) {
+    if (getConfig()->useFullScreen) {
+        /* Resolution changes have no effect in desktop fullscreen mode */
+        return;
+    }
+
     // Create a list of candidate resolutions, including a few fallbacks in
     // case the window system doesn't provide any
     std::vector<std::pair<int, int>> resolutions;
@@ -835,7 +847,7 @@ MainMenu::optionsBackButtonClicked(Button* )
         }
         else
         {
-            resizeVideo( getConfig()->videoX, getConfig()->videoY);
+            resizeVideo( getConfig()->videoX, getConfig()->videoY, getConfig()->useFullScreen);
             gotoMainMenu();
         }
     }
@@ -991,7 +1003,7 @@ MainMenu::run()
     int frame = 0;
     while(running)
     {
-        while(SDL_WaitEventTimeout(&event, 100))
+        if(SDL_WaitEventTimeout(&event, 100))
         {
             switch(event.type) {
                 case SDL_WINDOWEVENT:
@@ -1004,12 +1016,18 @@ MainMenu::run()
                         {
                             std::stringstream mode;
                             mode.str("");
-                            mode << event.window.data1 << "x" << event.window.data2;
+                            if (getConfig()->useFullScreen) {
+                                mode << "fullscreen";
+                            } else {
+                                mode << event.window.data1 << "x" << event.window.data2;
+                            }
                             getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
                         }
                     } else if (event.window.event == SDL_WINDOWEVENT_EXPOSED ||
                                event.window.event == SDL_WINDOWEVENT_ENTER ||
-                               event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
+                               event.window.event == SDL_WINDOWEVENT_LEAVE ||
+                               event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED ||
+                               event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
                     {
                         /* With SDL 2.0.10 + Wayland, resize events may be
                          * delayed until the next buffer flip. Trigger
@@ -1057,7 +1075,7 @@ MainMenu::run()
 
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
-            flipScreenBuffer();
+            painter->updateScreen();
         }
 
         frame++;

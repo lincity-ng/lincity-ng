@@ -237,12 +237,12 @@ void videoSizeChanged(int width, int height) {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 }
-void resizeVideo(int width, int height)
+void resizeVideo(int width, int height, bool fullscreen)
 {
     SDL_SetWindowSize(window, width, height);
     // Set fullscreen (video mode change)
-    if (getConfig()->useFullScreen) {
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    if (fullscreen) {
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     } else {
         SDL_SetWindowFullscreen(window, 0);
     }
@@ -263,7 +263,7 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     }
     if(getConfig()->useFullScreen)
-        flags |= SDL_WINDOW_FULLSCREEN;
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
     window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
                               SDL_WINDOWPOS_UNDEFINED,
@@ -303,12 +303,6 @@ void initVideo(int width, int height)
     }
 
     fontManager = new FontManager();
-}
-
-
-void flipScreenBuffer()
-{
-    painter->updateScreen();
 }
 
 void mainLoop()
