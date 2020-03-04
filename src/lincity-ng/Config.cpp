@@ -44,8 +44,13 @@ Config::Config()
     assert(configPtr == 0);
 
     //Default Values
+#ifdef __HAIKU__
+    useOpenGL = false;
+    useFullScreen = false;
+#else
     useOpenGL = true;  //OpenGL is often way too slow
     useFullScreen = true;
+#endif
     videoX = 1024;
     videoY = 768;
 

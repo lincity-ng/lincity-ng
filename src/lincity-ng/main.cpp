@@ -50,6 +50,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/init_game.h"
 
+#ifdef __HAIKU__
+#include <FindDirectory.h>
+#endif
+
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"
@@ -76,16 +80,27 @@ void initPhysfs(const char* argv0)
     const char* application = LC_SAVE_DIR;
     const char* userdir = PHYSFS_getUserDir();
     const char* dirsep = PHYSFS_getDirSeparator();
+#ifndef __HAIKU__
     char* writedir = new char[strlen(userdir) + strlen(application) + 2];
 
     // Set configuration directory
     //sprintf(writedir, "%s.%s", userdir, application);
     sprintf(writedir, "%s%s", userdir, application);
+#else
+    char path[B_PATH_NAME_LENGTH];
+    find_directory(B_USER_SETTINGS_DIRECTORY, 0, false, path, B_PATH_NAME_LENGTH);
+    char* writedir = new char[strlen(path) + strlen(application) + 2];
+    sprintf(writedir, "%s%c%s", path, PATH_SLASH, application);
+#endif
     if(!PHYSFS_setWriteDir(writedir)) {
         // try to create the directory
         char* mkdir = new char[strlen(application) + 2];
         sprintf(mkdir, "%s", application);
+#ifndef __HAIKU__
         if(!PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
+#else
+        if(!PHYSFS_setWriteDir(path) || !PHYSFS_mkdir(mkdir)) {
+#endif
             std::ostringstream msg;
             msg << "Failed creating configuration directory '" <<
                 writedir << "': " << PHYSFS_getLastError();
