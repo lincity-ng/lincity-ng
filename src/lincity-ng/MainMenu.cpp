@@ -1000,6 +1000,7 @@ MainMenu::run()
     quitState = QUIT;
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
+    Uint32 lastRedrawTicks = fpsTicks;
     int frame = 0;
     while(running)
     {
@@ -1012,6 +1013,7 @@ MainMenu::run()
                         currentMenu->resize(event.window.data1, event.window.data2);
                         getConfig()->videoX = event.window.data1;
                         getConfig()->videoY = event.window.data2;
+
                         if(currentMenu == optionsMenu.get())//update resolution display
                         {
                             std::stringstream mode;
@@ -1023,17 +1025,6 @@ MainMenu::run()
                             }
                             getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
                         }
-                    } else if (event.window.event == SDL_WINDOWEVENT_EXPOSED ||
-                               event.window.event == SDL_WINDOWEVENT_ENTER ||
-                               event.window.event == SDL_WINDOWEVENT_LEAVE ||
-                               event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED ||
-                               event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-                    {
-                        /* With SDL 2.0.10 + Wayland, resize events may be
-                         * delayed until the next buffer flip. Trigger
-                         * relayout/render of the main screen, so that any
-                         * visual get resolved. */
-                        currentMenu->reLayout();
                     }
                     break;
                 case SDL_MOUSEMOTION:
@@ -1073,9 +1064,18 @@ MainMenu::run()
         currentMenu->event(Event(elapsedTime));
         lastticks = ticks;
 
+        /* We unconditionally redraw every ~100 ms as workaround for an SDL bug
+         * under Wayland, in which window resizing is not communicated to the
+         * program until it redraws the window. When this bug is no longer
+         * present, this behavior should be safe to remove */
+        if (ticks - lastRedrawTicks > 90) {
+             currentMenu->reLayout();
+        }
+
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             painter->updateScreen();
+            lastRedrawTicks = ticks;
         }
 
         frame++;
