@@ -24,8 +24,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <math.h>
 #include <typeinfo>
 #include <SDL_opengl.h>
-#include <SDL_gfxPrimitives.h>
-#include <SDL_rotozoom.h>
+#include <SDL2_gfxPrimitives.h>
+#include <SDL2_rotozoom.h>
 #include <SDL_video.h>
 #include <stdlib.h>
 
@@ -36,18 +36,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define lroundf(x) (long int)(x + .5)
 #endif
 
-PainterSDL::PainterSDL(SDL_Surface* _target)
-    : target(_target)
+PainterSDL::PainterSDL(SDL_Renderer* _renderer)
+    : target(NULL), renderer(_renderer)
 {
 }
 
 PainterSDL::PainterSDL(TextureSDL* texture)
     : target(texture->surface)
 {
+    renderer = SDL_CreateSoftwareRenderer(target);
 }
 
 PainterSDL::~PainterSDL()
 {
+    if (target) {
+        SDL_DestroyRenderer(renderer);
+    }
 }
 
 //ERM  this function seems to account for SOME of the slowdown
@@ -72,7 +76,12 @@ PainterSDL::drawTexture(const Texture* texture, const Vector2& pos)
     SDL_Rect drect;
     drect.x = lrint(screenpos.x);
     drect.y = lrint(screenpos.y);
-    SDL_BlitSurface(textureSDL->surface, 0, target, &drect);
+    drect.w = texture->getWidth();
+    drect.h = texture->getHeight();
+
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, textureSDL->surface);
+    SDL_RenderCopy(renderer, tex, NULL, &drect);
+    SDL_DestroyTexture(tex);
 }
 
 //RectIntersection checks to see if two SDL_Rects intersect each other
@@ -135,15 +144,14 @@ PainterSDL::drawStretchTexture(Texture* texture, const Rect2D& rect)
     drect.w = lroundf(rect.getWidth()) /*+ 1*/;
     drect.h = lroundf(rect.getHeight()) /*+ 1*/;
 
-    SDL_GetClipRect(target, &cliprect);  //get the current cliprect for the target
-
+    SDL_RenderGetClipRect(renderer, &cliprect);  //get the current cliprect for the target
     //This intersection test would not normally be necessary since SDL_BlitSurface
     //  will only blit to the cliprect and skip others.
     //  The problem here is that we are zooming all surfaces before blitting, so
     //  even the clipped rects get zoomed.
     //  So, the solution is to do the clipping ourselves so that we don't zoom
     //  surfaces ultimately destined to be clipped.
-    if(!RectIntersection(&drect, &cliprect))
+    if(cliprect.w && cliprect.h && !RectIntersection(&drect, &cliprect))
         return;
 
     double zoomx = drect.w / textureSDL->getWidth();
@@ -154,7 +162,11 @@ PainterSDL::drawStretchTexture(Texture* texture, const Rect2D& rect)
     {
         textureSDL->setZoomSurface(zoomSurface(textureSDL->surface, zoomx, zoomy, SMOOTHING_OFF), zoomx, zoomy);
     }
-    SDL_BlitSurface(textureSDL->zoomSurface, 0, target, &drect);
+
+    // note: textures should be cached per zoom/renderer/surface combination
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, textureSDL->zoomSurface);
+    SDL_RenderCopy(renderer, tex, NULL, &drect);
+    SDL_DestroyTexture(tex);
 
 /*
     //This was the original code that would zoom a surface, blit it, and then free it.
@@ -177,7 +189,7 @@ PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
          vx[ i ] = (int) screenpos.x;
          vy[ i ] = (int) screenpos.y;
     }
-    filledPolygonRGBA( target, vx, vy, numberPoints,
+    filledPolygonRGBA( renderer, vx, vy, numberPoints,
             fillColor.r, fillColor.g, fillColor.b, fillColor.a);
     delete[] vx;
     delete[] vy;
@@ -194,7 +206,7 @@ PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
          vx[ i ] = (int) screenpos.x;
          vy[ i ] = (int) screenpos.y;
     }
-    aapolygonRGBA( target, vx, vy, numberPoints,
+    aapolygonRGBA( renderer, vx, vy, numberPoints,
             lineColor.r, lineColor.g, lineColor.b, lineColor.a);
     delete[] vx;
     delete[] vy;
@@ -205,7 +217,7 @@ PainterSDL::drawLine( const Vector2 pointA, const Vector2 pointB )
 {
     Vector2 screenpos = transform.apply( pointA );
     Vector2 screenpos2 = transform.apply( pointB );
-    aalineRGBA( target, (int) screenpos.x, (int) screenpos.y,
+    aalineRGBA( renderer, (int) screenpos.x, (int) screenpos.y,
             (int) screenpos2.x, (int) screenpos2.y,
       lineColor.r, lineColor.g, lineColor.b, lineColor.a);
 
@@ -217,7 +229,7 @@ PainterSDL::fillRectangle(const Rect2D& rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     Vector2 screenpos2 = transform.apply(rect.p2);
-    boxRGBA(target, (int) screenpos.x, (int) screenpos.y,
+    boxRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
             (int) screenpos2.x, (int) screenpos2.y,
             fillColor.r, fillColor.g, fillColor.b, fillColor.a);
 }
@@ -227,7 +239,7 @@ PainterSDL::drawRectangle(const Rect2D& rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     Vector2 screenpos2 = transform.apply(rect.p2);
-    rectangleRGBA(target, (int) screenpos.x, (int) screenpos.y,
+    rectangleRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
             (int) screenpos2.x, (int) screenpos2.y,
             lineColor.r, lineColor.g, lineColor.b, lineColor.a);
 }
@@ -272,13 +284,13 @@ PainterSDL::setClipRectangle(const Rect2D& rect)
     cliprect.y = (int) screenpos.y;
     cliprect.w = (int) rect.getWidth();
     cliprect.h = (int) rect.getHeight();
-    SDL_SetClipRect(target, &cliprect);
+    SDL_RenderSetClipRect(renderer, &cliprect);
 }
 
 void
 PainterSDL::clearClipRectangle()
 {
-    SDL_SetClipRect(target, 0);
+    SDL_RenderSetClipRect(renderer, NULL);
 }
 
 Painter*
@@ -288,6 +300,12 @@ PainterSDL::createTexturePainter(Texture* texture)
     TextureSDL* textureSDL = static_cast<TextureSDL*> (texture);
 
     return new PainterSDL(textureSDL);
+}
+
+void
+PainterSDL::updateScreen()
+{
+    SDL_RenderPresent(renderer);
 }
 
 

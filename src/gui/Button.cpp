@@ -292,8 +292,7 @@ Button::event(const Event& event)
             }
             break;
         case Event::MOUSEBUTTONDOWN:
-            if(event.inside && event.mousebutton != SDL_BUTTON_WHEELUP &&
-                    event.mousebutton != SDL_BUTTON_WHEELDOWN) {
+            if(event.inside) {
                 state = STATE_CLICKED;
                 pressed(this);
             } else {

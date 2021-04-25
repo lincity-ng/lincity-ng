@@ -35,7 +35,7 @@ class TextureSDL;
 class PainterSDL : public Painter
 {
 public:
-    PainterSDL(SDL_Surface* target);
+    PainterSDL(SDL_Renderer* target);
     virtual ~PainterSDL();
 
     void drawTexture(const Texture* texture, const Vector2& pos);
@@ -58,6 +58,8 @@ public:
 
     Painter* createTexturePainter(Texture* texture);
 
+    void updateScreen();
+
 private:
     PainterSDL(TextureSDL* texture);
 
@@ -78,6 +80,7 @@ private:
     Transform transform;
 
     SDL_Surface* target;
+    SDL_Renderer* renderer;
     Color fillColor,lineColor;
 };
 

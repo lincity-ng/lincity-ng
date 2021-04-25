@@ -45,7 +45,9 @@ public:
         /// a mouse button has been pressed
         MOUSEBUTTONDOWN,
         /// a mouse button has been released
-        MOUSEBUTTONUP
+        MOUSEBUTTONUP,
+        /// a mouse wheel has been turned
+        MOUSEWHEEL,
     };
     /// Create an update Event
     Event(float elapsedTime);
@@ -56,10 +58,12 @@ public:
     Vector2 mousepos;
     /// relative mouse movement
     Vector2 mousemove;
+    /// amount scrolled (vertically) by mouse
+    int scrolly;
     /// number of the mousebutton that has been pressed
     int mousebutton;
     /// symbol of the key that has been pressed (see SDL_keysym)
-    SDL_keysym keysym;
+    SDL_Keysym keysym;
     /** set to true if the position where the mouse was clicked/released is 
      * inside the component and the component is not occupied by another
      * component at this position

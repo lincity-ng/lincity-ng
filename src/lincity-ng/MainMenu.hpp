@@ -32,7 +32,7 @@ class CheckButton;
 class MainMenu
 {
 public:
-    MainMenu();
+    MainMenu(SDL_Window* window);
     ~MainMenu();
 
     MainState run();
@@ -104,6 +104,8 @@ private:
     std::set<std::string> languages;
 
     std::map<std::string, std::string> fileMap;
+
+    SDL_Window* window;
 };
 
 #endif
