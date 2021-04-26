@@ -32,6 +32,10 @@
 #include <io.h>
 #endif
 
+#ifdef __HAIKU__
+#include <FindDirectory.h>
+#endif
+
 #if defined (TIME_WITH_SYS_TIME)
 #include <time.h>
 #include <sys/time.h>
@@ -377,14 +381,24 @@ void find_localized_paths(void)
 void init_path_strings(void)
 {
     find_libdir();
+    /* Various dirs and files */
+#if defined(__HAIKU__)
+    char path[B_PATH_NAME_LENGTH];
+    find_directory(B_USER_SETTINGS_DIRECTORY, 0, false, path, B_PATH_NAME_LENGTH);
+
+    lc_save_dir_len = strlen(path) + strlen(LC_SAVE_DIR) + 1;
+    if ((lc_save_dir = (char *)malloc(lc_save_dir_len + 1)) == 0)
+        malloc_failure();
+    sprintf(lc_save_dir, "%s%c%s", path, PATH_SLASH, LC_SAVE_DIR);
+#else
     //TODO: use, remove unused vars.
     const char* homedir = PHYSFS_getUserDir();
 
-    /* Various dirs and files */
     lc_save_dir_len = strlen(homedir) + strlen(LC_SAVE_DIR) + 1;
     if ((lc_save_dir = (char *)malloc(lc_save_dir_len + 1)) == 0)
         malloc_failure();
     sprintf(lc_save_dir, "%s%c%s", homedir, PATH_SLASH, LC_SAVE_DIR);
+#endif
     sprintf(colour_pal_file, "%s%c%s", LIBDIR, PATH_SLASH, "colour.pal");
     sprintf(opening_path, "%s%c%s", LIBDIR, PATH_SLASH, "opening");
 #if defined (WIN32)
@@ -393,7 +407,11 @@ void init_path_strings(void)
     sprintf(opening_pic, "%s%c%s", opening_path, PATH_SLASH, "open.tga.gz");
 #endif
     sprintf(graphic_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "icons", PATH_SLASH);
+#if defined (__HAIKU__)
+    sprintf(lincityrc_file, "%s%c%s", path, PATH_SLASH, LINCITYRC_FILENAME);
+#else
     sprintf(lincityrc_file, "%s%c%s", homedir, PATH_SLASH, LINCITYRC_FILENAME);
+#endif
 
     /* Paths for message & help files, etc */
     find_localized_paths();

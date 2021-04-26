@@ -18,8 +18,13 @@
 #   define PATH_SLASH_STRING "/"
 #endif
 
+#if defined(__HAIKU__)
+# define LC_SAVE_DIR "lincity-ng"
+# define LINCITYRC_FILENAME "lincity-NGrc"
+#else
 # define LC_SAVE_DIR ".lincity-ng"
 # define LINCITYRC_FILENAME ".lincity-NGrc"
+#endif
 
 #define RESULTS_FILENAME "results.txt"
 
