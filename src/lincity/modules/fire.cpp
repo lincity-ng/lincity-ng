@@ -50,7 +50,7 @@ void Fire::update()
         smoking_days++;
         if (world(x,y)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
-        if (smoking_days > AFTER_FIRE_LENGTH)
+        if (!(flags & FLAG_IS_GHOST) && smoking_days > AFTER_FIRE_LENGTH)
         {   ConstructionManager::submitRequest( new ConstructionDeletionRequest(this) ); }
         else if (smoking_days > (3 * AFTER_FIRE_LENGTH) / 4)
         {   frameIt->frame = 3;}
