@@ -60,7 +60,7 @@ else
   CPPFLAGS="${GL_CFLAGS} ${CPPFLAGS}"
   ax_save_LIBS="${LIBS}"
   LIBS=""
-  ax_check_libs="-lopengl32 -lGL"
+  ax_check_libs="-lopengl32 -lGL -lOpenGL"
   for ax_lib in ${ax_check_libs}; do
     if test X$ax_compiler_ms = Xyes; then
       ax_try_lib=`echo $ax_lib | sed -e 's/^-l//' -e 's/$/.lib/'`
