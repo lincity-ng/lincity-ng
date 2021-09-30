@@ -30,7 +30,7 @@ class TextureGL;
 class PainterGL : public Painter
 {
 public:
-    PainterGL();
+    PainterGL(SDL_Window* _window);
     virtual ~PainterGL();
 
     void drawTexture(const Texture* texture, const Vector2& pos);
@@ -53,6 +53,8 @@ public:
 
     Painter* createTexturePainter(Texture* texture);
 
+    void updateScreen();
+
 private:
     PainterGL(TextureGL* texture);
     void drawTextureRect(const Texture* texture, const Rect2D& rect);
@@ -74,6 +76,8 @@ private:
     Transform transform;
 
     Color fillColor,lineColor;
+
+    SDL_Window* window;
 };
 
 #endif

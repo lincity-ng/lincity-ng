@@ -78,7 +78,7 @@ msgstr "Wasser"
 
 #: src/lincity/lintypes.cpp:1452
 msgid "Not enough students, build more schools."
-msgstr "Zu wenige Studenten. Bauen Sie mehr Schulen."
+msgstr "Zu wenige Schüler. Bauen Sie mehr Schulen."
 
 #: src/lincity/lintypes.cpp:1481
 msgid "Port must be connected to river all along right side."
@@ -86,7 +86,7 @@ msgstr "Häfen müssen mit der ganzen rechten Seite am Fluß liegen."
 
 #: src/lincity/lintypes.cpp:1497
 msgid "You can't build a water well here: it is all desert."
-msgstr "Sie können hier keinen Brunnen bauen, alle Felder sind Wüste."
+msgstr "Sie können hier keinen Brunnen bauen: alle Felder sind Wüste."
 
 #: src/lincity/lintypes.cpp:1516
 msgid "You can't build a mine here: there is no ore left at this site"
@@ -387,7 +387,7 @@ msgstr "Dez"
 
 #: src/lincity/simulate.cpp:93
 msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
-msgstr "Aktualisiere alten Spielstand. Sie haben zehn Jahre Zeit, um die notwendigen Brunnen zu bauen. Ansonsten werden die Leute verdursten. Überprüfen sie die Nahrungsversorgungskarte und lesen sie die Hilfeseite über Brunnen."
+msgstr "Aktualisiere alten Spielstand. Sie haben zehn Jahre Zeit, um die notwendigen Brunnen zu bauen. Ansonsten werden die Leute verdursten. Überprüfen Sie die Nahrungsversorgungskarte und lesen Sie die Hilfeseite über Brunnen."
 
 #: src/lincity/UserOperation.cpp:13
 msgid "query"
@@ -400,32 +400,32 @@ msgstr "Abfragewerkzeug"
 #: src/lincity/UserOperation.cpp:86
 #, fuzzy
 msgid ": 50 tenants, low birthrate, high deathrate"
-msgstr "Wohngebiet: 50 Bewohner, niedrige Geburts- hohe Sterberate."
+msgstr "Wohngebiet: 50 Bewohner, niedrige Geburten- hohe Sterberate."
 
 #: src/lincity/UserOperation.cpp:87
 #, fuzzy
 msgid ": 100 tenants, high birthrate, low deathrate"
-msgstr "Wohngebiet: 100 Bewohner, hohe Geburts- niedrige Sterberate."
+msgstr "Wohngebiet: 100 Bewohner, hohe Geburten- niedrige Sterberate."
 
 #: src/lincity/UserOperation.cpp:88
 #, fuzzy
 msgid ": 200 tenants, high birthrate, high deathrate"
-msgstr "Wohngebiet: 200 Bewohner, hohe Geburts- und Sterberate"
+msgstr "Wohngebiet: 200 Bewohner, hohe Geburten- und Sterberate"
 
 #: src/lincity/UserOperation.cpp:89
 #, fuzzy
 msgid ": 100 tenants, low birthrate, high deathrate"
-msgstr "Wohngebiet: 100 Bewohner, niedrige Geburts- hohe Sterberate."
+msgstr "Wohngebiet: 100 Bewohner, niedrige Geburten- hohe Sterberate."
 
 #: src/lincity/UserOperation.cpp:90
 #, fuzzy
 msgid ": 200 tenants, high birthrate, low deathrate"
-msgstr "Wohngebiet: 200 Bewohner, hohe Geburts- niedrige Sterberate."
+msgstr "Wohngebiet: 200 Bewohner, hohe Geburten- niedrige Sterberate."
 
 #: src/lincity/UserOperation.cpp:91
 #, fuzzy
 msgid ": 400 tenants, high birthrate, high deathrate"
-msgstr "Wohngebiet: 400 Bewohner, hohe Geburts- und Sterberate."
+msgstr "Wohngebiet: 400 Bewohner, hohe Geburten- und Sterberate."
 
 #: src/lincity/UserOperation.cpp:95
 msgid "Bulldozer"
@@ -546,7 +546,7 @@ msgstr "Barackensiedlung"
 #: src/lincity-ng/MpsInterface.cpp:395
 #, fuzzy
 msgid "Air Pollution"
-msgstr "Verschmutzung"
+msgstr "Luftverschmutzung"
 
 #: src/lincity/modules/coal_power.cpp:12
 msgid "Coal Power Station"
@@ -588,7 +588,7 @@ msgstr "Fruchtbarkeit"
 #: src/lincity/modules/university.cpp:58
 #, fuzzy
 msgid "Tech researched"
-msgstr "Tech erforscht"
+msgstr "Erforschte Technologien"
 
 #: src/lincity/modules/health_centre.cpp:12
 msgid "Health Centre"
@@ -670,7 +670,7 @@ msgstr "Mieter"
 #: src/lincity/modules/residence.cpp:350
 #, fuzzy
 msgid "Desireability"
-msgstr "Nachhaltigkeit:"
+msgstr "Nachhaltigkeit"
 
 #: src/lincity/modules/residence.cpp:351 src/lincity-ng/MpsInterface.cpp:543
 msgid "Births p.a."
@@ -679,7 +679,7 @@ msgstr "Geburten p.a."
 #: src/lincity/modules/residence.cpp:352
 #, fuzzy
 msgid "Death p.a."
-msgstr "Todesfälle"
+msgstr "Todesfälle p.a."
 
 #: src/lincity/modules/residence.cpp:353
 msgid "Unnat. mortality"
@@ -935,7 +935,7 @@ msgstr "Verhungert"
 #: src/lincity-ng/MpsInterface.cpp:544
 #, fuzzy
 msgid "Deaths p.a."
-msgstr "Todesfälle"
+msgstr "Todesfälle p.a."
 
 #: src/lincity-ng/MpsInterface.cpp:545
 #, fuzzy
@@ -1140,7 +1140,7 @@ msgstr "Wälder"
 #: src/lincity-ng/ScreenInterface.cpp:239
 #, fuzzy
 msgid "M"
-msgstr "Mio"
+msgstr "Mio."
 
 #: src/lincity-ng/ScreenInterface.cpp:242
 msgid "k"

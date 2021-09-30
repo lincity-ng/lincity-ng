@@ -340,8 +340,8 @@ void mps_right (int x, int y)
     int pol = world(x,y)->pollution;
     currentMPS = envMPS;
 
-    Uint8 *keystate = SDL_GetKeyState(NULL);
-    if (!binary_mode && keystate[SDLK_d])
+    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+    if (!binary_mode && keystate[SDL_SCANCODE_D])
     {   world(x,y)->saveMembers(&std::cout);}
     mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 

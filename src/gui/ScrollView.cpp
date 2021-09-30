@@ -131,9 +131,7 @@ ScrollView::scrollBarChanged(ScrollBar* , float newvalue)
 void
 ScrollView::event(const Event& event)
 {
-    if(event.type == Event::MOUSEBUTTONDOWN
-            && (event.mousebutton == SDL_BUTTON_WHEELUP
-            || event.mousebutton == SDL_BUTTON_WHEELDOWN)) {
+    if(event.type == Event::MOUSEWHEEL) {
         if(!event.inside)
             return;
 
@@ -146,15 +144,11 @@ ScrollView::event(const Event& event)
             return;
         }
         float val = - contents().getPos().y;
-        if(event.mousebutton == SDL_BUTTON_WHEELUP) {
-            val -= MOUSEWHEELSCROLL;
-            if(val < 0)
-                val = 0;
-        } else {
-            val += MOUSEWHEELSCROLL;
-            if(val > scrollBarComp->getRangeMax())
-                val = scrollBarComp->getRangeMax();
-        }
+        val += event.scrolly;
+        if(val < 0)
+            val = 0;
+        if(val > scrollBarComp->getRangeMax())
+            val = scrollBarComp->getRangeMax();
         contents().setPos(Vector2(0, -val));
         scrollBarComp->setValue(val);
         setDirty();

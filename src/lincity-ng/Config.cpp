@@ -69,6 +69,11 @@ Config::Config()
 
     language = "autodetect";
 
+    world.len(WORLD_SIDE_LEN);
+    binary_mode=true;
+    seed_compression=true;
+    carsEnabled=true;
+
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.

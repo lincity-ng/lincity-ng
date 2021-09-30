@@ -62,8 +62,8 @@ TextureManagerGL::create(SDL_Surface* image)
             << " (out of memory?): " << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
-    SDL_SetAlpha(image, 0, 0);
-    SDL_BlitSurface(image, 0, convert, 0);
+    SDL_SetSurfaceAlphaMod(image, 255);
+    SDL_BlitSurface(image, NULL, convert, NULL);
 
     GLuint handle;
     glGenTextures(1, &handle);
