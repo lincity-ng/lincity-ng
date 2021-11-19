@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdarg.h>             /* XXX: GCS FIX: What does configure need to know? */
 #include <string.h>
+#include <string>
 #include <physfs.h>
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
@@ -27,7 +28,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#ifdef _MSC_VER
+#ifdef WIN32
 #include <direct.h>
 #include <io.h>
 #endif
@@ -180,7 +181,7 @@ void find_libdir(void)
 {
     const char searchfile[] = "Colour.pal";
     /* default_dir will be something like "C:\\LINCITY1.11" */
-    const char default_dir[] = "C:\\LINCITY" PACKAGE_VERSION;
+    const auto default_dir = std::string("C:\\LINCITY") + PACKAGE_VERSION;
 //    const char default_dir[] = "D:\\LINCITY"; /* For GCS's use */
 
     /* Check 1: environment variable */
@@ -192,8 +193,8 @@ void find_libdir(void)
     }
 
     /* Check 2: default location */
-    if ((_access(default_dir, 0)) != -1) {
-        strcpy(LIBDIR, default_dir);
+    if ((_access(default_dir.c_str(), 0)) != -1) {
+        strcpy(LIBDIR, default_dir.c_str());
         return;
     }
 
