@@ -88,6 +88,7 @@ public:
     virtual void update();
     virtual void report();
     void launch_rocket();
+    void compute_launch_result();
     void remove_people(int num);
     int working_days, busy;
     int tech;
