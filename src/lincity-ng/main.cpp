@@ -447,7 +447,11 @@ int main(int argc, char** argv)
         initPhysfs(argv[0]);
 
         if( getConfig()->language != "autodetect" ){
+#if defined (WIN32)
+            _putenv_s("LINCITY_LANG", getConfig()->language.c_str());
+#else
             setenv("LINCITY_LANG", getConfig()->language.c_str(), false);
+#endif
         }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");

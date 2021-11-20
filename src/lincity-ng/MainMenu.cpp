@@ -853,7 +853,11 @@ MainMenu::optionsBackButtonClicked(Button* )
     }
     else if( currentLanguage != getConfig()->language )
     {
+#if defined (WIN32)
+        _putenv_s("LINCITY_LANG", "");
+#else
         unsetenv("LINCITY_LANG");
+#endif
         quitState = RESTART;
         running = false;
     }

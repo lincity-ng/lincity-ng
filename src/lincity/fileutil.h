@@ -51,6 +51,16 @@ void save_lincityrc(void);
 
 void debug_printf(char *fmt, ...);
 
+//Use physfs_indep_dirsep when making a path passed to PHYSFS_openRead.
+//PHYSFS_getDirSeparator() returns "\\" on windows,
+//but passing a path contains "\\" to PHYSFS_openRead cause error.
+//Because PhysicsFS uses "platform-independent notation" when opening a file.
+//Platform-dependent notation is still used when setting up write directory and search path.
+//
+//Read PhysicsFS documentation for more details.
+//https://icculus.org/physfs/docs/html/
+const auto physfs_indep_dirsep = "/";
+
 #endif /* __fileutil_h__ */
 
 /** @file lincity/fileutil.h */
