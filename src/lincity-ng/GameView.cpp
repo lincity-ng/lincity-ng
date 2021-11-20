@@ -375,7 +375,7 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
 
 Texture* GameView::readTexture(const std::string& filename)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = "/";
     std::string nfilename = std::string("images") + dirsep
     + std::string("tiles") + dirsep + filename;
     Texture* currentTexture;
@@ -394,7 +394,7 @@ Texture* GameView::readTexture(const std::string& filename)
  */
 SDL_Surface* GameView::readImage(const std::string& filename)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = "/";
 
     //std::string nfilename;
     //nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
@@ -433,7 +433,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = "/";
 
     std::ostringstream os;
     os << "images" << dirsep << "tiles" << dirsep << "images.xml";

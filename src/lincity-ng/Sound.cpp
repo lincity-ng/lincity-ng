@@ -54,7 +54,10 @@ Sound::soundThread(void* ptr)
 void
 Sound::loadWaves() {
     //Load Waves
-    std::string dirsep = PHYSFS_getDirSeparator();
+
+    // Don't use PHYSFS_getDirSeparator().
+    // PhysicsFS uses "platform-independent notation" when opening a file.
+    const auto dirsep = "/";
     std::string directory = "sounds";
     directory += dirsep;
     std::string xmlfile = directory + "sounds.xml";
@@ -146,7 +149,7 @@ void Sound::loadMusicTheme() {
 
     //TODO there should be a music directory in
     // LINCITY_HOME
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const std::string dirsep = "/";
     std::string musicDir = "music" + dirsep;
     //Reset track counter:
     totalTracks=0;
