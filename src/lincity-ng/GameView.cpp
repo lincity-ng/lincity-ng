@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
+#include "lincity/fileutil.h"
 
 #include "Mps.hpp"
 #include "MapEdit.hpp"
@@ -375,7 +376,7 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
 
 Texture* GameView::readTexture(const std::string& filename)
 {
-    const auto dirsep = "/";
+    const auto dirsep = physfs_indep_dirsep;
     std::string nfilename = std::string("images") + dirsep
     + std::string("tiles") + dirsep + filename;
     Texture* currentTexture;
@@ -394,7 +395,7 @@ Texture* GameView::readTexture(const std::string& filename)
  */
 SDL_Surface* GameView::readImage(const std::string& filename)
 {
-    const auto dirsep = "/";
+    const auto dirsep = physfs_indep_dirsep;
 
     //std::string nfilename;
     //nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
@@ -433,7 +434,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
-    const auto dirsep = "/";
+    const auto dirsep = physfs_indep_dirsep;
 
     std::ostringstream os;
     os << "images" << dirsep << "tiles" << dirsep << "images.xml";
