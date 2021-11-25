@@ -94,6 +94,14 @@ T*checked_cast(Y *x)
   return t;
 }
 
+#else
+
+template<class T,class Y>
+T*checked_cast(Y *x)
+{
+  return dynamic_cast<T*>(x);
+}
+
 #endif
 
 #endif
