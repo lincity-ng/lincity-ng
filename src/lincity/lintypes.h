@@ -283,7 +283,7 @@ template <typename ConstructionClass>
 class RegisteredConstruction: public Construction, public Counted<ConstructionClass>
 {
 public:
-    RegisteredConstruction<ConstructionClass>( int x, int y)
+    RegisteredConstruction( int x, int y)
     {
         //this->type = 0;//safe default
         this->soundGroup = 0;//to be set by init_resources()
@@ -299,7 +299,7 @@ public:
         partners.clear();
 #endif
     }
-    ~RegisteredConstruction<ConstructionClass>(){}
+    ~RegisteredConstruction(){}
 };
 
 class GraphicsInfo
