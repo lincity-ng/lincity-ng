@@ -684,29 +684,29 @@ MiniMap::mapPointToVector(MapPoint p)
 }
 
 void MiniMap::constrainPosition() {
-    bool minLeft = 1 - 1;
-    bool maxLeft = world.len()-1 - width/tilesize+1;
-    bool minTop = 1 - 1;
-    bool maxTop = world.len()-1 - height/tilesize+1;
+    int minLeft = 1 - 1;
+    int maxLeft = world.len()-1 - ((int)(width/tilesize)-1);
+    int minTop = 1 - 1;
+    int maxTop = world.len()-1 - ((int)(height/tilesize)-1);
     
     if(minLeft > maxLeft) {
         left = (minLeft + maxLeft) / 2;
     }
     else if(left < minLeft) {
-        left = world.len()-1 - width/tilesize+1;
+        left = minLeft;
     }
     else if(left > maxLeft) {
-        left = 1 - 1;
+        left = maxLeft;
     }
     
     if(minTop > maxTop) {
         top = (minTop + maxTop) / 2;
     }
     else if(top < minTop) {
-        top = world.len()-1 - width/tilesize+1;
+        top = minTop;
     }
     else if(top > maxTop) {
-        top = 1 - 1;
+        top = maxTop;
     }
 }
 
