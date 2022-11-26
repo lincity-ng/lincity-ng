@@ -683,6 +683,33 @@ MiniMap::mapPointToVector(MapPoint p)
     return Vector2((p.x - left) * tilesize , (p.y -top) * tilesize);
 }
 
+void MiniMap::constrainPosition() {
+    bool minLeft = 1 - 1;
+    bool maxLeft = world.len()-1 - width/tilesize+1;
+    bool minTop = 1 - 1;
+    bool maxTop = world.len()-1 - height/tilesize+1;
+    
+    if(minLeft > maxLeft) {
+        left = (minLeft + maxLeft) / 2;
+    }
+    else if(left < minLeft) {
+        left = world.len()-1 - width/tilesize+1;
+    }
+    else if(left > maxLeft) {
+        left = 1 - 1;
+    }
+    
+    if(minTop > maxTop) {
+        top = (minTop + maxTop) / 2;
+    }
+    else if(top < minTop) {
+        top = world.len()-1 - width/tilesize+1;
+    }
+    else if(top > maxTop) {
+        top = 1 - 1;
+    }
+}
+
 /*
  *  Set the Corners of the GameView to show in Minimap
  */
@@ -693,6 +720,7 @@ void MiniMap::setGameViewCorners(
     this->lowerRight = lowerRight;
     left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
     top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
+    constrainPosition();
     mFullRefresh = true;
     setDirty();
 }
@@ -1105,6 +1133,7 @@ void MiniMap::event(const Event& event) {
 
     left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
     top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
+    constrainPosition();
 
     if(event.type == Event::MOUSEMOTION) {
         if(!event.inside) {
@@ -1155,4 +1184,3 @@ IMPLEMENT_COMPONENT_FACTORY(MiniMap)
 
 
 /** @file lincity-ng/MiniMap.cpp */
-

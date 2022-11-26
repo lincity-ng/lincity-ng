@@ -76,6 +76,8 @@ private:
 //FIXME
     Vector2 mapPointToVector(MapPoint p);
 
+    void constrainPosition();
+
     MapPoint upperLeft, lowerRight;
 
     DisplayMode mMode;
@@ -101,4 +103,3 @@ MiniMap* getMiniMap();
 #endif
 
 /** @file lincity-ng/MiniMap.hpp */
-
