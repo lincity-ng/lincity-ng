@@ -1129,11 +1129,10 @@ Color MiniMap::getColor(int x,int y) const
 
 void MiniMap::event(const Event& event) {
 
-    int left, top;
-
-    left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
-    top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
-    constrainPosition();
+    // int left, top;
+    // 
+    // left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
+    // top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
 
     if(event.type == Event::MOUSEMOTION) {
         if(!event.inside) {
