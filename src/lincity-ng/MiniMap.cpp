@@ -132,7 +132,7 @@ MiniMap::toggleStuffID(int step)
     Construction::STUFF_WASTE,Construction::STUFF_KWH,
     Construction::STUFF_MWH,Construction::STUFF_WATER};
 
-    //chek if we are at the beginning or the end of commodities
+    //check if we are at the beginning or the end of commodities
     if (step == 1 && stuff_ID == Construction::STUFF_WATER)
     {
         stuff_ID = Construction::STUFF_FOOD;
@@ -1155,4 +1155,3 @@ IMPLEMENT_COMPONENT_FACTORY(MiniMap)
 
 
 /** @file lincity-ng/MiniMap.cpp */
-
