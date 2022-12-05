@@ -335,6 +335,31 @@ void GameView::setZoom(float newzoom){
     show( centerTile );
 }
 
+void GameView::zoomMouse(float factor, Vector2 mousepos) {
+  float newzoom = zoom * factor;
+  
+  //if ( newzoom < .0625 ) return;
+  if ( newzoom < .0312 ) newzoom = .0312;
+  if ( newzoom > 4 ) newzoom = 4;
+
+  zoom = newzoom;
+  
+  // fix rounding errors...
+  if(fabs(zoom - 1.0) < .01)
+  {   zoom = 1;}
+
+  tileWidth = defaultTileWidth * zoom;
+  tileHeight = defaultTileHeight * zoom;
+  //a virtual screen containing the whole city
+  virtualScreenWidth = tileWidth * world.len();
+  virtualScreenHeight = tileHeight * world.len();
+  //std::cout << "Zoom " << zoom  << "\n";
+  
+  viewport = (viewport + mousepos) * factor - mousepos;
+  // viewport *= factor;
+  // viewport += mousepos * (factor - 1);
+}
+
 /* set Zoomlevel to 100% */
 void GameView::resetZoom(){
     setZoom( defaultZoom );
@@ -812,10 +837,12 @@ void GameView::event(const Event& event)
         case Event::MOUSEWHEEL:
             if (event.scrolly == 0)
                 break;
+            int x, y;
+            SDL_GetMouseState(&x, &y);
             if (event.scrolly > 0)
-                zoomIn();
+                zoomMouse(sqrt(2.f), Vector2(x, y));
             else
-                zoomOut();
+                zoomMouse(sqrt(0.5), Vector2(x, y));
             break;
 
         case Event::KEYDOWN:

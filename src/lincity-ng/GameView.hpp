@@ -99,6 +99,7 @@ private:
     void drawDiamond( Painter& painter, const Rect2D& rect );
     static int gameViewThread(void* data);
     void setZoom(float newzoom);
+    void zoomMouse(float factor, Vector2 mousepos);
     SDL_Surface* readImage(const std::string& filename);
     void preReadImages(void);
     Texture* readTexture(const std::string& filename);
