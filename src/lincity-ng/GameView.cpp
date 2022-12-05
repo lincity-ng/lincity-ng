@@ -81,8 +81,8 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     loaderThread = 0;
-    keyScrollState = 0;
-    mouseScrollState = 0;
+    keyScrollState = SCROLL_NONE;
+    mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
 }
@@ -563,33 +563,31 @@ void GameView::scroll( void )
     float stepx = (now - oldTime) * tileWidth / 100;
     float stepy = (now - oldTime) * tileHeight / 100;
     oldTime = now;
+    
+    int scrollState = keyScrollState | mouseScrollState;
 
-    if( keyScrollState == 0 && mouseScrollState == 0 ) {
+    if( scrollState == SCROLL_NONE ) {
         return;
     }
 
-    if( keyScrollState & (SCROLL_LSHIFT | SCROLL_RSHIFT) ) {
+    if( keyScrollState & SCROLL_SHIFT_ALL ) {
         stepx *= 4;
         stepy *= 4;
     }
 
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_UP | SCROLL_UP_LEFT | SCROLL_UP_RIGHT) ) {
+    if( scrollState & SCROLL_UP_ALL ) {
         viewport.y -= stepy;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_DOWN | SCROLL_DOWN_LEFT | SCROLL_DOWN_RIGHT) ) {
+    if( scrollState & SCROLL_DOWN_ALL ) {
         viewport.y += stepy;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_LEFT | SCROLL_UP_LEFT | SCROLL_DOWN_LEFT) ) {
+    if( scrollState & SCROLL_LEFT_ALL ) {
         viewport.x -= stepx;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT) ) {
+    if( scrollState & SCROLL_RIGHT_ALL ) {
         viewport.x += stepx;
     }
-   requestRedraw();
+    requestRedraw();
 }
 
 /*
@@ -599,7 +597,7 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            mouseScrollState = 0;
+            mouseScrollState = SCROLL_NONE;
             if( event.mousepos.x < scrollBorder ) {
                 mouseScrollState |= SCROLL_LEFT;
             } else if( event.mousepos.x > getWidth() - scrollBorder ) {
@@ -1457,8 +1455,8 @@ void GameView::draw(Painter& painter)
     }
     if( outside )
     {
-        mouseScrollState = 0;   //Avoid clipping in pause mode
-        keyScrollState = 0;
+        mouseScrollState = SCROLL_NONE;   //Avoid clipping in pause mode
+        keyScrollState = SCROLL_NONE;
         show( centerTile );
         return;
     }
@@ -1729,4 +1727,3 @@ int GameView::buildCost( MapPoint tile )
 IMPLEMENT_COMPONENT_FACTORY(GameView)
 
 /** @file lincity-ng/GameView.cpp */
-
