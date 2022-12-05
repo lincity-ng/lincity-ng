@@ -591,7 +591,50 @@ void GameView::scroll( void )
     if(norm == 0) return;
     viewport += dir * amt / norm;
     
+    constrainViewportPosition();
+    
     requestRedraw();
+}
+
+bool GameView::constrainViewportPosition() {
+  //If the centre of the Screen is not Part of the city
+  //adjust viewport so it is.
+  Vector2 center = viewport + (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+  Vector2 centerTile = Vector2(
+    center.y / tileHeight + center.x / tileWidth,
+    center.y / tileHeight - center.x / tileWidth
+  );
+  bool outside = false;
+  if( centerTile.x < gameAreaMin )
+  {
+      centerTile.x = gameAreaMin;
+      outside = true;
+  }
+  if( centerTile.x > gameAreaMax() + 1 )
+  {
+      centerTile.x = gameAreaMax() + 1;
+      outside = true;
+  }
+  if( centerTile.y < gameAreaMin )
+  {
+      centerTile.y = gameAreaMin;
+      outside = true;
+  }
+  if( centerTile.y > gameAreaMax() + 1 )
+  {
+      centerTile.y = gameAreaMax() + 1;
+      outside = true;
+  }
+  if( outside )
+  {
+      center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
+      center.y = ( centerTile.x + centerTile.y ) * tileHeight / 2;
+      viewport = center - (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+      requestRedraw();
+      return true;
+  }
+  
+  return false;
 }
 
 /*
@@ -1457,38 +1500,12 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
  */
 void GameView::draw(Painter& painter)
 {
-    //If the centre of the Screen is not Part of the city
-    //adjust viewport so it is.
-    MapPoint centerTile = getCenter();
-    bool outside = false;
-    if( centerTile.x < gameAreaMin )
-    {
-        centerTile.x = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.x > gameAreaMax() )
-    {
-        centerTile.x = gameAreaMax();
-        outside = true;
-    }
-    if( centerTile.y < gameAreaMin )
-    {
-        centerTile.y = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.y > gameAreaMax() )
-    {
-        centerTile.y = gameAreaMax();
-        outside = true;
-    }
-    if( outside )
-    {
-        mouseScrollState = SCROLL_NONE;   //Avoid clipping in pause mode
-        keyScrollState &= SCROLL_SHIFT_ALL;
-        show( centerTile );
-        return;
-    }
-
+    // I'm not sure why we need to return here. If it does return, then it will
+    // cause an aparant lag. Good news is this should never happen if zooming
+    // and scrolling do their job right. But it could still happen occasionally
+    // due to roundoff error. If there is round-off error and this does not
+    // correct it, then the next draw iteration may also lag.
+    if( constrainViewportPosition() ) return; // not sure why we need to return
 
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
