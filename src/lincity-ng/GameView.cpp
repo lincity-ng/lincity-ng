@@ -624,16 +624,18 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            mouseScrollState = 0;
-            if( event.mousepos.x < scrollBorder ) {
-                mouseScrollState |= SCROLL_LEFT;
-            } else if( event.mousepos.x > getWidth() - scrollBorder ) {
-                mouseScrollState |= SCROLL_RIGHT;
-            }
-            if( event.mousepos.y < scrollBorder ) {
-                mouseScrollState |= SCROLL_UP;
-            } else if( event.mousepos.y > getHeight() - scrollBorder ) {
-                mouseScrollState |= SCROLL_DOWN;
+            if(getConfig()->useFullScreen) {
+                mouseScrollState = 0;
+                if( event.mousepos.x < scrollBorder ) {
+                    mouseScrollState |= SCROLL_LEFT;
+                } else if( event.mousepos.x > getWidth() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_RIGHT;
+                }
+                if( event.mousepos.y < scrollBorder ) {
+                    mouseScrollState |= SCROLL_UP;
+                } else if( event.mousepos.y > getHeight() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_DOWN;
+                }
             }
 
             if( dragging ) {
