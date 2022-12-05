@@ -144,6 +144,8 @@ private:
     Uint32 dragStartTime;
 
     bool roadDragging, ctrDrag, leftButtonDown;
+    // NOTE: leftButtonDown indicates whether the middle button is down
+    //       (I didn't bother to refactor the name.)
     MapPoint startRoad;
     bool areaBulldoze;
 
@@ -179,4 +181,3 @@ static const int scrollBorder = 5;
 
 
 /** @file lincity-ng/GameView.hpp */
-
