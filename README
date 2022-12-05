@@ -114,13 +114,12 @@ any:
  Click on Minimap shows the selected Area on mainscreen.
 
 right:
- Drag mainscreen with right mousebutton.
- right click on mainscreen centers to tile under cursor.
+ right click on mainscreen to show info on building under cursor.
  select tool from menu root
  show help on tool
 
 middle:
- middle click on mainscreen to show information about area under cursor.
+ pan map on mainscreen.
 
 left:
  Perform action depending on selected tool. Bulldoze, show Information,
@@ -175,4 +174,3 @@ You can contact us at the lincity-ng-devel mailinglist:
 or you might be able to catch us in irc at irc.freenode.net #lincity.
 
 Visit our homepage: https://github.com/lincity-ng/lincity-ng
-
