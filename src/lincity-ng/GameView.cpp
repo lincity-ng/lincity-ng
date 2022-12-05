@@ -617,7 +617,7 @@ void GameView::event(const Event& event)
                 // this was most probably a SDL_WarpMouse
                 if(event.mousepos == dragStart)
                     break;
-                viewport += event.mousemove;
+                viewport -= event.mousemove;
                 setDirty();
                 break;
             }
@@ -630,8 +630,9 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                SDL_ShowCursor( SDL_DISABLE );
-                dragStartTime = SDL_GetTicks();
+                // This hand has one finger up. I couldn't find the closed hand.
+                SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND));
+                dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
@@ -672,7 +673,7 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
@@ -685,24 +686,24 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
+            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 if( inCity( getTile( event.mousepos ) ) ) {
-                    getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                    // getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
                 }
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
 
-            if(event.mousebutton == SDL_BUTTON_MIDDLE ){
-                getMiniMap()->hideMpsEnv();
+            if(event.mousebutton == SDL_BUTTON_RIGHT ){
+                // getMiniMap()->hideMpsEnv();
             }
 
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
                     dragging = false;
                     rightButtonDown = false;
-                    SDL_ShowCursor( SDL_ENABLE );
+                    SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW));
                     getButtonPanel()->selectQueryTool();
                     break;
                 }
@@ -789,10 +790,23 @@ void GameView::event(const Event& event)
                 {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
-              if (getButtonPanel()->selectedQueryTool())
-                recenter(event.mousepos);                               //adjust view
-              else
-                getButtonPanel()->selectQueryTool();
+                // show info on the clicked thing
+                MapPoint point = getTile(event.mousepos);
+                if(!inCity(point)) {
+                    break;
+                }
+                
+                int mod_x, mod_y; // upper left coords of module clicked on
+                if(world(point.x,point.y)->reportingConstruction) {
+                    mod_x = world(point.x,point.y)->reportingConstruction->x;
+                    mod_y = world(point.x,point.y)->reportingConstruction->y;
+                }
+                else {
+                    mod_x = point.x;
+                    mod_y = point.y;
+                }
+                
+                mps_set(mod_x, mod_y, MPS_MAP);
             }
             break;
         case Event::MOUSEWHEEL:
@@ -1729,4 +1743,3 @@ int GameView::buildCost( MapPoint tile )
 IMPLEMENT_COMPONENT_FACTORY(GameView)
 
 /** @file lincity-ng/GameView.cpp */
-
