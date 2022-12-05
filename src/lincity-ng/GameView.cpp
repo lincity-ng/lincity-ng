@@ -335,6 +335,37 @@ void GameView::setZoom(float newzoom){
     show( centerTile );
 }
 
+void GameView::zoomMouse(float factor, Vector2 mousepos) {
+  float newzoom = zoom * factor;
+  
+  //if ( newzoom < .0625 ) return;
+  if ( newzoom < .0312 ) {
+    newzoom = .0312;
+    factor = newzoom / zoom;
+  }
+  if ( newzoom > 4 ) {
+    newzoom = 4;
+    factor = newzoom / zoom;
+  }
+
+  zoom = newzoom;
+  
+  // fix rounding errors...
+  if(fabs(zoom - 1.0) < .01)
+  {   zoom = 1;}
+
+  tileWidth = defaultTileWidth * zoom;
+  tileHeight = defaultTileHeight * zoom;
+  //a virtual screen containing the whole city
+  virtualScreenWidth = tileWidth * world.len();
+  virtualScreenHeight = tileHeight * world.len();
+  //std::cout << "Zoom " << zoom  << "\n";
+  
+  viewport = (viewport + mousepos) * factor - mousepos;
+  
+  requestRedraw();
+}
+
 /* set Zoomlevel to 100% */
 void GameView::resetZoom(){
     setZoom( defaultZoom );
@@ -599,16 +630,18 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            mouseScrollState = 0;
-            if( event.mousepos.x < scrollBorder ) {
-                mouseScrollState |= SCROLL_LEFT;
-            } else if( event.mousepos.x > getWidth() - scrollBorder ) {
-                mouseScrollState |= SCROLL_RIGHT;
-            }
-            if( event.mousepos.y < scrollBorder ) {
-                mouseScrollState |= SCROLL_UP;
-            } else if( event.mousepos.y > getHeight() - scrollBorder ) {
-                mouseScrollState |= SCROLL_DOWN;
+            if(getConfig()->useFullScreen) {
+                mouseScrollState = 0;
+                if( event.mousepos.x < scrollBorder ) {
+                    mouseScrollState |= SCROLL_LEFT;
+                } else if( event.mousepos.x > getWidth() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_RIGHT;
+                }
+                if( event.mousepos.y < scrollBorder ) {
+                    mouseScrollState |= SCROLL_UP;
+                } else if( event.mousepos.y > getHeight() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_DOWN;
+                }
             }
 
             if( dragging ) {
@@ -812,10 +845,12 @@ void GameView::event(const Event& event)
         case Event::MOUSEWHEEL:
             if (event.scrolly == 0)
                 break;
+            int x, y;
+            SDL_GetMouseState(&x, &y);
             if (event.scrolly > 0)
-                zoomIn();
+                zoomMouse(sqrt(2.f), Vector2(x, y));
             else
-                zoomOut();
+                zoomMouse(sqrt(0.5), Vector2(x, y));
             break;
 
         case Event::KEYDOWN:
