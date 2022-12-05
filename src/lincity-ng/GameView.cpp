@@ -356,8 +356,8 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
   //std::cout << "Zoom " << zoom  << "\n";
   
   viewport = (viewport + mousepos) * factor - mousepos;
-  // viewport *= factor;
-  // viewport += mousepos * (factor - 1);
+  
+  requestRedraw();
 }
 
 /* set Zoomlevel to 100% */
