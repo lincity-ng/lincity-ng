@@ -1456,7 +1456,7 @@ void GameView::draw(Painter& painter)
     if( outside )
     {
         mouseScrollState = SCROLL_NONE;   //Avoid clipping in pause mode
-        keyScrollState = SCROLL_NONE;
+        keyScrollState &= SCROLL_SHIFT_ALL;
         show( centerTile );
         return;
     }
