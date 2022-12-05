@@ -339,8 +339,14 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
   float newzoom = zoom * factor;
   
   //if ( newzoom < .0625 ) return;
-  if ( newzoom < .0312 ) newzoom = .0312;
-  if ( newzoom > 4 ) newzoom = 4;
+  if ( newzoom < .0312 ) {
+    newzoom = .0312;
+    factor = newzoom / zoom;
+  }
+  if ( newzoom > 4 ) {
+    newzoom = 4;
+    factor = newzoom / zoom;
+  }
 
   zoom = newzoom;
   
