@@ -808,19 +808,31 @@ void GameView::event(const Event& event)
                 {   ctrDrag = !ctrDrag;}
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState |= SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState |= SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState |= SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState |= SCROLL_RIGHT;
                 break;
             }
@@ -909,19 +921,31 @@ void GameView::event(const Event& event)
                 break;
             }
             //Scroll
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState &= ~SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState &= ~SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState &= ~SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState &= ~SCROLL_RIGHT;
                 break;
             }
