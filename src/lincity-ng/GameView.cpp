@@ -560,8 +560,8 @@ void GameView::scroll( void )
     static Uint32 oldTime = SDL_GetTicks();
     Uint32 now = SDL_GetTicks();
     //TODO: scroll speed should be configurable
-    float stepx = (now - oldTime) * tileWidth / 100;
-    float stepy = (now - oldTime) * tileHeight / 100;
+    float amt = (now - oldTime) * 0.5;
+    Vector2 dir = Vector2();
     oldTime = now;
     
     int scrollState = keyScrollState | mouseScrollState;
@@ -571,22 +571,26 @@ void GameView::scroll( void )
     }
 
     if( keyScrollState & SCROLL_SHIFT_ALL ) {
-        stepx *= 4;
-        stepy *= 4;
+        amt *= 4;
     }
 
     if( scrollState & SCROLL_UP_ALL ) {
-        viewport.y -= stepy;
+        dir.y -= tileHeight;
     }
     if( scrollState & SCROLL_DOWN_ALL ) {
-        viewport.y += stepy;
+        dir.y += tileHeight;
     }
     if( scrollState & SCROLL_LEFT_ALL ) {
-        viewport.x -= stepx;
+        dir.x -= tileWidth;
     }
     if( scrollState & SCROLL_RIGHT_ALL ) {
-        viewport.x += stepx;
+        dir.x += tileWidth;
     }
+    
+    float norm = hypot(dir.x, dir.y);
+    if(norm == 0) return;
+    viewport += dir * amt / norm;
+    
     requestRedraw();
 }
 
