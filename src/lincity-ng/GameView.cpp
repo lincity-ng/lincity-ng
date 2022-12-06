@@ -85,6 +85,7 @@ GameView::GameView()
     mouseScrollState = 0;
     remaining_images = 0;
     textures_ready = false;
+    panningCursor = NULL;
 }
 
 GameView::~GameView()
@@ -93,6 +94,10 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
+    
+    if(panningCursor) {
+      SDL_FreeCursor(panningCursor);
+    }
 }
 
 //Static function to use with SDL_CreateThread
@@ -674,7 +679,7 @@ void GameView::event(const Event& event)
                 dragging = true;
                 dragStart = event.mousepos;
                 // This hand has one finger up. I couldn't find the closed hand.
-                SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND));
+                setPanningCursor();
                 dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
@@ -746,8 +751,8 @@ void GameView::event(const Event& event)
                 if ( dragging ) {
                     dragging = false;
                     rightButtonDown = false;
-                    SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW));
-                    getButtonPanel()->selectQueryTool();
+                    setDefaultCursor();
+                    // getButtonPanel()->selectQueryTool();
                     break;
                 }
                 dragging = false;
@@ -1017,6 +1022,18 @@ void GameView::event(const Event& event)
         default:
             break;
     }
+}
+
+void GameView::setPanningCursor() {
+  if(!panningCursor) {
+    panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+  }
+  SDL_SetCursor(panningCursor);
+}
+
+void GameView::setDefaultCursor() {
+  // I don't think the default cursor needs to be freed.
+  SDL_SetCursor(SDL_GetDefaultCursor());
 }
 
 /*
