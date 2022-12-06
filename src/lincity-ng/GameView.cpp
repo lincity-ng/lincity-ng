@@ -154,6 +154,7 @@ void GameView::parse(XmlReader& reader)
     hideHigh = false;
     showTerrainHeight = false;
     cursorSize = 0;
+    mpsEnvOnQuery = false;
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
@@ -623,6 +624,15 @@ void GameView::scroll( void )
    requestRedraw();
 }
 
+void GameView::updateMps(int x, int y) {
+  int mod_x = x, mod_y = y;
+  if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
+    mod_x = world(x,y)->reportingConstruction->x;
+    mod_y = world(x,y)->reportingConstruction->y;
+  }
+  mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
+}
+
 /*
  * Process event
  */
@@ -825,21 +835,8 @@ void GameView::event(const Event& event)
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
                 // show info on the clicked thing
                 MapPoint point = getTile(event.mousepos);
-                if(!inCity(point)) {
-                    break;
-                }
-                
-                int mod_x, mod_y; // upper left coords of module clicked on
-                if(world(point.x,point.y)->reportingConstruction) {
-                    mod_x = world(point.x,point.y)->reportingConstruction->x;
-                    mod_y = world(point.x,point.y)->reportingConstruction->y;
-                }
-                else {
-                    mod_x = point.x;
-                    mod_y = point.y;
-                }
-                
-                mps_set(mod_x, mod_y, MPS_MAP);
+                if(!inCity(point)) break;
+                updateMps(point.x, point.y);
             }
             break;
         case Event::MOUSEWHEEL:
@@ -903,13 +900,13 @@ void GameView::event(const Event& event)
 
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.scancode == SDL_SCANCODE_G){
-                if( inCity(tileUnderMouse) ) {
-                    getMiniMap()->showMpsEnv( tileUnderMouse );
-                }
+                // if( inCity(tileUnderMouse) ) {
+                //     getMiniMap()->showMpsEnv( tileUnderMouse );
+                // }
                 break;
             }
             // hotkeys for scrolling pages up and down
-           if(event.keysym.scancode == SDL_SCANCODE_N)
+            if(event.keysym.scancode == SDL_SCANCODE_N)
             {
                 getMiniMap()->scrollPageDown(true);
                 break;
@@ -929,6 +926,12 @@ void GameView::event(const Event& event)
                 break;
             }
 */
+
+            if( event.keysym.scancode == SDL_SCANCODE_G){
+                mpsEnvOnQuery = !mpsEnvOnQuery;
+                updateMps(mps_x, mps_y);
+                break;
+            }
             //Hide High Buildings
             if( event.keysym.scancode == SDL_SCANCODE_H ){
                 if( hideHigh ){
