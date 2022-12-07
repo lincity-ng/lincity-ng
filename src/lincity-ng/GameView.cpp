@@ -670,6 +670,7 @@ void GameView::event(const Event& event)
                 if(event.mousepos == dragStart)
                     break;
                 viewport += event.mousemove;
+                constrainViewportPosition();
                 setDirty();
                 break;
             }
