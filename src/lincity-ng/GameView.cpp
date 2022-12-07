@@ -560,7 +560,9 @@ void GameView::scroll( void )
     static Uint32 oldTime = SDL_GetTicks();
     Uint32 now = SDL_GetTicks();
     //TODO: scroll speed should be configurable
-    float amt = (now - oldTime) * 0.5;
+    // The sqrt(zoom) makes it feel like the same speed at different zoom
+    // levels.
+    float amt = (now - oldTime) * 0.5 * sqrt(zoom);
     Vector2 dir = Vector2();
     oldTime = now;
     
@@ -575,20 +577,25 @@ void GameView::scroll( void )
     }
 
     if( scrollState & SCROLL_UP_ALL ) {
-        dir.y -= tileHeight;
+        dir.y -= 1;
     }
     if( scrollState & SCROLL_DOWN_ALL ) {
-        dir.y += tileHeight;
+        dir.y += 1;
     }
     if( scrollState & SCROLL_LEFT_ALL ) {
-        dir.x -= tileWidth;
+        dir.x -= 1;
     }
     if( scrollState & SCROLL_RIGHT_ALL ) {
-        dir.x += tileWidth;
+        dir.x += 1;
     }
     
-    float norm = hypot(dir.x, dir.y);
+    // The sqrt((float)tileWidth / tileHeight) makes vertical/horizonal
+    // scrolling feel like the same speed. Surprisingly, without the square
+    // root, it doesn't feel right.
+    float norm = hypot(dir.x * sqrt((float)tileWidth / tileHeight), dir.y);
     if(norm == 0) return;
+    // This makes diagonal scrolling parallel to map components.
+    dir.x *= (float)tileWidth / tileHeight;
     viewport += dir * amt / norm;
     
     constrainViewportPosition();
