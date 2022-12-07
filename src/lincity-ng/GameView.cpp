@@ -1508,12 +1508,10 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
  */
 void GameView::draw(Painter& painter)
 {
-    // I'm not sure why we need to return here. If it does return, then it will
-    // cause an aparant lag. Good news is this should never happen if zooming
-    // and scrolling do their job right. But it could still happen occasionally
-    // due to roundoff error. If there is round-off error and this does not
-    // correct it, then the next draw iteration may also lag.
-    if( constrainViewportPosition() ) return; // not sure why we need to return
+    if( constrainViewportPosition() ) {
+      // Returning causes the display to lag. I'm not sure why it's needed anyway.
+      // return;
+    }
 
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
