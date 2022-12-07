@@ -96,7 +96,7 @@ GameView::~GameView()
     {   gameViewPtr = 0;}
     
     if(panningCursor) {
-      SDL_FreeCursor(panningCursor);
+        SDL_FreeCursor(panningCursor);
     }
 }
 
@@ -342,34 +342,34 @@ void GameView::setZoom(float newzoom){
 }
 
 void GameView::zoomMouse(float factor, Vector2 mousepos) {
-  float newzoom = zoom * factor;
-  
-  //if ( newzoom < .0625 ) return;
-  if ( newzoom < .0312 ) {
-    newzoom = .0312;
-    factor = newzoom / zoom;
-  }
-  if ( newzoom > 4 ) {
-    newzoom = 4;
-    factor = newzoom / zoom;
-  }
+    float newzoom = zoom * factor;
+    
+    //if ( newzoom < .0625 ) return;
+    if (newzoom < .0312) {
+        newzoom = .0312;
+        factor = newzoom / zoom;
+    }
+    if(newzoom > 4) {
+        newzoom = 4;
+        factor = newzoom / zoom;
+    }
 
-  zoom = newzoom;
-  
-  // fix rounding errors...
-  if(fabs(zoom - 1.0) < .01)
-  {   zoom = 1;}
+    zoom = newzoom;
+    
+    // fix rounding errors...
+    if(fabs(zoom - 1.0) < .01)
+        zoom = 1;
 
-  tileWidth = defaultTileWidth * zoom;
-  tileHeight = defaultTileHeight * zoom;
-  //a virtual screen containing the whole city
-  virtualScreenWidth = tileWidth * world.len();
-  virtualScreenHeight = tileHeight * world.len();
-  //std::cout << "Zoom " << zoom  << "\n";
-  
-  viewport = (viewport + mousepos) * factor - mousepos;
-  
-  requestRedraw();
+    tileWidth = defaultTileWidth * zoom;
+    tileHeight = defaultTileHeight * zoom;
+    //a virtual screen containing the whole city
+    virtualScreenWidth = tileWidth * world.len();
+    virtualScreenHeight = tileHeight * world.len();
+    //std::cout << "Zoom " << zoom  << "\n";
+    
+    viewport = (viewport + mousepos) * factor - mousepos;
+    
+    requestRedraw();
 }
 
 /* set Zoomlevel to 100% */
@@ -630,12 +630,12 @@ void GameView::scroll( void )
 }
 
 void GameView::updateMps(int x, int y) {
-  int mod_x = x, mod_y = y;
-  if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
-    mod_x = world(x,y)->reportingConstruction->x;
-    mod_y = world(x,y)->reportingConstruction->y;
-  }
-  mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
+    int mod_x = x, mod_y = y;
+    if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
+        mod_x = world(x,y)->reportingConstruction->x;
+        mod_y = world(x,y)->reportingConstruction->y;
+    }
+    mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
 }
 
 /*
@@ -743,7 +743,7 @@ void GameView::event(const Event& event)
         }
         case Event::MOUSEBUTTONUP:
 
-            if(event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 // getMiniMap()->hideMpsEnv();
             }
 
@@ -938,7 +938,7 @@ void GameView::event(const Event& event)
             }
 */
 
-            if( event.keysym.scancode == SDL_SCANCODE_G){
+            if( event.keysym.scancode == SDL_SCANCODE_G ){
                 mpsEnvOnQuery = !mpsEnvOnQuery;
                 updateMps(mps_x, mps_y);
                 break;
@@ -1031,15 +1031,15 @@ void GameView::event(const Event& event)
 }
 
 void GameView::setPanningCursor() {
-  if(!panningCursor) {
-    panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
-  }
-  SDL_SetCursor(panningCursor);
+    if(!panningCursor) {
+        panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+    }
+    SDL_SetCursor(panningCursor);
 }
 
 void GameView::setDefaultCursor() {
-  // I don't think the default cursor needs to be freed.
-  SDL_SetCursor(SDL_GetDefaultCursor());
+    // I don't think the default cursor needs to be freed.
+    SDL_SetCursor(SDL_GetDefaultCursor());
 }
 
 /*
