@@ -157,6 +157,7 @@ use shift + direction to scroll faster
  h  to hide high buildings. Press h again to show them.
  v  to cycle through MiniMap-overlay modes
  b  toggle between current tool and bulldoze mode 
+ g  toggle between right click showing building or tile info
  F1 Help
  
  F12 quick save

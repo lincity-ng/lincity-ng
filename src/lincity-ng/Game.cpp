@@ -175,11 +175,18 @@ Game::run()
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_WINDOWEVENT:
-                    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                    switch(event.window.event) {
+                    case SDL_WINDOWEVENT_SIZE_CHANGED:
                         videoSizeChanged(event.window.data1, event.window.data2);
                         gui->resize(event.window.data1, event.window.data2);
                         getConfig()->videoX = event.window.data1;
                         getConfig()->videoY = event.window.data2;
+                        break;
+                    case SDL_WINDOWEVENT_ENTER:
+                    case SDL_WINDOWEVENT_LEAVE:
+                        Event gui_event(event);
+                        gui->event(gui_event);
+                        break;
                     }
                     break;
                 case SDL_KEYUP: {
@@ -311,4 +318,3 @@ Game::run()
 }
 
 /** @file lincity-ng/Game.cpp */
-

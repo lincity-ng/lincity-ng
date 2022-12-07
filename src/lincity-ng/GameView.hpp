@@ -149,6 +149,8 @@ private:
     //       (I didn't bother to refactor the name.)
     MapPoint startRoad;
     bool areaBulldoze;
+    bool mpsEnvOnQuery;
+    void updateMps(int x, int y);
 
     static const float defaultTileWidth;
     static const float defaultTileHeight;
@@ -171,6 +173,10 @@ private:
 
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
+    
+    SDL_Cursor *panningCursor;
+    void setPanningCursor();
+    void setDefaultCursor();
 };
 
 GameView* getGameView();
