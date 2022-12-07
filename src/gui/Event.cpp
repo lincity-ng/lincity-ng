@@ -52,6 +52,18 @@ Event::Event(SDL_Event& event)
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
             break;
+        case SDL_WINDOWEVENT:
+            switch(event.window.event) {
+            case SDL_WINDOWEVENT_ENTER:
+                type = WINDOWENTER;
+                break;
+            case SDL_WINDOWEVENT_LEAVE:
+                type = WINDOWLEAVE;
+                break;
+            default:
+                type = WINDOWOTHER;
+            }
+            break;
         default:
             assert(false);
     }
@@ -63,4 +75,3 @@ Event::Event(float _elapsedTime)
 }
 
 /** @file gui/Event.cpp */
-

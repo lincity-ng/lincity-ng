@@ -645,8 +645,8 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            if(getConfig()->useFullScreen) {
-                mouseScrollState = 0;
+            mouseScrollState = 0;
+            if(!dragging) {
                 if( event.mousepos.x < scrollBorder ) {
                     mouseScrollState |= SCROLL_LEFT;
                 } else if( event.mousepos.x > getWidth() - scrollBorder ) {
@@ -854,7 +854,13 @@ void GameView::event(const Event& event)
             else
                 zoomMouse(sqrt(0.5), Vector2(x, y));
             break;
-
+        case Event::WINDOWLEAVE:
+            mouseInGameView = false;
+            mouseScrollState = 0;
+            break;
+        case Event::WINDOWENTER:
+            break;
+        
         case Event::KEYDOWN:
             if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
                 if (roadDragging)
