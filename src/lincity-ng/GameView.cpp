@@ -719,10 +719,11 @@ void GameView::event(const Event& event)
                 if(event.mousepos == dragStart)
                     break;
                 viewport -= event.mousemove;
-                viewport += panAnchorCorrection;
+                viewport += panAnchorCorrection * zoom;
                 panAnchorCorrection = viewport;
                 constrainViewportPosition();
                 panAnchorCorrection -= viewport;
+                panAnchorCorrection /= zoom;
                 setDirty();
                 break;
             }
