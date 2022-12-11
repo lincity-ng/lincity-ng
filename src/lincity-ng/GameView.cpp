@@ -1037,7 +1037,6 @@ void GameView::setPanningCursor() {
 }
 
 void GameView::setDefaultCursor() {
-    // I don't think the default cursor needs to be freed.
     SDL_SetCursor(SDL_GetDefaultCursor());
 }
 
