@@ -150,6 +150,7 @@ private:
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
+    Vector2 panAnchorCorrection;
 
     bool roadDragging, ctrDrag, leftButtonDown;
     // NOTE: leftButtonDown indicates whether the middle button is down

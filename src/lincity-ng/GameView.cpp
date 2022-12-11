@@ -719,10 +719,20 @@ void GameView::event(const Event& event)
                 if(event.mousepos == dragStart)
                     break;
                 viewport -= event.mousemove;
+                viewport += panAnchorCorrection;
+                panAnchorCorrection = viewport;
                 constrainViewportPosition();
+                panAnchorCorrection -= viewport;
                 setDirty();
                 break;
             }
+            if(!rightButtonDown) {
+              // Use `rightButtonDown` instead of `dragging` so releasing and
+              // re-pressing the button does not lose the drag correction. Such
+              // a release and re-press was probably a mistake.
+              panAnchorCorrection = Vector2(0,0);
+            }
+            
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
