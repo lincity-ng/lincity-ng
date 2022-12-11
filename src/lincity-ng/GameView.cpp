@@ -678,7 +678,6 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                // This hand has one finger up. I couldn't find the closed hand.
                 setPanningCursor();
                 dragStartTime = SDL_GetTicks(); // Is this unused???
             }
