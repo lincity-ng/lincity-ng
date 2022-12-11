@@ -131,6 +131,9 @@ wheel:
  up: zoom in
  down: zoom out
 
+motion:
+ move cursor near the screen edge to scroll main screen
+
 Keyboard
 
  ESCAPE switch to query tool
@@ -148,11 +151,12 @@ Keyboard
 
  KP2 scroll main screen se 
  KP4 scroll main screen sw 
- KP6 scroll main screen se 
+ KP6 scroll main screen ne 
  KP8 scroll main screen nw 
- same with cursor
 
-use shift + direction to scroll faster
+ arrow keys or WASD: more ways to scroll
+
+ use shift key to scroll faster
 
  h  to hide high buildings. Press h again to show them.
  v  to cycle through MiniMap-overlay modes
