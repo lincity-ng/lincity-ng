@@ -99,6 +99,7 @@ private:
     void drawDiamond( Painter& painter, const Rect2D& rect );
     static int gameViewThread(void* data);
     void setZoom(float newzoom);
+    void zoomMouse(float factor, Vector2 mousepos);
     bool constrainViewportPosition();
     SDL_Surface* readImage(const std::string& filename);
     void preReadImages(void);
@@ -151,8 +152,12 @@ private:
     Uint32 dragStartTime;
 
     bool roadDragging, ctrDrag, leftButtonDown;
+    // NOTE: leftButtonDown indicates whether the middle button is down
+    //       (I didn't bother to refactor the name.)
     MapPoint startRoad;
     bool areaBulldoze;
+    bool mpsEnvOnQuery;
+    void updateMps(int x, int y);
 
     static const float defaultTileWidth;
     static const float defaultTileHeight;
@@ -175,6 +180,10 @@ private:
 
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
+    
+    SDL_Cursor *panningCursor;
+    void setPanningCursor();
+    void setDefaultCursor();
 };
 
 GameView* getGameView();

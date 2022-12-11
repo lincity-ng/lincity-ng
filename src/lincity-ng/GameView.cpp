@@ -85,6 +85,7 @@ GameView::GameView()
     mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
+    panningCursor = NULL;
 }
 
 GameView::~GameView()
@@ -93,6 +94,10 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
+    
+    if(panningCursor) {
+        SDL_FreeCursor(panningCursor);
+    }
 }
 
 //Static function to use with SDL_CreateThread
@@ -154,6 +159,7 @@ void GameView::parse(XmlReader& reader)
     hideHigh = false;
     showTerrainHeight = false;
     cursorSize = 0;
+    mpsEnvOnQuery = false;
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
@@ -333,6 +339,38 @@ void GameView::setZoom(float newzoom){
 
     //Show the Center
     show( centerTile );
+}
+
+void GameView::zoomMouse(float factor, Vector2 mousepos) {
+    float newzoom = zoom * factor;
+    
+    //if ( newzoom < .0625 ) return;
+    if (newzoom < .0312) {
+        newzoom = .0312;
+        factor = newzoom / zoom;
+    }
+    if(newzoom > 4) {
+        newzoom = 4;
+        factor = newzoom / zoom;
+    }
+
+    zoom = newzoom;
+    
+    // fix rounding errors...
+    if(fabs(zoom - 1.0) < .01)
+        zoom = 1;
+
+    tileWidth = defaultTileWidth * zoom;
+    tileHeight = defaultTileHeight * zoom;
+    //a virtual screen containing the whole city
+    virtualScreenWidth = tileWidth * world.len();
+    virtualScreenHeight = tileHeight * world.len();
+    //std::cout << "Zoom " << zoom  << "\n";
+    
+    viewport = (viewport + mousepos) * factor - mousepos;
+    constrainViewportPosition();
+    
+    requestRedraw();
 }
 
 /* set Zoomlevel to 100% */
@@ -644,6 +682,15 @@ bool GameView::constrainViewportPosition() {
   return false;
 }
 
+void GameView::updateMps(int x, int y) {
+    int mod_x = x, mod_y = y;
+    if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
+        mod_x = world(x,y)->reportingConstruction->x;
+        mod_y = world(x,y)->reportingConstruction->y;
+    }
+    mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
+}
+
 /*
  * Process event
  */
@@ -652,15 +699,17 @@ void GameView::event(const Event& event)
     switch(event.type) {
         case Event::MOUSEMOTION: {
             mouseScrollState = SCROLL_NONE;
-            if( event.mousepos.x < scrollBorder ) {
-                mouseScrollState |= SCROLL_LEFT;
-            } else if( event.mousepos.x > getWidth() - scrollBorder ) {
-                mouseScrollState |= SCROLL_RIGHT;
-            }
-            if( event.mousepos.y < scrollBorder ) {
-                mouseScrollState |= SCROLL_UP;
-            } else if( event.mousepos.y > getHeight() - scrollBorder ) {
-                mouseScrollState |= SCROLL_DOWN;
+            if(!dragging) {
+                if( event.mousepos.x < scrollBorder ) {
+                    mouseScrollState |= SCROLL_LEFT;
+                } else if( event.mousepos.x > getWidth() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_RIGHT;
+                }
+                if( event.mousepos.y < scrollBorder ) {
+                    mouseScrollState |= SCROLL_UP;
+                } else if( event.mousepos.y > getHeight() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_DOWN;
+                }
             }
 
             if( dragging ) {
@@ -669,7 +718,7 @@ void GameView::event(const Event& event)
                 // this was most probably a SDL_WarpMouse
                 if(event.mousepos == dragStart)
                     break;
-                viewport += event.mousemove;
+                viewport -= event.mousemove;
                 constrainViewportPosition();
                 setDirty();
                 break;
@@ -683,8 +732,8 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                SDL_ShowCursor( SDL_DISABLE );
-                dragStartTime = SDL_GetTicks();
+                setPanningCursor();
+                dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
@@ -725,7 +774,7 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
@@ -738,25 +787,25 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
+            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 if( inCity( getTile( event.mousepos ) ) ) {
-                    getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                    // getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
                 }
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
 
-            if(event.mousebutton == SDL_BUTTON_MIDDLE ){
-                getMiniMap()->hideMpsEnv();
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+                // getMiniMap()->hideMpsEnv();
             }
 
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
                     dragging = false;
                     rightButtonDown = false;
-                    SDL_ShowCursor( SDL_ENABLE );
-                    getButtonPanel()->selectQueryTool();
+                    setDefaultCursor();
+                    // getButtonPanel()->selectQueryTool();
                     break;
                 }
                 dragging = false;
@@ -842,21 +891,29 @@ void GameView::event(const Event& event)
                 {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
-              if (getButtonPanel()->selectedQueryTool())
-                recenter(event.mousepos);                               //adjust view
-              else
-                getButtonPanel()->selectQueryTool();
+                // show info on the clicked thing
+                MapPoint point = getTile(event.mousepos);
+                if(!inCity(point)) break;
+                updateMps(point.x, point.y);
             }
             break;
         case Event::MOUSEWHEEL:
             if (event.scrolly == 0)
                 break;
+            int x, y;
+            SDL_GetMouseState(&x, &y);
             if (event.scrolly > 0)
-                zoomIn();
+                zoomMouse(sqrt(2.f), Vector2(x, y));
             else
-                zoomOut();
+                zoomMouse(sqrt(0.5), Vector2(x, y));
             break;
-
+        case Event::WINDOWLEAVE:
+            mouseInGameView = false;
+            mouseScrollState = SCROLL_NONE;
+            break;
+        case Event::WINDOWENTER:
+            break;
+        
         case Event::KEYDOWN:
             if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
                 if (roadDragging)
@@ -919,13 +976,13 @@ void GameView::event(const Event& event)
 
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.scancode == SDL_SCANCODE_G){
-                if( inCity(tileUnderMouse) ) {
-                    getMiniMap()->showMpsEnv( tileUnderMouse );
-                }
+                // if( inCity(tileUnderMouse) ) {
+                //     getMiniMap()->showMpsEnv( tileUnderMouse );
+                // }
                 break;
             }
             // hotkeys for scrolling pages up and down
-           if(event.keysym.scancode == SDL_SCANCODE_N)
+            if(event.keysym.scancode == SDL_SCANCODE_N)
             {
                 getMiniMap()->scrollPageDown(true);
                 break;
@@ -945,6 +1002,12 @@ void GameView::event(const Event& event)
                 break;
             }
 */
+
+            if( event.keysym.scancode == SDL_SCANCODE_G ){
+                mpsEnvOnQuery = !mpsEnvOnQuery;
+                updateMps(mps_x, mps_y);
+                break;
+            }
             //Hide High Buildings
             if( event.keysym.scancode == SDL_SCANCODE_H ){
                 if( hideHigh ){
@@ -1042,6 +1105,18 @@ void GameView::event(const Event& event)
         default:
             break;
     }
+}
+
+void GameView::setPanningCursor() {
+    if(!panningCursor) {
+        panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+    }
+    SDL_SetCursor(panningCursor);
+}
+
+void GameView::setDefaultCursor() {
+    // I don't think the default cursor needs to be freed.
+    SDL_SetCursor(SDL_GetDefaultCursor());
 }
 
 /*
