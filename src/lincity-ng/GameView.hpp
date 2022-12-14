@@ -100,6 +100,7 @@ private:
     static int gameViewThread(void* data);
     void setZoom(float newzoom);
     void zoomMouse(float factor, Vector2 mousepos);
+    bool constrainViewportPosition(bool useScrollCorrection);
     SDL_Surface* readImage(const std::string& filename);
     void preReadImages(void);
     Texture* readTexture(const std::string& filename);
@@ -111,6 +112,7 @@ private:
     float virtualScreenWidth, virtualScreenHeight;
 
     enum {
+        SCROLL_NONE = 0x0,
         SCROLL_UP = 1,
         SCROLL_DOWN = (1 << 1),
         SCROLL_LEFT = (1 << 2),
@@ -120,7 +122,12 @@ private:
         SCROLL_DOWN_LEFT = (1 << 6),
         SCROLL_DOWN_RIGHT = (1 << 7),
         SCROLL_LSHIFT = (1 << 8),
-        SCROLL_RSHIFT = (1 << 9)
+        SCROLL_RSHIFT = (1 << 9),
+        SCROLL_UP_ALL = SCROLL_UP | SCROLL_UP_LEFT | SCROLL_UP_RIGHT,
+        SCROLL_DOWN_ALL = SCROLL_DOWN | SCROLL_DOWN_LEFT | SCROLL_DOWN_RIGHT,
+        SCROLL_LEFT_ALL = SCROLL_LEFT | SCROLL_UP_LEFT | SCROLL_DOWN_LEFT,
+        SCROLL_RIGHT_ALL = SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT,
+        SCROLL_SHIFT_ALL = SCROLL_LSHIFT | SCROLL_RSHIFT,
     };
     int keyScrollState;
     int mouseScrollState;
@@ -143,6 +150,7 @@ private:
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
+    Vector2 scrollCorrection;
 
     bool roadDragging, ctrDrag, leftButtonDown;
     // NOTE: leftButtonDown indicates whether the middle button is down

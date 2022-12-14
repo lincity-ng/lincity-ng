@@ -81,8 +81,8 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     loaderThread = 0;
-    keyScrollState = 0;
-    mouseScrollState = 0;
+    keyScrollState = SCROLL_NONE;
+    mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
     panningCursor = NULL;
@@ -368,6 +368,7 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     //std::cout << "Zoom " << zoom  << "\n";
     
     viewport = (viewport + mousepos) * factor - mousepos;
+    constrainViewportPosition(true);
     
     requestRedraw();
 }
@@ -597,36 +598,93 @@ void GameView::scroll( void )
     static Uint32 oldTime = SDL_GetTicks();
     Uint32 now = SDL_GetTicks();
     //TODO: scroll speed should be configurable
-    float stepx = (now - oldTime) * tileWidth / 100;
-    float stepy = (now - oldTime) * tileHeight / 100;
+    // The sqrt(zoom) makes it feel like the same speed at different zoom
+    // levels.
+    float amt = (now - oldTime) * 0.5 * sqrt(zoom);
+    Vector2 dir = Vector2(0,0);
     oldTime = now;
+    
+    int scrollState = keyScrollState | mouseScrollState;
 
-    if( keyScrollState == 0 && mouseScrollState == 0 ) {
+    if( scrollState == SCROLL_NONE ) {
         return;
     }
 
-    if( keyScrollState & (SCROLL_LSHIFT | SCROLL_RSHIFT) ) {
-        stepx *= 4;
-        stepy *= 4;
+    if( keyScrollState & SCROLL_SHIFT_ALL ) {
+        amt *= 4;
     }
 
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_UP | SCROLL_UP_LEFT | SCROLL_UP_RIGHT) ) {
-        viewport.y -= stepy;
+    if( scrollState & SCROLL_UP_ALL ) {
+        dir.y -= 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_DOWN | SCROLL_DOWN_LEFT | SCROLL_DOWN_RIGHT) ) {
-        viewport.y += stepy;
+    if( scrollState & SCROLL_DOWN_ALL ) {
+        dir.y += 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_LEFT | SCROLL_UP_LEFT | SCROLL_DOWN_LEFT) ) {
-        viewport.x -= stepx;
+    if( scrollState & SCROLL_LEFT_ALL ) {
+        dir.x -= 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT) ) {
-        viewport.x += stepx;
+    if( scrollState & SCROLL_RIGHT_ALL ) {
+        dir.x += 1;
     }
-   requestRedraw();
+    
+    if(dir == Vector2(0,0)) return;
+    
+    // The sqrt((float)tileWidth / tileHeight) makes vertical/horizonal
+    // scrolling feel like the same speed. Surprisingly, without the square
+    // root, it doesn't feel right.
+    float norm = hypot(dir.x * sqrt((float)tileWidth / tileHeight), dir.y);
+    // This makes diagonal scrolling parallel to map components.
+    dir.x *= (float)tileWidth / tileHeight;
+    viewport += dir * amt / norm;
+    constrainViewportPosition(false);
+    
+    requestRedraw();
+}
+
+bool GameView::constrainViewportPosition(bool useScrollCorrection) {
+  //If the centre of the Screen is not Part of the city
+  //adjust viewport so it is.
+  if(useScrollCorrection)
+    viewport += scrollCorrection * zoom;
+  Vector2 center = viewport + (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+  Vector2 centerTile = Vector2(
+    center.y / tileHeight + center.x / tileWidth,
+    center.y / tileHeight - center.x / tileWidth
+  );
+  bool outside = false;
+  if(centerTile.x < gameAreaMin) {
+      centerTile.x = gameAreaMin;
+      outside = true;
+  }
+  else if(centerTile.x > gameAreaMax() + 1) {
+      centerTile.x = gameAreaMax() + 1;
+      outside = true;
+  }
+  if(centerTile.y < gameAreaMin) {
+      centerTile.y = gameAreaMin;
+      outside = true;
+  }
+  else if(centerTile.y > gameAreaMax() + 1) {
+      centerTile.y = gameAreaMax() + 1;
+      outside = true;
+  }
+  
+  if(outside) {
+      Vector2 vpOld = viewport;
+      center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
+      center.y = ( centerTile.x + centerTile.y ) * tileHeight / 2;
+      viewport = center - (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+      if(useScrollCorrection)
+        scrollCorrection = (vpOld - viewport) / zoom;
+      else
+        scrollCorrection = Vector2(0,0);
+      requestRedraw();
+      return true;
+  }
+  else {
+    scrollCorrection = Vector2(0,0);
+    return false;
+  }
 }
 
 void GameView::updateMps(int x, int y) {
@@ -645,7 +703,7 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            mouseScrollState = 0;
+            mouseScrollState = SCROLL_NONE;
             if(!dragging) {
                 if( event.mousepos.x < scrollBorder ) {
                     mouseScrollState |= SCROLL_LEFT;
@@ -666,9 +724,17 @@ void GameView::event(const Event& event)
                 if(event.mousepos == dragStart)
                     break;
                 viewport -= event.mousemove;
+                constrainViewportPosition(true);
                 setDirty();
                 break;
             }
+            if(!rightButtonDown) {
+              // Use `rightButtonDown` instead of `dragging` so releasing and
+              // re-pressing the button does not lose the drag correction. Such
+              // a release and re-press was probably a mistake.
+              scrollCorrection = Vector2(0,0);
+            }
+            
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
@@ -855,7 +921,7 @@ void GameView::event(const Event& event)
             break;
         case Event::WINDOWLEAVE:
             mouseInGameView = false;
-            mouseScrollState = 0;
+            mouseScrollState = SCROLL_NONE;
             break;
         case Event::WINDOWENTER:
             break;
@@ -866,19 +932,31 @@ void GameView::event(const Event& event)
                 {   ctrDrag = !ctrDrag;}
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState |= SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState |= SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState |= SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState |= SCROLL_RIGHT;
                 break;
             }
@@ -973,19 +1051,31 @@ void GameView::event(const Event& event)
                 break;
             }
             //Scroll
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState &= ~SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState &= ~SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState &= ~SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState &= ~SCROLL_RIGHT;
                 break;
             }
@@ -1504,38 +1594,11 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
  */
 void GameView::draw(Painter& painter)
 {
-    //If the centre of the Screen is not Part of the city
-    //adjust viewport so it is.
-    MapPoint centerTile = getCenter();
-    bool outside = false;
-    if( centerTile.x < gameAreaMin )
-    {
-        centerTile.x = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.x > gameAreaMax() )
-    {
-        centerTile.x = gameAreaMax();
-        outside = true;
-    }
-    if( centerTile.y < gameAreaMin )
-    {
-        centerTile.y = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.y > gameAreaMax() )
-    {
-        centerTile.y = gameAreaMax();
-        outside = true;
-    }
-    if( outside )
-    {
-        mouseScrollState = 0;   //Avoid clipping in pause mode
-        keyScrollState = 0;
-        show( centerTile );
-        return;
-    }
-
+    // Constraining the position here shouldn't be necessary if other parts of the code are correct.
+    // if( constrainViewportPosition(true) ) {
+    //     // Returning causes the display to lag. I'm not sure why it's needed anyway.
+    //     // return;
+    // }
 
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
