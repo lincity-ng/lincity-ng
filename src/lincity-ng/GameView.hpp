@@ -100,7 +100,7 @@ private:
     static int gameViewThread(void* data);
     void setZoom(float newzoom);
     void zoomMouse(float factor, Vector2 mousepos);
-    bool constrainViewportPosition();
+    bool constrainViewportPosition(bool useScrollCorrection);
     SDL_Surface* readImage(const std::string& filename);
     void preReadImages(void);
     Texture* readTexture(const std::string& filename);
@@ -150,7 +150,7 @@ private:
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
-    Vector2 panAnchorCorrection;
+    Vector2 scrollCorrection;
 
     bool roadDragging, ctrDrag, leftButtonDown;
     // NOTE: leftButtonDown indicates whether the middle button is down

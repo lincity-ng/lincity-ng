@@ -368,7 +368,7 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     //std::cout << "Zoom " << zoom  << "\n";
     
     viewport = (viewport + mousepos) * factor - mousepos;
-    constrainViewportPosition();
+    constrainViewportPosition(true);
     
     requestRedraw();
 }
@@ -601,7 +601,7 @@ void GameView::scroll( void )
     // The sqrt(zoom) makes it feel like the same speed at different zoom
     // levels.
     float amt = (now - oldTime) * 0.5 * sqrt(zoom);
-    Vector2 dir = Vector2();
+    Vector2 dir = Vector2(0,0);
     oldTime = now;
     
     int scrollState = keyScrollState | mouseScrollState;
@@ -627,59 +627,64 @@ void GameView::scroll( void )
         dir.x += 1;
     }
     
+    if(dir == Vector2(0,0)) return;
+    
     // The sqrt((float)tileWidth / tileHeight) makes vertical/horizonal
     // scrolling feel like the same speed. Surprisingly, without the square
     // root, it doesn't feel right.
     float norm = hypot(dir.x * sqrt((float)tileWidth / tileHeight), dir.y);
-    if(norm == 0) return;
     // This makes diagonal scrolling parallel to map components.
     dir.x *= (float)tileWidth / tileHeight;
     viewport += dir * amt / norm;
-    
-    constrainViewportPosition();
+    constrainViewportPosition(false);
     
     requestRedraw();
 }
 
-bool GameView::constrainViewportPosition() {
+bool GameView::constrainViewportPosition(bool useScrollCorrection) {
   //If the centre of the Screen is not Part of the city
   //adjust viewport so it is.
+  if(useScrollCorrection)
+    viewport += scrollCorrection * zoom;
   Vector2 center = viewport + (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
   Vector2 centerTile = Vector2(
     center.y / tileHeight + center.x / tileWidth,
     center.y / tileHeight - center.x / tileWidth
   );
   bool outside = false;
-  if( centerTile.x < gameAreaMin )
-  {
+  if(centerTile.x < gameAreaMin) {
       centerTile.x = gameAreaMin;
       outside = true;
   }
-  if( centerTile.x > gameAreaMax() + 1 )
-  {
+  else if(centerTile.x > gameAreaMax() + 1) {
       centerTile.x = gameAreaMax() + 1;
       outside = true;
   }
-  if( centerTile.y < gameAreaMin )
-  {
+  if(centerTile.y < gameAreaMin) {
       centerTile.y = gameAreaMin;
       outside = true;
   }
-  if( centerTile.y > gameAreaMax() + 1 )
-  {
+  else if(centerTile.y > gameAreaMax() + 1) {
       centerTile.y = gameAreaMax() + 1;
       outside = true;
   }
-  if( outside )
-  {
+  
+  if(outside) {
+      Vector2 vpOld = viewport;
       center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
       center.y = ( centerTile.x + centerTile.y ) * tileHeight / 2;
       viewport = center - (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+      if(useScrollCorrection)
+        scrollCorrection = (vpOld - viewport) / zoom;
+      else
+        scrollCorrection = Vector2(0,0);
       requestRedraw();
       return true;
   }
-  
-  return false;
+  else {
+    scrollCorrection = Vector2(0,0);
+    return false;
+  }
 }
 
 void GameView::updateMps(int x, int y) {
@@ -719,11 +724,7 @@ void GameView::event(const Event& event)
                 if(event.mousepos == dragStart)
                     break;
                 viewport -= event.mousemove;
-                viewport += panAnchorCorrection * zoom;
-                panAnchorCorrection = viewport;
-                constrainViewportPosition();
-                panAnchorCorrection -= viewport;
-                panAnchorCorrection /= zoom;
+                constrainViewportPosition(true);
                 setDirty();
                 break;
             }
@@ -731,7 +732,7 @@ void GameView::event(const Event& event)
               // Use `rightButtonDown` instead of `dragging` so releasing and
               // re-pressing the button does not lose the drag correction. Such
               // a release and re-press was probably a mistake.
-              panAnchorCorrection = Vector2(0,0);
+              scrollCorrection = Vector2(0,0);
             }
             
             if(!event.inside) {
@@ -1594,10 +1595,11 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
  */
 void GameView::draw(Painter& painter)
 {
-    if( constrainViewportPosition() ) {
-      // Returning causes the display to lag. I'm not sure why it's needed anyway.
-      // return;
-    }
+    // Constraining the position here shouldn't be necessary if other parts of the code are correct.
+    // if( constrainViewportPosition(true) ) {
+    //     // Returning causes the display to lag. I'm not sure why it's needed anyway.
+    //     // return;
+    // }
 
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
