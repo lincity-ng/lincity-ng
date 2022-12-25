@@ -60,6 +60,7 @@ Event::Event(SDL_Event& event)
             // This would help with determining the `inside` field so a scroll
             // event goes to only one component. Evidently, this feature was
             // added in SDL 2.26.0.
+            mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             break;
         case SDL_WINDOWEVENT:
             switch(event.window.event) {

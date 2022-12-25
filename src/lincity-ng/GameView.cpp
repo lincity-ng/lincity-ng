@@ -844,14 +844,12 @@ void GameView::event(const Event& event)
             }
             break;
         case Event::MOUSEWHEEL:
-            if (event.scrolly == 0)
+            if (!event.inside || event.scrolly == 0)
                 break;
-            int x, y;
-            SDL_GetMouseState(&x, &y);
             if (event.scrolly > 0)
-                zoomMouse(sqrt(2.f), Vector2(x, y));
+                zoomMouse(sqrt(2.f), event.mousepos);
             else
-                zoomMouse(sqrt(0.5), Vector2(x, y));
+                zoomMouse(sqrt(0.5), event.mousepos);
             break;
         case Event::WINDOWLEAVE:
             mouseInGameView = false;
