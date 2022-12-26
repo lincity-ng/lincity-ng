@@ -100,6 +100,16 @@ fi
 
 AM_PATH_SDL([2.0.0], , AC_MSG_ERROR([Please install libsdl >= 2.0.0]))
 
+# check for SDL_MouseWheelEvent.mouseX (SDL 2.26.0+)
+CFLAGS_save=$CFLAGS
+# SDL_CFLAGS set with AM_PATH_SDL macro
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+AC_CHECK_MEMBER(SDL_MouseWheelEvent.mouseX,
+    AC_DEFINE([HAVE_SDL_MOUSEWHEELEVENT_MOUSEX],1,[Define if SDL has mouse position data for mouse wheel events.]),
+    AC_MSG_NOTICE([suggest upgrade to SDL >=2.26.0]),
+    [#include <SDL_events.h>])
+CFLAGS=$CFLAGS_save
+
 NP_FINDLIB([SDLMIXER], [SDL_mixer], [SDL_mixer >= 2.0.0],
 	NP_LANG_PROGRAM([#include <SDL_mixer.h>
 #if MIX_MAJOR_VERSION < 1
