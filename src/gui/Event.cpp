@@ -51,15 +51,6 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEWHEEL:
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
-            // We may want to set mousepos with event.wheel.mouseX and
-            // event.wheel.mouseY. I didn't see this field in the docs
-            // (https://wiki.libsdl.org/SDL2/SDL_MouseWheelEvent), but I
-            // stumbled across it in the SDL2 source code
-            // (https://github.com/libsdl-org/SDL/blob/0a3262e819edc695a764702e8127bbd1b09944ef/src/events/SDL_mouse.c#L864).
-            // Also here: https://github.com/libsdl-org/SDL/blob/fcafe40948fe308cc9552df5a3d625ee2725de5a/include/SDL3/SDL_events.h#L320
-            // This would help with determining the `inside` field so a scroll
-            // event goes to only one component. Evidently, this feature was
-            // added in SDL 2.26.0.
             #ifdef HAVE_SDL_MOUSEWHEELEVENT_MOUSEX
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             #else
