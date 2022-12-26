@@ -35,8 +35,9 @@ extern void ok_dial_box(const char *, int, const char *);
 
 void RocketPad::update()
 {
+    int last_frame = (int)frameIt->resourceGroup->graphicsInfoVector.size() - 1;
     // ok the party is over
-    if (frameIt->frame == 7)
+    if (frameIt->frame == last_frame)
     {   return;}
     rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
     // store as much as possible or needed
@@ -45,6 +46,7 @@ void RocketPad::update()
             && (commodityCount[STUFF_JOBS] >= ROCKET_PAD_JOBS)
             && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
             && (commodityCount[STUFF_STEEL] >= ROCKET_PAD_STEEL)
+            && (commodityCount[STUFF_WASTE] + (ROCKET_PAD_GOODS / 3) <= MAX_WASTE_AT_ROCKET_PAD)
             && (jobs_stored < ROCKET_PAD_JOBS_STORE)
             && (goods_stored < ROCKET_PAD_GOODS_STORE)
             && (steel_stored < ROCKET_PAD_STEEL_STORE)
@@ -82,14 +84,20 @@ void RocketPad::update()
         working_days = 0;
     }
 
-    /* animate and return if already said no to launch */
-    if (frameIt->frame >= 4 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
+    /* animate and return */
+    if (frameIt->frame >= 5 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
         if (real_time >= anim)
         {
             anim = real_time + ROCKET_ANIMATION_SPEED;
-            if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-            {   frameIt->frame = 4;}
+            frameIt->frame++;
+            if(frameIt->frame > last_frame)
+            {   
+                frameIt->frame = 5;
+            } else if (frameIt->frame == last_frame)
+            {
+                compute_launch_result();
+            }
         }
         return;
     }
@@ -115,10 +123,13 @@ void RocketPad::update()
 
 void RocketPad::launch_rocket()
 {
+    frameIt->frame = 5;
+    busy = 0;
+}
+
+void RocketPad::compute_launch_result() {
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
-    frameIt->frame = 7;
-    busy = 0;
     /* The first five failures gives 49.419 % chances of 5 success
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */

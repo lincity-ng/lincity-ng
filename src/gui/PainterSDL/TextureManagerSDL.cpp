@@ -73,7 +73,7 @@ TextureManagerSDL::create(SDL_Surface* image)
     SDL_SetColorKey(surface, SDL_SRCCOLORKEY,
             SDL_MapRGB(surface->format, 255, 0, 254));
 #else
-    SDL_Surface* surface = SDL_DisplayFormatAlpha(image);
+    SDL_Surface* surface = SDL_ConvertSurfaceFormat(image, SDL_PIXELFORMAT_RGBA8888, 0);
     SDL_FreeSurface(image);
 #endif
 

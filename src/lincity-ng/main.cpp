@@ -55,6 +55,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "binreloc.h"
 #endif
 
+SDL_Window* window = NULL;
+SDL_GLContext window_context = NULL;
+SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
@@ -217,209 +220,90 @@ void musicHalted() {
     //FIXME: options menu song entry doesn't update while song changes.
 }
 
+void videoSizeChanged(int width, int height) {
+    if (getConfig()->useOpenGL) {
+        /* Reset OpenGL state */
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+
+        glClearColor(0, 0, 0, 0);
+        glViewport(0, 0, width, height);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, width, height, 0, -1, 1);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+}
+void resizeVideo(int width, int height, bool fullscreen)
+{
+    SDL_SetWindowSize(window, width, height);
+    // Set fullscreen (video mode change)
+    if (fullscreen) {
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    } else {
+        SDL_SetWindowFullscreen(window, 0);
+    }
+}
+
 void initVideo(int width, int height)
 {
-    int bpp = 0;
-    int flags = 0;
-    const SDL_VideoInfo* VideoInfo;
+    Uint32 flags = 0;
 
-#ifdef DEBUG
-
-    #define BUFFER_SIZE 256
-    char myBuffer[BUFFER_SIZE];
-    SDL_Rect** modes;
-    int i;
-
-
-    // Obtain the video driver name
-    if (SDL_VideoDriverName(myBuffer, BUFFER_SIZE) != NULL) {
-        std::cout << "\nThe video driver name is " << myBuffer << std::endl;
-    } else {
-        std::cerr << "\nFailed to obtain the video driver name." << std::endl;
-    }
-
-
-    /* Get available fullscreen/hardware modes */
-    modes = SDL_ListModes(NULL, SDL_FULLSCREEN|SDL_HWSURFACE);
-
-    /* Check if there are any modes available */
-    if (modes == (SDL_Rect**)0) {
-        printf("No modes available!\n");
-        exit(-1);
-    }
-
-    /* Check if our resolution is restricted */
-    if (modes == (SDL_Rect**)-1) {
-        printf("All resolutions available.\n");
-    } else {
-        /* Print valid modes */
-        printf("Available Modes\n");
-        for (i=0; modes[i]; ++i)
-            printf("  %d x %d\n", modes[i]->w, modes[i]->h);
-    }
-
-
-    // more info on BEST Video Mode as we request these information *before* calling SDL_SetVideoMode
-    VideoInfo = SDL_GetVideoInfo();
-
-    printf("\n***BEST*** video mode properties\n");
-    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
-    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
-    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
-    printf("VIDEO memory available (on graphic card) (KB) -> %i \n      (only if hw_available == 1, otherwise it is equal to 0)\n", VideoInfo->video_mem);
-    printf("Number of bytes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
-    printf("Window manager available -> %i\n", VideoInfo->wm_available);
-
-#endif
-
+    flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
     if( getConfig()->useOpenGL ){
-        flags = SDL_OPENGL | SDL_RESIZABLE;
+        flags |= SDL_WINDOW_OPENGL;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 1);
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-    } else {
-        flags = SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF;
     }
     if(getConfig()->useFullScreen)
-        flags |= SDL_FULLSCREEN;
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-    SDL_Surface* screen
-        = SDL_SetVideoMode(width, height, bpp, flags);
-
-    if(!screen && (width > 1024 || height > 768 )){
-        screen = SDL_SetVideoMode(1024, 768, bpp, flags);
-        std::cerr << "* Fallback to 1024x768.\n";
-    }
-    if(!screen && (width > 800 || height > 600 )){
-        screen = SDL_SetVideoMode(800, 600, bpp, flags);
-        std::cerr << "* Fallback to 800x600.\n";
-    }
-
-    SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
-    if(!screen) {
-        std::stringstream msg;
-        msg << "Couldn't set video mode ("
-            << width << "x" << height
-            << "-" << bpp << "bpp) : " << SDL_GetError() << std::endl;
-
-        if(getConfig()->useOpenGL) {
-            std::cerr << "* Fallback to SDL mode.\n";
-            getConfig()->useOpenGL = false;
-            initVideo(getConfig()->videoX, getConfig()->videoY); //width, height
-            return;
-        }
-        throw std::runtime_error(msg.str());
-    }
-
-    if(painter)
-    {
-        delete painter;
-        painter = 0;
-    }
-    VideoInfo = SDL_GetVideoInfo();
+    window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED, width, height,
+                              flags);
     if( getConfig()->useOpenGL ){
+        window_context = SDL_GL_CreateContext(window);
+        SDL_GL_SetSwapInterval(1);
+
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
 
         glClearColor(0, 0, 0, 0);
-        glViewport(0, 0, screen->w, screen->h);
+        glViewport(0, 0, width, height);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, screen->w, screen->h, 0, -1, 1);
+        glOrtho(0, width, height, 0, -1, 1);
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        painter = new PainterGL();
-        std::cout << "\nOpenGL Mode " << VideoInfo->current_w;
-        std::cout << "x" << VideoInfo->current_h << "\n";
+        painter = new PainterGL(window);
+        std::cout << "\nOpenGL Mode " << width;
+        std::cout << "x" << height << "\n";
+
+        texture_manager = new TextureManagerGL();
     } else {
-        painter = new PainterSDL(screen);
-        std::cout << "\nSDL Mode " << VideoInfo->current_w;
-        std::cout << "x"<< VideoInfo->current_h <<"\n";
+        window_renderer = SDL_CreateRenderer(window, -1, 0);
+
+        painter = new PainterSDL(window_renderer);
+        std::cout << "\nSDL Mode " << width;
+        std::cout << "x"<< height <<"\n";
+
+        texture_manager = new TextureManagerSDL();
     }
 
-    if(texture_manager == 0) {
-        if( getConfig()->useOpenGL ) {
-            texture_manager = new TextureManagerGL();
-        } else {
-            texture_manager = new TextureManagerSDL();
-        }
-    }
-
-    if(fontManager == 0) {
-        fontManager = new FontManager();
-    }
-
-#ifdef DEBUG
-    // more info on CURRENT Video Mode
-    VideoInfo = SDL_GetVideoInfo();
-
-    printf("\n***CURRENT*** video mode properties\n");
-    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
-    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
-    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
-    printf("VIDEO memory available (on graphic card) (KB) -> %i\n", VideoInfo->video_mem);
-    printf("Number of butes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
-    printf("Window manager available -> %i\n", VideoInfo->wm_available);
-
-#endif
-
-}
-
-void checkGlErrors()
-{
-    GLenum glerror = glGetError();
-    if( glerror == GL_NO_ERROR ){
-        return;
-    }
-    std::cerr << "glGetError reports";
-    while( glerror != GL_NO_ERROR ){
-        std::cerr << " ";
-        switch( glerror ){
-            case GL_INVALID_ENUM:
-                std::cerr << "GL_INVALID_ENUM";
-                break;
-            case GL_INVALID_VALUE:
-                std::cerr << "GL_INVALID_VALUE";
-                break;
-            case GL_INVALID_OPERATION:
-                std::cerr << "GL_INVALID_OPERATION";
-                break;
-            case GL_STACK_OVERFLOW:
-                std::cerr << "GL_STACK_OVERFLOW";
-                break;
-            case GL_STACK_UNDERFLOW:
-                std::cerr << "GL_STACK_UNDERFLOW";
-                break;
-            case GL_TABLE_TOO_LARGE:
-                std::cerr << "GL_TABLE_TOO_LARGE";
-                break;
-            case GL_OUT_OF_MEMORY:
-                std::cerr << "GL_OUT_OF_MEMORY";
-                break;
-            default:
-                std::cerr << glerror;
-        }
-        glerror = glGetError();
-    }
-    std::cerr << "\n";
-}
-
-void flipScreenBuffer()
-{
-    if( getConfig()->useOpenGL ){
-        checkGlErrors();
-        SDL_GL_SwapBuffers();
-        //glClear(GL_COLOR_BUFFER_BIT);
-    } else {
-        SDL_Flip(SDL_GetVideoSurface());
-    }
+    fontManager = new FontManager();
 }
 
 void mainLoop()
@@ -436,7 +320,7 @@ void mainLoop()
             case MAINMENU:
                 {
                     if(menu.get() == 0)
-                    {   menu.reset(new MainMenu());}
+                    {   menu.reset(new MainMenu(window));}
                     nextstate = menu->run();
                 }
                 break;
@@ -444,7 +328,7 @@ void mainLoop()
                 {
                     if(game.get() == 0)
                     {
-                        game.reset(new Game());
+                        game.reset(new Game(window));
 
                         while(!LCPBarPage1 || !LCPBarPage2)
                         {//wait until PBars exist so they can be initalized
@@ -454,7 +338,7 @@ void mainLoop()
                     }
                     nextstate = game->run();
                     if(menu.get() == 0)
-                    {    menu.reset(new MainMenu());}
+                    {    menu.reset(new MainMenu(window));}
                     menu->gotoMainMenu();
 
                 }
@@ -564,7 +448,11 @@ int main(int argc, char** argv)
         initPhysfs(argv[0]);
 
         if( getConfig()->language != "autodetect" ){
+#if defined (WIN32)
+            _putenv_s("LINCITY_LANG", getConfig()->language.c_str());
+#else
             setenv("LINCITY_LANG", getConfig()->language.c_str(), false);
+#endif
         }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");

@@ -25,7 +25,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <assert.h>
 
-static int funcSeek(struct SDL_RWops* context, int offset, int whence)
+static Sint64 funcSize(struct SDL_RWops* context)
+{
+    PHYSFS_file* file = (PHYSFS_file*) context->hidden.unknown.data1;
+    return PHYSFS_fileLength(file);
+}
+
+static Sint64 funcSeek(struct SDL_RWops* context, Sint64 offset, int whence)
 {
     PHYSFS_file* file = (PHYSFS_file*) context->hidden.unknown.data1;
     int res;
@@ -50,14 +56,14 @@ static int funcSeek(struct SDL_RWops* context, int offset, int whence)
         return -1;
     }
 
-    return (int) PHYSFS_tell(file);
+    return PHYSFS_tell(file);
 }
 
-static int funcRead(struct SDL_RWops* context, void* ptr, int size, int maxnum)
+static size_t funcRead(struct SDL_RWops* context, void* ptr, size_t size, size_t maxnum)
 {
     PHYSFS_file* file = (PHYSFS_file*) context->hidden.unknown.data1;
 
-    int res = PHYSFS_readBytes(file, ptr, size * maxnum);
+    PHYSFS_sint64 res = PHYSFS_readBytes(file, ptr, size * maxnum);
     return res;
 }
 
@@ -85,12 +91,12 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename)
     SDL_RWops* ops = new SDL_RWops();
     ops->type = 0;
     ops->hidden.unknown.data1 = file;
+    ops->size = funcSize;
     ops->seek = funcSeek;
     ops->read = funcRead;
-    ops->write = 0;
+    ops->write = NULL;
     ops->close = funcClose;
     return ops;
 }
 
 /** @file PhysfsStream/PhysfsSDL.cpp */
-

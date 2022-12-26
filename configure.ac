@@ -95,12 +95,12 @@ PKG_CHECK_MODULES([LIBXML], [libxml-2.0 >= 2.6.11])
 
 AX_CHECK_GL
 if test "$no_gl" = "yes"; then
-    AC_MSG_ERROR([Couldn't find opengl libraries or headers])
+    AC_MSG_ERROR([Could not find opengl libraries or headers])
 fi
 
-AM_PATH_SDL([1.2.14], , AC_MSG_ERROR([Please install libsdl >= 1.2.14]))
+AM_PATH_SDL([2.0.0], , AC_MSG_ERROR([Please install libsdl >= 2.0.0]))
 
-NP_FINDLIB([SDLMIXER], [SDL_mixer], [SDL_mixer >= 1.2],
+NP_FINDLIB([SDLMIXER], [SDL_mixer], [SDL_mixer >= 2.0.0],
 	NP_LANG_PROGRAM([#include <SDL_mixer.h>
 #if MIX_MAJOR_VERSION < 1
 # error SDLMix too old
@@ -111,34 +111,34 @@ NP_FINDLIB([SDLMIXER], [SDL_mixer], [SDL_mixer >= 1.2],
 #  endif
 # endif
 #endif], [Mix_OpenAudio(0, 0, 0, 0);]),
-	[], [-lSDL_mixer],
+	[], [-lSDL2_mixer],
 	[],
-	[AC_MSG_ERROR([Please install SDLMixer >=1.2.2])],
+	[AC_MSG_ERROR([Please install SDLMixer >=2.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([SDLIMAGE], [SDL_image], [SDL_image >= 1.2],
+NP_FINDLIB([SDLIMAGE], [SDL_image], [SDL_image >= 2.0.0],
 	NP_LANG_PROGRAM([#include <SDL_image.h>], [IMG_Load("");]),
-	[], [-lSDL_image],
+	[], [-lSDL2_image],
 	[],
-	[AC_MSG_ERROR([Please install SDLImage >= 1.2.1])],
+	[AC_MSG_ERROR([Please install SDLImage >= 2.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([SDLTTF], [SDL_ttf], [SDL_ttf >= 2.0.8],
+NP_FINDLIB([SDLTTF], [SDL_ttf], [SDL_ttf >= 2.0.12],
 NP_LANG_PROGRAM([#include <SDL_ttf.h>], [if(!TTF_WasInit()) TTF_Init();]),
-	[], [-lSDL_ttf],
+	[], [-lSDL2_ttf],
 	[],
-	[AC_MSG_ERROR([Please install SDL_ttf >= 2.0.8])],
+	[AC_MSG_ERROR([Please install SDL_ttf >= 2.0.12])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
-NP_FINDLIB([SDLGFX], [SDL_gfx], [SDL_gfx >= 2.0.13],
-		NP_LANG_PROGRAM([#include <SDL_gfxPrimitives.h> 
-#if SDL_GFXPRIMITIVES_MAJOR < 2
+NP_FINDLIB([SDLGFX], [SDL2_gfx], [SDL2_gfx >= 1.0.0],
+		NP_LANG_PROGRAM([#include <SDL2_gfxPrimitives.h>
+#if SDL2_GFXPRIMITIVES_MAJOR < 1
 # error SDL_GFX too old
 #endif
 ], [hlineColor(0, 0, 0, 0, 0);]),
-	[], [-lSDL_gfx],
+	[], [-lSDL2_gfx],
 	[],
-	[AC_MSG_ERROR([Please install SDL_gfx >= 2.0.13])],
+	[AC_MSG_ERROR([Please install SDL2_gfx >= 1.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
 
 NP_FINDLIB([PHYSFS], [physfs], [physfs >= 2.1.0],

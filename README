@@ -38,19 +38,19 @@ you can start building it. Here's a list of them:
 * perforce jam 2.5 or later (used as build tool)
   ftp://ftp.perforce.com/pub/jam
 
-* SDL 1.2.5 or later
+* SDL2 2.0.0 or later
   http://www.libsdl.org
 
-* SDL_mixer 1.2.4 or later (with ogg-support enabled)
+* SDL2_mixer 2.0.0 or later (with ogg-support enabled)
   http://www.libsdl.org/projects/SDL_mixer/
 
-* SDL_image 1.2.3 or later (with png support)
+* SDL2_image 2.0.0 or later (with png support)
   http://www.libsdl.org/projects/SDL_image/
 
-* SDL_ttf 2.0.8 or later
+* SDL2_ttf 2.0.12 or later
   http://www.libsdl.org/projects/SDL_ttf/
 
-* SDL_gfx 2.0.13 or later
+* SDL2_gfx 1.0.0 or later
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
 * PhysicsFS 1.0.0 or later (use stable, NOT development branch 1.1.0)
@@ -76,7 +76,7 @@ To build and install the game use the following commands:
 If you want to install the game, run as root:
     jam install
 
-(If you compile the svn version you have to run ./autogen.sh first.)
+(If you compile the git version you have to run ./autogen.sh first.)
 
 The configure script also lets you set some more options like the installation
 directory (--prefix argument). You'll get a full list of these if you invoke

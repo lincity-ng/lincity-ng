@@ -344,7 +344,7 @@ Paragraph::resize(float width, float height)
                 msg << "Error rendering text: " << SDL_GetError();
                 throw std::runtime_error(msg.str());
             }
-            SDL_SetAlpha(spansurface, 0, 0);
+            SDL_SetSurfaceAlphaMod(spansurface, 255);
             //remember individual margins of spans
             float xoffset;
             bool new_column = false;
@@ -404,7 +404,7 @@ Paragraph::resize(float width, float height)
                     throw std::runtime_error(
                             "Out of memory when composing line image");
                 }
-                SDL_SetAlpha(lineimage, 0, 0);
+                SDL_SetSurfaceAlphaMod(lineimage, 255);
 
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
@@ -498,9 +498,9 @@ Paragraph::resize(float width, float height)
         SDL_BlitSurface(lineimages[i], 0, result, &rect);
         SDL_FreeSurface(lineimages[i]);
     }
-    SDL_Surface* surface = SDL_DisplayFormatAlpha(result);
+    SDL_Surface* surface = SDL_ConvertSurfaceFormat(result, SDL_PIXELFORMAT_RGBA8888, 0);
     SDL_FreeSurface(result);
-    if(surface == 0)
+    if(surface == NULL)
     {   throw std::runtime_error("Out of memory when creating text image(d)");}
 
     texture = texture_manager->create(surface);
@@ -531,9 +531,7 @@ Paragraph::event(const Event& event)
         if(i->rect.inside(event.mousepos)) {
             if(event.type == Event::MOUSEMOTION) {
                 // TODO change mouse cursor
-            } else if(event.type == Event::MOUSEBUTTONDOWN
-                    && event.mousebutton != SDL_BUTTON_WHEELUP
-                    && event.mousebutton != SDL_BUTTON_WHEELDOWN) {
+            } else if(event.type == Event::MOUSEBUTTONDOWN) {
                 linkClicked(this, i->span->style.href);
             }
         }

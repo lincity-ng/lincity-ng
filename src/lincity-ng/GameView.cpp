@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
+#include "lincity/fileutil.h"
 
 #include "Mps.hpp"
 #include "MapEdit.hpp"
@@ -47,7 +48,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Util.hpp"
 #include "Debug.hpp"
 
-#include <SDL_keysym.h>
+#include <SDL_scancode.h>
 #include <math.h>
 #include <sstream>
 #include <physfs.h>
@@ -127,7 +128,7 @@ void GameView::parse(XmlReader& reader)
     blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
 
     stopThread = false;
-    loaderThread = SDL_CreateThread( gameViewThread, this );
+    loaderThread = SDL_CreateThread( gameViewThread, "Loader", this );
 
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
@@ -375,7 +376,7 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
 
 Texture* GameView::readTexture(const std::string& filename)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = physfs_indep_dirsep;
     std::string nfilename = std::string("images") + dirsep
     + std::string("tiles") + dirsep + filename;
     Texture* currentTexture;
@@ -394,7 +395,7 @@ Texture* GameView::readTexture(const std::string& filename)
  */
 SDL_Surface* GameView::readImage(const std::string& filename)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = physfs_indep_dirsep;
 
     //std::string nfilename;
     //nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
@@ -433,7 +434,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
-    std::string dirsep = PHYSFS_getDirSeparator();
+    const auto dirsep = physfs_indep_dirsep;
 
     std::ostringstream os;
     os << "images" << dirsep << "tiles" << dirsep << "images.xml";
@@ -702,7 +703,6 @@ void GameView::event(const Event& event)
                     dragging = false;
                     rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
-                    SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
                     getButtonPanel()->selectQueryTool();
                     break;
                 }
@@ -794,79 +794,78 @@ void GameView::event(const Event& event)
               else
                 getButtonPanel()->selectQueryTool();
             }
-            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){         //up
-                recenter(event.mousepos);                               //adjust view
-                SDL_WarpMouse((Uint16) getWidth() / 2, (Uint16) getHeight() / 2);//set mouse to center
-                zoomIn();                                               //zoom in
-            }
-            else if( event.mousebutton == SDL_BUTTON_WHEELDOWN ){       //down
-                recenter(event.mousepos);                               //adjust view
-                SDL_WarpMouse((Uint16) getWidth() / 2, (Uint16) getHeight() / 2);//set mouse to center
-                zoomOut();                                              //zoom out
-            }
             break;
+        case Event::MOUSEWHEEL:
+            if (event.scrolly == 0)
+                break;
+            if (event.scrolly > 0)
+                zoomIn();
+            else
+                zoomOut();
+            break;
+
         case Event::KEYDOWN:
-            if( event.keysym.sym == SDLK_LCTRL || event.keysym.sym == SDLK_RCTRL ){
+            if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
                 if (roadDragging)
                 {   ctrDrag = !ctrDrag;}
                 break;
             }
-            if( event.keysym.sym == SDLK_KP8 || event.keysym.sym == SDLK_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
                 keyScrollState |= SCROLL_UP;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP2 || event.keysym.sym == SDLK_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
                 keyScrollState |= SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP4 || event.keysym.sym == SDLK_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
                 keyScrollState |= SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP6 || event.keysym.sym == SDLK_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
                 keyScrollState |= SCROLL_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP7 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_7 ){
                 keyScrollState |= SCROLL_UP_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP9 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_9 ){
                 keyScrollState |= SCROLL_UP_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP1 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_1 ){
                 keyScrollState |= SCROLL_DOWN_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP3 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_3 ){
                 keyScrollState |= SCROLL_DOWN_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_LSHIFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_LSHIFT ){
                 keyScrollState |= SCROLL_LSHIFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_RSHIFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_RSHIFT ){
                 keyScrollState |= SCROLL_RSHIFT;
                 break;
             }
 
 
             // use G to show ground info aka MpsEnv without middle mouse button
-            if( event.keysym.sym == SDLK_g){
+            if( event.keysym.scancode == SDL_SCANCODE_G){
                 if( inCity(tileUnderMouse) ) {
                     getMiniMap()->showMpsEnv( tileUnderMouse );
                 }
                 break;
             }
             // hotkeys for scrolling pages up and down
-           if(event.keysym.sym == SDLK_n)
+           if(event.keysym.scancode == SDL_SCANCODE_N)
             {
                 getMiniMap()->scrollPageDown(true);
                 break;
             }
-            if (event.keysym.sym == SDLK_m)
+            if (event.keysym.scancode == SDL_SCANCODE_M)
             {
                 getMiniMap()->scrollPageDown(false);
                 break;
@@ -875,14 +874,14 @@ void GameView::event(const Event& event)
         case Event::KEYUP:
 /*
             //TEst
-            if( event.keysym.sym == SDLK_x ){
+            if( event.keysym.scancode == SDL_SCANCODE_X ){
                 writeOrigin();
                 readOrigin();
                 break;
             }
 */
             //Hide High Buildings
-            if( event.keysym.sym == SDLK_h ){
+            if( event.keysym.scancode == SDL_SCANCODE_H ){
                 if( hideHigh ){
                     hideHigh = false;
                 } else {
@@ -892,7 +891,7 @@ void GameView::event(const Event& event)
                 break;
             }
             //overlay MiniMap Information
-            if( event.keysym.sym == SDLK_v ){
+            if( event.keysym.scancode == SDL_SCANCODE_V ){
                 mapOverlay = (mapOverlay+1)%(overlayMAX+1);
                 requestRedraw();
                 break;
@@ -906,53 +905,54 @@ void GameView::event(const Event& event)
                 zoomOut();
                 break;
             }
-            if( event.keysym.sym == SDLK_KP_ENTER || event.keysym.sym == SDLK_RETURN){
+            if( event.keysym.scancode == SDL_SCANCODE_RETURN
+                    || event.keysym.scancode == SDL_SCANCODE_RETURN2) {
                 resetZoom();
                 break;
             }
             //Scroll
-            if( event.keysym.sym == SDLK_KP8 || event.keysym.sym == SDLK_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
                 keyScrollState &= ~SCROLL_UP;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP2 || event.keysym.sym == SDLK_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
                 keyScrollState &= ~SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP4 || event.keysym.sym == SDLK_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
                 keyScrollState &= ~SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP6 || event.keysym.sym == SDLK_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
                 keyScrollState &= ~SCROLL_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP7 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_7 ){
                 keyScrollState &= ~SCROLL_UP_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP9 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_9 ){
                 keyScrollState &= ~SCROLL_UP_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP1 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_1 ){
                 keyScrollState &= ~SCROLL_DOWN_LEFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_KP3 ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_3 ){
                 keyScrollState &= ~SCROLL_DOWN_RIGHT;
                 break;
             }
-            if( event.keysym.sym == SDLK_LSHIFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_LSHIFT ){
                 keyScrollState &= ~SCROLL_LSHIFT;
                 break;
             }
-            if( event.keysym.sym == SDLK_RSHIFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_RSHIFT ){
                 keyScrollState &= ~SCROLL_RSHIFT;
                 break;
             }
 
-            if ( event.keysym.sym == SDLK_KP5 ) {
+            if ( event.keysym.scancode == SDL_SCANCODE_KP_5 ) {
                 show(MapPoint(world.len() / 2, world.len() / 2));
                 setDirty();
                 break;
@@ -960,8 +960,6 @@ void GameView::event(const Event& event)
             break;
 
         case Event::UPDATE:
-            if(dragging)
-                SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
             break;
 
         default:

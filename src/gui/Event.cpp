@@ -48,6 +48,10 @@ Event::Event(SDL_Event& event)
             mousepos = Vector2(event.button.x, event.button.y);
             mousebutton = event.button.button;
             break;
+        case SDL_MOUSEWHEEL:
+            type = MOUSEWHEEL;
+            scrolly = event.wheel.y;
+            break;
         default:
             assert(false);
     }

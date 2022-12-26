@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"
 #include "gui/Event.hpp"
 #include "gui/Button.hpp"
+#include "gui/Painter.hpp"
 #include "gui/callback/Callback.hpp"
 #include "lincity/fileutil.h"
 #include "lincity/init_game.h"
@@ -51,10 +52,13 @@ Game* getGame(){
  return gameptr;
 }
 
-Game::Game()
+Game::Game(SDL_Window* _window)
+    : window(_window)
 {
     gui.reset(loadGUIFile("gui/app.xml"));
-    gui->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    gui->resize(width, height);
 
     Button* gameMenu = getButton( *gui, "GameMenuButton" );
     gameMenu->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
@@ -181,11 +185,13 @@ Game::run()
         getGameView()->scroll();
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
-                case SDL_VIDEORESIZE:
-                    initVideo(event.resize.w, event.resize.h);
-                    gui->resize(event.resize.w, event.resize.h);
-                    getConfig()->videoX = event.resize.w;
-                    getConfig()->videoY = event.resize.h;
+                case SDL_WINDOWEVENT:
+                    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                        videoSizeChanged(event.window.data1, event.window.data2);
+                        gui->resize(event.window.data1, event.window.data2);
+                        getConfig()->videoX = event.window.data1;
+                        getConfig()->videoY = event.window.data2;
+                    }
                     break;
                 case SDL_KEYUP: {
                      Event gui_event(event);
@@ -267,19 +273,12 @@ Game::run()
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEBUTTONUP:
                 case SDL_MOUSEBUTTONDOWN:
+                case SDL_MOUSEWHEEL:
                 case SDL_KEYDOWN: {
                     Event gui_event(event);
                     gui->event(gui_event);
                     break;
                 }
-                case SDL_ACTIVEEVENT:
-                    if( event.active.gain == 1 ){
-                        gui->resize( gui->getWidth(), gui->getHeight() );
-                    }
-                    break;
-                case SDL_VIDEOEXPOSE:
-                    gui->resize( gui->getWidth(), gui->getHeight() );
-                    break;
                 case SDL_QUIT:
                     saveCityNG( "9_currentGameNG.scn" );
                     running = false;
@@ -300,7 +299,7 @@ Game::run()
         if(desktop->needsRedraw())
         {
             desktop->draw(*painter);
-            flipScreenBuffer();
+            painter->updateScreen();
         }
 
         frame++;

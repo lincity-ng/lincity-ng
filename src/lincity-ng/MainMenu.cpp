@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"
 #include "gui/Desktop.hpp"
 #include "gui/Button.hpp"
+#include "gui/Painter.hpp"
 #include "gui/callback/Callback.hpp"
 
 #include "gui_interface/shared_globals.h"
@@ -54,7 +55,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 extern std::string autoLanguage;
 
-MainMenu::MainMenu()
+MainMenu::MainMenu(SDL_Window* _window)
+    : window(_window)
 {
     loadMainMenu();
     switchMenu(mainMenu.get());
@@ -100,7 +102,9 @@ MainMenu::loadMainMenu()
 
     }
 
-    mainMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    mainMenu->resize(width, height);
 }
 
 void MainMenu::fillNewGameMenu()
@@ -278,7 +282,9 @@ MainMenu::loadNewGameMenu()
 
         fillNewGameMenu();
     }
-    newGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    newGameMenu->resize(width, height);
 }
 
 void
@@ -291,7 +297,9 @@ MainMenu::loadCreditsMenu()
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::creditsBackButtonClicked));
     }
-    creditsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    creditsMenu->resize(width, height);
 }
 
 void
@@ -365,8 +373,16 @@ MainMenu::loadOptionsMenu()
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
 
+
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+
     std::stringstream mode;
-    mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
+    if (getConfig()->useFullScreen) {
+        mode << "fullscreen";
+    } else {
+        mode << width << "x" << height;
+    }
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
     mode.str("");
     mode << world.len();
@@ -591,12 +607,13 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         }
         else
         {
-            //SDL_IGNORE to avoid forth and back jumping resolution
-            SDL_EventState(SDL_VIDEORESIZE, SDL_IGNORE);
-            initVideo( getConfig()->videoX, getConfig()->videoY);
-            currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
-            SDL_EventState(SDL_VIDEORESIZE, SDL_ENABLE);
-            loadOptionsMenu(); //in case resolution was changed while in fullscreen
+            int width = 0, height = 0;
+            SDL_GetWindowSize(window, &width, &height);
+            resizeVideo(width, height, getConfig()->useFullScreen);
+            // switching to fullscreen may change window size again
+            SDL_GetWindowSize(window, &width, &height);
+            currentMenu->resize(width, height);
+            loadOptionsMenu();
         }
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
@@ -617,91 +634,82 @@ This does not actually change the resolution. initVideo has to be called to do t
 @todo sort modes before in ascending order and remove unsupported modes like 640x480
 */
 void MainMenu::changeResolution(bool next) {
-    static SDL_Rect** modes = NULL;
-
-    if(modes == NULL) {
-        Uint32 flags = 0;
-
-        if(getConfig()->useOpenGL){
-            flags = SDL_OPENGL;
-        } else {
-            flags = SDL_HWSURFACE;
-        }
-        flags |= SDL_FULLSCREEN;    // only check for fullscreen modes to get useful results from  SDL_ListModes
-        modes = SDL_ListModes(NULL,  flags);
-
-    }
-
-    if(modes == NULL) {
-        std::cerr << "Error: SDL reports that no video modes are available!\n";
-        return;
-    } else if (modes == (SDL_Rect**)-1) {
-        /* FIXME: SDL docs say that this means that "Any dimension is okay for the given
-         format". I'm not sure what to do in this case. For now I will just report an error.
-        It may be an option to just show some default modes.
-            Jaky */
-        std::cerr << "FIXME: SDL reports that any video mode is possible. Please report to the lincity-ng bugtracker if you get this error. Please use the --size switch or edit userconfig.xml to set your resolution.\n";
+    if (getConfig()->useFullScreen) {
+        /* Resolution changes have no effect in desktop fullscreen mode */
         return;
     }
 
-    const int width = getConfig()->videoX ;
-    const int height = getConfig()->videoY;
-    int closest_mode = -1;
-    for (int i=0; modes[i]; ++i)
-    {
-        if((modes[i]->w == width) && (modes[i]->h == height))
-        {
-            //std::cout << "detected mode: " << modes[i]->w << "x" << modes[i]->h << std::endl;
-            closest_mode = i;
-            break;
-        }
-    }
-    if (closest_mode == -1) //no exact match for current resolution
-    {
-        closest_mode = 0;
-        int dw2 = width-modes[0]->w;
-        dw2 = dw2*dw2;
-        int dh2 = height-modes[0]->h;
-        dh2 = dh2*dh2;
-        int best_fit = dw2 + dh2;
-        for (int i=1; modes[i]; ++i)
-        {   //look for closeset match
-            //std::cout << "testing mode: " << modes[i]->w << "x" << modes[i]->h;
-            dw2 = width-modes[i]->w;
-            dw2 = dw2*dw2;
-            dh2 = height-modes[i]->h;
-            dh2 = dh2*dh2;
-            if(best_fit > (dw2 + dh2))
-            {
-                closest_mode = i;
-                best_fit = dw2 + dh2;
-                //std::cout << ": better suited";
+    // Create a list of candidate resolutions, including a few fallbacks in
+    // case the window system doesn't provide any
+    std::vector<std::pair<int, int>> resolutions;
+    resolutions.push_back(std::pair<int, int>(800,600));
+    resolutions.push_back(std::pair<int, int>(1024,768));
+    resolutions.push_back(std::pair<int, int>(1280,1024));
+
+    int display = SDL_GetWindowDisplayIndex(window);
+    int nmodes = SDL_GetNumDisplayModes(display);
+    for (int i = -1; i < nmodes; ++i) {
+        SDL_DisplayMode mode;
+        if (i >= 0) {
+            if (SDL_GetDisplayMode(display, i, &mode) < 0) {
+                std::cerr << "Error: SDL failed to get mode " << i << " for display " << display << "!\n";
+                continue;
             }
-            //std::cout << std::endl;
+        } else {
+            /* Special case: half the current display size */
+            if (SDL_GetCurrentDisplayMode(display, &mode) < 0) {
+                std::cerr << "Error: SDL failed to get current mode for display " << display << "!\n";
+                continue;
+            }
+            mode.w /= 2;
+            mode.h /= 2;
+        }
+        bool in_list = false;
+        for (size_t j = 0; j < resolutions.size(); j++) {
+            if (resolutions[j].first == mode.w && resolutions[j].second == mode.h) {
+                in_list = true;
+                break;
+            }
+        }
+        if (!in_list) {
+            resolutions.push_back(std::pair<int, int>(mode.w, mode.h));
+        }
+    }
+    std::sort(resolutions.begin(), resolutions.end());
+
+    const int width = getConfig()->videoX;
+    const int height = getConfig()->videoY;
+    int closest_mode = 0;
+    int min_cost = 1000000000;
+    for (size_t i = 0; i < resolutions.size(); ++i) {
+        int cost = 2 * abs(resolutions[i].first - width) + abs(resolutions[i].second - height);
+        if (cost < min_cost) {
+            closest_mode = int(i);
+            min_cost = cost;
         }
     }
 
     std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
 
-    int new_mode = 0;
-
-        std::stringstream mode;
-        mode.str("");
-        mode << modes[closest_mode]->w << "x" << modes[closest_mode]->h;
-
-    if(next && modes[closest_mode+1]) {
-        new_mode = closest_mode+1;
-    } else if (!next && closest_mode > 0) {
-        new_mode = closest_mode-1;
-    } else {    // nothing to do, because we are at the beginning and the user clicked prev or we are at the last mode and the user clickt next
-        return;
-    }
-    getSound()->playSound("Click");
+    std::stringstream mode;
     mode.str("");
-    mode << modes[new_mode]->w << "x" << modes[new_mode]->h;
+    mode << resolutions[closest_mode].first << "x" << resolutions[closest_mode].second;
+
+    int new_mode = closest_mode + (next ? 1 : -1);
+    /* Wrap around */
+    if (new_mode < 0) {
+        new_mode = int(resolutions.size()) - 1;
+    } else if (new_mode >= int(resolutions.size())) {
+        new_mode = 0;
+    }
+
+    mode.str("");
+    mode << resolutions[new_mode].first << "x" << resolutions[new_mode].second;
+
+    getSound()->playSound("Click");
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    getConfig()->videoX = modes[new_mode]->w;
-    getConfig()->videoY = modes[new_mode]->h;
+    getConfig()->videoX = resolutions[new_mode].first;
+    getConfig()->videoY = resolutions[new_mode].second;
 }
 
 void
@@ -765,7 +773,9 @@ MainMenu::switchMenu(Component* newMenu)
     currentMenu = dynamic_cast<Desktop*> (newMenu);
     if(!currentMenu)
     {   throw std::runtime_error("Menu Component is not a Desktop");}
-    currentMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    currentMenu->resize(width, height);
 }
 
 void
@@ -846,7 +856,9 @@ void
 MainMenu::optionsBackButtonClicked(Button* )
 {
     getConfig()->save();
-    if( getConfig()->videoX != SDL_GetVideoSurface()->w || getConfig()->videoY != SDL_GetVideoSurface()->h)
+    int width = 0, height = 0;
+    SDL_GetWindowSize(window, &width, &height);
+    if( getConfig()->videoX != width || getConfig()->videoY != height )
     {
         if( getConfig()->restartOnChangeScreen )
         {
@@ -855,17 +867,17 @@ MainMenu::optionsBackButtonClicked(Button* )
         }
         else
         {
-            //SDL_IGNORE to avoid forth and back jumping resolution
-            SDL_EventState(SDL_VIDEORESIZE, SDL_IGNORE);
-            initVideo( getConfig()->videoX, getConfig()->videoY);
-            currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
-            SDL_EventState(SDL_VIDEORESIZE, SDL_ENABLE);
+            resizeVideo( getConfig()->videoX, getConfig()->videoY, getConfig()->useFullScreen);
             gotoMainMenu();
         }
     }
     else if( currentLanguage != getConfig()->language )
     {
+#if defined (WIN32)
+        _putenv_s("LINCITY_LANG", "");
+#else
         unsetenv("LINCITY_LANG");
+#endif
         quitState = RESTART;
         running = false;
     }
@@ -1012,28 +1024,37 @@ MainMenu::run()
     quitState = QUIT;
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
+    Uint32 lastRedrawTicks = fpsTicks;
     int frame = 0;
     while(running)
     {
-        while(SDL_PollEvent(&event))
+        if(SDL_WaitEventTimeout(&event, 100))
         {
             switch(event.type) {
-                case SDL_VIDEORESIZE:
-                    initVideo(event.resize.w, event.resize.h);
-                    currentMenu->resize(event.resize.w, event.resize.h);
-                    getConfig()->videoX = event.resize.w;
-                    getConfig()->videoY = event.resize.h;
-                    if(currentMenu == optionsMenu.get())//update resolution display
-                    {
-                        std::stringstream mode;
-                        mode.str("");
-                        mode << event.resize.w << "x" << event.resize.h;
-                        getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+                case SDL_WINDOWEVENT:
+                    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                        videoSizeChanged(event.window.data1, event.window.data2);
+                        currentMenu->resize(event.window.data1, event.window.data2);
+                        getConfig()->videoX = event.window.data1;
+                        getConfig()->videoY = event.window.data2;
+
+                        if(currentMenu == optionsMenu.get())//update resolution display
+                        {
+                            std::stringstream mode;
+                            mode.str("");
+                            if (getConfig()->useFullScreen) {
+                                mode << "fullscreen";
+                            } else {
+                                mode << event.window.data1 << "x" << event.window.data2;
+                            }
+                            getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+                        }
                     }
                     break;
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEBUTTONUP:
                 case SDL_MOUSEBUTTONDOWN:
+                case SDL_MOUSEWHEEL:
                 case SDL_KEYDOWN:{
                     Event gui_event(event);
                     currentMenu->event(gui_event);
@@ -1052,14 +1073,6 @@ MainMenu::run()
                     currentMenu->event(gui_event);
                     break;
                 }
-                case SDL_VIDEOEXPOSE:
-                    currentMenu->resize( currentMenu->getWidth(), currentMenu->getHeight() );
-                    break;
-                case SDL_ACTIVEEVENT:
-                    if( event.active.gain == 1 ){
-                        currentMenu->resize( currentMenu->getWidth(), currentMenu->getHeight() );
-                    }
-                    break;
                 case SDL_QUIT:
                     running = false;
                     quitState = QUIT;
@@ -1069,18 +1082,24 @@ MainMenu::run()
             }
         }
 
-
-        SDL_Delay(100); // give the CPU time to relax... (we are in main menu)
-
         // create update Event
         Uint32 ticks = SDL_GetTicks();
         float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
         currentMenu->event(Event(elapsedTime));
         lastticks = ticks;
 
+        /* We unconditionally redraw every ~100 ms as workaround for an SDL bug
+         * under Wayland, in which window resizing is not communicated to the
+         * program until it redraws the window. When this bug is no longer
+         * present, this behavior should be safe to remove */
+        if (ticks - lastRedrawTicks > 90) {
+             currentMenu->reLayout();
+        }
+
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
-            flipScreenBuffer();
+            painter->updateScreen();
+            lastRedrawTicks = ticks;
         }
 
         frame++;
