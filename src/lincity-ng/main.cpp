@@ -79,28 +79,31 @@ void initPhysfs(const char* argv0)
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
     const char* writedir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
-    
-    // Set configuration directory
-    if(!PHYSFS_setWriteDir(writedir)) {
-        // try to create the directory
-        if(!PHYSFS_mkdir(writedir)) {
-            std::ostringstream msg;
-            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-            msg << "Failed creating configuration directory '" <<
-                writedir << "': " << PHYSFS_getErrorByCode(lastError);
-            throw std::runtime_error(msg.str());
-        }
-        
-        if(!PHYSFS_setWriteDir(writedir)) {
-            std::ostringstream msg;
-            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-            msg << "Failed to use configuration directory '" <<
-                writedir << "': " << PHYSFS_getErrorByCode(lastError);
-            throw std::runtime_error(msg.str());
-        }
+    if(!writedir) {
+      std::ostringstream msg;
+      // Unfortunately, PHYSFS_getPrefDir does not expose the path name if
+      // creating the directory failed.
+      msg << "Failed to get configuration directory '";
+      throw std::runtime_error(msg.str());
     }
-    // FIXME: handle error
-    PHYSFS_mount(writedir, nullptr, 0);
+    
+    // enable writing to configuration directory
+    if(!PHYSFS_setWriteDir(writedir)) {
+        std::ostringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Failed to enable writing to configuration directory '"
+            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+        throw std::runtime_error(msg.str());
+    }
+    
+    // mount configuration directory
+    if(!PHYSFS_mount(writedir, nullptr, 0)) {
+        std::ostringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Failed to mount configuration directory '"
+            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+        throw std::runtime_error(msg.str());
+    }
     
     // include old configuration directories to avoid data loss
     // TODO: Move old data to new configuration directory.
@@ -114,7 +117,7 @@ void initPhysfs(const char* argv0)
     //TODO: add zips later
     // Search for archives and add them to the search path
     const char* dirsep = PHYSFS_getDirSeparator();
-    const char* archiveExt = "zip";
+    const char* archiveExt = ".zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
     //TODO sort .zip files! so we are sure which patch is first.
@@ -122,15 +125,13 @@ void initPhysfs(const char* argv0)
     //do when file in in archive?
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
-        if((l > extlen) && ((*i)[l - extlen - 1] == '.')) {
-            const char* ext = (*i) + (l - extlen);
-            if(strcasecmp(ext, archiveExt) == 0) {
-                const char* d = PHYSFS_getRealDir(*i);
-                char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
-                sprintf(str, "%s%s%s", d, dirsep, *i);
-                PHYSFS_mount(str, nullptr, 1);
-                delete[] str;
-            }
+        const char* ext = (*i) + (l - extlen);
+        if(l >= extlen && !strcasecmp(ext, archiveExt)) {
+            const char* d = PHYSFS_getRealDir(*i);
+            char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
+            sprintf(str, "%s%s%s", d, dirsep, *i);
+            PHYSFS_mount(str, nullptr, 1);
+            delete[] str;
         }
     }
     
