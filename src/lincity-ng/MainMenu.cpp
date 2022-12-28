@@ -214,51 +214,30 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
         }
         for(char** i = rc; *i != 0; i++){
             curfile = *i;
-            if(std::string( curfile ).find( filestart.str() ) == 0 ) {
+            if(std::string( curfile ).find( filestart.str() ) != 0 ) {
                 // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
                 // don't create a directoy named 2_ in a savegame-directory or
                 // you can no longer load from slot 2.
-                if (t == 0) {
-                    recentfile = curfile;
-					PHYSFS_Stat statRecentfile;
-					int errorCode = PHYSFS_stat(recentfile, &statRecentfile);
-					if(errorCode == 0)
-					{
-						std::cerr << "stat's content are undefined " << recentfile << std::endl;
-					}
-					t = statRecentfile.modtime;
-				}
-				else {
-					PHYSFS_Stat statCurfile;
-					int errorCode = PHYSFS_stat(curfile, &statCurfile);
-					if(errorCode == 0)
-					{
-						std::cerr << "stat's content are undefined " << curfile << std::endl;
-					}
-					if (statCurfile.modtime > t)
-					{
-/*#ifdef DEBUG
-                        fprintf(stderr," %s is more recent than previous %s\n",
-                                          curfile, recentfile);
-#endif*/
-						recentfile = curfile;
-						PHYSFS_Stat statRecentfile;
-						int errorCode = PHYSFS_stat(recentfile, &statRecentfile);
-						if(errorCode == 0)
-						{
-							std::cerr << "stat's content are undefined " << recentfile << std::endl;
-						}
-						t = statRecentfile.modtime;
-                    }
-                }
+                continue;
+            }
+            PHYSFS_Stat stat;
+            int err = PHYSFS_stat(curfile, &stat);
+            if(!err) {
+                std::cerr << "could not stat file: " <<
+                    curfile << std::endl;
+                continue;
+            }
+            if (!recentfile || stat.modtime > t) {
+                recentfile = curfile;
+                t = stat.modtime;
             }
         }
 #ifdef DEBUG
         fprintf(stderr,"Most recent file: %s\n\n",recentfile);
 #endif
 
-        if(t != 0) {
-            std::string f= recentfile;
+        if(recentfile) {
+            std::string f = recentfile;
             button->setCaptionText(f);
         } else {
             button->setCaptionText(_("empty"));
@@ -1116,4 +1095,3 @@ MainMenu::run()
 }
 
 /** @file lincity-ng/MainMenu.cpp */
-

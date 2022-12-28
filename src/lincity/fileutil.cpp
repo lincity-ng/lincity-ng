@@ -384,9 +384,7 @@ void init_path_strings(void)
     /* Various dirs and files */
     lc_save_dir_len = strlen(prefdir);
     if ((lc_save_dir = (char *)malloc(lc_save_dir_len + 1)) == 0)
-	{
         malloc_failure();
-	}
     sprintf(lc_save_dir, "%s", prefdir);
     sprintf(colour_pal_file, "%s%c%s", LIBDIR, PATH_SLASH, "colour.pal");
     sprintf(opening_path, "%s%c%s", LIBDIR, PATH_SLASH, "opening");
@@ -556,4 +554,3 @@ void debug_printf(char *fmt, ...)
 }
 
 /** @file lincity/fileutil.cpp */
-

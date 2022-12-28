@@ -120,17 +120,16 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
-	PHYSFS_Stat statFilename;
-	int errorCode = PHYSFS_stat(filename.c_str(), &statFilename);
-	if(errorCode == 0)
-	{
-		std::cerr << "stads content are udefined " << filename << std::endl;
-	}
-	else
-	{
-		if(statFilename.filetype == PHYSFS_FILETYPE_DIRECTORY)
-		{   return false;}
-	}
+    // FIXME: Follow symlinks if able. symlink target may be directory
+    // FIXME: What to do with PHYSFS_FILETYPE_OTHER? Should we instead make
+    //        sure the filetype is PHYSFS_FILETYPE_REGULAR?
+    PHYSFS_Stat statFilename;
+    int errorCode = PHYSFS_stat(filename.c_str(), &statFilename);
+    if(errorCode == 0) {
+        std::cerr << "could not stat file: " << filename << std::endl;
+    }
+    else if(statFilename.filetype == PHYSFS_FILETYPE_DIRECTORY)
+    {   return false;}
 
 
         const char* directory = PHYSFS_getRealDir(filename.c_str());
@@ -194,4 +193,3 @@ void initLincity()
 
 
 /** @file lincity-ng/MainLincity.cpp */
-

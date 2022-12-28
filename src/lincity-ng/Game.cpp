@@ -143,20 +143,20 @@ void Game::testAllHelpFiles(){
         fullname = directory;
         fullname.append( *i );
         filename.assign( *i );
-
-		PHYSFS_Stat stat;
-		int errorCode = PHYSFS_stat(fullname.c_str(), &stat);
-		if(errorCode == 0)
-		{
-			std::cerr << "stads content are udefined " << filename << std::endl;
-		}
-		else
-		{
-			if(stat.filetype == PHYSFS_FILETYPE_DIRECTORY)
-			{
-				continue;
-			}
-		}
+        
+        // FIXME: Follow symlinks if able. symlink target may be directory
+        // NOTE: Do we really need to check if it's a directory? Unlikely that
+        //       a directory will have a '.xml' suffix anyway.
+        // FIXME: What to do with PHYSFS_FILETYPE_OTHER? Should we instead make
+        //        sure the filetype is PHYSFS_FILETYPE_REGULAR?
+        PHYSFS_Stat stat;
+        int errorCode = PHYSFS_stat(fullname.c_str(), &stat);
+        if(errorCode == 0) {
+            std::cerr << "could not stat file: " << filename << std::endl;
+        }
+        else if(stat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
+            continue;
+        }
 
         pos = filename.rfind( ".xml" );
         if( pos != std::string::npos ){
@@ -322,4 +322,3 @@ Game::run()
 }
 
 /** @file lincity-ng/Game.cpp */
-

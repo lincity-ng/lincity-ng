@@ -70,55 +70,56 @@ void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
         std::stringstream msg;
-		PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-		msg << "Couldn't initialize physfs: " << PHYSFS_getErrorByCode(lastError);
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Couldn't initialize physfs: "
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
-
+    
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-	const char* writedir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
-
+    const char* writedir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
+    
     // Set configuration directory
     if(!PHYSFS_setWriteDir(writedir)) {
         // try to create the directory
-		if(!PHYSFS_mkdir(writedir)) {
+        if(!PHYSFS_mkdir(writedir)) {
             std::ostringstream msg;
-			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             msg << "Failed creating configuration directory '" <<
-				writedir << "': " << PHYSFS_getErrorByCode(lastError);
+                writedir << "': " << PHYSFS_getErrorByCode(lastError);
             throw std::runtime_error(msg.str());
         }
-
+        
         if(!PHYSFS_setWriteDir(writedir)) {
             std::ostringstream msg;
-			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             msg << "Failed to use configuration directory '" <<
-				writedir << "': " << PHYSFS_getErrorByCode(lastError);
+                writedir << "': " << PHYSFS_getErrorByCode(lastError);
             throw std::runtime_error(msg.str());
         }
     }
-	PHYSFS_mount(writedir, nullptr, 0);
-
-	const char* userdir = PHYSFS_getUserDir();
-	char oldWritedir[strlen(".lincity-ng") + strlen(userdir)];
-	// add ~/.lincity for old savegames
-	sprintf(oldWritedir, "%s.lincity-ng", userdir);
-	PHYSFS_mount(oldWritedir, nullptr, 1);
-
-    // add ~/.lincity for old savegames
+    // FIXME: handle error
+    PHYSFS_mount(writedir, nullptr, 0);
+    
+    // include old configuration directories to avoid data loss
+    // TODO: Move old data to new configuration directory.
+    const char* userdir = PHYSFS_getUserDir();
+    char oldWritedir[strlen(".lincity-ng") + strlen(userdir)];
+    sprintf(oldWritedir, "%s.lincity-ng", userdir);
+    PHYSFS_mount(oldWritedir, nullptr, 1);
     sprintf(oldWritedir, "%s.lincity", userdir);
     PHYSFS_mount(oldWritedir, nullptr, 1);
-
-  //TODO: add zips later
+    
+    //TODO: add zips later
     // Search for archives and add them to the search path
     const char* dirsep = PHYSFS_getDirSeparator();
     const char* archiveExt = "zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
-//TODO sort .zip files! so we are sure which patch is first.
-//and change all file access to physfs. what does PHYSFS_getRealDir
-//do when file in in archive?
+    //TODO sort .zip files! so we are sure which patch is first.
+    //and change all file access to physfs. what does PHYSFS_getRealDir
+    //do when file in in archive?
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
         if((l > extlen) && ((*i)[l - extlen - 1] == '.')) {
@@ -132,9 +133,9 @@ void initPhysfs(const char* argv0)
             }
         }
     }
-
+    
     PHYSFS_freeList(rc);
-
+    
     // when started from source dir...
     std::string dir = PHYSFS_getBaseDir();
     dir += "data";
@@ -144,70 +145,70 @@ void initPhysfs(const char* argv0)
     FILE* f = fopen(testfname.str().c_str(), "r");
     if(f) {
         fclose(f);
-		if(!PHYSFS_mount(dir.c_str(), nullptr, 1)) {
+        if(!PHYSFS_mount(dir.c_str(), nullptr, 1)) {
 #ifdef DEBUG
-			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             std::cout << "Warning: Couldn't add '" << dir <<
                 "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
 #endif
         }
     }
-
-#ifndef __APPLE__	
-	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
-	    std::string datadir;
-	#ifdef ENABLE_BINRELOC
-	    BrInitError error;
-	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-	                error);
-	        printf ("Will fallback to hardcoded default path.\n");
-	    }
-	
-	    char* brdatadir = br_find_data_dir("/usr/local/share");
-	    datadir = brdatadir;
-	    datadir += "/" PACKAGE_NAME;
-	    free(brdatadir);
-	#else
-	    datadir = APPDATADIR;
-	#endif
-	
-	    if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
-			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-	        std::cout << "Couldn't add '" << datadir
-				<< "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
-	    }
-	#endif
+    
+#ifndef __APPLE__
+    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
+        std::string datadir;
+    #ifdef ENABLE_BINRELOC
+        BrInitError error;
+        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+                    error);
+            printf ("Will fallback to hardcoded default path.\n");
+        }
+        
+        char* brdatadir = br_find_data_dir("/usr/local/share");
+        datadir = brdatadir;
+        datadir += "/" PACKAGE_NAME;
+        free(brdatadir);
+    #else
+        datadir = APPDATADIR;
+    #endif
+        
+        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            std::cout << "Couldn't add '" << datadir
+                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
+        }
+    #endif
 #else
-	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__ 
-	    std::string datadir;
-	#ifdef ENABLE_BINRELOC
-	    BrInitError error;
-	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-	                error);
-	        printf ("Will fallback to hardcoded default path.\n");
-	    }
-	
-	    char* brdatadir = br_find_data_dir("/usr/local/share");
-	    datadir = brdatadir;
-	    datadir += "/" PACKAGE_NAME;
-	    free(brdatadir);
-	  #else
-	    datadir = APPDATADIR;
-	  #endif
-	    datadir = getBundleSharePath(PACKAGE_NAME);
-	    if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
-			PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-			std::cout << "Couldn't add '" << datadir
-				<< "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
-	    }
-	#endif
+    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__
+        std::string datadir;
+    #ifdef ENABLE_BINRELOC
+        BrInitError error;
+        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+                    error);
+            printf ("Will fallback to hardcoded default path.\n");
+        }
+        
+        char* brdatadir = br_find_data_dir("/usr/local/share");
+        datadir = brdatadir;
+        datadir += "/" PACKAGE_NAME;
+        free(brdatadir);
+      #else
+        datadir = APPDATADIR;
+      #endif
+        datadir = getBundleSharePath(PACKAGE_NAME);
+        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            std::cout << "Couldn't add '" << datadir
+                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
+        }
+    #endif
 #endif
-
+    
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
-
+    
     //show search Path
     for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
     {   printf("[%s] is in the search path.\n", *i);}
@@ -534,4 +535,3 @@ int main(int argc, char** argv)
 
 
 /** @file lincity-ng/main.cpp */
-
