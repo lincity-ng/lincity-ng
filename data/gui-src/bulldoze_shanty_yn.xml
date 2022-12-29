@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dialogs.xsl" type="text/xsl"?>
+<YesNoDialog>
+    <title>Warning: Bulldozing shanties is dangerous.</title>
+    <image>warning.png</image>
+    <bold>Warning</bold>
+    <p>Bulldozing a shanty town costs a lot of money and may cause a fire.</p>
+    <p>Want to bulldoze?</p>
+</YesNoDialog>

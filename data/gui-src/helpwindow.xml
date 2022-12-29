@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="identity.xsl" type="text/xsl"?>
+<Window width="500" height="400" border="5" titlesize="30" name="HelpWindow">
+	<title>
+        <TableLayout rows="1" cols="2">
+            <colsize col="1" fixed="25"/>
+            <cell row="1" col="1"  halign="right">
+                <Button name="HistoryBack">
+		    		<image src="images/gui/buttons/round/button-round-20.png"/>
+	    			<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+    				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+				    <image-caption src="images/gui/back.png"/>
+                </Button>
+            </cell>
+            <cell row="1" col="2">
+		        <Paragraph halign="center" color="white" name="HelpWindowTitle" translatable="yes"
+    		    height="30" font-size="20">Help</Paragraph>
+            </cell>
+        </TableLayout>
+	</title>
+	<title-background>
+		<Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
+	</title-background>
+	<closebutton>
+		<image src="images/gui/window/window_close.png"/>
+		<image-hover src="images/gui/window/window_close_hover.png"/>
+		<image-clicked src="images/gui/window/window_close_clicked.png"/>
+	</closebutton>
+	<background>
+		<FilledRectangle color="#ffffffbb"/>
+	</background>
+	<contents>
+		<ScrollView name="HelpScrollView">
+		<scrollbar width="20">
+			<button1>
+				<image src="images/gui/buttons/round/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+				<image-caption src="images/gui/scrollbar/arrow_up.png"/>
+			</button1>
+			<button2>
+				<image src="images/gui/buttons/round/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+				<image-caption src="images/gui/scrollbar/arrow_down.png"/>
+			</button2>
+			<scroller>
+				<image src="images/gui/buttons/round/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+			</scroller>
+		</scrollbar>
+		</ScrollView>
+	</contents>
+</Window>
