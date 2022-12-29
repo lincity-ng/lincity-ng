@@ -53,7 +53,7 @@ you can start building it. Here's a list of them:
 * SDL2_gfx 1.0.0 or later
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
-* PhysicsFS 1.0.0 or later (use stable, NOT development branch 1.1.0)
+* PhysicsFS 2.1.0 or later (use stable, NOT development branch)
   http://www.icculus.org/physfs/
 
 * zlib 1.0 or later
@@ -175,4 +175,3 @@ You can contact us at the lincity-ng-devel mailinglist:
 or you might be able to catch us in irc at irc.freenode.net #lincity.
 
 Visit our homepage: https://github.com/lincity-ng/lincity-ng
-
