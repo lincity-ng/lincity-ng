@@ -379,7 +379,7 @@ void init_path_strings(void)
 {
     find_libdir();
     //TODO: use, remove unused vars.
-    const char* prefdir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
+    const char* prefdir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
 
     /* Various dirs and files */
     lc_save_dir_len = strlen(prefdir);

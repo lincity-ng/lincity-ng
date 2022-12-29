@@ -78,7 +78,7 @@ void initPhysfs(const char* argv0)
     
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* writedir = PHYSFS_getPrefDir(LC_SAVE_DIR, LC_SAVE_DIR);
+    const char* writedir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
     if(!writedir) {
       std::ostringstream msg;
       // Unfortunately, PHYSFS_getPrefDir does not expose the path name if
