@@ -70,73 +70,73 @@ void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
         std::stringstream msg;
-        msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Couldn't initialize physfs: "
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
-
+    
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* application = LC_SAVE_DIR;
-    const char* userdir = PHYSFS_getUserDir();
-    const char* dirsep = PHYSFS_getDirSeparator();
-    char* writedir = new char[strlen(userdir) + strlen(application) + 2];
-
-    // Set configuration directory
-    //sprintf(writedir, "%s.%s", userdir, application);
-    sprintf(writedir, "%s%s", userdir, application);
-    if(!PHYSFS_setWriteDir(writedir)) {
-        // try to create the directory
-        char* mkdir = new char[strlen(application) + 2];
-        sprintf(mkdir, "%s", application);
-        if(!PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
-            std::ostringstream msg;
-            msg << "Failed creating configuration directory '" <<
-                writedir << "': " << PHYSFS_getLastError();
-            delete[] writedir;
-            delete[] mkdir;
-            throw std::runtime_error(msg.str());
-        }
-        delete[] mkdir;
-
-        if(!PHYSFS_setWriteDir(writedir)) {
-            std::ostringstream msg;
-            msg << "Failed to use configuration directory '" <<
-                writedir << "': " << PHYSFS_getLastError();
-            delete[] writedir;
-            throw std::runtime_error(msg.str());
-        }
+    const char* writedir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
+    if(!writedir) {
+      std::ostringstream msg;
+      // Unfortunately, PHYSFS_getPrefDir does not expose the path name if
+      // creating the directory failed.
+      msg << "Failed to get configuration directory '";
+      throw std::runtime_error(msg.str());
     }
-    PHYSFS_addToSearchPath(writedir, 0);
-
-    // add ~/.lincity for old savegames
-    sprintf(writedir, "%s.lincity", userdir);
-    PHYSFS_addToSearchPath(writedir, 1);
-    delete[] writedir;
-
-  //TODO: add zips later
+    
+    // enable writing to configuration directory
+    if(!PHYSFS_setWriteDir(writedir)) {
+        std::ostringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Failed to enable writing to configuration directory '"
+            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+        throw std::runtime_error(msg.str());
+    }
+    
+    // mount configuration directory
+    if(!PHYSFS_mount(writedir, nullptr, 0)) {
+        std::ostringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        msg << "Failed to mount configuration directory '"
+            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+        throw std::runtime_error(msg.str());
+    }
+    
+    // include old configuration directories to avoid data loss
+    // TODO: Move old data to new configuration directory.
+    const char* userdir = PHYSFS_getUserDir();
+    char oldWritedir[strlen(".lincity-ng") + strlen(userdir)];
+    sprintf(oldWritedir, "%s.lincity-ng", userdir);
+    PHYSFS_mount(oldWritedir, nullptr, 1);
+    sprintf(oldWritedir, "%s.lincity", userdir);
+    PHYSFS_mount(oldWritedir, nullptr, 1);
+    
+    //TODO: add zips later
     // Search for archives and add them to the search path
-    const char* archiveExt = "zip";
+    const char* dirsep = PHYSFS_getDirSeparator();
+    const char* archiveExt = ".zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
-//TODO sort .zip files! so we are sure which patch is first.
-//and change all file access to physfs. what does PHYSFS_getRealDir
-//do when file in in archive?
+    //TODO sort .zip files! so we are sure which patch is first.
+    //and change all file access to physfs. what does PHYSFS_getRealDir
+    //do when file in in archive?
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
-        if((l > extlen) && ((*i)[l - extlen - 1] == '.')) {
-            const char* ext = (*i) + (l - extlen);
-            if(strcasecmp(ext, archiveExt) == 0) {
-                const char* d = PHYSFS_getRealDir(*i);
-                char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
-                sprintf(str, "%s%s%s", d, dirsep, *i);
-                PHYSFS_addToSearchPath(str, 1);
-                delete[] str;
-            }
+        const char* ext = (*i) + (l - extlen);
+        if(l >= extlen && !strcasecmp(ext, archiveExt)) {
+            const char* d = PHYSFS_getRealDir(*i);
+            char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
+            sprintf(str, "%s%s%s", d, dirsep, *i);
+            PHYSFS_mount(str, nullptr, 1);
+            delete[] str;
         }
     }
-
+    
     PHYSFS_freeList(rc);
-
+    
     // when started from source dir...
     std::string dir = PHYSFS_getBaseDir();
     dir += "data";
@@ -146,67 +146,70 @@ void initPhysfs(const char* argv0)
     FILE* f = fopen(testfname.str().c_str(), "r");
     if(f) {
         fclose(f);
-        if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
+        if(!PHYSFS_mount(dir.c_str(), nullptr, 1)) {
 #ifdef DEBUG
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
             std::cout << "Warning: Couldn't add '" << dir <<
-                "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+                "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
 #endif
         }
     }
-
-#ifndef __APPLE__	
-	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
-	    std::string datadir;
-	#ifdef ENABLE_BINRELOC
-	    BrInitError error;
-	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-	                error);
-	        printf ("Will fallback to hardcoded default path.\n");
-	    }
-	
-	    char* brdatadir = br_find_data_dir("/usr/local/share");
-	    datadir = brdatadir;
-	    datadir += "/" PACKAGE_NAME;
-	    free(brdatadir);
-	#else
-	    datadir = APPDATADIR;
-	#endif
-	
-	    if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
-	        std::cout << "Couldn't add '" << datadir
-	            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
-	    }
-	#endif
+    
+#ifndef __APPLE__
+    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
+        std::string datadir;
+    #ifdef ENABLE_BINRELOC
+        BrInitError error;
+        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+                    error);
+            printf ("Will fallback to hardcoded default path.\n");
+        }
+        
+        char* brdatadir = br_find_data_dir("/usr/local/share");
+        datadir = brdatadir;
+        datadir += "/" PACKAGE_NAME;
+        free(brdatadir);
+    #else
+        datadir = APPDATADIR;
+    #endif
+        
+        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            std::cout << "Couldn't add '" << datadir
+                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
+        }
+    #endif
 #else
-	#if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__ 
-	    std::string datadir;
-	#ifdef ENABLE_BINRELOC
-	    BrInitError error;
-	    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-	        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-	                error);
-	        printf ("Will fallback to hardcoded default path.\n");
-	    }
-	
-	    char* brdatadir = br_find_data_dir("/usr/local/share");
-	    datadir = brdatadir;
-	    datadir += "/" PACKAGE_NAME;
-	    free(brdatadir);
-	  #else
-	      datadir = APPDATADIR;
-	  #endif
-	     datadir = getBundleSharePath(PACKAGE_NAME);
-	      if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
-	          std::cout << "Couldn't add '" << datadir
-	              << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
-	    }
-	#endif
+    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__
+        std::string datadir;
+    #ifdef ENABLE_BINRELOC
+        BrInitError error;
+        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+                    error);
+            printf ("Will fallback to hardcoded default path.\n");
+        }
+        
+        char* brdatadir = br_find_data_dir("/usr/local/share");
+        datadir = brdatadir;
+        datadir += "/" PACKAGE_NAME;
+        free(brdatadir);
+      #else
+        datadir = APPDATADIR;
+      #endif
+        datadir = getBundleSharePath(PACKAGE_NAME);
+        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
+            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+            std::cout << "Couldn't add '" << datadir
+                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
+        }
+    #endif
 #endif
-
+    
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
-
+    
     //show search Path
     for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
     {   printf("[%s] is in the search path.\n", *i);}
@@ -533,4 +536,3 @@ int main(int argc, char** argv)
 
 
 /** @file lincity-ng/main.cpp */
-

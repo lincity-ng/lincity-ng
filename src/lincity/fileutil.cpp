@@ -379,13 +379,13 @@ void init_path_strings(void)
 {
     find_libdir();
     //TODO: use, remove unused vars.
-    const char* homedir = PHYSFS_getUserDir();
+    const char* prefdir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
 
     /* Various dirs and files */
-    lc_save_dir_len = strlen(homedir) + strlen(LC_SAVE_DIR) + 1;
+    lc_save_dir_len = strlen(prefdir);
     if ((lc_save_dir = (char *)malloc(lc_save_dir_len + 1)) == 0)
         malloc_failure();
-    sprintf(lc_save_dir, "%s%c%s", homedir, PATH_SLASH, LC_SAVE_DIR);
+    sprintf(lc_save_dir, "%s", prefdir);
     sprintf(colour_pal_file, "%s%c%s", LIBDIR, PATH_SLASH, "colour.pal");
     sprintf(opening_path, "%s%c%s", LIBDIR, PATH_SLASH, "opening");
 #if defined (WIN32)
@@ -394,7 +394,7 @@ void init_path_strings(void)
     sprintf(opening_pic, "%s%c%s", opening_path, PATH_SLASH, "open.tga.gz");
 #endif
     sprintf(graphic_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "icons", PATH_SLASH);
-    sprintf(lincityrc_file, "%s%c%s", homedir, PATH_SLASH, LINCITYRC_FILENAME);
+    sprintf(lincityrc_file, "%s%s", prefdir, LINCITYRC_FILENAME);
 
     /* Paths for message & help files, etc */
     find_localized_paths();
@@ -554,4 +554,3 @@ void debug_printf(char *fmt, ...)
 }
 
 /** @file lincity/fileutil.cpp */
-
