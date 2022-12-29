@@ -13,6 +13,7 @@
 /data/locale/messages.pot
 /lincity-ng
 /xmlgettext
+/data/gui/
 
 # Temporary Files
 .*.swp

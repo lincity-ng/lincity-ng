@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dialogs.xsl" type="text/xsl"?>
+<Invention>
+	<bold>Import/Export available</bold>
+	<p>
+	You can now import and export coal, goods,
+	ore and steel. Read the help pages on these
+	subjects to find out how to use them.
+	</p>
+</Invention>
