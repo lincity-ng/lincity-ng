@@ -8,6 +8,8 @@ project(lincity-ng
 	LANGUAGES CXX
 	DESCRIPTION "LinCity NG")
 
+include(CheckIncludeFiles)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -22,6 +24,8 @@ find_package(SDL2_mixer CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(PhysFS REQUIRED)
+
+check_include_files(dirent.h HAVE_DIRENT_H)
 
 configure_file(gen/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h)
 

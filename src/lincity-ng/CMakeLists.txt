@@ -6,8 +6,6 @@ add_executable(lincity-ng
 		CheckButton.hpp
 		Config.cpp
 		Config.hpp
-		Debug.cpp
-		Debug.hpp
 		Dialog.cpp
 		Dialog.hpp
 		EconomyGraph.cpp

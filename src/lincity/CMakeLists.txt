@@ -61,3 +61,7 @@ target_link_libraries(lincity_lib
 
 target_include_directories(lincity_lib PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity_lib PRIVATE ${PHYSFS_LIBRARY})
+
+if (NOT WIN32)
+	add_compile_definitions(lincity_lib PRIVATE DEFAULT_LIBDIR="lib")    # TODO
+endif()
