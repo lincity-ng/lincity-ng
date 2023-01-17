@@ -6,7 +6,7 @@
 		"sdl2-gfx",
 		{"name": "sdl2-image", "features": ["libjpeg-turbo"]},
 		"sdl2-mixer",
-		{"name": "sdl2-ttf", "features": ["harfbuzz"]},
+		"sdl2-ttf",
 		"physfs",
 		"libxml2",
 		"zlib"
