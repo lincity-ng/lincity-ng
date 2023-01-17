@@ -31,11 +31,11 @@ add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 add_subdirectory(src)
 
-install(TARGETS lincity-ng
-		RUNTIME DESTINATION .
+install(TARGETS lincity-ng RUNTIME DESTINATION .)
 
-		)
-install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
+if (WIN32)
+	install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
+endif()
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
