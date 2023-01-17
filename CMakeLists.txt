@@ -23,4 +23,6 @@ configure_file(gen/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/gen)
 
+add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
+
 add_subdirectory(src)

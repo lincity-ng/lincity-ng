@@ -182,8 +182,8 @@ void editMap (MapPoint point, int button)
     if(userOperation->action == UserOperation::ACTION_QUERY)
     {
 #ifdef DEBUG
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
+        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+        if ( !binary_mode && keystate[SDL_SCANCODE_D] && world(mod_x,mod_y)->reportingConstruction)
         {
             world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
         }

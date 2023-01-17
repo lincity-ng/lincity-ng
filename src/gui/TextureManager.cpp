@@ -29,6 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include "Filter.hpp"
 #include "PhysfsStream/PhysfsSDL.hpp"
+#ifdef DEBUG
+#include <cassert>
+#endif
 
 TextureManager* texture_manager = 0;
 
