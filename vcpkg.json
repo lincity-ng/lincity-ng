@@ -9,6 +9,7 @@
 		"sdl2-ttf",
 		"physfs",
 		"libxml2",
+		"libxslt",
 		"zlib"
 	]
 }

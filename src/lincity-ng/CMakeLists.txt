@@ -69,3 +69,21 @@ target_link_libraries(lincity-ng
 
 target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})
+
+set(GENERATED_GUI_ROOT ${CMAKE_BINARY_DIR}/data/gui)
+file(MAKE_DIRECTORY ${GENERATED_GUI_ROOT})
+
+file(GLOB GuiSources ${CMAKE_SOURCE_DIR}/data/gui/dialogs/*.xml)
+
+foreach(GuiSource ${GuiSources})
+	get_filename_component(GuiSourceName ${GuiSource} NAME)
+	set(GuiSourceOutput ${GENERATED_GUI_ROOT}/${GuiSourceName})
+	add_custom_command(
+			OUTPUT ${GuiSourceOutput}
+			COMMAND LibXslt::xsltproc -o ${GuiSourceOutput} dialogs.xsl ${GuiSource}
+			DEPENDS ${GuiSource}
+			WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/data/gui/dialogs
+			COMMENT "Convert XML GUI ${GuiSourceName}"
+	)
+	target_sources(lincity-ng PRIVATE ${GuiSourceOutput})
+endforeach()

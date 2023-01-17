@@ -25,6 +25,8 @@ find_package(SDL2_ttf CONFIG REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(PhysFS REQUIRED)
 
+find_package(LibXslt REQUIRED)
+
 check_include_files(dirent.h HAVE_DIRENT_H)
 
 configure_file(gen/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h)
@@ -43,7 +45,8 @@ endif()
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/gui DESTINATION data)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/gui DESTINATION data PATTERN "dialogs" EXCLUDE )
+install(DIRECTORY ${CMAKE_BINARY_DIR}/data/gui DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/help DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/images DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/locale DESTINATION data)

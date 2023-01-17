@@ -66,6 +66,13 @@ A package (currently zip) can be created with:
 
     cmake --build out --target package --config Debug
 
+CMakePresets can also be used (build directory will be `builds/vcpkg`):
+
+    cmake --preset vcpkg                    # To configure
+
+    cmake --build --preset vcpkg            # To build
+    cmake --build --preset vcpkg-package    # To package
+
 ### Starting the game
 
 You can start the game by typing
