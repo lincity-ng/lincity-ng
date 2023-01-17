@@ -1,0 +1,70 @@
+add_executable(lincity-ng
+		binreloc.c
+		binreloc.h
+		ButtonInterface.cpp
+		ButtonPanel.cpp
+		ButtonPanel.hpp
+		CheckButton.cpp
+		CheckButton.hpp
+		Config.cpp
+		Config.hpp
+		Debug.cpp
+		Debug.hpp
+		Dialog.cpp
+		Dialog.hpp
+		EconomyGraph.cpp
+		EconomyGraph.hpp
+		ErrorInterface.cpp
+		ErrorInterface.hpp
+		Game.cpp
+		Game.hpp
+		GameView.cpp
+		GameView.hpp
+		getBundleSharePath.cpp
+		HelpWindow.cpp
+		HelpWindow.hpp
+		main.cpp
+		main.hpp
+		MainLincity.cpp
+		MainLincity.hpp
+		MainMenu.cpp
+		MainMenu.hpp
+		MapEdit.cpp
+		MapEdit.hpp
+		MapPoint.hpp
+		MiniMap.cpp
+		MiniMap.hpp
+		Mps.cpp
+		Mps.hpp
+		MpsInterface.cpp
+		PBar.cpp
+		PBar.hpp
+		PbarInterface.cpp
+		Permutator.cpp
+		Permutator.hpp
+		readdir.cpp
+		readdir.hpp
+		ReadPngInterface.cpp
+		ScreenInterface.cpp
+		ScreenInterface.hpp
+		Sound.cpp
+		Sound.hpp
+		TimerInterface.cpp
+		TimerInterface.hpp
+		Util.cpp
+		Util.hpp
+		)
+
+
+target_link_libraries(lincity-ng
+		PRIVATE
+		tinygettext
+		LinCity::physfsstream
+		LinCity::lib
+		LinCity::gui
+		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		)
+
+target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
+target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})

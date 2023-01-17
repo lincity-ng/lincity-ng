@@ -15,8 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
 #include "Event.hpp"
 
 #include <assert.h>
@@ -51,13 +49,13 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEWHEEL:
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
-            #ifdef HAVE_SDL_MOUSEWHEELEVENT_MOUSEX
+//            #ifdef HAVE_SDL_MOUSEWHEELEVENT_MOUSEX
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
-            #else
-            int x, y;
-            SDL_GetMouseState(&x, &y);
-            mousepos = Vector2(x, y);
-            #endif
+//            #else
+//            int x, y;
+//            SDL_GetMouseState(&x, &y);
+//            mousepos = Vector2(x, y);
+//            #endif
             break;
         case SDL_WINDOWEVENT:
             switch(event.window.event) {

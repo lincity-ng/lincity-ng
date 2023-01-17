@@ -5,14 +5,6 @@
 #ifndef __lctypes_h__
 #define __lctypes_h__
 
-// from http://www.ibm.com/developerworks/linux/library/l-gcc-hacks/index.html
-#define min(x, y) ({				\
-	typeof(x) _min1 = (x);			\
-	typeof(y) _min2 = (y);			\
-	(void) (&_min1 == &_min2);		\
-	_min1 < _min2 ? _min1 : _min2; })	
-
-
 /* Vector for visiting neigbours = ( di(k) , dj(k) )  ; ordered so that diagonal moves are the last 4 */
 static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1 };
 static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1 };

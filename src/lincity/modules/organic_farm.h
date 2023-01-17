@@ -30,7 +30,6 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-#include "../lcconfig.h"
 #include "../lin-city.h"
 #include <stdlib.h>
 

@@ -20,8 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ComponentFactory.hpp"
 #include "Debug.hpp"
 
-#include <config.h>
-
 #include <stdexcept>
 
 #include "gui/Painter.hpp"

@@ -4,7 +4,7 @@
   * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
   * ---------------------------------------------------------------------- */
 #include <config.h>
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <stdarg.h>             /* XXX: GCS FIX: What does configure need to know? */
 #include <string.h>

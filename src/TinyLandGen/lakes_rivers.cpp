@@ -137,7 +137,7 @@ static void try_shore_point(int x, int y, Shoreline * shore)
 		add_shore_point(current, x, y, a);
 }
 
-static int setup_one_river(int xx, int yy, int lake_id, Shoreline * shore)
+static void setup_one_river(int xx, int yy, int lake_id, Shoreline * shore)
 {
 	int alt_max, x, y, alt, x0, y0;
 	// start a river from point (xx, yy)
@@ -146,6 +146,7 @@ static int setup_one_river(int xx, int yy, int lake_id, Shoreline * shore)
 
 	x0 = xx;
 	y0 = yy;
+	x = y = 0;  // TODO: This might not be correct, but the code following this is using this uninitialized...
 	/* follow most important slope and go downward */
 	while (((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0)
 	       && (yy != WORLD_SIDE_LEN - 1)) {

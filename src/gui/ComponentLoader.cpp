@@ -21,8 +21,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file ComponentLoader.cpp
  */
 
-#include <config.h>
-
 #include "ComponentLoader.hpp"
 #include "ComponentFactory.hpp"
 #include "XmlReader.hpp"

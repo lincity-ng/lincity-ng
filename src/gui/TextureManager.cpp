@@ -21,16 +21,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file TextureManager.cpp
  */
 
-#include <config.h>
-
 #include "TextureManager.hpp"
 
 #include <SDL_image.h>
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
-#include <assert.h>
-#include "gui/Filter.hpp"
+#include "Filter.hpp"
 #include "PhysfsStream/PhysfsSDL.hpp"
 
 TextureManager* texture_manager = 0;

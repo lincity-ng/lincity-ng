@@ -29,7 +29,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxml/parser.h>
-#include <unistd.h>
 
 #include "gui/FontManager.hpp"
 #include "gui/TextureManager.hpp"
@@ -108,7 +107,8 @@ void initPhysfs(const char* argv0)
     // include old configuration directories to avoid data loss
     // TODO: Move old data to new configuration directory.
     const char* userdir = PHYSFS_getUserDir();
-    char oldWritedir[strlen(".lincity-ng") + strlen(userdir)];
+    // TODO: Replace with fmt
+    static char oldWritedir[1024];
     sprintf(oldWritedir, "%s.lincity-ng", userdir);
     PHYSFS_mount(oldWritedir, nullptr, 1);
     sprintf(oldWritedir, "%s.lincity", userdir);
@@ -126,7 +126,7 @@ void initPhysfs(const char* argv0)
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
         const char* ext = (*i) + (l - extlen);
-        if(l >= extlen && !strcasecmp(ext, archiveExt)) {
+        if(l >= extlen && !SDL_strcasecmp(ext, archiveExt)) {
             const char* d = PHYSFS_getRealDir(*i);
             char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
             sprintf(str, "%s%s%s", d, dirsep, *i);
