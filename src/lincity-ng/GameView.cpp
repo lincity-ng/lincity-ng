@@ -1675,7 +1675,7 @@ void GameView::draw(Painter& painter)
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
 
-            if ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
+            if (userOperation->action == UserOperation::ACTION_BULLDOZE)
             {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
