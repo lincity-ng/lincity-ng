@@ -14,11 +14,13 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+
 find_package(Threads)
 find_package(ZLIB REQUIRED)
 
 find_package(SDL2 CONFIG REQUIRED)
-find_package(sdl2-gfx CONFIG REQUIRED)
+find_package(SDL2_gfx REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2_mixer CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
