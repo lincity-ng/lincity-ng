@@ -15,11 +15,12 @@ These are generic instructions, please see the wiki for more specific instructio
 
 ### Prerequisites
 
-The game depends on some libraries to be present, before you can start building it,
-but if you use `vcpkg` (check the [Building](#building) section)
-this is taken care of for you.
+The game depends on some libraries to be present before you can building it.
 
-Here's a list of them:
+If you use `vcpkg` (see the [Building](#building) section) this is taken care
+of automatically for you.
+
+Here is the list of required packages:
 
 * SDL2 2.0.0 or later
   http://www.libsdl.org
@@ -45,45 +46,54 @@ Here's a list of them:
 * libxml 2.6.11 or later
   http://xmlsoft.org/
 
-If you use packages from you distribution pay attention that you need
-the header files in addition to the libraries. They are often in 
-separate `*-dev` packages. Eg. for `physfs` you need `libphysfs` and `libphysfs-dev`.
+If you use packages from your distribution, pay attention that you need the
+header files in addition to the libraries. They are often in separate `*-dev`
+packages. E.g. for `physfs` you need `libphysfs` and `libphysfs-dev`.
 
 ### Building
 
+To configure the build:
+```
+$ cmake -B build
+```
+To use vcpkg to automatically manage dependencies, add
+`-DCMAKE_TOOLCHAIN_FILE=<path to vcpkg>/scripts/buildsystems/vcpkg.cmake`
+to the configure command, where `<path to vcpkg>` is the path to your vcpkg
+installation.
+
 To build the game:
-
-    cmake -B out --preset vcpkg --config Debug
-    cmake --build out --parallel
-
-`out` can be replaced with any other folder you want, and config can be `Debug` or `Release`.
+```
+$ cmake --build out --parallel
+```
 
 To install the game:
+```
+# cmake --install build
+```
+(You may specify a different install prefix with the `--prefix` option.)
 
-    cmake --install out --prefix <target directory> --config Debug
+To create a package (currently zip):
+```
+$ cmake --build build --target package
+```
 
-A package (currently zip) can be created with:
+Run `cmake --help` to see all the available options.
 
-    cmake --build out --target package --config Debug
+### Running
 
-CMakePresets can also be used (build directory will be `builds/vcpkg`):
+To run the game without installing:
+```
+$ build/bin/lincity-ng
+```
 
-    cmake --preset vcpkg                    # To configure
+When the game is installed, you may run it with:
+```
+$ lincity-ng
+```
 
-    cmake --build --preset vcpkg            # To build
-    cmake --build --preset vcpkg-package    # To package
-
-### Starting the game
-
-You can start the game by typing
-
-    lincity-ng
-
-### Exit the game
-
-If you are in the main menu, you can quit the program also by
-pressing 'ESCAPE' or '^c'. This might be a way to terminate the
-program even if the selected video-mode is not working as expected.
+From the main menu, you can quit the program by pressing ESC or ^C. This can be
+useful to terminate the program even if the selected video mode is not working
+properly.
 
 ## Gameplay
 
@@ -91,7 +101,7 @@ See the ingame help [F1] for more details.
 
 ### Objective
 
-You can win Lincity either by building a sustainable economy or
+You can win Lincity-NG either by building a sustainable economy or
 by evacuating all citizens with spaceships.
 
 ### Controls
@@ -111,7 +121,7 @@ middle:
 
 left:
  * Perform action depending on selected tool. Bulldoze, show Information, construct building.
- * open Tool-Selection-Menus 
+ * open Tool-Selection-Menus
  * select tool from menus
 
 wheel:
@@ -131,7 +141,7 @@ Keyboard
  * KP_ENTER zoom 100%
 
 
- * KP5 put middle of the map in the center of the main screen  
+ * KP5 put middle of the map in the center of the main screen
 
 
  * KP9 scroll main screen north
@@ -146,7 +156,7 @@ Keyboard
  * KP8 scroll main screen NW
 
 
- * arrow keys or WASD: more ways to scroll
+ * arrow keys and WASD: more ways to scroll
 
 
  * use shift key to scroll faster
@@ -154,18 +164,18 @@ Keyboard
 
  * h  to hide high buildings. Press h again to show them.
  * v  to cycle through MiniMap-overlay modes
- * b  toggle between current tool and bulldoze mode 
+ * b  toggle between current tool and bulldoze mode
  * g  toggle between right click showing building or tile info
  * F1 Help
- 
+
  * F12 quick save
  * F9  quick load
 
 ## Contact
 
-Bugs should be reported to:
+Please report bugs and suggest features to:
     https://github.com/lincity-ng/lincity-ng/issues
-    
+
 You can contact us at the lincity-ng-devel mailinglist:
     http://lists.fedorahosted.org/mailman/listinfo/lincity-ng-devel
 or you might be able to catch us in irc at irc.freenode.net #lincity.
