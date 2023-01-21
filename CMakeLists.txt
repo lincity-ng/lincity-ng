@@ -46,6 +46,7 @@ add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
+add_subdirectory(doc)
 
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_NOINSTALL_BINDIR})
 install(TARGETS lincity-ng RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
