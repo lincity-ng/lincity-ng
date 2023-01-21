@@ -108,11 +108,19 @@ void initPhysfs(const char* argv0)
     // TODO: Move old data to new configuration directory.
     const char* userdir = PHYSFS_getUserDir();
     // TODO: Replace with fmt
-    static char oldWritedir[1024];
-    sprintf(oldWritedir, "%s.lincity-ng", userdir);
-    PHYSFS_mount(oldWritedir, nullptr, 1);
-    sprintf(oldWritedir, "%s.lincity", userdir);
-    PHYSFS_mount(oldWritedir, nullptr, 1);
+    char oldWritedir[1024];
+    if(snprintf(oldWritedir, 1024, "%s.lincity-ng", userdir) < 1024) {
+      PHYSFS_mount(oldWritedir, nullptr, 1);
+    }
+    else {
+      printf("warning: home directory path name too long, cannot load legacy configuration directory: ~/.lincity-ng");
+    }
+    if(snprintf(oldWritedir, 1024, "%s.lincity", userdir) < 1024) {
+      PHYSFS_mount(oldWritedir, nullptr, 1);
+    }
+    else {
+      printf("warning: home directory path name too long, cannot load legacy configuration directory: ~/.lincity");
+    }
     
     // mount read-only data directory
     bool foundRodd = true;
