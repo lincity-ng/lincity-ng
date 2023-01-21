@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <Panel width="173" height="103" background="images/gui/speedpanel.png">
 	<TableLayout rows="6" cols="5">
 		<rowsize row="1" fixed=" 5"/>

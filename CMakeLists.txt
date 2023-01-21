@@ -38,6 +38,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/gen)
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 add_subdirectory(src)
+add_subdirectory(data)
 
 install(TARGETS lincity-ng RUNTIME DESTINATION .)
 
@@ -47,7 +48,6 @@ endif()
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/gui DESTINATION data PATTERN "dialogs" EXCLUDE )
 install(DIRECTORY ${CMAKE_BINARY_DIR}/data/gui DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/help DESTINATION data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/images DESTINATION data)

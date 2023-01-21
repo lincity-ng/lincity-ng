@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dialogs.xsl" type="text/xsl"?>
 <Dialog width="630" height="450" name="GameStats">
 	<title>Gamestats</title>
 	<contents>

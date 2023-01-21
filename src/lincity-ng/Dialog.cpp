@@ -161,7 +161,7 @@ void Dialog::askRocket(){
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/launch_rocket_yn.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/launch_rocket_yn.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -190,8 +190,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
         std::cerr << "No desktop found.\n";
         return;
     }
-    //generate filename. foo.mes => gui/foo.xml
-    std::string filename = "gui/";
+    //generate filename. foo.mes => gui/dialogs/foo.xml
+    std::string filename = "gui/dialogs/";
     filename += message;
     std::string::size_type pos = filename.rfind( ".mes" );
     if( pos != std::string::npos ){
@@ -216,7 +216,7 @@ void Dialog::askBulldozeMonument() {
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/bulldoze_monument_yn.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_monument_yn.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -239,7 +239,7 @@ void Dialog::askBulldozeRiver() {
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/bulldoze_river_yn.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_river_yn.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -262,7 +262,7 @@ void Dialog::askBulldozeShanty() {
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/bulldoze_shanty_yn.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_shanty_yn.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -285,7 +285,7 @@ void Dialog::coalSurvey(){
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/coal_survey_yn.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/coal_survey_yn.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -352,7 +352,7 @@ void Dialog::gameStats(){
     myDialogComponent = desktop->findComponent("GameStats");
     if( myDialogComponent == 0){
         try {
-            myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
+            myDialogComponent = loadGUIFile( "gui/dialogs/gamestats.xml" );
             assert( myDialogComponent != 0);
             registerDialog();
         } catch(std::exception& e) {
@@ -607,7 +607,7 @@ void Dialog::editMarket(){
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/tradedialog.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/tradedialog.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -666,7 +666,7 @@ void Dialog::editPort(){
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/portdialog.xml" );
+        myDialogComponent = loadGUIFile( "gui/dialogs/portdialog.xml" );
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
