@@ -41,7 +41,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/gen)
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 add_subdirectory(src)
-add_subdirectory(data)
+add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
 
 install(TARGETS lincity-ng RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 

@@ -1,5 +1,29 @@
 add_subdirectory(gui)
 
+file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
+  fonts/*
+  help/*
+  images/*
+  locale/*
+  music/*
+  opening/*.scn
+  sounds/*
+  colour.pal
+  lincityconfig.xml
+)
+
+foreach(dataFile ${allDataFiles})
+  add_custom_command(
+    OUTPUT ${dataFile}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${dataFile} ${dataFile}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${dataFile}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "copying ${dataFile} to build directory"
+  )
+endforeach()
+add_custom_target(allDataFiles.target DEPENDS ${allDataFiles})
+add_dependencies(lincity-ng allDataFiles.target)
+
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/fonts DESTINATION ${CMAKE_INSTALL_APPDATADIR})
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/help DESTINATION ${CMAKE_INSTALL_APPDATADIR})
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/images DESTINATION ${CMAKE_INSTALL_APPDATADIR})
