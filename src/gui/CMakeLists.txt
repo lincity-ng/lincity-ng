@@ -92,5 +92,9 @@ target_link_libraries(lincity_gui
 		OpenGL::GL
 		)
 
-target_include_directories(lincity_gui PRIVATE ${PHYSFS_INCLUDE_DIR})
+target_include_directories(lincity_gui
+		PRIVATE
+		${PHYSFS_INCLUDE_DIR}
+		PUBLIC
+		${LIBXML2_INCLUDE_DIR})
 target_link_libraries(lincity_gui PRIVATE ${PHYSFS_LIBRARY})

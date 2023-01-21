@@ -56,6 +56,7 @@ target_link_libraries(lincity_lib
 		tinygettext
 		LinCity::physfsstream
 		LinCity::lib_modules
+		LinCity::gui
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		)
 
