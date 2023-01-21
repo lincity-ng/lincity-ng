@@ -114,8 +114,23 @@ void initPhysfs(const char* argv0)
     sprintf(oldWritedir, "%s.lincity", userdir);
     PHYSFS_mount(oldWritedir, nullptr, 1);
     
-    //TODO: add zips later
+    // mount read-only data directory
+    bool foundRodd = true;
+    #ifdef DEBUG
+    foundRodd |= !PHYSFS_mount(NOINSTALL_APPDATADIR, nullptr, 1);
+    #endif
+    foundRodd |= !PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
+    if(!foundRodd) {
+      std::ostringstream msg;
+      PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+      msg << "Failed to mount read-only data directory '"
+          << INSTALL_FULL_APPDATADIR
+          << "': " << PHYSFS_getErrorByCode(lastError);
+      throw std::runtime_error(msg.str());
+    }
+    
     // Search for archives and add them to the search path
+    //TODO: add zips later
     const char* dirsep = PHYSFS_getDirSeparator();
     const char* archiveExt = ".zip";
     char** rc = PHYSFS_enumerateFiles("/");
@@ -134,78 +149,7 @@ void initPhysfs(const char* argv0)
             delete[] str;
         }
     }
-    
     PHYSFS_freeList(rc);
-    
-    // when started from source dir...
-    std::string dir = PHYSFS_getBaseDir();
-    dir += "data";
-    std::ostringstream testfname;
-    //TODO: Windows/Mingw does not like this test on other machine?
-    testfname << dir << dirsep << "images" << dirsep << "tiles" << dirsep << "images.xml";
-    FILE* f = fopen(testfname.str().c_str(), "r");
-    if(f) {
-        fclose(f);
-        if(!PHYSFS_mount(dir.c_str(), nullptr, 1)) {
-#ifdef DEBUG
-            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-            std::cout << "Warning: Couldn't add '" << dir <<
-                "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
-#endif
-        }
-    }
-    
-#ifndef __APPLE__
-    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
-        std::string datadir;
-    #ifdef ENABLE_BINRELOC
-        BrInitError error;
-        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-                    error);
-            printf ("Will fallback to hardcoded default path.\n");
-        }
-        
-        char* brdatadir = br_find_data_dir("/usr/local/share");
-        datadir = brdatadir;
-        datadir += "/" PACKAGE_NAME;
-        free(brdatadir);
-    #else
-        datadir = APPDATADIR;
-    #endif
-        
-        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
-            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-            std::cout << "Couldn't add '" << datadir
-                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
-        }
-    #endif
-#else
-    #if defined(APPDATADIR) || defined(ENABLE_BINRELOC) && __APPLE__
-        std::string datadir;
-    #ifdef ENABLE_BINRELOC
-        BrInitError error;
-        if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
-            printf ("Warning: BinReloc failed to initialize (error code %d)\n",
-                    error);
-            printf ("Will fallback to hardcoded default path.\n");
-        }
-        
-        char* brdatadir = br_find_data_dir("/usr/local/share");
-        datadir = brdatadir;
-        datadir += "/" PACKAGE_NAME;
-        free(brdatadir);
-      #else
-        datadir = APPDATADIR;
-      #endif
-        datadir = getBundleSharePath(PACKAGE_NAME);
-        if(!PHYSFS_mount(datadir.c_str(), nullptr, 1)) {
-            PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-            std::cout << "Couldn't add '" << datadir
-                << "' to physfs searchpath: " << PHYSFS_getErrorByCode(lastError) << "\n";
-        }
-    #endif
-#endif
     
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);

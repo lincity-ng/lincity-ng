@@ -51,8 +51,6 @@ add_executable(lincity-ng
 		Util.hpp
 		)
 
-set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
 if (WIN32)
 	set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_SOURCE_DIR}/contrib/win32/lincity-ng.rc")
 	target_sources(lincity-ng PUBLIC ${APP_ICON_RESOURCE_WINDOWS})

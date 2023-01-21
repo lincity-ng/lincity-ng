@@ -61,6 +61,9 @@ To use vcpkg to automatically manage dependencies, add
 to the configure command, where `<path to vcpkg>` is the path to your vcpkg
 installation.
 
+To specify a different install prefix, use add `--install-prefix <prefix>` to the
+configure command.
+
 To build the game:
 ```
 $ cmake --build out --parallel
@@ -70,7 +73,6 @@ To install the game:
 ```
 # cmake --install build
 ```
-(You may specify a different install prefix with the `--prefix` option.)
 
 To create a package (currently zip):
 ```
