@@ -1,4 +1,4 @@
-set(guiSourceFiles
+set(guiDialogSourceFiles
   allgone.xml
   blacksmithup.xml
   bulldoze_monument_yn.xml
@@ -47,13 +47,16 @@ set(guiSourceFiles
   windmillup.xml
 )
 
-foreach(guiSourceFile ${guiSourceFiles})
+foreach(guiDialogSourceFile ${guiDialogSourceFiles})
   add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile}
-    COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
-    DEPENDS ${guiSourceFile}
+    OUTPUT ${guiDialogSourceFile}
+    COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} ${guiDialogSourceFile}
+    DEPENDS ${guiDialogSourceFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Convert XML GUI ${guiSourceFile}"
+    COMMENT "Convert XML GUI dialogs/${guiDialogSourceFile}"
   )
-  target_sources(lincity-ng PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile})
+  add_custom_target(${guiDialogSourceFile}.target DEPENDS ${guiDialogSourceFile})
+  add_dependencies(lincity-ng ${guiDialogSourceFile}.target)
 endforeach()
+
+install(FILES ${guiDialogSourceFiles} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/dialogs/)

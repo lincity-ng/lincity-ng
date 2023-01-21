@@ -9,6 +9,7 @@ project(lincity-ng
 	DESCRIPTION "LinCity NG")
 
 include(CheckIncludeFiles)
+include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -31,6 +32,8 @@ find_package(LibXslt REQUIRED)
 
 check_include_files(dirent.h HAVE_DIRENT_H)
 
+set(CMAKE_INSTALL_APPDATADIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME})
+
 configure_file(gen/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/gen)
@@ -40,24 +43,11 @@ add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 add_subdirectory(src)
 add_subdirectory(data)
 
-install(TARGETS lincity-ng RUNTIME DESTINATION .)
+install(TARGETS lincity-ng RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 if (WIN32)
 	install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
 endif()
-
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/fonts DESTINATION data)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/data/gui DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/help DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/images DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/locale DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/music DESTINATION data)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/opening DESTINATION data FILES_MATCHING PATTERN "*.scn")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/sounds DESTINATION data)
-
-install(FILES ${CMAKE_SOURCE_DIR}/data/colour.pal DESTINATION data)
-install(FILES ${CMAKE_SOURCE_DIR}/data/lincityconfig.xml DESTINATION data)
 
 set(CPACK_GENERATOR "ZIP" CACHE STRING "Generators to support. semi-colon delimited list")
 include(CPack)
