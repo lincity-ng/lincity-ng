@@ -11,6 +11,7 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   sounds/*
   colour.pal
   lincityconfig.xml
+  lincity-ng.desktop
 )
 
 foreach(dataFile ${allDataFiles})
@@ -75,3 +76,12 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sounds DESTINATION ${CMAKE_INSTALL
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/colour.pal DESTINATION ${CMAKE_INSTALL_APPDATADIR})
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/lincityconfig.xml DESTINATION ${CMAKE_INSTALL_APPDATADIR})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/lincity-ng.desktop DESTINATION ${CMAKE_INSTALL_APPDATADIR})
+install(CODE "
+  message(STATUS \"installing desktop file: ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop\")
+  file(MAKE_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/applications/)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+    ${CMAKE_INSTALL_FULL_APPDATADIR}/lincity-ng.desktop
+    ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop
+  )
+")
