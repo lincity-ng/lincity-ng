@@ -1,5 +1,6 @@
 add_subdirectory(gui)
 
+
 file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
   fonts/*
   help/*
@@ -23,6 +24,43 @@ foreach(dataFile ${allDataFiles})
 endforeach()
 add_custom_target(allDataFiles.target DEPENDS ${allDataFiles})
 add_dependencies(lincity-ng allDataFiles.target)
+
+
+file(GLOB_RECURSE TRANSLATABLE_SOURCES CONFIGURE_DEPENDS
+  ${CMAKE_SOURCE_DIR}/src/gui/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/gui/*.hpp
+  ${CMAKE_SOURCE_DIR}/src/gui/*.h
+  ${CMAKE_SOURCE_DIR}/src/lincity/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/lincity/*.hpp
+  ${CMAKE_SOURCE_DIR}/src/lincity/*.h
+  ${CMAKE_SOURCE_DIR}/src/lincity-ng/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/lincity-ng/*.hpp
+  ${CMAKE_SOURCE_DIR}/src/lincity-ng/*.h
+)
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot
+  COMMAND xgettext --keyword='_:1' --keyword='N_:1' -o ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot ${TRANSLATABLE_SOURCES}
+  DEPENDS ${TRANSLATABLE_SOURCES}
+  COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/messages.pot"
+)
+add_custom_target(messages-pot.target DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot)
+add_dependencies(lincity-ng messages-pot.target)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale)
+
+file(GLOB_RECURSE ALL_GUI_XML CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_BINARY_DIR}/gui/*.xml
+)
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot
+  COMMAND xmlgettext ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot ${ALL_GUI_XML}
+  DEPENDS ${ALL_GUI_XML}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/gui/messages.pot"
+)
+add_custom_target(gui_messages-pot.target DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot)
+add_dependencies(lincity-ng gui_messages-pot.target)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale/gui)
+
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/fonts DESTINATION ${CMAKE_INSTALL_APPDATADIR})
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/help DESTINATION ${CMAKE_INSTALL_APPDATADIR})
