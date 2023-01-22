@@ -1,3 +1,0 @@
-SubDir TOP src tools ;
-
-SubInclude TOP src tools xmlgettext ;

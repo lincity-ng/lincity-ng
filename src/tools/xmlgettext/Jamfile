@@ -1,6 +1,0 @@
-SubDir TOP src tools xmlgettext ;
-
-XMLGETTEXT = [
-    Application xmlgettext : [ Wildcard *.cpp *.hpp ] : noinstall
-] ;
-ExternalLibs xmlgettext : LIBXML ;
