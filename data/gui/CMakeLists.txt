@@ -30,8 +30,9 @@ foreach(guiSourceFile ${guiSourceFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Convert XML GUI ${guiSourceFile}"
   )
-  add_custom_target(${guiSourceFile}.target DEPENDS ${guiSourceFile})
-  add_dependencies(lincity-ng ${guiSourceFile}.target)
 endforeach()
+
+add_custom_target(guiXml DEPENDS ${guiSourceFiles})
+add_dependencies(lincity-ng guiXml)
 
 install(FILES ${guiSourceFiles} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)

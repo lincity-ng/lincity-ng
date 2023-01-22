@@ -37,6 +37,7 @@ file(GLOB_RECURSE TRANSLATABLE_SOURCES CONFIGURE_DEPENDS
   ${CMAKE_SOURCE_DIR}/src/lincity-ng/*.hpp
   ${CMAKE_SOURCE_DIR}/src/lincity-ng/*.h
 )
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/locale)
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot
   COMMAND xgettext --keyword='_:1' --keyword='N_:1' -o ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot ${TRANSLATABLE_SOURCES}
@@ -47,13 +48,15 @@ add_custom_target(messages-pot.target DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/locale
 add_dependencies(lincity-ng messages-pot.target)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale)
 
-file(GLOB_RECURSE ALL_GUI_XML CONFIGURE_DEPENDS
-  ${CMAKE_CURRENT_BINARY_DIR}/gui/*.xml
+file(GLOB_RECURSE ALL_GUI_XML RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/gui/*.xml
 )
+list(TRANSFORM ALL_GUI_XML PREPEND ${CMAKE_CURRENT_BINARY_DIR}/)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/locale/gui)
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot
   COMMAND xmlgettext ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot ${ALL_GUI_XML}
-  DEPENDS ${ALL_GUI_XML}
+  DEPENDS ${ALL_GUI_XML} guiXml guiDialogXml
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/gui/messages.pot"
 )

@@ -55,8 +55,9 @@ foreach(guiDialogSourceFile ${guiDialogSourceFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Convert XML GUI dialogs/${guiDialogSourceFile}"
   )
-  add_custom_target(${guiDialogSourceFile}.target DEPENDS ${guiDialogSourceFile})
-  add_dependencies(lincity-ng ${guiDialogSourceFile}.target)
 endforeach()
+
+add_custom_target(guiDialogXml DEPENDS ${guiDialogSourceFiles})
+add_dependencies(lincity-ng guiDialogXml)
 
 install(FILES ${guiDialogSourceFiles} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/dialogs/)
