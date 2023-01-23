@@ -47,14 +47,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PBar.hpp"
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
-#include "lincity/fileutil.h"
 #include "lincity/lin-city.h"
 #include "lincity/init_game.h"
 
-
-#ifdef ENABLE_BINRELOC
-#include "binreloc.h"
-#endif
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
@@ -62,10 +57,110 @@ SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
+const char *appdatadir;
 
 #ifdef __APPLE__
      extern char *getBundleSharePath(char *packageName);
 #endif
+
+
+/**
+ * Computes the path of the root of `subtrahend` relative to the root of
+ * `minuend` assuming `subtrahend` and `minuend` refer to the same location.
+ * 
+ * That is, `<root><minuend>` and `<root><result>/<subtrahend>` will refer
+ * to the same location. The result will be absolute iff minuend is absolute.
+ *
+ * The result string is owned by the caller and should be freed with `free()`.
+ * 
+ * Examples:
+ *  path_subtract("/a/b/c/d", "c/d") --> "/a/b"
+ *  path_subtract("/a/b/c/d", "/a/b/c/d") --> "/"
+ *  path_subtract("c/d", "/a/b/c/d") --> "../.."
+ *  path_subtract("../c/d", "/a/b/c/d") --> "../../.."
+ *  path_subtract("a//x/../b/////c/.//y/.././d", "z/../c//.//d") --> "a//x/../b"
+ *  path_subtract("a/b/c/x/y/z/../../../d", "c/d") --> "a/b"
+ *  path_subtract("/a/b/c/d", "x/d") --> NULL (cannot refer to the same file)
+ *  path_subtract("a/b/c/d", "/c/d") --> NULL (minuend goes below root)
+ *  path_subtract("/c/d", "a/b/c/d") --> NULL (subtrahend goes below root)
+ *  path_subtract("/a/b/c/d", "../c/d") --> NULL (cannot determine '..')
+ *  path_subtract("/../a/b/c/d", "c/d") --> NULL (minuend dips below root)
+ *  path_subtract("c/d", "/../a/b/c/d") --> NULL (subtrahend dips below root)
+ */
+static char *path_subtract(const char *minuend, const char *subtrahend) {
+  const char * const dirsep = PHYSFS_getDirSeparator();
+  const size_t dirseplen = strlen(dirsep);
+  
+  const char *path[2] = {minuend, subtrahend};
+  const char *elb[2];
+  const char *ele[2];
+  size_t eln[2];
+  bool finished[2] = {false, false};
+  for(int i = 0; i < 2; i++)
+    elb[i] = path[i] + strlen(path[i]) + dirseplen;
+  int skip[2] = {0, 0};
+  
+  while(true) {
+    for(int i = 0; i < 2; i++) {
+      while(true) {
+        ele[i] = elb[i] - dirseplen;
+        if(ele[i] <= path[i]) {
+          finished[i] = true;
+          break;
+        }
+        elb[i] = ele[i] - dirseplen;
+        while(true) {
+          if(elb[i] < path[i]) {
+            elb[i] = path[i];
+            break;
+          }
+          if(!strncmp(elb[i], dirsep, dirseplen)) {
+            elb[i] += dirseplen;
+            break;
+          }
+          elb[i]--;
+        }
+        
+        eln[i] = ele[i] - elb[i];
+        if(!strncmp(elb[i], "", eln[i]) || !strncmp(elb[i], ".", eln[i]))
+          ;
+        else if(!strncmp(elb[i], "..", eln[i]))
+          skip[i]++;
+        else if(skip[i])
+          skip[i]--;
+        else
+          break;
+      }
+    }
+    
+    if(finished[1]) {
+      if(skip[1])
+        return NULL;
+      if(skip[0] && !strncmp(minuend, dirsep, dirseplen))
+        return NULL;
+      if(!finished[0] && !strncmp(subtrahend, dirsep, dirseplen))
+        return NULL;
+      if(skip[0]) {
+        char *ret = (char *)malloc(skip[0] * (2 + dirseplen));
+        if(!ret) return NULL;
+        char *retptr = ret;
+        for(int i = 0; i < skip[0]; i++) {
+          retptr += sprintf(retptr, "%s..", i ? dirsep : "");
+        }
+        return ret;
+      }
+      if(finished[0])
+        return strdup(strncmp(minuend, dirsep, dirseplen) ? "." : dirsep);
+      return strndup(minuend, ele[0] - minuend);
+    }
+    else if(finished[0]) {
+      skip[0]++;
+    }
+    else if(eln[0] != eln[1] || strncmp(elb[0], elb[1], eln[0])) {
+      return NULL;
+    }
+  }
+}
 
 void initPhysfs(const char* argv0)
 {
@@ -142,22 +237,28 @@ void initPhysfs(const char* argv0)
     
     // mount read-only data directory
     bool foundRodd = false;
-    char *appdatadir = NULL;
+    char *appdatadir_calc = NULL;
     if(installPrefix && strncmp(INSTALL_APPDATADIR, dirsep, strlen(dirsep))) {
       HANDLE_ERRNO(
-        appdatadir = (char *)malloc(
+        appdatadir_calc = (char *)malloc(
           strlen(installPrefix) + strlen(dirsep) + strlen(INSTALL_APPDATADIR)),
-        !appdatadir, 0, "malloc"
+        !appdatadir_calc, 0, "malloc"
       );
-      sprintf(appdatadir, "%s%s%s", installPrefix, dirsep, INSTALL_APPDATADIR);
+      if(appdatadir_calc) {
+        sprintf(appdatadir_calc, "%s%s%s",
+          installPrefix, dirsep, INSTALL_APPDATADIR);
+        appdatadir = appdatadir_calc;
+      }
     }
     if(appdatadir) {
-      foundRodd |= PHYSFS_mount(appdatadir, nullptr, 1);
+      foundRodd = PHYSFS_mount(appdatadir, nullptr, 1);
     }
     
     if(!foundRodd) {
       // use compiled-in install prefix as fallback
-      foundRodd |= PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
+      foundRodd = PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
+      if(foundRodd)
+        appdatadir = INSTALL_FULL_APPDATADIR;
     }
     if(!foundRodd) {
       std::ostringstream msg;
@@ -169,7 +270,7 @@ void initPhysfs(const char* argv0)
       throw std::runtime_error(msg.str());
     }
     
-    free(appdatadir);
+    // free(appdatadir);
     free(installPrefix);
     
     
@@ -447,7 +548,20 @@ int main(int argc, char** argv)
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
-
+        
+        // char *lc_textdomain_directory[1024];
+        // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
+        //   appdatadir, PHYSFS_getDirSeparator(), "locale") < 1024) {
+        //   char *dm = bindtextdomain(PACKAGE, lc_textdomain_directory);
+        //   fprintf(stderr, "Bound textdomain directory is %s\n", dm);
+        //   char *td = textdomain(PACKAGE);
+        //   fprintf(stderr, "Textdomain is %s\n", td);
+        // } else {
+        //   fprintf(stderr, "warning: %s, %s",
+        //     "data directory path name too long",
+        //     "cannot set text domain");
+        // }
+        
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";

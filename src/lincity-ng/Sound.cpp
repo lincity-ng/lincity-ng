@@ -35,7 +35,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 #include "lincity/engglobs.h"
 #include "lincity/modules/all_modules.h"
-#include "lincity/fileutil.h"
 
 Sound* soundPtr = 0;
 
@@ -55,7 +54,7 @@ Sound::soundThread(void* ptr)
 void
 Sound::loadWaves() {
     //Load Waves
-    const auto dirsep = physfs_indep_dirsep;
+    const auto dirsep = "/";
     std::string directory = "sounds";
     directory += dirsep;
     std::string xmlfile = directory + "sounds.xml";
@@ -147,7 +146,7 @@ void Sound::loadMusicTheme() {
 
     //TODO there should be a music directory in
     // LINCITY_HOME
-    const std::string dirsep = physfs_indep_dirsep;
+    const std::string dirsep = "/";
     std::string musicDir = "music" + dirsep;
     //Reset track counter:
     totalTracks=0;

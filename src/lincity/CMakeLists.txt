@@ -15,8 +15,6 @@ add_library(lincity_lib
 		engglobs.h
 		engine.cpp
 		engine.h
-		fileutil.cpp
-		fileutil.h
 		groups.h
 		init_game.cpp
 		init_game.h

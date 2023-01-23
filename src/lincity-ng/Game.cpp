@@ -27,7 +27,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "gui/Painter.hpp"
 #include "gui/callback/Callback.hpp"
-#include "lincity/fileutil.h"
 #include "lincity/init_game.h"
 #include "gui_interface/shared_globals.h"
 #include "gui_interface/mps.h"

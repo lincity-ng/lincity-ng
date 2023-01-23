@@ -23,13 +23,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <physfs.h>
+#include <error.h>
 
 #include "GameView.hpp"
 #include "Util.hpp"
 #include "MapEdit.hpp"
 #include "CheckButton.hpp"
 #include "lincity/engine.h"
-#include "lincity/fileutil.h"
 #include "lincity/simulate.h"
 #include "lincity/lclib.h"
 #include "lincity/loadsave.h"
@@ -489,10 +490,13 @@ void Dialog::gameStats(){
  */
 void Dialog::saveGameStats(){
     //open File
-    char *s;
-    if(!(s = (char *)malloc(lc_save_dir_len + strlen(RESULTS_FILENAME) + 2)))
-        malloc_failure();
-    sprintf (s, "%s%c%s", lc_save_dir, PATH_SLASH, RESULTS_FILENAME);
+    const char *lc_save_dir = PHYSFS_getWriteDir();
+    char *s = (char *)malloc(
+        strlen(lc_save_dir) + strlen(RESULTS_FILENAME) + 2);
+    if(!s)
+        error(-1, errno, "malloc");
+    sprintf(s, "%s%c%s",
+        lc_save_dir, PHYSFS_getDirSeparator(), RESULTS_FILENAME);
 
     std::ofstream results( s );
     free( s );
