@@ -36,7 +36,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/callback/Callback.hpp"
 
 #include "gui_interface/shared_globals.h"
-#include "lincity/fileutil.h"
 
 #include "CheckButton.hpp"
 
@@ -48,6 +47,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "MainLincity.hpp"
 #include "readdir.hpp"
+#include "lincity/loadsave.h"
 
 #include "tinygettext/gettext.hpp"
 
@@ -956,10 +956,8 @@ void
 MainMenu::loadGameSaveButtonClicked(Button *)
 {
     getSound()->playSound( "Click" );
-    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
-        std::cout << "remove( " << mFilename << ")\n";
-        remove( mFilename.c_str() );
-    }
+    std::cout << "remove( " << mFilename << ")\n";
+    remove( mFilename.c_str() );
     /* Build filename */
     std::stringstream newStart;
     newStart << slotNr << "_Y";

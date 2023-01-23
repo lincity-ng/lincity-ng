@@ -3,6 +3,8 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+
+#include <vector>
 #include <cstdlib>
 #include "market.h"
 #include "fire.h" //for playing with fire
@@ -40,7 +42,7 @@ void Market::update()
     int cap, market_cap;
     int market_ratio = 0;
     const size_t partsize = partners.size();
-    bool lvls[partsize];
+    std::vector<bool> lvls(partsize);
     Commodities stuff_ID;
     std::map<Commodities, int>::iterator stuff_it;
     n = 0;
@@ -61,7 +63,7 @@ void Market::update()
         n++;
         lvl = market_lvl;
         cap = market_cap;
-        for(unsigned int i = 0; i < partsize; ++i)
+        for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             lvls[i] = false;
             Construction *pear = partners[i];
@@ -88,7 +90,7 @@ void Market::update()
             }
         }
         trade_ratio = lvl * TRANSPORT_QUANTA / cap;
-        for(unsigned int i = 0; i < partsize; ++i)
+        for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             if(lvls[i])
             {   partners[i]->equilibrate_stuff(&market_lvl, market_cap, trade_ratio, stuff_ID, constructionGroup);}

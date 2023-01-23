@@ -77,7 +77,6 @@
 #include "lctypes.h"
 #include "lin-city.h"
 #include "engglobs.h"
-#include "fileutil.h"
 #include <physfs.h>
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
@@ -99,6 +98,8 @@
 
 #define MP_SANITY_CHECK 1
 #define COMPATIBLE_WORLD_SIDE_LEN 100
+
+char given_scene[1024];
 
 /* Extern resources */
 extern int yn_dial_box(const char *, const char *, const char *, const char *);
@@ -623,4 +624,3 @@ void load_city_2(char *cname)
 
 
 /** @file lincity/loadsave.cpp */
-

@@ -19,7 +19,6 @@
 #include <cstdlib>
 #include <vector>
 #include "init_game.h"
-#include "fileutil.h"
 #include "simulate.h"
 #include "gui_interface/shared_globals.h"
 #include "lctypes.h"
@@ -34,6 +33,7 @@
 #include "all_buildings.h"
 #include "engine.h"
 #include "Vehicles.h"
+#include "loadsave.h"
 #include <deque>
 
 
@@ -1572,4 +1572,3 @@ static void do_rand_ecology(int x, int y, int r)
 }
 
 /** @file lincity/init_game.cpp */
-

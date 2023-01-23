@@ -5,7 +5,6 @@
  * ---------------------------------------------------------------------- */
 #include "engglobs.h"
 #include "lin-city.h"
-#include "fileutil.h"
 
 /* load/save version for compatibility with(out) waterwell */
 int ldsv_version;
@@ -100,4 +99,3 @@ int alt_min, alt_max, alt_step;
 int fast_time_for_year;
 
 /** @file lincity/engglobs.cpp */
-

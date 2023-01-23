@@ -4,13 +4,7 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2002.
  * Portions copyright (c) Corey Keasling, 2000-2002.
  * ---------------------------------------------------------------------- */
-#include "lcconfig.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "lin-city.h"
 #include "engglobs.h"
-#include "gui_interface/pbar_interface.h"
 #include "stats.h"
 #include "modules/market.h" //for inventory_market
 

@@ -8,15 +8,11 @@
 #include "ConstructionManager.h"
 #include "ConstructionCount.h"
 
+#include <vector>
 #include <string.h>             /* XXX: portability issue?  for strcpy */
-#include "lcconfig.h"
 #include "lin-city.h"
-#include "engine.h"
 #include "engglobs.h"
 #include "lctypes.h"
-#include "tinygettext/gettext.hpp"
-#include "fileutil.h"
-#include "gui_interface/readpng.h"
 #include "loadsave.h"
 #include "xmlloadsave.h"
 #include "all_buildings.h"
@@ -1147,7 +1143,7 @@ void Construction::trade()
     int traffic, max_traffic;
     Commodities stuff_ID;
     const size_t neighsize = neighbors.size();
-    bool lvls[neighsize];
+    std::vector<bool> lvls(neighsize);
     std::map<Commodities, int>::iterator stuff_it;
     Transport *transport = NULL;
     Powerline *powerline = NULL;
@@ -1172,7 +1168,7 @@ void Construction::trade()
         ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
         lvl = center_lvl;
         cap = center_cap;
-        for(unsigned int i = 0; i < neighsize; ++i)
+        for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             Construction *pear = neighbors[i];
             lvls[i] = false;
@@ -1199,7 +1195,7 @@ void Construction::trade()
         max_traffic = 0;
         int old_center = center_lvl;
         //make flow towards ratio
-        for(unsigned int i = 0; i < neighsize; ++i)
+        for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             if(lvls[i])
             {
