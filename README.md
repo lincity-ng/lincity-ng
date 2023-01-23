@@ -61,7 +61,7 @@ To use vcpkg to automatically manage dependencies, add
 to the configure command, where `<path to vcpkg>` is the path to your vcpkg
 installation.
 
-To specify a different install prefix, use add `--install-prefix <prefix>` to the
+To specify a different install prefix, add `--install-prefix <prefix>` to the
 configure command.
 
 To build the game:
@@ -74,9 +74,10 @@ To install the game:
 # cmake --install build
 ```
 
-To create a package (currently zip):
+To create a package (currently tar.gz and zip are generated):
 ```
-$ cmake --build build --target package
+$ cmake -B build -DCMAKE_BUILD_TYPE=Release
+$ cmake --build build --parallel --target package
 ```
 
 Run `cmake --help` to see all the available options.

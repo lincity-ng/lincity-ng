@@ -6,7 +6,9 @@ set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 project(lincity-ng
 	VERSION 2.9.0.0
 	LANGUAGES CXX
-	DESCRIPTION "LinCity NG")
+	DESCRIPTION "A city simulation game"
+	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
+)
 
 include(CheckIncludeFiles)
 include(GNUInstallDirs)
@@ -51,5 +53,11 @@ if (WIN32)
 	install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
 endif()
 
-set(CPACK_GENERATOR "ZIP" CACHE STRING "Generators to support. semi-colon delimited list")
+
+set(CPACK_GENERATOR TGZ ZIP)
+set(CPACK_PACKAGE_ICON data/lincity-ng.png)
+set(CPACK_PACKAGE_CHECKSUM SHA256)
+set(CPACK_RESOURCE_FILE_README README.md)
+set(CPACK_SOURCE_GENERATOR TGZ)
+set(CPACK_SOURCE_IGNORE_FILES ${CMAKE_BINARY_DIR}/ ${CMAKE_SOURCE_DIR}/\\.git/)
 include(CPack)
