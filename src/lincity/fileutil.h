@@ -51,6 +51,8 @@ void save_lincityrc(void);
 
 void debug_printf(char *fmt, ...);
 
+char *path_subtract(const char *minuend, const char *subtrahend);
+
 //Use physfs_indep_dirsep when making a path passed to PHYSFS_openRead.
 //PHYSFS_getDirSeparator() returns "\\" on windows,
 //but passing a path contains "\\" to PHYSFS_openRead cause error.
@@ -64,4 +66,3 @@ const auto physfs_indep_dirsep = "/";
 #endif /* __fileutil_h__ */
 
 /** @file lincity/fileutil.h */
-

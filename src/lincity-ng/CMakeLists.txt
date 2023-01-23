@@ -8,6 +8,7 @@ add_executable(lincity-ng
 		Config.hpp
 		Dialog.cpp
 		Dialog.hpp
+		lcerror.hpp
 		EconomyGraph.cpp
 		EconomyGraph.hpp
 		ErrorInterface.cpp

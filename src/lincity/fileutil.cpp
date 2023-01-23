@@ -553,4 +553,103 @@ void debug_printf(char *fmt, ...)
 #endif
 }
 
+
+/**
+ * Computes the path of the root of `subtrahend` relative to the root of
+ * `minuend` assuming `subtrahend` and `minuend` refer to the same location.
+ * 
+ * That is, `<root><minuend>` and `<root><result>/<subtrahend>` will refer
+ * to the same location. The result will be absolute iff minuend is absolute.
+ *
+ * The result string is owned by the caller and should be freed with `free()`.
+ * 
+ * Examples:
+ *  path_subtract("/a/b/c/d", "c/d") --> "/a/b"
+ *  path_subtract("/a/b/c/d", "/a/b/c/d") --> "/"
+ *  path_subtract("c/d", "/a/b/c/d") --> "../.."
+ *  path_subtract("../c/d", "/a/b/c/d") --> "../../.."
+ *  path_subtract("a//x/../b/////c/.//y/.././d", "z/../c//.//d") --> "a//x/../b"
+ *  path_subtract("a/b/c/x/y/z/../../../d", "c/d") --> "a/b"
+ *  path_subtract("/a/b/c/d", "x/d") --> NULL (cannot refer to the same file)
+ *  path_subtract("a/b/c/d", "/c/d") --> NULL (minuend goes below root)
+ *  path_subtract("/c/d", "a/b/c/d") --> NULL (subtrahend goes below root)
+ *  path_subtract("/a/b/c/d", "../c/d") --> NULL (cannot determine '..')
+ *  path_subtract("/../a/b/c/d", "c/d") --> NULL (minuend dips below root)
+ *  path_subtract("c/d", "/../a/b/c/d") --> NULL (subtrahend dips below root)
+ */
+char *path_subtract(const char *minuend, const char *subtrahend) {
+  const char * const dirsep = PHYSFS_getDirSeparator();
+  const size_t dirseplen = strlen(dirsep);
+  
+  const char *path[2] = {minuend, subtrahend};
+  const char *elb[2];
+  const char *ele[2];
+  size_t eln[2];
+  bool finished[2] = {false, false};
+  for(int i = 0; i < 2; i++)
+    elb[i] = path[i] + strlen(path[i]) + dirseplen;
+  int skip[2] = {0, 0};
+  
+  while(true) {
+    for(int i = 0; i < 2; i++) {
+      while(true) {
+        ele[i] = elb[i] - dirseplen;
+        if(ele[i] <= path[i]) {
+          finished[i] = true;
+          break;
+        }
+        elb[i] = ele[i] - dirseplen;
+        while(true) {
+          if(elb[i] < path[i]) {
+            elb[i] = path[i];
+            break;
+          }
+          if(!strncmp(elb[i], dirsep, dirseplen)) {
+            elb[i] += dirseplen;
+            break;
+          }
+          elb[i]--;
+        }
+        
+        eln[i] = ele[i] - elb[i];
+        if(!strncmp(elb[i], "", eln[i]) || !strncmp(elb[i], ".", eln[i]))
+          ;
+        else if(!strncmp(elb[i], "..", eln[i]))
+          skip[i]++;
+        else if(skip[i])
+          skip[i]--;
+        else
+          break;
+      }
+    }
+    
+    if(finished[1]) {
+      if(skip[1])
+        return NULL;
+      if(skip[0] && !strncmp(minuend, dirsep, dirseplen))
+        return NULL;
+      if(!finished[0] && !strncmp(subtrahend, dirsep, dirseplen))
+        return NULL;
+      if(skip[0]) {
+        char *ret = (char *)malloc(skip[0] * (2 + dirseplen));
+        if(!ret) return NULL;
+        char *retptr = ret;
+        for(int i = 0; i < skip[0]; i++) {
+          retptr += sprintf(retptr, "%s..", i ? dirsep : "");
+        }
+        return ret;
+      }
+      if(finished[0])
+        return strdup(strncmp(minuend, dirsep, dirseplen) ? "." : dirsep);
+      return strndup(minuend, ele[0] - minuend);
+    }
+    else if(finished[0]) {
+      skip[0]++;
+    }
+    else if(eln[0] != eln[1] || strncmp(elb[0], elb[1], eln[0])) {
+      return NULL;
+    }
+  }
+}
+
 /** @file lincity/fileutil.cpp */

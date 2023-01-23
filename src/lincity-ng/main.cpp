@@ -43,9 +43,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "Sound.hpp"
 #include "Config.hpp"
+#include "lcerror.hpp"
 #include "PBar.hpp"
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
+#include "lincity/fileutil.h"
 #include "lincity/lin-city.h"
 #include "lincity/init_game.h"
 
@@ -113,33 +115,66 @@ void initPhysfs(const char* argv0)
       PHYSFS_mount(oldWritedir, nullptr, 1);
     }
     else {
-      printf("warning: home directory path name too long, cannot load legacy configuration directory: ~/.lincity-ng");
+      fprintf(stderr, "warning: %s, %s",
+        "home directory path name too long",
+        "cannot load legacy configuration directory: ~/.lincity-ng");
     }
     if(snprintf(oldWritedir, 1024, "%s.lincity", userdir) < 1024) {
       PHYSFS_mount(oldWritedir, nullptr, 1);
     }
     else {
-      printf("warning: home directory path name too long, cannot load legacy configuration directory: ~/.lincity");
+      fprintf(stderr, "warning: %s, %s",
+        "home directory path name too long",
+        "cannot load legacy configuration directory: ~/.lincity");
     }
     
+    
+    // compute install prefix from PHYSFS_getBaseDir()
+    const char* dirsep = PHYSFS_getDirSeparator();
+    char *installPrefix = NULL;
+    if(strncmp(INSTALL_BINDIR, dirsep, strlen(dirsep))) {
+      HANDLE_ERRNO(
+        installPrefix = path_subtract(PHYSFS_getBaseDir(), INSTALL_BINDIR),
+        !installPrefix, 0, "trouble finding install prefix"
+      );
+    }
+    
+    
     // mount read-only data directory
-    bool foundRodd = true;
-    #ifdef DEBUG
-    foundRodd |= !PHYSFS_mount(NOINSTALL_APPDATADIR, nullptr, 1);
-    #endif
-    foundRodd |= !PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
+    bool foundRodd = false;
+    char *appdatadir = NULL;
+    if(installPrefix && strncmp(INSTALL_APPDATADIR, dirsep, strlen(dirsep))) {
+      HANDLE_ERRNO(
+        appdatadir = (char *)malloc(
+          strlen(installPrefix) + strlen(dirsep) + strlen(INSTALL_APPDATADIR)),
+        !appdatadir, 0, "malloc"
+      );
+      sprintf(appdatadir, "%s%s%s", installPrefix, dirsep, INSTALL_APPDATADIR);
+    }
+    if(appdatadir) {
+      foundRodd |= PHYSFS_mount(appdatadir, nullptr, 1);
+    }
+    
+    if(!foundRodd) {
+      // use compiled-in install prefix as fallback
+      foundRodd |= PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
+    }
     if(!foundRodd) {
       std::ostringstream msg;
       PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
       msg << "Failed to mount read-only data directory '"
+          << appdatadir << "' or '"
           << INSTALL_FULL_APPDATADIR
           << "': " << PHYSFS_getErrorByCode(lastError);
       throw std::runtime_error(msg.str());
     }
     
+    free(appdatadir);
+    free(installPrefix);
+    
+    
     // Search for archives and add them to the search path
     //TODO: add zips later
-    const char* dirsep = PHYSFS_getDirSeparator();
     const char* archiveExt = ".zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
