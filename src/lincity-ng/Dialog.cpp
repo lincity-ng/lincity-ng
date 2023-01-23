@@ -142,12 +142,9 @@ void Dialog::registerDialog(){
 
 void Dialog::unRegisterDialog(){
     std::vector<Dialog*>::iterator iter = dialogVector.begin();
-    std::vector<Dialog*>::iterator del;
     while( iter != dialogVector.end() ){
         if ( *iter == this ){
-            del = iter;
-            iter++;
-            dialogVector.erase( del );
+            iter = dialogVector.erase( iter );
         } else {
             iter++;
         }
