@@ -38,10 +38,6 @@ set(CMAKE_BINARY_BINDIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 set(CMAKE_BINARY_DATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR})
 set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 
-configure_file(gen/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h)
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/gen)
-
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 add_subdirectory(src)
