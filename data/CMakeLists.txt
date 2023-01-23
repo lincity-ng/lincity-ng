@@ -22,9 +22,18 @@ foreach(dataFile ${allDataFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "copying ${dataFile} to build directory"
   )
+  install(FILES ${dataFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${dataFile})
 endforeach()
 add_custom_target(allDataFiles.target DEPENDS ${allDataFiles})
 add_dependencies(lincity-ng allDataFiles.target)
+install(CODE "
+  message(STATUS \"installing desktop file: ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop\")
+  file(MAKE_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/applications/)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+    ${CMAKE_INSTALL_FULL_APPDATADIR}/lincity-ng.desktop
+    ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop
+  )
+")
 
 
 file(GLOB_RECURSE TRANSLATABLE_SOURCES CONFIGURE_DEPENDS
@@ -66,22 +75,23 @@ add_dependencies(lincity-ng gui_messages-pot.target)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale/gui)
 
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/fonts DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/help DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/images DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/locale DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/music DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/opening DESTINATION ${CMAKE_INSTALL_APPDATADIR} FILES_MATCHING PATTERN "*.scn")
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sounds DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/colour.pal DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/lincityconfig.xml DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/lincity-ng.desktop DESTINATION ${CMAKE_INSTALL_APPDATADIR})
-install(CODE "
-  message(STATUS \"installing desktop file: ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop\")
-  file(MAKE_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/applications/)
-  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_FULL_APPDATADIR}/lincity-ng.desktop
-    ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop
+set(infoFiles
+  COPYING
+  COPYING-data.txt
+  COPYING-fonts.txt
+  README.md
+  RELNOTES
+  TODO
+)
+foreach(infoFile ${infoFiles})
+  add_custom_command(
+    OUTPUT ${infoFile}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/${infoFile} ${infoFile}
+    DEPENDS ${CMAKE_SOURCE_DIR}/${infoFile}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "copying ${infoFile} to build directory"
   )
-")
+  install(FILES ${infoFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${infoFile})
+endforeach()
+add_custom_target(infoFiles.target DEPENDS ${infoFiles})
+add_dependencies(lincity-ng infoFiles.target)
