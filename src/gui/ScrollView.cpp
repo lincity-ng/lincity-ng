@@ -142,9 +142,9 @@ ScrollView::event(const Event& event)
             return;
         }
         float val = - contents().getPos().y;
-        val += event.scrolly;
-        if(val < 0)
-            val = 0;
+        val -= event.scrolly * 20;
+        if(val < scrollBarComp->getRangeMin())
+            val = scrollBarComp->getRangeMin();
         if(val > scrollBarComp->getRangeMax())
             val = scrollBarComp->getRangeMax();
         contents().setPos(Vector2(0, -val));
@@ -167,4 +167,3 @@ IMPLEMENT_COMPONENT_FACTORY(ScrollView)
 
 
 /** @file gui/ScrollView.cpp */
-
