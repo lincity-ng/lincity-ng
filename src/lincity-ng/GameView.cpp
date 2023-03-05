@@ -1615,10 +1615,10 @@ void GameView::draw(Painter& painter)
     MapPoint lowerLeftTile  = getTile( lowerLeft );
 
     //draw Background
-    Color green;
+    Color black;
     Rect2D background( 0, 0, getWidth(), getHeight() );
-    green.parse( "green" );
-    painter.setFillColor( green );
+    black.parse( "black" );
+    painter.setFillColor( black );
     painter.fillRectangle( background );
 
     //draw Tiles
