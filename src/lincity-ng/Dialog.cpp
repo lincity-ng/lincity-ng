@@ -626,33 +626,33 @@ void Dialog::editMarket(){
     Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );
-    if( market->commodityRuleCount[Construction::STUFF_JOBS].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_JOBS].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
-    if( market->commodityRuleCount[Construction::STUFF_JOBS].give ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_JOBS].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( market->commodityRuleCount[Construction::STUFF_FOOD].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_FOOD].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( market->commodityRuleCount[Construction::STUFF_FOOD].give ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_FOOD].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( market->commodityRuleCount[Construction::STUFF_COAL].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_COAL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( market->commodityRuleCount[Construction::STUFF_COAL].give ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_COAL].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( market->commodityRuleCount[Construction::STUFF_ORE].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_ORE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( market->commodityRuleCount[Construction::STUFF_ORE].give ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_ORE].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( market->commodityRuleCount[Construction::STUFF_GOODS].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_GOODS].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( market->commodityRuleCount[Construction::STUFF_GOODS].give ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_GOODS].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( market->commodityRuleCount[Construction::STUFF_STEEL].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_STEEL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( market->commodityRuleCount[Construction::STUFF_STEEL].give) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_STEEL].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
-    if( market->commodityRuleCount[Construction::STUFF_WASTE].take ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_WASTE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
-    if( market->commodityRuleCount[Construction::STUFF_WASTE].give) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_WASTE].give) cb->check(); else cb->uncheck();
 
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
@@ -687,25 +687,25 @@ void Dialog::editPort(){
 
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( port->commodityRuleCount[Construction::STUFF_FOOD].take) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_FOOD].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( port->commodityRuleCount[Construction::STUFF_FOOD].give) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_FOOD].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( port->commodityRuleCount[Construction::STUFF_COAL].take) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_COAL].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( port->commodityRuleCount[Construction::STUFF_COAL].give) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_COAL].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( port->commodityRuleCount[Construction::STUFF_ORE].take) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_ORE].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( port->commodityRuleCount[Construction::STUFF_ORE].give) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_ORE].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( port->commodityRuleCount[Construction::STUFF_GOODS].take) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_GOODS].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( port->commodityRuleCount[Construction::STUFF_GOODS].give) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_GOODS].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( port->commodityRuleCount[Construction::STUFF_STEEL].take) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_STEEL].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( port->commodityRuleCount[Construction::STUFF_STEEL].give) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[STUFF_STEEL].give) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
@@ -718,87 +718,87 @@ void Dialog::applyMarketButtonClicked( Button* ){
     Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_JOBS].take = true;
+        market->commodityRuleCount[STUFF_JOBS].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_JOBS].take = false;
+        market->commodityRuleCount[STUFF_JOBS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_JOBS].give = true;
+        market->commodityRuleCount[STUFF_JOBS].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        market->commodityRuleCount[STUFF_JOBS].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_FOOD].take = true;
+        market->commodityRuleCount[STUFF_FOOD].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_FOOD].take = false;
+        market->commodityRuleCount[STUFF_FOOD].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_FOOD].give = true;
+        market->commodityRuleCount[STUFF_FOOD].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_FOOD].give = false;
+        market->commodityRuleCount[STUFF_FOOD].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_COAL].take = true;
+        market->commodityRuleCount[STUFF_COAL].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_COAL].take = false;
+        market->commodityRuleCount[STUFF_COAL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_COAL].give = true;
+        market->commodityRuleCount[STUFF_COAL].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_COAL].give = false;
+        market->commodityRuleCount[STUFF_COAL].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_ORE].take = true;
+        market->commodityRuleCount[STUFF_ORE].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_ORE].take = false;
+        market->commodityRuleCount[STUFF_ORE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_ORE].give = true;
+        market->commodityRuleCount[STUFF_ORE].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_ORE].give = false;
+        market->commodityRuleCount[STUFF_ORE].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_GOODS].take = true;
+        market->commodityRuleCount[STUFF_GOODS].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_GOODS].take = false;
+        market->commodityRuleCount[STUFF_GOODS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_GOODS].give = true;
+        market->commodityRuleCount[STUFF_GOODS].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_GOODS].give = false;
+        market->commodityRuleCount[STUFF_GOODS].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_STEEL].take = true;
+        market->commodityRuleCount[STUFF_STEEL].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_STEEL].take = false;
+        market->commodityRuleCount[STUFF_STEEL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_STEEL].give = true;
+        market->commodityRuleCount[STUFF_STEEL].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_STEEL].give = false;
+        market->commodityRuleCount[STUFF_STEEL].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_WASTE].take = true;
+        market->commodityRuleCount[STUFF_WASTE].take = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_WASTE].take = false;
+        market->commodityRuleCount[STUFF_WASTE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        market->commodityRuleCount[STUFF_WASTE].give = true;
     } else {
-        market->commodityRuleCount[Construction::STUFF_WASTE].give = false;
+        market->commodityRuleCount[STUFF_WASTE].give = false;
     }
     mps_refresh();
     desktop->remove( myDialogComponent );
@@ -812,97 +812,97 @@ void Dialog::applyPortButtonClicked( Button* ){
 
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_FOOD].take = true;
+        port->commodityRuleCount[STUFF_FOOD].take = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_FOOD].take = false;
+        port->commodityRuleCount[STUFF_FOOD].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_FOOD].give = true;
+        port->commodityRuleCount[STUFF_FOOD].give = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_FOOD].give = false;
+        port->commodityRuleCount[STUFF_FOOD].give = false;
     }
-    if ((port->commodityRuleCount[Construction::STUFF_FOOD].take)
-        && (port->commodityRuleCount[Construction::STUFF_FOOD].give))
+    if ((port->commodityRuleCount[STUFF_FOOD].take)
+        && (port->commodityRuleCount[STUFF_FOOD].give))
     {
-        port->commodityRuleCount[Construction::STUFF_FOOD].take = false;
-        port->commodityRuleCount[Construction::STUFF_FOOD].give = false;
+        port->commodityRuleCount[STUFF_FOOD].take = false;
+        port->commodityRuleCount[STUFF_FOOD].give = false;
     }
 
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_COAL].take = true;
+        port->commodityRuleCount[STUFF_COAL].take = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_COAL].take = false;
+        port->commodityRuleCount[STUFF_COAL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_COAL].give = true;
+        port->commodityRuleCount[STUFF_COAL].give = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_COAL].give = false;
+        port->commodityRuleCount[STUFF_COAL].give = false;
     }
-    if ((port->commodityRuleCount[Construction::STUFF_COAL].take)
-        && (port->commodityRuleCount[Construction::STUFF_COAL].give))
+    if ((port->commodityRuleCount[STUFF_COAL].take)
+        && (port->commodityRuleCount[STUFF_COAL].give))
     {
-        port->commodityRuleCount[Construction::STUFF_COAL].take = false;
-        port->commodityRuleCount[Construction::STUFF_COAL].give = false;
+        port->commodityRuleCount[STUFF_COAL].take = false;
+        port->commodityRuleCount[STUFF_COAL].give = false;
     }
 
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_ORE].take = true;
+        port->commodityRuleCount[STUFF_ORE].take = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_ORE].take = false;
+        port->commodityRuleCount[STUFF_ORE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_ORE].give = true;
+        port->commodityRuleCount[STUFF_ORE].give = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_ORE].give = false;
+        port->commodityRuleCount[STUFF_ORE].give = false;
     }
-    if ((port->commodityRuleCount[Construction::STUFF_ORE].take)
-        && (port->commodityRuleCount[Construction::STUFF_ORE].give))
+    if ((port->commodityRuleCount[STUFF_ORE].take)
+        && (port->commodityRuleCount[STUFF_ORE].give))
     {
-        port->commodityRuleCount[Construction::STUFF_ORE].take = false;
-        port->commodityRuleCount[Construction::STUFF_ORE].give = false;
+        port->commodityRuleCount[STUFF_ORE].take = false;
+        port->commodityRuleCount[STUFF_ORE].give = false;
     }
 
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_GOODS].take = true;
+        port->commodityRuleCount[STUFF_GOODS].take = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_GOODS].take = false;
+        port->commodityRuleCount[STUFF_GOODS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_GOODS].give = true;
+        port->commodityRuleCount[STUFF_GOODS].give = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_GOODS].give = false;
+        port->commodityRuleCount[STUFF_GOODS].give = false;
     }
-    if ((port->commodityRuleCount[Construction::STUFF_GOODS].take)
-        && (port->commodityRuleCount[Construction::STUFF_GOODS].give))
+    if ((port->commodityRuleCount[STUFF_GOODS].take)
+        && (port->commodityRuleCount[STUFF_GOODS].give))
     {
-        port->commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        port->commodityRuleCount[Construction::STUFF_GOODS].give = false;
+        port->commodityRuleCount[STUFF_GOODS].take = false;
+        port->commodityRuleCount[STUFF_GOODS].give = false;
     }
 
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_STEEL].take = true;
+        port->commodityRuleCount[STUFF_STEEL].take = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_STEEL].take = false;
+        port->commodityRuleCount[STUFF_STEEL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        port->commodityRuleCount[Construction::STUFF_STEEL].give = true;
+        port->commodityRuleCount[STUFF_STEEL].give = true;
     } else {
-        port->commodityRuleCount[Construction::STUFF_STEEL].give = false;
+        port->commodityRuleCount[STUFF_STEEL].give = false;
     }
-    if ((port->commodityRuleCount[Construction::STUFF_STEEL].take)
-        && (port->commodityRuleCount[Construction::STUFF_STEEL].give))
+    if ((port->commodityRuleCount[STUFF_STEEL].take)
+        && (port->commodityRuleCount[STUFF_STEEL].give))
     {
-        port->commodityRuleCount[Construction::STUFF_STEEL].take = false;
-        port->commodityRuleCount[Construction::STUFF_STEEL].give = false;
+        port->commodityRuleCount[STUFF_STEEL].take = false;
+        port->commodityRuleCount[STUFF_STEEL].give = false;
     }
 
     desktop->remove( myDialogComponent );

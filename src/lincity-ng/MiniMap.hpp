@@ -54,7 +54,7 @@ public:
     void switchView(const std::string& viewname);
     void scrollPageDown(bool down);
 
-    Construction::Commodities getStuffID();
+    Commodity getStuffID();
     void toggleStuffID(int step);
 
     void mapViewChangeDisplayMode(DisplayMode mode);
@@ -81,7 +81,7 @@ private:
     MapPoint upperLeft, lowerRight;
 
     DisplayMode mMode;
-    Construction::Commodities stuff_ID;
+    Commodity stuff_ID;
     int tilesize;
     int border;
     int left, top; //Positioning of minimap

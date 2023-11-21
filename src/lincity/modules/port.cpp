@@ -28,7 +28,7 @@ Construction *PortConstructionGroup::createConstruction(int x, int y) {
     return new Port(x, y, this);
 }
 
-int Port::buy_stuff(Commodities stuff)
+int Port::buy_stuff(Commodity stuff)
 //fills up a PORT_IMPORT_RATE fraction of the available capacity and returns the cost
 //amount to buy must exceed PORT_TRIGGER_RATE
 {
@@ -40,7 +40,7 @@ int Port::buy_stuff(Commodities stuff)
     return (i * portConstructionGroup.commodityRates[stuff]);
 }
 
-int Port::sell_stuff(Commodities stuff)
+int Port::sell_stuff(Commodity stuff)
 //sells a PORT_IMPORT_RATE fraction of the current load and returns the revenue
 //amount to sell must exceed PORT_TRIGGER_RATE
 {
@@ -55,15 +55,17 @@ int Port::sell_stuff(Commodities stuff)
 void Port::trade_connection()
 {
     //Checks all flags and issues buy_stuff sell_stuff accordingly
-    std::map<Commodities, CommodityRule>::iterator stuff_it;
-    for(stuff_it = commodityRuleCount.begin() ; stuff_it != commodityRuleCount.end() ; stuff_it++ )
+    std::array<CommodityRule, STUFF_COUNT>::iterator stuff_it;
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++ )
     {
-        if (stuff_it->second.take == stuff_it->second.give)
+        CommodityRule& rule = commodityRuleCount[stuff];
+        if(!rule.maxload) continue;
+        if (rule.take == rule.give)
         {   continue;}
-        if (stuff_it->second.take)
-        {   daily_ic += buy_stuff(stuff_it->first);}
-        else if (stuff_it->second.give)
-        {   daily_et += sell_stuff(stuff_it->first);}
+        if (rule.take)
+        {   daily_ic += buy_stuff(stuff);}
+        else if (rule.give)
+        {   daily_et += sell_stuff(stuff);}
     }
 }
 
@@ -119,4 +121,3 @@ void Port::report()
 }
 
 /** @file lincity/modules/port.cpp */
-

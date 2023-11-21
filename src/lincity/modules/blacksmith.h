@@ -39,18 +39,18 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_BLACKSMITH;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_BLACKSMITH;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_BLACKSMITH;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_BLACKSMITH;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_BLACKSMITH;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_BLACKSMITH;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_BLACKSMITH;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_BLACKSMITH;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
     }
     // overriding method that creates a blacksmith
     virtual Construction *createConstruction(int x, int y);

@@ -41,18 +41,18 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_ROCKET_PAD;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_ROCKET_PAD;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = false;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_ROCKET_PAD;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_ROCKET_PAD;
-        commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_ROCKET_PAD;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_ROCKET_PAD;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = false;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_ROCKET_PAD;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_ROCKET_PAD;
+        commodityRuleCount[STUFF_WASTE].take = false;
+        commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a RocketPad
     virtual Construction *createConstruction(int x, int y);

@@ -34,12 +34,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
-        commodityRuleCount[Construction::STUFF_MWH].take = false;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
+        commodityRuleCount[STUFF_MWH].take = false;
+        commodityRuleCount[STUFF_MWH].give = true;
     }
     // overriding method that creates a Windpower
     virtual Construction *createConstruction(int x, int y);

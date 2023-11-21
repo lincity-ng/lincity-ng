@@ -24,59 +24,59 @@ public:
         {
             case GROUP_TRACK:
             case GROUP_TRACK_BRIDGE:
-                commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_ON_TRACK;
-                commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_ON_TRACK;
+                commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_TRACK;
+                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_TRACK;
+                commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_TRACK;
+                commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_TRACK;
+                commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_TRACK;
+                commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_TRACK;
+                commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_TRACK;
+                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_TRACK;
+                commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_TRACK;
             break;
             case GROUP_ROAD:
             case GROUP_ROAD_BRIDGE:
-                commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_ON_ROAD;
-                commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_ON_ROAD;
+                commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_ROAD;
+                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_ROAD;
+                commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_ROAD;
+                commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_ROAD;
+                commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_ROAD;
+                commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_ROAD;
+                commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_ROAD;
+                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_ROAD;
+                commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_ROAD;
             break;
             case GROUP_RAIL:
             case GROUP_RAIL_BRIDGE:
-                commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_ON_RAIL;
-                commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_ON_RAIL;
+                commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_RAIL;
+                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_RAIL;
+                commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_RAIL;
+                commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_RAIL;
+                commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_RAIL;
+                commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_RAIL;
+                commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_RAIL;
+                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_RAIL;
+                commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_RAIL;
             break;
         } // end switch group
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = true;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = true;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = true;
-        commodityRuleCount[Construction::STUFF_WATER].take = true;
-        commodityRuleCount[Construction::STUFF_WATER].give = true;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = true;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = true;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = true;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_WATER].take = true;
+        commodityRuleCount[STUFF_WATER].give = true;
     }
     // overriding method that creates a transport tile
     virtual Construction *createConstruction(int x, int y);
@@ -219,10 +219,9 @@ public:
     virtual void update();
     virtual void report();
     virtual void playSound(); //override random sound
-    std::map<Commodities, int> trafficCount;
+    std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic( int* i);
     int subgroupID;
     int anim;
     bool burning_waste;
 };
-

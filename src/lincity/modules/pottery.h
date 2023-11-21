@@ -34,18 +34,18 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_POTTERY;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_POTTERY;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_POTTERY;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = false;
     }
     // overriding method that creates a pottery
     virtual Construction *createConstruction(int x, int y);

@@ -16,9 +16,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
-        commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
+        commodityRuleCount[STUFF_MWH].take = true;
+        commodityRuleCount[STUFF_MWH].give = true;
     }
     // overriding method that creates a power line
     virtual Construction *createConstruction(int x, int y);
@@ -42,11 +42,10 @@ public:
     virtual void update();
     virtual void report();
     void flow_power();
-    std::map<Commodities, int> trafficCount;
+    std::array<int, STUFF_COUNT> trafficCount;
     int anim_counter;
     bool flashing;
 };
 
 
 /** @file lincity/modules/power_line.h */
-

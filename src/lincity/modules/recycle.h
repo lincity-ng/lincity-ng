@@ -39,21 +39,21 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_RECYCLE;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_RECYCLE;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = false;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_RECYCLE;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_RECYCLE;
-        commodityRuleCount[Construction::STUFF_STEEL].take = false;
-        commodityRuleCount[Construction::STUFF_STEEL].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_RECYCLE;
-        commodityRuleCount[Construction::STUFF_ORE].take = false;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_RECYCLE;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_RECYCLE;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = false;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_RECYCLE;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_RECYCLE;
+        commodityRuleCount[STUFF_STEEL].take = false;
+        commodityRuleCount[STUFF_STEEL].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_RECYCLE;
+        commodityRuleCount[STUFF_ORE].take = false;
+        commodityRuleCount[STUFF_ORE].give = true;
     }
     // overriding method that creates a recyle
     virtual Construction *createConstruction(int x, int y);

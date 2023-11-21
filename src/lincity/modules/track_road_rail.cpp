@@ -179,11 +179,10 @@ void Transport::update()
 
 void Transport::list_traffic(int *i)
 {
-    std::map<Commodities, int>::iterator stuff_it;
-    for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
-        if(*i < 14)
-        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+        if(*i < 14 && constructionGroup->commodityRuleCount[stuff].maxload)
+        {   mps_store_sfp((*i)++, commodityNames[stuff], (float) trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
     }
 }
 
@@ -213,11 +212,15 @@ void Transport::playSound()
         if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
         {
             int avg = 0;
-            std::map<Commodities, int>::iterator stuff_it;
-            for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
-            {   avg += (stuff_it->second * 107 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+            int size = 0;
+            for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
+            {
+              if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
+              avg += (trafficCount[stuff] * 107 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+              size++;
+            }
             if(avg > 0) //equiv to size > 0
-            {   avg /= trafficCount.size();}
+            {   avg /= size;}
             int num_sounds = soundGroup->chunks.size()/2;
             if(avg > 5)
             {   getSound()->playASound(soundGroup->chunks[rand()%num_sounds]);}
@@ -234,4 +237,3 @@ void Transport::playSound()
 
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */
-

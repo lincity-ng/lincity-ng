@@ -34,12 +34,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_MINE;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_MINE;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = true;
 
     }
     // overriding method that creates an Oremine
