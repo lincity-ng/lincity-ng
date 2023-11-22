@@ -1209,6 +1209,7 @@ void Construction::trade()
             }
         }
         int flow = center_lvl - old_center;
+        max_traffic = max_traffic * TRANSPORT_QUANTA / center_cap;
         //do some smoothing to suppress fluctuations from random order
         // max possible 92.8%
         if(transport) //Special for transport
@@ -1319,7 +1320,8 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
         if (-flow > *loc_lvl)
         {   flow = -*loc_lvl;}
     }
-    traffic = flow * TRANSPORT_QUANTA / rem_cap;
+    // traffic = flow * TRANSPORT_QUANTA / rem_cap;
+    traffic = flow;
     // incomming and outgoing traffic dont cancel but add up
     if (traffic < 0)
     {
