@@ -471,7 +471,7 @@ void Construction::list_commodities(int * i)
         for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
             const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && rule.take && rule.give)
+            if(rule.maxload && !rule.take && rule.give)
             {
                 mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
@@ -480,7 +480,7 @@ void Construction::list_commodities(int * i)
         for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
             const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && !rule.take && !rule.give)
+            if(rule.maxload && rule.take && rule.give)
             {
                 mps_store_ssddp(*i,"<->", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
@@ -489,7 +489,7 @@ void Construction::list_commodities(int * i)
         for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
             const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && rule.take && ! rule.give)
+            if(rule.maxload && !rule.take && !rule.give)
             {
                 mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
