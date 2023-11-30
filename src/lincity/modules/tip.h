@@ -33,9 +33,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = TIP_TAKES_WASTE;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_WASTE].maxload = TIP_TAKES_WASTE;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a tip
     virtual Construction *createConstruction(int x, int y);

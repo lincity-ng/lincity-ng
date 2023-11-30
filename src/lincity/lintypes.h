@@ -35,6 +35,7 @@ unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
 /********** Data structures ***************/
 #include <list>
+#include <array>
 #include <vector>
 #include <map>
 #include <string>
@@ -176,6 +177,24 @@ public:
 template <typename MemberType>
 class MemberTraits { };
 
+enum Commodity
+{
+    STUFF_INIT = 0,
+    STUFF_FOOD = STUFF_INIT,
+    STUFF_JOBS,
+    STUFF_COAL,
+    STUFF_GOODS,
+    STUFF_ORE,
+    STUFF_STEEL,
+    STUFF_WASTE,
+    STUFF_KWH,
+    STUFF_MWH,
+    STUFF_WATER,
+    STUFF_COUNT
+};
+Commodity& operator++(Commodity& stuff);
+Commodity operator++(Commodity& stuff, int);
+
 struct CommodityRule{
     int maxload;
     bool take;
@@ -201,20 +220,6 @@ public:
     int ID;
     int flags;              //flags are defined in lin-city.h
 
-    enum Commodities
-    {
-        STUFF_FOOD,
-        STUFF_JOBS,
-        STUFF_COAL,
-        STUFF_GOODS,
-        STUFF_ORE,
-        STUFF_STEEL,
-        STUFF_WASTE,
-        STUFF_KWH,
-        STUFF_MWH,
-        STUFF_WATER
-    };
-
     enum MemberTypes
     {
         TYPE_BOOL,
@@ -224,12 +229,13 @@ public:
         TYPE_FLOAT
     };
 
-    std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
+    // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
+    std::array<int, STUFF_COUNT> commodityCount;
     std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
     std::list<ExtraFrame>::iterator frameIt;
-    static std::string getStuffName(Commodities stuff_id); //translated name of a commodity
+    static std::string getStuffName(Commodity stuff_id); //translated name of a commodity
     void init_resources(void);                      //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
@@ -244,7 +250,7 @@ public:
         memberRuleCount[xml_tag].ptr = static_cast<void *>(ptr);
     }
 
-    void setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount);
+    void setCommodityRulesSaved(std::array<CommodityRule,STUFF_COUNT> * stuffRuleCount);
     void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
     void detach();      //removes all references from world, ::constructionCount
@@ -252,17 +258,17 @@ public:
     void   neighborize(); //adds all neigborconnections once (call twice for double connections)
     int countPowercables(int mask); //removes all but one suspended cable on each edge
     void link_to(Construction* other); //establishes mutual connection to neighbor or partner
-    int  tellstuff( Commodities stuff_ID, int level); //tell the filling level of commodity
+    int  tellstuff( Commodity stuff_ID, int level); //tell the filling level of commodity
     void trade(); //exchange commodities with neigbhors
-    int equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commodities stuff_ID, ConstructionGroup * rem_cstGroup);
+    int equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule , int ratio, Commodity stuff_ID);
     //equilibrates stuff with an external reservoir (e.g. another construction invoking this method)
     void playSound();//plays random chunk from constructionGroup
 };
 
 extern const char *commodityNames[];
 //global Vars for statistics on commodities
-extern std::map<Construction::Commodities, int> tstat_capacities;
-extern std::map<Construction::Commodities, int> tstat_census;
+extern std::map<Commodity, int> tstat_capacities;
+extern std::map<Commodity, int> tstat_census;
 
 #define MEMBER_TYPE_TRAITS(MemberType, TypeId) \
 template <> \
@@ -388,6 +394,14 @@ public:
         this->range = range;
         //this->images_loaded = false;
         //this->sounds_loaded = false;
+
+        for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+          this->commodityRuleCount[stuff] = (CommodityRule){
+            .maxload = 0,
+            .take = false,
+            .give = false
+          };
+        }
        }
     virtual ~ConstructionGroup()
     {/*
@@ -402,7 +416,8 @@ public:
         }*/
     }
 
-    std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
+    // std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
+    std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     //std::vector<Mix_Chunk *> chunks;
     //std::vector<GraphicsInfo> graphicsInfoVector;
     int getCosts();
@@ -526,4 +541,3 @@ struct TYPE {
 #endif /* __lintypes_h__ */
 
 /** @file lincity/lintypes.h */
-

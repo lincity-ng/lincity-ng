@@ -418,6 +418,15 @@ void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 
 //Construction Declarations
 
+Commodity& operator++(Commodity& stuff) {
+  return stuff = (Commodity)((int)stuff + 1);
+}
+Commodity operator++(Commodity& stuff, int) {
+  Commodity tmp(stuff);
+  ++stuff;
+  return tmp;
+}
+
 const char *commodityNames[] =
     {
     N_("Food"),
@@ -435,7 +444,7 @@ const char *commodityNames[] =
     "Unknown",
     };
 
-std::string Construction::getStuffName(Commodities stuff_id)
+std::string Construction::getStuffName(Commodity stuff_id)
 {
     return commodityNames[stuff_id];
 }
@@ -447,70 +456,66 @@ void Construction::list_commodities(int * i)
         Groups commodities by incomming, outgoing, twoway and inactive
     */
 
-    std::map<Construction::Commodities, int>::iterator stuff_it;
+    Commodity stuff;
     if (! (flags & FLAG_EVACUATE))
     {
-        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
-            if(constructionGroup->commodityRuleCount[stuff_it->first].take
-            && ! constructionGroup->commodityRuleCount[stuff_it->first].give
-            && *i < 14)
+            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+            if(rule.maxload && rule.take && !rule.give)
             {
-                mps_store_ssddp(*i,"--> ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--> ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
             }//endif
         } //endfor
-        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
-            if(constructionGroup->commodityRuleCount[stuff_it->first].give
-            && ! constructionGroup->commodityRuleCount[stuff_it->first].take
-            && *i<14)
+            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+            if(rule.maxload && !rule.take && rule.give)
             {
-                mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
             }//endif
-        }//endfor
-        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        } //endfor
+        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
-            if(constructionGroup->commodityRuleCount[stuff_it->first].give
-            && constructionGroup->commodityRuleCount[stuff_it->first].take
-            && *i<14)
+            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+            if(rule.maxload && rule.take && rule.give)
             {
-                mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<->", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
             }//endif
-        }//endfor
-        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        } //endfor
+        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
-            if((!constructionGroup->commodityRuleCount[stuff_it->first].give
-            && !constructionGroup->commodityRuleCount[stuff_it->first].take)
-            && *i<14)
+            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+            if(rule.maxload && !rule.take && !rule.give)
             {
-                mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
             }//endif
-        }//endfor
+        } //endfor
     }
     else // FLAG_EVACUATE
     {
-        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
         {
-            if(*i<14)
-            {
-                mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+            if(rule.maxload) {
+                mps_store_ssddp(*i,"<< ",commodityNames[stuff], commodityCount[stuff], rule.maxload);
                 ++*i;
-            }//endif
+            }
         }//endfor
     }
 }
 
 void Construction::initialize_commodities(void)
 {
-    std::map<Commodities,CommodityRule>::iterator stuff_it;
-    for(stuff_it = constructionGroup->commodityRuleCount.begin() ; stuff_it != constructionGroup->commodityRuleCount.end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
     {
-        commodityCount[stuff_it->first] = 0;
-        setMemberSaved(&commodityCount[stuff_it->first], commodityNames[stuff_it->first]);
+        commodityCount[stuff] = 0;
+        if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
+        setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
     }
 }
 
@@ -535,34 +540,35 @@ void Construction::init_resources()
 
 void Construction::bootstrap_commodities(int percent)
 {
-    std::map<Commodities,CommodityRule>::iterator stuff_it;
-    for(stuff_it = constructionGroup->commodityRuleCount.begin() ; stuff_it != constructionGroup->commodityRuleCount.end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
-        if (stuff_it->first != STUFF_WASTE)
-        {   commodityCount[stuff_it->first] = percent * stuff_it->second.maxload /100;}
+        CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        if (rule.maxload && stuff != STUFF_WASTE)
+        {   commodityCount[stuff] = percent * rule.maxload /100;}
     }
 }
 
 void Construction::report_commodities(void)
 {
-    std::map<Commodities, int>::iterator stuff_it;
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
-        tstat_census[stuff_it->first] += stuff_it->second;
-        tstat_capacities[stuff_it->first] += constructionGroup->commodityRuleCount[stuff_it->first].maxload;
+        tstat_census[stuff] += commodityCount[stuff];
+        tstat_capacities[stuff] +=
+          constructionGroup->commodityRuleCount[stuff].maxload;
     }
 
 }
 
-void Construction::setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount)
+void Construction::setCommodityRulesSaved(std::array<CommodityRule, STUFF_COUNT> *stuffRuleCount)
 {
-    std::map<Commodities,CommodityRule>::iterator stuff_it;
     std::string giveStr = "give_";
     std::string takeStr = "take_";
-    for( stuff_it = stuffRuleCount->begin() ; stuff_it != stuffRuleCount->end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
-        setMemberSaved(&(stuff_it->second.give), giveStr + commodityNames[stuff_it->first]);
-        setMemberSaved(&(stuff_it->second.take), takeStr + commodityNames[stuff_it->first]);
+        CommodityRule& rule = (*stuffRuleCount)[stuff];
+        if(!rule.maxload) continue;
+        setMemberSaved(&(rule.give), giveStr + commodityNames[stuff]);
+        setMemberSaved(&(rule.take), takeStr + commodityNames[stuff]);
     }
 }
 
@@ -996,19 +1002,16 @@ void Construction::link_to(Construction* other)
     {   return;}
 #endif*/
     bool useful = false;
-    Commodities stuff_ID;
-    std::map<Commodities, int>::iterator stuff_it;
-    for(stuff_it = commodityCount.begin() ;!useful && stuff_it != commodityCount.end() ; stuff_it++ )
+    Commodity stuff_ID;
+    for(stuff_ID = STUFF_INIT ; !useful && stuff_ID < STUFF_COUNT ; stuff_ID++ )
     {
-        stuff_ID = stuff_it->first;
-        if(other->commodityCount.count(stuff_ID))
-        {
-            useful=((constructionGroup->commodityRuleCount[stuff_ID].take &&
-                other->constructionGroup->commodityRuleCount[stuff_ID].give)
-            ||
-               (constructionGroup->commodityRuleCount[stuff_ID].give &&
-               other->constructionGroup->commodityRuleCount[stuff_ID].take));
-        }
+        CommodityRule& rule = constructionGroup->commodityRuleCount[stuff_ID];
+        CommodityRule& other_rule =
+          other->constructionGroup->commodityRuleCount[stuff_ID];
+        if(!rule.maxload || !other_rule.maxload) continue;
+
+        useful = (rule.take && other_rule.give) ||
+          (rule.give && other_rule.take);
     }
     if (useful)
     {
@@ -1099,12 +1102,13 @@ int Construction::countPowercables(int mask)
 
 
 
-int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by Minimap and connecttransport
+int Construction::tellstuff(Commodity stuff_ID, int center_ratio) //called by Minimap and connecttransport
 {
-    if (commodityCount.count(stuff_ID))
+    CommodityRule& rule = constructionGroup->commodityRuleCount[stuff_ID];
+    if (rule.maxload)
     {
         int loc_lvl = commodityCount[stuff_ID];
-        int loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        int loc_cap = rule.maxload;
         if ((flags & FLAG_EVACUATE) && (center_ratio != -2))
         {   return (loc_lvl>1)?loc_lvl:-1;}
 
@@ -1130,8 +1134,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);
         //Tell actual stock if we would tentatively participate in transport
         if ((center_ratio < 0) || (
-        loc_ratio>center_ratio?constructionGroup->commodityRuleCount[stuff_ID].give:
-            constructionGroup->commodityRuleCount[stuff_ID].take) )
+        loc_ratio>center_ratio?rule.give:rule.take) )
         {   return (loc_ratio);}
     }
     return -1;
@@ -1141,10 +1144,9 @@ void Construction::trade()
 {
     int ratio, cap, lvl, center_lvl, center_cap;
     int traffic, max_traffic;
-    Commodities stuff_ID;
+    Commodity stuff_ID;
     const size_t neighsize = neighbors.size();
     std::vector<bool> lvls(neighsize);
-    std::map<Commodities, int>::iterator stuff_it;
     Transport *transport = NULL;
     Powerline *powerline = NULL;
     if(flags & FLAG_IS_TRANSPORT)
@@ -1152,11 +1154,12 @@ void Construction::trade()
     else if(constructionGroup->group == GROUP_POWER_LINE)
     {   powerline = dynamic_cast<Powerline*>(this);}
     /*begin for over all different stuff*/
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
+    for(stuff_ID = STUFF_INIT ; stuff_ID < STUFF_COUNT ; stuff_ID++ )
     {
-        stuff_ID = stuff_it->first;
-        center_lvl = stuff_it->second;
-        center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        const CommodityRule& center_rule = constructionGroup->commodityRuleCount[stuff_ID];
+        if(!center_rule.maxload) continue;
+        center_lvl = commodityCount[stuff_ID];
+        center_cap = center_rule.maxload;
         if(flags & FLAG_EVACUATE)
         {
             if(center_lvl > 0)
@@ -1165,31 +1168,32 @@ void Construction::trade()
             {   continue;} // next commodity
         }
         //first order approximation for ratio
-        ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
+        // ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
         lvl = center_lvl;
         cap = center_cap;
         for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             Construction *pear = neighbors[i];
-            lvls[i] = false;
-            if(pear->commodityCount.count(stuff_ID))
-            {
-                int lvlsi = pear->commodityCount[stuff_ID];
-                int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
-                if(!(pear->flags & FLAG_EVACUATE))
-                {
-                    int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
-                    //only consider stuff that would tentatively move
-                    if(((pearat > ratio)&&!(constructionGroup->commodityRuleCount[stuff_ID].take &&
-                            pear->constructionGroup->commodityRuleCount[stuff_ID].give)) ||
-                       ((pearat < ratio)&&!(constructionGroup->commodityRuleCount[stuff_ID].give &&
-                            pear->constructionGroup->commodityRuleCount[stuff_ID].take)))
-                    {   continue;}
-                    lvl += lvlsi;
-                    cap += capsi;
-                }
-                lvls[i] = true;
+            CommodityRule& pearrule = pear->constructionGroup->commodityRuleCount[stuff_ID];
+            if(!pearrule.maxload) {
+                lvls[i] = false;
+                continue;
             }
+            else if(pear->flags & FLAG_EVACUATE) {
+                lvls[i] = true;
+                continue;
+            }
+            lvls[i] = true;
+            int lvlsi = pear->commodityCount[stuff_ID];
+            int capsi = pearrule.maxload;
+            // int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
+            //only consider stuff that would tentatively move
+            if(!(((long)lvlsi * center_cap > (long)center_lvl * capsi) ?
+              (center_rule.take && pearrule.give) :
+              (center_rule.give && pearrule.take)))
+            {   continue;}
+            lvl += lvlsi;
+            cap += capsi;
         }
         ratio = lvl * TRANSPORT_QUANTA / cap;
         max_traffic = 0;
@@ -1199,12 +1203,13 @@ void Construction::trade()
         {
             if(lvls[i])
             {
-                traffic = neighbors[i]->equilibrate_stuff(&center_lvl, center_cap, ratio, stuff_ID, constructionGroup);
+                traffic = neighbors[i]->equilibrate_stuff(&center_lvl, center_rule, ratio, stuff_ID);
                 if( traffic > max_traffic )
                 {   max_traffic = traffic;}
             }
         }
         int flow = center_lvl - old_center;
+        max_traffic = max_traffic * TRANSPORT_QUANTA / center_cap;
         //do some smoothing to suppress fluctuations from random order
         // max possible 92.8%
         if(transport) //Special for transport
@@ -1247,82 +1252,84 @@ void Construction::trade()
             }
         }
 
-        stuff_it->second += flow; //update center_lvl
+        commodityCount[stuff_ID] += flow; //update center_lvl
     } //endfor all different STUFF
 }
 
-int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commodities stuff_ID, ConstructionGroup * rem_cstGroup)
+int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ratio, Commodity stuff_ID)
 {
-    if (commodityCount.count(stuff_ID) ) // we know stuff_id
+    // if ( !commodityCount.count(stuff_ID) ) // we know stuff_id
+    //     return -1;
+    // valid commodity for this construction is precondition for this method
+
+    int flow, traffic;
+    int& rem_cap = rem_rule.maxload;
+    int *loc_lvl;
+    int loc_cap;
+    CommodityRule& loc_rule = constructionGroup->commodityRuleCount[stuff_ID];
+    loc_lvl = &(commodityCount[stuff_ID]);
+    loc_cap = loc_rule.maxload;
+    if (!(flags & FLAG_EVACUATE))
     {
-        int flow, traffic;
-        int *loc_lvl;
-        int loc_cap;
-        loc_lvl = &(commodityCount[stuff_ID]);
-        loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
-        if (!(flags & FLAG_EVACUATE))
+        flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
+        if (flow > 0 ?
+          !(loc_rule.take && rem_rule.give) :
+          !(loc_rule.give && rem_rule.take))
+        {   //construction refuses the flow
+            return 0;
+        }
+        if (flow > 0)
         {
-            flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
-            if (((flow > 0) && (!(constructionGroup->commodityRuleCount[stuff_ID].take &&
-            rem_cstGroup->commodityRuleCount[stuff_ID].give) ))
-            || ((flow < 0) && !(constructionGroup->commodityRuleCount[stuff_ID].give &&
-            rem_cstGroup->commodityRuleCount[stuff_ID].take) ))
-            {   //construction refuses the flow
-                return 0;
-            }
-            if (flow > 0)
+            if (flow * TRANSPORT_RATE > rem_cap )
+            {   flow = rem_cap / TRANSPORT_RATE;}
+            if (flow > *rem_lvl)
+            {   flow = *rem_lvl;}
+        }
+        else if (flow < 0)
+        {
+            if(-flow * TRANSPORT_RATE > rem_cap)
+            {   flow = - rem_cap / TRANSPORT_RATE;}
+            if(-flow > (rem_cap-*rem_lvl))
+            {   flow = -(rem_cap-*rem_lvl);}
+        }
+        //std::cout.flush();
+        if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
+            && (constructionGroup->group != GROUP_MARKET))
+        //something is given to a consumer
+        {
+            switch (stuff_ID)
             {
-                if (flow * TRANSPORT_RATE > rem_cap )
-                {   flow = rem_cap / TRANSPORT_RATE;}
-                if (flow > *rem_lvl)
-                {   flow = *rem_lvl;}
-            }
-            else if (flow < 0)
-            {
-                if(-flow * TRANSPORT_RATE > rem_cap)
-                {   flow = - rem_cap / TRANSPORT_RATE;}
-                if(-flow > (rem_cap-*rem_lvl))
-                {   flow = -(rem_cap-*rem_lvl);}
-            }
-            //std::cout.flush();
-            if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
-                && (constructionGroup->group != GROUP_MARKET))
-            //something is given to a consumer
-            {
-                switch (stuff_ID)
-                {
-                    case (STUFF_JOBS) :
-                        income_tax += flow;
-                        break;
-                    case (STUFF_GOODS) :
-                        goods_tax += flow;
-                        goods_used += flow;
-                        break;
-                    case (STUFF_COAL) :
-                        coal_tax += flow;
-                        break;
-                    default:
-                        break;
-                }
+                case (STUFF_JOBS) :
+                    income_tax += flow;
+                    break;
+                case (STUFF_GOODS) :
+                    goods_tax += flow;
+                    goods_used += flow;
+                    break;
+                case (STUFF_COAL) :
+                    coal_tax += flow;
+                    break;
+                default:
+                    break;
             }
         }
-        else // we are evacuating
-        {
-            flow = -(rem_cap-*rem_lvl);
-            if (-flow > *loc_lvl)
-            {   flow = -*loc_lvl;}
-        }
-        traffic = flow * TRANSPORT_QUANTA / rem_cap;
-        // incomming and outgoing traffic dont cancel but add up
-        if (traffic < 0)
-        {
-            traffic = -traffic;
-        }
-        *loc_lvl += flow;
-        *rem_lvl -= flow;
-        return traffic;
     }
-    return -1; //there was nothing to handle
+    else // we are evacuating
+    {
+        flow = -(rem_cap-*rem_lvl);
+        if (-flow > *loc_lvl)
+        {   flow = -*loc_lvl;}
+    }
+    // traffic = flow * TRANSPORT_QUANTA / rem_cap;
+    traffic = flow;
+    // incomming and outgoing traffic dont cancel but add up
+    if (traffic < 0)
+    {
+        traffic = -traffic;
+    }
+    *loc_lvl += flow;
+    *rem_lvl -= flow;
+    return traffic;
 }
 
 void Construction::playSound()
@@ -2202,4 +2209,3 @@ int get_type_cost(short type)
 }
 */
 /** @file lincity/lintypes.cpp */
-

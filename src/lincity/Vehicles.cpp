@@ -34,7 +34,7 @@ Vehicle::Vehicle(int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStr
     this->xr = x;
     this->yr = y;
 
-    this->stuff_id = Construction::STUFF_JOBS;
+    this->stuff_id = STUFF_JOBS;
     //TODO Choose a random model for suitable stuff
     this->model = model0;
     this->strategy = vehicleStrategy;

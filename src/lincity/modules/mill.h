@@ -38,21 +38,21 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_AT_MILL;
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_MILL;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_MILL;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_MILL;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_MILL;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_MILL;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_MILL;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_MILL;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
     }
     // overriding method that creates a mill
     virtual Construction *createConstruction(int x, int y);

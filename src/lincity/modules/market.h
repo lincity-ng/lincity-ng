@@ -38,30 +38,30 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = true;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = true;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
-        commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_IN_MARKET;
-        commodityRuleCount[Construction::STUFF_WATER].take = true;
-        commodityRuleCount[Construction::STUFF_WATER].give = true;
+        commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_IN_MARKET;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_IN_MARKET;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = true;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_IN_MARKET;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_IN_MARKET;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_IN_MARKET;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = true;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_IN_MARKET;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_IN_MARKET;
+        commodityRuleCount[STUFF_WATER].take = true;
+        commodityRuleCount[STUFF_WATER].give = true;
     };
     // overriding method that creates a Market
     virtual Construction *createConstruction(int x, int y);
@@ -107,9 +107,8 @@ public:
     int xs, ys, xe, ye;
     int working_days, busy;
     int jobs;
-    std::map<Commodities, CommodityRule> commodityRuleCount;
+    std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     int anim;
 };
 
 /** @file lincity/modules/market.h */
-

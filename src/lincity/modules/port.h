@@ -55,34 +55,34 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_PORT;
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_PORT;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_ON_PORT;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_ON_PORT;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_ON_PORT;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_PORT;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = true;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_PORT;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = true;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_PORT;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_PORT;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_PORT;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = true;
 
-        commodityRates[Construction::STUFF_FOOD] = PORT_FOOD_RATE;
-        commodityRates[Construction::STUFF_COAL] = PORT_COAL_RATE;
-        commodityRates[Construction::STUFF_GOODS] = PORT_GOODS_RATE;
-        commodityRates[Construction::STUFF_ORE] = PORT_ORE_RATE;
-        commodityRates[Construction::STUFF_STEEL] = PORT_STEEL_RATE;
+        commodityRates[STUFF_FOOD] = PORT_FOOD_RATE;
+        commodityRates[STUFF_COAL] = PORT_COAL_RATE;
+        commodityRates[STUFF_GOODS] = PORT_GOODS_RATE;
+        commodityRates[STUFF_ORE] = PORT_ORE_RATE;
+        commodityRates[STUFF_STEEL] = PORT_STEEL_RATE;
 
     };
     //map that holds the Rates for the commodities
-    std::map<Construction::Commodities, int> commodityRates;
+    std::map<Commodity, int> commodityRates;
     // overriding method that creates a Port
     virtual Construction *createConstruction(int x, int y);
 };
@@ -107,26 +107,31 @@ public:
         //local copy of commodityRuleCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         //do not trade jobs
-        commodityRuleCount.erase (STUFF_JOBS);
-        commodityRuleCount[Construction::STUFF_FOOD].take = false;
-        commodityRuleCount[Construction::STUFF_FOOD].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].take = false;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = false;
-        commodityRuleCount[Construction::STUFF_ORE].take = false;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;
-        commodityRuleCount[Construction::STUFF_STEEL].take = false;
-        commodityRuleCount[Construction::STUFF_STEEL].give = false;
+        // commodityRuleCount.erase (STUFF_JOBS);
+        commodityRuleCount[STUFF_JOBS] = (CommodityRule){
+          .maxload = 0,
+          .take = false,
+          .give = false
+        };
+        commodityRuleCount[STUFF_FOOD].take = false;
+        commodityRuleCount[STUFF_FOOD].give = false;
+        commodityRuleCount[STUFF_COAL].take = false;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = false;
+        commodityRuleCount[STUFF_ORE].take = false;
+        commodityRuleCount[STUFF_ORE].give = false;
+        commodityRuleCount[STUFF_STEEL].take = false;
+        commodityRuleCount[STUFF_STEEL].give = false;
         setCommodityRulesSaved(&commodityRuleCount);
     }
     virtual ~Port() { }
     virtual void update();
     virtual void report();
-    int buy_stuff(Commodities stuff_ID);
-    int sell_stuff(Commodities stuff_ID);
+    int buy_stuff(Commodity stuff_ID);
+    int sell_stuff(Commodity stuff_ID);
     void trade_connection();
-    std::map<Commodities, CommodityRule> commodityRuleCount;
+    std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     int daily_ic, monthly_ic, lastm_ic; //import cost
     int daily_et, monthly_et, lastm_et; //export tax
     int pence;
@@ -136,4 +141,3 @@ public:
 
 
 /** @file lincity/modules/port.h */
-

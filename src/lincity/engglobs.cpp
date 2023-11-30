@@ -27,8 +27,8 @@ bool seed_compression = true;
 //You may want to set these to false for easier debugging
 
 //These have to be decalred as extern in lintypes.h after class Construction
-std::map<Construction::Commodities, int> tstat_capacities;
-std::map<Construction::Commodities, int> tstat_census;
+std::map<Commodity, int> tstat_capacities;
+std::map<Commodity, int> tstat_census;
 
 int main_screen_originx, main_screen_originy;
 

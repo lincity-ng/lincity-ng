@@ -138,27 +138,27 @@ void init_monthly(void)
 
 void init_census()
 {
-    tstat_census[Construction::STUFF_FOOD] = 0;
-    tstat_census[Construction::STUFF_JOBS] = 0;
-    tstat_census[Construction::STUFF_COAL] = 0;
-    tstat_census[Construction::STUFF_ORE] = 0;
-    tstat_census[Construction::STUFF_WATER] = 0;
-    tstat_census[Construction::STUFF_GOODS] = 0;
-    tstat_census[Construction::STUFF_WASTE] = 0;
-    tstat_census[Construction::STUFF_STEEL] = 0;
-    tstat_census[Construction::STUFF_KWH] = 0;
-    tstat_census[Construction::STUFF_MWH] = 0;
+    tstat_census[STUFF_FOOD] = 0;
+    tstat_census[STUFF_JOBS] = 0;
+    tstat_census[STUFF_COAL] = 0;
+    tstat_census[STUFF_ORE] = 0;
+    tstat_census[STUFF_WATER] = 0;
+    tstat_census[STUFF_GOODS] = 0;
+    tstat_census[STUFF_WASTE] = 0;
+    tstat_census[STUFF_STEEL] = 0;
+    tstat_census[STUFF_KWH] = 0;
+    tstat_census[STUFF_MWH] = 0;
 
-    tstat_capacities[Construction::STUFF_FOOD] = 1;
-    tstat_capacities[Construction::STUFF_JOBS] = 1;
-    tstat_capacities[Construction::STUFF_COAL] = 1;
-    tstat_capacities[Construction::STUFF_ORE] = 1;
-    tstat_capacities[Construction::STUFF_STEEL] = 1;
-    tstat_capacities[Construction::STUFF_WATER] = 1;
-    tstat_capacities[Construction::STUFF_GOODS] = 1;
-    tstat_capacities[Construction::STUFF_WASTE] = 1;
-    tstat_capacities[Construction::STUFF_KWH] = 1;
-    tstat_capacities[Construction::STUFF_MWH] = 1;
+    tstat_capacities[STUFF_FOOD] = 1;
+    tstat_capacities[STUFF_JOBS] = 1;
+    tstat_capacities[STUFF_COAL] = 1;
+    tstat_capacities[STUFF_ORE] = 1;
+    tstat_capacities[STUFF_STEEL] = 1;
+    tstat_capacities[STUFF_WATER] = 1;
+    tstat_capacities[STUFF_GOODS] = 1;
+    tstat_capacities[STUFF_WASTE] = 1;
+    tstat_capacities[STUFF_KWH] = 1;
+    tstat_capacities[STUFF_MWH] = 1;
 }
 
 void init_yearly(void)
