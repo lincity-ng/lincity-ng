@@ -55,13 +55,13 @@ void Mill::update()
 
 void Mill::animate() {
   int& frame = frameIt->frame;
-  if(animate_enable) {
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(MILL_ANIM_SPEED);
     animate_enable = false;
-    // anim = real_time + MILL_ANIM_SPEED;
     if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
       frame = 1;
   }
-  else {
+  else if(!busy) {
     frame = 0;
   }
 }

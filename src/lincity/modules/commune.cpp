@@ -43,17 +43,20 @@ void Commune::update()
     {
          commodityCount[STUFF_COAL] += tmpCoalprod;
          monthly_stuff_made++;
+         animate_enable = true;
     }
     if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
     {
         commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
         monthly_stuff_made++;
+        animate_enable = true;
     }
     /* recycle a bit of waste if there is plenty*/
     if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
     {
         commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;
         monthly_stuff_made++;
+        animate_enable = true;
         if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
         {   commodityCount[STUFF_ORE] += COMMUNE_ORE_FROM_WASTE;}
     }
@@ -70,6 +73,7 @@ void Commune::update()
         if (modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
             monthly_stuff_made++;
+            animate_enable = true;
             steel_made = true;
             commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
         }
@@ -95,21 +99,11 @@ void Commune::update()
 }
 
 void Commune::animate() {
-  // has the month changed?
-  static int prev_time = 0;
-  const bool new_month = total_time / 100 != prev_time / 100;
-  prev_time = total_time;
-
-  // has stuff been made?
-  static int prev_stuff = 0;
-  if(new_month) prev_stuff -= last_month_output;
-  bool animate_enable = monthly_stuff_made != prev_stuff;
-  prev_stuff = monthly_stuff_made;
-
   int& frame = frameIt->frame;
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(COMMUNE_ANIM_SPEED - 25 + (rand() % 50));
+    animate_enable = false;
 
-  if(animate_enable) {
-    // anim = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
     frame++;
     if(frame == 6 || frame == 11) {
       // animate_enable = false;
@@ -123,7 +117,7 @@ void Commune::animate() {
       // this should never happen
       frame = 1;
   }
-  else if(new_month && !last_month_output) {
+  else if(!monthly_stuff_made && !last_month_output) {
     frame = 0;
   }
 }

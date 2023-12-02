@@ -64,7 +64,7 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        // this->anim = 0;
+        this->anim = 0;
         this->pauseCounter = 0;
         this->busy = 0;
         this->working_days = 0;
@@ -78,7 +78,7 @@ public:
     virtual void animate() override;
 
     int  goods_made;
-    // int  anim;
+    int  anim;
     int  pauseCounter;
     int  working_days, busy;
     bool animate_enable;

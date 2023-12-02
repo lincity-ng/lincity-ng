@@ -71,7 +71,7 @@ public:
     virtual void report() override;
     virtual void animate() override;
 
-    // int  anim;
+    int  anim;
     int  pauseCounter;
     int  working_days, busy;
     bool animate_enable;

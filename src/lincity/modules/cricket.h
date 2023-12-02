@@ -87,7 +87,7 @@ public:
 
     int xs, ys, xe, ye;
     int daycount, covercount;
-    // int anim;
+    int anim;
     bool animate_enable, active;
     int working_days, busy;
 };

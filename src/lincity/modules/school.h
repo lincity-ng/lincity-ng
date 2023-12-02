@@ -67,6 +67,7 @@ public:
         frit->frame = -1; //hide the swing
         // this->animate_enable = false;
         this->anim = 0;
+        this->anim2 = 0;
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
@@ -91,7 +92,8 @@ public:
     virtual void animate() override;
 
     std::list<ExtraFrame>::iterator frit;
-    int  anim;
+    int anim;
+    int anim2;
     // bool animate_enable;
     int total_tech_made;
     int working_days, busy;

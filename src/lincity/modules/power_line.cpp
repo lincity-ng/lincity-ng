@@ -36,8 +36,7 @@ void Powerline::update()
 }
 
 void Powerline::animate() {
-  switch (anim_counter)
-  {
+  switch(anim_counter) {
   case POWER_MODULUS - 2:
     if ( !(frameIt->frame >= 11) )
       break;
@@ -51,7 +50,8 @@ void Powerline::animate() {
     frameIt->frame += 11;
     break;
   }
-  if (anim_counter > 0) {
+  if(anim_counter > 0 && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(POWER_LINE_FLASH_SPEED);
     --anim_counter;
   }
 }

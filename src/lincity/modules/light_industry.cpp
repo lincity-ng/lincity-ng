@@ -105,11 +105,9 @@ void IndustryLight::update()
 }
 
 void IndustryLight::animate() {
-  static int prev_time = 0;
-  const bool new_month = total_time / 100 != prev_time / 100;
-  prev_time = total_time;
+  if(real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(INDUSTRY_L_ANIM_SPEED);
 
-  if(new_month) {
     //Choose an animation set depending on output_level
     if (busy > 80)
     {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightH"];}
@@ -129,31 +127,24 @@ void IndustryLight::animate() {
     std::list<ExtraFrame>::iterator frit = fr_begin;
     for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1)) {
       int s = frit->resourceGroup->graphicsInfoVector.size();
-      int& frame = frit->frame;
+      int& smoke = frit->frame;
       if (i >= active) {
-        frame = -1;
+        smoke = -1;
       }
       else if(!s) ;
-      else if(frame < 0 || rand() % 256 > 16) {
+      else if(smoke < 0 || rand() % 1600) {
         // always randomize new plumes and sometimes existing ones
-        frame = rand() % s;
+        smoke = rand() % s;
+      }
+      else if(goods_today && ++smoke >= s) {
+        smoke = 0;
       }
     }
-  }
 
-  if(goods_today) {
-      // anim = real_time + INDUSTRY_L_ANIM_SPEED;
-      std::list<ExtraFrame>::iterator frit = fr_begin;
-      for(size_t i = 0; i < 2; ++i, std::advance(frit, 1)) {
-        int& frame = frit->frame;
-        int s = frit->resourceGroup->graphicsInfoVector.size();
-        if(frame >= 0 && ++frame >= s)
-          frame = 0;
-      }
-
-      // int& frame = frameIt->frame;
-      // if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-      //   frame = 0;
+    // This is left over from when the smoke was not rendered separately.
+    // int& frame = frameIt->frame;
+    // if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+    //   frame = 0;
   }
 }
 

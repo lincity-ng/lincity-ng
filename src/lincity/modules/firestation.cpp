@@ -74,15 +74,10 @@ void FireStation::cover()
 
 void FireStation::animate() {
   int& frame = frameIt->frame;
-  if(animate_enable) {
-    // anim = real_time + FIRESTATION_ANIMATION_SPEED;
-    if(anim) {
-      anim--;
-      return;
-    }
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(FIRESTATION_ANIMATION_SPEED);
     if(++frame == 6)
-      // anim = 10 * FIRESTATION_ANIMATION_SPEED;
-      anim = 9;
+      anim = real_time + ANIM_THRESHOLD(11 * FIRESTATION_ANIMATION_SPEED);
     if(frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size()) {
       frameIt->frame = 0;
       animate_enable = false;

@@ -140,8 +140,7 @@ void Market::update()
 
     if(total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
-        // anim = real_time + 6 * WASTE_BURN_TIME;
-        burning_waste_anim = 20;
+        start_burning_waste = true;
         world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
         commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
     }
@@ -174,23 +173,25 @@ void Market::animate() {
   }
   soundGroup = frameIt->resourceGroup;
 
-  if(burning_waste_anim && !world(x+1,y+1)->construction) {
-    Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
-    //waste burning never spreads
-    (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-    world(x+1,y+1)->construction = fire;
-    world(x+1,y+1)->reportingConstruction = fire;
-    ::constructionCount.add_construction(fire);
+  if(start_burning_waste) {
+    start_burning_waste = false;
+    anim = real_time + ANIM_THRESHOLD(6 * WASTE_BURN_TIME);
+    if(!world(x+1,y+1)->construction) {
+      Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
+      //waste burning never spreads
+      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+      world(x+1,y+1)->construction = fire;
+      world(x+1,y+1)->reportingConstruction = fire;
+      ::constructionCount.add_construction(fire);
+    }
   }
-  else if(!burning_waste_anim && world(x+1,y+1)->construction) {
+  else if(real_time >= anim && world(x+1,y+1)->construction) {
       ::constructionCount.remove_construction(world(x+1,y+1)->construction);
       world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
       delete world(x+1,y+1)->construction;
       world(x+1,y+1)->construction = NULL;
       world(x+1,y+1)->reportingConstruction = this;
   }
-  if(burning_waste_anim)
-    burning_waste_anim--;
 }
 
 void Market::report()

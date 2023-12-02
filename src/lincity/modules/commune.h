@@ -70,8 +70,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        // this->anim = 0; // or real_time?
-        // this->animate_enable = false;
+        this->anim = 0; // or real_time?
+        this->animate_enable = false;
         this->steel_made = false;
         this->monthly_stuff_made = 0;
         this->last_month_output = 0;
@@ -100,13 +100,13 @@ public:
     virtual void report() override;
     virtual void animate() override;
 
-    // int  anim;
+    int  anim;
     int  ugwCount;
     int  coalprod;
     int  monthly_stuff_made;
     int  last_month_output;
     int  lazy_months;
-    // bool animate_enable;
+    bool animate_enable;
     bool steel_made;
 };
 

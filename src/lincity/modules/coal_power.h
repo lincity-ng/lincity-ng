@@ -94,8 +94,7 @@ public:
             frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
             frit->frame = -1; // hide smoke
         }
-        // this->anim = 0;
-        // this->animate_enable = false;
+        this->anim = 0;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -121,7 +120,7 @@ public:
     virtual void animate() override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
-    // int anim;
+    int anim;
     int  mwh_output;
     int  tech;
     int  working_days, busy;

@@ -60,14 +60,14 @@ void Pottery::update()
 
 void Pottery::animate() {
   int& frame = frameIt->frame;
-  if (animate_enable) {
-    // anim = real_time + POTTERY_ANIM_SPEED;
+  if (animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(POTTERY_ANIM_SPEED);
     if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size()) {
       frame = 1;
       animate_enable = false;
     }
   }
-  else {
+  else if(!busy) {
     frame = 0;
   }
 }

@@ -80,7 +80,7 @@ public:
 
 
     int total_ore_reserve;
-    // int anim;
+    int anim;
     bool animate_enable;
     int working_days, busy;
     unsigned int anim_count;

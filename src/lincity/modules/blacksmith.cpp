@@ -61,16 +61,17 @@ void Blacksmith::update()
 }
 
 void Blacksmith::animate() {
-  if(animate_enable) {
-    // anim = real_time + BLACKSMITH_ANIM_SPEED;
+  if(!animate_enable) {
+    frameIt->frame = 0;
+    anim = 0;
+  }
+  else if(real_time >= anim ) {
+    anim = real_time + ANIM_THRESHOLD(BLACKSMITH_ANIM_SPEED);
     int s = frameIt->resourceGroup->graphicsInfoVector.size();
     if(++frameIt->frame >= s) {
       frameIt->frame = 1;
       animate_enable = false;
     }
-  }
-  else {
-    frameIt->frame = 0;
   }
 }
 

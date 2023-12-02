@@ -62,7 +62,7 @@ public:
     int burning_days;
     int smoking_days;
     int days_before_spread;
-    // int anim;
+    int anim;
 };
 
 /** @file lincity/modules/fire.h */

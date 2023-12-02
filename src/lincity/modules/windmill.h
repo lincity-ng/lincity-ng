@@ -70,7 +70,7 @@ public:
 
     int  kwh_output;
     int  tech;
-    // int  anim;
+    int  anim;
     int  working_days, busy;
     bool animate_enable;
 };

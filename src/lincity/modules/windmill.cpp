@@ -52,10 +52,9 @@ void Windmill::update()
 }
 
 void Windmill::animate() {
-  if(animate_enable) {
-    ++(frameIt->frame);
-    frameIt->frame %= 3;
-    // anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(ANTIQUE_WINDMILL_ANIM_SPEED);
+    ++frameIt->frame %= 3;
   }
 }
 

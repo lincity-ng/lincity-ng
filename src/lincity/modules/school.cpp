@@ -49,28 +49,30 @@ void School::update()
 }
 
 void School::animate() {
-  int& frame = frameIt->frame;
-  int& swing = frit->frame;
-  // anim = real_time + SCHOOL_ANIMATION_SPEED;
-  if(frame) {
-    if(++swing >= 10) {
-      // Do not include last swing frame because it is same as first.
-      // anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
-      swing = 0;
-    }
+  if(real_time >= anim) {
+    anim = real_time + SCHOOL_ANIMATION_SPEED;
+    int& frame = frameIt->frame;
+    int& swing = frit->frame;
+    if(frame) {
+      if(++swing >= 10) {
+        // Do not include last swing frame because it is same as first.
+        // anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
+        swing = 0;
+      }
 
-    // stop the swing in position 0, 5, or 10
-    if((swing == 0 || swing == 5) && (real_time >= anim || busy == 0)) {
-      anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
-      frame = 0;
-      swing = -1;
+      // stop the swing in position 0, 5, or 10
+      if((swing == 0 || swing == 5) && (real_time >= anim2 || busy == 0)) {
+        anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
+        frame = 0;
+        swing = -1;
+      }
+    }
+    else if(busy >= 20) {
+      frame = 1;
+      swing = 0;
+      anim2 = real_time + 100 * busy;
     }
   }
-  else if(real_time >= anim && busy >= 20) {
-   frame = 1;
-   swing = 0;
-   anim = real_time + 100 * busy;
- }
 }
 
 void School::report()

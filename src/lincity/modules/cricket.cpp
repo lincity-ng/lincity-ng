@@ -73,8 +73,8 @@ void Cricket::cover()
 
 void Cricket::animate() {
   int& frame = frameIt->frame;
-  if (animate_enable) {
-    // anim = real_time + CRICKET_ANIMATION_SPEED;
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(CRICKET_ANIMATION_SPEED);
     if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
     {
       frame = 0;

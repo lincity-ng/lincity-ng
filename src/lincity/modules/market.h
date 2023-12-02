@@ -83,11 +83,11 @@ public:
         setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
         this->jobs = JOBS_MARKET_EMPTY;
-        // this->anim = 0;
+        this->anim = 0;
         this->busy = 0;
         this->working_days = 0;
         this->market_ratio = 0;
-        this->burning_waste_anim = 0;
+        this->start_burning_waste = false;
         //set the Searchrange of this Market
         int tmp;
         int lenm1 = world.len()-1;
@@ -111,9 +111,9 @@ public:
     int working_days, busy;
     int jobs;
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
-    // int anim;
+    int anim;
     int market_ratio;
-    int burning_waste_anim;
+    bool start_burning_waste;
 };
 
 /** @file lincity/modules/market.h */

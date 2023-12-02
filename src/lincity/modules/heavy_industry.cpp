@@ -110,18 +110,8 @@ void IndustryHeavy::update()
 }
 
 void IndustryHeavy::animate() {
-  static int prev_time = 0;
-  const bool new_month = total_time / 100 != prev_time / 100;
-  prev_time = total_time;
-
-  int& frame = frameIt->frame;
-
-  // anim = real_time + INDUSTRY_H_ANIM_SPEED;
-  if(++frame >= (int) frameIt->resourceGroup->graphicsInfoVector.size())
-    frame = 0;
-
-  if(new_month) {
-    frame = 0;
+  if(real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(INDUSTRY_H_ANIM_SPEED);
 
     if (output_level > 80)
     {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighH"];}
@@ -132,6 +122,10 @@ void IndustryHeavy::animate() {
     else
     {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHigh"];}
     soundGroup = frameIt->resourceGroup;
+
+    int& frame = frameIt->frame;
+    if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+      frame = 0;
   }
 }
 

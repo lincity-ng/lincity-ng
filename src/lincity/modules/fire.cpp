@@ -85,15 +85,15 @@ void Fire::animate() {
   int& frame = frameIt->frame;
 
   if(smoking_days) {
-      frameIt->resourceGroup = ResourceGroup::resMap["FireWasteLand"];
-      soundGroup = frameIt->resourceGroup;
-      frame = smoking_days * 4 / AFTER_FIRE_LENGTH;
-      if(frame >= 4) frame = 4; // shouldn't happen
+    frameIt->resourceGroup = ResourceGroup::resMap["FireWasteLand"];
+    soundGroup = frameIt->resourceGroup;
+    frame = smoking_days * 4 / AFTER_FIRE_LENGTH;
+    if(frame >= 4) frame = 4; // shouldn't happen
   }
-  else {
-      // anim = real_time + FIRE_ANIMATION_SPEED;
-      if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        frame = 0;
+  else if(real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(FIRE_ANIMATION_SPEED);
+    if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+      frame = 0;
   }
 }
 

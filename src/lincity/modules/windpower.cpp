@@ -54,10 +54,9 @@ void Windpower::update()
 }
 
 void Windpower::animate() {
-  if(animate_enable) {
-    ++(frameIt->frame);
-    frameIt->frame %= 3;
-    // anim = real_time + WIND_POWER_ANIM_SPEED;
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(WIND_POWER_ANIM_SPEED);
+    ++frameIt->frame %= 3;
   }
 
   if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
