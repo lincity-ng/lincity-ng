@@ -57,7 +57,7 @@ public:
     void zoomOut();
 
     //scroll the map
-    void scroll( void );
+    void scroll(float elapsedTime);
 
     //size in Tiles of marking under Cursor
     void setCursorSize( int size );
@@ -181,7 +181,7 @@ private:
 
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
-    
+
     SDL_Cursor *panningCursor;
     void setPanningCursor();
     void setDefaultCursor();

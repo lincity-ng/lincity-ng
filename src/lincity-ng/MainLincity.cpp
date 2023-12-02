@@ -33,7 +33,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lc_locale.h"
 #include "lincity/loadsave.h"
 #include "lincity/modules/all_modules.h"
-#include "lincity/Vehicles.h"
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
@@ -48,10 +47,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "Config.hpp"
 
-extern void print_total_money(void);
 extern void init_types(void);
 extern void initFactories(void);
-static void do_animate(void);
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 /******************************************/
@@ -59,76 +56,6 @@ int lincitySpeed = MED_TIME_FOR_YEAR;
 void setLincitySpeed( int speed )
 {
     lincitySpeed = speed;
-}
-
-void execute_timestep ()
-{
-    static int dontskip = 0;
-
-    /* Get timestamp for this iteration */
-    get_real_time();
-
-    if( lincitySpeed == 0 || blockingDialogIsOpen ) {
-        SDL_Delay(10); //don't burn cpu in active loop
-        return;
-    }
-
-    // Do the simulation. Remember 1 month = 100 days, only the display fits real life :)
-    do_time_step();
-
-    //draw the updated city
-    if ( lincitySpeed != fast_time_for_year) {
-        SDL_Delay(lincitySpeed); // This is the limiting factor for speed
-
-        print_stats();
-        updateDate();
-        print_total_money();
-        // getGameView()->requestRedraw();
-
-    } else {
-        /* SDL doc says to rely on at least 10 ms granurality on all OS without
-         * real time ability (Windows, Linux, MacOS X...)
-         * So, as we cannot wait 1ms, we just don't wait when we need speed.
-         */
-
-        //in FAST-Mode, update at the last day in Month, so print_stats will work.
-        if( ( total_time % NUMOF_DAYS_IN_MONTH ) == NUMOF_DAYS_IN_MONTH - 1 ){
-            print_stats ();
-            updateDate();
-            print_total_money();
-        }
-        // if (dontskip++ == fast_time_for_year ) {
-        //     // The point of fast mode is to be really fast. So skip frames for speed
-        //     // fast_time_for_year is read from config file = parameter named "quickness"
-        //     dontskip = 0;
-        //     getGameView()->requestRedraw();
-        // }
-    }
-
-    do_animate();
-}
-
-static void do_animate() {
-  static long prevAnimateTick = 0;
-  if(real_time - prevAnimateTick < ANIMATE_DELAY) return;
-  prevAnimateTick = real_time;
-
-  Construction *construction;
-  for(int i = 0; i < constructionCount.size(); i++) {
-    construction = constructionCount[i];
-    if(construction) {
-      construction->animate();
-    }
-  }
-  for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
-    it != Vehicle::vehicleList.end();
-    std::advance(it,1)
-  ) {
-    if((*it)->alive)
-      (*it)->update();
-  }
-
-  getGameView()->requestRedraw();
 }
 
 /*

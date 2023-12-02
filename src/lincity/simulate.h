@@ -7,6 +7,7 @@
 #define __simulate_h__
 
 void do_time_step(void);
+void do_animate(void);
 //int count_groups(int gr);
 //void count_all_groups(int *group_count);
 //void set_mappoint(int x, int y, short selected_type);
@@ -16,4 +17,3 @@ extern void connect_rivers(void);
 #endif /* __simulate_h__ */
 
 /** @file lincity/simulate.h */
-

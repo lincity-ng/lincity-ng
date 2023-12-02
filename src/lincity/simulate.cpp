@@ -119,6 +119,25 @@ void do_time_step(void)
     do_periodic_events();
 }
 
+void do_animate() {
+  Construction *construction;
+  for(int i = 0; i < constructionCount.size(); i++) {
+    construction = constructionCount[i];
+    if(construction) {
+      construction->animate();
+    }
+  }
+  for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
+    it != Vehicle::vehicleList.end();
+    std::advance(it,1)
+  ) {
+    if((*it)->alive)
+      (*it)->update();
+  }
+
+  getGameView()->requestRedraw();
+}
+
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
