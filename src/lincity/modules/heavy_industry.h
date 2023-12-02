@@ -81,7 +81,7 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->output_level = 0;
         this->steel_this_month = 0;
-        this->anim = 0;
+        // this->anim = 0;
         initialize_commodities();
          //check for pollution bonus
         this->bonus = 0;
@@ -104,17 +104,17 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  tech;
     double bonus, extra_bonus;
     int  output_level;
-    int  anim;
+    // int  anim;
     int  steel_this_month;
 };
 
 
 
 /** @file lincity/modules/heavy_industry.h */
-

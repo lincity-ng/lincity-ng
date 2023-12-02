@@ -47,29 +47,31 @@ void Blacksmith::update()
         working_days++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
         {
-            animate = true;
+            animate_enable = true;
             world(x,y)->pollution++;
             goods_made = 0;
         }
     }
     else
     {
-        frameIt->frame = 0;
-        animate = false;
+        animate_enable = false;
         pauseCounter = -BLACKSMITH_CLOSE_TIME;
         return;
     }
-    //animation
-    if (animate && real_time > anim)
-    {
-        anim = real_time + BLACKSMITH_ANIM_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {
-            frameIt->frame = 1;
-            animate = false;
-        }
-    }
+}
 
+void Blacksmith::animate() {
+  if(animate_enable) {
+    // anim = real_time + BLACKSMITH_ANIM_SPEED;
+    int s = frameIt->resourceGroup->graphicsInfoVector.size();
+    if(++frameIt->frame >= s) {
+      frameIt->frame = 1;
+      animate_enable = false;
+    }
+  }
+  else {
+    frameIt->frame = 0;
+  }
 }
 
 void Blacksmith::report()
@@ -84,4 +86,3 @@ void Blacksmith::report()
 }
 
 /** @file lincity/modules/blacksmith.cpp */
-

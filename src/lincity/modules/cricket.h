@@ -55,8 +55,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;
@@ -80,16 +80,16 @@ public:
     }
 
     virtual ~Cricket() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
     void cover();
 
     int xs, ys, xe, ye;
     int daycount, covercount;
-    int anim;
-    bool animate, active;
+    // int anim;
+    bool animate_enable, active;
     int working_days, busy;
 };
 
 /** @file lincity/modules/cricket.h */
-

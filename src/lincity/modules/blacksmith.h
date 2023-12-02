@@ -64,25 +64,25 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
+        // this->anim = 0;
         this->pauseCounter = 0;
         this->busy = 0;
         this->working_days = 0;
-        this->animate = false;
+        this->animate_enable = false;
         this->goods_made = 0;
         initialize_commodities();
     }
     virtual ~Blacksmith() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  goods_made;
-    int  anim;
+    // int  anim;
     int  pauseCounter;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
 
 
 /** @file lincity/modules/blacksmith.h */
-

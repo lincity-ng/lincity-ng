@@ -107,6 +107,8 @@
 #define MED_TIME_FOR_YEAR  20
 #define SLOW_TIME_FOR_YEAR 60
 
+#define ANIMATE_DELAY 200
+
 #define MIN_RES_POPULATION 10
 
 /*
@@ -132,4 +134,3 @@
 #endif /* __lin_city_h__ */
 
 /** @file lincity/lin-city.h */
-

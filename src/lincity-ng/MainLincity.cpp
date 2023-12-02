@@ -26,12 +26,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>
 #include <physfs.h>
 
+#include "lincity/engglobs.h"
 #include "lincity/init_game.h"
 #include "lincity/lin-city.h"
 #include "lincity/simulate.h"
 #include "lincity/lc_locale.h"
 #include "lincity/loadsave.h"
 #include "lincity/modules/all_modules.h"
+#include "lincity/Vehicles.h"
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
@@ -49,6 +51,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 extern void print_total_money(void);
 extern void init_types(void);
 extern void initFactories(void);
+static void do_animate(void);
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 /******************************************/
@@ -80,7 +83,7 @@ void execute_timestep ()
         print_stats();
         updateDate();
         print_total_money();
-        getGameView()->requestRedraw();
+        // getGameView()->requestRedraw();
 
     } else {
         /* SDL doc says to rely on at least 10 ms granurality on all OS without
@@ -94,13 +97,38 @@ void execute_timestep ()
             updateDate();
             print_total_money();
         }
-        if (dontskip++ == fast_time_for_year ) {
-            // The point of fast mode is to be really fast. So skip frames for speed
-            // fast_time_for_year is read from config file = parameter named "quickness"
-            dontskip = 0;
-            getGameView()->requestRedraw();
-        }
+        // if (dontskip++ == fast_time_for_year ) {
+        //     // The point of fast mode is to be really fast. So skip frames for speed
+        //     // fast_time_for_year is read from config file = parameter named "quickness"
+        //     dontskip = 0;
+        //     getGameView()->requestRedraw();
+        // }
     }
+
+    do_animate();
+}
+
+static void do_animate() {
+  static long prevAnimateTick = 0;
+  if(real_time - prevAnimateTick < ANIMATE_DELAY) return;
+  prevAnimateTick = real_time;
+
+  Construction *construction;
+  for(int i = 0; i < constructionCount.size(); i++) {
+    construction = constructionCount[i];
+    if(construction) {
+      construction->animate();
+    }
+  }
+  for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
+    it != Vehicle::vehicleList.end();
+    std::advance(it,1)
+  ) {
+    if((*it)->alive)
+      (*it)->update();
+  }
+
+  getGameView()->requestRedraw();
 }
 
 /*

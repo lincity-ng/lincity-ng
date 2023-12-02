@@ -40,31 +40,33 @@ void Windpower::update()
     {
         commodityCount[STUFF_JOBS] -= jobs_used;
         commodityCount[STUFF_MWH] += mwh_made;
-        animate = true;
+        animate_enable = true;
         working_days += mwh_made;
     }
     else
-    {   animate = false;}
+    {   animate_enable = false;}
     //monthly update
     if (total_time % 100 == 0)
     {
         busy = working_days;
         working_days = 0;
     }
-    //Animation
-    if (animate && (real_time > anim))
-    {
-        ++(frameIt->frame);
-        frameIt->frame %= 3;
-        anim = real_time + WIND_POWER_ANIM_SPEED;
-        if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechG"];}
-        else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechRG"];}
-        else
-        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTech"];}
-        soundGroup = frameIt->resourceGroup;
-    }
+}
+
+void Windpower::animate() {
+  if(animate_enable) {
+    ++(frameIt->frame);
+    frameIt->frame %= 3;
+    // anim = real_time + WIND_POWER_ANIM_SPEED;
+  }
+
+  if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
+    frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechG"];
+  else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
+    frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechRG"];
+  else
+    frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTech"];
+  soundGroup = frameIt->resourceGroup;
 }
 
 
@@ -80,4 +82,3 @@ void Windpower::report()
 }
 
 /** @file lincity/modules/windpower.cpp */
-

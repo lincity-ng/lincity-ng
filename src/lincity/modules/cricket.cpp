@@ -46,16 +46,6 @@ void Cricket::update()
         busy = working_days;
         working_days = 0;
     }
-    //animate
-    if (animate && real_time > anim)
-    {
-        anim = real_time + CRICKET_ANIMATION_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {
-            frameIt->frame = 0;
-            animate = false;
-        }
-    }
     /* That's all. Cover is done by different functions every 3 months or so. */
     cricket_cost += CRICKET_RUNNING_COST;
     if(refresh_cover)
@@ -73,12 +63,24 @@ void Cricket::cover()
     active = true;
     covercount -= daycount;
     daycount = 0;
-    animate = true;
+    animate_enable = true;
     for(int yy = ys; yy < ye; ++yy)
     {
         for(int xx = xs; xx < xe; ++xx)
         {   world(xx,yy)->flags |= FLAG_CRICKET_COVER;}
     }
+}
+
+void Cricket::animate() {
+  int& frame = frameIt->frame;
+  if (animate_enable) {
+    // anim = real_time + CRICKET_ANIMATION_SPEED;
+    if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+    {
+      frame = 0;
+      animate_enable = false;
+    }
+  }
 }
 
 void Cricket::report()
@@ -95,4 +97,3 @@ void Cricket::report()
 }
 
 /** @file lincity/modules/cricket.cpp */
-

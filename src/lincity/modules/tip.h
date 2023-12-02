@@ -59,8 +59,9 @@ public:
         initialize_commodities();
     }
     virtual ~Tip() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  working_days, busy;
     int  total_waste;

@@ -209,6 +209,7 @@ public:
     virtual ~Construction() {}
     virtual void update() = 0;
     virtual void report() = 0;
+    virtual void animate() {};
 
 
     ConstructionGroup *constructionGroup;

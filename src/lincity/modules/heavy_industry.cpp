@@ -106,25 +106,33 @@ void IndustryHeavy::update()
     {
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
-        frameIt->frame = 0;
-        //choose graphics depending on output level
-        if (output_level > 80)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighH"];}
-        else if (output_level > 30)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighM"];}
-        else if (output_level > 0)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighL"];}
-        else
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHigh"];}
-        soundGroup = frameIt->resourceGroup;
     }//end monthly update
-    //animation
-    if (real_time >= anim)
-    {
-        anim = real_time + INDUSTRY_H_ANIM_SPEED;
-        if(++(frameIt->frame) >= (int) frameIt->resourceGroup->graphicsInfoVector.size())
-        {   frameIt->frame = 0;}
-    }
+}
+
+void IndustryHeavy::animate() {
+  static int prev_time = 0;
+  const bool new_month = total_time / 100 != prev_time / 100;
+  prev_time = total_time;
+
+  int& frame = frameIt->frame;
+
+  // anim = real_time + INDUSTRY_H_ANIM_SPEED;
+  if(++frame >= (int) frameIt->resourceGroup->graphicsInfoVector.size())
+    frame = 0;
+
+  if(new_month) {
+    frame = 0;
+
+    if (output_level > 80)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighH"];}
+    else if (output_level > 30)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighM"];}
+    else if (output_level > 0)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighL"];}
+    else
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHigh"];}
+    soundGroup = frameIt->resourceGroup;
+  }
 }
 
 void IndustryHeavy::report()
@@ -140,4 +148,3 @@ void IndustryHeavy::report()
 }
 
 /** @file lincity/modules/heavy_industry.cpp */
-

@@ -40,28 +40,30 @@ void Mill::update()
         commodityCount[STUFF_JOBS] -= MILL_JOBS;
         commodityCount[STUFF_GOODS] += GOODS_MADE_BY_MILL;
         ++working_days;
-        animate = true;
+        animate_enable = true;
         if ((++pol_count %= 7) == 0)
         {   world(x,y)->pollution++;}
     }
-    else
-    {
-        frameIt->frame = 0;
-        animate = false;
-    }
+
     //monthly update
     if (total_time % 100 == 0)
     {
         busy = working_days;
         working_days = 0;
     }
-    //Animation
-    if (real_time >= anim && animate)
-    {
-        anim = real_time + MILL_ANIM_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {   frameIt->frame = 1;}
-    }
+}
+
+void Mill::animate() {
+  int& frame = frameIt->frame;
+  if(animate_enable) {
+    animate_enable = false;
+    // anim = real_time + MILL_ANIM_SPEED;
+    if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+      frame = 1;
+  }
+  else {
+    frame = 0;
+  }
 }
 
 void Mill::report()
@@ -75,4 +77,3 @@ void Mill::report()
 
 
 /** @file lincity/modules/mill.cpp */
-

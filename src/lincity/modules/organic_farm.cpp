@@ -29,7 +29,6 @@ Construction *Organic_farmConstructionGroup::createConstruction(int x, int y) {
 
 void Organic_farm::update()
 {
-    int i = (total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
     int used_jobs = 0;
     int used_power = 0;
     int used_water = 0;
@@ -86,20 +85,23 @@ void Organic_farm::update()
         food_last_month = food_this_month;
         food_this_month = 0;
     }
-    //Every three month
-    if (i % 300 == 0)
-    {
-        i /= 300;
-        if ( food_last_month > MIN_FOOD_SOLD_FOR_ANIM)
-        {
-            //Every year
-            if (i % 4 == 0)
-            {   month_stagger = rand() % 100;}
-            frameIt->frame = 1+i/4;
-        }
-        else
-        {   frameIt->frame = 0;}
+}
+
+void Organic_farm::animate() {
+  int i = (total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
+  //Every three month
+  if (i % 300 == 0) {
+    i /= 300;
+    if ( food_last_month > MIN_FOOD_SOLD_FOR_ANIM) {
+      //Every year
+      if (i % 4 == 0)
+        month_stagger = rand() % 100;
+      frameIt->frame = 1+i/4;
     }
+    else {
+      frameIt->frame = 0;
+    }
+  }
 }
 
 void Organic_farm::report()
@@ -117,4 +119,3 @@ void Organic_farm::report()
 }
 
 /** @file lincity/modules/organic_farm.cpp */
-

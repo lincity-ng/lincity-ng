@@ -38,24 +38,25 @@ void Windmill::update()
     {
         commodityCount[STUFF_JOBS] -= jobs_used;
         commodityCount[STUFF_KWH] += kwh_made;
-        animate = true;
+        animate_enable = true;
         working_days += kwh_made;
     }
     else
-    {   animate = false;}
+    {   animate_enable = false;}
     //monthly update
     if (total_time % 100 == 0)
     {
         busy = working_days;
         working_days = 0;
     }
-    //Animation
-    if (animate && (real_time > anim))
-    {
-        ++(frameIt->frame);
-        frameIt->frame %= 3;
-        anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
-    }
+}
+
+void Windmill::animate() {
+  if(animate_enable) {
+    ++(frameIt->frame);
+    frameIt->frame %= 3;
+    // anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+  }
 }
 
 void Windmill::report()
@@ -70,4 +71,3 @@ void Windmill::report()
 }
 
 /** @file lincity/modules/windmill.cpp */
-

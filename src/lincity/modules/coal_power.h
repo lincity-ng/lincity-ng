@@ -94,8 +94,8 @@ public:
             frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
             frit->frame = -1; // hide smoke
         }
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        // this->animate_enable = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -116,12 +116,12 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
-    int anim;
-    bool animate;
+    // int anim;
     int  mwh_output;
     int  tech;
     int  working_days, busy;
@@ -129,4 +129,3 @@ public:
 
 
 /** @file lincity/modules/coal_power.h */
-

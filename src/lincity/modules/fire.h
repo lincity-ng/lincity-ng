@@ -50,19 +50,19 @@ public:
         setMemberSaved(&this->burning_days, "burning_days");
         this->smoking_days = 0;
         setMemberSaved(&this->smoking_days, "smoking_days");
-        this->anim = 0;
+        // this->anim = 0;
         this->days_before_spread = FIRE_DAYS_PER_SPREAD;
         setMemberSaved(&this->days_before_spread, "days_before_spread");
 
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int burning_days;
     int smoking_days;
     int days_before_spread;
-    int anim;
+    // int anim;
 };
 
 /** @file lincity/modules/fire.h */
-

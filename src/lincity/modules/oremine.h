@@ -54,12 +54,12 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->working_days = 0;
         this->busy = 0;
         this->anim_count = 0;
-        this->days_offset = 0;
+        // this->days_offset = 0;
         initialize_commodities();
 
         int ore = 0;
@@ -74,17 +74,17 @@ public:
         setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
     }
     virtual ~Oremine() {}
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
 
     int total_ore_reserve;
-    int anim;
-    bool animate;
+    // int anim;
+    bool animate_enable;
     int working_days, busy;
-    int anim_count;
-    int days_offset;
+    unsigned int anim_count;
+    // int days_offset;
 };
 
 /** @file lincity/modules/oremine.h */
-

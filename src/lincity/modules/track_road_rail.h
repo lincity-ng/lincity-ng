@@ -216,12 +216,14 @@ public:
     Counted<TrackBridge> *countedTrackBridge;
     Counted<RoadBridge> *countedRoadBridge;
     Counted<RailBridge> *countedRailBridge;
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
     virtual void playSound(); //override random sound
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic( int* i);
     int subgroupID;
     int anim;
     bool burning_waste;
+    bool burning_waste_anim;
 };

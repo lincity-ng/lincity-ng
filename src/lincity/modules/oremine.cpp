@@ -33,16 +33,16 @@ Construction *OremineConstructionGroup::createConstruction(int x, int y)
 void Oremine::update()
 {
     int xx,yy;
-    animate = false;
+    animate_enable = false;
 
     // see if we can/need to extract some underground ore
     if ((total_ore_reserve)
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
     && (commodityCount[STUFF_JOBS] >= OREMINE_JOBS))
     {
-        for (yy = y; (yy < y + constructionGroup->size) && !animate; yy++)
+        for (yy = y; (yy < y + constructionGroup->size); yy++)
         {
-            for (xx = x; (xx < x + constructionGroup->size) && !animate; xx++)
+            for (xx = x; (xx < x + constructionGroup->size); xx++)
             {
                 if (world(xx,yy)->ore_reserve > 0)
                 {
@@ -55,8 +55,9 @@ void Oremine::update()
                     //ore_made += ORE_PER_RESERVE;
                     if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
                     {   sust_dig_ore_coal_tip_flag = 0;}
-                    animate = true;
+                    animate_enable = true;
                     working_days++;
+                    goto end_mining;
                 }
             }
         }
@@ -65,9 +66,9 @@ void Oremine::update()
     else if ((commodityCount[STUFF_ORE] - ORE_PER_RESERVE > ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE )/100)
     && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE))
     {
-        for (yy = y; (yy < y + constructionGroup->size) && !animate; yy++)
+        for (yy = y; (yy < y + constructionGroup->size); yy++)
         {
-            for (xx = x; (xx < x + constructionGroup->size) && !animate; xx++)
+            for (xx = x; (xx < x + constructionGroup->size); xx++)
             {
                 if (world(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
                 {
@@ -76,12 +77,14 @@ void Oremine::update()
                     total_ore_reserve++;
                     commodityCount[STUFF_ORE] -= ORE_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
-                    animate = true;
+                    animate_enable = true;
                     working_days++;
+                    goto end_mining;
                 }
             }
         }
     }
+    end_mining:
 
     //Monthly update of activity
     if (total_time % 100 == 0)
@@ -89,21 +92,6 @@ void Oremine::update()
         busy = working_days;
         working_days = 0;
     }
-    // Anim according to ore mine activity
-    if (animate && real_time > anim)
-    {
-        if (real_time > days_offset)
-        {   days_offset = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));}
-        //faster animation for more active mines
-        anim = real_time + ((14 - busy/11) * OREMINE_ANIMATION_SPEED);
-        anim_count = (anim_count + days_offset) & 15;
-        if(anim_count < 8)
-        {   frameIt->frame = anim_count;}
-        else if (anim_count < 12)
-        {   frameIt->frame = 14 - anim_count;}
-        else
-        {   frameIt->frame = 16 - anim_count;}
-    }//end if animate
 
     //Evacuate Mine if no more deposits
     if ( total_ore_reserve == 0 )
@@ -114,6 +102,23 @@ void Oremine::update()
       &&(commodityCount[STUFF_JOBS] == 0)
       &&(commodityCount[STUFF_ORE] == 0) )
     {   ConstructionManager::submitRequest(new OreMineDeletionRequest(this));}
+}
+
+void Oremine::animate() {
+  int& frame = frameIt->frame;
+
+  if (animate_enable) {
+    // //faster animation for more active mines
+    // anim = real_time + ((14 - busy/11) * OREMINE_ANIMATION_SPEED);
+    if(anim_count < 8)
+      frameIt->frame = anim_count;
+    else if (anim_count < 12)
+      frameIt->frame = 14 - anim_count;
+    else
+      frameIt->frame = 16 - anim_count;
+    if(++anim_count == 16)
+      anim_count = 0;
+  }
 }
 
 void Oremine::report()
@@ -127,4 +132,3 @@ void Oremine::report()
 }
 
 /** @file lincity/modules/oremine.cpp */
-

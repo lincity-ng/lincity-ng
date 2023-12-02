@@ -105,8 +105,9 @@ public:
         }
     }
     virtual ~Organic_farm() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  ugwCount;
     int  max_foodprod;
@@ -121,4 +122,3 @@ public:
 
 
 /** @file lincity/modules/organic_farm.h */
-

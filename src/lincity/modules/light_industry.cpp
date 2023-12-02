@@ -35,7 +35,7 @@ Construction *IndustryLightConstructionGroup::createConstruction(int x, int y ) 
 
 void IndustryLight::update()
 {
-    int goods_today = 0;
+    goods_today = 0;
 
     // make some goods with jobs and ore
     if ((commodityCount[STUFF_JOBS] >= (INDUSTRY_L_JOBS_USED + INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE))
@@ -101,59 +101,60 @@ void IndustryLight::update()
         int output_level = goods_this_month / (INDUSTRY_L_MAKE_GOODS * 8);
         busy = output_level;
         goods_this_month = 0;
-        //Choose an animation set depending on output_level
-        if (output_level > 80)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightH"];}
-        else if (output_level > 55)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightM"];}
-        else if (output_level > 25)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightL"];}
-        else
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
-        //else
-        //{   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
-        //frameIt->frame = 0;
-        soundGroup =frameIt->resourceGroup;
-
-        int active = 0;
-        if(output_level > 70)
-        {   active = 2;}
-        else if (output_level > 5)
-        {   active = 1;}
-        std::list<ExtraFrame>::iterator frit = fr_begin;
-
-        for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1))
-        {
-            int s = frit->resourceGroup->graphicsInfoVector.size();
-            if (i < active)
-            {
-                if( s &&
-                    ( (frit->frame < 0) || ( (rand() % 256) > 16)) )
-                // always randomize new plumes and sometimes existing ones
-                {   frit->frame = rand() % s;}
-            }
-            else
-            {   frit->frame = -1;}
-        }
-
     }// end monthly update
-    if ((real_time >= anim) && goods_today)
-    {
-        anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        std::list<ExtraFrame>::iterator frit = fr_begin;
+}
 
-        for(size_t i = 0; i < 2; ++i, std::advance(frit, 1))
-        {
-            if (frit->frame >= 0)
-            {
-                if(++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
-                {   frit->frame = 0;}
-            }
-        }
+void IndustryLight::animate() {
+  static int prev_time = 0;
+  const bool new_month = total_time / 100 != prev_time / 100;
+  prev_time = total_time;
 
-        //if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        //{  frameIt->frame = 0;}
-    }// end animate
+  if(new_month) {
+    //Choose an animation set depending on output_level
+    if (busy > 80)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightH"];}
+    else if (busy > 55)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightM"];}
+    else if (busy > 25)
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightL"];}
+    else
+    {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
+    soundGroup = frameIt->resourceGroup;
+
+    int active = 0;
+    if(busy > 70)
+      active = 2;
+    else if (busy > 5)
+      active = 1;
+    std::list<ExtraFrame>::iterator frit = fr_begin;
+    for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1)) {
+      int s = frit->resourceGroup->graphicsInfoVector.size();
+      int& frame = frit->frame;
+      if (i >= active) {
+        frame = -1;
+      }
+      else if(!s) ;
+      else if(frame < 0 || rand() % 256 > 16) {
+        // always randomize new plumes and sometimes existing ones
+        frame = rand() % s;
+      }
+    }
+  }
+
+  if(goods_today) {
+      // anim = real_time + INDUSTRY_L_ANIM_SPEED;
+      std::list<ExtraFrame>::iterator frit = fr_begin;
+      for(size_t i = 0; i < 2; ++i, std::advance(frit, 1)) {
+        int& frame = frit->frame;
+        int s = frit->resourceGroup->graphicsInfoVector.size();
+        if(frame >= 0 && ++frame >= s)
+          frame = 0;
+      }
+
+      // int& frame = frameIt->frame;
+      // if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+      //   frame = 0;
+  }
 }
 
 void IndustryLight::report()
@@ -169,4 +170,3 @@ void IndustryLight::report()
 }
 
 /** @file lincity/modules/light_industry.cpp */
-

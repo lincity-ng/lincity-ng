@@ -50,58 +50,49 @@ void Coal_power::update()
     if (total_time % 100 == 0)
     {
         busy = working_days / (mwh_output/100);
-        animate = (frameIt->resourceGroup->images_loaded);
-        std::list<ExtraFrame>::iterator frit = fr_begin;
-        if(animate)
-        {
-            int active = 8*busy/90;
-            int s = frit->resourceGroup->graphicsInfoVector.size();
-            for(int i = 0; frit != fr_end; std::advance(frit, 1), ++i)
-            {
-                if (i < active)
-                {
-                    if( s &&
-                        ( (frit->frame < 0) || ( (rand() % 256) > 16) ) )
-                    // always randomize new plumes and sometimes existing ones
-                    {   frit->frame = rand() % s;}
-                }
-                else
-                {   frit->frame = -1;}
-            }
-        }
-        else
-        {
-            for(frit = fr_begin; frit != fr_end ; std::advance(frit, 1))
-            {   frit->frame = -1;}
-        }
         working_days = 0;
     }
-    /* choose a graphic */
+}
 
-    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalFull"];}
-    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalMed"];}
-    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalLow"];}
-    else
-    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
-    soundGroup = frameIt->resourceGroup;
+void Coal_power::animate() {
+  static int prev_time = 0;
 
-    if (animate && (real_time > anim))
-    {
-        anim = real_time + SMOKE_ANIM_SPEED;
-        std::list<ExtraFrame>::iterator frit;
-        for(frit = fr_begin; frit != fr_end; std::advance(frit, 1))
-        {
-            if (frit->frame >= 0)
-            {
-                if(++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
-                {   frit->frame = 0;}
-            }
-        }
+  std::list<ExtraFrame>::iterator frit = fr_begin;
+  const int s = frit->resourceGroup->graphicsInfoVector.size();
+
+  if(total_time / 100 != prev_time / 100) { // new month
+    int active = 9*busy/100;
+    for(int i = 0; frit != fr_end; std::advance(frit, 1), ++i) {
+      if(i >= active) {
+        frit->frame = -1;
+      }
+      else if(!s) ;
+      else if(frit->frame < 0 || rand() % 256 > 16) {
+        // always randomize new plumes and sometimes existing ones
+        // TODO: maybe make this happen less often
+        frit->frame = rand() % s;
+      }
     }
+  }
 
+  if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
+  {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalFull"];}
+  else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
+  {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalMed"];}
+  else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
+  {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalLow"];}
+  else
+  {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
+  soundGroup = frameIt->resourceGroup;
+
+  // anim = real_time + SMOKE_ANIM_SPEED;
+  // std::list<ExtraFrame>::iterator frit;
+  for(frit = fr_begin; frit != fr_end; std::advance(frit, 1)) {
+    if(frit->frame != -1 && ++frit->frame >= s)
+      frit->frame = 0;
+  }
+
+  prev_time = total_time;
 }
 
 void Coal_power::report()
@@ -117,4 +108,3 @@ void Coal_power::report()
 
 
 /** @file lincity/modules/coal_power.cpp */
-

@@ -47,19 +47,6 @@ void FireStation::update()
         busy = working_days;
         working_days = 0;
     }
-    //animate
-    if (animate && real_time > anim)
-    {
-        anim = real_time + FIRESTATION_ANIMATION_SPEED;
-        ++(frameIt->frame);
-        if((frameIt->frame) == 6)
-        {   anim += 10 * FIRESTATION_ANIMATION_SPEED;}
-        if(frameIt->frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {
-            frameIt->frame = 0;
-            animate = false;
-        }
-    }
     /* That's all. Cover is done by different functions every 3 months or so. */
     fire_cost += FIRESTATION_RUNNING_COST;
     if(refresh_cover)
@@ -77,12 +64,30 @@ void FireStation::cover()
     active = true;
     covercount -= daycount;
     daycount = 0;
-    animate = true;
+    animate_enable = true;
     for(int yy = ys; yy < ye; ++yy)
     {
         for(int xx = xs; xx < xe; ++xx)
         {   world(xx,yy)->flags |= FLAG_FIRE_COVER;}
     }
+}
+
+void FireStation::animate() {
+  int& frame = frameIt->frame;
+  if(animate_enable) {
+    // anim = real_time + FIRESTATION_ANIMATION_SPEED;
+    if(anim) {
+      anim--;
+      return;
+    }
+    if(++frame == 6)
+      // anim = 10 * FIRESTATION_ANIMATION_SPEED;
+      anim = 9;
+    if(frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size()) {
+      frameIt->frame = 0;
+      animate_enable = false;
+    }
+  }
 }
 
 void FireStation::report()
@@ -98,4 +103,3 @@ void FireStation::report()
 }
 
 /** @file lincity/modules/firestation.cpp */
-

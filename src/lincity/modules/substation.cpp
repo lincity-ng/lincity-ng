@@ -46,14 +46,16 @@ void Substation::update()
         busy = working_days/SUBSTATION_MWH;
         working_days = 0;
     }
-    /* choose a graphic */
-    if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
-    {   frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];}
-    else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
-    {   frameIt->resourceGroup = ResourceGroup::resMap["SubstationOff"];}
-    else
-    {   frameIt->resourceGroup = ResourceGroup::resMap["Substation"];}
-    soundGroup = frameIt->resourceGroup;
+}
+
+void Substation::animate() {
+  if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
+    frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];
+  else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
+    frameIt->resourceGroup = ResourceGroup::resMap["SubstationOff"];
+  else
+    frameIt->resourceGroup = ResourceGroup::resMap["Substation"];
+  soundGroup = frameIt->resourceGroup;
 }
 
 void Substation::report()
@@ -67,4 +69,3 @@ void Substation::report()
 }
 
 /** @file lincity/modules/substation.cpp */
-

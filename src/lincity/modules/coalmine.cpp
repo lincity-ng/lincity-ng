@@ -91,17 +91,8 @@ void Coalmine::update()
         busy = working_days;
         working_days = 0;
     }
-    //choose type depending on availabe coal
-    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
-    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineFull"];}
-    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
-    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineMed"];}
-    else if (commodityCount[STUFF_COAL] > 0)//something
-    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineLow"];}
-    else//nothing
-    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMine"];}
-    soundGroup = frameIt->resourceGroup;
 
+    // TODO: This may prevent unmining when reserve gets to 0.
     //Evacuate Mine if no more deposits
     if (current_coal_reserve == 0 )
     {   flags |= FLAG_EVACUATE;}
@@ -111,6 +102,20 @@ void Coalmine::update()
       &&(commodityCount[STUFF_JOBS] == 0)
       &&(commodityCount[STUFF_COAL] == 0) )
     {   ConstructionManager::submitRequest(new ConstructionDeletionRequest(this));}
+}
+
+void Coalmine::animate() {
+  //choose type depending on availabe coal
+  // TODO: make sure case 'nothing' can actually happen
+  if(commodityCount[STUFF_COAL] > MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE/4))//75%
+  {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineFull"];}
+  else if (commodityCount[STUFF_COAL] > MAX_COAL_AT_MINE / 2)//50%
+  {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineMed"];}
+  else if (commodityCount[STUFF_COAL] > 0)//something
+  {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineLow"];}
+  else//nothing
+  {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMine"];}
+  soundGroup = frameIt->resourceGroup;
 }
 
 void Coalmine::report()
@@ -124,4 +129,3 @@ void Coalmine::report()
 }
 
 /** @file lincity/modules/coalmine.cpp */
-

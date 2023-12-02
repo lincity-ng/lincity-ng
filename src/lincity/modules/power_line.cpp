@@ -32,26 +32,28 @@ void Powerline::update()
     if (commodityCount[STUFF_MWH] > 0)
     {
         commodityCount[STUFF_MWH]--;// loss on powerline
-        if (anim_counter > 0)
-        {
-            switch (anim_counter)
-            {
-                case POWER_MODULUS - 2:
-                    if ( !(frameIt->frame >= 11) )
-                        break;
-                    flashing = false;
-                    frameIt->frame -= 11;
-                    break;
-                case POWER_MODULUS:
-                    if ( !(frameIt->frame <= 10) )
-                        break;
-                    flashing = true;
-                    frameIt->frame += 11;
-                    break;
-            } //end switch anim_counter
-            --anim_counter;
-        }
     } // endif MWH
+}
+
+void Powerline::animate() {
+  switch (anim_counter)
+  {
+  case POWER_MODULUS - 2:
+    if ( !(frameIt->frame >= 11) )
+      break;
+    flashing = false;
+    frameIt->frame -= 11;
+    break;
+  case POWER_MODULUS:
+    if ( !(frameIt->frame < 11) )
+      break;
+    flashing = true;
+    frameIt->frame += 11;
+    break;
+  }
+  if (anim_counter > 0) {
+    --anim_counter;
+  }
 }
 
 void Powerline::report()
@@ -66,4 +68,3 @@ void Powerline::report()
 
 
 /** @file lincity/modules/power_line.cpp */
-

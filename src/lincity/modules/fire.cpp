@@ -42,24 +42,11 @@ void Fire::update()
         //is_burning = false;
         if (smoking_days == 0)   /* rand length here also */
         {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
-        if(frameIt->resourceGroup == ResourceGroup::resMap["Fire"])
-        {
-            frameIt->resourceGroup = ResourceGroup::resMap["FireWasteLand"];
-            soundGroup = frameIt->resourceGroup;
-        }
         smoking_days++;
         if (world(x,y)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
         if (!(flags & FLAG_IS_GHOST) && smoking_days > AFTER_FIRE_LENGTH)
         {   ConstructionManager::submitRequest( new ConstructionDeletionRequest(this) ); }
-        else if (smoking_days > (3 * AFTER_FIRE_LENGTH) / 4)
-        {   frameIt->frame = 3;}
-        else if (smoking_days > (2 * AFTER_FIRE_LENGTH) / 4)
-        {   frameIt->frame = 2;}
-        else if (smoking_days > (AFTER_FIRE_LENGTH) / 4)
-        {   frameIt->frame = 1;}
-        else
-        {   frameIt->frame = 0;}
         return;
     }
 
@@ -69,12 +56,6 @@ void Fire::update()
     days_before_spread--;
     if( !(flags & FLAG_IS_GHOST) )
     {   world(x,y)->pollution++;}
-    if (real_time > anim)
-    {
-        anim = real_time + FIRE_ANIMATION_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {   frameIt->frame = 0;}
-    }
     if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))
     {
         days_before_spread = FIRE_DAYS_PER_SPREAD;
@@ -100,6 +81,22 @@ void Fire::update()
     }
 }
 
+void Fire::animate() {
+  int& frame = frameIt->frame;
+
+  if(smoking_days) {
+      frameIt->resourceGroup = ResourceGroup::resMap["FireWasteLand"];
+      soundGroup = frameIt->resourceGroup;
+      frame = smoking_days * 4 / AFTER_FIRE_LENGTH;
+      if(frame >= 4) frame = 4; // shouldn't happen
+  }
+  else {
+      // anim = real_time + FIRE_ANIMATION_SPEED;
+      if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        frame = 0;
+  }
+}
+
 void Fire::report()
 {
     int i = 0;
@@ -114,4 +111,3 @@ void Fire::report()
 }
 
 /** @file lincity/modules/fire.cpp */
-

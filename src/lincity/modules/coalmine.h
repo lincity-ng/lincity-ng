@@ -92,8 +92,9 @@ public:
         this->current_coal_reserve = coal;
     }
     virtual ~Coalmine() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int xs, ys, xe, ye;
     int initial_coal_reserve;
@@ -102,4 +103,3 @@ public:
 };
 
 /** @file lincity/modules/coalmine.h */
-
