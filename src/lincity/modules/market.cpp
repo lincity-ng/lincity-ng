@@ -40,7 +40,7 @@ void Market::update()
     int ratio, trade_ratio, n;
     int lvl, market_lvl;
     int cap, market_cap;
-    int market_ratio = 0;
+    market_ratio = 0;
     const size_t partsize = partners.size();
     std::vector<bool> lvls(partsize);
     Commodity stuff_ID;
@@ -123,48 +123,26 @@ void Market::update()
         if (market_ratio < 10)
         {
             jobs = JOBS_MARKET_EMPTY;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
         }
         else if (market_ratio < 20)
         {
             jobs = JOBS_MARKET_LOW;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketLow"];
         }
         else if (market_ratio < 50)
         {
             jobs = JOBS_MARKET_MED;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketMed"];
         }
         else
         {
             jobs = JOBS_MARKET_FULL;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketFull"];
         }
-        soundGroup = frameIt->resourceGroup;
     }
-    if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
-    {
-        anim = real_time + 6 * WASTE_BURN_TIME;
+
+    if(total_time % 50)
+    if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
+        start_burning_waste = true;
         world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
         commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
-        if(!world(x+1,y+1)->construction)
-        {
-            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
-            world(x+1,y+1)->construction = fire;
-            world(x+1,y+1)->reportingConstruction = fire;
-            //waste burning never spreads
-            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-            ::constructionCount.add_construction(fire);
-
-        }
-    }
-    else if ( real_time > anim && world(x+1,y+1)->construction)
-    {
-        ::constructionCount.remove_construction(world(x+1,y+1)->construction);
-        world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
-        delete world(x+1,y+1)->construction;
-        world(x+1,y+1)->construction = NULL;
-        world(x+1,y+1)->reportingConstruction = this;
     }
 
     if(refresh_cover)
@@ -178,6 +156,42 @@ void Market::cover()
         for(int xx = xs; xx < xe; xx++)
         {   world(xx,yy)->flags |= FLAG_MARKET_COVER;}
     }
+}
+
+void Market::animate() {
+  if (market_ratio < 10) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
+  }
+  else if (market_ratio < 20) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketLow"];
+  }
+  else if (market_ratio < 50) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketMed"];
+  }
+  else {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketFull"];
+  }
+  soundGroup = frameIt->resourceGroup;
+
+  if(start_burning_waste) {
+    start_burning_waste = false;
+    anim = real_time + ANIM_THRESHOLD(6 * WASTE_BURN_TIME);
+    if(!world(x+1,y+1)->construction) {
+      Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
+      //waste burning never spreads
+      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+      world(x+1,y+1)->construction = fire;
+      world(x+1,y+1)->reportingConstruction = fire;
+      ::constructionCount.add_construction(fire);
+    }
+  }
+  else if(real_time >= anim && world(x+1,y+1)->construction) {
+      ::constructionCount.remove_construction(world(x+1,y+1)->construction);
+      world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
+      delete world(x+1,y+1)->construction;
+      world(x+1,y+1)->construction = NULL;
+      world(x+1,y+1)->reportingConstruction = this;
+  }
 }
 
 void Market::report()

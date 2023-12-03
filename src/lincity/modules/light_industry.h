@@ -140,8 +140,9 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int  tech;
@@ -150,8 +151,8 @@ public:
     int  busy;
     int  anim;
     int  goods_this_month;
+    int  goods_today;
 };
 
 
 /** @file lincity/modules/light_industry.h */
-

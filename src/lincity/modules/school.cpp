@@ -39,14 +39,6 @@ void School::update()
         ++working_days;
         tech_level += TECH_MADE_BY_SCHOOL;
         total_tech_made += TECH_MADE_BY_SCHOOL;
-        if( !animate && (busy >= 20) && (real_time > anim) ) //start the swing
-        {
-            frameIt->frame = 1;
-            frit->frame = 0;
-            animate = true;
-            anim = real_time + SCHOOL_ANIMATION_SPEED;
-        }
-
     }
     if ((total_time % 100) == 0)
     {
@@ -54,30 +46,33 @@ void School::update()
         working_days = 0;
     }
     school_cost += SCHOOL_RUNNING_COST;
-    if (animate && (real_time > anim)) // do the swing
-    {
-        frameIt->frame = 1;
-        anim = real_time + SCHOOL_ANIMATION_SPEED;
-        if ( ++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
-        {
+}
 
-            anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay
-            if ((real_time >= anim)) // restart
-            {
-                frit->frame = 1;
-                frameIt->frame = 1;
-                animate = true;
-                anim = real_time + SCHOOL_ANIMATION_SPEED;
-            }
-            else //
-            {
-                frit->frame = -1;
-                frameIt->frame = 0;
-                animate = false;
-            }
+void School::animate() {
+  if(real_time >= anim) {
+    anim = real_time + SCHOOL_ANIMATION_SPEED;
+    int& frame = frameIt->frame;
+    int& swing = frit->frame;
+    if(frame) {
+      if(++swing >= 10) {
+        // Do not include last swing frame because it is same as first.
+        // anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
+        swing = 0;
+      }
 
-        }
+      // stop the swing in position 0, 5, or 10
+      if((swing == 0 || swing == 5) && (real_time >= anim2 || busy == 0)) {
+        anim = real_time + SCHOOL_ANIMATION_BREAK - 100 * busy;
+        frame = 0;
+        swing = -1;
+      }
     }
+    else if(busy >= 20) {
+      frame = 1;
+      swing = 0;
+      anim2 = real_time + 100 * busy;
+    }
+  }
 }
 
 void School::report()
@@ -92,4 +87,3 @@ void School::report()
 }
 
 /** @file lincity/modules/school.cpp */
-

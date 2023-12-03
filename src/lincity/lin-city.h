@@ -107,6 +107,15 @@
 #define MED_TIME_FOR_YEAR  20
 #define SLOW_TIME_FOR_YEAR 60
 
+#define ANIMATE_DELAY 100
+
+// Used to find a threshold time that is not close to an animate target time.
+// This helps animation keep a consistent speed with varying fps.
+#define ANIM_THRESHOLD(millis) (((millis) + ANIMATE_DELAY / 2) \
+  / ANIMATE_DELAY * ANIMATE_DELAY - ANIMATE_DELAY / 2)
+// #define ANIM_THRESHOLD(millis) \
+  (millis - (millis + ANIMATE_DELAY / 2) % ANIMATE_DELAY)
+
 #define MIN_RES_POPULATION 10
 
 /*
@@ -132,4 +141,3 @@
 #endif /* __lin_city_h__ */
 
 /** @file lincity/lin-city.h */
-

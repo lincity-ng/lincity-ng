@@ -32,16 +32,8 @@ void Tip::update()
     //the waste is always slowly degrading
     //max degradiation per day is about 42 (10M/240k)
     degration_days += total_waste;
-    while (degration_days > TIP_DEGRADE_TIME)
-    {
-        degration_days -= TIP_DEGRADE_TIME;
-        --total_waste;
-        if (degration_days > 7 * TIP_DEGRADE_TIME)
-        {
-            degration_days -= 7 * TIP_DEGRADE_TIME;
-            total_waste -= 7;
-        }
-    }
+    total_waste -= degration_days / TIP_DEGRADE_TIME;
+    degration_days %= TIP_DEGRADE_TIME;
 
     if ((commodityCount[STUFF_WASTE] >= WASTE_BURRIED)
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE > CRITICAL_WASTE_LEVEL)
@@ -64,11 +56,14 @@ void Tip::update()
     {
         busy = working_days;
         working_days = 0;
-        int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
-        if (total_waste > 0 && i < 8)
-        {   i++;}
-        frameIt->frame = i;
     }
+}
+
+void Tip::animate() {
+  int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
+  if (total_waste > 0 && i < 8)
+  {   i++;}
+  frameIt->frame = i;
 }
 
 void Tip::report()
@@ -85,4 +80,3 @@ void Tip::report()
 }
 
 /** @file lincity/modules/tip.cpp */
-

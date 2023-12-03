@@ -64,8 +64,9 @@ public:
     }
 
     virtual ~Monument() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  working_days, busy;
     int  tech_made;
@@ -76,4 +77,3 @@ public:
 };
 
 /** @file lincity/modules/monument.h */
-

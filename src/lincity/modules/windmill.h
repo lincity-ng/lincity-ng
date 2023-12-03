@@ -13,7 +13,7 @@
 #define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH)
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      4
-#define ANTIQUE_WINDMILL_ANIM_SPEED 80
+#define ANTIQUE_WINDMILL_ANIM_SPEED 120
 
 #define MODERN_WINDMILL_TECH 450000
 
@@ -52,8 +52,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -64,15 +64,15 @@ public:
     }
 
     virtual ~Windmill() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  kwh_output;
     int  tech;
     int  anim;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
 
 /** @file lincity/modules/windmill.h */
-

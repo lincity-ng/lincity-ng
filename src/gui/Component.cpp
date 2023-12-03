@@ -86,7 +86,7 @@ Component::eventChild(Child& child, const Event& event, bool visible)
     assert(child.getComponent() != 0);
 
     Event ev = event;
-    if(event.type == Event::MOUSEMOTION 
+    if(event.type == Event::MOUSEMOTION
         || event.type == Event::MOUSEBUTTONDOWN
         || event.type == Event::MOUSEBUTTONUP
         || event.type == Event::MOUSEWHEEL) {
@@ -206,7 +206,8 @@ Component::setChildDirty(Component* childComponent, const Rect2D& area)
         const Child& child = *i;
         if(child.getComponent() != childComponent)
             continue;
-
+        if(!child.enabled)
+            return;
         Rect2D rect = area;
         rect.move(child.position);
         setDirty(rect);

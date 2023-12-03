@@ -59,20 +59,20 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0; // or real_time?
+        // this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;
         this->working_days = 0;
-        this->animate = false;
+        this->animate_enable = false;
         initialize_commodities();
     }
     virtual ~Pottery() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  anim;
     int  pauseCounter;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
-

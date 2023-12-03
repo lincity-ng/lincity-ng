@@ -71,7 +71,7 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->anim = 0; // or real_time?
-        this->animate = false;
+        this->animate_enable = false;
         this->steel_made = false;
         this->monthly_stuff_made = 0;
         this->last_month_output = 0;
@@ -96,8 +96,9 @@ public:
         {   this->coalprod = COMMUNE_COAL_MADE;}
     }
     virtual ~Commune() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  anim;
     int  ugwCount;
@@ -105,9 +106,8 @@ public:
     int  monthly_stuff_made;
     int  last_month_output;
     int  lazy_months;
-    bool animate;
+    bool animate_enable;
     bool steel_made;
 };
 
 /** @file lincity/modules/commune.h */
-

@@ -150,31 +150,36 @@ void Transport::update()
 
     if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)
     {
-        anim = real_time + WASTE_BURN_TIME;
         commodityCount[STUFF_WASTE] -= WASTE_BURN_ON_TRANSPORT;
         world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
-        if(!burning_waste)
-        {
-            burning_waste = true;
-            //Fire sets frameIt manually
-            Construction *fire = fireConstructionGroup.createConstruction(x, y);
-            world(x,y)->construction = fire;
-            //waste burning never spreads
-            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-            ::constructionCount.add_construction(fire);
-        }
+        burning_waste_anim = true;
     }
-    else if(burning_waste && (real_time > anim))
-    {
-        burning_waste = false;
-        ::constructionCount.remove_construction(world(x,y)->construction);
+}
+
+void Transport::animate() {
+  if(burning_waste_anim) {
+    burning_waste_anim = false;
+    anim = real_time + WASTE_BURN_TIME;
+    if(!burning_waste) {
+      burning_waste = true;
+      //Fire sets frameIt manually
+      Construction *fire = fireConstructionGroup.createConstruction(x, y);
+      world(x,y)->construction = fire;
+      //waste burning never spreads
+      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+      ::constructionCount.add_construction(fire);
+    }
+  }
+  else if(burning_waste && real_time >= anim) {
+    burning_waste = false;
+    ::constructionCount.remove_construction(world(x,y)->construction);
 #ifdef DEBUG
-        assert(world(x,y)->construction->neighbors.empty());
+    assert(world(x,y)->construction->neighbors.empty());
 #endif
-        world(x,y)->framesptr->erase(world(x,y)->construction->frameIt);
-        delete world(x,y)->construction;
-        world(x,y)->construction = this;
-    }
+    world(x,y)->framesptr->erase(world(x,y)->construction->frameIt);
+    delete world(x,y)->construction;
+    world(x,y)->construction = this;
+  }
 }
 
 void Transport::list_traffic(int *i)

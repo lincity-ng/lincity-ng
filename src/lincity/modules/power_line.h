@@ -3,6 +3,8 @@
 #include "../lctypes.h"
 #include "../transport.h"
 
+#define POWER_LINE_FLASH_SPEED 100
+
 class PowerlineConstructionGroup: public ConstructionGroup {
 public:
     PowerlineConstructionGroup(
@@ -34,16 +36,19 @@ public:
         init_resources();
         this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
+        this->anim = 0;
         this->flashing = false;
         initialize_commodities();
         this->trafficCount = this->commodityCount;
     }
     virtual ~Powerline() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
     void flow_power();
     std::array<int, STUFF_COUNT> trafficCount;
     int anim_counter;
+    int anim;
     bool flashing;
 };
 

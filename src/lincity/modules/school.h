@@ -65,8 +65,9 @@ public:
         std::advance(frit, 1);
         frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
         frit->frame = -1; //hide the swing
-        this->animate = false;
+        // this->animate_enable = false;
         this->anim = 0;
+        this->anim2 = 0;
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
@@ -86,16 +87,17 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator frit;
-    int  anim;
-    bool animate;
+    int anim;
+    int anim2;
+    // bool animate_enable;
     int total_tech_made;
     int working_days, busy;
 };
 
 
 /** @file lincity/modules/school.h */
-
