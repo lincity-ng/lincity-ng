@@ -449,7 +449,19 @@ std::string Construction::getStuffName(Commodity stuff_id)
     return commodityNames[stuff_id];
 }
 
-void Construction::list_commodities(int * i)
+void Construction::list_commodities(int *i) {
+    switch(mps_map_page) {
+    default:
+    case 0:
+        list_commodities(&i);
+        break;
+    case 1:
+        list_production(&i);
+        break;
+    }
+}
+
+void Construction::list_inventory(int * i)
 {
     /*
         Lists all current commodities of a construction in MPS area
@@ -507,6 +519,88 @@ void Construction::list_commodities(int * i)
             }
         }//endfor
     }
+}
+
+void Construction::list_production(int * i)
+{
+    /*
+        Lists all current commodities of a construction in MPS area
+        Groups commodities by incomming, outgoing, twoway and inactive
+    */
+
+    Commodity stuff;
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && maxcons && !maxprod)
+        {
+            mps_store_ssddp(*i,"--> ", commodityNames[stuff], commodityProdPrev[stuff], -maxcons);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && !maxcons && maxprod)
+        {
+            mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityProdPrev[stuff], maxprod);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && maxcons && maxprod)
+        {
+            int amt = commodityProdPrev[stuff];
+            int max = amt >= 0 ? maxprod : -maxcons;
+            mps_store_ssddp(*i,"<->", commodityNames[stuff], amt, max);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && !maxcons && !maxprod)
+        {
+            mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityProdPrev[stuff], 1);
+            ++*i;
+        }//endif
+    } //endfor
+}
+
+void Construction::reset_prod_counters(void) {
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT; stuff++) {
+        commodityProdPrev[stuff] = commodityProd[stuff];
+        commodityProd[stuff] = 0;
+    } //endfor
+}
+
+int Construction::produceStuff(Commodity stuff_id, int amt) {
+    commodityProd[stuff_id] += amt;
+    commodityCount[stuff_id] += amt;
+    return amt;
+}
+
+int Construction::consumeStuff(Commodity stuff_id, int amt) {
+    commodityProd[stuff_id] -= amt;
+    commodityCount[stuff_id] -= amt;
+    return amt;
+}
+
+int Construction::levelStuff(Commodity stuff_id, int amt) {
+    int delta = amt - commodityCount[stuff_id];
+    commodityProd[stuff_id] += delta;
+    commodityCount[stuff_id] = amt;
+    return delta;
 }
 
 void Construction::initialize_commodities(void)

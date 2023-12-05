@@ -232,6 +232,10 @@ public:
 
     // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
     std::array<int, STUFF_COUNT> commodityCount;
+    std::array<int, STUFF_COUNT> commodityProd;
+    std::array<int, STUFF_COUNT> commodityProdPrev;
+    std::array<int, STUFF_COUNT> commodityMaxProd;
+    std::array<int, STUFF_COUNT> commodityMaxCons; // max consumption
     std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
@@ -239,6 +243,12 @@ public:
     static std::string getStuffName(Commodity stuff_id); //translated name of a commodity
     void init_resources(void);                      //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
+    void list_inventory(int *);                     // prints list of commodity inventory in report()
+    void list_production(int *);                    // prints list of commodity production in report()
+    void reset_prod_counters(void);                 // monthly update to production counters
+    int produceStuff(Commodity stuff_id, int amt); // increases inventory by amt and updates production counter
+    int consumeStuff(Commodity stuff_id, int amt); // decreases inventory by amt and updates production counter
+    int levelStuff(Commodity stuff_id, int amt);   // sets inventory level and updates production counter
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
     void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
