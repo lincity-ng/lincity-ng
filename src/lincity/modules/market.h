@@ -36,7 +36,8 @@ public:
         int cost_mul, int bul_cost, int market_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
         commodityRuleCount[STUFF_FOOD].take = true;

@@ -380,7 +380,7 @@ public:
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
-        int cost, int tech, int range
+        int cost, int tech, int range, int mps_pages
     ) {
         this->name = name;
         this->no_credit = no_credit;
@@ -395,6 +395,7 @@ public:
         this->range = range;
         //this->images_loaded = false;
         //this->sounds_loaded = false;
+        this->mps_pages = mps_pages;
 
         for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
           this->commodityRuleCount[stuff] = (CommodityRule){
@@ -449,6 +450,7 @@ public:
     int range;                  /* range beyond size*/
     //bool images_loaded;
     //bool sounds_loaded;
+    int mps_pages;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {

@@ -79,8 +79,9 @@ int mps_set( int x, int y, int style ) /* Attaches an area or global display */
     if(! getGame()) //there may be no longer a game when shuting down lincity
     {   return -1;}
     int same_square = mps_set_silent(x, y, style);
-    if(same_square)
-    {   mps_map_page = (mps_map_page + 1)%MPS_MAP_PAGES;}
+    if(same_square) {
+        mps_scroll_page(true);
+    }
 
     switch(style) {
         case MPS_MAP:
@@ -178,6 +179,22 @@ void mps_refresh() /* refresh the information display's contents */
         default:
             break;
     }
+}
+
+void mps_scroll_page(bool forward) {
+  if(mps_style == MPS_MAP && world.is_visible(mps_x, mps_y)) {
+    int num_pages = world(mps_x, mps_y)->getConstructionGroup()->mps_pages;
+    if(num_pages >= 2) {
+      if(forward) {
+        if(++mps_map_page >= num_pages)
+          mps_map_page = 0;
+      }
+      else {
+        if(mps_map_page-- <= 0)
+          mps_map_page = num_pages - 1;
+      }
+    }
+  }
 }
 
 /** Update text contents for later display (refresh) */
@@ -549,4 +566,3 @@ void mps_global_housing()
 
 
 /** @file lincity-ng/MpsInterface.cpp */
-

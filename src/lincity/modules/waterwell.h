@@ -22,7 +22,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_AT_WATERWELL;
         commodityRuleCount[STUFF_WATER].give = true;
@@ -66,4 +67,3 @@ public:
 };
 
 /** @file lincity/modules/waterwell.h */
-

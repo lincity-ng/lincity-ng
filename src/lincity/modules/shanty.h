@@ -45,7 +45,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_SHANTY;
         commodityRuleCount[STUFF_FOOD].take = true;
@@ -98,4 +99,3 @@ public:
 
 
 /** @file lincity/modules/shanty.h */
-

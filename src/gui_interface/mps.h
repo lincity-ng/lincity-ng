@@ -32,6 +32,7 @@ static const int MPS_PARAGRAPH_COUNT = 13;
 int mps_set(int x, int y, int style); /* Attaches an area or global display */
 void mps_refresh(void); /* refresh the information display's contents */
 void mps_update(void);  /* Update text contents for later display (refresh) */
+void mps_scroll_page(bool forward); /* rotate through mps pages */
 
 
 /* mps_info storage functions; place values of corresponding type into
@@ -79,4 +80,3 @@ void mps_right (int x, int y);
 
 
 /** @file gui_interface/mps.h */
-
