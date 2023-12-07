@@ -1,3 +1,8 @@
+
+#ifndef __cricket_h__
+#define __cricket_h__
+
+
 #define GROUP_CRICKET_COLOUR (white(20))
 #define GROUP_CRICKET_COST   2000
 #define GROUP_CRICKET_COST_MUL 3
@@ -97,4 +102,5 @@ public:
     int working_days, busy;
 };
 
+#endif /* __cricket_h__ */
 /** @file lincity/modules/cricket.h */

@@ -107,7 +107,10 @@ public:
 
         commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
         commodityMaxCons[STUFF_JOBS] = 100 * FARM_JOBS_USED;
-        commodityMaxProd[STUFF_FOOD] = 100 * (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus)
+        commodityMaxCons[STUFF_KWH] = 100 * ORG_FARM_POWER_REC;
+        commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
+        commodityMaxProd[STUFF_FOOD] = 100 *
+          (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
     }
     virtual ~Organic_farm() { }
     virtual void update() override;

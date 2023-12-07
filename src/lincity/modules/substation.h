@@ -57,7 +57,7 @@ public:
         initialize_commodities();
 
         commodityMaxCons[STUFF_MWH] = 100 * SUBSTATION_MWH;
-        commodityMaxCons[STUFF_KWH] = 100 * 2 * SUBSTATION_MWH;
+        commodityMaxProd[STUFF_KWH] = 100 * 2 * SUBSTATION_MWH;
     }
     virtual ~Substation() { }
     virtual void update() override;

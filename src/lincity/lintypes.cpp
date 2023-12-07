@@ -453,10 +453,10 @@ void Construction::list_commodities(int *i) {
     switch(mps_map_page) {
     default:
     case 0:
-        list_commodities(&i);
+        list_inventory(i);
         break;
     case 1:
-        list_production(&i);
+        list_production(i);
         break;
     }
 }

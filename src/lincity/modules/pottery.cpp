@@ -29,6 +29,7 @@ void Pottery::update()
 {
     if (total_time % 100 == 0)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }

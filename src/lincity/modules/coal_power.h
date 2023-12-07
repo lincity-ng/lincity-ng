@@ -104,9 +104,10 @@ public:
         setMemberSaved(&this->mwh_output, "mwh_output");
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = JOBS_COALPS_GENERATE;
-        commodityMaxCons[STUFF_COAL] = POWERS_COAL_OUTPUT / POWER_PER_COAL;
-        commodityMaxProd[STUFF_MWH] = mwh_output;
+        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_COALPS_GENERATE;
+        commodityMaxCons[STUFF_COAL] = 100 *
+          (POWERS_COAL_OUTPUT / POWER_PER_COAL);
+        commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
         // TODO: update this after loading saved members
     }
     virtual ~Coal_power() //remove 2 or more extraframes
