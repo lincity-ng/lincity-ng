@@ -57,6 +57,9 @@ public:
         this->mwh_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
         setMemberSaved(&this->mwh_output, "mwh_output");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * SOLAR_POWER_JOBS;
+        commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
     }
     virtual void update();
     virtual void report();

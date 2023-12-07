@@ -36,12 +36,13 @@ void SolarPower::update()
     if ((commodityCount[STUFF_JOBS] >= jobs_used)
      && (mwh_made >= POWERS_SOLAR_OUTPUT))
     {
-        commodityCount[STUFF_JOBS] -= jobs_used;
-        commodityCount[STUFF_MWH] += mwh_made;
+        consumeStuff(STUFF_JOBS, jobs_used);
+        produceStuff(STUFF_MWH, mwh_made);
         working_days += mwh_made;
     }
-    if (total_time % 100 == 0) //monthly update
+    if (total_time % 100 == 99) //monthly update
     {
+        reset_prod_counters();
         busy = working_days / mwh_output;
         working_days = 0;
     }
@@ -61,4 +62,3 @@ void SolarPower::report()
 }
 
 /** @file lincity/modules/solar_power.cpp */
-

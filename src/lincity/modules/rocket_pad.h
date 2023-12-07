@@ -83,6 +83,11 @@ public:
         this->steel_stored = 0;
         setMemberSaved(&this->steel_stored, "steel_stored");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * ROCKET_PAD_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * ROCKET_PAD_GOODS;
+        commodityMaxCons[STUFF_STEEL] = 100 * ROCKET_PAD_STEEL;
+        commodityMaxProd[STUFF_WASTE] = 100 * (ROCKET_PAD_GOODS/3);
     }
 
     virtual ~RocketPad() { }

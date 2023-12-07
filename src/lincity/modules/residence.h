@@ -202,6 +202,16 @@ public:
         }
 
         initialize_commodities();
+
+        commodityMaxCons[STUFF_FOOD] = 100 * max_population;
+        commodityMaxCons[STUFF_WATER] = 100 * max_population;
+        commodityMaxCons[STUFF_KWH] = 100 * (POWER_RES_OVERHEAD +
+          (POWER_USE_PER_PERSON * max_population) + max_population/2);
+        commodityMaxProd[STUFF_JOBS] = 100 * (max_population *
+          (WORKING_POP_PERCENT + JOB_SWING + HC_JOB_SWING + CRICKET_JOB_SWING)
+          / 100)
+        commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 2) * 2
+        commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2
     }
     virtual ~Residence()
     {

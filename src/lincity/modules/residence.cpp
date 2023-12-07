@@ -135,8 +135,8 @@ void Residence::update()
         //&& (world(x,y)->flags & FLAG_WATERWELL_COVER)
         && local_population)
     {
-        commodityCount[STUFF_FOOD] -= local_population;
-        commodityCount[STUFF_WATER] -= local_population;
+        consumeStuff(STUFF_FOOD, local_population);
+        consumeStuff(STUFF_WATER, local_population);
         flags |= (FLAG_FED); //enable births
         good += 10;
     }
@@ -169,7 +169,7 @@ void Residence::update()
      /* now get power for nothing */
     if (commodityCount[STUFF_KWH] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
-        commodityCount[STUFF_KWH] -= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population);
+        consumeStuff(STUFF_KWH, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
         flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
@@ -190,7 +190,7 @@ void Residence::update()
 
     if (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - commodityCount[STUFF_JOBS] >= (local_population * (WORKING_POP_PERCENT + swing) / 100) )
     {
-        commodityCount[STUFF_JOBS] += (local_population * (WORKING_POP_PERCENT + swing) / 100);
+        produceStuff(STUFF_JOBS, local_population * (WORKING_POP_PERCENT + swing) / 100);
         flags |= FLAG_EMPLOYED; //enable births
         if (job_swingometer < -300)
         {   job_swingometer = -300;}
@@ -200,20 +200,20 @@ void Residence::update()
         if ((commodityCount[STUFF_GOODS] >= local_population/4)
         &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
         {
-            commodityCount[STUFF_GOODS] -= local_population/4;
-            commodityCount[STUFF_WASTE] += local_population/12;
+            consumeStuff(STUFF_GOODS, local_population/4);
+            produceStuff(STUFF_WASTE, local_population/12);
             good += 10;
             if (commodityCount[STUFF_KWH] >= local_population/2)
             {
-                commodityCount[STUFF_KWH] -= local_population/2;
+                consumeStuff(STUFF_KWH, local_population/2);
                 good += 5;
                 brm += 10;
                 /*     buy more goods if got power for them */
                 if ((commodityCount[STUFF_GOODS] >= local_population/4)
                 &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
                 {
-                    commodityCount[STUFF_GOODS] -= local_population/4;
-                    commodityCount[STUFF_WASTE] += local_population/12;
+                    consumeStuff(STUFF_GOODS, local_population/4);
+                    produceStuff(STUFF_WASTE, local_population/12);
                     good += 5;
                 }
             }
@@ -339,6 +339,10 @@ void Residence::update()
     /* XXX AL1: this is daily accumulator used stats.cpp, and maybe pop graph */
    population += local_population;
    housing += max_population;
+
+    if(total_time % 100 == 99) {
+      reset_prod_counters();
+    }
 }
 
 void Residence::report()
@@ -356,4 +360,3 @@ void Residence::report()
 }
 
 /** @file lincity/modules/residence.cpp */
-

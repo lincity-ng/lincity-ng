@@ -62,6 +62,9 @@ public:
         this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
         setMemberSaved(&this->kwh_output, "kwh_output");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * WINDMILL_JOBS;
+        commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
     }
 
     virtual ~Windmill() { }

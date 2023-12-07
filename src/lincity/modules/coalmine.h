@@ -91,6 +91,10 @@ public:
         this->initial_coal_reserve = coal;
         setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
         this->current_coal_reserve = coal;
+
+        commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+        commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+        commodityMaxCons[STUFF_JOBS] = 100 * COALMINE_JOBS;
     }
     virtual ~Coalmine() { }
     virtual void update() override;

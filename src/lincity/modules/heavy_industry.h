@@ -104,6 +104,18 @@ public:
                 extra_bonus /= MAX_TECH_LEVEL;
             }
         }
+
+        int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
+        commodityMaxCons[STUFF_MWH] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
+        commodityMaxCons[STUFF_KWH] = 100 * (steel_prod * POWER_MAKE_STEEL);
+        commodityMaxCons[STUFF_KWH] = 100 * (steel_prod * COAL_MAKE_STEEL);
+        commodityMaxCons[STUFF_JOBS] = 100 * (MAX_ORE_USED / JOBS_MAKE_STEEL +
+          JOBS_LOAD_COAL + JOBS_LOAD_ORE + JOBS_LOAD_STEEL);
+        commodityMaxCons[STUFF_ORE] = 100 * MAX_ORE_USED;
+        commodityMaxProd[STUFF_STEEL] = 100 * steel_prod;
+        commodityMaxProd[STUFF_STEEL] = 100 * (int)(
+          ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
+        // TODO: update after loading saved members
     }
     virtual void update() override;
     virtual void report() override;

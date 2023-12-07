@@ -27,12 +27,6 @@ Construction *BlacksmithConstructionGroup::createConstruction(int x, int y) {
 
 void Blacksmith::update()
 {
-    //monthly update
-    if (total_time % 100 == 0)
-    {
-        busy = working_days;
-        working_days = 0;
-    }
     if (pauseCounter++ < 0)
     {   return;}
     if ((commodityCount[STUFF_GOODS] + GOODS_MADE_BY_BLACKSMITH <= MAX_GOODS_AT_BLACKSMITH )
@@ -40,10 +34,10 @@ void Blacksmith::update()
         && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
         && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
     {
-        commodityCount[STUFF_GOODS] += GOODS_MADE_BY_BLACKSMITH;
-        commodityCount[STUFF_COAL] -= BLACKSMITH_COAL_USED;
-        commodityCount[STUFF_STEEL] -= BLACKSMITH_STEEL_USED;
-        commodityCount[STUFF_JOBS] -= BLACKSMITH_JOBS;
+        produceStuff(STUFF_GOODS, GOODS_MADE_BY_BLACKSMITH);
+        consumeStuff(STUFF_COAL, BLACKSMITH_COAL_USED);
+        consumeStuff(STUFF_STEEL, BLACKSMITH_STEEL_USED);
+        consumeStuff(STUFF_JOBS, BLACKSMITH_JOBS);
         working_days++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
         {
@@ -57,6 +51,13 @@ void Blacksmith::update()
         animate_enable = false;
         pauseCounter = -BLACKSMITH_CLOSE_TIME;
         return;
+    }
+
+    //monthly update
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
+        busy = working_days;
+        working_days = 0;
     }
 }
 

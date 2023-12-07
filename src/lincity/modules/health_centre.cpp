@@ -33,15 +33,15 @@ void HealthCentre::update()
     &&  commodityCount[STUFF_GOODS] >= HEALTH_CENTRE_GOODS
     &&  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS / 3) <= MAX_WASTE_AT_HEALTH_CENTRE)
     {
-        commodityCount[STUFF_JOBS] -= HEALTH_CENTRE_JOBS;
-        commodityCount[STUFF_GOODS] -= HEALTH_CENTRE_GOODS;
-        commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS / 3);
+        consumeStuff(STUFF_JOBS, HEALTH_CENTRE_JOBS);
+        consumeStuff(STUFF_GOODS, HEALTH_CENTRE_GOODS);
+        produceStuff(STUFF_WASTE, HEALTH_CENTRE_GOODS / 3);
         ++covercount;
         ++working_days;
     }
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -83,4 +83,3 @@ void HealthCentre::report() {
 }
 
 /** @file lincity/modules/health_centre.cpp */
-

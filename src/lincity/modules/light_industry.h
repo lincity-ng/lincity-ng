@@ -127,6 +127,20 @@ public:
                 extra_bonus /= MAX_TECH_LEVEL;
             }
         }
+
+        commodityMaxCons[STUFF_JOBS] = 100 * (INDUSTRY_L_JOBS_USED +
+          INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE +
+          INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL);
+        commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
+        commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
+        commodityMaxCons[STUFF_KWH] = 100 *
+          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 8;
+        commodityMaxCons[STUFF_MWH] = 100 *
+          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 4;
+        commodityMaxProd[STUFF_GOODS] = 100 * INDUSTRY_L_MAKE_GOODS * 8;
+        commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+          INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
+        // TODO: update this after loading saved members
     }
 
     virtual ~IndustryLight() //remove 2 or more extraframes

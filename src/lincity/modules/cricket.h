@@ -78,6 +78,10 @@ public:
         this->xe = (tmp > lenm1) ? lenm1 : tmp;
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
+
+        commodityMaxCons[STUFF_JOBS] = 100 * CRICKET_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * CRICKET_GOODS;
+        commodityMaxProd[STUFF_WASTE] = 100 * (CRICKET_GOODS / 3);
     }
 
     virtual ~Cricket() { }

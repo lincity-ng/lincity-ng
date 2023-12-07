@@ -33,15 +33,16 @@ void School::update()
     &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
     {
-        commodityCount[STUFF_JOBS] -= JOBS_MAKE_TECH_SCHOOL;
-        commodityCount[STUFF_GOODS] -= GOODS_MAKE_TECH_SCHOOL;
-        commodityCount[STUFF_WASTE] += GOODS_MAKE_TECH_SCHOOL / 3;
+        consumeStuff(STUFF_JOBS, JOBS_MAKE_TECH_SCHOOL);
+        consumeStuff(STUFF_GOODS, GOODS_MAKE_TECH_SCHOOL);
+        produceStuff(STUFF_WASTE, GOODS_MAKE_TECH_SCHOOL / 3);
         ++working_days;
         tech_level += TECH_MADE_BY_SCHOOL;
         total_tech_made += TECH_MADE_BY_SCHOOL;
     }
     if ((total_time % 100) == 0)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }

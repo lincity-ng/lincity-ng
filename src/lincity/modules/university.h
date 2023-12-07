@@ -61,6 +61,10 @@ public:
         this->total_tech_made = 0;
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * UNIVERSITY_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * UNIVERSITY_GOODS;
+        commodityMaxProd[STUFF_WASTE] = 100 * (UNIVERSITY_GOODS/3);
     }
     virtual ~University() { }
     virtual void update();

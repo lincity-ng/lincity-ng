@@ -62,6 +62,7 @@ public:
         setMemberSaved(&this->jobs_consumed, "jobs_consumed");
         initialize_commodities();
 
+        commodityMaxCons[STUFF_JOBS] = 100 * MONUMENT_GET_JOBS;
     }
 
     virtual ~Monument() { }

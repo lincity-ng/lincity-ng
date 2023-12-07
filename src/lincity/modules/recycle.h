@@ -81,6 +81,13 @@ public:
         setMemberSaved(&this->make_ore, "make_ore");
         this->make_steel = efficiency / 50;
         setMemberSaved(&this->make_steel, "make_steel");
+
+        commodityMaxCons[STUFF_JOBS] = 100 * RECYCLE_JOBS;
+        commodityMaxCons[STUFF_KWH] = 100 * KWH_RECYCLE_WASTE;
+        commodityMaxCons[STUFF_WASTE] = 100 *
+          (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
+        commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+        commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
     }
     virtual ~Recycle() { }
     virtual void update();

@@ -95,6 +95,13 @@ public:
         {   this->coalprod = COMMUNE_COAL_MADE/2;}
         else
         {   this->coalprod = COMMUNE_COAL_MADE;}
+
+        commodityMaxCons[STUFF_WATER] = 100 *
+          constructionGroup->size * constructionGroup->size * WATER_FOREST;
+        commodityMaxProd[STUFF_COAL] = 100 * COMMUNE_COAL_MADE;
+        commodityMaxProd[STUFF_ORE] = 100 * COMMUNE_ORE_MADE;
+        commodityMaxCons[STUFF_WASTE] = 100 * COMMUNE_WASTE_GET;
+        commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
     }
     virtual ~Commune() { }
     virtual void update() override;

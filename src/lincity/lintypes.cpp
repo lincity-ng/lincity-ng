@@ -581,6 +581,26 @@ void Construction::reset_prod_counters(void) {
     for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT; stuff++) {
         commodityProdPrev[stuff] = commodityProd[stuff];
         commodityProd[stuff] = 0;
+#if DEBUG
+    if(commodityProdPrev[stuff] > commodityMaxProd[stuff]) {
+        commodityMaxProd[stuff] = commodityProdPrev[stuff];
+        std::cerr << "error (non-fatal):"
+          << " construction "
+          << constructionGroup->name
+          << " exceeded maximum production of commodity "
+          << commodityNames[stuff]
+          << ". Updating maximum production." << '\n';
+    }
+    if(-commodityProdPrev[stuff] > commodityMaxCons[stuff]) {
+        commodityMaxCons[stuff] = -commodityProdPrev[stuff];
+        std::cerr << "error (non-fatal):"
+          << " construction "
+          << constructionGroup->name
+          << " exceeded maximum consumption of commodity "
+          << commodityNames[stuff]
+          << ". Updating maximum consumption." << '\n';
+    }
+#endif
     } //endfor
 }
 
@@ -608,8 +628,12 @@ void Construction::initialize_commodities(void)
     for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
     {
         commodityCount[stuff] = 0;
-        if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
-        setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+        if(constructionGroup->commodityRuleCount[stuff].maxload)
+          setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+        commodityProd[stuff] = 0;
+        commodityProdPrev[stuff] = 0;
+        commodityMaxProd[stuff] = 0;
+        commodityMaxCons[stuff] = 0;
     }
 }
 

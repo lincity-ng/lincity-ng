@@ -74,6 +74,10 @@ public:
         this->total_tech_made = 0;
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_MAKE_TECH_SCHOOL;
+        commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MAKE_TECH_SCHOOL;
+        commodityMaxProd[STUFF_WASTE] = 100 * (GOODS_MAKE_TECH_SCHOOL/3);
     }
 
     virtual ~School() //remove the one extraframe

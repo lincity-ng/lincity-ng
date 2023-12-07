@@ -125,6 +125,17 @@ public:
         commodityRuleCount[STUFF_STEEL].take = false;
         commodityRuleCount[STUFF_STEEL].give = false;
         setCommodityRulesSaved(&commodityRuleCount);
+
+        commodityMaxCons[STUFF_JOBS] = PORT_JOBS;
+        for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+            if(!commodityRuleCount[stuff].maxload) continue;
+            commodityMaxCons[stuff] = 100 * ((
+              portConstructionGroup.commodityRuleCount[stuff].maxload *
+              PORT_EXPORT_RATE) / 1000)
+            commodityMaxProd[stuff] = 100 * ((
+              portConstructionGroup.commodityRuleCount[stuff].maxload *
+              PORT_IMPORT_RATE) / 1000)
+        }
     }
     virtual ~Port() { }
     virtual void update();

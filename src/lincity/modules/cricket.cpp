@@ -34,15 +34,15 @@ void Cricket::update()
     &&  commodityCount[STUFF_GOODS] >= CRICKET_GOODS
     &&  commodityCount[STUFF_WASTE] + (CRICKET_GOODS / 3) <= MAX_WASTE_AT_CRICKET)
     {
-        commodityCount[STUFF_JOBS] -= CRICKET_JOBS;
-        commodityCount[STUFF_GOODS] -= CRICKET_GOODS;
-        commodityCount[STUFF_WASTE] += (CRICKET_GOODS / 3);
+        consumeStuff(STUFF_JOBS, CRICKET_JOBS);
+        consumeStuff(STUFF_GOODS, CRICKET_GOODS);
+        produceStuff(STUFF_WASTE, CRICKET_GOODS / 3);
         ++covercount;
         ++working_days;
     }
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }

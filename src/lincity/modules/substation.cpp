@@ -37,12 +37,13 @@ void Substation::update()
     if ( (use_MWH > 0)
      && (commodityCount[STUFF_KWH] <= MAX_KWH_AT_SUBSTATION-2 * use_MWH))
     {
-        commodityCount[STUFF_MWH] -= use_MWH;
-        commodityCount[STUFF_KWH] += 2 * use_MWH;
+        consumeStuff(STUFF_MWH, use_MWH);
+        produceStuff(STUFF_KWH, 2 * use_MWH);
         working_days += use_MWH;
     }
-    if (total_time % 100 == 0) //monthly update
+    if (total_time % 100 == 99) //monthly update
     {
+        reset_prod_counters();
         busy = working_days/SUBSTATION_MWH;
         working_days = 0;
     }

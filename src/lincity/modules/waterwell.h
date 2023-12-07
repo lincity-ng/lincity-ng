@@ -55,6 +55,8 @@ public:
         }//end i
         this->ugwCount = w;
         this->water_output = w * WATER_PER_UGW;
+
+        commodityMaxProd[STUFF_WATER] = 100 * water_output;
     }
 
     virtual ~Waterwell() { }

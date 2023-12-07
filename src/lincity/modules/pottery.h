@@ -66,6 +66,11 @@ public:
         this->working_days = 0;
         this->animate_enable = false;
         initialize_commodities();
+
+        commodityMaxProd[STUFF_GOODS] = 100 * POTTERY_MADE_GOODS;
+        commodityMaxCons[STUFF_ORE] = 100 * POTTERY_ORE_MAKE_GOODS;
+        commodityMaxCons[STUFF_COAL] = 100 * POTTERY_COAL_MAKE_GOODS;
+        commodityMaxCons[STUFF_JOBS] = 100 * POTTERY_JOBS;
     }
     virtual ~Pottery() { }
     virtual void update() override;

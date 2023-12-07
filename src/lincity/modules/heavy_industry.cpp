@@ -68,12 +68,12 @@ void IndustryHeavy::update()
         }//end Second
         if (powered_steel == steel)
         {
-            commodityCount[STUFF_MWH] -= used_MWH;
-            commodityCount[STUFF_KWH] -= used_KWH;
+            consumeStuff(STUFF_MWH, used_MWH);
+            consumeStuff(STUFF_KWH, used_KWH);
             if(used_COAL)// coal power is more laborous
             {
-                commodityCount[STUFF_COAL] -= used_COAL;
-                commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
+                consumeStuff(STUFF_COAL, used_COAL);
+                consumeStuff(STUFF_JOBS, JOBS_LOAD_COAL);
             }
         }
         else
@@ -81,29 +81,29 @@ void IndustryHeavy::update()
 
         if (steel>0)
         {
-            commodityCount[STUFF_JOBS] -= (MAX_ORE_USED / JOBS_MAKE_STEEL);
+            consumeStuff(STUFF_JOBS, MAX_ORE_USED / JOBS_MAKE_STEEL);
             //use jobs for loading the ore
-            commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;
+            consumeStuff(STUFF_JOBS, JOBS_LOAD_ORE);
             //use jobs for loading the steel
-            commodityCount[STUFF_JOBS] -= JOBS_LOAD_STEEL;
-            commodityCount[STUFF_ORE] -= MAX_ORE_USED;
-            commodityCount[STUFF_STEEL] += steel;
+            consumeStuff(STUFF_JOBS, JOBS_LOAD_STEEL);
+            consumeStuff(STUFF_ORE, MAX_ORE_USED);
+            produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;
             //cause some pollution and waste depending on bonuses
             world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
-            commodityCount[STUFF_WASTE] += (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus));
+            produceStuff(STUFF_WASTE, (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus)));
             // if the trash bin is full reburn the filterd pollution
             if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
             {
                 world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
-                commodityCount[STUFF_WASTE] = MAX_WASTE_AT_INDUSTRY_H;
+                levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_H);
             }
         }//endif steel still > 0
     }//endif steel > 0
 
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
     }//end monthly update

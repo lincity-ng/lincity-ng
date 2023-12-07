@@ -65,6 +65,9 @@ public:
         this->mwh_output = (int)(WIND_POWER_MWH + (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
         setMemberSaved(&this->mwh_output, "mwh_output");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * WIND_POWER_JOBS;
+        commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
     }
     virtual ~Windpower() { }
     virtual void update() override;

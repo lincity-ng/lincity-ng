@@ -31,8 +31,12 @@ void Powerline::update()
 {
     if (commodityCount[STUFF_MWH] > 0)
     {
-        commodityCount[STUFF_MWH]--;// loss on powerline
+        consumeStuff(STUFF_MWH, 1);// loss on powerline
     } // endif MWH
+
+    if(total_time % 100 == 99) {
+        reset_prod_counters();
+    }
 }
 
 void Powerline::animate() {

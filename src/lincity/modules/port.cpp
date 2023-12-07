@@ -36,7 +36,7 @@ int Port::buy_stuff(Commodity stuff)
     i = (i * PORT_IMPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
     {   return 0;}
-    commodityCount[stuff] += i;
+    produceStuff(stuff, i);
     return (i * portConstructionGroup.commodityRates[stuff]);
 }
 
@@ -48,7 +48,7 @@ int Port::sell_stuff(Commodity stuff)
     i = (i * PORT_EXPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
     {   return 0;}
-    commodityCount[stuff] -= i;
+    consumeStuff(stuff, i);
     return (i * portConstructionGroup.commodityRates[stuff]);
 }
 
@@ -79,7 +79,7 @@ void Port::update()
         trade_connection();
         if (daily_ic || daily_et)
         {
-            commodityCount[STUFF_JOBS] -= PORT_JOBS;
+            consumeStuff(STUFF_JOBS, PORT_JOBS);
             world(x,y)->pollution += PORT_POLLUTION;
             sust_port_flag = 0;
             tech_made++;
@@ -92,8 +92,9 @@ void Port::update()
     monthly_ic += daily_ic;
     monthly_et += daily_et;
     //monthly update
-    if (total_time % 100 == 0)
+    if (total_time % 100 == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
         lastm_ic = monthly_ic;

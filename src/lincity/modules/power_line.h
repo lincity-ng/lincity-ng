@@ -41,6 +41,8 @@ public:
         this->flashing = false;
         initialize_commodities();
         this->trafficCount = this->commodityCount;
+
+        commodityMaxCons[STUFF_MWH] = 100 * 1
     }
     virtual ~Powerline() { }
     virtual void update() override;

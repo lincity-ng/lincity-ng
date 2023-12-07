@@ -183,6 +183,28 @@ public:
 
         initialize_commodities();
         this->trafficCount = this->commodityCount;
+
+        switch (constructionGroup->group) {
+        case GROUP_ROAD:
+        case GROUP_ROAD_BRIDGE:
+            commodityMaxCons[STUFF_GOODS] =
+              (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
+            commodityMaxProd[STUFF_WASTE] =
+              (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
+            break;
+        case GROUP_RAIL:
+        case GROUP_RAIL_BRIDGE:
+            commodityMaxCons[STUFF_GOODS] =
+              (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1;
+            commodityMaxCons[STUFF_STEEL] =
+              (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
+            commodityMaxProd[STUFF_WASTE] =
+              (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1 +
+              (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
+            break;
+        }
+        commodityMaxCons[STUFF_KWH] = 100 * KWH_LOSS_ON_TRANSPORT;
+        commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
     }
     ~Transport()
     {

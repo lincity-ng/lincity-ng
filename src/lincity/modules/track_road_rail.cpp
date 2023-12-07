@@ -118,8 +118,8 @@ void Transport::update()
                 world(x,y)->pollution += ROAD_POLLUTION;
             if ((total_time & ROAD_GOODS_USED_MASK) == 0 && commodityCount[STUFF_GOODS] > 0)
             {
-                --commodityCount[STUFF_GOODS];
-                ++commodityCount[STUFF_WASTE];
+                consumeStuff(STUFF_GOODS, 1);
+                produceStuff(STUFF_WASTE, 1);
             }
         break;
         case GROUP_RAIL:
@@ -129,30 +129,34 @@ void Transport::update()
                 world(x,y)->pollution += RAIL_POLLUTION;
             if ((total_time & RAIL_GOODS_USED_MASK) == 0 && commodityCount[STUFF_GOODS] > 0)
             {
-                --commodityCount[STUFF_GOODS];
-                ++commodityCount[STUFF_WASTE];
+                consumeStuff(STUFF_GOODS, 1);
+                produceStuff(STUFF_WASTE, 1);
             }
             if ((total_time & RAIL_STEEL_USED_MASK) == 0 && commodityCount[STUFF_STEEL] > 0)
             {
-                --commodityCount[STUFF_STEEL];
-                ++commodityCount[STUFF_WASTE];
+                consumeStuff(STUFF_STEEL, 1);
+                produceStuff(STUFF_WASTE, 1);
             }
         break;
     }
     if (commodityCount[STUFF_KWH] >= KWH_LOSS_ON_TRANSPORT)
     {
-        commodityCount[STUFF_KWH] -= KWH_LOSS_ON_TRANSPORT;
+        consumeStuff(STUFF_KWH, KWH_LOSS_ON_TRANSPORT);
     }
     else if (commodityCount[STUFF_KWH] > 0)
     {
-        --commodityCount[STUFF_KWH];
+        consumeStuff(STUFF_KWH, 1);
     }
 
     if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)
     {
-        commodityCount[STUFF_WASTE] -= WASTE_BURN_ON_TRANSPORT;
+        consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
         world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
         burning_waste_anim = true;
+    }
+
+    if(total_time % 100 == 99) {
+        reset_prod_counters();
     }
 }
 

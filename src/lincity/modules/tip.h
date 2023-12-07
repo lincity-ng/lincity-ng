@@ -58,6 +58,9 @@ public:
         this->degration_days = 0;
         setMemberSaved(&this->degration_days,"degration_days");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_WASTE] = WASTE_BURRIED;
+        commodityMaxProd[STUFF_WASTE] = WASTE_BURRIED;
     }
     virtual ~Tip() { }
     virtual void update() override;

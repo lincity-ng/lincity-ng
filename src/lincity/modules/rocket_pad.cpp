@@ -53,13 +53,13 @@ void RocketPad::update()
             && (completion < 100)
          )
     {
-        commodityCount[STUFF_JOBS] -= ROCKET_PAD_JOBS;
+        consumeStuff(STUFF_JOBS, ROCKET_PAD_JOBS);
         jobs_stored += ROCKET_PAD_JOBS;
-        commodityCount[STUFF_GOODS] -= ROCKET_PAD_GOODS;
+        consumeStuff(STUFF_GOODS, ROCKET_PAD_GOODS);
         goods_stored += ROCKET_PAD_GOODS;
-        commodityCount[STUFF_STEEL]-= ROCKET_PAD_STEEL;
+        consumeStuff(STUFF_STEEL, ROCKET_PAD_STEEL);
         steel_stored += ROCKET_PAD_STEEL;
-        commodityCount[STUFF_WASTE] += ROCKET_PAD_GOODS/3;
+        produceStuff(STUFF_WASTE, ROCKET_PAD_GOODS/3);
         step += 2;
         working_days++;
     }
@@ -78,8 +78,9 @@ void RocketPad::update()
         step = 0;
     }
     //monthly update
-    if (total_time % 100 == 0)
+    if (total_time % 100 == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -92,7 +93,7 @@ void RocketPad::update()
             anim = real_time + ROCKET_ANIMATION_SPEED;
             frameIt->frame++;
             if(frameIt->frame > last_frame)
-            {   
+            {
                 frameIt->frame = 5;
             } else if (frameIt->frame == last_frame)
             {
@@ -235,4 +236,3 @@ void RocketPad::report()
 }
 
 /** @file lincity/modules/rocket_pad.cpp */
-
