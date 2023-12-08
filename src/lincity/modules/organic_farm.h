@@ -78,8 +78,8 @@ public:
         init_resources();
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
-        this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
-        setMemberSaved(&this->tech_bonus, "tech_bonus");
+        // this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
+        setMemberSaved(&this->tech_bonus, "tech_bonus"); // compatibility
         this->crop_rotation_key = (rand() % 4) + 1;
         this->month_stagger = rand() % 100;
         this->food_this_month = 0;
@@ -109,9 +109,19 @@ public:
         commodityMaxCons[STUFF_JOBS] = 100 * FARM_JOBS_USED;
         commodityMaxCons[STUFF_KWH] = 100 * ORG_FARM_POWER_REC;
         commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
+        // commodityMaxProd[STUFF_FOOD] = 100 *
+        //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
+    }
+
+    virtual void initialize() override {
+        RegisteredConstruction::initialize();
+
+        this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
+
         commodityMaxProd[STUFF_FOOD] = 100 *
           (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
     }
+
     virtual ~Organic_farm() { }
     virtual void update() override;
     virtual void report() override;

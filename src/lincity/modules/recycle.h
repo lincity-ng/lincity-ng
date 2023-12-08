@@ -73,22 +73,38 @@ public:
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         initialize_commodities();
-        int efficiency;
-        efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
-        if (efficiency > (WASTE_RECYCLED * 8) / 10)
-        {   efficiency = (WASTE_RECYCLED * 8) / 10;}
-        this->make_ore = efficiency;
-        setMemberSaved(&this->make_ore, "make_ore");
-        this->make_steel = efficiency / 50;
-        setMemberSaved(&this->make_steel, "make_steel");
+        // int efficiency;
+        // efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
+        // if (efficiency > (WASTE_RECYCLED * 8) / 10)
+        // {   efficiency = (WASTE_RECYCLED * 8) / 10;}
+        // this->make_ore = efficiency;
+        setMemberSaved(&this->make_ore, "make_ore"); // compatibility
+        // this->make_steel = efficiency / 50;
+        setMemberSaved(&this->make_steel, "make_steel"); // compatibility
 
         commodityMaxCons[STUFF_JOBS] = 100 * RECYCLE_JOBS;
         commodityMaxCons[STUFF_KWH] = 100 * KWH_RECYCLE_WASTE;
         commodityMaxCons[STUFF_WASTE] = 100 *
           (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
+        // commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+        // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
+    }
+
+    virtual void initialize() override {
+        RegisteredConstruction::initialize();
+
+
+        int efficiency =
+          (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
+        if (efficiency > (WASTE_RECYCLED * 8) / 10)
+        {   efficiency = (WASTE_RECYCLED * 8) / 10;}
+        this->make_ore = efficiency;
+        this->make_steel = efficiency / 50;
+
         commodityMaxProd[STUFF_ORE] = 100 * make_ore;
         commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
     }
+
     virtual ~Recycle() { }
     virtual void update();
     virtual void report();

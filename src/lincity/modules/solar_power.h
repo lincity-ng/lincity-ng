@@ -54,13 +54,23 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        this->mwh_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output");
+        // this->mwh_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->mwh_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_JOBS] = 100 * SOLAR_POWER_JOBS;
+        // commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
+    }
+
+    virtual void initialize() override {
+        RegisteredConstruction::initialize();
+
+        this->mwh_output = (int)(POWERS_SOLAR_OUTPUT +
+          (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+
         commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
     }
+
     virtual void update();
     virtual void report();
     int  mwh_output;

@@ -445,6 +445,7 @@ void XMLloadsave::loadConstructions()
     unsigned int value;
     unsigned short group;
     bool inside_construction = false;
+    Construction *cst;
 
     prescan = true;
     x = NOT_SET;
@@ -475,18 +476,19 @@ void XMLloadsave::loadConstructions()
         if ( !prescan && inside_construction )
         {
             if (r == 2 && xml_val.length())
-            {   memberCount += world(x,y)->construction->loadMember(xml_tag, xml_val);}
+            {   memberCount += cst->loadMember(xml_tag, xml_val);}
         }
         if (inside_construction && line == "</Construction>")
         {
-            if( world.is_inside(x, y) && (group != NOT_SET) && prescan)
-            {
+            assert(world.is_inside(x, y) && group != NOT_SET);
+            if(prescan) {
                 if (ConstructionGroup::countConstructionGroup(group))
                 {
                     constructionCount++;
                     //std::cout << "placing " << main_groups[group].name << " as " <<main_groups[get_group_of_type(type)].name << "...";
                     std::cout.flush();
-                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y);
+                    cst = ConstructionGroup::getConstructionGroup(group)
+                      ->createConstruction(x, y);
                     //std::cout << "ok" <<std::endl;
                     rewind();
                     prescan = false;
@@ -496,6 +498,9 @@ void XMLloadsave::loadConstructions()
                 else if (cur_template)
                 {   std::cout << "unknown ConstructionGroup " << cur_template->template_tag << std::endl;}
 #endif
+            }
+            else {
+                cst->place();
             }
             //world(x,y)->construction->saveMembers(&std::cout);
             interpreting_template = false;
@@ -573,6 +578,7 @@ XMLloadsave::loadConstructionTemplates()
 
     unsigned short group, head, type;
     int idx;
+    Construction *cst;
 
     gzread(gz_xml_file, (char *)&head, sizeof(head));
     gzread(gz_xml_file, (char *)&group, sizeof(group));
@@ -584,10 +590,11 @@ XMLloadsave::loadConstructionTemplates()
     int x = idx % world.len();
     int y = idx / world.len();
     //std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
-    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y);
+    cst = ConstructionGroup::getConstructionGroup(head)
+      ->createConstruction(x, y);
     if (!bin_template_libary.count(head))
     {
-        world(x,y)->construction->writeTemplate();
+        cst->writeTemplate();
     }
     cur_template = bin_template_libary[head];
     //assert(cur_template);
@@ -596,9 +603,10 @@ XMLloadsave::loadConstructionTemplates()
     size_t cm = 0;
     while (!cur_template->reached_end())
     {
-        cm += world(x,y)->construction->readbinaryMember(cur_template->getTag(),gz_xml_file);
+        cm += cst->readbinaryMember(cur_template->getTag(),gz_xml_file);
         cur_template->step();
     }
+    cst->place();
     //assert(cm = cur_template->len());
     //std::cout << "OK" <<std::endl;
 }

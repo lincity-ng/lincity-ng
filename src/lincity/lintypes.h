@@ -210,6 +210,7 @@ public:
     virtual void update() = 0;
     virtual void report() = 0;
     virtual void animate() {};
+    virtual void initialize() {};
 
 
     ConstructionGroup *constructionGroup;
@@ -264,6 +265,7 @@ public:
     void setCommodityRulesSaved(std::array<CommodityRule,STUFF_COUNT> * stuffRuleCount);
     void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
+    virtual void place();
     void detach();      //removes all references from world, ::constructionCount
     void deneighborize(); //cancells all neighbors and partners mutually
     void   neighborize(); //adds all neigborconnections once (call twice for double connections)

@@ -59,12 +59,21 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->kwh_output, "kwh_output");
+        // this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->kwh_output, "kwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_JOBS] = 100 * WINDMILL_JOBS;
-        commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
+        // commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
+    }
+
+    virtual void initialize() override {
+      RegisteredConstruction::initialize();
+
+      this->kwh_output = (int)(WINDMILL_KWH +
+        (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
+
+      commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
     }
 
     virtual ~Windmill() { }
