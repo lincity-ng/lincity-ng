@@ -99,7 +99,7 @@ void Monument::report()
     else
     {
         mps_store_sfp(i++, N_("busy"), (float) busy);
-        i++;
+        // i++;
         list_commodities(&i);
         i++;
         mps_store_sfp(i++, N_("Completion"), completion);

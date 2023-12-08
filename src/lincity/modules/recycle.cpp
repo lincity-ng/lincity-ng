@@ -70,7 +70,7 @@ void Recycle::report()
     mps_store_sfp(i++, N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);
     mps_store_sfp(i++, N_("Efficiency Steel"),(float) make_steel * 100 / WASTE_RECYCLED);
     mps_store_sfp(i++, N_("busy"), busy);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

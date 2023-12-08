@@ -209,7 +209,7 @@ void Transport::report()
     else
     {
         mps_store_title(i++, _("Commodities") );
-        list_commodities(&i);
+        list_inventory(&i);
     }
 }
 

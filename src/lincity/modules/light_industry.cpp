@@ -158,7 +158,7 @@ void IndustryLight::report()
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

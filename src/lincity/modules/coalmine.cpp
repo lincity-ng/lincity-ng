@@ -124,7 +124,7 @@ void Coalmine::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

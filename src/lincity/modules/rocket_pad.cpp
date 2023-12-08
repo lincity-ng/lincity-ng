@@ -231,7 +231,7 @@ void RocketPad::report()
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sfp(i++, N_("Overall Progress"), completion);
     mps_store_sfp(i++, N_("Next Step"), step);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

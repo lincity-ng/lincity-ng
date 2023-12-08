@@ -453,9 +453,11 @@ void Construction::list_commodities(int *i) {
     switch(mps_map_page) {
     default:
     case 0:
+        mps_store_title((*i)++, _("Inventory:"));
         list_inventory(i);
         break;
     case 1:
+        mps_store_title((*i)++, _("Production:"));
         list_production(i);
         break;
     }

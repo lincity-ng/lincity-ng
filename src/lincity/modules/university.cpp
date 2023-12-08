@@ -57,7 +57,7 @@ void University::report()
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

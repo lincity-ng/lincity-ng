@@ -76,7 +76,7 @@ void HealthCentre::report() {
 
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
+    // i++;
     list_commodities(&i);
     p = active?_("Yes"):_("No");
     mps_store_ss(i++, N_("Health Care"), p);

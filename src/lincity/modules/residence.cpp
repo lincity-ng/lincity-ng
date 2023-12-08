@@ -355,7 +355,7 @@ void Residence::report()
     mps_store_sf(i++, N_("Births p.a."), (float)1200/births);
     mps_store_sf(i++, N_("Death p.a."), (float)1200/deaths);
     mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

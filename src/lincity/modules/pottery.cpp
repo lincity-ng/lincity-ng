@@ -80,7 +80,7 @@ void Pottery::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

@@ -83,7 +83,7 @@ void School::report()
     i++;
     mps_store_sfp(i++, N_("busy"), (float)busy);
     mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

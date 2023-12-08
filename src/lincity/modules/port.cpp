@@ -117,7 +117,7 @@ void Port::report()
     mps_store_sd(i++, N_("Export"),lastm_et/100);
     mps_store_sd(i++, N_("Import"),lastm_ic/100);
     mps_store_sfp(i++, N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

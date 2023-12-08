@@ -76,7 +76,7 @@ void Tip::report()
     mps_store_sfp(i++,N_("busy"), busy);
     mps_store_sd(i++, N_("Waste"), total_waste);
     mps_store_sfp(i++, N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

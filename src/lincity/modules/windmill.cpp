@@ -66,7 +66,7 @@ void Windmill::report()
     mps_store_sfp(i++, N_("busy"), float(busy) / kwh_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), kwh_output);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

@@ -90,7 +90,7 @@ void Cricket::report()
 
     mps_store_sd(i++,constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
-    i++;
+    // i++;
     list_commodities(&i);
     p = active?N_("Yes"):N_("No");
     mps_store_ss(i++, N_("Public sports"), p);

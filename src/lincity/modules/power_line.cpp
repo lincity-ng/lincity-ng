@@ -66,7 +66,7 @@ void Powerline::report()
 
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_MWH] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 
