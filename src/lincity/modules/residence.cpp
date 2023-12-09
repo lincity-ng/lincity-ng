@@ -184,9 +184,9 @@ void Residence::update()
 
     /* now supply jobs and buy goods if employed */
     if (job_swingometer > 0)
-    {   swing = JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc;}
+    {   swing = JOB_SWING + (hc ? HC_JOB_SWING : 0) + cc;}
     else
-    {   swing = -(JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc);}
+    {   swing = -(JOB_SWING + (hc ? HC_JOB_SWING : 0) + cc);}
 
     if (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - commodityCount[STUFF_JOBS] >= (local_population * (WORKING_POP_PERCENT + swing) / 100) )
     {
@@ -356,4 +356,3 @@ void Residence::report()
 }
 
 /** @file lincity/modules/residence.cpp */
-
