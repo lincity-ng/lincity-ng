@@ -1207,7 +1207,7 @@ void Construction::trade()
             }
         }
         int flow = center_lvl - old_center;
-        max_traffic = max_traffic * TRANSPORT_QUANTA / center_cap;
+        max_traffic = max_traffic * TRANSPORT_QUANTA / center_rule.maxload;
         //do some smoothing to suppress fluctuations from random order
         // max possible 92.8%
         if(transport) //Special for transport
