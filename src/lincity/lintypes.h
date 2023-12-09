@@ -206,6 +206,18 @@ struct CommodityRule{
 
 class Construction {
 public:
+    Construction() {
+        for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
+        {
+            commodityCount[stuff] = 0;
+            // if(constructionGroup->commodityRuleCount[stuff].maxload)
+            //   setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+            commodityProd[stuff] = 0;
+            commodityProdPrev[stuff] = 0;
+            commodityMaxProd[stuff] = 0;
+            commodityMaxCons[stuff] = 0;
+        }
+    }
     virtual ~Construction() {}
     virtual void update() = 0;
     virtual void report() = 0;
