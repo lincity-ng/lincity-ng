@@ -211,7 +211,7 @@ public:
         commodityMaxProd[STUFF_JOBS] = 100 * (max_population *
           (WORKING_POP_PERCENT + JOB_SWING + HC_JOB_SWING + CRICKET_JOB_SWING)
           / 100);
-        commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 2) * 2;
+        commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 4) * 2;
         commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2;
     }
     virtual ~Residence()
