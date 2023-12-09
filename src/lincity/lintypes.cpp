@@ -1287,8 +1287,10 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
         {
             if(-flow * TRANSPORT_RATE > rem_cap)
             {   flow = - rem_cap / TRANSPORT_RATE;}
-            if(-flow > (rem_cap-*rem_lvl))
-            {   flow = -(rem_cap-*rem_lvl);}
+            if(-flow > (rem_cap-*rem_lvl)) {
+                flow = -(rem_cap-*rem_lvl);
+                if(flow > 0) flow = 0; // the other construction is evacuating
+            }
         }
         //std::cout.flush();
         if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
