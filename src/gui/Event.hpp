@@ -48,6 +48,12 @@ public:
         MOUSEBUTTONUP,
         /// a mouse wheel has been turned
         MOUSEWHEEL,
+        /// window gained mouse focus
+        WINDOWENTER,
+        /// window lost mouse focus
+        WINDOWLEAVE,
+        /// other window event
+        WINDOWOTHER,
     };
     /// Create an update Event
     Event(float elapsedTime);
@@ -78,4 +84,3 @@ public:
 
 
 /** @file gui/Event.hpp */
-

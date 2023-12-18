@@ -18,7 +18,8 @@
 #   define PATH_SLASH_STRING "/"
 #endif
 
-# define LC_SAVE_DIR ".lincity-ng"
+# define LC_ORG "lincity-ng"
+# define LC_APP "lincity-ng"
 # define LINCITYRC_FILENAME ".lincity-NGrc"
 
 #define RESULTS_FILENAME "results.txt"
@@ -38,4 +39,3 @@ extern void load_city_old(char *);
 #endif /* __loadsave_h__ */
 
 /** @file lincity/loadsave.h */
-

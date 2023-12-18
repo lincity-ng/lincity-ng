@@ -53,7 +53,7 @@ you can start building it. Here's a list of them:
 * SDL2_gfx 1.0.0 or later
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
-* PhysicsFS 1.0.0 or later (use stable, NOT development branch 1.1.0)
+* PhysicsFS 2.1.0 or later (use stable, NOT development branch)
   http://www.icculus.org/physfs/
 
 * zlib 1.0 or later
@@ -114,13 +114,12 @@ any:
  Click on Minimap shows the selected Area on mainscreen.
 
 right:
- Drag mainscreen with right mousebutton.
- right click on mainscreen centers to tile under cursor.
+ right click on mainscreen to show info on building under cursor.
  select tool from menu root
  show help on tool
 
 middle:
- middle click on mainscreen to show information about area under cursor.
+ pan map on mainscreen.
 
 left:
  Perform action depending on selected tool. Bulldoze, show Information,
@@ -131,6 +130,9 @@ left:
 wheel:
  up: zoom in
  down: zoom out
+
+motion:
+ move cursor near the screen edge to scroll main screen
 
 Keyboard
 
@@ -149,15 +151,17 @@ Keyboard
 
  KP2 scroll main screen se 
  KP4 scroll main screen sw 
- KP6 scroll main screen se 
+ KP6 scroll main screen ne 
  KP8 scroll main screen nw 
- same with cursor
 
-use shift + direction to scroll faster
+ arrow keys or WASD: more ways to scroll
+
+ use shift key to scroll faster
 
  h  to hide high buildings. Press h again to show them.
  v  to cycle through MiniMap-overlay modes
  b  toggle between current tool and bulldoze mode 
+ g  toggle between right click showing building or tile info
  F1 Help
  
  F12 quick save
@@ -175,4 +179,3 @@ You can contact us at the lincity-ng-devel mailinglist:
 or you might be able to catch us in irc at irc.freenode.net #lincity.
 
 Visit our homepage: https://github.com/lincity-ng/lincity-ng
-

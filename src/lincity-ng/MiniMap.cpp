@@ -132,7 +132,7 @@ MiniMap::toggleStuffID(int step)
     Construction::STUFF_WASTE,Construction::STUFF_KWH,
     Construction::STUFF_MWH,Construction::STUFF_WATER};
 
-    //chek if we are at the beginning or the end of commodities
+    //check if we are at the beginning or the end of commodities
     if (step == 1 && stuff_ID == Construction::STUFF_WATER)
     {
         stuff_ID = Construction::STUFF_FOOD;
@@ -683,6 +683,33 @@ MiniMap::mapPointToVector(MapPoint p)
     return Vector2((p.x - left) * tilesize , (p.y -top) * tilesize);
 }
 
+void MiniMap::constrainPosition() {
+    int minLeft = 1 - 1;
+    int maxLeft = world.len()-1 - ((int)(width/tilesize)-1);
+    int minTop = 1 - 1;
+    int maxTop = world.len()-1 - ((int)(height/tilesize)-1);
+    
+    if(minLeft > maxLeft) {
+        left = (minLeft + maxLeft) / 2;
+    }
+    else if(left < minLeft) {
+        left = minLeft;
+    }
+    else if(left > maxLeft) {
+        left = maxLeft;
+    }
+    
+    if(minTop > maxTop) {
+        top = (minTop + maxTop) / 2;
+    }
+    else if(top < minTop) {
+        top = minTop;
+    }
+    else if(top > maxTop) {
+        top = maxTop;
+    }
+}
+
 /*
  *  Set the Corners of the GameView to show in Minimap
  */
@@ -693,6 +720,7 @@ void MiniMap::setGameViewCorners(
     this->lowerRight = lowerRight;
     left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
     top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
+    constrainPosition();
     mFullRefresh = true;
     setDirty();
 }
@@ -1101,10 +1129,10 @@ Color MiniMap::getColor(int x,int y) const
 
 void MiniMap::event(const Event& event) {
 
-    int left, top;
-
-    left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
-    top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
+    // int left, top;
+    // 
+    // left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
+    // top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
 
     if(event.type == Event::MOUSEMOTION) {
         if(!event.inside) {
@@ -1155,4 +1183,3 @@ IMPLEMENT_COMPONENT_FACTORY(MiniMap)
 
 
 /** @file lincity-ng/MiniMap.cpp */
-

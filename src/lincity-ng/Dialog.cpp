@@ -489,9 +489,8 @@ void Dialog::gameStats(){
 void Dialog::saveGameStats(){
     //open File
     char *s;
-    if ((s = (char *) malloc (lc_save_dir_len + strlen (LC_SAVE_DIR)
-                  + strlen (RESULTS_FILENAME) + 64)) == 0)
-    malloc_failure ();
+    if(!(s = (char *)malloc(lc_save_dir_len + strlen(RESULTS_FILENAME) + 2)))
+        malloc_failure();
     sprintf (s, "%s%c%s", lc_save_dir, PATH_SLASH, RESULTS_FILENAME);
 
     std::ofstream results( s );
@@ -966,4 +965,3 @@ void Dialog::closeDialog(){
 }
 
 /** @file lincity-ng/Dialog.cpp */
-

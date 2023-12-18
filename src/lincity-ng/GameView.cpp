@@ -81,10 +81,11 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     loaderThread = 0;
-    keyScrollState = 0;
-    mouseScrollState = 0;
+    keyScrollState = SCROLL_NONE;
+    mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
+    panningCursor = NULL;
 }
 
 GameView::~GameView()
@@ -93,6 +94,10 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
+    
+    if(panningCursor) {
+        SDL_FreeCursor(panningCursor);
+    }
 }
 
 //Static function to use with SDL_CreateThread
@@ -154,6 +159,7 @@ void GameView::parse(XmlReader& reader)
     hideHigh = false;
     showTerrainHeight = false;
     cursorSize = 0;
+    mpsEnvOnQuery = false;
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
@@ -333,6 +339,38 @@ void GameView::setZoom(float newzoom){
 
     //Show the Center
     show( centerTile );
+}
+
+void GameView::zoomMouse(float factor, Vector2 mousepos) {
+    float newzoom = zoom * factor;
+    
+    //if ( newzoom < .0625 ) return;
+    if (newzoom < .0312) {
+        newzoom = .0312;
+        factor = newzoom / zoom;
+    }
+    if(newzoom > 4) {
+        newzoom = 4;
+        factor = newzoom / zoom;
+    }
+
+    zoom = newzoom;
+    
+    // fix rounding errors...
+    if(fabs(zoom - 1.0) < .01)
+        zoom = 1;
+
+    tileWidth = defaultTileWidth * zoom;
+    tileHeight = defaultTileHeight * zoom;
+    //a virtual screen containing the whole city
+    virtualScreenWidth = tileWidth * world.len();
+    virtualScreenHeight = tileHeight * world.len();
+    //std::cout << "Zoom " << zoom  << "\n";
+    
+    viewport = (viewport + mousepos) * factor - mousepos;
+    constrainViewportPosition(true);
+    
+    requestRedraw();
 }
 
 /* set Zoomlevel to 100% */
@@ -560,36 +598,102 @@ void GameView::scroll( void )
     static Uint32 oldTime = SDL_GetTicks();
     Uint32 now = SDL_GetTicks();
     //TODO: scroll speed should be configurable
-    float stepx = (now - oldTime) * tileWidth / 100;
-    float stepy = (now - oldTime) * tileHeight / 100;
+    // The sqrt(zoom) makes it feel like the same speed at different zoom
+    // levels.
+    float amt = (now - oldTime) * 0.5 * sqrt(zoom);
+    Vector2 dir = Vector2(0,0);
     oldTime = now;
+    
+    int scrollState = keyScrollState | mouseScrollState;
 
-    if( keyScrollState == 0 && mouseScrollState == 0 ) {
+    if( scrollState == SCROLL_NONE ) {
         return;
     }
 
-    if( keyScrollState & (SCROLL_LSHIFT | SCROLL_RSHIFT) ) {
-        stepx *= 4;
-        stepy *= 4;
+    if( keyScrollState & SCROLL_SHIFT_ALL ) {
+        amt *= 4;
     }
 
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_UP | SCROLL_UP_LEFT | SCROLL_UP_RIGHT) ) {
-        viewport.y -= stepy;
+    if( scrollState & SCROLL_UP_ALL ) {
+        dir.y -= 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_DOWN | SCROLL_DOWN_LEFT | SCROLL_DOWN_RIGHT) ) {
-        viewport.y += stepy;
+    if( scrollState & SCROLL_DOWN_ALL ) {
+        dir.y += 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_LEFT | SCROLL_UP_LEFT | SCROLL_DOWN_LEFT) ) {
-        viewport.x -= stepx;
+    if( scrollState & SCROLL_LEFT_ALL ) {
+        dir.x -= 1;
     }
-    if( (keyScrollState | mouseScrollState) &
-            (SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT) ) {
-        viewport.x += stepx;
+    if( scrollState & SCROLL_RIGHT_ALL ) {
+        dir.x += 1;
     }
-   requestRedraw();
+    
+    if(dir == Vector2(0,0)) return;
+    
+    // The sqrt((float)tileWidth / tileHeight) makes vertical/horizonal
+    // scrolling feel like the same speed. Surprisingly, without the square
+    // root, it doesn't feel right.
+    float norm = hypot(dir.x * sqrt((float)tileWidth / tileHeight), dir.y);
+    // This makes diagonal scrolling parallel to map components.
+    dir.x *= (float)tileWidth / tileHeight;
+    viewport += dir * amt / norm;
+    constrainViewportPosition(false);
+    
+    requestRedraw();
+}
+
+bool GameView::constrainViewportPosition(bool useScrollCorrection) {
+  //If the centre of the Screen is not Part of the city
+  //adjust viewport so it is.
+  if(useScrollCorrection)
+    viewport += scrollCorrection * zoom;
+  Vector2 center = viewport + (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+  Vector2 centerTile = Vector2(
+    center.y / tileHeight + center.x / tileWidth,
+    center.y / tileHeight - center.x / tileWidth
+  );
+  bool outside = false;
+  if(centerTile.x < gameAreaMin) {
+      centerTile.x = gameAreaMin;
+      outside = true;
+  }
+  else if(centerTile.x > gameAreaMax() + 1) {
+      centerTile.x = gameAreaMax() + 1;
+      outside = true;
+  }
+  if(centerTile.y < gameAreaMin) {
+      centerTile.y = gameAreaMin;
+      outside = true;
+  }
+  else if(centerTile.y > gameAreaMax() + 1) {
+      centerTile.y = gameAreaMax() + 1;
+      outside = true;
+  }
+  
+  if(outside) {
+      Vector2 vpOld = viewport;
+      center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
+      center.y = ( centerTile.x + centerTile.y ) * tileHeight / 2;
+      viewport = center - (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+      if(useScrollCorrection)
+        scrollCorrection = (vpOld - viewport) / zoom;
+      else
+        scrollCorrection = Vector2(0,0);
+      requestRedraw();
+      return true;
+  }
+  else {
+    scrollCorrection = Vector2(0,0);
+    return false;
+  }
+}
+
+void GameView::updateMps(int x, int y) {
+    int mod_x = x, mod_y = y;
+    if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
+        mod_x = world(x,y)->reportingConstruction->x;
+        mod_y = world(x,y)->reportingConstruction->y;
+    }
+    mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
 }
 
 /*
@@ -599,16 +703,18 @@ void GameView::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            mouseScrollState = 0;
-            if( event.mousepos.x < scrollBorder ) {
-                mouseScrollState |= SCROLL_LEFT;
-            } else if( event.mousepos.x > getWidth() - scrollBorder ) {
-                mouseScrollState |= SCROLL_RIGHT;
-            }
-            if( event.mousepos.y < scrollBorder ) {
-                mouseScrollState |= SCROLL_UP;
-            } else if( event.mousepos.y > getHeight() - scrollBorder ) {
-                mouseScrollState |= SCROLL_DOWN;
+            mouseScrollState = SCROLL_NONE;
+            if(!dragging) {
+                if( event.mousepos.x < scrollBorder ) {
+                    mouseScrollState |= SCROLL_LEFT;
+                } else if( event.mousepos.x > getWidth() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_RIGHT;
+                }
+                if( event.mousepos.y < scrollBorder ) {
+                    mouseScrollState |= SCROLL_UP;
+                } else if( event.mousepos.y > getHeight() - scrollBorder ) {
+                    mouseScrollState |= SCROLL_DOWN;
+                }
             }
 
             if( dragging ) {
@@ -617,10 +723,18 @@ void GameView::event(const Event& event)
                 // this was most probably a SDL_WarpMouse
                 if(event.mousepos == dragStart)
                     break;
-                viewport += event.mousemove;
+                viewport -= event.mousemove;
+                constrainViewportPosition(true);
                 setDirty();
                 break;
             }
+            if(!rightButtonDown) {
+              // Use `rightButtonDown` instead of `dragging` so releasing and
+              // re-pressing the button does not lose the drag correction. Such
+              // a release and re-press was probably a mistake.
+              scrollCorrection = Vector2(0,0);
+            }
+            
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
@@ -630,8 +744,8 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                SDL_ShowCursor( SDL_DISABLE );
-                dragStartTime = SDL_GetTicks();
+                setPanningCursor();
+                dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
@@ -672,7 +786,7 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
@@ -685,25 +799,25 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
+            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 if( inCity( getTile( event.mousepos ) ) ) {
-                    getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                    // getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
                 }
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
 
-            if(event.mousebutton == SDL_BUTTON_MIDDLE ){
-                getMiniMap()->hideMpsEnv();
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+                // getMiniMap()->hideMpsEnv();
             }
 
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
                     dragging = false;
                     rightButtonDown = false;
-                    SDL_ShowCursor( SDL_ENABLE );
-                    getButtonPanel()->selectQueryTool();
+                    setDefaultCursor();
+                    // getButtonPanel()->selectQueryTool();
                     break;
                 }
                 dragging = false;
@@ -789,40 +903,58 @@ void GameView::event(const Event& event)
                 {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
-              if (getButtonPanel()->selectedQueryTool())
-                recenter(event.mousepos);                               //adjust view
-              else
-                getButtonPanel()->selectQueryTool();
+                // show info on the clicked thing
+                MapPoint point = getTile(event.mousepos);
+                if(!inCity(point)) break;
+                updateMps(point.x, point.y);
             }
             break;
         case Event::MOUSEWHEEL:
-            if (event.scrolly == 0)
+            if (!event.inside || event.scrolly == 0)
                 break;
             if (event.scrolly > 0)
-                zoomIn();
+                zoomMouse(sqrt(2.f), event.mousepos);
             else
-                zoomOut();
+                zoomMouse(sqrt(0.5), event.mousepos);
             break;
-
+        case Event::WINDOWLEAVE:
+            mouseInGameView = false;
+            mouseScrollState = SCROLL_NONE;
+            break;
+        case Event::WINDOWENTER:
+            break;
+        
         case Event::KEYDOWN:
             if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
                 if (roadDragging)
                 {   ctrDrag = !ctrDrag;}
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState |= SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState |= SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState |= SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState |= SCROLL_RIGHT;
                 break;
             }
@@ -854,13 +986,13 @@ void GameView::event(const Event& event)
 
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.scancode == SDL_SCANCODE_G){
-                if( inCity(tileUnderMouse) ) {
-                    getMiniMap()->showMpsEnv( tileUnderMouse );
-                }
+                // if( inCity(tileUnderMouse) ) {
+                //     getMiniMap()->showMpsEnv( tileUnderMouse );
+                // }
                 break;
             }
             // hotkeys for scrolling pages up and down
-           if(event.keysym.scancode == SDL_SCANCODE_N)
+            if(event.keysym.scancode == SDL_SCANCODE_N)
             {
                 getMiniMap()->scrollPageDown(true);
                 break;
@@ -880,6 +1012,12 @@ void GameView::event(const Event& event)
                 break;
             }
 */
+
+            if( event.keysym.scancode == SDL_SCANCODE_G ){
+                mpsEnvOnQuery = !mpsEnvOnQuery;
+                updateMps(mps_x, mps_y);
+                break;
+            }
             //Hide High Buildings
             if( event.keysym.scancode == SDL_SCANCODE_H ){
                 if( hideHigh ){
@@ -911,19 +1049,31 @@ void GameView::event(const Event& event)
                 break;
             }
             //Scroll
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 || event.keysym.scancode == SDL_SCANCODE_UP ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
+                event.keysym.scancode == SDL_SCANCODE_UP ||
+                event.keysym.scancode == SDL_SCANCODE_W
+            ){
                 keyScrollState &= ~SCROLL_UP;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 || event.keysym.scancode == SDL_SCANCODE_DOWN ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
+                event.keysym.scancode == SDL_SCANCODE_DOWN ||
+                event.keysym.scancode == SDL_SCANCODE_S
+            ){
                 keyScrollState &= ~SCROLL_DOWN;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 || event.keysym.scancode == SDL_SCANCODE_LEFT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
+                event.keysym.scancode == SDL_SCANCODE_LEFT ||
+                event.keysym.scancode == SDL_SCANCODE_A
+            ){
                 keyScrollState &= ~SCROLL_LEFT;
                 break;
             }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 || event.keysym.scancode == SDL_SCANCODE_RIGHT ){
+            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
+                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
+                event.keysym.scancode == SDL_SCANCODE_D
+            ){
                 keyScrollState &= ~SCROLL_RIGHT;
                 break;
             }
@@ -965,6 +1115,17 @@ void GameView::event(const Event& event)
         default:
             break;
     }
+}
+
+void GameView::setPanningCursor() {
+    if(!panningCursor) {
+        panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+    }
+    SDL_SetCursor(panningCursor);
+}
+
+void GameView::setDefaultCursor() {
+    SDL_SetCursor(SDL_GetDefaultCursor());
 }
 
 /*
@@ -1431,38 +1592,11 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
  */
 void GameView::draw(Painter& painter)
 {
-    //If the centre of the Screen is not Part of the city
-    //adjust viewport so it is.
-    MapPoint centerTile = getCenter();
-    bool outside = false;
-    if( centerTile.x < gameAreaMin )
-    {
-        centerTile.x = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.x > gameAreaMax() )
-    {
-        centerTile.x = gameAreaMax();
-        outside = true;
-    }
-    if( centerTile.y < gameAreaMin )
-    {
-        centerTile.y = gameAreaMin;
-        outside = true;
-    }
-    if( centerTile.y > gameAreaMax() )
-    {
-        centerTile.y = gameAreaMax();
-        outside = true;
-    }
-    if( outside )
-    {
-        mouseScrollState = 0;   //Avoid clipping in pause mode
-        keyScrollState = 0;
-        show( centerTile );
-        return;
-    }
-
+    // Constraining the position here shouldn't be necessary if other parts of the code are correct.
+    // if( constrainViewportPosition(true) ) {
+    //     // Returning causes the display to lag. I'm not sure why it's needed anyway.
+    //     // return;
+    // }
 
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
@@ -1729,4 +1863,3 @@ int GameView::buildCost( MapPoint tile )
 IMPLEMENT_COMPONENT_FACTORY(GameView)
 
 /** @file lincity-ng/GameView.cpp */
-

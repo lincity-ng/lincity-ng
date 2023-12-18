@@ -90,7 +90,8 @@ Component::eventChild(Child& child, const Event& event, bool visible)
     Event ev = event;
     if(event.type == Event::MOUSEMOTION 
         || event.type == Event::MOUSEBUTTONDOWN
-        || event.type == Event::MOUSEBUTTONUP) {
+        || event.type == Event::MOUSEBUTTONUP
+        || event.type == Event::MOUSEWHEEL) {
         ev.mousepos -= child.position;
         if(visible && child.component->opaque(ev.mousepos))
             ev.inside = true;
@@ -219,4 +220,3 @@ Component::setChildDirty(Component* childComponent, const Rect2D& area)
 
 
 /** @file gui/Component.cpp */
-

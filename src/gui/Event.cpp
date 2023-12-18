@@ -51,6 +51,25 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEWHEEL:
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
+            #ifdef HAVE_SDL_MOUSEWHEELEVENT_MOUSEX
+            mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
+            #else
+            int x, y;
+            SDL_GetMouseState(&x, &y);
+            mousepos = Vector2(x, y);
+            #endif
+            break;
+        case SDL_WINDOWEVENT:
+            switch(event.window.event) {
+            case SDL_WINDOWEVENT_ENTER:
+                type = WINDOWENTER;
+                break;
+            case SDL_WINDOWEVENT_LEAVE:
+                type = WINDOWLEAVE;
+                break;
+            default:
+                type = WINDOWOTHER;
+            }
             break;
         default:
             assert(false);
@@ -63,4 +82,3 @@ Event::Event(float _elapsedTime)
 }
 
 /** @file gui/Event.cpp */
-

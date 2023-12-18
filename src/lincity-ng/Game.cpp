@@ -143,9 +143,20 @@ void Game::testAllHelpFiles(){
         fullname = directory;
         fullname.append( *i );
         filename.assign( *i );
-
-        if(PHYSFS_isDirectory(fullname.c_str()))
+        
+        // FIXME: Follow symlinks if able. symlink target may be directory
+        // NOTE: Do we really need to check if it's a directory? Unlikely that
+        //       a directory will have a '.xml' suffix anyway.
+        // FIXME: What to do with PHYSFS_FILETYPE_OTHER? Should we instead make
+        //        sure the filetype is PHYSFS_FILETYPE_REGULAR?
+        PHYSFS_Stat stat;
+        int errorCode = PHYSFS_stat(fullname.c_str(), &stat);
+        if(errorCode == 0) {
+            std::cerr << "could not stat file: " << filename << std::endl;
+        }
+        else if(stat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
             continue;
+        }
 
         pos = filename.rfind( ".xml" );
         if( pos != std::string::npos ){
@@ -175,11 +186,18 @@ Game::run()
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_WINDOWEVENT:
-                    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                    switch(event.window.event) {
+                    case SDL_WINDOWEVENT_SIZE_CHANGED:
                         videoSizeChanged(event.window.data1, event.window.data2);
                         gui->resize(event.window.data1, event.window.data2);
                         getConfig()->videoX = event.window.data1;
                         getConfig()->videoY = event.window.data2;
+                        break;
+                    case SDL_WINDOWEVENT_ENTER:
+                    case SDL_WINDOWEVENT_LEAVE:
+                        Event gui_event(event);
+                        gui->event(gui_event);
+                        break;
                     }
                     break;
                 case SDL_KEYUP: {
@@ -311,4 +329,3 @@ Game::run()
 }
 
 /** @file lincity-ng/Game.cpp */
-

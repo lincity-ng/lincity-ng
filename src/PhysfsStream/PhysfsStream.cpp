@@ -26,8 +26,9 @@ IFileStreambuf::IFileStreambuf(const std::string& filename)
     file = PHYSFS_openRead(filename.c_str());
     if(file == 0) {
         std::stringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open file '" << filename << "': "
-            << PHYSFS_getLastError();
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
 }
@@ -43,7 +44,7 @@ IFileStreambuf::underflow()
     if(PHYSFS_eof(file))
         return traits_type::eof();
     
-    size_t bytesread = (size_t) PHYSFS_read(file, buf, 1, sizeof(buf));
+    size_t bytesread = (size_t) PHYSFS_readBytes(file, buf, sizeof(buf));
     if(bytesread == 0)
         return traits_type::eof();
     setg(buf, buf, buf + bytesread);
@@ -58,8 +59,9 @@ OFileStreambuf::OFileStreambuf(const std::string& filename)
     file = PHYSFS_openWrite(filename.c_str());
     if(file == 0) {
         std::stringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open file '" << filename << "': "
-            << PHYSFS_getLastError();
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
     
@@ -79,12 +81,12 @@ OFileStreambuf::overflow(int c)
         return 0;
 
     size_t size = pptr() - pbase();
-    PHYSFS_sint64 res = PHYSFS_write(file, pbase(), 1, size);
+    PHYSFS_sint64 res = PHYSFS_writeBytes(file, pbase(), size);
     if(res <= 0)
         return traits_type::eof();
     
     if(c != traits_type::eof()) {
-        PHYSFS_sint64 res = PHYSFS_write(file, &c, 1, 1);
+        PHYSFS_sint64 res = PHYSFS_writeBytes(file, &c, 1);
         if(res <= 0)
             return traits_type::eof();
     }
@@ -125,4 +127,3 @@ OFileStream::~OFileStream()
 
 
 /** @file PhysfsStream/PhysfsStream.cpp */
-

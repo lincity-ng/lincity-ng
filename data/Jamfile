@@ -1,6 +1,6 @@
 SubDir TOP data ;
 
-SubInclude TOP data gui ;
+SubInclude TOP data gui-gen ;
 
 IMAGEPATHS = 
     images
@@ -79,4 +79,3 @@ if $(build) = $(target)
 InstallData colour.pal ;
 # InstallData [ Wildcard icons : *.csi ] : icons ;
 InstallData opening/good_times.scn opening/bad_times.scn opening/Beach.scn opening/extreme_arid.scn opening/extreme_wetland.scn : opening ;
-

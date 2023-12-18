@@ -38,8 +38,9 @@ XmlReader::XmlReader(const std::string& filename)
     PHYSFS_file* file = PHYSFS_openRead(filename.c_str());
     if(file == 0) {
         std::stringstream msg;
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open file '" << filename << "': " 
-            << PHYSFS_getLastError();
+            << PHYSFS_getErrorByCode(lastError);
         throw std::runtime_error(msg.str());
     }
     
@@ -74,9 +75,10 @@ int
 XmlReader::readCallback(void* context, char* buffer, int len)
 {
     PHYSFS_file* file = (PHYSFS_file*) context;
-    PHYSFS_sint64 result = PHYSFS_read(file, buffer, 1, len);
+    PHYSFS_sint64 result = PHYSFS_readBytes(file, buffer, len);
     if(result < 0) {
-        std::cerr << "Read error: " << PHYSFS_getLastError() << "\n";
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        std::cerr << "Read error: " << PHYSFS_getErrorByCode(lastError) << "\n";
     }
     return (int) result;
 }
@@ -92,11 +94,11 @@ XmlReader::closeCallback(void* context)
     PHYSFS_file* file = (PHYSFS_file*) context; 
     int res = PHYSFS_close(file);
     if(res < 0) {
-        std::cerr << "Close error: " << PHYSFS_getLastError() << "\n";
+        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+        std::cerr << "Close error: " << PHYSFS_getErrorByCode(lastError) << "\n";
     }
     return res;
 }
 
 
 /** @file gui/XmlReader.cpp */
-

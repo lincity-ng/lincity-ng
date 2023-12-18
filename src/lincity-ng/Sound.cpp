@@ -175,7 +175,12 @@ void Sound::loadMusicTheme() {
 
     //std::cout << "looking for : " << xml_name << std::endl;
     //Check if XML file is present
-    if(PHYSFS_exists(xml_name.c_str()) && PHYSFS_isDirectory(theme.c_str())) {
+    PHYSFS_Stat themeStat;
+    int errorCode = PHYSFS_stat(theme.c_str(), &themeStat);
+    if(errorCode == 0) {
+        std::cerr << "could not stat file: " << theme << std::endl;
+    }
+    if(PHYSFS_exists(xml_name.c_str()) && themeStat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
 
         //XML file found, so let's parse it and use as a basis
         //for our music theme
@@ -233,7 +238,11 @@ void Sound::loadMusicTheme() {
     else {
         std::string directory;
 
-        if (PHYSFS_isDirectory(theme.c_str()))
+        errorCode = PHYSFS_stat(theme.c_str(), &themeStat);
+        if(errorCode == 0) {
+            std::cerr << "could not stat file: " << theme << std::endl;
+        }
+        if (themeStat.filetype == PHYSFS_FILETYPE_DIRECTORY)
         {   directory = theme;}
         /*
         else if(PHYSFS_isDirectory(folder.c_str()))
@@ -266,7 +275,12 @@ void Sound::loadMusicTheme() {
             filename.assign( *fptr );
             std::string format = fullname.substr((fullname.length()-4), 4);
 
-            if(!PHYSFS_isDirectory(fullname.c_str()) && (filename[0]!='.')
+            PHYSFS_Stat fullnameStat;
+            errorCode = PHYSFS_stat(fullname.c_str(), &fullnameStat);
+            if(errorCode == 0) {
+                std::cerr << "could not stat file: " << fullname << std::endl;
+            }
+            if(themeStat.filetype != PHYSFS_FILETYPE_DIRECTORY && (filename[0]!='.')
             && (format == ".ogg") ){
                 song tempSong;
                 tempSong.title = *fptr;
@@ -540,4 +554,3 @@ Sound::setSoundVolume(int vol)
 
 
 /** @file lincity-ng/Sound.cpp */
-

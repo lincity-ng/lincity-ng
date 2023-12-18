@@ -1,0 +1,28 @@
+SubDir TOP data gui-gen ;
+
+if $(XSLTPROC) {
+    rule DoXSLTProc
+    {
+        local sources = [ SearchSource $(>) ] ;
+        local target = [ LocateTarget $(<) : data/gui ] ;
+		
+        XSLTProc $(target) : $(sources) ;
+        Depends all : $(target) ;
+    }
+
+    rule XSLTProc
+    {
+        Depends $(<) : $(>) ;
+    }
+    
+    actions XSLTProc
+    {
+        $(XSLTPROC) -o $(<) $(>)
+    }
+
+    local xml = [ Wildcard *.xml ] ;
+    for x in $(xml) {
+        local target = $(x:BS) ;
+        DoXSLTProc $(target) : $(x) ;
+    }
+}
