@@ -4,7 +4,7 @@
 #----------------------------------------------------------------------------
 AC_PREREQ([2.54])
 
-AC_INIT([lincity-ng], [2.9.beta], [matze@braunis.de])
+AC_INIT([lincity-ng], [2.9.0], [matze@braunis.de])
 AC_CONFIG_SRCDIR([mk/jam/build.jam])
 AC_CONFIG_AUX_DIR([mk/autoconf])
 
@@ -28,11 +28,11 @@ VARIANT=optimize
 AC_ARG_ENABLE([optimize], [AC_HELP_STRING([--enable-optimize],
     [build with optimizations enabled (default YES)])],
     [test "$enableval" = "yes" && VARIANT=optimize])
-                                                                                
+
 AC_ARG_ENABLE([debug], [AC_HELP_STRING([--enable-debug],
     [build with debugging information (default NO)])],
     [test "$enableval" = "yes" && VARIANT=debug])
-                                                                                
+
 AC_ARG_ENABLE([profile], [AC_HELP_STRING([--enable-profile],
     [build with profiling information (default NO)])],
     [test "$enableval" = "yes" && VARIANT=profile])
@@ -151,7 +151,7 @@ NP_FINDLIB([PHYSFS], [physfs], [physfs >= 1.0.0],
 	[], [-lphysfs],
 	[],
 	[AC_MSG_ERROR([Please install physfs >= 1.0])])
-    
+
 AC_INIT_JAM
 AC_CONFIG_FILES([Jamconfig])
 

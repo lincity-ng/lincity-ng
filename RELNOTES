@@ -1,3 +1,16 @@
+*** LincityNG 2.9.0 *** [] 2023-12-
+
+* New sprites
+* Overlay sprites
+* Roads spawn cars that drive around if there is jobs traffic.
+* Right-click switches to query tool.
+* Number keys + '`' switches overlay modes.
+* Distinction between river, lake, and pond
+* Lots of fixes
+* Translation updates
+* OSX support
+* Migraded to SDL2 as backend for interaction with user.
+
 *** LincityNG 2.9.beta *** [r1797 in svn] 2013-12-22
 
 public BETA release with:
@@ -35,14 +48,14 @@ public BETA release with:
 * Show coal below buildings on mini map.
 * Bugfix for solar power plant.
 * Updated translations (ca, nl, ru)
-* Show range for windmill and coal mine while building. 
+* Show range for windmill and coal mine while building.
 
 *** LincityNG 1.1.1 *** [r1263 in svn] 2007-08-19
 
 * History in online help
 * Heavy industry no longer storing too much coal.
 * Sustainability progress is reloaded from saved games.
-* Draw range for selected building around cursor 
+* Draw range for selected building around cursor
 * Online help includes a tutorial
 * Russian online help
 * Brazilian Portuguese online help
@@ -65,20 +78,20 @@ public BETA release with:
 * Quantizing tile-images saves about 12MB.
 * Fixed Mills. Now they work.
 * Tool-Menu now opens on left mousebutton.
-* Separate menus for loading and saving games. 
+* Separate menus for loading and saving games.
 
-*** LincityNG 1.0.2 *** [r1063 in svn] 2005-11-09 
+*** LincityNG 1.0.2 *** [r1063 in svn] 2005-11-09
 
 * Catalan translation
 * Spanish translation
-* French translation 
-* Swedish translation 
+* French translation
+* Swedish translation
 * Fixed: unwanted double-clicks in file menu
 
 *** LincityNG 1.0.1 *** [r1038 in svn] 2005-07-13
 
 * Adjust volume in options
-* Load game on doubleclick 
+* Load game on doubleclick
 * Fixed: Endgame evacuation causes termination of game.
 * Fixed: Hightech houses require tech 30, but the tooltip says 20.
 * Fixed: Suppressed duplicated tech-messages.
