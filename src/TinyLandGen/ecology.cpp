@@ -7,9 +7,7 @@
  */
 
 #include "lctypes.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+#include <algorithm>
 
 extern lmap_struct lmap;
 extern int alt_min, alt_max, alt_step;
@@ -142,28 +140,28 @@ int dist_to_water( int x, int y)
 
 	if (x == 0) 
 		if (y == 0)
-			d = min ( d2r(x,y+1), d2r(x+1,y) );
+			d = std::min ( d2r(x,y+1), d2r(x+1,y) );
 		else if (y == WORLD_SIDE_LEN) 
-			d = min ( d2r(x, y-1), d2r(x+1,y) );
+			d = std::min ( d2r(x, y-1), d2r(x+1,y) );
 		else 
-			d = min ( min (d2r(x, y-1), d2r(x, y+1)), d2r(x+1,y));  
+			d = std::min ( std::min (d2r(x, y-1), d2r(x, y+1)), d2r(x+1,y));
 	else if (x == WORLD_SIDE_LEN)
 		if (y == 0)
-			d =  min (d2r(x,y+1), d2r(x-1,y) );
+			d =  std::min (d2r(x,y+1), d2r(x-1,y) );
 		else if (y == WORLD_SIDE_LEN) 
-			d =  min (d2r(x, y-1), d2r(x-1,y) );
+			d =  std::min (d2r(x, y-1), d2r(x-1,y) );
 		else 
-			d = min ( min (d2r(x, y-1), d2r(x, y+1)), d2r(x-1,y));
+			d = std::min ( std::min (d2r(x, y-1), d2r(x, y+1)), d2r(x-1,y));
 	else if (y == 0)
-		d = min ( min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y+1));
+		d = std::min ( std::min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y+1));
 	else if (y == WORLD_SIDE_LEN)
-		d = min ( min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y-1));
+		d = std::min ( std::min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y-1));
 	else if (lmap.dist2w[x][y] == INIT_DIST) 
-		d = min( min(d2r(x - 1, y), d2r(x+1,y)), min( d2r(x, y - 1), d2r(x, y + 1)) );
+		d = std::min( std::min(d2r(x - 1, y), d2r(x+1,y)), std::min( d2r(x, y - 1), d2r(x, y + 1)) );
 
 	// d = distance of neighbours
 	// Mahattan distance (d1) computed iteratively = the +1 below
-	return (min(d + 1, lmap.dist2w[x][y]));
+	return (std::min(d + 1, lmap.dist2w[x][y]));
 }
 
 void distance_to_river(void)

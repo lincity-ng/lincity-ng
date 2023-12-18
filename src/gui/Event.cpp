@@ -15,11 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
 #include "Event.hpp"
 
 #include <assert.h>
+#include <SDL_version.h>
 
 Event::Event(SDL_Event& event)
     : inside(true)
@@ -51,7 +50,7 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEWHEEL:
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
-            #ifdef HAVE_SDL_MOUSEWHEELEVENT_MOUSEX
+            #if SDL_VERSION_ATLEAST(2,26,0)
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             #else
             int x, y;

@@ -30,7 +30,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/simulate.h"
 #include "lincity/lc_locale.h"
-#include "lincity/fileutil.h"
 #include "lincity/loadsave.h"
 #include "lincity/modules/all_modules.h"
 
@@ -138,7 +137,9 @@ bool loadCityNG( std::string filename ){
         //FIXME PHYSFS_getWriteDir() does not work for built in scenarios
         std::string dir = directory;//PHYSFS_getWriteDir();
         filename = dir + PHYSFS_getDirSeparator() + filename;
-        if( file_exists( const_cast<char*>( filename.c_str()) ) )
+        FILE *fp;
+        fclose(fp = fopen(filename.c_str(), "r"));
+        if( fp )
         {
             load_city_2(const_cast<char*>(filename.c_str()));
             update_avail_modules(0);
@@ -164,10 +165,10 @@ void initLincity()
     lincity_set_locale();
 
     /* Set up the paths to certain files and directories */
-    init_path_strings();
+    // init_path_strings();
 
     /* Make sure the save directory exists */
-    check_savedir();
+    // check_savedir();
 
     /*initialize Desktop Componenet Factories*/
     initFactories();

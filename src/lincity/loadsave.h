@@ -28,6 +28,7 @@
 /* New load/save format */
 #define WATERWELL_V2 1322
 
+extern char given_scene[1024];
 
 //void load_saved_city(char *s);
 void save_city(char *);

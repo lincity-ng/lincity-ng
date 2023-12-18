@@ -1,0 +1,22 @@
+#pragma once
+
+#cmakedefine HAVE_DIRENT_H
+
+#define PACKAGE_NAME "${CMAKE_PROJECT_NAME}"
+#define PACKAGE_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
+
+
+// installation directories
+
+// main install prefix
+#define INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}"
+
+// per-category install directories relative to INSTALL_PREFIX
+#define INSTALL_BINDIR "${CMAKE_INSTALL_BINDIR}"
+#define INSTALL_DATADIR "${CMAKE_INSTALL_DATADIR}"
+#define INSTALL_APPDATADIR "${CMAKE_INSTALL_APPDATADIR}"
+
+// per-category absolute install directories
+#define INSTALL_FULL_BINDIR "${CMAKE_INSTALL_FULL_BINDIR}"
+#define INSTALL_FULL_DATADIR "${CMAKE_INSTALL_FULL_DATADIR}"
+#define INSTALL_FULL_APPDATADIR "${CMAKE_INSTALL_FULL_APPDATADIR}"

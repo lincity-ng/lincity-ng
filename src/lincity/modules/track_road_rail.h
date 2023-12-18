@@ -104,9 +104,9 @@ public:
         // disable evacuation
         //transparency is set and updated in connect_transport
         this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
-# ifdef DEBUG
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if (world(x,y)->is_water() || keystate[SDLK_LSHIFT] || keystate[SDLK_RSHIFT] )//we build bridges on water
+#ifdef DEBUG
+        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+        if (world(x,y)->is_water() || keystate[SDL_SCANCODE_LSHIFT] || keystate[SDL_SCANCODE_RSHIFT] )//we build bridges on water
 #else
         if (world(x,y)->is_water())
 #endif

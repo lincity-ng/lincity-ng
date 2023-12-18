@@ -75,7 +75,6 @@
 #include "lctypes.h"
 #include "lin-city.h"
 #include "engglobs.h"
-#include "fileutil.h"
 //#include "power.h"
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
@@ -109,6 +108,9 @@ extern void reset_animation_times(void);
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
 void upgrade_to_v2 (void);
+void check_endian(void);
+void eswap32(int *);
+void eswap16(unsigned short *);
 
 /* ---------------------------------------------------------------------- *
  * Public functions
@@ -629,4 +631,3 @@ void upgrade_to_v2 (void)
 }
 
 /** @file lincity/old_ldsvguts.cpp */
-

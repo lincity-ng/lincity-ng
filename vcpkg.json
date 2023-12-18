@@ -1,0 +1,15 @@
+{
+	"name": "lincity-ng",
+	"version": "2.9.0",
+	"dependencies": [
+		{ "name": "sdl2", "features": ["vulkan"]},
+		"sdl2-gfx",
+		{"name": "sdl2-image", "features": ["libjpeg-turbo"]},
+		"sdl2-mixer",
+		"sdl2-ttf",
+		"physfs",
+		"libxml2",
+		"libxslt",
+		"zlib"
+	]
+}

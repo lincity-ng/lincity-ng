@@ -21,8 +21,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Color.cpp
  */
 
-#include <config.h>
-
 #include "Color.hpp"
 
 #include <sstream>

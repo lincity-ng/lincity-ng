@@ -2,11 +2,11 @@
 #include <string.h>
 #include "gui_interface/shared_globals.h"
 #include "gui_interface/pbar_interface.h"
-#include "fileutil.h"
 #include "modules/all_modules.h"
 #include "lincity-ng/MainLincity.hpp"
 #include "gui_interface/readpng.h"
 #include "xmlloadsave.h"
+#include "loadsave.h"
 #include "engglobs.h"
 #include "init_game.h"
 
@@ -1432,4 +1432,3 @@ void XMLTemplate::report(std::ostream *os)
     {   *os << tag_sequence[i] << '\t';}
     *os << "</" << template_tag << ">" << std::endl;
 }
-

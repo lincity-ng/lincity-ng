@@ -15,18 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
 #include "Config.hpp"
 #include "gui/XmlReader.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
 #include "lincity/engglobs.h"
 
-#include <SDL_opengl.h>
 #include <assert.h>
 #include <iostream>
 
-#include <cstdlib>
 #include <string.h>
 
 Config* configPtr = 0;
