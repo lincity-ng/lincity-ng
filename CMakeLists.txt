@@ -13,7 +13,7 @@ project(lincity-ng
 include(CheckIncludeFiles)
 include(GNUInstallDirs)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 

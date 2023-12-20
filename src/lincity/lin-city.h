@@ -113,8 +113,8 @@
 // This helps animation keep a consistent speed with varying fps.
 #define ANIM_THRESHOLD(millis) (((millis) + ANIMATE_DELAY / 2) \
   / ANIMATE_DELAY * ANIMATE_DELAY - ANIMATE_DELAY / 2)
-// #define ANIM_THRESHOLD(millis) \
-  (millis - (millis + ANIMATE_DELAY / 2) % ANIMATE_DELAY)
+/* #define ANIM_THRESHOLD(millis) \
+  (millis - (millis + ANIMATE_DELAY / 2) % ANIMATE_DELAY) */
 
 #define MIN_RES_POPULATION 10
 
