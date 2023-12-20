@@ -198,8 +198,4 @@ motion:
 Please report bugs and suggest features to
     https://github.com/lincity-ng/lincity-ng/issues.
 
-You can contact us at the lincity-ng-devel mailinglist:
-    http://lists.fedorahosted.org/mailman/listinfo/lincity-ng-devel.
-Or you might be able to catch us in irc at irc.freenode.net #lincity.
-
 Visit our homepage: https://github.com/lincity-ng/lincity-ng.
