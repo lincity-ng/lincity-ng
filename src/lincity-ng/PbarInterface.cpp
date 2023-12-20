@@ -97,37 +97,37 @@ void update_pbars_monthly()
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);
     update_pbar (PMONEY, total_money, 1);
-    if (tstat_capacities[Construction::STUFF_FOOD] > 999)
-    {    update_pbar (PFOOD, tstat_census[Construction::STUFF_FOOD] / (tstat_capacities[Construction::STUFF_FOOD]/1000), 1);}
+    if (tstat_capacities[STUFF_FOOD] > 999)
+    {    update_pbar (PFOOD, tstat_census[STUFF_FOOD] / (tstat_capacities[STUFF_FOOD]/1000), 1);}
     else update_pbar (PFOOD,0,1);
-    if (tstat_capacities[Construction::STUFF_JOBS] > 999)
-    {    update_pbar (PJOBS, tstat_census[Construction::STUFF_JOBS] / ( tstat_capacities[Construction::STUFF_JOBS]/1000), 1);}
+    if (tstat_capacities[STUFF_JOBS] > 999)
+    {    update_pbar (PJOBS, tstat_census[STUFF_JOBS] / ( tstat_capacities[STUFF_JOBS]/1000), 1);}
     else update_pbar (PJOBS,0,1);
-    if (tstat_capacities[Construction::STUFF_GOODS] > 999)
-    {    update_pbar (PGOODS, tstat_census[Construction::STUFF_GOODS] / ( tstat_capacities[Construction::STUFF_GOODS]/1000), 1);}
+    if (tstat_capacities[STUFF_GOODS] > 999)
+    {    update_pbar (PGOODS, tstat_census[STUFF_GOODS] / ( tstat_capacities[STUFF_GOODS]/1000), 1);}
     else update_pbar (PGOODS,0,1);
-    if (tstat_capacities[Construction::STUFF_COAL] > 999)
-    {    update_pbar (PCOAL, tstat_census[Construction::STUFF_COAL] / ( tstat_capacities[Construction::STUFF_COAL]/1000), 1);}
+    if (tstat_capacities[STUFF_COAL] > 999)
+    {    update_pbar (PCOAL, tstat_census[STUFF_COAL] / ( tstat_capacities[STUFF_COAL]/1000), 1);}
     else update_pbar (PCOAL,0,1);
-    if (tstat_capacities[Construction::STUFF_ORE] > 999)
-    {    update_pbar (PORE, tstat_census[Construction::STUFF_ORE] / ( tstat_capacities[Construction::STUFF_ORE]/1000), 1);}
+    if (tstat_capacities[STUFF_ORE] > 999)
+    {    update_pbar (PORE, tstat_census[STUFF_ORE] / ( tstat_capacities[STUFF_ORE]/1000), 1);}
     else update_pbar (PORE,0,1);
-    if (tstat_capacities[Construction::STUFF_STEEL] > 999)
-    {    update_pbar (PSTEEL, tstat_census[Construction::STUFF_STEEL] / ( tstat_capacities[Construction::STUFF_STEEL]/1000), 1);}
+    if (tstat_capacities[STUFF_STEEL] > 999)
+    {    update_pbar (PSTEEL, tstat_census[STUFF_STEEL] / ( tstat_capacities[STUFF_STEEL]/1000), 1);}
     else update_pbar (PSTEEL,0,1);
 
     update_pbar (PPOL, total_pollution, 1);
-    if (tstat_capacities[Construction::STUFF_KWH] > 999)
-    {    update_pbar (PKWH, tstat_census[Construction::STUFF_KWH] / ( tstat_capacities[Construction::STUFF_KWH]/1000), 1);}
+    if (tstat_capacities[STUFF_KWH] > 999)
+    {    update_pbar (PKWH, tstat_census[STUFF_KWH] / ( tstat_capacities[STUFF_KWH]/1000), 1);}
     else update_pbar (PKWH,0,1);
-    if (tstat_capacities[Construction::STUFF_MWH] > 999)
-    {    update_pbar (PMWH, tstat_census[Construction::STUFF_MWH] / ( tstat_capacities[Construction::STUFF_MWH]/1000), 1);}
+    if (tstat_capacities[STUFF_MWH] > 999)
+    {    update_pbar (PMWH, tstat_census[STUFF_MWH] / ( tstat_capacities[STUFF_MWH]/1000), 1);}
     else update_pbar (PMWH,0,1);
-    if (tstat_capacities[Construction::STUFF_WATER] > 999)
-    {    update_pbar (PWATER, tstat_census[Construction::STUFF_WATER] / ( tstat_capacities[Construction::STUFF_WATER]/1000), 1);}
+    if (tstat_capacities[STUFF_WATER] > 999)
+    {    update_pbar (PWATER, tstat_census[STUFF_WATER] / ( tstat_capacities[STUFF_WATER]/1000), 1);}
     else update_pbar (PWATER,0,1);
-    if (tstat_capacities[Construction::STUFF_WASTE] > 999)
-    {    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/1000), 1);}
+    if (tstat_capacities[STUFF_WASTE] > 999)
+    {    update_pbar (PWASTE, tstat_census[STUFF_WASTE] / (tstat_capacities[STUFF_WASTE]/1000), 1);}
     else update_pbar (PWASTE,0,1);
     if (total_housing)
     {    update_pbar (PHOUSE, (1000 * housed_population)/total_housing , 1);}

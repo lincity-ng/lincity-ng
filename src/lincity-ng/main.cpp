@@ -49,6 +49,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engglobs.h"
 #include "lincity/lin-city.h"
 #include "lincity/init_game.h"
+#include "PhysfsStream/PhysfsError.hpp"
 
 
 SDL_Window* window = NULL;
@@ -166,9 +167,8 @@ void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
         std::stringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't initialize physfs: "
-            << PHYSFS_getErrorByCode(lastError);
+            << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
     
@@ -186,18 +186,16 @@ void initPhysfs(const char* argv0)
     // enable writing to configuration directory
     if(!PHYSFS_setWriteDir(writedir)) {
         std::ostringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Failed to enable writing to configuration directory '"
-            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+            << writedir << "': " << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
     
     // mount configuration directory
     if(!PHYSFS_mount(writedir, nullptr, 0)) {
         std::ostringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Failed to mount configuration directory '"
-            << writedir << "': " << PHYSFS_getErrorByCode(lastError);
+            << writedir << "': " << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
     
@@ -262,11 +260,10 @@ void initPhysfs(const char* argv0)
     }
     if(!foundRodd) {
       std::ostringstream msg;
-      PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
       msg << "Failed to mount read-only data directory '"
           << appdatadir << "' or '"
           << INSTALL_FULL_APPDATADIR
-          << "': " << PHYSFS_getErrorByCode(lastError);
+          << "': " << getPhysfsLastError();
       throw std::runtime_error(msg.str());
     }
     

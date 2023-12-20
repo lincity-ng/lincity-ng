@@ -42,21 +42,21 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_COMMUNE;
-        commodityRuleCount[Construction::STUFF_COAL].take = false;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_COMMUNE;
-        commodityRuleCount[Construction::STUFF_ORE].take = false;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_COMMUNE;
-        commodityRuleCount[Construction::STUFF_STEEL].take = false;
-        commodityRuleCount[Construction::STUFF_STEEL].give = true;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_COMMUNE;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = false;
-        commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_AT_COMMUNE;
-        commodityRuleCount[Construction::STUFF_WATER].give = false;
-        commodityRuleCount[Construction::STUFF_WATER].take = true;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_COMMUNE;
+        commodityRuleCount[STUFF_COAL].take = false;
+        commodityRuleCount[STUFF_COAL].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_COMMUNE;
+        commodityRuleCount[STUFF_ORE].take = false;
+        commodityRuleCount[STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_COMMUNE;
+        commodityRuleCount[STUFF_STEEL].take = false;
+        commodityRuleCount[STUFF_STEEL].give = true;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_COMMUNE;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = false;
+        commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_AT_COMMUNE;
+        commodityRuleCount[STUFF_WATER].give = false;
+        commodityRuleCount[STUFF_WATER].take = true;
     }
     // overriding method that creates a commune
     virtual Construction *createConstruction(int x, int y);
@@ -71,7 +71,7 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->anim = 0; // or real_time?
-        this->animate = false;
+        this->animate_enable = false;
         this->steel_made = false;
         this->monthly_stuff_made = 0;
         this->last_month_output = 0;
@@ -96,8 +96,9 @@ public:
         {   this->coalprod = COMMUNE_COAL_MADE;}
     }
     virtual ~Commune() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  anim;
     int  ugwCount;
@@ -105,9 +106,8 @@ public:
     int  monthly_stuff_made;
     int  last_month_output;
     int  lazy_months;
-    bool animate;
+    bool animate_enable;
     bool steel_made;
 };
 
 /** @file lincity/modules/commune.h */
-

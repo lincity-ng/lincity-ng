@@ -53,10 +53,7 @@ void Monument::update()
         if(!completed)
         {
             completed = true;
-            frameIt->frame = 0;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-            frameIt->resourceGroup = ResourceGroup::resMap["Monument"];
-            soundGroup = frameIt->resourceGroup;
             if (mps_x == x && mps_y == y)
             {   mps_set(x, y, MPS_MAP);}
             //dont clear commodiyCount for savegame compatability
@@ -75,16 +72,17 @@ void Monument::update()
             }
         }
     }
-    else if (completion >= 80)
-    {   frameIt->frame = 4;}
-    else if (completion >= 60)
-    {   frameIt->frame = 3;}
-    else if (completion >= 40)
-    {   frameIt->frame = 2;}
-    else if (completion >= 20)
-    {   frameIt->frame = 1;}
-    else
-    {   frameIt->frame = 0;}
+}
+
+void Monument::animate() {
+  int& frame = frameIt->frame;
+  if(completed) {
+    frame = 0;
+    frameIt->resourceGroup = ResourceGroup::resMap["Monument"];
+    soundGroup = frameIt->resourceGroup;
+  }
+  else
+    frame = completion / 20;
 }
 
 void Monument::report()
@@ -110,4 +108,3 @@ void Monument::report()
 
 
 /** @file lincity/modules/monument.cpp */
-

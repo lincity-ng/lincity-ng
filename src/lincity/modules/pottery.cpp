@@ -46,25 +46,30 @@ void Pottery::update()
         commodityCount[STUFF_COAL] -= POTTERY_COAL_MAKE_GOODS;
         commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
 
-        animate = true;
+        animate_enable = true;
         if(!((working_days++)%10))
         {   world(x,y)->pollution++;}
     }
     else
     {
-        frameIt->frame = 0;
+        animate_enable = false;
         pauseCounter = -POTTERY_CLOSE_TIME;
         return;
     }
-    if (animate && real_time > anim)
-    {
-        anim = real_time + POTTERY_ANIM_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {
-            frameIt->frame = 1;
-            animate = false;
-        }
+}
+
+void Pottery::animate() {
+  int& frame = frameIt->frame;
+  if (animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(POTTERY_ANIM_SPEED);
+    if(++frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size()) {
+      frame = 1;
+      animate_enable = false;
     }
+  }
+  else if(!busy) {
+    frame = 0;
+  }
 }
 
 void Pottery::report()
@@ -79,4 +84,3 @@ void Pottery::report()
 }
 
 /** @file lincity/modules/pottery.cpp */
-

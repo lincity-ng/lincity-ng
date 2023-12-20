@@ -49,7 +49,7 @@ public:
     int direction;
 
     VehicleModel model; //different vehicles
-    Construction::Commodities stuff_id; //cargo
+    Commodity stuff_id; //cargo
     int initial_cargo;
     VehicleStrategy strategy; // delivery, pickup, random
     std::list<ExtraFrame>::iterator frameIt; //the particular extraframe at the host
@@ -74,4 +74,3 @@ private:
 };
 
 #endif
-

@@ -14,7 +14,7 @@
 #define MAX_MWH_AT_WIND_POWER 20*(WIND_POWER_MWH)
 /* WIND_POWER_RCOST is days per quid */
 #define WIND_POWER_RCOST      2
-#define WIND_POWER_ANIM_SPEED 80
+#define WIND_POWER_ANIM_SPEED 120
 
 #define WIND_POWER_TECH 450000
 
@@ -34,12 +34,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
-        commodityRuleCount[Construction::STUFF_MWH].take = false;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
+        commodityRuleCount[STUFF_MWH].take = false;
+        commodityRuleCount[STUFF_MWH].give = true;
     }
     // overriding method that creates a Windpower
     virtual Construction *createConstruction(int x, int y);
@@ -55,8 +55,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -66,15 +66,15 @@ public:
         initialize_commodities();
     }
     virtual ~Windpower() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  mwh_output;
     int  tech;
     int  anim;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
 
 /** @file lincity/modules/windmill.h */
-

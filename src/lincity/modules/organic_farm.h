@@ -47,21 +47,21 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;
-        commodityRuleCount[Construction::STUFF_FOOD].take = false;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_ORG_FARM_POWER;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_FARM_JOBS;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_ORG_FARM_WASTE;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = false;
-        commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_AT_FARM;
-        commodityRuleCount[Construction::STUFF_WATER].give = false;
-        commodityRuleCount[Construction::STUFF_WATER].take = true;
+        commodityRuleCount[STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;
+        commodityRuleCount[STUFF_FOOD].take = false;
+        commodityRuleCount[STUFF_FOOD].give = true;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_ORG_FARM_POWER;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_FARM_JOBS;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_ORG_FARM_WASTE;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = false;
+        commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_AT_FARM;
+        commodityRuleCount[STUFF_WATER].give = false;
+        commodityRuleCount[STUFF_WATER].take = true;
     }
     // overriding method that creates a organic_farm
     virtual Construction *createConstruction(int x, int y);
@@ -105,8 +105,9 @@ public:
         }
     }
     virtual ~Organic_farm() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  ugwCount;
     int  max_foodprod;
@@ -121,4 +122,3 @@ public:
 
 
 /** @file lincity/modules/organic_farm.h */
-

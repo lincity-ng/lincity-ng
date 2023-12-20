@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PhysfsSDL.hpp"
 
 #include <physfs.h>
+#include "PhysfsError.hpp"
 
 #include <stdexcept>
 #include <sstream>
@@ -51,8 +52,7 @@ static Sint64 funcSeek(struct SDL_RWops* context, Sint64 offset, int whence)
             break;
     }
     if(res == 0) {
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
-        std::cerr << "Error seeking in file: " << PHYSFS_getErrorByCode(lastError) << "\n";
+        std::cerr << "Error seeking in file: " << getPhysfsLastError() << "\n";
         return -1;
     }
 
@@ -83,9 +83,8 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename)
     PHYSFS_file* file = (PHYSFS_file*) PHYSFS_openRead(filename.c_str());
     if(!file) {
         std::stringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open '" << filename << "': "
-            << PHYSFS_getErrorByCode(lastError);
+            << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
     

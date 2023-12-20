@@ -30,12 +30,12 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
 
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;
-        commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = false;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_SUBSTATION;
-        commodityRuleCount[Construction::STUFF_KWH].take = false;
-        commodityRuleCount[Construction::STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;
+        commodityRuleCount[STUFF_MWH].take = true;
+        commodityRuleCount[STUFF_MWH].give = false;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_SUBSTATION;
+        commodityRuleCount[STUFF_KWH].take = false;
+        commodityRuleCount[STUFF_KWH].give = true;
     }
     // overriding method that creates a Substation
     virtual Construction *createConstruction(int x, int y);
@@ -56,11 +56,11 @@ public:
         initialize_commodities();
     }
     virtual ~Substation() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  working_days, busy;
 };
 
 /** @file lincity/modules/substation.h */
-

@@ -216,14 +216,20 @@ ScrollBar::setRange(float min, float max)
     }
     minVal = min;
     maxVal = max;
-    currentVal = 0;
+    
+    if(currentVal < minVal)
+        currentVal = minVal;
+    else if(currentVal > maxVal)
+        currentVal = maxVal;
 }
 
 void
 ScrollBar::setValue(float value)
 {
-    if(value < minVal && value > maxVal)
-        return;
+    if(value < minVal)
+        value = minVal;
+    else if(value > maxVal)
+        value = maxVal;
     
     float scrollScreenRange = height 
         - button1().getComponent()->getHeight()
@@ -258,4 +264,3 @@ ScrollBar::buttonReleased(Button* )
 IMPLEMENT_COMPONENT_FACTORY(ScrollBar)
 
 /** @file gui/ScrollBar.cpp */
-

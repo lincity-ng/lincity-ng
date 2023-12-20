@@ -36,12 +36,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_COALMINE;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_MINE;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_COALMINE;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_MINE;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = true;
     }
     // overriding method that creates an Coalmine
     virtual Construction *createConstruction(int x, int y);
@@ -92,8 +92,9 @@ public:
         this->current_coal_reserve = coal;
     }
     virtual ~Coalmine() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int xs, ys, xe, ye;
     int initial_coal_reserve;
@@ -102,4 +103,3 @@ public:
 };
 
 /** @file lincity/modules/coalmine.h */
-

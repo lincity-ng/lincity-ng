@@ -38,21 +38,21 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_AT_MILL;
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_MILL;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_MILL;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_MILL;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_MILL;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_MILL;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_MILL;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_MILL;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
     }
     // overriding method that creates a mill
     virtual Construction *createConstruction(int x, int y);
@@ -66,23 +66,23 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
+        // this->anim = 0;
         this->busy = 0;
         this->working_days = 0;
-        this->animate = false;
+        this->animate_enable = false;
         this->pol_count = 0;
         initialize_commodities();
     }
     virtual ~Mill() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  anim;
     int  pol_count;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
 
 
 /** @file lincity/modules/mill.h */
-

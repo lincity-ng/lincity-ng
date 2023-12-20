@@ -116,7 +116,7 @@ MiniMap::~MiniMap()
         miniMapPtr = 0;
 }
 
-Construction::Commodities
+Commodity
 MiniMap::getStuffID()
 {
     return stuff_ID;
@@ -125,21 +125,21 @@ MiniMap::getStuffID()
 void
 MiniMap::toggleStuffID(int step)
 {
-    static const Construction::Commodities commodities[]  =
-    {Construction::STUFF_FOOD,Construction::STUFF_JOBS,
-    Construction::STUFF_COAL,Construction::STUFF_ORE,
-    Construction::STUFF_GOODS,Construction::STUFF_STEEL,
-    Construction::STUFF_WASTE,Construction::STUFF_KWH,
-    Construction::STUFF_MWH,Construction::STUFF_WATER};
+    static const Commodity commodities[]  =
+    {STUFF_FOOD,STUFF_JOBS,
+    STUFF_COAL,STUFF_ORE,
+    STUFF_GOODS,STUFF_STEEL,
+    STUFF_WASTE,STUFF_KWH,
+    STUFF_MWH,STUFF_WATER};
 
     //check if we are at the beginning or the end of commodities
-    if (step == 1 && stuff_ID == Construction::STUFF_WATER)
+    if (step == 1 && stuff_ID == STUFF_WATER)
     {
-        stuff_ID = Construction::STUFF_FOOD;
+        stuff_ID = STUFF_FOOD;
     }
-    else if (step != 1 && stuff_ID == Construction::STUFF_FOOD)
+    else if (step != 1 && stuff_ID == STUFF_FOOD)
     {
-        stuff_ID = Construction::STUFF_WATER;
+        stuff_ID = STUFF_WATER;
     }
     else //go a step forth or back
     {
@@ -219,7 +219,7 @@ MiniMap::parse(XmlReader& reader)
             main_screen_originy + height / tilesize / 2
         )
     );
-    this->stuff_ID = Construction::STUFF_FOOD;
+    this->stuff_ID = STUFF_FOOD;
 }
 
 Component *MiniMap::findRoot(Component *c)
@@ -485,7 +485,7 @@ void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
       default: name="";
       //case COMMODITIES: name=//FIXME!
     }
-    
+
     for(int b = 0; mapViewButtons[b] != 0; ++b)
     {
         if(strlen(mapViewButtons[b]))
@@ -688,7 +688,7 @@ void MiniMap::constrainPosition() {
     int maxLeft = world.len()-1 - ((int)(width/tilesize)-1);
     int minTop = 1 - 1;
     int maxTop = world.len()-1 - ((int)(height/tilesize)-1);
-    
+
     if(minLeft > maxLeft) {
         left = (minLeft + maxLeft) / 2;
     }
@@ -698,7 +698,7 @@ void MiniMap::constrainPosition() {
     else if(left > maxLeft) {
         left = maxLeft;
     }
-    
+
     if(minTop > maxTop) {
         top = (minTop + maxTop) / 2;
     }
@@ -962,7 +962,7 @@ Color MiniMap::getColor(int x,int y) const
         case UB40: {
             /* Display residence with un/employed people (red / green) == too many people here */
             int job_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_JOBS, -1):-1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_JOBS, -1):-1;
             if (job_level == -1) // Not a "jobby" place at all
             {
                 return makeGrey(getColorNormal(xx,yy));
@@ -1010,9 +1010,9 @@ Color MiniMap::getColor(int x,int y) const
         case STARVE:
         {
             int food_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_FOOD, -1):1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_FOOD, -1):1;
             int water_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_WATER, -1):1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_WATER, -1):1;
             int crit_level = water_level<food_level?water_level:food_level;
             //dont care about other eaters or drinkers
             if ( world(xx,yy)->is_residence() )
@@ -1034,9 +1034,9 @@ Color MiniMap::getColor(int x,int y) const
             //mc = Color(0x3F,0x3F,0x3F);
             mc = makeGrey(getColorNormal(xx,yy));
             int kwh_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_KWH, -1):-1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_KWH, -1):-1;
             int mwh_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_MWH, -1):-1;
             if (kwh_level > -1 || mwh_level > -1)
             {
                 /* not enough power */
@@ -1061,14 +1061,14 @@ Color MiniMap::getColor(int x,int y) const
                 {
                     Transport *transport;
                     transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
-                    if(transport->trafficCount.count(stuff_ID))
+                    if(transport->constructionGroup->commodityRuleCount[stuff_ID].maxload)
                     {   loc_lvl = transport->trafficCount[stuff_ID];}
                 }
                 else if (g == GROUP_POWER_LINE)
                 {
                     Powerline *powerline;
                     powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
-                    if(powerline->trafficCount.count(stuff_ID))
+                    if(powerline->constructionGroup->commodityRuleCount[stuff_ID].maxload)
                     {   loc_lvl = powerline->trafficCount[stuff_ID];}
                 }
                 if (loc_lvl < 0)
@@ -1086,7 +1086,7 @@ Color MiniMap::getColor(int x,int y) const
             else
             { //not a Transport, make bluish if in range of a markt
                 if ((mapflags & FLAG_MARKET_COVER) &&
-                    marketConstructionGroup.commodityRuleCount.count(stuff_ID))
+                    marketConstructionGroup.commodityRuleCount[stuff_ID].maxload)
                 {
                     return makeBlue(getColorNormal(x,y));
                 }
@@ -1106,7 +1106,7 @@ Color MiniMap::getColor(int x,int y) const
             if (loc_lvl < 0)
             {   return makeGrey(getColorNormal(xx,yy));}
             loc_lvl /= TRANSPORT_QUANTA;
-            if (stuff_ID == Construction::STUFF_WASTE) //so far waste is the only bad commodity
+            if (stuff_ID == STUFF_WASTE) //so far waste is the only bad commodity
             {   loc_lvl = 1 - loc_lvl;}
             red = 1 - 2.25 * loc_lvl;
             if (red < 0) red = 0;
@@ -1130,7 +1130,7 @@ Color MiniMap::getColor(int x,int y) const
 void MiniMap::event(const Event& event) {
 
     // int left, top;
-    // 
+    //
     // left = (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2);
     // top  = (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2);
 

@@ -13,7 +13,7 @@
 #define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH)
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      4
-#define ANTIQUE_WINDMILL_ANIM_SPEED 80
+#define ANTIQUE_WINDMILL_ANIM_SPEED 120
 
 #define MODERN_WINDMILL_TECH 450000
 
@@ -33,12 +33,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_WINDMILL;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_WINDMILL;
-        commodityRuleCount[Construction::STUFF_KWH].take = false;
-        commodityRuleCount[Construction::STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WINDMILL;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_WINDMILL;
+        commodityRuleCount[STUFF_KWH].take = false;
+        commodityRuleCount[STUFF_KWH].give = true;
     }
     // overriding method that creates a Windmill
     virtual Construction *createConstruction(int x, int y);
@@ -52,8 +52,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -64,15 +64,15 @@ public:
     }
 
     virtual ~Windmill() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  kwh_output;
     int  tech;
     int  anim;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
 
 /** @file lincity/modules/windmill.h */
-

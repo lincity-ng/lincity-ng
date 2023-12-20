@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (C) 2023 Lincity-NG developers
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,26 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
-#include <SDL.h>
+#include "PhysfsSDL.hpp"
 
-long real_time=0;
-long start_time=0;
+#include <physfs.h>
 
-void reset_start_time()
-{
-  start_time=SDL_GetTicks();
+const char *getPhysfsLastError() {
+  PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
+  return PHYSFS_getErrorByCode(lastError);
 }
-
-void get_real_time()
-{
-  real_time=SDL_GetTicks()-start_time;
-}
-
-void get_real_time_with(Uint32 sdl_tick)
-{
-  real_time=sdl_tick-start_time;
-}
-
-/** @file lincity-ng/TimerInterface.cpp */

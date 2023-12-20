@@ -24,9 +24,9 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_AT_WATERWELL;
-        commodityRuleCount[Construction::STUFF_WATER].give = true;
-        commodityRuleCount[Construction::STUFF_WATER].take = false;
+        commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_AT_WATERWELL;
+        commodityRuleCount[STUFF_WATER].give = true;
+        commodityRuleCount[STUFF_WATER].take = false;
     }
     // overriding method that creates a waterwell
     virtual Construction *createConstruction(int x, int y);

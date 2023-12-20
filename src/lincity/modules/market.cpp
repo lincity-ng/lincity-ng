@@ -40,24 +40,23 @@ void Market::update()
     int ratio, trade_ratio, n;
     int lvl, market_lvl;
     int cap, market_cap;
-    int market_ratio = 0;
+    market_ratio = 0;
     const size_t partsize = partners.size();
     std::vector<bool> lvls(partsize);
-    Commodities stuff_ID;
-    std::map<Commodities, int>::iterator stuff_it;
+    Commodity stuff_ID;
     n = 0;
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
+    for(stuff_ID = STUFF_INIT ; stuff_ID < STUFF_COUNT ; stuff_ID++ )
     {
-        stuff_ID = stuff_it->first;
         //dont handle stuff if neither give nor take
         //dont handle anything else if there are to little jobs
-        if ((!commodityRuleCount[stuff_ID].give
-         && !commodityRuleCount[stuff_ID].take) ||
-         (commodityCount[STUFF_JOBS] < jobs && stuff_ID !=STUFF_JOBS))
+        const CommodityRule& market_rule = commodityRuleCount[stuff_ID];
+        if ((!market_rule.give
+         && !market_rule.take) ||
+         (commodityCount[STUFF_JOBS] < jobs && stuff_ID != STUFF_JOBS))
         {   continue;}
 
-        market_lvl = stuff_it->second;
-        market_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        market_lvl = commodityCount[stuff_ID];
+        market_cap = market_rule.maxload;
         ratio = market_lvl * TRANSPORT_QUANTA / market_cap;
         market_ratio += ratio;
         n++;
@@ -67,10 +66,11 @@ void Market::update()
         {
             lvls[i] = false;
             Construction *pear = partners[i];
-            if(pear->commodityCount.count(stuff_ID))
+            const CommodityRule& pearrule = pear->constructionGroup->commodityRuleCount[stuff_ID];
+            if(pearrule.maxload)
             {
                 int lvlsi = pear->commodityCount[stuff_ID];
-                int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+                int capsi = pearrule.maxload;
                 if(pear->flags & FLAG_EVACUATE)
                 {   lvlsi = lvlsi?capsi:-1;}
                 else
@@ -78,10 +78,10 @@ void Market::update()
                     int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
                     //only consider stuff that would tentatively move
                     //Here the local rules of this market apply
-                    if(((pearat > ratio)&&!(commodityRuleCount[stuff_ID].take &&
-                            pear->constructionGroup->commodityRuleCount[stuff_ID].give)) ||
-                       ((pearat < ratio)&&!(commodityRuleCount[stuff_ID].give &&
-                            pear->constructionGroup->commodityRuleCount[stuff_ID].take)))
+                    if(((pearat > ratio)&&!(market_rule.take &&
+                            pearrule.give)) ||
+                       ((pearat < ratio)&&!(market_rule.give &&
+                            pearrule.take)))
                     {   continue;}
                 }
                 lvls[i] = true;
@@ -93,9 +93,9 @@ void Market::update()
         for(unsigned int i = 0; i < lvls.size(); ++i)
         {
             if(lvls[i])
-            {   partners[i]->equilibrate_stuff(&market_lvl, market_cap, trade_ratio, stuff_ID, constructionGroup);}
+            {   partners[i]->equilibrate_stuff(&market_lvl, market_rule, trade_ratio, stuff_ID);}
         }
-        stuff_it->second = market_lvl;
+        commodityCount[stuff_ID] = market_lvl;
     }
 
     if (commodityCount[STUFF_JOBS] >= jobs)
@@ -123,48 +123,26 @@ void Market::update()
         if (market_ratio < 10)
         {
             jobs = JOBS_MARKET_EMPTY;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
         }
         else if (market_ratio < 20)
         {
             jobs = JOBS_MARKET_LOW;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketLow"];
         }
         else if (market_ratio < 50)
         {
             jobs = JOBS_MARKET_MED;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketMed"];
         }
         else
         {
             jobs = JOBS_MARKET_FULL;
-            frameIt->resourceGroup = ResourceGroup::resMap["MarketFull"];
         }
-        soundGroup = frameIt->resourceGroup;
     }
-    if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
-    {
-        anim = real_time + 6 * WASTE_BURN_TIME;
+
+    if(total_time % 50)
+    if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
+        start_burning_waste = true;
         world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
         commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
-        if(!world(x+1,y+1)->construction)
-        {
-            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
-            world(x+1,y+1)->construction = fire;
-            world(x+1,y+1)->reportingConstruction = fire;
-            //waste burning never spreads
-            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-            ::constructionCount.add_construction(fire);
-
-        }
-    }
-    else if ( real_time > anim && world(x+1,y+1)->construction)
-    {
-        ::constructionCount.remove_construction(world(x+1,y+1)->construction);
-        world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
-        delete world(x+1,y+1)->construction;
-        world(x+1,y+1)->construction = NULL;
-        world(x+1,y+1)->reportingConstruction = this;
     }
 
     if(refresh_cover)
@@ -180,6 +158,42 @@ void Market::cover()
     }
 }
 
+void Market::animate() {
+  if (market_ratio < 10) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
+  }
+  else if (market_ratio < 20) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketLow"];
+  }
+  else if (market_ratio < 50) {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketMed"];
+  }
+  else {
+      frameIt->resourceGroup = ResourceGroup::resMap["MarketFull"];
+  }
+  soundGroup = frameIt->resourceGroup;
+
+  if(start_burning_waste) {
+    start_burning_waste = false;
+    anim = real_time + ANIM_THRESHOLD(6 * WASTE_BURN_TIME);
+    if(!world(x+1,y+1)->construction) {
+      Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
+      //waste burning never spreads
+      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+      world(x+1,y+1)->construction = fire;
+      world(x+1,y+1)->reportingConstruction = fire;
+      ::constructionCount.add_construction(fire);
+    }
+  }
+  else if(real_time >= anim && world(x+1,y+1)->construction) {
+      ::constructionCount.remove_construction(world(x+1,y+1)->construction);
+      world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
+      delete world(x+1,y+1)->construction;
+      world(x+1,y+1)->construction = NULL;
+      world(x+1,y+1)->reportingConstruction = this;
+  }
+}
+
 void Market::report()
 {
     int i = 0;
@@ -189,9 +203,10 @@ void Market::report()
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     //list_commodities(&i);
-    std::map<Construction::Commodities, int>::iterator stuff_it;
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
+        CommodityRule& rule = commodityRuleCount[stuff];
+        if(!rule.maxload) continue;
         char arrows[4]="---";
         if (flags & FLAG_EVACUATE)
         {
@@ -201,15 +216,15 @@ void Market::report()
         }
         else
         {
-            if (commodityRuleCount[stuff_it->first].take)
+            if (rule.take)
             {   arrows[2] = '>';}
-            if (commodityRuleCount[stuff_it->first].give)
+            if (rule.give)
             {   arrows[0] = '<';}
         }
 
         if(i < 14)
         {
-            mps_store_ssddp(i++, arrows, getStuffName(stuff_it->first), stuff_it->second, commodityRuleCount[stuff_it->first].maxload);
+            mps_store_ssddp(i++, arrows, getStuffName(stuff), commodityCount[stuff], rule.maxload);
         }//endif
     } //endfor
 }
@@ -217,18 +232,19 @@ void Market::report()
 void Market::toggleEvacuation()
 {
     bool evacuate = flags & FLAG_EVACUATE; //actually the previous state
-    std::map<Construction::Commodities, CommodityRule>::iterator rule_it;
-    for(rule_it = commodityRuleCount.begin() ; rule_it != commodityRuleCount.end() ; rule_it++)
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
     {
+        CommodityRule& rule = commodityRuleCount[stuff];
+        if(!rule.maxload) continue;
         if(!evacuate)
         {
-            rule_it->second.give = true;
-            rule_it->second.take = false;
+            rule.give = true;
+            rule.take = false;
         }
         else
         {
-            rule_it->second.give = true;
-            rule_it->second.take = true;
+            rule.give = true;
+            rule.take = true;
         }
 
     }
@@ -238,7 +254,3 @@ void Market::toggleEvacuation()
 }
 
 /** @file lincity/modules/market.cpp */
-
-
-
-

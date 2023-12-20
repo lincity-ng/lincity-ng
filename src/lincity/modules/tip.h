@@ -8,7 +8,7 @@
 #define GROUP_TIP_RANGE 0
 #define GROUP_TIP_SIZE 4
 
-#define TIP_DEGRADE_TIME 200 * NUMOF_DAYS_IN_YEAR
+#define TIP_DEGRADE_TIME (200 * NUMOF_DAYS_IN_YEAR)
 #define MAX_WASTE_AT_TIP  10000000
 
 #define WASTE_BURRIED 200
@@ -33,9 +33,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = TIP_TAKES_WASTE;
-        commodityRuleCount[Construction::STUFF_WASTE].take = true;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_WASTE].maxload = TIP_TAKES_WASTE;
+        commodityRuleCount[STUFF_WASTE].take = true;
+        commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a tip
     virtual Construction *createConstruction(int x, int y);
@@ -59,8 +59,9 @@ public:
         initialize_commodities();
     }
     virtual ~Tip() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  working_days, busy;
     int  total_waste;

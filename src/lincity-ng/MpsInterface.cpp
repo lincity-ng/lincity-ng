@@ -445,11 +445,11 @@ void mps_global_finance()
 
     cashflow += ly_coal_tax;
     num_to_ansi(s, sizeof(s), ly_coal_tax);
-    mps_store_ss(i++, Construction::getStuffName(Construction::STUFF_COAL), s);
+    mps_store_ss(i++, Construction::getStuffName(STUFF_COAL), s);
 
     cashflow += ly_goods_tax;
     num_to_ansi(s, sizeof(s), ly_goods_tax);
-    mps_store_ss(i++, Construction::getStuffName(Construction::STUFF_GOODS), s);
+    mps_store_ss(i++, Construction::getStuffName(STUFF_GOODS), s);
 
     cashflow += ly_export_tax;
     num_to_ansi(s, sizeof(s), ly_export_tax);

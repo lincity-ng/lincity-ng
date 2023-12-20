@@ -33,15 +33,15 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_CRICKET;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_CRICKET;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_CRICKET;
-        commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_CRICKET;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_CRICKET;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_CRICKET;
+        commodityRuleCount[STUFF_WASTE].take = false;
+        commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a Cricket
     virtual Construction *createConstruction(int x, int y);
@@ -55,8 +55,8 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;
@@ -80,16 +80,16 @@ public:
     }
 
     virtual ~Cricket() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
     void cover();
 
     int xs, ys, xe, ye;
     int daycount, covercount;
     int anim;
-    bool animate, active;
+    bool animate_enable, active;
     int working_days, busy;
 };
 
 /** @file lincity/modules/cricket.h */
-

@@ -62,11 +62,11 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 world(x,y)->reportingConstruction->deneighborize();
                 /* up -- (ThMO) */
                 mwh = world(x, y-1)->reportingConstruction?
-                world(x, y-1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                world(x, y-1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
                 {
                     mwh = world(x, y-2)->reportingConstruction?
-                    world(x, y-2)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 }
                 if(mwh != -1)
                 {
@@ -91,11 +91,11 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
 
                 /* left -- (ThMO) */
                 mwh = world(x-1, y)->reportingConstruction?
-                world(x-1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                world(x-1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
                 {
                     mwh = world(x-2, y)->reportingConstruction?
-                    world(x-2, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 }
                 if(mwh != -1)
                 {
@@ -120,11 +120,11 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
 
                 /* right -- (ThMO) */
                 mwh = world(x+1, y)->reportingConstruction?
-                world(x+1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                world(x+1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
                 {
                     mwh = world(x+2, y)->reportingConstruction?
-                    world(x+2, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 }
                 if(mwh != -1)
                 {
@@ -149,11 +149,11 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
 
                 /* down -- (ThMO) */
                 mwh = world(x, y+1)->reportingConstruction?
-                world(x, y+1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
+                world(x, y+1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
                 if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
                 {
                     mwh = world(x, y+2)->reportingConstruction?
-                    world(x, y+2)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;}
+                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;}
                 if(mwh != -1)
                 {
                     if (far) //suspended cables

@@ -3,6 +3,8 @@
 #include "../lctypes.h"
 #include "../transport.h"
 
+#define POWER_LINE_FLASH_SPEED 100
+
 class PowerlineConstructionGroup: public ConstructionGroup {
 public:
     PowerlineConstructionGroup(
@@ -16,9 +18,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
-        commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
+        commodityRuleCount[STUFF_MWH].take = true;
+        commodityRuleCount[STUFF_MWH].give = true;
     }
     // overriding method that creates a power line
     virtual Construction *createConstruction(int x, int y);
@@ -34,19 +36,21 @@ public:
         init_resources();
         this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
+        this->anim = 0;
         this->flashing = false;
         initialize_commodities();
         this->trafficCount = this->commodityCount;
     }
     virtual ~Powerline() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
     void flow_power();
-    std::map<Commodities, int> trafficCount;
+    std::array<int, STUFF_COUNT> trafficCount;
     int anim_counter;
+    int anim;
     bool flashing;
 };
 
 
 /** @file lincity/modules/power_line.h */
-

@@ -36,15 +36,15 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_SCHOOL;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_SCHOOL;
-        commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_SCHOOL;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_SCHOOL;
+        commodityRuleCount[STUFF_WASTE].take = false;
+        commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a School
     virtual Construction *createConstruction(int x, int y);
@@ -65,8 +65,9 @@ public:
         std::advance(frit, 1);
         frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
         frit->frame = -1; //hide the swing
-        this->animate = false;
+        // this->animate_enable = false;
         this->anim = 0;
+        this->anim2 = 0;
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
@@ -86,16 +87,17 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator frit;
-    int  anim;
-    bool animate;
+    int anim;
+    int anim2;
+    // bool animate_enable;
     int total_tech_made;
     int working_days, busy;
 };
 
 
 /** @file lincity/modules/school.h */
-

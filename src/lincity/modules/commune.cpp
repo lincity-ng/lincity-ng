@@ -43,24 +43,25 @@ void Commune::update()
     {
          commodityCount[STUFF_COAL] += tmpCoalprod;
          monthly_stuff_made++;
+         animate_enable = true;
     }
     if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
     {
         commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
         monthly_stuff_made++;
+        animate_enable = true;
     }
     /* recycle a bit of waste if there is plenty*/
     if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
     {
         commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;
         monthly_stuff_made++;
+        animate_enable = true;
         if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
         {   commodityCount[STUFF_ORE] += COMMUNE_ORE_FROM_WASTE;}
     }
     if (total_time % 10 == 0)
     {
-        if(monthly_stuff_made)
-        {   animate = true;}
         int modulus = ((total_time%20)?1:0);
         for(int idx = 0; idx < tmpUgwCount; idx++)
         {
@@ -69,65 +70,56 @@ void Commune::update()
             if((i+j)%2==modulus && world(i,j)->pollution)
             {   --world(i,j)->pollution;}
         }
-        if (!steel_made && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
+        if (modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
             monthly_stuff_made++;
+            animate_enable = true;
             steel_made = true;
             commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
         }
-        else
-        {   steel_made = false;}
     }
 
     if (total_time % 100 == 1)
     {//each month
-        if (steel_made)
-        {//producing steel
-            if (frameIt->frame < 6)
-            {   frameIt->frame += 5;}
-        }
-        else if (frameIt->frame >= 6) // not producing steel
-        {   frameIt->frame -= 5;}
         last_month_output = monthly_stuff_made;
         monthly_stuff_made = 0;
         if (last_month_output)
         {//we were busy
-            monthly_stuff_made = 0;
             if (lazy_months > 0)
             {   --lazy_months;}
         }
         else
         {//we are lazy
-            frameIt->frame = 0;
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120)
             {   ConstructionManager::submitRequest(new CommuneDeletionRequest(this));}
         }//end we are lazy
     }//end each month
-    /* animate */
-    if (animate && real_time >= anim)
-    {
-        anim = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
-        if (frameIt->frame < 6) //not producing steel
-        {
-            if( ++(frameIt->frame) >= 6 )
-            {
-                animate = false;
-                frameIt->frame = 1;
-            }
-        }
-        else //producing steel
-        {
-            if( ++(frameIt->frame) >= 10 )
-            {
-                animate = false;
-                frameIt->frame = 6;
-            }
-        }
-        if (frameIt->frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {   frameIt->frame = 1;}
+}
+
+void Commune::animate() {
+  int& frame = frameIt->frame;
+  if(animate_enable && real_time >= anim) {
+    anim = real_time + ANIM_THRESHOLD(COMMUNE_ANIM_SPEED - 25 + (rand() % 50));
+    animate_enable = false;
+
+    frame++;
+    if(frame == 6 || frame == 11) {
+      // animate_enable = false;
+      frame -= 5;
     }
+
+    frame += (frame >= 6 ? -5 : 0) + (steel_made ? 5 : 0);
+    steel_made = false;
+
+    if(frame >= frameIt->resourceGroup->graphicsInfoVector.size())
+      // this should never happen
+      frame = 1;
+  }
+  else if(!monthly_stuff_made && !last_month_output) {
+    frame = 0;
+  }
 }
 
 void Commune::report()
@@ -145,4 +137,3 @@ void Commune::report()
 }
 
 /** @file lincity/modules/commune.cpp */
-

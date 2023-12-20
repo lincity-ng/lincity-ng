@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>
 
+extern int lincitySpeed;
+
 void initLincity();
 void doLincityStep();
 void setLincitySpeed( int speed );
@@ -33,4 +35,3 @@ bool loadCityNG( std::string filename );
 #endif
 
 /** @file lincity-ng/MainLincity.hpp */
-

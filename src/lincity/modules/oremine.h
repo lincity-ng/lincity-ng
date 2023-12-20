@@ -34,12 +34,12 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_MINE;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_MINE;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = true;
 
     }
     // overriding method that creates an Oremine
@@ -54,12 +54,12 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0;
-        this->animate = false;
+        // this->anim = 0;
+        this->animate_enable = false;
         this->working_days = 0;
         this->busy = 0;
         this->anim_count = 0;
-        this->days_offset = 0;
+        // this->days_offset = 0;
         initialize_commodities();
 
         int ore = 0;
@@ -74,17 +74,17 @@ public:
         setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
     }
     virtual ~Oremine() {}
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
 
     int total_ore_reserve;
     int anim;
-    bool animate;
+    bool animate_enable;
     int working_days, busy;
-    int anim_count;
-    int days_offset;
+    unsigned int anim_count;
+    // int days_offset;
 };
 
 /** @file lincity/modules/oremine.h */
-

@@ -4,6 +4,9 @@ add_library(physfsstream OBJECT
 
 		PhysfsStream.cpp
 		PhysfsStream.hpp
+
+		PhysfsError.hpp
+		PhysfsError.cpp
 		)
 add_library(LinCity::physfsstream ALIAS physfsstream)
 

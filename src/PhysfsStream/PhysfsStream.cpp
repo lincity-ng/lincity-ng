@@ -21,14 +21,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>
 #include <sstream>
 
+#include "PhysfsError.hpp"
+
 IFileStreambuf::IFileStreambuf(const std::string& filename)
 {
     file = PHYSFS_openRead(filename.c_str());
     if(file == 0) {
         std::stringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open file '" << filename << "': "
-            << PHYSFS_getErrorByCode(lastError);
+            << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
 }
@@ -59,9 +60,8 @@ OFileStreambuf::OFileStreambuf(const std::string& filename)
     file = PHYSFS_openWrite(filename.c_str());
     if(file == 0) {
         std::stringstream msg;
-        PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();
         msg << "Couldn't open file '" << filename << "': "
-            << PHYSFS_getErrorByCode(lastError);
+            << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
     

@@ -27,7 +27,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "gui/Painter.hpp"
 #include "gui/callback/Callback.hpp"
+#include "lincity/engine.h"
 #include "lincity/init_game.h"
+#include "lincity/lin-city.h"
+#include "lincity/simulate.h"
 #include "gui_interface/shared_globals.h"
 #include "gui_interface/mps.h"
 
@@ -41,14 +44,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
 #include "Config.hpp"
-
-extern int lincitySpeed;
-extern void execute_timestep(void);
+#include "ScreenInterface.hpp"
+#include "TimerInterface.hpp"
 
 Game* gameptr = 0;
 
 Game* getGame(){
- return gameptr;
+  return gameptr;
 }
 
 Game::Game(SDL_Window* _window)
@@ -142,7 +144,7 @@ void Game::testAllHelpFiles(){
         fullname = directory;
         fullname.append( *i );
         filename.assign( *i );
-        
+
         // FIXME: Follow symlinks if able. symlink target may be directory
         // NOTE: Do we really need to check if it's a directory? Unlikely that
         //       a directory will have a '.xml' suffix anyway.
@@ -173,16 +175,24 @@ Game::run()
 {
     SDL_Event event;
     running = true;
-    Uint32 fpsTicks = SDL_GetTicks();
-    Uint32 lastticks = fpsTicks;
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
     {   throw std::runtime_error("Toplevel component is not a Desktop");}
     gui->resize(getConfig()->videoX, getConfig()->videoY);
     int frame = 0;
+
+    Uint32 next_execute = 0, next_animate = 0, next_gui = 0, next_fps = 0;
+    Uint32 prev_execute = 0, prev_animate = 0, prev_gui = 0, prev_fps = 0;
+    Uint32 next_task;
+    Uint32 tick;
     while(running) {
-        getGameView()->scroll();
-        while(SDL_PollEvent(&event)) {
+        next_task = std::min({next_execute, next_animate, next_gui, next_fps});
+        while(true) {
+            int event_timeout = next_task - SDL_GetTicks();
+            if(event_timeout < 0) event_timeout = 0;
+            int status = SDL_WaitEventTimeout(&event, event_timeout);
+            if(!status) break; // timed out
+
             switch(event.type) {
                 case SDL_WINDOWEVENT:
                     switch(event.window.event) {
@@ -295,34 +305,74 @@ Game::run()
             }
         }
 
-        // create update Event
-        Uint32 ticks = SDL_GetTicks();
-        float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
-        gui->event(Event(elapsedTime));
-        lastticks = ticks;
+        tick = SDL_GetTicks();
+        get_real_time_with(tick);
+        frame++;
 
-        helpWindow->update();
-        if(desktop->needsRedraw())
-        {
+        if(tick >= next_gui) { // gui update
+            // fire update event
+            gui->event(Event((tick - prev_gui) / 1000.0f));
+
+            // update the help window
+            // TODO: Why is this not triggered by the gui update?
+            helpWindow->update();
+
+            // other updates
+            print_stats();
+            updateDate();
+            updateMoney();
+
+            // reschedule
+            next_gui = tick + 1000/30; // 30 FPS
+            prev_gui = tick;
+        }
+        if(tick >= next_execute) { // execute
+            // simulation timestep
+            do_time_step();
+
+            // reschedule
+            if(lincitySpeed == fast_time_for_year)
+              next_execute = tick;
+            else
+              next_execute = tick + lincitySpeed;
+            prev_execute = tick;
+        }
+        if(tick >= next_animate) { // game animation
+            // animate
+            do_animate();
+
+            // reschedule
+            next_animate = tick + ANIMATE_DELAY;
+            prev_animate = tick;
+        }
+        if(tick >= next_fps) { // fps
+#ifdef DEBUG_FPS
+            printf("FPS: %d\n", (frame*1000) / (ticks - fpsTicks));
+#endif
+            getEconomyGraph()->newFPS( frame );
+            frame = 0;
+
+            // reschedule
+            next_fps = tick + 1000;
+            prev_fps = tick;
+        }
+
+        if(desktop->needsRedraw()) { // redraw
             desktop->draw(*painter);
             painter->updateScreen();
         }
 
-        frame++;
-        // Slow down cpu consumption in pause mode
-        if(ticks - fpsTicks > 1000 && lincitySpeed)
-        {
-#ifdef DEBUG_FPS
-            printf("FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
-#endif
-            getEconomyGraph()->newFPS( frame );
-            frame = 0;
-            fpsTicks = ticks;
+        // this is kind of janky, but it works for now
+        if( lincitySpeed == 0 || blockingDialogIsOpen ) {
+             // deschedule execute and animate
+            next_execute = ~0;
+            next_animate = ~0;
         }
-        else if(!lincitySpeed)
-        {   frame = 0;}
-        /* SDL_Delay is done in execute_timestep */
-        execute_timestep ();
+        else if(next_execute == -1 || next_animate == -1) {
+            // reschedule execute and animate
+            next_execute = tick;
+            next_animate = tick;
+        }
     }
     return quitState;
 }

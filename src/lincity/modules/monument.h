@@ -30,9 +30,9 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_MONUMENT;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MONUMENT;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
 
     }
     // overriding method that creates a monument
@@ -64,8 +64,9 @@ public:
     }
 
     virtual ~Monument() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  working_days, busy;
     int  tech_made;
@@ -76,4 +77,3 @@ public:
 };
 
 /** @file lincity/modules/monument.h */
-

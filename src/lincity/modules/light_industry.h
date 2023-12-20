@@ -40,27 +40,27 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_L;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_INDUSTRY_L;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_INDUSTRY_L;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;
-        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_INDUSTRY_L;
-        commodityRuleCount[Construction::STUFF_STEEL].take = true;
-        commodityRuleCount[Construction::STUFF_STEEL].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_INDUSTRY_L;
-        commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_INDUSTY_L;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_INDUSTY_L;
-        commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = false;
+        commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_STEEL].take = true;
+        commodityRuleCount[STUFF_STEEL].give = false;
+        commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_WASTE].take = false;
+        commodityRuleCount[STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_INDUSTY_L;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_INDUSTY_L;
+        commodityRuleCount[STUFF_MWH].take = true;
+        commodityRuleCount[STUFF_MWH].give = false;
     };
     // overriding method that creates a LightIndustry
     virtual Construction *createConstruction(int x, int y);
@@ -140,8 +140,9 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int  tech;
@@ -150,8 +151,8 @@ public:
     int  busy;
     int  anim;
     int  goods_this_month;
+    int  goods_today;
 };
 
 
 /** @file lincity/modules/light_industry.h */
-

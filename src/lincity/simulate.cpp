@@ -119,6 +119,25 @@ void do_time_step(void)
     do_periodic_events();
 }
 
+void do_animate() {
+  Construction *construction;
+  for(int i = 0; i < constructionCount.size(); i++) {
+    construction = constructionCount[i];
+    if(construction) {
+      construction->animate();
+    }
+  }
+  for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
+    it != Vehicle::vehicleList.end();
+    std::advance(it,1)
+  ) {
+    if((*it)->alive)
+      (*it)->update();
+  }
+
+  getGameView()->requestRedraw();
+}
+
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
@@ -286,20 +305,20 @@ static void simulate_mappoints(void)
             construction->update();
         }
     }
-    for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
-        it != Vehicle::vehicleList.end();
-        std::advance(it,1))
-    {
-        if((*it)->alive)
-        {   (*it)->update();}
-/*
-        if(rand()%50 == 1)
-        {
-            delete *it;
-            break;
-        }
-*/
-    }
+//     for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
+//         it != Vehicle::vehicleList.end();
+//         std::advance(it,1))
+//     {
+//         if((*it)->alive)
+//         {   (*it)->update();}
+// /*
+//         if(rand()%50 == 1)
+//         {
+//             delete *it;
+//             break;
+//         }
+// */
+//     }
 }
 
 static void sustainability_test(void)
@@ -383,4 +402,3 @@ static int sust_fire_cover(void)
 }
 
 /** @file lincity/simulate.cpp */
-

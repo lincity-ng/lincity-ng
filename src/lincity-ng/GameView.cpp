@@ -93,7 +93,7 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
-    
+
     if(panningCursor) {
         SDL_FreeCursor(panningCursor);
     }
@@ -342,7 +342,7 @@ void GameView::setZoom(float newzoom){
 
 void GameView::zoomMouse(float factor, Vector2 mousepos) {
     float newzoom = zoom * factor;
-    
+
     //if ( newzoom < .0625 ) return;
     if (newzoom < .0312) {
         newzoom = .0312;
@@ -354,7 +354,7 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     }
 
     zoom = newzoom;
-    
+
     // fix rounding errors...
     if(fabs(zoom - 1.0) < .01)
         zoom = 1;
@@ -365,10 +365,10 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     virtualScreenWidth = tileWidth * world.len();
     virtualScreenHeight = tileHeight * world.len();
     //std::cout << "Zoom " << zoom  << "\n";
-    
+
     viewport = (viewport + mousepos) * factor - mousepos;
     constrainViewportPosition(true);
-    
+
     requestRedraw();
 }
 
@@ -592,22 +592,18 @@ void GameView::preReadImages(void)
 /*
  * Scroll the map.
  */
-void GameView::scroll( void )
+void GameView::scroll(float elapsedTime)
 {
-    static Uint32 oldTime = SDL_GetTicks();
-    Uint32 now = SDL_GetTicks();
-    //TODO: scroll speed should be configurable
-    // The sqrt(zoom) makes it feel like the same speed at different zoom
-    // levels.
-    float amt = (now - oldTime) * 0.5 * sqrt(zoom);
-    Vector2 dir = Vector2(0,0);
-    oldTime = now;
-    
     int scrollState = keyScrollState | mouseScrollState;
-
     if( scrollState == SCROLL_NONE ) {
         return;
     }
+
+    //TODO: scroll speed should be configurable
+    // The sqrt(zoom) makes it feel like the same speed at different zoom
+    // levels.
+    float amt = (elapsedTime * 1000) * 0.5 * sqrt(zoom);
+    Vector2 dir = Vector2(0,0);
 
     if( keyScrollState & SCROLL_SHIFT_ALL ) {
         amt *= 4;
@@ -625,9 +621,9 @@ void GameView::scroll( void )
     if( scrollState & SCROLL_RIGHT_ALL ) {
         dir.x += 1;
     }
-    
+
     if(dir == Vector2(0,0)) return;
-    
+
     // The sqrt((float)tileWidth / tileHeight) makes vertical/horizonal
     // scrolling feel like the same speed. Surprisingly, without the square
     // root, it doesn't feel right.
@@ -636,7 +632,7 @@ void GameView::scroll( void )
     dir.x *= (float)tileWidth / tileHeight;
     viewport += dir * amt / norm;
     constrainViewportPosition(false);
-    
+
     requestRedraw();
 }
 
@@ -667,7 +663,7 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
       centerTile.y = gameAreaMax() + 1;
       outside = true;
   }
-  
+
   if(outside) {
       Vector2 vpOld = viewport;
       center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
@@ -733,7 +729,7 @@ void GameView::event(const Event& event)
               // a release and re-press was probably a mistake.
               scrollCorrection = Vector2(0,0);
             }
-            
+
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
@@ -922,7 +918,7 @@ void GameView::event(const Event& event)
             break;
         case Event::WINDOWENTER:
             break;
-        
+
         case Event::KEYDOWN:
             if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
                 if (roadDragging)
@@ -1109,6 +1105,7 @@ void GameView::event(const Event& event)
             break;
 
         case Event::UPDATE:
+            scroll(event.elapsedTime);
             break;
 
         default:
@@ -1615,10 +1612,10 @@ void GameView::draw(Painter& painter)
     MapPoint lowerLeftTile  = getTile( lowerLeft );
 
     //draw Background
-    Color green;
+    Color black;
     Rect2D background( 0, 0, getWidth(), getHeight() );
-    green.parse( "green" );
-    painter.setFillColor( green );
+    black.parse( "black" );
+    painter.setFillColor( black );
     painter.fillRectangle( background );
 
     //draw Tiles

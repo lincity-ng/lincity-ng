@@ -101,66 +101,66 @@ public:
         switch (group)
         {
             case GROUP_RESIDENCE_LL :
-                commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LL_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LL_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
             break;
             case GROUP_RESIDENCE_ML :
-                commodityRuleCount[Construction::STUFF_KWH].maxload = 20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_ML_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload = 20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_ML_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
             break;
             case GROUP_RESIDENCE_HL :
-                commodityRuleCount[Construction::STUFF_KWH].maxload =  20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HL_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload =  20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HL_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
             break;
             case GROUP_RESIDENCE_LH :
-                commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LH_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LH_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
             break;
             case GROUP_RESIDENCE_MH :
-                commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_MH_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_MH_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
             break;
             case GROUP_RESIDENCE_HH :
-                commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HH_MAX_POP * POWER_USE_PER_PERSON));
-                commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HH_MAX_POP * POWER_USE_PER_PERSON));
+                commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
             break;
         }
-        commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = false;
-        commodityRuleCount[Construction::STUFF_JOBS].take = false;
-        commodityRuleCount[Construction::STUFF_JOBS].give = true;
-        commodityRuleCount[Construction::STUFF_GOODS].take = true;
-        commodityRuleCount[Construction::STUFF_GOODS].give = false;
-        commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;
-        commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;
-        commodityRuleCount[Construction::STUFF_WATER].take = true;
-        commodityRuleCount[Construction::STUFF_WATER].give = false;
+        commodityRuleCount[STUFF_FOOD].take = true;
+        commodityRuleCount[STUFF_FOOD].give = false;
+        commodityRuleCount[STUFF_JOBS].take = false;
+        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_GOODS].take = true;
+        commodityRuleCount[STUFF_GOODS].give = false;
+        commodityRuleCount[STUFF_WASTE].take = false;
+        commodityRuleCount[STUFF_WASTE].give = true;
+        commodityRuleCount[STUFF_KWH].take = true;
+        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_WATER].take = true;
+        commodityRuleCount[STUFF_WATER].give = false;
     }
     // overriding method that creates a residence
     virtual Construction *createConstruction(int x, int y);

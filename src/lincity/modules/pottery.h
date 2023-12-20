@@ -34,18 +34,18 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;
-        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_POTTERY;
-        commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_POTTERY;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_POTTERY;
+        commodityRuleCount[STUFF_GOODS].take = false;
+        commodityRuleCount[STUFF_GOODS].give = true;
+        commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_POTTERY;
+        commodityRuleCount[STUFF_ORE].take = true;
+        commodityRuleCount[STUFF_ORE].give = false;
     }
     // overriding method that creates a pottery
     virtual Construction *createConstruction(int x, int y);
@@ -59,20 +59,20 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        this->anim = 0; // or real_time?
+        // this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;
         this->working_days = 0;
-        this->animate = false;
+        this->animate_enable = false;
         initialize_commodities();
     }
     virtual ~Pottery() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     int  anim;
     int  pauseCounter;
     int  working_days, busy;
-    bool animate;
+    bool animate_enable;
 };
-

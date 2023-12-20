@@ -34,15 +34,15 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_COALPS;
-        commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_COALPS;
-        commodityRuleCount[Construction::STUFF_COAL].take = true;
-        commodityRuleCount[Construction::STUFF_COAL].give = false;
-        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_COALPS;
-        commodityRuleCount[Construction::STUFF_MWH].take = false;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_COALPS;
+        commodityRuleCount[STUFF_JOBS].take = true;
+        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_COALPS;
+        commodityRuleCount[STUFF_COAL].take = true;
+        commodityRuleCount[STUFF_COAL].give = false;
+        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_COALPS;
+        commodityRuleCount[STUFF_MWH].take = false;
+        commodityRuleCount[STUFF_MWH].give = true;
     }
     // overriding method that creates a Coal_power
     virtual Construction *createConstruction(int x, int y);
@@ -95,7 +95,6 @@ public:
             frit->frame = -1; // hide smoke
         }
         this->anim = 0;
-        this->animate = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -116,12 +115,12 @@ public:
             }
         }
     }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int anim;
-    bool animate;
     int  mwh_output;
     int  tech;
     int  working_days, busy;
@@ -129,4 +128,3 @@ public:
 
 
 /** @file lincity/modules/coal_power.h */
-
