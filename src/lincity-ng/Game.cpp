@@ -182,6 +182,7 @@ Game::run()
     int frame = 0;
 
     Uint32 next_execute = 0, next_animate = 0, next_gui = 0, next_fps = 0;
+    __attribute__((unused))
     Uint32 prev_execute = 0, prev_animate = 0, prev_gui = 0, prev_fps = 0;
     Uint32 next_task;
     Uint32 tick;
@@ -364,11 +365,11 @@ Game::run()
 
         // this is kind of janky, but it works for now
         if( lincitySpeed == 0 || blockingDialogIsOpen ) {
-             // deschedule execute and animate
+            // deschedule execute and animate
             next_execute = ~0;
             next_animate = ~0;
         }
-        else if(next_execute == -1 || next_animate == -1) {
+        else if(next_execute == (Uint32)~0 || next_animate == (Uint32)~0) {
             // reschedule execute and animate
             next_execute = tick;
             next_animate = tick;
