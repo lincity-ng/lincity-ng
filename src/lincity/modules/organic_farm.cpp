@@ -44,7 +44,7 @@ void Organic_farm::update()
         used_power = ORG_FARM_POWER_REC;
         flags |= FLAG_POWERED;
         if (commodityCount[STUFF_WASTE] >= 3 * ORG_FARM_WASTE_GET)
-        {   commodityCount[STUFF_WASTE] -= ORG_FARM_WASTE_GET;}
+        {   consumeStuff(STUFF_WASTE, ORG_FARM_WASTE_GET);}
         used_water = commodityCount[STUFF_WATER] / WATER_FARM;
         if (used_water > (16 - ugwCount))
         {   used_water = (16 - ugwCount);}
@@ -73,15 +73,15 @@ void Organic_farm::update()
     /* Now apply changes */
     if (foodprod >= 30)
     {
-        commodityCount[STUFF_JOBS] -= used_jobs;
-        commodityCount[STUFF_FOOD] += foodprod;
-        commodityCount[STUFF_KWH] -= used_power;
-        commodityCount[STUFF_WATER] -= (used_water * WATER_FARM);
+        consumeStuff(STUFF_JOBS, used_jobs);
+        produceStuff(STUFF_FOOD, foodprod);
+        consumeStuff(STUFF_KWH, used_power);
+        consumeStuff(STUFF_WATER, used_water * WATER_FARM);
         food_this_month += 100 * foodprod / max_foodprod;
     }
     // monthly update
-    if ((total_time % 100) == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         food_last_month = food_this_month;
         food_this_month = 0;
     }
@@ -114,7 +114,7 @@ void Organic_farm::report()
     mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
     mps_store_sfp(i++, N_("busy"), (float)food_last_month / 100.0);
     mps_store_sd(i++, N_("Output"), max_foodprod);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

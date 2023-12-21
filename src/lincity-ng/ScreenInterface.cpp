@@ -328,7 +328,6 @@ void print_stats ()
     // this show update the financy window or mps
     if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
     {
-        update_pbars_monthly();
         mps_refresh();
         getEconomyGraph()->updateData();
     }

@@ -40,15 +40,15 @@ void Coal_power::update()
      && (commodityCount[STUFF_COAL] >= coal_used)
      && (mwh_made >= POWERS_COAL_OUTPUT))
     {
-        commodityCount[STUFF_JOBS] -= jobs_used;
-        commodityCount[STUFF_COAL] -= coal_used;
-        commodityCount[STUFF_MWH] += mwh_made;
+        consumeStuff(STUFF_JOBS, jobs_used);
+        consumeStuff(STUFF_COAL, coal_used);
+        produceStuff(STUFF_MWH, mwh_made);
         world(x,y)->pollution += POWERS_COAL_POLLUTION *(mwh_made/100)/(mwh_output/100);
         working_days += (mwh_made/100);
     }
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days / (mwh_output/100);
         working_days = 0;
     }
@@ -93,7 +93,7 @@ void Coal_power::report()
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), mwh_output);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

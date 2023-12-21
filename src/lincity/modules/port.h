@@ -53,7 +53,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -124,6 +125,17 @@ public:
         commodityRuleCount[STUFF_STEEL].take = false;
         commodityRuleCount[STUFF_STEEL].give = false;
         setCommodityRulesSaved(&commodityRuleCount);
+
+        commodityMaxCons[STUFF_JOBS] = 100 * PORT_JOBS;
+        for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+            if(!commodityRuleCount[stuff].maxload) continue;
+            commodityMaxCons[stuff] = 100 * ((
+              portConstructionGroup.commodityRuleCount[stuff].maxload *
+              PORT_EXPORT_RATE) / 1000);
+            commodityMaxProd[stuff] = 100 * ((
+              portConstructionGroup.commodityRuleCount[stuff].maxload *
+              PORT_IMPORT_RATE) / 1000);
+        }
     }
     virtual ~Port() { }
     virtual void update();

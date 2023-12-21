@@ -37,7 +37,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_L;
@@ -108,9 +109,42 @@ public:
         this->anim = 0;
         initialize_commodities();
         this->bonus = 0;
-        setMemberSaved(&this->bonus, "bonus");
+        setMemberSaved(&this->bonus, "bonus"); // compatibility
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus");
+        setMemberSaved(&this->extra_bonus, "extra_bonus"); // compatibility
+        // if (tech > MAX_TECH_LEVEL)
+        // {
+        //     bonus = (tech - MAX_TECH_LEVEL);
+        //     if (bonus > MAX_TECH_LEVEL)
+        //         bonus = MAX_TECH_LEVEL;
+        //     bonus /= MAX_TECH_LEVEL;
+        //     // check for filter technology bonus
+        //     if (tech > 2 * MAX_TECH_LEVEL)
+        //     {
+        //         extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+        //         if (extra_bonus > MAX_TECH_LEVEL)
+        //             extra_bonus = MAX_TECH_LEVEL;
+        //         extra_bonus /= MAX_TECH_LEVEL;
+        //     }
+        // }
+
+        commodityMaxCons[STUFF_JOBS] = 100 * (INDUSTRY_L_JOBS_USED +
+          INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE +
+          INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL);
+        commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
+        commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
+        commodityMaxCons[STUFF_KWH] = 100 *
+          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 8;
+        commodityMaxCons[STUFF_MWH] = 100 *
+          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 4;
+        commodityMaxProd[STUFF_GOODS] = 100 * INDUSTRY_L_MAKE_GOODS * 8;
+        // commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+        //   INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
+    }
+
+    virtual void initialize() override {
+        RegisteredConstruction::initialize();
+
         if (tech > MAX_TECH_LEVEL)
         {
             bonus = (tech - MAX_TECH_LEVEL);
@@ -126,6 +160,9 @@ public:
                 extra_bonus /= MAX_TECH_LEVEL;
             }
         }
+
+        commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+          INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
     }
 
     virtual ~IndustryLight() //remove 2 or more extraframes
@@ -140,6 +177,7 @@ public:
             }
         }
     }
+
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;

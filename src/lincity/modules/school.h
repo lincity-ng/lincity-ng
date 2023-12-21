@@ -34,7 +34,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -73,6 +74,10 @@ public:
         this->total_tech_made = 0;
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_MAKE_TECH_SCHOOL;
+        commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MAKE_TECH_SCHOOL;
+        commodityMaxProd[STUFF_WASTE] = 100 * (GOODS_MAKE_TECH_SCHOOL/3);
     }
 
     virtual ~School() //remove the one extraframe

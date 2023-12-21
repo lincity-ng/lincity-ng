@@ -35,26 +35,26 @@ void Commune::update()
     {
         tmpUgwCount = a;
         tmpCoalprod = COMMUNE_COAL_MADE;
-        commodityCount[STUFF_WATER] -= (a-ugwCount)*WATER_FOREST;
+        consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
     }
     if(//(total_time & 1) && //make coal every second day
        (tmpCoalprod > 0)
     && (commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE ))
     {
-         commodityCount[STUFF_COAL] += tmpCoalprod;
+         produceStuff(STUFF_COAL, tmpCoalprod);
          monthly_stuff_made++;
          animate_enable = true;
     }
     if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
     {
-        commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
+        produceStuff(STUFF_ORE, COMMUNE_ORE_MADE);
         monthly_stuff_made++;
         animate_enable = true;
     }
     /* recycle a bit of waste if there is plenty*/
     if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
     {
-        commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;
+        consumeStuff(STUFF_WASTE, COMMUNE_WASTE_GET);
         monthly_stuff_made++;
         animate_enable = true;
         if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
@@ -75,12 +75,12 @@ void Commune::update()
             monthly_stuff_made++;
             animate_enable = true;
             steel_made = true;
-            commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
+            produceStuff(STUFF_STEEL, COMMUNE_STEEL_MADE);
         }
     }
 
-    if (total_time % 100 == 1)
-    {//each month
+    if (total_time % 100 == 99) { //each month
+        reset_prod_counters();
         last_month_output = monthly_stuff_made;
         monthly_stuff_made = 0;
         if (last_month_output)
@@ -92,8 +92,10 @@ void Commune::update()
         {//we are lazy
             lazy_months++;
             /* Communes without production only last 10 years */
-            if (lazy_months > 120)
-            {   ConstructionManager::submitRequest(new CommuneDeletionRequest(this));}
+            if (lazy_months > 120) {
+                ConstructionManager::submitRequest(new CommuneDeletionRequest(this));
+                return;
+            }
         }//end we are lazy
     }//end each month
 }

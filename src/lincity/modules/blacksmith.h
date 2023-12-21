@@ -36,7 +36,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_BLACKSMITH;
@@ -71,6 +72,11 @@ public:
         this->animate_enable = false;
         this->goods_made = 0;
         initialize_commodities();
+
+        commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_BLACKSMITH;
+        commodityMaxCons[STUFF_COAL] = 100 * BLACKSMITH_COAL_USED;
+        commodityMaxCons[STUFF_STEEL] = 100 * BLACKSMITH_STEEL_USED;
+        commodityMaxCons[STUFF_JOBS] = 100 * BLACKSMITH_JOBS;
     }
     virtual ~Blacksmith() { }
     virtual void update() override;

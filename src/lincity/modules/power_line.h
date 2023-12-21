@@ -15,7 +15,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
@@ -40,6 +41,8 @@ public:
         this->flashing = false;
         initialize_commodities();
         this->trafficCount = this->commodityCount;
+
+        commodityMaxCons[STUFF_MWH] = 100 * 1;
     }
     virtual ~Powerline() { }
     virtual void update() override;

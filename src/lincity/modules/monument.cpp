@@ -34,21 +34,12 @@ void Monument::update()
 {
     if ((commodityCount[STUFF_JOBS] > MONUMENT_GET_JOBS) && (completion < 100))
     {
-        commodityCount[STUFF_JOBS] -= MONUMENT_GET_JOBS;
+        consumeStuff(STUFF_JOBS, MONUMENT_GET_JOBS);
         jobs_consumed += MONUMENT_GET_JOBS;
         completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
         ++working_days;
     }
-    //monthly update
-    if (total_time % 100 == 0)
-    {
-        busy = working_days;
-        working_days = 0;
-        if(commodityCount[STUFF_JOBS]==0 && completed)
-        {   deneighborize();}
-    }
-    /* now choose a graphic */
-    if (completion >= 100)
+    else if (completion >= 100)
     {
         if(!completed)
         {
@@ -71,6 +62,15 @@ void Monument::update()
                 tail_off = 0;
             }
         }
+    }
+    //monthly update
+    if (total_time % 100 == 99)
+    {
+        reset_prod_counters();
+        busy = working_days;
+        working_days = 0;
+        if(commodityCount[STUFF_JOBS]==0 && completed)
+        {   deneighborize();}
     }
 }
 
@@ -99,7 +99,7 @@ void Monument::report()
     else
     {
         mps_store_sfp(i++, N_("busy"), (float) busy);
-        i++;
+        // i++;
         list_commodities(&i);
         i++;
         mps_store_sfp(i++, N_("Completion"), completion);

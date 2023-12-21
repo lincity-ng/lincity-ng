@@ -84,6 +84,7 @@
 
 #include "../lintypes.h"
 #include "../lctypes.h"
+#include "cricket.h"
 
 class ResidenceConstructionGroup: public ConstructionGroup {
 public:
@@ -95,7 +96,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         switch (group)
@@ -201,6 +203,16 @@ public:
         }
 
         initialize_commodities();
+
+        commodityMaxCons[STUFF_FOOD] = 100 * max_population;
+        commodityMaxCons[STUFF_WATER] = 100 * max_population;
+        commodityMaxCons[STUFF_KWH] = 100 * (POWER_RES_OVERHEAD +
+          (POWER_USE_PER_PERSON * max_population) + max_population/2);
+        commodityMaxProd[STUFF_JOBS] = 100 * (max_population *
+          (WORKING_POP_PERCENT + JOB_SWING + HC_JOB_SWING + CRICKET_JOB_SWING)
+          / 100);
+        commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 4) * 2;
+        commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2;
     }
     virtual ~Residence()
     {
@@ -219,4 +231,3 @@ public:
 
 
 /** @file lincity/modules/residence.h */
-

@@ -30,7 +30,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         commodityRuleCount[STUFF_WASTE].maxload = TIP_TAKES_WASTE;
@@ -57,6 +58,9 @@ public:
         this->degration_days = 0;
         setMemberSaved(&this->degration_days,"degration_days");
         initialize_commodities();
+
+        commodityMaxCons[STUFF_WASTE] = WASTE_BURRIED;
+        commodityMaxProd[STUFF_WASTE] = WASTE_BURRIED;
     }
     virtual ~Tip() { }
     virtual void update() override;
