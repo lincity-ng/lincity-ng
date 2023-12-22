@@ -648,12 +648,15 @@ void Dialog::editMarket(){
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( market->commodityRuleCount[STUFF_STEEL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( market->commodityRuleCount[STUFF_STEEL].give) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[STUFF_STEEL].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
     if( market->commodityRuleCount[STUFF_WASTE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
-    if( market->commodityRuleCount[STUFF_WASTE].give) cb->check(); else cb->uncheck();
-
+    if( market->commodityRuleCount[STUFF_WASTE].give ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyWater" );
+    if( market->commodityRuleCount[STUFF_WATER].take ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellWater" );
+    if( market->commodityRuleCount[STUFF_WATER].give ) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
@@ -799,6 +802,18 @@ void Dialog::applyMarketButtonClicked( Button* ){
         market->commodityRuleCount[STUFF_WASTE].give = true;
     } else {
         market->commodityRuleCount[STUFF_WASTE].give = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "BuyWater" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[STUFF_WATER].take = true;
+    } else {
+        market->commodityRuleCount[STUFF_WATER].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellWater" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[STUFF_WATER].give = true;
+    } else {
+        market->commodityRuleCount[STUFF_WATER].give = false;
     }
     mps_refresh();
     desktop->remove( myDialogComponent );
