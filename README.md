@@ -20,7 +20,12 @@ The game depends on some libraries to be present before you can build/run it.
 If you use `vcpkg` (see the [Building](#building) section) this is taken care
 of automatically for you.
 
-Here is the list of required libraries:
+If you use packages from your distribution, pay attention that you need the
+header files in addition to the libraries in order to build from source. They
+are often in separate `*-dev` packages. E.g. for `physfs` you need `libphysfs`
+and `libphysfs-dev`.
+
+#### Run Dependencies
 
 * SDL2 2.0.0 or later
 
@@ -54,14 +59,15 @@ Here is the list of required libraries:
 
   http://xmlsoft.org/
 
+#### Build Dependencies
+
 * LibXslt (with xsltproc)
 
   https://gitlab.gnome.org/GNOME/libxslt
 
-If you use packages from your distribution, pay attention that you need the
-header files in addition to the libraries in order to build from source. They
-are often in separate `*-dev` packages. E.g. for `physfs` you need `libphysfs`
-and `libphysfs-dev`.
+* gettext
+
+  https://www.gnu.org/software/gettext/
 
 ### Building
 
