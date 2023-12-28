@@ -15,10 +15,12 @@ These are generic instructions, please see the wiki for more specific instructio
 
 ### Prerequisites
 
+To build the game, you will need a C++ compiler (such as gcc) and CMake.
+
 The game depends on some libraries to be present before you can build/run it.
 
-If you use `vcpkg` (see the [Building](#building) section) this is taken care
-of automatically for you.
+If you use `vcpkg` (see the [Building](#building) section) dependencies are
+automatically downloaded for you.
 
 If you use packages from your distribution, pay attention that you need the
 header files in addition to the libraries in order to build from source. They
@@ -92,6 +94,7 @@ To install the game:
 ```
 # cmake --install build
 ```
+(Installing likely requires super-user privileges.)
 
 To create a package (currently tar.gz and zip are generated):
 ```
