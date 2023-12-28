@@ -9,9 +9,12 @@
 
 #define POWER_USE_PER_PERSON 3
 #define POWER_RES_OVERHEAD 30
-#define WORKING_POP_PERCENT 45
-#define JOB_SWING 15
-#define HC_JOB_SWING 10
+#define WORKING_POP_PERCENT 58
+#define JOB_SWING 2
+#define HC_WORKING_POP 8
+#define HC_JOB_SWING 2
+#define CRICKET_WORKING_POP 3
+#define CRICKET_JOB_SWING 1
 #define DAYS_PER_STARVE 20
 
 /* RESIDENCE?_BRM is the birth rate modifier */
@@ -208,8 +211,10 @@ public:
         commodityMaxCons[STUFF_WATER] = 100 * max_population;
         commodityMaxCons[STUFF_KWH] = 100 * (POWER_RES_OVERHEAD +
           (POWER_USE_PER_PERSON * max_population) + max_population/2);
-        commodityMaxProd[STUFF_JOBS] = 100 * (max_population *
-          (WORKING_POP_PERCENT + JOB_SWING + HC_JOB_SWING + CRICKET_JOB_SWING)
+        commodityMaxProd[STUFF_JOBS] = 100 * (max_population * (
+            WORKING_POP_PERCENT + JOB_SWING +
+            HC_WORKING_POP + HC_JOB_SWING +
+            CRICKET_WORKING_POP + CRICKET_JOB_SWING)
           / 100);
         commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 4) * 2;
         commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2;

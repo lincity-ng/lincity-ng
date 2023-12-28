@@ -107,7 +107,7 @@ void Residence::update()
     int brm = 0, drm = 0;       /* birth/death rate modifier */
     /* birts = 1/(BASE_BR + brm) deaths = 1/(BASE_DR - drm)
     the different signs are intentional higher brm less a little less babys, higher drm much more deaths*/
-    int cc = 0;                 /* extra jobs from sports activity*/
+    bool cc = false;                 /* extra jobs from sports activity*/
     int birth_flag = (FLAG_FED | FLAG_EMPLOYED);/* can we have babies*/
     bool extra_births = false;  /* full houses are more fertile*/
     bool hc = false;            /* have health cover ? */
@@ -123,10 +123,9 @@ void Residence::update()
     {   good += 15;}
     else
     {   bad += 5;}
-    if (world(x,y)->flags & FLAG_CRICKET_COVER)
+    if (cc = world(x,y)->flags & FLAG_CRICKET_COVER)
     {
         good += 20;
-        cc = CRICKET_JOB_SWING;
     }
 
     /* now get fed */
@@ -183,14 +182,15 @@ void Residence::update()
     }
 
     /* now supply jobs and buy goods if employed */
-    if (job_swingometer > 0)
-    {   swing = JOB_SWING + (hc ? HC_JOB_SWING : 0) + cc;}
-    else
-    {   swing = -(JOB_SWING + (hc ? HC_JOB_SWING : 0) + cc);}
-
-    if (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - commodityCount[STUFF_JOBS] >= (local_population * (WORKING_POP_PERCENT + swing) / 100) )
-    {
-        produceStuff(STUFF_JOBS, local_population * (WORKING_POP_PERCENT + swing) / 100);
+    const int& jobs_cap =
+      constructionGroup->commodityRuleCount[STUFF_JOBS].maxload;
+    swing = JOB_SWING + (hc?HC_JOB_SWING:0) + (cc?CRICKET_JOB_SWING:0);
+    int working_pop = WORKING_POP_PERCENT + (hc?HC_WORKING_POP:0) +
+      (cc?CRICKET_WORKING_POP:0);
+    int swing_amt = swing * (jobs_cap - commodityCount[STUFF_JOBS]) / jobs_cap;
+    int job_prod = local_population * (working_pop + swing_amt) / 100;
+    if (jobs_cap - commodityCount[STUFF_JOBS] >= job_prod) {
+        produceStuff(STUFF_JOBS, job_prod);
         flags |= FLAG_EMPLOYED; //enable births
         if (job_swingometer < -300)
         {   job_swingometer = -300;}
@@ -221,7 +221,7 @@ void Residence::update()
             {   bad += 5;}
         }
     }
-    else if (job_swingometer < 10)
+    else //if (job_swingometer < 10)
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
         if ((job_swingometer -= 11) < -300)
@@ -237,11 +237,11 @@ void Residence::update()
         unemployment_cost += local_population; /* nobody went to work*/
         bad += 70;
     }
-    else
-    {
-        job_swingometer -= 20;
-        bad += 50;
-    }
+    // else
+    // {
+    //     job_swingometer -= 20;
+    //     bad += 50;
+    // }
 
     switch (constructionGroup->group)
     {
