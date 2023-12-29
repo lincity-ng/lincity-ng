@@ -35,15 +35,15 @@ void FireStation::update()
     &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
     &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION)
     {
-        commodityCount[STUFF_JOBS] -= FIRESTATION_JOBS;
-        commodityCount[STUFF_GOODS] -= FIRESTATION_GOODS;
-        commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS / 3);
+        consumeStuff(STUFF_JOBS, FIRESTATION_JOBS);
+        consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
+        produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
         ++covercount;
         ++working_days;
     }
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -91,7 +91,7 @@ void FireStation::report()
     const char* p;
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
+    // i++;
     list_commodities(&i);
     p = active?N_("Yes"):N_("No");
     mps_store_ss(i++, N_("Fire Protection"), p);

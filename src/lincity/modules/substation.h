@@ -27,7 +27,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
 
         commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;
@@ -54,6 +55,9 @@ public:
         this->working_days = 0;
         this->busy = 0;
         initialize_commodities();
+
+        commodityMaxCons[STUFF_MWH] = 100 * SUBSTATION_MWH;
+        commodityMaxProd[STUFF_KWH] = 100 * 2 * SUBSTATION_MWH;
     }
     virtual ~Substation() { }
     virtual void update() override;

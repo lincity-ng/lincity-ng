@@ -32,7 +32,8 @@ public:
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance, int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -72,6 +73,10 @@ public:
         { ore = 1;}
         this->total_ore_reserve = ore;
         setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
+
+        commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+        commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+        commodityMaxCons[STUFF_JOBS] = 100 * OREMINE_JOBS;
     }
     virtual ~Oremine() {}
     virtual void update() override;

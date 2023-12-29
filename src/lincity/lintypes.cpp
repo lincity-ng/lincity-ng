@@ -449,7 +449,21 @@ std::string Construction::getStuffName(Commodity stuff_id)
     return commodityNames[stuff_id];
 }
 
-void Construction::list_commodities(int * i)
+void Construction::list_commodities(int *i) {
+    switch(mps_map_page) {
+    default:
+    case 0:
+        mps_store_title((*i)++, _("Inventory:"));
+        list_inventory(i);
+        break;
+    case 1:
+        mps_store_title((*i)++, _("Production:"));
+        list_production(i);
+        break;
+    }
+}
+
+void Construction::list_inventory(int * i)
 {
     /*
         Lists all current commodities of a construction in MPS area
@@ -509,13 +523,121 @@ void Construction::list_commodities(int * i)
     }
 }
 
+void Construction::list_production(int * i)
+{
+    /*
+        Lists all current commodities of a construction in MPS area
+        Groups commodities by incomming, outgoing, twoway and inactive
+    */
+
+    Commodity stuff;
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && maxcons && !maxprod)
+        {
+            mps_store_ssddp(*i,"--> ", commodityNames[stuff], commodityProdPrev[stuff], -maxcons);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && !maxcons && maxprod)
+        {
+            mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityProdPrev[stuff], maxprod);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && maxcons && maxprod)
+        {
+            int amt = commodityProdPrev[stuff];
+            int max = amt >= 0 ? maxprod : -maxcons;
+            mps_store_ssddp(*i,"<->", commodityNames[stuff], amt, max);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
+    {
+        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+        const int& maxprod = commodityMaxProd[stuff];
+        const int& maxcons = commodityMaxCons[stuff];
+        if(rule.maxload && !maxcons && !maxprod)
+        {
+            mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityProdPrev[stuff], 1);
+            ++*i;
+        }//endif
+    } //endfor
+}
+
+void Construction::reset_prod_counters(void) {
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT; stuff++) {
+        commodityProdPrev[stuff] = commodityProd[stuff];
+        commodityProd[stuff] = 0;
+#if DEBUG
+    if(commodityProdPrev[stuff] > commodityMaxProd[stuff]) {
+        // commodityMaxProd[stuff] = commodityProdPrev[stuff];
+        std::cerr << "warning:"
+          << " construction "
+          << constructionGroup->name
+          << " exceeded maximum production of commodity "
+          << commodityNames[stuff] << "."
+          // << " Updating maximum production."
+          << '\n';
+    }
+    if(-commodityProdPrev[stuff] > commodityMaxCons[stuff]) {
+        // commodityMaxCons[stuff] = -commodityProdPrev[stuff];
+        std::cerr << "warning:"
+          << " construction "
+          << constructionGroup->name
+          << " exceeded maximum consumption of commodity "
+          << commodityNames[stuff] << "."
+          // << " Updating maximum production."
+          << '\n';
+    }
+#endif
+    } //endfor
+}
+
+int Construction::produceStuff(Commodity stuff_id, int amt) {
+    commodityProd[stuff_id] += amt;
+    commodityCount[stuff_id] += amt;
+    return amt;
+}
+
+int Construction::consumeStuff(Commodity stuff_id, int amt) {
+    commodityProd[stuff_id] -= amt;
+    commodityCount[stuff_id] -= amt;
+    return amt;
+}
+
+int Construction::levelStuff(Commodity stuff_id, int amt) {
+    int delta = amt - commodityCount[stuff_id];
+    commodityProd[stuff_id] += delta;
+    commodityCount[stuff_id] = amt;
+    return delta;
+}
+
 void Construction::initialize_commodities(void)
 {
     for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
     {
         commodityCount[stuff] = 0;
-        if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
-        setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+        if(constructionGroup->commodityRuleCount[stuff].maxload)
+          setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+        commodityProd[stuff] = 0;
+        commodityProdPrev[stuff] = 0;
+        commodityMaxProd[stuff] = 0;
+        commodityMaxCons[stuff] = 0;
     }
 }
 
@@ -808,6 +930,45 @@ void Construction::saveMembers(std::ostream *os)
             assert(checksum == xml_tmp->len());
         }
     }
+}
+
+void Construction::place() {
+  initialize();
+
+#ifdef DEBUG
+   //default resources if no manual settings for construction
+  if (!soundGroup) {
+    std::cout << "Warning no explicit sound, graphics resources specified for "
+      << constructionGroup->name << " at " << "(" << x << ", " << y << ")"
+      << std::endl;
+    init_resources();
+  }
+#endif
+
+  unsigned short size = constructionGroup->size;
+  for (unsigned short i = 0; i < size; i++) {
+    for (unsigned short j = 0; j < size; j++) {
+      //never change water upon building something
+      if(!world(x + j, y + i)->is_water()) {
+        if(!(flags & FLAG_TRANSPARENT)) {
+          world(x + j, y + i)->setTerrain(GROUP_DESERT);
+          world(x + j, y + i)->flags |= FLAG_INVISIBLE; // hide maptiles
+        }
+        else {
+          world(x + j, y + i)->flags &= ~FLAG_INVISIBLE; // show maptiles
+          if(world(x + j, y + i)->group != GROUP_DESERT)
+            world(x + j, y + i)->setTerrain(GROUP_BARE);
+        }
+      }
+      assert(!world(x+j, y+i)->reportingConstruction);
+      world(x + j, y + i)->reportingConstruction = this;
+    } //endfor j
+  }// endfor i
+  world(x, y)->construction = this;
+  constructionCount.add_construction(this); //register for Simulation
+
+  //now look for neighbors
+  neighborize();
 }
 
 //use this before deleting a construction. Construction requests check independently against NULL
@@ -1374,47 +1535,10 @@ int ConstructionGroup::placeItem(int x, int y)
         std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
         return -1;
     }
-     //default resources if no manual settings for construction
-    if (!tmpConstr->soundGroup)
-    {
-        std::cout << "Warning no explicit sound, graphics resources specified for "
-        << name << " at " << "(" << x << ", " << y << ")" << std::endl;
-        tmpConstr->init_resources();
-    }
 #endif
 
+    tmpConstr->place();
 
-    for (unsigned short i = 0; i < size; i++)
-    {
-        for (unsigned short j = 0; j < size; j++)
-        {
-            //never change water upon building something
-            if ( !world(x + j, y + i)->is_water() )
-            {
-                if( !(tmpConstr->flags & FLAG_TRANSPARENT))
-                {
-                    world(x + j, y + i)->setTerrain(GROUP_DESERT);
-                    world(x + j, y + i)->flags |= FLAG_INVISIBLE; //hide maptiles
-                }
-                else
-                {
-                    world(x + j, y + i)->flags &= (~FLAG_INVISIBLE); //always show maptiles
-                    if (world(x + j, y + i)->group != GROUP_DESERT)
-                    {   world(x + j, y + i)->setTerrain(GROUP_BARE);}
-                }
-            }
-            world(x + j, y + i)->reportingConstruction = tmpConstr;
-        } //endfor j
-    }// endfor i
-    world(x, y)->construction = tmpConstr;
-    constructionCount.add_construction(tmpConstr); //register for Simulation
-
-    //now look for neighbors
-    //skip ghosts (aka burning waste) and powerlines here
-    if(!(tmpConstr->flags & FLAG_IS_GHOST)
-    && (tmpConstr->constructionGroup->group != GROUP_FIRE)
-    && (tmpConstr->constructionGroup->group != GROUP_POWER_LINE)    )
-    {   tmpConstr->neighborize();}
     return 0;
 }
 

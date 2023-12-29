@@ -56,8 +56,8 @@ void Coalmine::update()
                     world(xx,yy)->coal_reserve--;
                     world(xx,yy)->pollution += COALMINE_POLLUTION;
                     world(xx,yy)->flags |= FLAG_ALTERED;
-                    commodityCount[STUFF_COAL] += COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
+                    produceStuff(STUFF_COAL, COAL_PER_RESERVE);
+                    consumeStuff(STUFF_JOBS, COALMINE_JOBS);
                     if (current_coal_reserve < initial_coal_reserve)
                     {   sust_dig_ore_coal_tip_flag = 0;}
                     coal_found = true;
@@ -77,8 +77,8 @@ void Coalmine::update()
                 {
                     world(xx,yy)->coal_reserve++;
                     world(xx,yy)->flags |= FLAG_ALTERED;
-                    commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
+                    consumeStuff(STUFF_COAL, COAL_PER_RESERVE);
+                    consumeStuff(STUFF_JOBS, COALMINE_JOBS);
                     coal_found = true;
                     working_days++;
                 }
@@ -86,8 +86,8 @@ void Coalmine::update()
         }
     }
     //Monthly update of activity
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -124,7 +124,7 @@ void Coalmine::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

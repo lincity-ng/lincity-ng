@@ -33,15 +33,16 @@ void School::update()
     &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
     {
-        commodityCount[STUFF_JOBS] -= JOBS_MAKE_TECH_SCHOOL;
-        commodityCount[STUFF_GOODS] -= GOODS_MAKE_TECH_SCHOOL;
-        commodityCount[STUFF_WASTE] += GOODS_MAKE_TECH_SCHOOL / 3;
+        consumeStuff(STUFF_JOBS, JOBS_MAKE_TECH_SCHOOL);
+        consumeStuff(STUFF_GOODS, GOODS_MAKE_TECH_SCHOOL);
+        produceStuff(STUFF_WASTE, GOODS_MAKE_TECH_SCHOOL / 3);
         ++working_days;
         tech_level += TECH_MADE_BY_SCHOOL;
         total_tech_made += TECH_MADE_BY_SCHOOL;
     }
     if ((total_time % 100) == 0)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -82,7 +83,7 @@ void School::report()
     i++;
     mps_store_sfp(i++, N_("busy"), (float)busy);
     mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

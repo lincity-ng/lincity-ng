@@ -34,7 +34,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_COALMINE;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -90,6 +91,10 @@ public:
         this->initial_coal_reserve = coal;
         setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
         this->current_coal_reserve = coal;
+
+        commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+        commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+        commodityMaxCons[STUFF_JOBS] = 100 * COALMINE_JOBS;
     }
     virtual ~Coalmine() { }
     virtual void update() override;

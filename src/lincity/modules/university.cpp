@@ -34,16 +34,17 @@ void University::update()
     &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
     &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY)
     {
-        commodityCount[STUFF_JOBS] -= UNIVERSITY_JOBS;
-        commodityCount[STUFF_GOODS] -= UNIVERSITY_GOODS;
-        commodityCount[STUFF_WASTE] += UNIVERSITY_GOODS / 3;
+        consumeStuff(STUFF_JOBS, UNIVERSITY_JOBS);
+        consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
+        produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
         ++working_days;
         tech_level += UNIVERSITY_TECH_MADE;
         total_tech_made += UNIVERSITY_TECH_MADE;
     }
     //monthly update
-    if ((total_time % 100) == 0)
+    if ((total_time % 100) == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -56,10 +57,9 @@ void University::report()
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 
 
 /** @file lincity/modules/university.cpp */
-

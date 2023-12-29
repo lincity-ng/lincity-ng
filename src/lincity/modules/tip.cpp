@@ -39,7 +39,7 @@ void Tip::update()
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE > CRITICAL_WASTE_LEVEL)
     && (total_waste + WASTE_BURRIED < MAX_WASTE_AT_TIP))
     {
-        commodityCount[STUFF_WASTE] -= WASTE_BURRIED;
+        consumeStuff(STUFF_WASTE, WASTE_BURRIED);
         total_waste += WASTE_BURRIED;
         working_days++;
     }
@@ -48,12 +48,13 @@ void Tip::update()
     && (total_waste > 0))
     {
         int waste_dug = (WASTE_BURRIED < total_waste)?WASTE_BURRIED:total_waste;
-        commodityCount[STUFF_WASTE] += waste_dug;
+        produceStuff(STUFF_WASTE, waste_dug);
         total_waste -= waste_dug;
         working_days++;
     }
-    if ((total_time % 100) == 0)
+    if ((total_time % 100) == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -75,7 +76,7 @@ void Tip::report()
     mps_store_sfp(i++,N_("busy"), busy);
     mps_store_sd(i++, N_("Waste"), total_waste);
     mps_store_sfp(i++, N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

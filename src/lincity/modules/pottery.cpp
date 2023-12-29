@@ -29,6 +29,7 @@ void Pottery::update()
 {
     if (total_time % 100 == 0)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -41,10 +42,10 @@ void Pottery::update()
      && (commodityCount[STUFF_COAL] >= POTTERY_COAL_MAKE_GOODS)
      && (commodityCount[STUFF_JOBS] >= POTTERY_JOBS))
     {
-        commodityCount[STUFF_GOODS] += POTTERY_MADE_GOODS;
-        commodityCount[STUFF_ORE] -= POTTERY_ORE_MAKE_GOODS;
-        commodityCount[STUFF_COAL] -= POTTERY_COAL_MAKE_GOODS;
-        commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
+        produceStuff(STUFF_GOODS, POTTERY_MADE_GOODS);
+        consumeStuff(STUFF_ORE, POTTERY_ORE_MAKE_GOODS);
+        consumeStuff(STUFF_COAL, POTTERY_COAL_MAKE_GOODS);
+        consumeStuff(STUFF_JOBS, POTTERY_JOBS);
 
         animate_enable = true;
         if(!((working_days++)%10))
@@ -79,7 +80,7 @@ void Pottery::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

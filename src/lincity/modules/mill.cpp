@@ -35,10 +35,13 @@ void Mill::update()
     && (commodityCount[STUFF_JOBS] >= MILL_JOBS)
     && (commodityCount[STUFF_GOODS] <= MAX_GOODS_AT_MILL - GOODS_MADE_BY_MILL))
     {
-        (use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_KWH]) -= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
-        commodityCount[STUFF_FOOD] -= FOOD_USED_BY_MILL;
-        commodityCount[STUFF_JOBS] -= MILL_JOBS;
-        commodityCount[STUFF_GOODS] += GOODS_MADE_BY_MILL;
+        if(use_coal)
+            consumeStuff(STUFF_COAL, COAL_USED_BY_MILL);
+        else
+            consumeStuff(STUFF_KWH, COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
+        consumeStuff(STUFF_FOOD, FOOD_USED_BY_MILL);
+        consumeStuff(STUFF_JOBS, MILL_JOBS);
+        produceStuff(STUFF_GOODS, GOODS_MADE_BY_MILL);
         ++working_days;
         animate_enable = true;
         if ((++pol_count %= 7) == 0)
@@ -46,8 +49,8 @@ void Mill::update()
     }
 
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if(total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -71,7 +74,7 @@ void Mill::report()
     int i = 0;
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

@@ -206,10 +206,23 @@ struct CommodityRule{
 
 class Construction {
 public:
+    Construction() {
+        for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
+        {
+            commodityCount[stuff] = 0;
+            // if(constructionGroup->commodityRuleCount[stuff].maxload)
+            //   setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
+            commodityProd[stuff] = 0;
+            commodityProdPrev[stuff] = 0;
+            commodityMaxProd[stuff] = 0;
+            commodityMaxCons[stuff] = 0;
+        }
+    }
     virtual ~Construction() {}
     virtual void update() = 0;
     virtual void report() = 0;
     virtual void animate() {};
+    virtual void initialize() {};
 
 
     ConstructionGroup *constructionGroup;
@@ -231,7 +244,11 @@ public:
     };
 
     // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
-    std::array<int, STUFF_COUNT> commodityCount;
+    std::array<int, STUFF_COUNT> commodityCount;    // inventory
+    std::array<int, STUFF_COUNT> commodityProd;     // production month-to-date
+    std::array<int, STUFF_COUNT> commodityProdPrev; // production last month
+    std::array<int, STUFF_COUNT> commodityMaxProd;  // max production
+    std::array<int, STUFF_COUNT> commodityMaxCons;  // max consumption
     std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
@@ -239,6 +256,12 @@ public:
     static std::string getStuffName(Commodity stuff_id); //translated name of a commodity
     void init_resources(void);                      //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
+    void list_inventory(int *);                     // prints list of commodity inventory in report()
+    void list_production(int *);                    // prints list of commodity production in report()
+    void reset_prod_counters(void);                 // monthly update to production counters
+    int produceStuff(Commodity stuff_id, int amt);  // increases inventory by amt and updates production counter
+    int consumeStuff(Commodity stuff_id, int amt);  // decreases inventory by amt and updates production counter
+    int levelStuff(Commodity stuff_id, int amt);    // sets inventory level and updates production counter
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
     void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
@@ -254,6 +277,7 @@ public:
     void setCommodityRulesSaved(std::array<CommodityRule,STUFF_COUNT> * stuffRuleCount);
     void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
+    virtual void place();
     void detach();      //removes all references from world, ::constructionCount
     void deneighborize(); //cancells all neighbors and partners mutually
     void   neighborize(); //adds all neigborconnections once (call twice for double connections)
@@ -290,7 +314,7 @@ template <typename ConstructionClass>
 class RegisteredConstruction: public Construction, public Counted<ConstructionClass>
 {
 public:
-    RegisteredConstruction<ConstructionClass>( int x, int y)
+    RegisteredConstruction( int x, int y)
     {
         //this->type = 0;//safe default
         this->soundGroup = 0;//to be set by init_resources()
@@ -306,7 +330,7 @@ public:
         partners.clear();
 #endif
     }
-    ~RegisteredConstruction<ConstructionClass>(){}
+    ~RegisteredConstruction(){}
 };
 
 class GraphicsInfo
@@ -380,7 +404,7 @@ public:
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
-        int cost, int tech, int range
+        int cost, int tech, int range, int mps_pages
     ) {
         this->name = name;
         this->no_credit = no_credit;
@@ -395,6 +419,7 @@ public:
         this->range = range;
         //this->images_loaded = false;
         //this->sounds_loaded = false;
+        this->mps_pages = mps_pages;
 
         for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
           this->commodityRuleCount[stuff] = (CommodityRule){
@@ -449,6 +474,7 @@ public:
     int range;                  /* range beyond size*/
     //bool images_loaded;
     //bool sounds_loaded;
+    int mps_pages;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {

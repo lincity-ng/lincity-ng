@@ -40,15 +40,15 @@ void update_pbars_monthly(void);
 #define PHOUSE 14
 
 /* Number of elements per pbar */
-#define PBAR_DATA_SIZE 12
+#define PBAR_DATA_SIZE 1
 
 struct pbar_st
 {
-    int oldtot;
-    int tot;
+    int oldtot; // unused
+    int tot; // unused
     int diff;
 
-    int data_size;
+    int data_size; // unused
     int data[PBAR_DATA_SIZE];
 };
 
@@ -61,4 +61,3 @@ extern struct pbar_st pbars[NUM_PBARS];
 
 
 /** @file gui_interface/pbar_interface.h */
-

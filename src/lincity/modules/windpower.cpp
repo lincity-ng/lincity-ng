@@ -38,16 +38,17 @@ void Windpower::update()
     if ((commodityCount[STUFF_JOBS] >= jobs_used)
      && mwh_made > WIND_POWER_MWH)
     {
-        commodityCount[STUFF_JOBS] -= jobs_used;
-        commodityCount[STUFF_MWH] += mwh_made;
+        consumeStuff(STUFF_JOBS, jobs_used);
+        produceStuff(STUFF_MWH, mwh_made);
         animate_enable = true;
         working_days += mwh_made;
     }
     else
     {   animate_enable = false;}
     //monthly update
-    if (total_time % 100 == 0)
+    if (total_time % 100 == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -76,7 +77,7 @@ void Windpower::report()
     mps_store_sfp(i++, N_("busy"), float(busy) / mwh_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), mwh_output);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

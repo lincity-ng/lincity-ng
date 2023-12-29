@@ -42,11 +42,12 @@ void Waterwell::update()
     if(commodityCount[STUFF_WATER] + water_output <= MAX_WATER_AT_WATERWELL)
     {
         working_days++;
-        commodityCount[STUFF_WATER] += water_output;
+        produceStuff(STUFF_WATER, water_output);
     }
     //monthly update
-    if ((total_time % 100) == 0)
+    if ((total_time % 100) == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -69,4 +70,3 @@ void Waterwell::report()
 }
 
 /** @file lincity/modules/waterwell.cpp */
-
