@@ -55,9 +55,7 @@ int Port::sell_stuff(Commodity stuff)
 void Port::trade_connection()
 {
     //Checks all flags and issues buy_stuff sell_stuff accordingly
-    std::array<CommodityRule, STUFF_COUNT>::iterator stuff_it;
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++ )
-    {
+    for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++ ) {
         CommodityRule& rule = commodityRuleCount[stuff];
         if(!rule.maxload) continue;
         if (rule.take == rule.give)

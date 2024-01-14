@@ -492,7 +492,7 @@ void Dialog::saveGameStats(){
         strlen(lc_save_dir) + strlen(RESULTS_FILENAME) + 2);
     if(!s)
         error(-1, errno, "malloc");
-    sprintf(s, "%s%c%s",
+    sprintf(s, "%s%s%s",
         lc_save_dir, PHYSFS_getDirSeparator(), RESULTS_FILENAME);
 
     std::ofstream results( s );
@@ -509,7 +509,10 @@ void Dialog::saveGameStats(){
     snprintf (outf, maxlength, "Game statistics from LinCity-NG Version %s", PACKAGE_VERSION);
     results << outf << std::endl;
     if (strlen (given_scene) > 3){
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wformat-truncation"
         snprintf (outf, maxlength, "Initial loaded scene - %s", given_scene);
+        #pragma GCC diagnostic pop
         results << outf << std::endl;
     }
     if (sustain_flag){

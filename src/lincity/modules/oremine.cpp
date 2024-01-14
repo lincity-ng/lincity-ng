@@ -111,11 +111,11 @@ void Oremine::animate() {
     //faster animation for more active mines
     anim = real_time + ANIM_THRESHOLD((14 - busy/11) * OREMINE_ANIMATION_SPEED);
     if(anim_count < 8)
-      frameIt->frame = anim_count;
+      frame = anim_count;
     else if (anim_count < 12)
-      frameIt->frame = 14 - anim_count;
+      frame = 14 - anim_count;
     else
-      frameIt->frame = 16 - anim_count;
+      frame = 16 - anim_count;
     if(++anim_count == 16)
       anim_count = 0;
   }
