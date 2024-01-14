@@ -86,7 +86,7 @@ AM_BINRELOC
 
 NP_FINDLIB([ZLIB], [zlib], [zlib],
 	NP_LANG_PROGRAM([[#include <zlib.h>]],
-            [[gzFile* file = gzopen("", "");]]),
+            [[gzFile file = gzopen("", "");]]),
 	[], [-lz],
 	[],
 	[AC_MSG_ERROR([Please install zlib])])
