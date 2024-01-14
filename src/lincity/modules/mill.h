@@ -35,7 +35,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     )
     {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
@@ -72,6 +73,13 @@ public:
         this->animate_enable = false;
         this->pol_count = 0;
         initialize_commodities();
+
+        commodityMaxCons[STUFF_COAL] = 100 * COAL_USED_BY_MILL;
+        commodityMaxCons[STUFF_KWH] = 100 *
+          COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
+        commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
+        commodityMaxCons[STUFF_JOBS] = 100 * MILL_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
     }
     virtual ~Mill() { }
     virtual void update() override;

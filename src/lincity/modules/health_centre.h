@@ -29,7 +29,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_HEALTH_CENTRE;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -73,6 +74,10 @@ public:
         this->xe = (tmp > lenm1) ? lenm1 : tmp;
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
+
+        commodityMaxCons[STUFF_JOBS] = 100 * HEALTH_CENTRE_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * HEALTH_CENTRE_GOODS;
+        commodityMaxProd[STUFF_WASTE] = 100 * (HEALTH_CENTRE_GOODS / 3);
     }
     virtual ~HealthCentre() { }
     virtual void update();
@@ -86,4 +91,3 @@ public:
 };
 
 /** @file lincity/modules/health_centre.h */
-

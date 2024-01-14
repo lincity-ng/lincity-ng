@@ -36,16 +36,17 @@ void Windmill::update()
     if ((commodityCount[STUFF_JOBS] >= jobs_used)
      && (kwh_made >= WINDMILL_KWH))
     {
-        commodityCount[STUFF_JOBS] -= jobs_used;
-        commodityCount[STUFF_KWH] += kwh_made;
+        consumeStuff(STUFF_JOBS, jobs_used);
+        produceStuff(STUFF_KWH, kwh_made);
         animate_enable = true;
         working_days += kwh_made;
     }
     else
     {   animate_enable = false;}
     //monthly update
-    if (total_time % 100 == 0)
+    if (total_time % 100 == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -65,7 +66,7 @@ void Windmill::report()
     mps_store_sfp(i++, N_("busy"), float(busy) / kwh_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), kwh_output);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 

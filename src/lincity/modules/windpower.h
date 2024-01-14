@@ -32,7 +32,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
         commodityRuleCount[STUFF_JOBS].take = true;
@@ -61,10 +62,23 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        this->mwh_output = (int)(WIND_POWER_MWH + (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output");
+        // this->mwh_output = (int)(WIND_POWER_MWH + (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->mwh_output, "mwh_output"); // compatibility
         initialize_commodities();
+
+        commodityMaxCons[STUFF_JOBS] = 100 * WIND_POWER_JOBS;
+        // commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
     }
+
+    virtual void initialize() override {
+        RegisteredConstruction::initialize();
+
+        this->mwh_output = (int)(WIND_POWER_MWH +
+          (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
+
+        commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
+    }
+
     virtual ~Windpower() { }
     virtual void update() override;
     virtual void report() override;

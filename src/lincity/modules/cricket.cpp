@@ -34,15 +34,15 @@ void Cricket::update()
     &&  commodityCount[STUFF_GOODS] >= CRICKET_GOODS
     &&  commodityCount[STUFF_WASTE] + (CRICKET_GOODS / 3) <= MAX_WASTE_AT_CRICKET)
     {
-        commodityCount[STUFF_JOBS] -= CRICKET_JOBS;
-        commodityCount[STUFF_GOODS] -= CRICKET_GOODS;
-        commodityCount[STUFF_WASTE] += (CRICKET_GOODS / 3);
+        consumeStuff(STUFF_JOBS, CRICKET_JOBS);
+        consumeStuff(STUFF_GOODS, CRICKET_GOODS);
+        produceStuff(STUFF_WASTE, CRICKET_GOODS / 3);
         ++covercount;
         ++working_days;
     }
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -90,7 +90,7 @@ void Cricket::report()
 
     mps_store_sd(i++,constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
-    i++;
+    // i++;
     list_commodities(&i);
     p = active?N_("Yes"):N_("No");
     mps_store_ss(i++, N_("Public sports"), p);

@@ -45,7 +45,8 @@ public:
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
+        cost, tech, range, 2/*mps_pages*/
     ) {
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_SHANTY;
         commodityRuleCount[STUFF_FOOD].take = true;
@@ -87,6 +88,17 @@ public:
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
+
+        commodityMaxProd[STUFF_WASTE] = 100 *
+          (SHANTY_PUT_WASTE * 2 + SHANTY_GET_GOODS / 3);
+        commodityMaxCons[STUFF_FOOD] = 100 * SHANTY_GET_FOOD;
+        commodityMaxCons[STUFF_JOBS] = 100 * SHANTY_GET_JOBS;
+        commodityMaxCons[STUFF_GOODS] = 100 * SHANTY_GET_GOODS;
+        commodityMaxCons[STUFF_COAL] = 100 * SHANTY_GET_COAL;
+        commodityMaxCons[STUFF_ORE] = 100 * SHANTY_GET_ORE;
+        commodityMaxCons[STUFF_STEEL] = 100 * SHANTY_GET_STEEL;
+        commodityMaxCons[STUFF_WASTE] = 100 *
+          (MAX_WASTE_AT_SHANTY /*+ SHANTY_PUT_WASTE*2 + SHANTY_GET_GOODS/3*/);
     }
     virtual ~Shanty() { }
     virtual void update();
@@ -98,4 +110,3 @@ public:
 
 
 /** @file lincity/modules/shanty.h */
-

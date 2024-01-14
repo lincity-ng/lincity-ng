@@ -125,37 +125,38 @@ void update_shanty(void)
 void Shanty::update()
 {
     //steal stuff and make waste
-    commodityCount[STUFF_WASTE] += SHANTY_PUT_WASTE;
+    produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
     if (commodityCount[STUFF_FOOD] >= SHANTY_GET_FOOD)
-    {   commodityCount[STUFF_FOOD] -= SHANTY_GET_FOOD;}
+    {   consumeStuff(STUFF_FOOD, SHANTY_GET_FOOD);}
     if (commodityCount[STUFF_JOBS] >= SHANTY_GET_JOBS)
     {
-        commodityCount[STUFF_JOBS] -= SHANTY_GET_JOBS;
+        consumeStuff(STUFF_JOBS, SHANTY_GET_JOBS);
         if ((income_tax -= SHANTY_GET_JOBS * 2) < 0)
         {   income_tax = 0;}
     }
     if (commodityCount[STUFF_GOODS] >= SHANTY_GET_GOODS)
     {
-        commodityCount[STUFF_GOODS] -= SHANTY_GET_GOODS;
-        commodityCount[STUFF_WASTE] += SHANTY_GET_GOODS / 3;
+        consumeStuff(STUFF_GOODS, SHANTY_GET_GOODS);
+        produceStuff(STUFF_WASTE, SHANTY_GET_GOODS / 3);
         if ((goods_tax -= SHANTY_GET_GOODS * 2) < 0)
         {   goods_tax = 0;}
     }
     if (commodityCount[STUFF_COAL] >= SHANTY_GET_COAL)
     {
-        commodityCount[STUFF_COAL] -= SHANTY_GET_COAL;
+        consumeStuff(STUFF_COAL, SHANTY_GET_COAL);
         if ((coal_tax -= SHANTY_GET_COAL * 2) < 0)
         {   coal_tax = 0;}
     }
     if (commodityCount[STUFF_ORE] >= SHANTY_GET_ORE)
-    {   commodityCount[STUFF_ORE] -= SHANTY_GET_ORE;}
+    {   consumeStuff(STUFF_ORE, SHANTY_GET_ORE);}
     if (commodityCount[STUFF_STEEL] >= SHANTY_GET_STEEL)
-    {   commodityCount[STUFF_STEEL] -= SHANTY_GET_STEEL;}
-    if ((commodityCount[STUFF_WASTE]+= SHANTY_PUT_WASTE) >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
+    {   consumeStuff(STUFF_STEEL, SHANTY_GET_STEEL);}
+    produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
+    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
     {
         anim = real_time + 3 * WASTE_BURN_TIME;
         world(x+1,y+1)->pollution += commodityCount[STUFF_WASTE];
-        commodityCount[STUFF_WASTE] = 0;
+        levelStuff(STUFF_WASTE, 0);
         if(!world(x+1,y+1)->construction)
         {
             Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
@@ -173,6 +174,10 @@ void Shanty::update()
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
     }
+
+    if(total_time % 100 == 99) {
+        reset_prod_counters();
+    }
 }
 
 void Shanty::report()
@@ -180,9 +185,8 @@ void Shanty::report()
     int i = 0;
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 
 /** @file lincity/modules/shanty.cpp */
-

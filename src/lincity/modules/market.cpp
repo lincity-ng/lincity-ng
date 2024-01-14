@@ -100,14 +100,22 @@ void Market::update()
 
     if (commodityCount[STUFF_JOBS] >= jobs)
     {
-        commodityCount[STUFF_JOBS] -= jobs;
+        consumeStuff(STUFF_JOBS, jobs);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
         income_tax += jobs;
         ++working_days;
     }
+
+    if(total_time % 50)
+    if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
+        start_burning_waste = true;
+        world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
+        consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
+    }
+
     //monthly update
-    if (total_time % 100 == 0)
-    {
+    if (total_time % 100 == 99) {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
@@ -136,13 +144,6 @@ void Market::update()
         {
             jobs = JOBS_MARKET_FULL;
         }
-    }
-
-    if(total_time % 50)
-    if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
-        start_burning_waste = true;
-        world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
-        commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
     }
 
     if(refresh_cover)

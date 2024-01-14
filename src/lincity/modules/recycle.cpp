@@ -35,28 +35,29 @@ void Recycle::update()
         && commodityCount[STUFF_KWH] >= KWH_RECYCLE_WASTE
         && commodityCount[STUFF_JOBS] >= RECYCLE_JOBS)
     {
-        commodityCount[STUFF_JOBS] -= RECYCLE_JOBS;
-        commodityCount[STUFF_KWH] -= KWH_RECYCLE_WASTE;
-        commodityCount[STUFF_WASTE] -= WASTE_RECYCLED;
+        consumeStuff(STUFF_JOBS, RECYCLE_JOBS);
+        consumeStuff(STUFF_KWH, KWH_RECYCLE_WASTE);
+        consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
         working_days++;
         // rather loose ore / steel than stop recycling the waste
-        commodityCount[STUFF_ORE] += make_ore;
-        commodityCount[STUFF_STEEL] += make_steel;
+        produceStuff(STUFF_ORE, make_ore);
+        produceStuff(STUFF_STEEL, make_steel);
         if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
-        {   commodityCount[STUFF_ORE]=MAX_ORE_AT_RECYCLE;}
+        {   levelStuff(STUFF_ORE, MAX_ORE_AT_RECYCLE);}
         if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
-        {   commodityCount[STUFF_STEEL]=MAX_STEEL_AT_RECYCLE;}
+        {   levelStuff(STUFF_STEEL, MAX_STEEL_AT_RECYCLE);}
 
     }
     // monthly update
-    if (total_time % 100 == 0)
+    if (total_time % 100 == 99)
     {
+        reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
     // if we've still >90% waste in stock, burn some waste cleanly.
     if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
-    {   commodityCount[STUFF_WASTE] -= BURN_WASTE_AT_RECYCLE;}
+    {   consumeStuff(STUFF_WASTE, BURN_WASTE_AT_RECYCLE);}
 }
 
 void Recycle::report()
@@ -69,9 +70,8 @@ void Recycle::report()
     mps_store_sfp(i++, N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);
     mps_store_sfp(i++, N_("Efficiency Steel"),(float) make_steel * 100 / WASTE_RECYCLED);
     mps_store_sfp(i++, N_("busy"), busy);
-    i++;
+    // i++;
     list_commodities(&i);
 }
 
 /** @file lincity/modules/recycle.cpp */
-
