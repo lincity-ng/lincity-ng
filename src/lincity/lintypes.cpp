@@ -1160,12 +1160,9 @@ void Construction::trade()
         if(!center_rule.maxload) continue;
         center_lvl = commodityCount[stuff_ID];
         center_cap = center_rule.maxload;
-        if(flags & FLAG_EVACUATE)
-        {
-            if(center_lvl > 0)
-            {   center_lvl = center_cap;}
-            else
-            {   continue;} // next commodity
+        if(flags & FLAG_EVACUATE) {
+            if(!center_lvl) continue;
+            center_cap = 0;
         }
         //first order approximation for ratio
         // ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
@@ -1179,22 +1176,23 @@ void Construction::trade()
                 lvls[i] = false;
                 continue;
             }
-            else if(pear->flags & FLAG_EVACUATE) {
-                lvls[i] = true;
-                continue;
-            }
             lvls[i] = true;
             int lvlsi = pear->commodityCount[stuff_ID];
             int capsi = pearrule.maxload;
             // int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
             //only consider stuff that would tentatively move
-            if(!(((long)lvlsi * center_cap > (long)center_lvl * capsi) ?
+            if(pear->flags & FLAG_EVACUATE) {
+                lvls[i] = true;
+                capsi = 0;
+            }
+            else if(!(((long)lvlsi * center_cap > (long)center_lvl * capsi) ?
               (center_rule.take && pearrule.give) :
               (center_rule.give && pearrule.take)))
             {   continue;}
             lvl += lvlsi;
             cap += capsi;
         }
+        if(!cap) continue; // cannot evacuate
         ratio = lvl * TRANSPORT_QUANTA / cap;
         max_traffic = 0;
         int old_center = center_lvl;
@@ -1209,7 +1207,7 @@ void Construction::trade()
             }
         }
         int flow = center_lvl - old_center;
-        max_traffic = max_traffic * TRANSPORT_QUANTA / center_cap;
+        max_traffic = max_traffic * TRANSPORT_QUANTA / center_rule.maxload;
         //do some smoothing to suppress fluctuations from random order
         // max possible 92.8%
         if(transport) //Special for transport
@@ -1289,8 +1287,10 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
         {
             if(-flow * TRANSPORT_RATE > rem_cap)
             {   flow = - rem_cap / TRANSPORT_RATE;}
-            if(-flow > (rem_cap-*rem_lvl))
-            {   flow = -(rem_cap-*rem_lvl);}
+            if(-flow > (rem_cap-*rem_lvl)) {
+                flow = -(rem_cap-*rem_lvl);
+                if(flow > 0) flow = 0; // the other construction is evacuating
+            }
         }
         //std::cout.flush();
         if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
