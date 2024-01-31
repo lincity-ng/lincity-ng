@@ -33,7 +33,10 @@ find_package(PhysFS REQUIRED)
 
 find_package(LibXslt REQUIRED)
 
-git_describe_working_tree(GIT_TAG_VERSION)
+git_describe_working_tree(GIT_TAG_VERSION --match v*)
+if(NOT GIT_TAG_VERSION)
+	set(GIT_TAG_VERSION ${PROJECT_VERSION}-unknown)
+endif()
 
 check_include_files(dirent.h HAVE_DIRENT_H)
 
