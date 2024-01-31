@@ -10,14 +10,15 @@ project(lincity-ng
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/mk/cmake/modules)
+
 include(CheckIncludeFiles)
 include(GNUInstallDirs)
+include(GetGitRevisionDescription)
 
 set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/mk/cmake/modules)
 
 find_package(Threads)
 find_package(ZLIB REQUIRED)
@@ -31,6 +32,8 @@ find_package(LibXml2 REQUIRED)
 find_package(PhysFS REQUIRED)
 
 find_package(LibXslt REQUIRED)
+
+git_describe_working_tree(GIT_TAG_VERSION)
 
 check_include_files(dirent.h HAVE_DIRENT_H)
 
