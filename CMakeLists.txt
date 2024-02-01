@@ -10,7 +10,10 @@ project(lincity-ng
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/mk/cmake/modules)
+list(APPEND CMAKE_MODULE_PATH
+	${CMAKE_SOURCE_DIR}/mk/cmake/modules
+	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
+)
 
 include(CheckIncludeFiles)
 include(GNUInstallDirs)
@@ -20,17 +23,16 @@ set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 find_package(Threads)
 find_package(ZLIB REQUIRED)
-
-find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2 REQUIRED)
 find_package(SDL2_gfx REQUIRED)
-find_package(SDL2_image CONFIG REQUIRED)
-find_package(SDL2_mixer CONFIG REQUIRED)
-find_package(SDL2_ttf CONFIG REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 find_package(LibXml2 REQUIRED)
-find_package(PhysFS REQUIRED)
-
+find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
 find_package(LibXslt REQUIRED)
 
 git_describe_working_tree(GIT_TAG_VERSION --match lincity-ng-*)
