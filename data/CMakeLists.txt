@@ -22,7 +22,8 @@ foreach(dataFile ${allDataFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "copying ${dataFile} to build directory"
   )
-  install(FILES ${dataFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${dataFile})
+  cmake_path(GET dataFile PARENT_PATH dataFileDst)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${dataFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${dataFileDst})
 endforeach()
 add_custom_target(allDataFiles.target DEPENDS ${allDataFiles})
 add_dependencies(lincity-ng allDataFiles.target)
@@ -91,7 +92,8 @@ foreach(infoFile ${infoFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "copying ${infoFile} to build directory"
   )
-  install(FILES ${infoFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${infoFile})
+  cmake_path(GET infoFile PARENT_PATH infoFileDst)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${infoFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${infoFileDst})
 endforeach()
 add_custom_target(infoFiles.target DEPENDS ${infoFiles})
 add_dependencies(lincity-ng infoFiles.target)

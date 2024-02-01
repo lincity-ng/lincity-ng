@@ -1,4 +1,4 @@
-# Adapted from https://github.com/aminosbh/sdl2-cmake-modules/blob/ad006a3daae65a612ed87415037e32188b81071e/FindSDL2_gfx.cmake
+# Adapted from https://github.com/aminosbh/sdl2-cmake-modules
 
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
