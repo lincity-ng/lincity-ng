@@ -12,6 +12,7 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   colour.pal
   lincityconfig.xml
   lincity-ng.desktop
+  lincity-ng.png
 )
 
 foreach(dataFile ${allDataFiles})
@@ -27,14 +28,20 @@ foreach(dataFile ${allDataFiles})
 endforeach()
 add_custom_target(allDataFiles.target DEPENDS ${allDataFiles})
 add_dependencies(lincity-ng allDataFiles.target)
-install(CODE "
-  message(STATUS \"installing desktop file: ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop\")
-  file(MAKE_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/applications/)
-  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_FULL_APPDATADIR}/lincity-ng.desktop
-    ${CMAKE_INSTALL_FULL_DATADIR}/applications/lincity-ng.desktop
-  )
-")
+
+# install the desktop file and icon
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lincity-ng.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lincity-ng.png DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps)
+# install desktop file as a sym-link
+# install(CODE "
+#   if(\${CMAKE_INSTALL_PREFIX} EQUAL ${CMAKE_INSTALL_PREFIX})
+#   message(STATUS \"installing desktop file: \${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/applications/lincity-ng.desktop\\nLinks to: ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_APPDATADIR}/lincity-ng.desktop\")
+#   file(MAKE_DIRECTORY \${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/applications/)
+#   execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+#     ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_APPDATADIR}/lincity-ng.desktop
+#     \${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/applications/lincity-ng.desktop
+#   )
+# ")
 
 
 file(GLOB_RECURSE TRANSLATABLE_SOURCES CONFIGURE_DEPENDS
