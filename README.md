@@ -3,6 +3,7 @@
 https://github.com/lincity-ng/lincity-ng
 
 ## Introduction
+
 LinCity-NG is a city simulation game. It is a polished and improved
 version of the classic LinCity game. In the game, you are required
 to build and maintain a city. You can win the game either by
@@ -11,23 +12,7 @@ spaceships.
 
 ## Building and Installation
 
-These are generic instructions, please see the wiki for more specific instructions
-
-### Prerequisites
-
-To build the game, you will need a C++ compiler (such as gcc) and CMake.
-
-The game depends on some libraries to be present before you can build/run it.
-
-If you use `vcpkg` (see the [Building](#building) section) dependencies are
-automatically downloaded for you.
-
-If you use packages from your distribution, pay attention that you need the
-header files in addition to the libraries in order to build from source. They
-are often in separate `*-dev` packages. E.g. for `physfs` you need `libphysfs`
-and `libphysfs-dev`.
-
-#### Run Dependencies
+### Run Dependencies
 
 * SDL2 2.0.0 or later
 
@@ -61,7 +46,20 @@ and `libphysfs-dev`.
 
   http://xmlsoft.org/
 
-#### Build Dependencies
+On Ubuntu, install all these by running
+```
+apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixer-2.0-0 libsdl2-ttf-2.0-0 libphysfs1 zlib1g libxml++2.6-2v5
+```
+
+### Build Dependencies
+
+* A C++ compiler (such as gcc)
+
+  https://gcc.gnu.org/
+
+* CMake
+
+  https://cmake.org/
 
 * LibXslt (with xsltproc)
 
@@ -71,49 +69,45 @@ and `libphysfs-dev`.
 
   https://www.gnu.org/software/gettext/
 
+* Header files for all [run dependencies](#run-dependencies)
+
+  If you use packages from your distribution, header files are often in separate
+  `*-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
+
+On Ubuntu, install all build dependencies by running
+```
+apt-get install build-essential cmake libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libphysfs-dev zlib1g-dev libxml++2.6-dev libxslt1.1 libxslt1-dev xsltproc gettext
+```
+
 ### Building
 
-To configure the build:
+To clone, configure, build, and install:
 ```
-$ cmake -B build
-```
-To use vcpkg to automatically manage dependencies, add
-`-DCMAKE_TOOLCHAIN_FILE=<path to vcpkg>/scripts/buildsystems/vcpkg.cmake`
-to the configure command, where `<path to vcpkg>` is the path to your vcpkg
-installation.
-
-To specify a different install prefix, add `--install-prefix <prefix>` to the
-configure command.
-
-To build the game:
-```
-$ cmake --build build --parallel
+git clone https://github.com/lincity-ng/lincity-ng.git
+cd lincity-ng
+cmake -B build
+cmake --build build --parallel
+sudo cmake --install build  # optional
 ```
 
-To install the game:
+To create a package (currently tar.gz and zip):
 ```
-# cmake --install build
-```
-(Installing likely requires super-user privileges.)
-
-To create a package (currently tar.gz and zip are generated):
-```
-$ cmake -B build -DCMAKE_BUILD_TYPE=Release
-$ cmake --build build --parallel --target package
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel --target package
 ```
 
 Run `cmake --help` to see all the available options.
 
 ### Running
 
-To run the game without installing:
+To run the game from the source directory without installing:
 ```
-$ build/bin/lincity-ng
+build/bin/lincity-ng
 ```
 
 When the game is installed, you may run it with:
 ```
-$ lincity-ng
+lincity-ng
 ```
 
 From the main menu, you can quit the program by pressing ESC or ^C. This can be
