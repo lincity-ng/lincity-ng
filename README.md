@@ -12,12 +12,6 @@ spaceships.
 
 ## Building and Installation
 
-I put a lot of effort into making the build process work for everyone. However,
-sometimes building, installing, or running can still fail. If this happens to
-you, please please please
-[open an issue on GitHub](https://github.com/lincity-ng/lincity-ng/issues). I
-promise you are not bothering me; if you find an issue, I want to know about it.
-
 ### Run Dependencies
 
 * SDL2 2.0.0 or later
@@ -204,7 +198,7 @@ motion:
 
 ## Contact
 
-GitHub: https://github.com/lincity-ng/lincity-ng
-
 Please report bugs and suggest features to
-https://github.com/lincity-ng/lincity-ng/issues.
+    https://github.com/lincity-ng/lincity-ng/issues.
+
+Visit our homepage: https://github.com/lincity-ng/lincity-ng.
