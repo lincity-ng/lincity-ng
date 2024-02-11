@@ -53,11 +53,11 @@ apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixe
 
 ### Build Dependencies
 
-* A C++ compiler (such as gcc)
+* A C++ compiler supporting C++11 (such as gcc)
 
   https://gcc.gnu.org/
 
-* CMake
+* CMake 3.21 or later
 
   https://cmake.org/
 
