@@ -66,7 +66,7 @@ Gradient::parse(XmlReader& reader)
                 std::stringstream msg;
                 msg << "Invalid gradient direction '" << value << "'.";
                 throw std::runtime_error(msg.str());
-            }   
+            }
         } else {
             std::cerr << "Skipping unknown attribute '"
                       << attribute << "'.\n";
@@ -79,14 +79,8 @@ Gradient::parse(XmlReader& reader)
 void
 Gradient::resize(float width, float height)
 {
-    float w;
-    if(direction == LEFT_RIGHT)
-        w = width;
-    else if(direction == TOP_BOTTOM)
-        w = height;
-    else
-        assert(false);
-    
+    assert(direction == LEFT_RIGHT || direction == TOP_BOTTOM);
+    float w = direction == LEFT_RIGHT ? width : height;
     float dr = ((float) to.r - (float) from.r) / w;
     float dg = ((float) to.g - (float) from.g) / w;
     float db = ((float) to.b - (float) from.b) / w;
@@ -156,7 +150,7 @@ Gradient::draw_horizontal_line(SDL_Surface* surface, int x1, int y1, int x2,
         | (uint32_t) g << surface->format->Gshift
         | (uint32_t) b << surface->format->Bshift
         | (uint32_t) a << surface->format->Ashift;
-    
+
     uint8_t* pix = (uint8_t*) surface->pixels + (y1*surface->pitch) + x1*4;
     for(int x = x1; x < x2; ++x) {
         uint32_t* p = (uint32_t*) pix;
@@ -174,7 +168,7 @@ Gradient::draw_vertical_line(SDL_Surface* surface, int x1, int y1, int y2,
         | (uint32_t) b << surface->format->Bshift
         | (uint32_t) a << surface->format->Ashift;
     int pitch = surface->pitch;
-    
+
     uint8_t* pix = (uint8_t*) surface->pixels + (y1*pitch) + x1*4;
     for(int y = y1; y < y2; ++y) {
         uint32_t* p = (uint32_t*) pix;
@@ -186,4 +180,3 @@ Gradient::draw_vertical_line(SDL_Surface* surface, int x1, int y1, int y2,
 IMPLEMENT_COMPONENT_FACTORY(Gradient)
 
 /** @file gui/Gradient.cpp */
-

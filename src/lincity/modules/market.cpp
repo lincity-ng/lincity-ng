@@ -72,7 +72,7 @@ void Market::update()
                 int lvlsi = pear->commodityCount[stuff_ID];
                 int capsi = pearrule.maxload;
                 if(pear->flags & FLAG_EVACUATE)
-                {   lvlsi = lvlsi?capsi:-1;}
+                {   capsi = 0;}
                 else
                 {
                     int pearat = lvlsi * TRANSPORT_QUANTA / capsi;

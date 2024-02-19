@@ -115,7 +115,7 @@ void Commune::animate() {
     frame += (frame >= 6 ? -5 : 0) + (steel_made ? 5 : 0);
     steel_made = false;
 
-    if(frame >= frameIt->resourceGroup->graphicsInfoVector.size())
+    if(frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
       // this should never happen
       frame = 1;
   }
