@@ -182,7 +182,6 @@ public:
         init_resources();
         this->local_population = 0;
         setMemberSaved(&(this->local_population),"local_population");
-        this->job_swingometer = 0;
         this->desireability = 0;
         this->births = 120000;
         this->deaths = 120000;
@@ -229,7 +228,6 @@ public:
 
     int local_population;
     int max_population;
-    int job_swingometer;
     int desireability;
     int births, deaths, pol_deaths;
 };

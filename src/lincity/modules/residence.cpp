@@ -192,10 +192,6 @@ void Residence::update()
     if (jobs_cap - commodityCount[STUFF_JOBS] >= job_prod) {
         produceStuff(STUFF_JOBS, job_prod);
         flags |= FLAG_EMPLOYED; //enable births
-        if (job_swingometer < -300)
-        {   job_swingometer = -300;}
-        if (++job_swingometer > 10)
-        {   job_swingometer = 10;}
         good += 20;
         if ((commodityCount[STUFF_GOODS] >= local_population/4)
         &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
@@ -221,11 +217,9 @@ void Residence::update()
             {   bad += 5;}
         }
     }
-    else //if (job_swingometer < 10)
+    else
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
-        if ((job_swingometer -= 11) < -300)
-        {   job_swingometer = -300;}
         unemployed_population += local_population;
         total_unemployed_days += local_population;
         if (total_unemployed_days >= NUMOF_DAYS_IN_YEAR)
@@ -237,11 +231,6 @@ void Residence::update()
         unemployment_cost += local_population; /* nobody went to work*/
         bad += 70;
     }
-    // else
-    // {
-    //     job_swingometer -= 20;
-    //     bad += 50;
-    // }
 
     switch (constructionGroup->group)
     {
