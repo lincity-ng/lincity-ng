@@ -4,28 +4,28 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 
 project(lincity-ng
-	VERSION 2.9.0.0
+	VERSION 2.9.0
 	LANGUAGES CXX
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 
+list(APPEND CMAKE_MODULE_PATH
+	${CMAKE_SOURCE_DIR}/mk/cmake/modules
+	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
+)
+
 include(CheckIncludeFiles)
 include(GNUInstallDirs)
+include(GetGitRevisionDescription)
 
 set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
-list(APPEND CMAKE_MODULE_PATH
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
-)
-
 find_package(Threads)
 find_package(ZLIB REQUIRED)
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_gfx REQUIRED)
 find_package(SDL2_image REQUIRED)
@@ -33,8 +33,14 @@ find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
-
 find_package(LibXslt REQUIRED)
+
+git_describe_working_tree(GIT_TAG_VERSION --match lincity-ng-*)
+if(GIT_TAG_VERSION)
+	string(SUBSTRING ${GIT_TAG_VERSION} 11 -1 GIT_TAG_VERSION)
+else()
+	set(GIT_TAG_VERSION ${PROJECT_VERSION}-unknown)
+endif()
 
 check_include_files(dirent.h HAVE_DIRENT_H)
 
