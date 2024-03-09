@@ -89,7 +89,6 @@ set(infoFiles
   COPYING-fonts.txt
   README.md
   RELNOTES
-  TODO
 )
 foreach(infoFile ${infoFiles})
   add_custom_command(
