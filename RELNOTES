@@ -1,4 +1,103 @@
-*** LincityNG 2.9.0 *** [] 2023-12-18
+*** LincityNG 2.10.0 *** 2024-03-08
+
+Updates to Gameplay since 2.9.0:
+* The amount of swing jobs created by health cover has been corrected. You may
+  find that you need fewer residences and/or more jobs demand in your economy.
+* Jobs production at residences scales down as inventory increases. This should
+  make employment feel more stable and make it easier to strike a balance in
+  employment. The amount of the production decrease is dependent on "swing"
+  jobs, so sports cover and health cover increase the effect. The previous
+  method using a "swingometer" has been abandoned.
+* Evacuation logic is modified slightly to avoid a construction getting negative
+  inventory.
+* Added water to the market trade dialog.
+
+Bug fixes since 2.9.0:
+* Fixed jumpy and laggy scrolling near the map edge.
+* Fixed a bug where the shift key (used to increase scroll speed) was
+  "forgotten" when hitting the map edge.
+* Fixed a bug where moving the cursor outside the game window may cause the map
+  to scroll.
+* Fixed a buffer overflow when the home directory path name is very long.
+* Fixed a bug where health cover did not create the correct amount of swing
+  jobs.
+* Fixed a bug where evacuation could cause a construction to have negative
+  inventory.
+* Fixed a bug in load/save where parks could erroneously get very high
+  inventory.
+* Fixed the speed and direction of scrolling with the scroll wheel in help
+  pages.
+* Fixed a bug where building the project could overwrite changes to GUI dialogs.
+
+Updates to controls since 2.9.0:
+* Panning (i.e. scrolling by dragging) is done with the middle mouse button
+  instead of the right button.
+* Panning (i.e. scrolling by dragging) makes the map move in the expected
+  direction.
+* Added map scrolling with WASD.
+* Zooming is done relative to the cursor position instead of the center of the
+  screen. This makes map navigation much more natural. And it plays nice with
+  hitting the map edge (which is more complex then you may first expect).
+* Scrolling speed is normalized for direction and zoom level. (So scrolling
+  diagonally while zoomed in no longer feels like mach 3.)
+* Right click shows information about construction or tile.
+* G key toggles the right-click function, i.e. construction info or tile info.
+
+Updates to presentation since 2.9.0:
+* Improved simulation performance. (Fast speed is now blazing fast.)
+* Decoupled the speeds of simulation, animation, screen redrawing, and GUI so
+  animation and frame rate is no longer dependent on simulation speed. This
+  makes the UI much smoother at slow simulation speed.
+* Added a page to the MPS display for most constructions that shows monthly
+  production/consumption of commodities (both as absolute and percentage).
+* Tweaked the total inventory MPS page so that the red/green bars are faster to
+  reflect changes in production.
+* The minimap position is constrained to avoid showing space outside the map.
+* Panning (i.e. scrolling by dragging) changes the cursor appearance
+  appropriately.
+* Created a (much prettier IMO) black background for the map.
+
+Invisible updates since 2.9.0:
+* Changed the location of save games from ~/.lincity-ng to
+  ~/.local/share/lincity-ng. For now, existing save games from the old location
+  are still loaded, but subsequent saves go to the new location.
+* Replaced the outdated autoconf and Jam build tools with CMake. (Be sure to
+  follow the updated instructions for building the project.)
+* Use GNU directory structure for installed files.
+* Use CPack for creating release packages.
+* Use Docker to help create compatible binaries for Ubuntu. (Now we can release
+  binary packages.)
+* Install an icon and a desktop file to proper locations for Linux systems.
+* Added a hook in the build system to append the current git hash to the version
+  number when not on a release version. This should help reduce ambiguity in bug
+  reports.
+* Upgraded the MPS display API so constructions can have any number of pages.
+* Removed uses of deprecated PhysFS features.
+* Cleaned up the logic for binary relocation (and probably fixed a few things).
+* Fixed errors and warnings when compiling with C++20.
+* Fixed warnings when compiling with -Wall option.
+* Added a construction initialization stage to loading and building
+  constructions.
+* Tidied up the source tree and deleted dead code.
+
+Updates to documentation and translation since 2.9.0:
+* Converted the readme to GitHub Markdown.
+* Expanded the dependency list in the readme to include build dependencies.
+* Include commands for installing dependencies on Ubuntu in the readme.
+* Removed dead links in the readme.
+* Added gd translation for desktop file.
+* Generates translation files during build.
+* Updated the list of editors in translation instructions.
+* Updated formatting in COPYING file.
+
+Regressions / known bugs since 2.9.0:
+* Untested on Windows and Mac.
+* Infrastructure for building for Mac may be missing since updating the build
+  tool.
+* Ports are OP.
+* Does not autodetect screen size on startup in fullscreen.
+
+*** LincityNG 2.9.0 *** [git: ff3e337] 2023-12-18
 
 * New sprites
 * Overlay sprites
