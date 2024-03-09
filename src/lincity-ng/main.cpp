@@ -68,12 +68,12 @@ const char *appdatadir;
 /**
  * Computes the path of the root of `subtrahend` relative to the root of
  * `minuend` assuming `subtrahend` and `minuend` refer to the same location.
- * 
+ *
  * That is, `<root><minuend>` and `<root><result>/<subtrahend>` will refer
  * to the same location. The result will be absolute iff minuend is absolute.
  *
  * The result string is owned by the caller and should be freed with `free()`.
- * 
+ *
  * Examples:
  *  path_subtract("/a/b/c/d", "c/d") --> "/a/b"
  *  path_subtract("/a/b/c/d", "/a/b/c/d") --> "/"
@@ -91,7 +91,7 @@ const char *appdatadir;
 static char *path_subtract(const char *minuend, const char *subtrahend) {
   const char * const dirsep = PHYSFS_getDirSeparator();
   const size_t dirseplen = strlen(dirsep);
-  
+
   const char *path[2] = {minuend, subtrahend};
   const char *elb[2];
   const char *ele[2];
@@ -100,7 +100,7 @@ static char *path_subtract(const char *minuend, const char *subtrahend) {
   for(int i = 0; i < 2; i++)
     elb[i] = path[i] + strlen(path[i]) + dirseplen;
   int skip[2] = {0, 0};
-  
+
   while(true) {
     for(int i = 0; i < 2; i++) {
       while(true) {
@@ -121,7 +121,7 @@ static char *path_subtract(const char *minuend, const char *subtrahend) {
           }
           elb[i]--;
         }
-        
+
         eln[i] = ele[i] - elb[i];
         if(!strncmp(elb[i], "", eln[i]) || !strncmp(elb[i], ".", eln[i]))
           ;
@@ -133,7 +133,7 @@ static char *path_subtract(const char *minuend, const char *subtrahend) {
           break;
       }
     }
-    
+
     if(finished[1]) {
       if(skip[1])
         return NULL;
@@ -171,7 +171,7 @@ void initPhysfs(const char* argv0)
             << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
-    
+
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
     const char* writedir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
@@ -182,7 +182,7 @@ void initPhysfs(const char* argv0)
       msg << "Failed to get configuration directory '";
       throw std::runtime_error(msg.str());
     }
-    
+
     // enable writing to configuration directory
     if(!PHYSFS_setWriteDir(writedir)) {
         std::ostringstream msg;
@@ -190,7 +190,7 @@ void initPhysfs(const char* argv0)
             << writedir << "': " << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
-    
+
     // mount configuration directory
     if(!PHYSFS_mount(writedir, nullptr, 0)) {
         std::ostringstream msg;
@@ -198,7 +198,7 @@ void initPhysfs(const char* argv0)
             << writedir << "': " << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
-    
+
     // include old configuration directories to avoid data loss
     // TODO: Move old data to new configuration directory.
     const char* userdir = PHYSFS_getUserDir();
@@ -220,8 +220,8 @@ void initPhysfs(const char* argv0)
         "home directory path name too long",
         "cannot load legacy configuration directory: ~/.lincity");
     }
-    
-    
+
+
     // compute install prefix from PHYSFS_getBaseDir()
     const char* dirsep = PHYSFS_getDirSeparator();
     char *installPrefix = NULL;
@@ -231,15 +231,18 @@ void initPhysfs(const char* argv0)
         !installPrefix, 0, "trouble finding install prefix"
       );
     }
-    
-    
+
+
     // mount read-only data directory
     bool foundRodd = false;
     char *appdatadir_calc = NULL;
     if(installPrefix && strncmp(INSTALL_APPDATADIR, dirsep, strlen(dirsep))) {
       HANDLE_ERRNO(
         appdatadir_calc = (char *)malloc(
-          strlen(installPrefix) + strlen(dirsep) + strlen(INSTALL_APPDATADIR)),
+          strlen(installPrefix)
+          + strlen(dirsep)
+          + strlen(INSTALL_APPDATADIR)
+          + 1),
         !appdatadir_calc, 0, "malloc"
       );
       if(appdatadir_calc) {
@@ -251,7 +254,7 @@ void initPhysfs(const char* argv0)
     if(appdatadir) {
       foundRodd = PHYSFS_mount(appdatadir, nullptr, 1);
     }
-    
+
     if(!foundRodd) {
       // use compiled-in install prefix as fallback
       foundRodd = PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
@@ -266,11 +269,11 @@ void initPhysfs(const char* argv0)
           << "': " << getPhysfsLastError();
       throw std::runtime_error(msg.str());
     }
-    
+
     // free(appdatadir);
     free(installPrefix);
-    
-    
+
+
     // Search for archives and add them to the search path
     //TODO: add zips later
     const char* archiveExt = ".zip";
@@ -291,10 +294,10 @@ void initPhysfs(const char* argv0)
         }
     }
     PHYSFS_freeList(rc);
-    
+
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
-    
+
     //show search Path
     for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
     {   printf("[%s] is in the search path.\n", *i);}
@@ -545,7 +548,7 @@ int main(int argc, char** argv)
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
-        
+
         // char *lc_textdomain_directory[1024];
         // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
         //   appdatadir, PHYSFS_getDirSeparator(), "locale") < 1024) {
@@ -558,7 +561,7 @@ int main(int argc, char** argv)
         //     "data directory path name too long",
         //     "cannot set text domain");
         // }
-        
+
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";
