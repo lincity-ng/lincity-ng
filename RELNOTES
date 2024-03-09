@@ -1,4 +1,13 @@
-*** LincityNG 2.10.0 *** 2024-03-08
+*** Lincity NG 2.10.1 *** TBD
+
+Updates since 2.10.0:
+* Fixed an unsafe memory write which could cause the game to crash.
+* Added 'git' to the list of build dependencies.
+* Added a note in the readme to warn users of different build instructions for
+  different versions of LinCity NG.
+
+
+*** Lincity NG 2.10.0 *** [git: f03cbe1] 2024-03-08
 
 Updates to Gameplay since 2.9.0:
 * The amount of swing jobs created by health cover has been corrected. You may
@@ -96,6 +105,7 @@ Regressions / known bugs since 2.9.0:
   tool.
 * Ports are OP.
 * Does not autodetect screen size on startup in fullscreen.
+
 
 *** LincityNG 2.9.0 *** [git: ff3e337] 2023-12-18
 
