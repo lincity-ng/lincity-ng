@@ -12,6 +12,11 @@ spaceships.
 
 ## Building and Installation
 
+**Note:**
+For best results, follow the instructions included in your version of the
+source. That is, consult your local version of README.md. Following instructions
+for a different version than what you are building can cause build failures.
+
 ### Run Dependencies
 
 * SDL2 2.0.0 or later
