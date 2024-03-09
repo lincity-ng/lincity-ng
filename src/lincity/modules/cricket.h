@@ -20,8 +20,6 @@
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
 
-#define CRICKET_JOB_SWING 4
-
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
