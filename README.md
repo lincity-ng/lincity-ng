@@ -12,6 +12,11 @@ spaceships.
 
 ## Building and Installation
 
+**Note:**
+For best results, follow the instructions included in your version of the
+source. That is, consult your local version of README.md. Following instructions
+for a different version than what you are building can cause build failures.
+
 ### Run Dependencies
 
 * SDL2 2.0.0 or later
@@ -57,6 +62,10 @@ apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixe
 
   https://gcc.gnu.org/
 
+* git
+
+  https://git-scm.com/
+
 * CMake 3.21 or later
 
   https://cmake.org/
@@ -76,7 +85,7 @@ apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixe
 
 On Ubuntu, install all build dependencies by running
 ```
-apt-get install build-essential cmake libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libphysfs-dev zlib1g-dev libxml++2.6-dev libxslt1.1 libxslt1-dev xsltproc gettext
+apt-get install build-essential cmake libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libphysfs-dev zlib1g-dev libxml++2.6-dev libxslt1.1 libxslt1-dev xsltproc gettext git
 ```
 
 ### Building
