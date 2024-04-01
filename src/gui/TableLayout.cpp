@@ -250,7 +250,7 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
         if(strcmp(name, "fixed") == 0) {
             props.type = RowColProperties::TYPE_FIXEDSIZE;
             if(sscanf(value, "%f", &props.val) != 1) {
-                std::cerr << "Eror parsing float value '"
+                std::cerr << "Error parsing float value '"
                     << value << "' in fixed attribute.\n";
             }
         } else if(strcmp(name, "relative") == 0) {

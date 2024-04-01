@@ -22,7 +22,7 @@ SubstationConstructionGroup substationConstructionGroup(
      GROUP_SUBSTATION_RANGE
 );
 
-//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+//helper groups for graphics and sound sets, don't add them to ConstructionGroup::groupMap
 SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstructionGroup;
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 

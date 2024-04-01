@@ -478,7 +478,7 @@ void load_city_2(char *cname)
                 }//endif countConstruction
             }// end for y
         }// end for x
-        std::cout<<"Generated and initialzed "<<constuctionCounter<<" modern Constructions"<<std::endl;
+        std::cout<<"Generated and initialized "<<constuctionCounter<<" modern Constructions"<<std::endl;
         //}
 
 

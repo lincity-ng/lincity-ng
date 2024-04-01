@@ -2,7 +2,7 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Substations</p>
-	<p style="hp">Substations take power packets from power lines (MWH) and distribute the power to adjacent transport (kWH). Check the power overlay to see where you need more power. The transformators dont require any jobs to function.</p>
+	<p style="hp">Substations take power packets from power lines (MWH) and distribute the power to adjacent transport (kWH). Check the power overlay to see where you need more power. The transformators don't require any jobs to function.</p>
 
   <p style="hp">This is a substation</p>
    <img src="images/tiles/substation-G.png" halign="center"/>

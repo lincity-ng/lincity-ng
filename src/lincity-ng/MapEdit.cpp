@@ -151,7 +151,7 @@ void editMap (MapPoint point, int button)
 #endif
         return;
     }
-    // show info on any click, but dont do double for query
+    // show info on any click, but don't do double for query
     if ((!world(mod_x,mod_y)->reportingConstruction) || (userOperation->action != UserOperation::ACTION_QUERY))
     {
         mps_set(mod_x, mod_y, MPS_MAP); //fake Query action

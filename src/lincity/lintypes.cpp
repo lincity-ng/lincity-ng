@@ -1105,7 +1105,7 @@ void Construction::neighborize()
             {
                 for(int xx = xs; xx < xe; ++xx)
                 {
-                    //dont search at home
+                    //don't search at home
                     if(((xx == x )  && (yy == y)))
                     {   continue;}
                     if(world(xx,yy)->construction) //be unique
@@ -1483,7 +1483,7 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
     }
     // traffic = flow * TRANSPORT_QUANTA / rem_cap;
     traffic = flow;
-    // incomming and outgoing traffic dont cancel but add up
+    // incomming and outgoing traffic don't cancel but add up
     if (traffic < 0)
     {
         traffic = -traffic;
