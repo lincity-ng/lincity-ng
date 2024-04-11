@@ -152,7 +152,7 @@ void Transport::update()
     {
         consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
         world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
-        burning_waste_anim = true;
+        start_burning_waste = true;
     }
 
     if(total_time % 100 == 99) {
@@ -161,28 +161,18 @@ void Transport::update()
 }
 
 void Transport::animate() {
-  if(burning_waste_anim) {
-    burning_waste_anim = false;
-    anim = real_time + WASTE_BURN_TIME;
-    if(!burning_waste) {
-      burning_waste = true;
-      //Fire sets frameIt manually
-      Construction *fire = fireConstructionGroup.createConstruction(x, y);
-      world(x,y)->construction = fire;
-      //waste burning never spreads
-      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-      ::constructionCount.add_construction(fire);
-    }
+  if(start_burning_waste) { // start fire
+    start_burning_waste = false;
+    anim = real_time + ANIM_THRESHOLD(WASTE_BURN_TIME);
   }
-  else if(burning_waste && real_time >= anim) {
-    burning_waste = false;
-    ::constructionCount.remove_construction(world(x,y)->construction);
-#ifdef DEBUG
-    assert(world(x,y)->construction->neighbors.empty());
-#endif
-    world(x,y)->framesptr->erase(world(x,y)->construction->frameIt);
-    delete world(x,y)->construction;
-    world(x,y)->construction = this;
+  if(real_time >= anim) { // stop fire
+    waste_fire_frit->frame = -1;
+  }
+  else if(real_time >= waste_fire_anim) { // continue fire
+    waste_fire_anim = real_time + ANIM_THRESHOLD(FIRE_ANIMATION_SPEED);
+    int num_frames = waste_fire_frit->resourceGroup->graphicsInfoVector.size();
+    if(++waste_fire_frit->frame >= num_frames)
+      waste_fire_frit->frame = 0;
   }
 }
 
