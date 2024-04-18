@@ -13,6 +13,12 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">59 jobs + 250 ore + 12 steel + (4500 MWh or 9000 kWh) =&gt; 1800 goods</p>
+	<p style="hp">40 jobs + 250 ore + (4500 MWh or 9000 kWh) =&gt; 900 goods</p>
+	<p style="hp">59 jobs + 125 ore + 12 steel =&gt; 450 goods</p>
+	<p style="hp">40 jobs + 125 ore =&gt; 225 goods</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="market">Market</a></li>

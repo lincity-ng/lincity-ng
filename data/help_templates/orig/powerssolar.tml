@@ -9,5 +9,8 @@ If a solar power station has no jobs, it will produce no power.
 IMG_1[This is a Solar power station]: images/tiles/powerssolar.png
 IMG_2[and this its icon]: images/gui/buttonpanel/power/solarpower.png
 
+SUBH: Formulas
+
+50 jobs =&gt; 900 MWh + 9 MWh * tech
 
 ALSO[See also:]: substation, power, powerline, tech-level, msb-power, windmill

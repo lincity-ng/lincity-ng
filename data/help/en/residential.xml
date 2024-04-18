@@ -24,6 +24,15 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">don't starve: (1 food + 1 water =&gt; 0) * pop</p>
+	<p style="hp">power: 30 kWh + 3 kWh * pop =&gt; 0</p>
+	<p style="hp">employment: (0 =&gt; .69 jobs + swing) * pop (with health and sports cover)</p>
+	<p style="hp">swing = .05 * remaining jobs inventory capacity fraction (with health and sports cover)</p>
+	<p style="hp">goods: (.25 goods =&gt; .0833 waste) * pop (only if employed)</p>
+	<p style="hp">extra power: (.5 kWh =&gt; 0) * pop (only if using goods)</p>
+	<p style="hp">extra goods: (.25 goods =&gt; .0833 waste) * pop (only if using extra power)</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>
 	<li><a href="transport">Transport</a></li>

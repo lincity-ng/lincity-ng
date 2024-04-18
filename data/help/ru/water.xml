@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Вода</p>
+	<p style="hp">Вода добывается с помощью скважин и передаётся по трубопроводу, расположенному под Вашей транспортной системой. Жилые дома должны быть обеспечены водой. Коммуны и электрифицированные фермы могут использовать воду для увеличения плодородности почвы при помощи ирригации.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="waterwell">Скважина</a></li>
+	<li><a href="residential">Жилой дом</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="farm">Ферма</a></li>
+</Document>

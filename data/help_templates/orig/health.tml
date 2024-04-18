@@ -19,11 +19,13 @@ range of a market.
 
 To see the range of health cover, click on the health icon
 above the 'mini screen' (bottom right of centre on the display).
-The areas that show up as normal have health cover.
 
 IMG_1[This is a Health Centre]: images/tiles/health.png
 IMG_2[and this its icon]: images/gui/buttonpanel/misc/health.png
 IMG_3[and this its mapview overlay icon]: images/gui/mapview/roundbuttons/round_health.png
 
+SUBH: Formulas
+
+6 jobs + 40 goods =&gt; 13 waste
 
 ALSO[See also:]: residential, pollution, jobs, goods, transport, msb-health

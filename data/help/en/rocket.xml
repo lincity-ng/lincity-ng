@@ -15,6 +15,10 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">construction: 200 jobs + 10000 goods + 240 steel =&gt; 3333 waste + 2 completion steps</p>
+	<p style="hp">The formula is applied as many times as possible per day.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>
 	<li><a href="commodities">Commodities</a></li>

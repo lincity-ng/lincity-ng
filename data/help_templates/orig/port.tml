@@ -5,6 +5,7 @@ Importing costs you money and exporting makes you money.
 
 You choose what to import by double clicking on the
 port. This brings up a menu with boxes to select what to import and what to export.
+If "buy" and "sell" are both checked or both unchecked for a commodity, then that commodity will not be imported or exported.
 
 They must be connected to rivers all along the right hand side.
 
@@ -20,5 +21,15 @@ An active Port provides some technology. Note: Exporters discount large exports.
 IMG_1[This is a port]: images/tiles/ex_port.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/port.png
 
+SUBH: Formulas
+
+export: 50% of inventory =&gt; money
+
+import: money =&gt; 50% of remaining capacity
+
+For import or export to occur, 100 jobs must be consumed.
+
+If there is less than 6.67% inventory of a commodity, then export does not occur.
+If there is more than 93.33% inventory of a commodity, then import does not occur.
 
 ALSO[See also:]: export, river, transport, market, food, coal, ore, goods, steel

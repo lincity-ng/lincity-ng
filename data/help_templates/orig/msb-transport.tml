@@ -3,7 +3,7 @@ Transportation overlay
 IMG_1[]: images/gui/mapview/roundbuttons/round_road.png
 
 The transportation mini screen shows the amount of goods on the
-city's <a href="track">tracks</a>, <a href="road">roads </a>
+city's <a href="track">tracks</a>, <a href="road">roads</a>
 and <a href="rail">railways</a>.
 
 Click the icon to toggle between flows and levels. Use the scroll up and down buttons to run through the various commodities. You may also hit the 'm'/'n' keys, or simply use the mousewheel when hovering over minimap

@@ -2,10 +2,10 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Coal mine</p>
-	<p style="hp">Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button below the mini map.</p>
+	<p style="hp">Coal mines dig <a href="coal">coal</a> from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button below the mini map.</p>
 	<p style="hp">The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.</p>
-	<p style="hp">Coal mines need jobs to mine coal.</p>
-	<p style="hp">If your economy provides coal in excess your coal mines can put the coal in new underground seams</p>
+	<p style="hp">Coal mines need <a href="jobs">jobs</a> to mine coal.</p>
+	<p style="hp">If your economy provides coal in excess your coal mines can put the coal in new underground seams.</p>
 
   <p style="hp">This is a coalmine</p>
    <img src="images/tiles/coalmine-full.png" halign="center"/>
@@ -15,6 +15,12 @@
 	<p style="hp">The graphics show the amount of coal already dug but not put onto transport. The above coal mine has maximum stock.</p>
 	<p style="hp">Clicking on a coal mine will show you, in the mappoint stats window, the coal stock at the pit, and, more importantly, the coal reserve available to be dug.</p>
 	<p style="hp">Coal mines produce <a href="pollution">pollution</a>.</p>
+
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">1: 918 jobs + 1 coal reserve =&gt; 1000 coal</p>
+	<p style="hp">2: 918 jobs + 1000 coal =&gt; 1 coal reserve</p>
+	<p style="hp">Coal mines target 80% coal inventory. If producing 1000 coal would not exceed 80% inventory, then formula 1 is applied. If consuming 1000 coal would not make the remaining inventory less than 80%, then formula 2 is applied.</p>
+	<p style="hp">When a coal mine exhausts all underground reserves, then it evacuates. When all underground reserves are exhausted and there is no inventory, then the coal mine is removed from the map. Therefore, building a coal mine where there are no reserves will cause it to be immediately removed from the map.</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="coal">Coal</a></li>

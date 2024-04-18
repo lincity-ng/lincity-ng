@@ -13,6 +13,10 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">200 jobs + 75 goods =&gt; .0002 tech + 25 waste</p>
+	<p style="hp">A school can sustain up to ~10 tech <100 or ~5 tech >100</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="tech-level">Tech Level</a></li>
 	<li><a href="market">Market</a></li>

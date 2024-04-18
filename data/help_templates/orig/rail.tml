@@ -5,5 +5,14 @@ Railways carry even more than roads. They produce slightly less pollution than r
 IMG_1[This is a railway]: images/tiles/railud.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/rails2.png
 
+SUBH: Formulas
+
+3 kWh =&gt; 0
+
+1/16 goods =&gt; 1/16 waste
+
+1/128 steel =&gt; 1/128 waste
+
+If a rail has more than 90% waste, then it consumes 100 waste and produces 50 pollution.
 
 ALSO[See also:]: transport, pollution

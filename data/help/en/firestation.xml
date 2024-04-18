@@ -2,9 +2,9 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Fire stations</p>
-	<p style="hp">Fire stations prevent the start and spread of fire within the range that they cover. They need to be supplied with goods and jobs to work. They do not have to be connected to transport, they do though have to be within range of a market that can supply the jobs and goods. They also cost money to run.</p>
+	<p style="hp">Fire stations prevent the start and spread of fire within the range that they cover. They need to be supplied with goods and jobs to work. They also cost money to run.</p>
 	<p style="hp">When you build a fire station, it does not start straight away. There is usually a three month wait before fire cover is provided.</p>
-	<p style="hp">To see the area that your fire stations cover, click on the fire station button under the mini screen. Areas that have fire cover are displayed as normal, areas not covered are just dark green.</p>
+	<p style="hp">To see the area that your fire stations cover, click on the fire station button under the mini screen.</p>
 	<p style="hp">Fire stations increase the desirability of residential areas within their range.</p>
 	<p style="hp">Fire stations go through an animation sequence every three month to show that they are working.</p>
 
@@ -16,6 +16,9 @@
 
   <p style="hp">and this its mapview overlay icon</p>
    <img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">6 jobs + 3 goods =&gt; 1 waste</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

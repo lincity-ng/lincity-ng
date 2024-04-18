@@ -5,5 +5,10 @@ Tracks are the simplest, and cheapest, form of transport. They also have the low
 IMG_1[This is a track]: images/tiles/trackud.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/transport/tracks.png
 
+SUBH: Formulas
+
+3 kWh =&gt; 0
+
+If a track has more than 90% waste, then it consumes 100 waste and produces 50 pollution.
 
 ALSO[See also:]: transport
