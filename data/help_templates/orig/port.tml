@@ -29,6 +29,8 @@ import: money =&gt; 50% of remaining capacity
 
 For import or export to occur, 100 jobs must be consumed.
 
+If there is both import and export, then .0002 tech is produced, which can sustain up to ~10 tech <100 or ~5 tech >100.
+
 If there is less than 6.67% inventory of a commodity, then export does not occur.
 If there is more than 93.33% inventory of a commodity, then import does not occur.
 
