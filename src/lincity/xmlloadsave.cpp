@@ -1229,7 +1229,7 @@ void XMLloadsave::readPbar()
     while (!((line == "</pbar>") &&/* !xml_file_in.eof() &&*/ !gzeof(gz_xml_file)));
     interpreting_template = false;
     if (!(data_ok && diff_ok && oldtot_ok && ID_ok))
-        std::cout << "Warning: stumpled accross corrupted pbar" << std::endl;
+        std::cout << "Warning: stumpled across corrupted pbar" << std::endl;
 }
 
 int XMLloadsave::sliceXMLline()

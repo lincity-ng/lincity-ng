@@ -47,7 +47,7 @@ void Monument::update()
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
             if (mps_x == x && mps_y == y)
             {   mps_set(x, y, MPS_MAP);}
-            //dont clear commodiyCount for savegame compatability
+            //don't clear commodiyCount for savegame compatability
         }
         /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */
