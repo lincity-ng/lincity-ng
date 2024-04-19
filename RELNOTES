@@ -1,4 +1,4 @@
-*** Lincity NG 2.10.2 ***
+*** Lincity NG 2.10.2 *** [git: a610129] 2024-04-19
 
 Updates since 2.10.1:
 * Fixed a bug in installation/packaging which prevented creation of certain GUI
