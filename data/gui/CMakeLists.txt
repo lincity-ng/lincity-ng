@@ -24,15 +24,15 @@ set(guiSourceFiles
 
 foreach(guiSourceFile ${guiSourceFiles})
   add_custom_command(
-    OUTPUT ${guiSourceFile}
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
-    DEPENDS ${guiSourceFile}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Convert XML GUI ${guiSourceFile}"
   )
+
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)
 endforeach()
 
 add_custom_target(guiXml DEPENDS ${guiSourceFiles})
 add_dependencies(lincity-ng guiXml)
-
-install(FILES ${guiSourceFiles} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)

@@ -49,15 +49,15 @@ set(guiDialogSourceFiles
 
 foreach(guiDialogSourceFile ${guiDialogSourceFiles})
   add_custom_command(
-    OUTPUT ${guiDialogSourceFile}
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} ${guiDialogSourceFile}
-    DEPENDS ${guiDialogSourceFile}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiDialogSourceFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Convert XML GUI dialogs/${guiDialogSourceFile}"
   )
+
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/dialogs/)
 endforeach()
 
 add_custom_target(guiDialogXml DEPENDS ${guiDialogSourceFiles})
 add_dependencies(lincity-ng guiDialogXml)
-
-install(FILES ${guiDialogSourceFiles} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/dialogs/)
