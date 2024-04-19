@@ -991,7 +991,7 @@ Color MiniMap::getColor(int x,int y) const
             }
 
         }
-        case COAL: //dont use xx and yy for coal deposits
+        case COAL: //don't use xx and yy for coal deposits
         {
             Color c(0x77,0,0);
             if( coal_survey_done == 0 )
@@ -1014,7 +1014,7 @@ Color MiniMap::getColor(int x,int y) const
             int water_level = world(xx,yy)->reportingConstruction?
             world(xx,yy)->reportingConstruction->tellstuff(STUFF_WATER, -1):1;
             int crit_level = water_level<food_level?water_level:food_level;
-            //dont care about other eaters or drinkers
+            //don't care about other eaters or drinkers
             if ( world(xx,yy)->is_residence() )
             {
                 if ( crit_level < 5 * TRANSPORT_QUANTA / 100 )

@@ -111,7 +111,7 @@ Sound::loadWaves() {
                     if( strcmp(name, "file" ) == 0 )
                     {   key = value;}
                     else
-                    {   std::cout << "unknown atribute " << name << " in sounds.xml" << std::endl;}
+                    {   std::cout << "unknown attribute " << name << " in sounds.xml" << std::endl;}
                 }
                 fullname = directory + key;
                 file = getPhysfsSDLRWops( fullname.c_str() );
