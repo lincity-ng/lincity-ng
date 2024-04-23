@@ -144,6 +144,9 @@ void clear_game(void)
     sust_old_tech = tech_level;
     sust_fire_count = 0;
 
+    for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++)
+        importEnable[s] = exportEnable[s] = true;
+
     init_pbars();
     refresh_pbars();
 

@@ -43,7 +43,8 @@ void set_map_groups(void);
 #include <sstream>
 #include <zlib.h>
 #include "ConstructionCount.h"
-#include "engglobs.h"
+// #include "engglobs.h"
+#include "groups.h"
 #include <SDL_mixer.h>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -563,7 +564,6 @@ struct TYPE {
     int group;                  // What group does this type belong to?
     char *graphic;              // Bitmap of the graphic
 };
-
 
 #endif /* __lintypes_h__ */
 

@@ -290,6 +290,13 @@ static void end_of_year_update(void)
         total_money = -2000000000;
 
     print_total_money();
+
+    // change import/export ability
+    for(Commodity s = STUFF_INIT; s < STUFF_COUNT * 2; s++) // valgrind hates
+      importEnable[s] ^= (rand() % IMPORT_EXPORT_NORM_PROB_LY) <
+        (importEnable[s] ?
+          IMPORT_EXPORT_DISABLE_PROB_LY :
+          IMPORT_EXPORT_ENABLE_PROB_LY);
 }
 
 static void simulate_mappoints(void)

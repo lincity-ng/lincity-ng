@@ -7,6 +7,7 @@
 #define __world_h__
 
 #include "lintypes.h"
+#include "engglobs.h"
 #include <vector>
 #include <deque>
 #include <set>
@@ -101,4 +102,3 @@ protected:
 #endif /* __world_h__ */
 
 /** @file lincity/world.h */
-

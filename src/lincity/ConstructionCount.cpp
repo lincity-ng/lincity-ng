@@ -8,6 +8,7 @@
 #include <iostream>
 #include "ConstructionCount.h"
 #include "lintypes.h"
+#include "engglobs.h"
 #include "engine.h"
 
 ConstructionCount::ConstructionCount()

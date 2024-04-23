@@ -32,6 +32,8 @@ int Port::buy_stuff(Commodity stuff)
 //fills up a PORT_IMPORT_RATE fraction of the available capacity and returns the cost
 //amount to buy must exceed PORT_TRIGGER_RATE
 {
+    if(!importEnable[stuff])
+        return 0;
     int i = portConstructionGroup.commodityRuleCount[stuff].maxload - commodityCount[stuff];
     i = (i * PORT_IMPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
@@ -44,6 +46,8 @@ int Port::sell_stuff(Commodity stuff)
 //sells a PORT_IMPORT_RATE fraction of the current load and returns the revenue
 //amount to sell must exceed PORT_TRIGGER_RATE
 {
+    if(!exportEnable[stuff])
+        return 0;
     int i = commodityCount[stuff];
     i = (i * PORT_EXPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))

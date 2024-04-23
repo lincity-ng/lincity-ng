@@ -2,6 +2,7 @@
 #define USER_OPERATION_H__
 
 #include "lintypes.h"
+#include "engglobs.h"
 
 class ConstructionGroup;
 

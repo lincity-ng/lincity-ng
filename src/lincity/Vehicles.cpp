@@ -6,6 +6,7 @@
 
 #include "Vehicles.h"
 #include "lintypes.h"
+#include "engglobs.h"
 #include <stdlib.h>
 #include <vector>
 #include "engine.h"
@@ -452,22 +453,3 @@ void Vehicle::update()
     {   alive = false;}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

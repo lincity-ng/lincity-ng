@@ -38,6 +38,10 @@
 #define PORT_IMPORT_RATE  500
 #define PORT_TRIGGER_RATE  15
 
+#define IMPORT_EXPORT_ENABLE_PROB_LY  6
+#define IMPORT_EXPORT_DISABLE_PROB_LY 2
+#define IMPORT_EXPORT_NORM_PROB_LY    1000
+
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"

@@ -28,6 +28,7 @@
   when the user clicks on the pound sterling icon.
 */
 #include "lintypes.h"
+#include "engglobs.h"
 
 /*daily*/
 extern int ddeaths, dbirths;
@@ -100,4 +101,3 @@ void add_daily_to_monthly(void);
 #endif
 
 /** @file lincity/stats.h */
-
