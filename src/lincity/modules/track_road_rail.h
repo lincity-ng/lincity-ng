@@ -100,7 +100,8 @@ public:
     {
         unsigned short group = cstgrp->group;
         this->anim = 0;
-        this->burning_waste = false;
+        this->start_burning_waste = false;
+        this->waste_fire_anim = 0;
         // register the construction as transport tile
         // disable evacuation
         //transparency is set and updated in connect_transport
@@ -180,6 +181,11 @@ public:
                 assert(false);
         }
         init_resources();
+        waste_fire_frit = world(x, y)->createframe();
+        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+        waste_fire_frit->move_x = 0;
+        waste_fire_frit->move_y = 0;
+        waste_fire_frit->frame = -1;
 
         initialize_commodities();
         this->trafficCount = this->commodityCount;
@@ -232,6 +238,8 @@ public:
                 std::cout << "counting error in Transport IDs" << std::endl;
             break;
         }
+
+        world(x,y)->killframe(waste_fire_frit);
     }
     Counted<Track> *countedTrack;
     Counted<Road> *countedRoad;
@@ -247,6 +255,7 @@ public:
     void list_traffic( int* i);
     int subgroupID;
     int anim;
-    bool burning_waste;
-    bool burning_waste_anim;
+    bool start_burning_waste;
+    std::list<ExtraFrame>::iterator waste_fire_frit;
+    int waste_fire_anim;
 };

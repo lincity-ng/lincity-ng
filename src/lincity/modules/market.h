@@ -79,6 +79,11 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
+        waste_fire_frit = world(x, y)->createframe();
+        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+        waste_fire_frit->move_x = 0;
+        waste_fire_frit->move_y = 0;
+        waste_fire_frit->frame = -1;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);
@@ -89,6 +94,7 @@ public:
         this->working_days = 0;
         this->market_ratio = 0;
         this->start_burning_waste = false;
+        this->waste_fire_anim = 0;
         //set the Searchrange of this Market
         int tmp;
         int lenm1 = world.len()-1;
@@ -105,6 +111,10 @@ public:
         commodityMaxCons[STUFF_JOBS] = 100 * JOBS_MARKET_FULL;
         commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
     }
+    virtual ~Market() {
+        world(x,y)->killframe(waste_fire_frit);
+    }
+
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
@@ -118,6 +128,8 @@ public:
     int anim;
     int market_ratio;
     bool start_burning_waste;
+    std::list<ExtraFrame>::iterator waste_fire_frit;
+    int waste_fire_anim;
 };
 
 /** @file lincity/modules/market.h */

@@ -85,9 +85,16 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
+        waste_fire_frit = world(x, y)->createframe();
+        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+        waste_fire_frit->move_x = 0;
+        waste_fire_frit->move_y = 0;
+        waste_fire_frit->frame = -1;
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
+        this->start_burning_waste = false;
+        this->waste_fire_anim = 0;
 
         commodityMaxProd[STUFF_WASTE] = 100 *
           (SHANTY_PUT_WASTE * 2 + SHANTY_GET_GOODS / 3);
@@ -100,10 +107,18 @@ public:
         commodityMaxCons[STUFF_WASTE] = 100 *
           (MAX_WASTE_AT_SHANTY /*+ SHANTY_PUT_WASTE*2 + SHANTY_GET_GOODS/3*/);
     }
-    virtual ~Shanty() { }
-    virtual void update();
-    virtual void report();
+    virtual ~Shanty() {
+        world(x,y)->killframe(waste_fire_frit);
+    }
+
+    virtual void update() override;
+    virtual void report() override;
+    virtual void animate() override;
+
     int anim;
+    bool start_burning_waste;
+    std::list<ExtraFrame>::iterator waste_fire_frit;
+    int waste_fire_anim;
 };
 
 
