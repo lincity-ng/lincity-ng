@@ -34,6 +34,7 @@ find_package(SDL2_ttf REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
 find_package(LibXslt REQUIRED)
+find_program(GETTEXT_XGETTEXT xgettext)
 
 git_describe_working_tree(GIT_TAG_VERSION --match lincity-ng-*)
 if(GIT_TAG_VERSION)

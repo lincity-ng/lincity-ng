@@ -58,7 +58,7 @@ file(GLOB_RECURSE TRANSLATABLE_SOURCES CONFIGURE_DEPENDS
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/locale)
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot
-  COMMAND xgettext --keyword='_:1' --keyword='N_:1' -o ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot ${TRANSLATABLE_SOURCES}
+  COMMAND ${GETTEXT_XGETTEXT} --keyword='_:1' --keyword='N_:1' -o ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot ${TRANSLATABLE_SOURCES}
   DEPENDS ${TRANSLATABLE_SOURCES}
   COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/messages.pot"
 )
