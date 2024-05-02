@@ -63,8 +63,8 @@ add_custom_command(
   COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/messages.pot"
 )
 add_custom_target(messages-pot.target DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot)
-add_dependencies(lincity-ng messages-pot.target)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale)
+# add_dependencies(lincity-ng messages-pot.target)
+# install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale)
 
 file(GLOB_RECURSE ALL_GUI_XML RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/gui/*.xml
@@ -79,8 +79,10 @@ add_custom_command(
   COMMENT "generating ${CMAKE_INSTALL_APPDATADIR}/locale/gui/messages.pot"
 )
 add_custom_target(gui_messages-pot.target DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot)
-add_dependencies(lincity-ng gui_messages-pot.target)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale/gui)
+# add_dependencies(lincity-ng gui_messages-pot.target)
+# install(FILES ${CMAKE_CURRENT_BINARY_DIR}/locale/gui/messages.pot DESTINATION ${CMAKE_INSTALL_APPDATADIR}/locale/gui)
+
+add_custom_target(messages.pot DEPENDS messages-pot.target gui_messages-pot.target)
 
 
 set(infoFiles
