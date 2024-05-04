@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <libxml/parser.h>
 
 #include "gui/FontManager.hpp"
@@ -43,7 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "Sound.hpp"
 #include "Config.hpp"
-#include "lcerror.hpp"
+#include "lc_error.h"
 #include "PBar.hpp"
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
@@ -64,6 +65,15 @@ const char *appdatadir;
      extern char *getBundleSharePath(char *packageName);
 #endif
 
+#ifdef WIN32
+static char *strndup(const char *s, size_t n) {
+  n = strnlen(s, n);
+  char *d;
+  if(d = (char *)malloc((n + 1) * sizeof(char)))
+    strncpy(d, s, n);
+  return d;
+}
+#endif
 
 /**
  * Computes the path of the root of `subtrahend` relative to the root of

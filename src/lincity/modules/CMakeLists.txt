@@ -1,5 +1,5 @@
 add_library(lincity_lib_modules
-
+		OBJECT
 		all_modules.cpp
 		all_modules.h
 		blacksmith.cpp

@@ -10,4 +10,3 @@ void HandleError (const char *s, int i);
 #endif
 
 /** @file lincity-ng/ErrorInterface.hpp */
-

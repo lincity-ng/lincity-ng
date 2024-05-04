@@ -32,4 +32,4 @@ RUN mkdir -p /home/lincity-ng
 # COPY . /home/lincity-ng/
 WORKDIR /home/lincity-ng
 
-CMD bash -c "cmake -B build-ubuntu && cmake --build build-ubuntu --parallel -t package"
+CMD bash -c "cmake -B build/ubuntu && cmake --build build/ubuntu --parallel -t package"

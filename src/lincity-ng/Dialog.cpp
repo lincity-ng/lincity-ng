@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>
 #include <stdexcept>
 #include <physfs.h>
-#include <error.h>
+#include "lc_error.h"
 
 #include "GameView.hpp"
 #include "Util.hpp"
@@ -491,7 +491,7 @@ void Dialog::saveGameStats(){
     char *s = (char *)malloc(
         strlen(lc_save_dir) + strlen(RESULTS_FILENAME) + 2);
     if(!s)
-        error(-1, errno, "malloc");
+        lc_error(-1, errno, "malloc");
     sprintf(s, "%s%s%s",
         lc_save_dir, PHYSFS_getDirSeparator(), RESULTS_FILENAME);
 

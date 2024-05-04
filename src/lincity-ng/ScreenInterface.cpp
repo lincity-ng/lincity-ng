@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include <iomanip>
 #include <stdarg.h>
-#include <error.h>
+#include "lc_error.h"
 
 #include <sys/stat.h>
 
@@ -69,19 +69,19 @@ void initialize_monthgraph (void){
 
     monthgraph_pop = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_pop == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_starve = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_starve == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_nojobs = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_nojobs == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_ppool = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_ppool == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     for (i = 0; i < monthgraph_size; i++) {
     monthgraph_pop[i] = 0;

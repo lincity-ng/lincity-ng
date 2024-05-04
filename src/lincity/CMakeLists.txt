@@ -50,10 +50,11 @@ add_library(lincity_lib
 add_library(LinCity::lib ALIAS lincity_lib)
 
 target_link_libraries(lincity_lib
+		PUBLIC
+		LinCity::lib_modules
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream
-		LinCity::lib_modules
 		LinCity::gui
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		)

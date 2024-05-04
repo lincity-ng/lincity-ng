@@ -8,7 +8,6 @@ add_executable(lincity-ng
 		Config.hpp
 		Dialog.cpp
 		Dialog.hpp
-		lcerror.hpp
 		EconomyGraph.cpp
 		EconomyGraph.hpp
 		ErrorInterface.cpp
@@ -20,6 +19,8 @@ add_executable(lincity-ng
 		getBundleSharePath.cpp
 		HelpWindow.cpp
 		HelpWindow.hpp
+		lc_error.c
+		lc_error.h
 		main.cpp
 		main.hpp
 		MainLincity.cpp
@@ -62,9 +63,10 @@ target_link_libraries(lincity-ng
 		tinygettext
 		LinCity::physfsstream
 		LinCity::lib
+		LinCity::lib_modules
 		LinCity::gui
+		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main> # for windows
 		PUBLIC
-		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		)
 
