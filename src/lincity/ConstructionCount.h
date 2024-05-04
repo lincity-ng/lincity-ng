@@ -6,12 +6,15 @@
 #ifndef __ConstructionCount_h__
 #define __ConstructionCount_h__
 
-#include "lintypes.h"
-#include "../lincity-ng/Permutator.hpp"
-#include <vector>
+#include <stddef.h>  // for size_t
 #include <algorithm> //for std::sort
+#include <vector>    // for vector
+
+#include "../lincity-ng/Permutator.hpp"
+#include "lintypes.h"
 
 class Construction;
+class Permutator;
 
 class ConstructionCount
 {

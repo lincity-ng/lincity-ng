@@ -18,9 +18,14 @@
 
 #define TARGET_COAL_LEVEL 80
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for COAL_PER_RESERVE, JOBS_LOAD_COAL
+#include "lincity/world.h"          // for World
+#include "modules.h"
 
 
 

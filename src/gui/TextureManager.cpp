@@ -23,12 +23,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "TextureManager.hpp"
 
-#include <SDL_image.h>
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
-#include "Filter.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
+#include <SDL_error.h>                 // for SDL_GetError
+#include <SDL_image.h>                 // for IMG_Load_RW
+#include <iostream>                    // for basic_ostream, operator<<, cerr
+#include <sstream>                     // for basic_stringstream
+#include <stdexcept>                   // for runtime_error
+#include <utility>                     // for pair, make_pair
+
+#include "Filter.hpp"                  // for color2Grey
+#include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
 #ifdef DEBUG
 #include <cassert>
 #endif

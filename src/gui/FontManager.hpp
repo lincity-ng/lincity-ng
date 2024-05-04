@@ -24,8 +24,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __FONTMANAGER_HPP__
 #define __FONTMANAGER_HPP__
 
+#include <SDL_ttf.h>  // for TTF_Font
+#include <map>        // for map
+#include <string>     // for basic_string, operator<, operator==, operator>
+
 #include "Style.hpp"
-#include <SDL_ttf.h>
+
+class Style;
 
 /**
  * @class FontManager

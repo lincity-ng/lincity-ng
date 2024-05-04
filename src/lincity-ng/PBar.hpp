@@ -18,17 +18,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_pbar_h__
 #define __lc_pbar_h__
 
-#include <vector>
-#include <sstream>
 #include <iomanip>
-#include "gui_interface/pbar_interface.h"
-#include "gui/Component.hpp"
-
 #include <map>
+#include <sstream>
+#include <vector>
 
-class LCPBar;
-class XmlReader;
+#include "gui/Component.hpp"  // for Component
+#include "gui_interface/pbar_interface.h"
+
 class Component;
+class LCPBar;
+class Painter;
+class XmlReader;
 
 //extern LCPBar *LCPBarInstance;
 extern LCPBar * LCPBarPage1;

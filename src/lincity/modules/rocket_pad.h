@@ -24,9 +24,13 @@
 #define ROCKET_LAUNCH_GOOD      2
 #define ROCKET_LAUNCH_EVAC      3
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for magenta
+#include "modules.h"
 
 
 class RocketPadConstructionGroup: public ConstructionGroup {

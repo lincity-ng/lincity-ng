@@ -21,16 +21,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Gradient.cpp
  */
 
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
-#include <assert.h>
+#include <SDL_endian.h>          // for SDL_BIG_ENDIAN, SDL_BYTEORDER
+#include <assert.h>              // for assert
+#include <math.h>                // for lrintf
+#include <string.h>              // for strcmp
+#include <iostream>              // for char_traits, operator<<, basic_ostream
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for basic_string
 
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "Gradient.hpp"
-#include "XmlReader.hpp"
-#include "TextureManager.hpp"
-#include "Painter.hpp"
-#include "ComponentFactory.hpp"
+#include "Painter.hpp"           // for Painter
+#include "Texture.hpp"           // for Texture
+#include "TextureManager.hpp"    // for TextureManager, texture_manager
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 #ifdef _MSC_VER
 #define lrintf(x) (long int)x

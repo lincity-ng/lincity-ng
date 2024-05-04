@@ -23,14 +23,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollView.hpp"
 
-#include <memory>
+#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
+#include <iostream>               // for basic_ostream, operator<<, basic_ios
+#include <memory>                 // for allocator, unique_ptr
+#include <stdexcept>              // for runtime_error
+#include <string>                 // for char_traits, basic_string, operator==
 
-#include "XmlReader.hpp"
-#include "ScrollBar.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "Event.hpp"
-#include "callback/Callback.hpp"
+#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"    // for parseEmbeddedComponent
+#include "Event.hpp"              // for Event
+#include "Rect2D.hpp"             // for Rect2D
+#include "ScrollBar.hpp"          // for ScrollBar
+#include "Vector2.hpp"            // for Vector2
+#include "XmlReader.hpp"          // for XmlReader
+#include "callback/Callback.hpp"  // for makeCallback, Callback
+#include "callback/Signal.hpp"    // for Signal
 
 static const float MOUSEWHEELSCROLL = 90;
 

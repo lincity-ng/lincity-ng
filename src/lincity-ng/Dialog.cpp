@@ -15,35 +15,49 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Dialog.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
-#include <physfs.h>
-#include "lc_error.h"
+#include <assert.h>                        // for assert
+#include <config.h>                        // for PACKAGE_VERSION
+#include <errno.h>                         // for errno
+#include <physfs.h>                        // for PHYSFS_getDirSeparator
+#include <stdio.h>                         // for snprintf, sprintf
+#include <stdlib.h>                        // for free, malloc
+#include <string.h>                        // for strlen
+#include <algorithm>                       // for max
+#include <array>                           // for array
+#include <exception>                       // for exception
+#include <fstream>                         // for basic_ostream, char_traits
+#include <iostream>                        // for cerr
+#include <memory>                          // for unique_ptr
+#include <sstream>                         // for basic_stringstream
+#include <stdexcept>                       // for runtime_error
+#include <vector>                          // for vector, allocator
 
-#include "GameView.hpp"
-#include "Util.hpp"
-#include "MapEdit.hpp"
-#include "CheckButton.hpp"
-#include "lincity/engine.h"
-#include "lincity/simulate.h"
-#include "lincity/lclib.h"
-#include "lincity/loadsave.h"
-#include "lincity/lin-city.h"
-#include "lincity/modules/all_modules.h"
-#include "gui_interface/shared_globals.h"
-
-#include "gui/ComponentLoader.hpp"
-#include "gui/Button.hpp"
-#include "gui/callback/Callback.hpp"
-#include "gui/Paragraph.hpp"
-
-#include "tinygettext/gettext.hpp"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
+#include "MapPoint.hpp"                    // for MapPoint
+#include "Util.hpp"                        // for getCheckButton, getButton
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Component.hpp"               // for Component
+#include "gui/ComponentLoader.hpp"         // for loadGUIFile
+#include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/mps.h"             // for mps_refresh
+#include "gui_interface/shared_globals.h"  // for cheat_flag
+#include "lc_error.h"                      // for lc_error
+#include "lincity/engine.h"                // for do_coal_survey
+#include "lincity/lclib.h"                 // for current_year, current_month
+#include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"              // for CommodityRule, Commodity
+#include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
+#include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
+#include "lincity/world.h"                 // for World
+#include "tinygettext/gettext.hpp"         // for _
 
 bool blockingDialogIsOpen = false;
 

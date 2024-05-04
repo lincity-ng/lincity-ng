@@ -19,12 +19,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __PAINTERSDL_HPP__
 
 #include <SDL.h>
-#include <vector>
+#include <SDL_render.h>     // for SDL_Renderer
+#include <SDL_surface.h>    // for SDL_Surface
+#include <vector>           // for vector
+
+#include "Vector2.hpp"      // for Vector2
+#include "gui/Color.hpp"    // for Color
+#include "gui/Painter.hpp"  // for Painter
 #include "gui/Rect2D.hpp"
 #include "gui/TextureManager.hpp"
-#include "gui/Color.hpp"
-#include "gui/Painter.hpp"
 
+class Rect2D;
+class Texture;
 class TextureSDL;
 
 /**

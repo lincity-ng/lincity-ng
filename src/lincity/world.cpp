@@ -4,12 +4,14 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <stdlib.h>
-#include <iostream>
+#include <stdlib.h>     // for size_t
+#include <algorithm>    // for max
+#include <iostream>     // for char_traits, basic_ostream, operator<<, basic...
+
+#include "init_game.h"  // for clear_game
+#include "lin-city.h"   // for FLAG_ALTERED
+#include "lintypes.h"   // for MapTile, Ground, dxo, dyo, world, world_id
 #include "world.h"
-#include "ConstructionCount.h"
-#include "init_game.h"
-#include "lin-city.h"
 
 World::World(int map_len)
 {

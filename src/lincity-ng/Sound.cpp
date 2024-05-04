@@ -15,26 +15,30 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Sound.hpp"
-#include "Game.hpp"
 
-#include <assert.h>
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <stdexcept>
-#include <math.h>
+#include <SDL_error.h>                 // for SDL_GetError
+#include <SDL_mixer.h>                 // for Mix_Volume, Mix_FreeMusic, Mix...
+#include <SDL_rwops.h>                 // for SDL_RWops
+#include <assert.h>                    // for assert
+#include <physfs.h>                    // for PHYSFS_stat, PHYSFS_FileType
+#include <stdio.h>                     // for fprintf, stderr
+#include <stdlib.h>                    // for strtod, rand
+#include <string.h>                    // for strcmp, NULL, size_t
+#include <algorithm>                   // for max
+#include <cmath>                       // for round
+#include <iostream>                    // for basic_ostream, operator<<, endl
+#include <utility>                     // for pair
+#include <vector>                      // for vector
 
-#include "gui/XmlReader.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
-
-#include <SDL_mixer.h>
-#include <physfs.h>
-#include "Config.hpp"
-#include "lincity/engglobs.h"
-#include "lincity/modules/all_modules.h"
+#include "Config.hpp"                  // for getConfig, Config
+#include "Game.hpp"                    // for getGame
+#include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
+#include "gui/XmlReader.hpp"           // for XmlReader
+#include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
+#include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"          // for ResourceGroup
 
 Sound* soundPtr = 0;
 

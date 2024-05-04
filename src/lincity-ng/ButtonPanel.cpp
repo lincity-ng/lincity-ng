@@ -15,36 +15,41 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include "ButtonPanel.hpp"
 
-#include <exception>
-#include <sstream>
+#include <SDL_mouse.h>                     // for SDL_BUTTON_RIGHT, SDL_BUTT...
+#include <stdio.h>                         // for size_t, NULL, sscanf
+#include <string.h>                        // for strcmp
+#include <algorithm>                       // for max
+#include <iostream>                        // for cerr, cout
+#include <sstream>                         // for char_traits, basic_ostream
+#include <stdexcept>                       // for runtime_error
 
-#include "gui/ComponentFactory.hpp"
-#include "gui/XmlReader.hpp"
-#include "CheckButton.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Image.hpp"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "Debug.hpp"                       // for checked_cast
+#include "Game.hpp"                        // for getGame, Game
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "MapEdit.hpp"                     // for monument_bul_flag, river_b...
+#include "Util.hpp"                        // for getCheckButton
+#include "gui/Child.hpp"                   // for Childs, Child
+#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
+#include "gui/Image.hpp"                   // for Image
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
+#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
+#include "lincity/all_buildings.h"         // for GROUP_WATER_COST, GROUP_WA...
+#include "lincity/groups.h"                // for GROUP_BLACKSMITH, GROUP_CO...
+#include "lincity/lin-city.h"              // for GOOD
+#include "lincity/lintypes.h"              // for userOperation, Constructio...
+#include "lincity/modules/all_modules.h"   // for ResidenceConstructionGroup
+#include "tinygettext/gettext.hpp"         // for _
 
-#include "gui/callback/Callback.hpp"
-
-#include "Debug.hpp"
-#include "gui_interface/shared_globals.h"
-
-#include "lincity/lctypes.h"
-#include "lincity/lin-city.h"
-#include "lincity/groups.h"
-#include "lincity/lintypes.h"
-#include "lincity/all_buildings.h"
-#include "lincity/modules/all_modules.h"
-#include "tinygettext/gettext.hpp"
-
-#include "GameView.hpp"
-#include "Game.hpp"
-#include "MapEdit.hpp"
-#include "ScreenInterface.hpp"
-#include "Util.hpp"
-#include "HelpWindow.hpp"
+class Painter;
+class Vector2;
 
 extern void ok_dial_box(const char *, int, const char *);
 
@@ -912,4 +917,3 @@ IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)
 
 
 /** @file lincity-ng/ButtonPanel.cpp */
-

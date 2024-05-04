@@ -24,11 +24,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TOOLTIPMANAGER_HPP__
 #define __TOOLTIPMANAGER_HPP__
 
+#include <SDL_stdinc.h>   // for Uint32
 #include <map>
-#include "Component.hpp"
+#include <string>         // for string
+#include <vector>         // for vector
 
-class XmlReader;
+#include "Child.hpp"      // for Child, Childs
+#include "Component.hpp"  // for Component
+#include "Event.hpp"      // for Event
+
 class Paragraph;
+class Vector2;
+class XmlReader;
 
 static const Uint32 TOOLTIP_TIME = 500;
 

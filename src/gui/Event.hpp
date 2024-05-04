@@ -18,8 +18,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __EVENT_HPP__
 #define __EVENT_HPP__
 
-#include <SDL_events.h>
-#include "Vector2.hpp"
+#include <SDL_events.h>    // for SDL_Event
+#include <SDL_keyboard.h>  // for SDL_Keysym
+
+#include "Vector2.hpp"     // for Vector2
 
 /**
  * @file Event.hpp

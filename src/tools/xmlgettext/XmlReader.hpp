@@ -20,10 +20,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __XMLREADER_HPP__
 #define __XMLREADER_HPP__
 
-#include <libxml/xmlreader.h>
-#include <stdexcept>
-#include <sstream>
+#include <libxml/xmlreader.h>  // for xmlTextReaderConstName, xmlTextReaderC...
+#include <libxml/xmlstring.h>  // for xmlChar
 #include <iostream>
+#include <sstream>             // for char_traits, basic_stringstream, basic...
+#include <stdexcept>           // for runtime_error
+#include <string>              // for allocator, basic_string, string
 
 class XmlReader
 {

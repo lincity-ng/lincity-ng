@@ -12,6 +12,8 @@
 
 /* Daily accumulators */
 
+#include <deque>  // for deque
+
 /*
   Note on variables (GCS):
   --

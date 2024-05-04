@@ -25,10 +25,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __FONTSTYLE_HPP__
 
 #include <SDL.h>
-#include <string>
-#include <map>
+#include <map>        // for map
+#include <string>     // for basic_string, string
 
-#include "Color.hpp"
+#include "Color.hpp"  // for Color
 
 class XmlReader;
 

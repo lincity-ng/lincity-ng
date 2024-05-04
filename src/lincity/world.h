@@ -6,10 +6,11 @@
 #ifndef __world_h__
 #define __world_h__
 
-#include "lintypes.h"
-#include <vector>
 #include <deque>
-#include <set>
+#include <set>     // for set
+#include <vector>  // for vector
+
+#include "lintypes.h"
 
 //Array2D is used during map generation in initgame
 template <class T>

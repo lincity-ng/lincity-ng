@@ -4,7 +4,14 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 #include "engglobs.h"
-#include "lin-city.h"
+
+#include <stddef.h>             // for NULL
+#include <map>                  // for map
+
+#include "ConstructionCount.h"  // for ConstructionCount
+#include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...
+#include "lintypes.h"           // for Commodity, NUMOF_DISCOUNT_TRIGGERS
+#include "world.h"              // for World
 
 /* load/save version for compatibility with(out) waterwell */
 int ldsv_version;

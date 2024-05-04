@@ -15,37 +15,44 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Game.hpp"
 
-#include "gui/TextureManager.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Component.hpp"
-#include "gui/Desktop.hpp"
-#include "gui/Event.hpp"
-#include "gui/Button.hpp"
-#include "gui/Painter.hpp"
-#include "gui/callback/Callback.hpp"
-#include "lincity/engine.h"
-#include "lincity/init_game.h"
-#include "lincity/lin-city.h"
-#include "lincity/simulate.h"
-#include "gui_interface/shared_globals.h"
-#include "gui_interface/mps.h"
+#include <SDL_events.h>                    // for SDL_WaitEventTimeout, SDL_...
+#include <SDL_keycode.h>                   // for SDLK_0, SDLK_1, SDLK_2
+#include <SDL_stdinc.h>                    // for Uint32
+#include <SDL_timer.h>                     // for SDL_GetTicks
+#include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
+#include <stddef.h>                        // for NULL, size_t
+#include <algorithm>                       // for min
+#include <iostream>                        // for char_traits, basic_ostream
+#include <stdexcept>                       // for runtime_error
 
-#include "MainLincity.hpp"
-#include <iostream>
-#include <physfs.h>
-#include "Util.hpp"
-#include "GameView.hpp"
-#include "HelpWindow.hpp"
-#include "ButtonPanel.hpp"
-#include "Dialog.hpp"
-#include "EconomyGraph.hpp"
-#include "Config.hpp"
-#include "ScreenInterface.hpp"
-#include "TimerInterface.hpp"
+#include "ButtonPanel.hpp"                 // for getButtonPanel, ButtonPanel
+#include "Config.hpp"                      // for getConfig, Config
+#include "Dialog.hpp"                      // for closeAllDialogs, blockingD...
+#include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "HelpWindow.hpp"                  // for HelpWindow
+#include "MainLincity.hpp"                 // for saveCityNG, lincitySpeed
+#include "MiniMap.hpp"                     // for MiniMap, getMiniMap
+#include "ScreenInterface.hpp"             // for print_stats, updateDate
+#include "TimerInterface.hpp"              // for get_real_time_with
+#include "Util.hpp"                        // for getButton
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Component.hpp"               // for Component
+#include "gui/ComponentLoader.hpp"         // for loadGUIFile
+#include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/Event.hpp"                   // for Event
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "lincity/ConstructionCount.h"     // for ConstructionCount
+#include "lincity/lin-city.h"              // for ANIMATE_DELAY
+#include "lincity/lintypes.h"              // for Construction
+#include "lincity/simulate.h"              // for do_animate, do_time_step
 
 Game* gameptr = 0;
 

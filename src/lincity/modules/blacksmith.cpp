@@ -7,6 +7,18 @@
 
 #include "blacksmith.h"
 
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+#include <vector>                   // for vector
+
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_BLACKSMITH
+#include "lincity/lin-city.h"       // for ANIM_THRESHOLD, FALSE
+#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
+#include "lincity/world.h"          // for World
+#include "tinygettext/gettext.hpp"  // for N_
+
 BlacksmithConstructionGroup blacksmithConstructionGroup(
     N_("Blacksmith"),
     FALSE,                     /* need credit? */

@@ -1,6 +1,8 @@
 #ifndef USER_OPERATION_H__
 #define USER_OPERATION_H__
 
+#include <string>  // for string, basic_string
+
 #include "lintypes.h"
 
 class ConstructionGroup;

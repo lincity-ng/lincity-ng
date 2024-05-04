@@ -18,12 +18,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SOUND_HPP__
 #define __SOUND_HPP__
 
-#include <map>
-#include <string>
-#include <vector>
-#include <SDL_mixer.h>
-#include <SDL.h> 
-#include <SDL_thread.h>
+#include <SDL.h>
+#include <SDL_mixer.h>   // for Mix_Chunk, Mix_Music
+#include <SDL_thread.h>  // for SDL_Thread
+#include <map>           // for multimap
+#include <string>        // for basic_string, string, operator<
+#include <vector>        // for vector
 
 //TODO make use for these:
 enum MusicState {

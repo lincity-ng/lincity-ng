@@ -27,11 +27,16 @@
 #define MIN_FOOD_SOLD_FOR_ANIM 200
 
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <stdlib.h>                 // for rand
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "../lctypes.h"
-#include "../lin-city.h"
-#include <stdlib.h>
+#include "../lin-city.h"            // for FLAG_HAS_UNDERGROUND_WATER, MAX_T...
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for green
+#include "lincity/world.h"          // for World
+#include "modules.h"
 
 
 class Organic_farmConstructionGroup: public ConstructionGroup {

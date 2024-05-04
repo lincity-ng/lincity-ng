@@ -15,37 +15,28 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "MainLincity.hpp"
 
-#include <SDL.h>
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
-#include <stdio.h>
-#include <physfs.h>
+#include <physfs.h>                          // for PHYSFS_getDirSeparator
+#include <stdio.h>                           // for fclose, fopen, FILE
+#include <stdlib.h>                          // for srand
+#include <time.h>                            // for time
+#include <iostream>                          // for basic_ostream, operator<<
 
-#include "lincity/engglobs.h"
-#include "lincity/init_game.h"
-#include "lincity/lin-city.h"
-#include "lincity/simulate.h"
-#include "lincity/lc_locale.h"
-#include "lincity/loadsave.h"
-#include "lincity/modules/all_modules.h"
-
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/mps.h"
-#include "gui_interface/shared_globals.h"
-#include "gui_interface/readpng.h"
-
-#include "TimerInterface.hpp"
-
-#include "GameView.hpp"
-#include "Game.hpp"
-#include "ScreenInterface.hpp"
-#include "Dialog.hpp"
-#include "Config.hpp"
+#include "Game.hpp"                          // for getGame
+#include "GameView.hpp"                      // for getGameView, GameView
+#include "TimerInterface.hpp"                // for reset_start_time
+#include "gui_interface/readpng.h"           // for load_png_graphics
+#include "gui_interface/screen_interface.h"  // for initialize_monthgraph
+#include "gui_interface/shared_globals.h"    // for update_avail_modules
+#include "lincity/groups.h"                  // for GROUP_USED
+#include "lincity/lc_locale.h"               // for lincity_set_locale
+#include "lincity/lctypes.h"                 // for CST_USED
+#include "lincity/lin-city.h"                // for MED_TIME_FOR_YEAR
+#include "lincity/lintypes.h"                // for TYPE
+#include "lincity/loadsave.h"                // for load_city_2, save_city
+#include "lincity/modules/all_modules.h"     // for initializeModules
 
 extern void init_types(void);
 extern void initFactories(void);

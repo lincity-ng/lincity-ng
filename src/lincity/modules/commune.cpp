@@ -7,6 +7,19 @@
 
 #include "commune.h"
 
+#include <cstdlib>                        // for rand
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string
+#include <vector>                         // for vector
+
+#include "gui_interface/mps.h"            // for mps_store_sd, mps_store_sddp
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
+#include "lincity/engine.h"               // for real_time
+#include "lincity/groups.h"               // for GROUP_COMMUNE
+#include "lincity/lintypes.h"             // for Commodity, ConstructionGroup
+#include "tinygettext/gettext.hpp"        // for N_
+
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),
     FALSE,                     /* need credit? */

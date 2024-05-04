@@ -16,9 +16,14 @@
 #define FIRESTATION_RUNNING_COST_MUL 6
 #define FIRESTATION_ANIMATION_SPEED 250
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for red
+#include "lincity/world.h"          // for World
+#include "modules.h"
 
 class FireStationConstructionGroup: public ConstructionGroup {
 public:

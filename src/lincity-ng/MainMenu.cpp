@@ -15,43 +15,47 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
-#include <typeinfo>
-#include <physfs.h>
-#include <stdio.h>
-#include <time.h>
-
-#include "gui/TextureManager.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Component.hpp"
-#include "gui/Event.hpp"
-#include "gui/Desktop.hpp"
-#include "gui/Button.hpp"
-#include "gui/Painter.hpp"
-#include "gui/callback/Callback.hpp"
-
-#include "gui_interface/shared_globals.h"
-
-#include "CheckButton.hpp"
 
 #include "MainMenu.hpp"
-#include "Util.hpp"
-#include "Config.hpp"
-#include "Sound.hpp"
-#include "GameView.hpp"
-#include "Game.hpp"
-#include "MainLincity.hpp"
-#include "readdir.hpp"
-#include "lincity/loadsave.h"
 
-#include "tinygettext/gettext.hpp"
+#include <SDL_events.h>                    // for SDL_WaitEventTimeout, SDL_...
+#include <SDL_keycode.h>                   // for KMOD_CTRL, SDLK_ESCAPE
+#include <SDL_timer.h>                     // for SDL_GetTicks
+#include <math.h>                          // for abs
+#include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
+#include <stdio.h>                         // for fprintf, remove, size_t, NULL
+#include <stdlib.h>                        // for abs, atoi, unsetenv
+#include <string.h>                        // for strcpy
+#include <algorithm>                       // for max, sort
+#include <iomanip>                         // for operator<<, setfill, setw
+#include <iostream>                        // for char_traits, basic_ostream
+#include <sstream>                         // for basic_stringstream, basic_...
+#include <stdexcept>                       // for runtime_error
+#include <utility>                         // for pair
+#include <vector>                          // for vector
 
-#include "lincity/init_game.h"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "Config.hpp"                      // for getConfig, Config
+#include "Game.hpp"                        // for getGame
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "MainLincity.hpp"                 // for loadCityNG, saveCityNG
+#include "Sound.hpp"                       // for getSound, Sound, MusicTran...
+#include "Util.hpp"                        // for getCheckButton, getButton
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Component.hpp"               // for Component
+#include "gui/ComponentLoader.hpp"         // for loadGUIFile
+#include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/Event.hpp"                   // for Event
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "lincity/init_game.h"             // for new_city, city_settings
+#include "lincity/loadsave.h"              // for given_scene
+#include "lincity/world.h"                 // for World
+#include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
+#include "tinygettext/tinygettext.hpp"     // for DictionaryManager
 
 extern std::string autoLanguage;
 

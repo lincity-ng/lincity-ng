@@ -7,6 +7,14 @@
 
 #include "school.h"
 
+#include "gui_interface/mps.h"      // for mps_store_sfp, mps_store_sd
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_SCHOOL
+#include "lincity/lin-city.h"       // for FALSE, MAX_TECH_LEVEL
+#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
+#include "lincity/stats.h"          // for school_cost
+#include "tinygettext/gettext.hpp"  // for N_
+
 
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(

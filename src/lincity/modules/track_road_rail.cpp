@@ -6,8 +6,19 @@
  * ---------------------------------------------------------------------- */
 
 #include "track_road_rail.h"
-#include "fire.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <stdlib.h>                 // for rand
+#include <vector>                   // for vector
+
+#include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "gui_interface/mps.h"      // for mps_store_title, mps_store_sd
+#include "lincity-ng/Sound.hpp"     // for getSound, Sound
+#include "lincity/all_buildings.h"  // for DAYS_PER_RAIL_POLLUTION, DAYS_PER...
+#include "lincity/engine.h"         // for real_time
+#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, ResourceGroup
+#include "lincity/stats.h"          // for transport_cost
+#include "lincity/transport.h"      // for GROUP_TRANSPORT_RANGE, GROUP_TRAN...
+#include "tinygettext/gettext.hpp"  // for N_, _
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(

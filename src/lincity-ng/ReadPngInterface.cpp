@@ -15,15 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 /* ---------------------------------------------------------------------- *
  * readpng.c
  * This file is part of lincity (see COPYRIGHT for copyright information).
  * ---------------------------------------------------------------------- */
-#include <config.h>
 
-#include <stdlib.h>
-#include "lincity/lctypes.h"
-#include "lincity/engglobs.h"
+#include "lincity/groups.h"    // for GROUP_INDUSTRY_H, GROUP_POWER_LINE
+#include "lincity/lctypes.h"   // for CST_BLACKSMITH_0, CST_BLACKSMITH_1
+#include "lincity/lintypes.h"  // for TYPE
 
 static void LG(short type, short group, const char* id)
 {
@@ -411,4 +411,3 @@ load_png_graphics (void)
 
 
 /** @file lincity-ng/ReadPngInterface.cpp */
-

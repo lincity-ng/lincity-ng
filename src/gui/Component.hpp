@@ -19,14 +19,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __COMPONENT_H__
 
 #include <SDL.h>
-#include <vector>
-#include <string>
 #include <assert.h>
-#include "Rect2D.hpp"
-#include "Child.hpp"
+#include <string>       // for string, basic_string
+#include <vector>
 
-class Painter;
+#include "Child.hpp"    // for Child (ptr only), Childs
+#include "Rect2D.hpp"   // for Rect2D
+#include "Vector2.hpp"  // for Vector2
+
 class Event;
+class Painter;
 
 /**
  * @author Matthias Braun.

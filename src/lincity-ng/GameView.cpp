@@ -15,50 +15,62 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "GameView.hpp"
 
-#include "gui_interface/mps.h"
-#include "gui/TextureManager.hpp"
-#include "gui/Painter.hpp"
-#include "gui/Rect2D.hpp"
-#include "gui/Color.hpp"
-#include "gui/ComponentFactory.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/Event.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/Desktop.hpp"
+#include <SDL_image.h>                     // for IMG_Load_RW
+#include <SDL_keyboard.h>                  // for SDL_GetModState
+#include <SDL_keycode.h>                   // for KMOD_CTRL, SDLK_KP_MINUS
+#include <SDL_scancode.h>                  // for SDL_SCANCODE_A, SDL_SCANCO...
+#include <SDL_timer.h>                     // for SDL_Delay, SDL_GetTicks
+#include <assert.h>                        // for assert
+#include <physfs.h>                        // for PHYSFS_exists
+#include <stdio.h>                         // for sscanf
+#include <string.h>                        // for strcmp
+#include <time.h>                          // for size_t, NULL
+#include <cmath>                           // for sqrt, fabs, floor, fabsf
+#include <exception>                       // for exception
+#include <iostream>                        // for cerr, cout
+#include <iterator>                        // for advance
+#include <list>                            // for _List_iterator, list, oper...
+#include <map>                             // for _Rb_tree_iterator, map
+#include <sstream>                         // for char_traits, basic_ostream
+#include <utility>                         // for pair
+#include <vector>                          // for vector
 
-#include "lincity/lintypes.h"
-#include "lincity/lctypes.h"
-#include "lincity/engglobs.h"
-#include "lincity/modules/all_modules.h"
-#include "lincity/engine.h"
-#include "lincity/lin-city.h"
-
-#include "Mps.hpp"
-#include "MapEdit.hpp"
-#include "MiniMap.hpp"
-#include "Dialog.hpp"
-#include "Config.hpp"
-#include "ScreenInterface.hpp"
-#include "Util.hpp"
-#include "Debug.hpp"
-
-#include <SDL_scancode.h>
-#include <math.h>
-#include <sstream>
-#include <physfs.h>
-
-#include "gui_interface/shared_globals.h"
-#include "tinygettext/gettext.hpp"
-
-#include "gui/callback/Callback.hpp"
-#include "gui/Button.hpp"
-#include "CheckButton.hpp"
-#include "ButtonPanel.hpp"
+#include "Config.hpp"                      // for getConfig, Config
+#include "Dialog.hpp"                      // for blockingDialogIsOpen
+#include "MapEdit.hpp"                     // for check_bulldoze_area, editMap
+#include "MiniMap.hpp"                     // for MiniMap, getMiniMap
+#include "Mps.hpp"                         // for mps_x, mps_y
+#include "PhysfsStream/PhysfsSDL.hpp"      // for getPhysfsSDLRWops
+#include "Util.hpp"                        // for getButton, getParagraph
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Color.hpp"                   // for Color
+#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/Event.hpp"                   // for Event
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Texture.hpp"                 // for Texture
+#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
+#include "lincity/UserOperation.h"         // for UserOperation
+#include "lincity/all_buildings.h"         // for TileConstructionGroup, GRO...
+#include "lincity/engine.h"                // for desert_water_frontiers
+#include "lincity/groups.h"                // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_...
+#include "lincity/lintypes.h"              // for GraphicsInfo, userOperation
+#include "lincity/transport.h"             // for connect_transport, BRIDGE_...
+#include "lincity/world.h"                 // for World
+#include "tinygettext/gettext.hpp"         // for _, dictionaryManager
+#include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
 
 
 const int scale3d = 128; // guestimate value for good looking 3d view;

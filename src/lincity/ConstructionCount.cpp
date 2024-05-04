@@ -4,11 +4,14 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <stdlib.h>
-#include <iostream>
+#include <stdlib.h>                   // for NULL, size_t
+#include <map>                        // for map, operator!=, _Rb_tree_iterator
+#include <utility>                    // for pair
+
 #include "ConstructionCount.h"
-#include "lintypes.h"
-#include "engine.h"
+#include "lincity-ng/Permutator.hpp"  // for Permutator
+#include "lintypes.h"                 // for Construction, ConstructionGroup
+#include "world.h"                    // for World
 
 ConstructionCount::ConstructionCount()
 {

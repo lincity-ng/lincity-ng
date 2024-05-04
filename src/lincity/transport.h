@@ -3,6 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+#include "all_buildings.h"  // for magenta, white, yellow
 #include "lintypes.h"
 
 #ifndef __TRANSPORT_H__

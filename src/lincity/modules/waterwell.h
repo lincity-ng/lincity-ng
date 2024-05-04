@@ -10,6 +10,13 @@
 #define MAX_POLLUTION_AT_WATERWELL 3000
 #define WATER_PER_UGW 400
 #define MAX_WATER_AT_WATERWELL (20 * WATER_PER_UGW * GROUP_WATERWELL_SIZE * GROUP_WATERWELL_SIZE)
+#include <array>                    // for array
+
+#include "../lintypes.h"            // for world
+#include "lincity/all_buildings.h"  // for blue
+#include "lincity/lin-city.h"       // for FLAG_HAS_UNDERGROUND_WATER
+#include "lincity/lintypes.h"       // for CommodityRule, Commodity, Constru...
+#include "lincity/world.h"          // for World
 #include "modules.h"
 
 class WaterwellConstructionGroup: public ConstructionGroup {

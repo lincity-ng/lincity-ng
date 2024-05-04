@@ -15,20 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Util.hpp"
 
-#include <stdexcept>
-#include <sstream>
-#include <typeinfo>
-
-#include "gui/Button.hpp"
-#include "gui/Component.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/SwitchComponent.hpp"
-
-#include "CheckButton.hpp"
+#include "CheckButton.hpp"          // for CheckButton
+#include "gui/Button.hpp"           // for Button
+#include "gui/Component.hpp"        // for Component
+#include "gui/Paragraph.hpp"        // for Paragraph
+#include "gui/SwitchComponent.hpp"  // for SwitchComponent
 
 template<typename T>
 void findComponent(T** result, Component& tree, const std::string& name)
@@ -83,4 +77,3 @@ SwitchComponent* getSwitchComponent(Component& tree, const std::string& name)
 }
 
 /** @file lincity-ng/Util.cpp */
-

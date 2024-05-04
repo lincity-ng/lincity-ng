@@ -3,17 +3,16 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include "lin-city.h"
-#include "lctypes.h"
+#include <stdio.h>                // for NULL
+#include <list>                   // for _List_iterator
+
+#include "engine.h"               // for check_group, check_topgroup
+#include "groups.h"               // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_...
+#include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
+#include "lintypes.h"             // for world, MapTile, Construction, Extra...
+#include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
 #include "transport.h"
-#include "all_buildings.h"
-#include "modules/all_modules.h"
-#include "engglobs.h"
-#include "engine.h"
-#include <iostream>
+#include "world.h"                // for World
 
 
 

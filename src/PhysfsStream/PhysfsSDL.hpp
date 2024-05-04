@@ -19,7 +19,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __PHYSFSSDL_HPP__
 
 #include <SDL.h>
-#include <string>
+#include <SDL_rwops.h>  // for SDL_RWops
+#include <string>       // for string
 
 SDL_RWops* getPhysfsSDLRWops(const std::string& filename);
 

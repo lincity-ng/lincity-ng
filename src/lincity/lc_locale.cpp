@@ -1,6 +1,4 @@
 #include "lc_locale.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 void lincity_set_locale(void)
 {

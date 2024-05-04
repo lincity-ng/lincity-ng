@@ -25,11 +25,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __BUTTON_HPP__
 
 #include <SDL.h>
-#include "Component.hpp"
-#include "callback/Signal.hpp"
+#include <SDL_stdinc.h>         // for Uint32
+#include <string>               // for string, basic_string
+#include <vector>               // for vector
 
-class XmlReader;
+#include "Child.hpp"            // for Child, Childs
+#include "Component.hpp"        // for Component
+#include "Event.hpp"            // for Event
+#include "Vector2.hpp"          // for Vector2
+#include "callback/Signal.hpp"  // for Signal
+
+class Painter;
 class Texture;
+class XmlReader;
 
 /**
  * @class Button

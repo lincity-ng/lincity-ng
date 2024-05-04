@@ -6,17 +6,17 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "lintypes.h"
-#include "groups.h"
-#include "world.h"
 #include "ConstructionCount.h"
 #include "UserOperation.h"
+#include "groups.h"
+#include "lintypes.h"
+#include "world.h"
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 
-class World;
 class ConstructionCount;
 class UserOperation;
+class World;
 
 extern int pix_double;
 

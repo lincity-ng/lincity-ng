@@ -5,24 +5,32 @@
  * ---------------------------------------------------------------------- */
 
 #include "lintypes.h"
-#include "ConstructionManager.h"
-#include "ConstructionCount.h"
 
-#include <vector>
-#include <string.h>             /* XXX: portability issue?  for strcpy */
-#include "lin-city.h"
-#include "engglobs.h"
-#include "lctypes.h"
-#include "loadsave.h"
-#include "xmlloadsave.h"
-#include "all_buildings.h"
-#include "transport.h"
-#include "modules/all_modules.h"
-#include <iostream>
-#include "lincity-ng/Sound.hpp"
-#include "Vehicles.h"
-#include "lincity-ng/MainLincity.hpp"
-#include "lincity-ng/Config.hpp"
+#include <assert.h>               // for assert
+#include <stdlib.h>               // for rand
+#include <iostream>               // for cout
+#include <iterator>               // for advance
+#include <sstream>                // for basic_ostream, operator<<, basic_os...
+#include <utility>                // for pair
+#include <vector>                 // for vector
+
+#include "ConstructionCount.h"    // for ConstructionCount
+#include "ConstructionManager.h"  // for ConstructionManager
+#include "ConstructionRequest.h"  // for ConstructionDeletionRequest, PowerL...
+#include "Vehicles.h"             // for VehicleStrategy, COMMUTER_TRAFFIC_RATE
+#include "all_buildings.h"        // for TileConstructionGroup, desertConstr...
+#include "engglobs.h"             // for world, binary_mode, total_money
+#include "groups.h"               // for GROUP_POWER_LINE, GROUP_DESERT, GRO...
+#include "gui_interface/mps.h"    // for mps_store_ssddp, mps_store_title
+#include "lctypes.h"              // for CST_NONE
+#include "lin-city.h"             // for FALSE, BAD, FLAG_IS_TRANSPORT, FLAG...
+#include "lincity-ng/Config.hpp"  // for getConfig, Config
+#include "lincity-ng/Sound.hpp"   // for getSound, Sound
+#include "modules/all_modules.h"  // for GROUP_RESIDENCE_SIZE, Powerline
+#include "stats.h"                // for coal_tax, goods_tax, income_tax
+#include "transport.h"            // for GROUP_TRANSPORT_SIZE, TRANSPORT_QUANTA
+#include "world.h"                // for World
+#include "xmlloadsave.h"          // for XMLTemplate, bin_template_libary
 
 extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp
 

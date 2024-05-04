@@ -5,11 +5,19 @@
  * ---------------------------------------------------------------------- */
 
 #include "Vehicles.h"
-#include "lintypes.h"
-#include <stdlib.h>
-#include <vector>
-#include "engine.h"
-#include <cmath>
+
+#include <stdlib.h>    // for NULL, rand
+#include <cmath>       // for ceil
+#include <iostream>    // for basic_ostream, basic_ostream::operator<<, oper...
+#include <iterator>    // for advance
+#include <map>         // for map
+#include <string>      // for char_traits, basic_string, operator<
+#include <vector>      // for vector
+
+#include "engine.h"    // for real_time
+#include "groups.h"    // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE, GROUP_ROAD
+#include "lintypes.h"  // for world, ExtraFrame, MapTile, Construction, Reso...
+#include "world.h"     // for World
 
 std::list<Vehicle*> Vehicle::vehicleList;
 

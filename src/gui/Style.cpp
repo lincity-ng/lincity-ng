@@ -22,11 +22,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "Style.hpp"
-#include "XmlReader.hpp"
 
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+#include <stdio.h>        // for sscanf
+#include <string.h>       // for strcmp, strncmp
+#include <iostream>       // for operator<<, basic_ostream, cerr, stringstream
+#include <sstream>        // for basic_stringstream
+#include <stdexcept>      // for runtime_error
+#include <utility>        // for pair, make_pair
+
+#include "XmlReader.hpp"  // for XmlReader
 
 std::map<std::string, Style> styleRegistry;
 

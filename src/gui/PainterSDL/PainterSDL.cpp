@@ -17,17 +17,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PainterSDL.hpp"
 
-#include <iostream>
-#include <assert.h>
-#include <math.h>
-#include <typeinfo>
-#include <SDL_opengl.h>
-#include <SDL2_gfxPrimitives.h>
-#include <SDL2_rotozoom.h>
-#include <SDL_video.h>
-#include <stdlib.h>
+#include <SDL2_gfxPrimitives.h>  // for aalineRGBA, aapolygonRGBA, boxRGBA
+#include <SDL2_rotozoom.h>       // for zoomSurface, SMOOTHING_OFF
+#include <SDL_rect.h>            // for SDL_Rect
+#include <SDL_stdinc.h>          // for Sint16
+#include <assert.h>              // for assert
+#include <stdlib.h>              // for NULL
+#include <cmath>                 // for lroundf, lrint
 
-#include "TextureSDL.hpp"
+#include "Color.hpp"             // for Color
+#include "Rect2D.hpp"            // for Rect2D
+#include "Texture.hpp"           // for Texture
+#include "TextureSDL.hpp"        // for TextureSDL
+
+class Painter;
 
 #ifdef _MSC_VER
 #define lrint(x) (long int)x

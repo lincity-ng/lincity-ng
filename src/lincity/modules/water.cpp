@@ -5,8 +5,18 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "water.h"
+
+#include <string>                   // for basic_string
+
+#include "../lintypes.h"            // for world
+#include "gui_interface/mps.h"      // for mps_store_sdd, mps_store_title
+#include "lincity/all_buildings.h"  // for TileConstructionGroup, waterConst...
+#include "lincity/lin-city.h"       // for FLAG_IS_LAKE, FLAG_IS_RIVER
+#include "lincity/lintypes.h"       // for MapTile
+#include "lincity/world.h"          // for World
+#include "modules_interfaces.h"     // for mps_water
+#include "tinygettext/gettext.hpp"  // for N_
 
 void mps_water(int x, int y)
 {
@@ -36,4 +46,3 @@ void mps_water(int x, int y)
 }
 
 /** @file lincity/modules/water.cpp */
-

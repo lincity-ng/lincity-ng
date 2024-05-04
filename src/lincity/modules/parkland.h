@@ -7,9 +7,11 @@
 #define GROUP_PARKLAND_RANGE 0
 #define GROUP_PARKLAND_SIZE 1
 
-#include "modules.h"
-#include "../lintypes.h"
 #include "../lctypes.h"
+#include "../lintypes.h"            // for ConstructionGroup, RegisteredCons...
+#include "lincity/all_buildings.h"  // for green
+#include "lincity/lin-city.h"       // for FLAG_NEVER_EVACUATE
+#include "modules.h"
 
 
 class ParklandConstructionGroup: public ConstructionGroup {

@@ -1,3 +1,16 @@
+#include <stddef.h>                 // for NULL
+#include <array>                    // for array
+#include <iterator>                 // for advance
+#include <list>                     // for list, _List_iterator, operator!=
+#include <map>                      // for map
+#include <string>                   // for basic_string, operator<
+
+#include "../lintypes.h"            // for world, tech_level
+#include "lincity/all_buildings.h"  // for cyan, JOBS_LOAD_ORE, JOBS_LOAD_STEEL
+#include "lincity/lin-city.h"       // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"       // for CommodityRule, ExtraFrame, Commodity
+#include "lincity/world.h"          // for World
+
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000
 #define GROUP_INDUSTRY_L_COST_MUL 25

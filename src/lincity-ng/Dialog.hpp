@@ -18,11 +18,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DIALOG_HPP__
 #define __DIALOG_HPP__
 
+#include <string>  // for string
 #include <vector>
+
 #include "MapPoint.hpp"
+#include "gui/Button.hpp"
 #include "gui/Component.hpp"
 #include "gui/Desktop.hpp"
-#include "gui/Button.hpp"
+
+class Button;
+class Component;
+class Desktop;
 
 #define BULLDOZE_MONUMENT 1
 #define BULLDOZE_RIVER    2
@@ -37,6 +43,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 extern bool blockingDialogIsOpen;
 
 class Dialog;
+
 void closeAllDialogs();
 
 class Dialog

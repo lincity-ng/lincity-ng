@@ -18,11 +18,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __PHYSFSSTREAM_HPP__
 #define __PHYSFSSTREAM_HPP__
 
+#include <physfs.h>  // for PHYSFS_file
 #include <stdio.h>
-#include <physfs.h>
-#include <string>
+#include <iostream>  // for basic_streambuf, streambuf, basic_istream, basic...
 #include <streambuf>
-#include <iostream>
+#include <string>    // for string
 
 /** This class implements a C++ streambuf object for physfs files.
  * So that you can use normal istream operations on them

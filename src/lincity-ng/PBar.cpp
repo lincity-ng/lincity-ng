@@ -15,17 +15,28 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "PBar.hpp"
-#include "Util.hpp"
-#include "gui/ComponentFactory.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/Painter.hpp"
-#include "../lincity/lintypes.h"
-#include "../lincity/lclib.h"
+
+#include <stdio.h>                         // for sscanf
+#include <string.h>                        // for strcmp
+#include <iomanip>                         // for operator<<, setprecision
+#include <iostream>                        // for cerr
+#include <sstream>                         // for basic_ostream, char_traits
+#include <stdexcept>                       // for runtime_error
+#include <string>                          // for basic_string, operator+
+#include <vector>                          // for allocator
+
+#include "../lincity/lclib.h"              // for num_to_ansi
+#include "Util.hpp"                        // for getParagraph
+#include "gui/Color.hpp"                   // for Color
+#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui_interface/pbar_interface.h"  // for PMONEY, PPOL, PPOP, PTECH
 
 //LCPBar* LCPBarInstance = 0;
 LCPBar* LCPBarPage1 = 0;
@@ -250,4 +261,3 @@ IMPLEMENT_COMPONENT_FACTORY(LCPBar)
 IMPLEMENT_COMPONENT_FACTORY(BarView)
 
 /** @file lincity-ng/PBar.cpp */
-

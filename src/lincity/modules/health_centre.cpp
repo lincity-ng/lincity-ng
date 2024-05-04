@@ -7,6 +7,13 @@
 
 #include "health_centre.h"
 
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp, mps_...
+#include "lincity/groups.h"         // for GROUP_HEALTH
+#include "lincity/lin-city.h"       // for FALSE, FLAG_HEALTH_COVER
+#include "lincity/lintypes.h"       // for Commodity, Construction (ptr only)
+#include "lincity/stats.h"          // for health_cost
+#include "tinygettext/gettext.hpp"  // for _, N_
+
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
      N_("Health Centre"),

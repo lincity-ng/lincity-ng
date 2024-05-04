@@ -17,8 +17,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "Event.hpp"
 
-#include <assert.h>
-#include <SDL_version.h>
+#include <SDL_version.h>  // for SDL_VERSION_ATLEAST
+#include <SDL_video.h>    // for SDL_WINDOWEVENT_ENTER, SDL_WINDOWEVENT_LEAVE
+#include <assert.h>       // for assert
 
 Event::Event(SDL_Event& event)
     : inside(true)

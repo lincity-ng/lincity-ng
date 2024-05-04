@@ -17,12 +17,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "TextureManagerGL.hpp"
 
-#include <SDL_opengl.h>
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+#include <SDL_endian.h>   // for SDL_BIG_ENDIAN, SDL_BYTEORDER
+#include <SDL_error.h>    // for SDL_GetError
+#include <SDL_opengl.h>   // for glTexParameteri, GL_TEXTURE_2D, GL_REPEAT
+#include <SDL_pixels.h>   // for SDL_PixelFormat
+#include <stddef.h>       // for NULL
+#include <sstream>        // for char_traits, basic_ostream, operator<<, bas...
+#include <stdexcept>      // for runtime_error
+#include <string>         // for allocator, basic_string
 
-#include "TextureGL.hpp"
+#include "Rect2D.hpp"     // for Rect2D
+#include "TextureGL.hpp"  // for TextureGL
+
+class Texture;
 
 TextureManagerGL::TextureManagerGL()
 {

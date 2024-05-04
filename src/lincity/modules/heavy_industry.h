@@ -1,3 +1,11 @@
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
+#include "../lintypes.h"            // for tech_level
+#include "lincity/all_buildings.h"  // for JOBS_LOAD_COAL, JOBS_LOAD_ORE
+#include "lincity/lin-city.h"       // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"       // for CommodityRule, Commodity, Registe...
+
 #define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
 #define GROUP_INDUSTRY_H_COST 50000
 #define GROUP_INDUSTRY_H_COST_MUL 20

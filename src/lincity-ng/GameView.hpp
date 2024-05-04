@@ -18,18 +18,30 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAMEVIEW_HPP__
 #define __GAMEVIEW_HPP__
 
-#include "gui/Component.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/Vector2.hpp"
-#include "gui/Texture.hpp"
-#include <time.h>
 #include <SDL.h>
-#include <SDL_thread.h>
 #include <SDL_image.h>
+#include <SDL_mouse.h>         // for SDL_Cursor
+#include <SDL_stdinc.h>        // for Uint32
+#include <SDL_surface.h>       // for SDL_Surface
+#include <SDL_thread.h>        // for SDL_Thread
+#include <time.h>
+#include <string>              // for string, basic_string
 
+#include "MapPoint.hpp"        // for MapPoint
+#include "MiniMap.hpp"         // for MiniMap
+#include "gui/Component.hpp"   // for Component
+#include "gui/Event.hpp"       // for Event
+#include "gui/Texture.hpp"
+#include "gui/Vector2.hpp"     // for Vector2
+#include "gui/XmlReader.hpp"
 #include "lincity/engglobs.h"
-#include "MapPoint.hpp"
-#include "MiniMap.hpp"
+#include "lincity/lintypes.h"  // for GraphicsInfo
+
+class Button;
+class Painter;
+class Rect2D;
+class Texture;
+class XmlReader;
 
 class GameView : public Component
 {

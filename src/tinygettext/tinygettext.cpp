@@ -17,20 +17,21 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include <config.h>
+#include <SDL_stdinc.h>                   // for SDL_free, SDL_iconv_string
+#include <ctype.h>                        // for isspace, toupper
+#include <physfs.h>                       // for PHYSFS_enumerateFiles, PHYS...
+#include <stdio.h>                        // for EOF, sscanf
+#include <stdlib.h>                       // for getenv
+#include <string.h>                       // for strcpy, strlen
+#include <algorithm>                      // for max, transform
+#include <exception>                      // for exception
+#include <fstream>                        // for basic_ostream, operator<<
+#include <iostream>                       // for cerr, cout
+#include <utility>                        // for pair, make_pair
 
-#include <sys/types.h>
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-#include <ctype.h>
-#include <errno.h>
-
-#include "SDL.h"
-
+#include "PhysfsStream/PhysfsStream.hpp"  // for IFileStream
+#include "findlocale.hpp"                 // for FL_FindLocale, FL_FreeLocale
 #include "tinygettext.hpp"
-#include "PhysfsStream/PhysfsStream.hpp"
-#include "findlocale.hpp"
 
 //#define TRANSLATION_DEBUG
 

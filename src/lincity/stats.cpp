@@ -4,9 +4,11 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2002.
  * Portions copyright (c) Corey Keasling, 2000-2002.
  * ---------------------------------------------------------------------- */
-#include "engglobs.h"
+#include <algorithm>   // for copy, max
+#include <map>         // for map
+
+#include "lintypes.h"  // for Commodity, tstat_capacities, tstat_census, hou...
 #include "stats.h"
-#include "modules/market.h" //for inventory_market
 
 /* ---------------------------------------------------------------------- *
  * Public Global Variables

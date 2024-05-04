@@ -25,10 +25,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __PANEL_HPP__
 
 #include <memory>
-#include "Component.hpp"
 
-class XmlReader;
+#include "Component.hpp"  // for Component
+
+class Painter;
 class Texture;
+class Vector2;
+class XmlReader;
 
 /**
  * @class Panel.

@@ -6,7 +6,15 @@
  * ---------------------------------------------------------------------- */
 
 #include "coal_power.h"
-#include <stdlib.h>
+
+#include <stdlib.h>                 // for rand
+#include <vector>                   // for vector
+
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_COAL_POWER
+#include "lincity/lintypes.h"       // for ExtraFrame, Commodity, ResourceGroup
+#include "tinygettext/gettext.hpp"  // for N_
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),

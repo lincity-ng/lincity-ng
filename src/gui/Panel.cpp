@@ -23,15 +23,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Panel.hpp"
 
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <iostream>              // for char_traits, operator<<, basic_ostream
+#include <memory>                // for allocator
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for basic_string
+#include <vector>                // for vector
 
-#include "XmlReader.hpp"
-#include "TextureManager.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "Painter.hpp"
+#include "Child.hpp"             // for Child, Childs
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "Painter.hpp"           // for Painter
+#include "TextureManager.hpp"    // for TextureManager, texture_manager
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 /**
  * Class constructor.

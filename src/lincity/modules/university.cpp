@@ -7,6 +7,13 @@
 
 #include "university.h"
 
+#include "gui_interface/mps.h"      // for mps_store_sfp, mps_store_sd
+#include "lincity/groups.h"         // for GROUP_UNIVERSITY
+#include "lincity/lin-city.h"       // for MAX_TECH_LEVEL, TRUE
+#include "lincity/lintypes.h"       // for Commodity, Construction (ptr only)
+#include "lincity/stats.h"          // for university_cost
+#include "tinygettext/gettext.hpp"  // for N_
+
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
     N_("University"),

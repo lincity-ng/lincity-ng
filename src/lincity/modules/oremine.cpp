@@ -8,6 +8,17 @@
 
 #include "oremine.h"
 
+#include <list>                           // for _List_iterator
+
+#include "gui_interface/mps.h"            // for mps_store_sd, mps_store_sddp
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for OreMineDeletionRequest
+#include "lincity/engine.h"               // for real_time
+#include "lincity/groups.h"               // for GROUP_OREMINE
+#include "lincity/lin-city.h"             // for FLAG_ALTERED, ANIM_THRESHOLD
+#include "lincity/lintypes.h"             // for Commodity, ConstructionGroup
+#include "tinygettext/gettext.hpp"        // for N_
+
 
 
 // Oremine:

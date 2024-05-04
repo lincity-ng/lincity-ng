@@ -15,24 +15,27 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "HelpWindow.hpp"
 
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
-#include <memory>
-#include <physfs.h>
-#include "tinygettext/gettext.hpp"
-#include "gui/Component.hpp"
-#include "gui/ScrollView.hpp"
-#include "gui/Document.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/Desktop.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/callback/Callback.hpp"
-#include "Util.hpp"
+#include <physfs.h>                     // for PHYSFS_exists
+#include <exception>                    // for exception
+#include <iostream>                     // for basic_ostream, operator<<, cerr
+#include <memory>                       // for unique_ptr
+#include <sstream>                      // for basic_ostringstream
+#include <stdexcept>                    // for runtime_error
+
+#include "Util.hpp"                     // for getButton
+#include "gui/Button.hpp"               // for Button
+#include "gui/Component.hpp"            // for Component
+#include "gui/ComponentLoader.hpp"      // for loadGUIFile
+#include "gui/Desktop.hpp"              // for Desktop
+#include "gui/Document.hpp"             // for Document
+#include "gui/ScrollView.hpp"           // for ScrollView
+#include "gui/callback/Callback.hpp"    // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"      // for Signal
+#include "tinygettext/gettext.hpp"      // for dictionaryManager
+#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 HelpWindow::HelpWindow(Desktop* desktop)
 {
@@ -113,7 +116,7 @@ HelpWindow::getHelpFile(const std::string& topic)
         if(PHYSFS_exists(filename.c_str()))
             return filename;
     }
-    
+
     // try english
     filename = "help/en/";
     filename += topic;
@@ -144,4 +147,3 @@ HelpWindow::historyBackClicked(Button*)
 }
 
 /** @file lincity-ng/HelpWindow.cpp */
-

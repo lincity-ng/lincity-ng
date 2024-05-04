@@ -22,9 +22,12 @@
 //#define BLACKSMITH_ANIM_THRESHOLD 10
 #define BLACKSMITH_ANIM_SPEED    200
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>                    // for array
+
 #include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for white
+#include "modules.h"
 
 class BlacksmithConstructionGroup: public ConstructionGroup {
 public:

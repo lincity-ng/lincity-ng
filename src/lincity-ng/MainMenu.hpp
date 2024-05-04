@@ -18,16 +18,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAINMENU_HPP__
 #define __MAINMENU_HPP__
 
-#include "main.hpp"
+#include <SDL_stdinc.h>  // for Uint32
+#include <SDL_video.h>   // for SDL_Window
+#include <map>           // for map
+#include <memory>        // for unique_ptr
+#include <set>           // for set
+#include <string>        // for string, basic_string
+
 #include "gui/Paragraph.hpp"
-#include <memory>
+#include "main.hpp"      // for MainState
 
-#include <map>
-
-class Component;
-class Desktop;
 class Button;
 class CheckButton;
+class Component;
+class Desktop;
+class Paragraph;
 
 class MainMenu
 {

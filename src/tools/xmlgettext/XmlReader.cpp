@@ -17,6 +17,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "./XmlReader.hpp"
 
+#include <libxml/parser.h>  // for XML_PARSE_NONET
+#include <iostream>         // for basic_ostream, char_traits, operator<<
+
 XmlReader::XmlReader(const std::string& filename)
 {
     reader = xmlReaderForFile(filename.c_str(), 0, XML_PARSE_NONET);

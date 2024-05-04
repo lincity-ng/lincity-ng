@@ -1,7 +1,8 @@
 #include "ConstructionManager.h"
-#include "lintypes.h"
-//FIXME
-#include <iostream>
+
+#include <utility>                // for pair
+
+#include "ConstructionRequest.h"  // for ConstructionRequest
 
 void ConstructionManager::submitRequest(ConstructionRequest *request) {
     std::map<Construction *, ConstructionRequest *>::iterator iterator;

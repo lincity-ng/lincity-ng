@@ -4,8 +4,18 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
+
 #include "power_line.h"
-#include "stdlib.h"
+
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_POWER_LINE
+#include "lincity/lintypes.h"       // for ExtraFrame, Commodity, Constructi...
+#include "lincity/transport.h"      // for POWER_MODULUS, GROUP_POWER_LINE_B...
+#include "tinygettext/gettext.hpp"  // for N_
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(

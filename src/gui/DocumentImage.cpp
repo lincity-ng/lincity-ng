@@ -22,9 +22,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "DocumentImage.hpp"
-#include "XmlReader.hpp"
-#include "TextureManager.hpp"
-#include "Painter.hpp"
+
+#include <stdio.h>             // for sscanf
+#include <string.h>            // for strcmp
+#include <iostream>            // for basic_ostream, operator<<, basic_ios
+#include <sstream>             // for basic_stringstream
+#include <stdexcept>           // for runtime_error
+
+#include "Painter.hpp"         // for Painter
+#include "Texture.hpp"         // for Texture
+#include "TextureManager.hpp"  // for TextureManager, texture_manager
+#include "Vector2.hpp"         // for Vector2
+#include "XmlReader.hpp"       // for XmlReader
 
 DocumentImage::DocumentImage()
 	: texture(0)

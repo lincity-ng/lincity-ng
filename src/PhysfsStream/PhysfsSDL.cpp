@@ -17,14 +17,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PhysfsSDL.hpp"
 
-#include <physfs.h>
-#include "PhysfsError.hpp"
+#include <SDL_stdinc.h>     // for Sint64
+#include <assert.h>         // for assert
+#include <physfs.h>         // for PHYSFS_file, PHYSFS_seek, PHYSFS_fileLength
+#include <stdio.h>          // for size_t, NULL, SEEK_CUR, SEEK_END, SEEK_SET
+#include <iostream>         // for basic_ostream, operator<<, cerr, stringst...
+#include <sstream>          // for basic_stringstream
+#include <stdexcept>        // for runtime_error
 
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-
-#include <assert.h>
+#include "PhysfsError.hpp"  // for getPhysfsLastError
 
 static Sint64 funcSize(struct SDL_RWops* context)
 {

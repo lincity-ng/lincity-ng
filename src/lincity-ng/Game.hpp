@@ -18,14 +18,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
-#include "main.hpp"
-#include <memory>
-#include "gui/Button.hpp"
+#include <SDL_video.h>  // for SDL_Window
+#include <memory>       // for unique_ptr
+#include <string>       // for string
 
-class Painter;
-class Sound;
+#include "gui/Button.hpp"
+#include "main.hpp"     // for MainState
+
+class Button;
 class Component;
 class HelpWindow;
+class Painter;
+class Sound;
 
 class Game
 {

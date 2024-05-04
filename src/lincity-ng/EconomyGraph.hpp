@@ -18,13 +18,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __EconomyGraph_HPP
 #define __EconomyGraph_HPP
 
-#include "gui/Component.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/TextureManager.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/Style.hpp"
+#include <string>             // for basic_string, string
 
 #include "CheckButton.hpp"
+#include "gui/Component.hpp"  // for Component
+#include "gui/Paragraph.hpp"
+#include "gui/Style.hpp"      // for Style
+#include "gui/TextureManager.hpp"
+#include "gui/XmlReader.hpp"
+
+class CheckButton;
+class Painter;
+class Paragraph;
+class Rect2D;
+class Texture;
+class XmlReader;
 
 class EconomyGraph : public Component {
 public:

@@ -18,9 +18,12 @@
 #define MAX_JOBS_AT_POTTERY       (POTTERY_JOBS*20)
 #define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20)
 
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>                    // for array
+
 #include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for red
+#include "modules.h"
 
 class PotteryConstructionGroup: public ConstructionGroup {
 public:

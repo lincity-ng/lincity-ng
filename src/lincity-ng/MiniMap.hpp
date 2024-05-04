@@ -18,16 +18,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_minimap_h__
 #define __lc_minimap_h__
 
-#include "gui/Component.hpp"
-#include "gui/Color.hpp"
-#include "gui/Texture.hpp"
-#include "MapPoint.hpp"
-#include "lincity/lintypes.h" //for knowing Construction
-#include <memory>
+#include <memory>              // for unique_ptr
+#include <string>              // for string, basic_string
+#include <vector>              // for vector
 
-class XmlReader;
+#include "MapPoint.hpp"        // for MapPoint
+#include "gui/Color.hpp"       // for Color
+#include "gui/Component.hpp"   // for Component
+#include "gui/Event.hpp"       // for Event
+#include "gui/Texture.hpp"
+#include "gui/Vector2.hpp"     // for Vector2
+#include "lincity/lintypes.h"  // for Commodity
+
 class Button;
 class CheckButton;
+class Painter;
+class Texture;
+class XmlReader;
 
 class MiniMap:public Component
 {

@@ -6,7 +6,14 @@
  * ---------------------------------------------------------------------- */
 
 #include "parkland.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <string>                   // for basic_string
+
+#include "gui_interface/mps.h"      // for mps_store_sd
+#include "lincity/groups.h"         // for GROUP_PARKLAND, GROUP_PARKPOND
+#include "lincity/lintypes.h"       // for MapTile, Construction (ptr only)
+#include "lincity/world.h"          // for World
+#include "tinygettext/gettext.hpp"  // for N_
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(

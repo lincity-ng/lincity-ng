@@ -33,25 +33,69 @@ void get_type_name(short type, char *s);
 */
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
-/********** Data structures ***************/
-#include <list>
-#include <array>
-#include <vector>
-#include <map>
-#include <string>
-#include <cstring>
-#include <sstream>
-#include <zlib.h>
-#include "ConstructionCount.h"
-#include "engglobs.h"
-#include <SDL_mixer.h>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "gui/Texture.hpp"
-#include "tinygettext/gettext.hpp"
+#include <SDL_mixer.h>                  // for Mix_Chunk
+#include <SDL_surface.h>                // for SDL_Surface
+#include <zlib.h>                       // for gzFile
+#include <algorithm>                    // for max
+#include <array>                        // for array
+#include <cstring>                      // for NULL
+#include <iostream>                     // for basic_ostream, operator<<, cout
+/********** Data structures ***************/
+#include <list>                         // for list
+#include <map>                          // for map
+#include <sstream>
+#include <string>                       // for char_traits, basic_string
+#include <vector>                       // for vector
 
+#include "ConstructionCount.h"
+#include "engglobs.h"
+#include "gui/Texture.hpp"              // for Texture
+#include "tinygettext/gettext.hpp"      // for dictionaryManager
+#include "tinygettext/tinygettext.hpp"  // for Dictionary, DictionaryManager
+
+class Blacksmith;
+class Coal_power;
+class Coalmine;
+class Commune;
 class Construction;
+class Cricket;
+class Fire;
+class FireStation;
+class HealthCentre;
+class IndustryHeavy;
+class IndustryLight;
+class Market;
+class Mill;
+class Monument;
+class Oremine;
+class Organic_farm;
+class Parkland;
+class Port;
+class Pottery;
+class Powerline;
+class Rail;
+class RailBridge;
+class Recycle;
+class Residence;
 class ResourceGroup;
+class Road;
+class RoadBridge;
+class RocketPad;
+class School;
+class Shanty;
+class SolarPower;
+class Substation;
+class Tip;
+class Track;
+class TrackBridge;
+class Transport;
+class University;
+class Waterwell;
+class Windmill;
+class Windpower;
+template <typename MemberType> class MemberTraits;
 
 struct ExtraFrame{
     ExtraFrame(void){

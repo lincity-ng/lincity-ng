@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_screen_h__
 #define __lc_screen_h__
 
+#include <string>  // for string
+
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
 

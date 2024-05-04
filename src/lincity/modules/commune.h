@@ -24,10 +24,15 @@
 #define COMMUNE_WATER_GET (16 * WATER_FOREST)
 #define MAX_WATER_AT_COMMUNE (20*COMMUNE_WATER_GET)
 
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
+#include <array>                    // for array
 #include <cstdlib>
+
+#include "../lctypes.h"
+#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
+#include "lincity/all_buildings.h"  // for green
+#include "lincity/lin-city.h"       // for FLAG_HAS_UNDERGROUND_WATER
+#include "lincity/world.h"          // for World
+#include "modules.h"
 
 class CommuneConstructionGroup: public ConstructionGroup {
 public:

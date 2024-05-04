@@ -6,8 +6,9 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include "lintypes.h"
-#include <list>
+#include <list>        // for list
+
+#include "lintypes.h"  // for Commodity, ExtraFrame
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22

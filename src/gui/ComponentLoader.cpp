@@ -22,16 +22,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "ComponentLoader.hpp"
-#include "ComponentFactory.hpp"
-#include "XmlReader.hpp"
-#include "Desktop.hpp"
-#include "Style.hpp"
 
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <string.h>              // for strcmp
+#include <exception>             // for exception
+#include <iostream>              // for basic_ostream, operator<<, stringstream
+#include <map>                   // for operator==, _Rb_tree_iterator
+#include <memory>                // for unique_ptr
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <utility>               // for pair
 
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
-#include <memory>
+#include "Component.hpp"         // for Component
+#include "ComponentFactory.hpp"  // for component_factories, ComponentFactories
+#include "Desktop.hpp"           // for Desktop
+#include "Style.hpp"             // for parseStyleDef
+#include "XmlReader.hpp"         // for XmlReader
 
 //void initFactories();
 

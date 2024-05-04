@@ -1,9 +1,18 @@
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "../transport.h"
+#include <assert.h>            // for assert
+#include <array>               // for array
+#include <iostream>            // for basic_ostream, operator<<, basic_ostre...
+#include <list>                // for _List_iterator, list
+#include <map>                 // for map
+#include <string>              // for char_traits, basic_string, operator<
 
+#include "../lctypes.h"
+#include "../lintypes.h"       // for CommodityRule, Commodity, Counted, Ext...
+#include "../transport.h"      // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED_...
 #include "SDL.h"
+#include "lincity/groups.h"    // for GROUP_RAIL, GROUP_RAIL_BRIDGE, GROUP_ROAD
+#include "lincity/lin-city.h"  // for FLAG_IS_TRANSPORT, FLAG_NEVER_EVACUATE
+#include "lincity/world.h"     // for World
+#include "modules.h"
 
 class Transport;
 

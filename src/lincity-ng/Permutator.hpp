@@ -1,11 +1,11 @@
 #ifndef __LC_Permutator_h__
 #define __LC_Permutator_h__
 
-#include "ErrorInterface.hpp"
-
+#include <assert.h>  // for assert
 #include <iostream>
-#include <assert.h>
-#include <vector>
+#include <vector>    // for vector
+
+#include "ErrorInterface.hpp"
 
 // Permutator uses a linear feedback shift register to iterate
 // through a permutation of a range of values in an efficient

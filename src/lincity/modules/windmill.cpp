@@ -7,6 +7,15 @@
 
 #include "windmill.h"
 
+#include <list>                     // for _List_iterator
+
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_WINDMILL
+#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
+#include "lincity/stats.h"          // for windmill_cost
+#include "tinygettext/gettext.hpp"  // for N_
+
 
 WindmillConstructionGroup windmillConstructionGroup(
     N_("Windmill"),

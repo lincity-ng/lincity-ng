@@ -17,11 +17,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PhysfsStream.hpp"
 
-#include <physfs.h>
-#include <stdexcept>
-#include <sstream>
+#include <physfs.h>         // for PHYSFS_close, PHYSFS_writeBytes, PHYSFS_eof
+#include <stdio.h>          // for size_t
+#include <sstream>          // for basic_stringstream
+#include <stdexcept>        // for runtime_error
+#include <streambuf>        // for basic_streambuf
 
-#include "PhysfsError.hpp"
+#include "PhysfsError.hpp"  // for getPhysfsLastError
 
 IFileStreambuf::IFileStreambuf(const std::string& filename)
 {

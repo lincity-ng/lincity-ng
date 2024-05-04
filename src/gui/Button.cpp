@@ -21,17 +21,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Button.cpp
  */
 
-#include <stdexcept>
+#include <SDL_timer.h>           // for SDL_GetTicks
+#include <assert.h>              // for assert
+#include <ctype.h>               // for isspace
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <iostream>              // for operator<<, basic_ostream, cerr, bas...
+#include <memory>                // for allocator, unique_ptr
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
 
-#include "Painter.hpp"
-#include "Event.hpp"
-#include "TextureManager.hpp"
 #include "Button.hpp"
-#include "Image.hpp"
-#include "Paragraph.hpp"
-#include "TooltipManager.hpp"
-#include "ComponentFactory.hpp"
-#include "XmlReader.hpp"
+#include "ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONENT_F...
+#include "Event.hpp"             // for Event
+#include "Image.hpp"             // for Image
+#include "Painter.hpp"           // for Painter
+#include "Paragraph.hpp"         // for Paragraph
+#include "TooltipManager.hpp"    // for tooltipManager, TOOLTIP_TIME, Toolti...
+#include "XmlReader.hpp"         // for XmlReader
 
 Button::Button()
     : state(STATE_NORMAL), lowerOnClick(true), mouseholdTicks(0)

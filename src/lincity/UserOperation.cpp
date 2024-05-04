@@ -1,8 +1,14 @@
 #include "UserOperation.h"
-#include <iostream>
-#include "lin-city.h"
 
-#include "tinygettext/gettext.hpp"
+#include <stddef.h>                 // for NULL
+#include <iostream>                 // for char_traits, basic_ostream, opera...
+#include <sstream>                  // for basic_stringstream
+
+#include "groups.h"                 // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
+#include "lin-city.h"               // for FLAG_NEVER_EVACUATE, MAX_TECH_LEVEL
+#include "lintypes.h"               // for ConstructionGroup, world, MapTile
+#include "tinygettext/gettext.hpp"  // for _
+#include "world.h"                  // for World
 
 static int last_warning_message_group = 0;
 

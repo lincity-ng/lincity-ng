@@ -7,6 +7,16 @@
 
 #include "windpower.h"
 
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
+#include "lincity/engine.h"         // for real_time
+#include "lincity/groups.h"         // for GROUP_WIND_POWER
+#include "lincity/lintypes.h"       // for ExtraFrame, Commodity, ResourceGroup
+#include "lincity/stats.h"          // for windmill_cost
+#include "tinygettext/gettext.hpp"  // for N_
+
 WindpowerConstructionGroup windpowerConstructionGroup(
     N_("Wind Power"),
      TRUE,                     /* need credit? */

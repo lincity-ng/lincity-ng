@@ -23,9 +23,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Color.hpp"
 
-#include <sstream>
-#include <stdexcept>
-#include <stdio.h>
+#include <stdio.h>    // for sscanf
+#include <string.h>   // for strcmp
+#include <sstream>    // for char_traits, basic_ostream, operator<<, basic_s...
+#include <stdexcept>  // for runtime_error
+#include <string>     // for allocator, basic_string
 
 void
 Color::parse(const char* value)

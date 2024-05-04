@@ -24,13 +24,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GRADIENT_HPP__
 #define __GRADIENT_HPP__
 
-#include "Component.hpp"
-#include <memory>
-#include <stdint.h>
-#include "Color.hpp"
+#include <SDL_surface.h>  // for SDL_Surface
+#include <stdint.h>       // for uint8_t
+#include <memory>         // for unique_ptr
 
-class XmlReader;
+#include "Color.hpp"      // for Color
+#include "Component.hpp"  // for Component
+
+class Painter;
 class Texture;
+class XmlReader;
 
 /**
  * @class Gradient

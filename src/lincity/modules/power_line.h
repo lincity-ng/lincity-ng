@@ -1,7 +1,10 @@
-#include "modules.h"
-#include "../lintypes.h"
+#include <array>               // for array
+
 #include "../lctypes.h"
-#include "../transport.h"
+#include "../lintypes.h"       // for Commodity, CommodityRule, Construction...
+#include "../transport.h"      // for MAX_MWH_ON_POWERLINE
+#include "lincity/lin-city.h"  // for FLAG_NEVER_EVACUATE, FLAG_TRANSPARENT
+#include "modules.h"
 
 #define POWER_LINE_FLASH_SPEED 100
 

@@ -15,21 +15,26 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Mps.hpp"
-#include "gui_interface/mps.h"
-#include "lincity/engglobs.h"
-#include "lincity/lctypes.h"
-#include "Util.hpp"
 
-#include "gui/XmlReader.hpp"
-#include "gui/ComponentFactory.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Paragraph.hpp"
-#include "lincity/modules/all_modules.h"
+#include <assert.h>                       // for assert
+#include <stdlib.h>                       // for rand
+#include <iostream>                       // for basic_ostream, operator<<
+#include <sstream>                        // for basic_ostringstream
 
-#include "Sound.hpp"
+#include "MapPoint.hpp"                   // for MapPoint
+#include "Sound.hpp"                      // for getSound, Sound
+#include "Util.hpp"                       // for getParagraph
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"        // for parseEmbeddedComponent
+#include "gui/Paragraph.hpp"              // for Paragraph
+#include "gui/XmlReader.hpp"              // for XmlReader
+#include "gui_interface/mps.h"            // for MPS_PARAGRAPH_COUNT
+#include "lincity/groups.h"               // for GROUP_ROAD, GROUP_ROAD_BRIDGE
+#include "lincity/lintypes.h"             // for MapTile, Construction, Reso...
+#include "lincity/modules/all_modules.h"  // for Transport
+#include "lincity/world.h"                // for World
 
 Mps* globalMPS = 0;
 Mps* mapMPS = 0;
@@ -147,4 +152,3 @@ IMPLEMENT_COMPONENT_FACTORY(Mps)
 
 
 /** @file lincity-ng/Mps.cpp */
-

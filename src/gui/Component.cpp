@@ -21,11 +21,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @author Matthias Braun
  */
 
-#include <typeinfo>
-#include <stdexcept>
+#include <assert.h>     // for assert
+#include <string.h>     // for strcmp, strncmp
+#include <stdexcept>    // for runtime_error
+#include <vector>       // for vector
+
 #include "Component.hpp"
-#include "Painter.hpp"
-#include "Event.hpp"
+#include "Event.hpp"    // for Event
+#include "Painter.hpp"  // for Painter
 
 Component::Component()
     : parent(0), flags(0), width(0), height(0)

@@ -8,6 +8,17 @@
 
 #include "coalmine.h"
 
+#include <list>                           // for _List_iterator
+#include <map>                            // for map
+
+#include "gui_interface/mps.h"            // for mps_store_sd, mps_store_sddp
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
+#include "lincity/groups.h"               // for GROUP_COALMINE
+#include "lincity/lin-city.h"             // for FLAG_ALTERED, FALSE, FLAG_E...
+#include "lincity/lintypes.h"             // for Commodity, ExtraFrame, MapTile
+#include "tinygettext/gettext.hpp"        // for N_
+
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(
     N_("Coal Mine"),

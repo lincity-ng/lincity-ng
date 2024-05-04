@@ -15,32 +15,42 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-#include <iostream>
 
 #include "EconomyGraph.hpp"
 
-#include "gui/ComponentFactory.hpp"
-#include "gui/Painter.hpp"
-#include "gui/Rect2D.hpp"
-#include "gui/Style.hpp"
-#include "gui/FontManager.hpp"
-#include "gui/TextureManager.hpp"
-#include "gui/SwitchComponent.hpp"
+#include <SDL_surface.h>                   // for SDL_Surface
+#include <SDL_ttf.h>                       // for TTF_RenderUTF8_Blended
+#include <stdio.h>                         // for sscanf
+#include <stdlib.h>                        // for free, malloc, NULL
+#include <string.h>                        // for strcmp
+#include <cmath>                           // for log
+#include <exception>                       // for exception
+#include <iostream>                        // for char_traits, basic_ostream
+#include <sstream>                         // for basic_stringstream, basic_...
+#include <stdexcept>                       // for runtime_error
 
-#include "gui_interface/shared_globals.h"
-
-#include "tinygettext/gettext.hpp"
-
-#include "lincity/engglobs.h"
-#include "lincity/stats.h"
-#include "lincity/lin-city.h"
-#include "lincity/sustainable.h"
-
-#include "ScreenInterface.hpp"
-#include "Config.hpp"
-#include "Dialog.hpp"
-#include "Util.hpp"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "Config.hpp"                      // for getConfig, Config
+#include "Dialog.hpp"                      // for Dialog, MSG_DIALOG
+#include "ScreenInterface.hpp"             // for updateMessageText
+#include "Util.hpp"                        // for getCheckButton
+#include "gui/Color.hpp"                   // for Color
+#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/FontManager.hpp"             // for FontManager, fontManager
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Style.hpp"                   // for Style
+#include "gui/Texture.hpp"                 // for Texture
+#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
+#include "gui/Vector2.hpp"                 // for Vector2
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui_interface/shared_globals.h"  // for monthgraph_nojobs, monthgr...
+#include "lincity/lin-city.h"              // for GOOD
+#include "lincity/lintypes.h"              // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.h"                 // for tpopulation, tstarving_pop...
+#include "lincity/sustainable.h"           // for SUST_FIRE_YEARS_NEEDED
+#include "tinygettext/gettext.hpp"         // for _
 
 extern void ok_dial_box(const char *, int, const char *);
 
@@ -497,4 +507,3 @@ void EconomyGraph::draw( Painter& painter ){
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph)
 
 /** @file lincity-ng/EconomyGraph.cpp */
-
