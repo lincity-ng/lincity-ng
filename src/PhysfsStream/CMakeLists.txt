@@ -17,3 +17,5 @@ target_link_libraries(physfsstream
 
 target_include_directories(physfsstream PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(physfsstream PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

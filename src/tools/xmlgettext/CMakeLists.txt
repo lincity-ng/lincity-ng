@@ -1,4 +1,3 @@
-
 add_executable(xmlgettext
   main.cpp
   XmlReader.cpp
@@ -15,3 +14,5 @@ target_include_directories(xmlgettext
   PRIVATE
   ${LIBXML2_INCLUDE_DIR}
 )
+
+include_directories(.)

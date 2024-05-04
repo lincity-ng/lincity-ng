@@ -86,3 +86,5 @@ target_link_libraries(lincity_lib_modules
 
 target_include_directories(lincity_lib_modules PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity_lib_modules PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

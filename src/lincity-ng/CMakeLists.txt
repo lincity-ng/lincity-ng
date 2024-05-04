@@ -72,3 +72,5 @@ target_link_libraries(lincity-ng
 
 target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

@@ -98,3 +98,5 @@ target_include_directories(lincity_gui
 		PUBLIC
 		${LIBXML2_INCLUDE_DIR})
 target_link_libraries(lincity_gui PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)
