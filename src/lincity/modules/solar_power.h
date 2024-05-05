@@ -76,8 +76,8 @@ public:
         commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
     }
 
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
     int  mwh_output;
     int  tech;
     int  working_days, busy;

@@ -7,7 +7,6 @@
 #include <set>                             // for set
 #include <utility>                         // for pair
 
-#include "../lintypes.h"                   // for world, binary_mode, constr...
 #include "ConstructionCount.h"             // for ConstructionCount
 #include "groups.h"                        // for GROUP_DESERT
 #include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, PBAR_DATA_...

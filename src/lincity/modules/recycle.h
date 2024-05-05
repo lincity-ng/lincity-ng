@@ -111,8 +111,8 @@ public:
     }
 
     virtual ~Recycle() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
 
     int  tech;
     int  make_ore;
