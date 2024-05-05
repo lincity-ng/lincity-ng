@@ -25,6 +25,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdlib.h>              // for NULL
 #include <cmath>                 // for lroundf, lrint
 
+#ifdef WIN32
+#include <typeinfo>
+#endif
+
 #include "../Vector2.hpp"        // for Vector2
 #include "Color.hpp"             // for Color
 #include "Rect2D.hpp"            // for Rect2D

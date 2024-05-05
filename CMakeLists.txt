@@ -22,10 +22,6 @@ include(GetGitRevisionDescription)
 set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
-  "include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
-set(CMAKE_C_INCLUDE_WHAT_YOU_USE
-  "include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
 
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 
@@ -74,6 +70,21 @@ set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 add_compile_options("-fmacro-prefix-map=${CMAKE_SOURCE_DIR}=.")
+if(UNIX)
+	add_compile_definitions("UNIX")
+endif()
+if(WIN32)
+	add_compile_definitions("WIN32")
+endif()
+if(APPLE)
+	add_compile_definitions("APPLE")
+endif()
+
+if(${CMAKE_SYSTEM_NAME} EQUAL ${CMAKE_HOST_SYSTEM_NAME})
+	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
+		"include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
+	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
+endif()
 
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})

@@ -1,5 +1,9 @@
 #include "lc_locale.h"
 
+#ifdef WIN32
+#include <stdlib.h>
+#endif
+
 void lincity_set_locale(void)
 {
 //    char *locale = NULL;
