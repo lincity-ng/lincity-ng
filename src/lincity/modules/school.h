@@ -26,10 +26,6 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string, operator<
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for ExtraFrame, CommodityRule, Commodity
-#include "lincity/all_buildings.h"  // for white
-#include "lincity/world.h"          // for World
 #include "modules.h"
 
 

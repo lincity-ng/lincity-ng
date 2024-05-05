@@ -24,8 +24,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __PANEL_HPP__
 #define __PANEL_HPP__
 
-#include <memory>
-
 #include "Component.hpp"  // for Component
 
 class Painter;
@@ -56,4 +54,3 @@ private:
 
 
 /** @file gui/Panel.hpp */
-

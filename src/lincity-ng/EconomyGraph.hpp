@@ -20,12 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>             // for basic_string, string
 
-#include "CheckButton.hpp"
 #include "gui/Component.hpp"  // for Component
-#include "gui/Paragraph.hpp"
 #include "gui/Style.hpp"      // for Style
-#include "gui/TextureManager.hpp"
-#include "gui/XmlReader.hpp"
 
 class CheckButton;
 class Painter;
@@ -41,14 +37,14 @@ public:
 
     void parse(XmlReader& reader);
     void draw(Painter& painter);
-    void updateData();    
+    void updateData();
     void newFPS( int frame );
 private:
     static const int border = 5;
     void drawHistoryLineGraph( Painter& painter, Rect2D mg );
     void drawSustBarGraph( Painter& painter, Rect2D mg );
     void drawFPSGraph( Painter& painter, Rect2D fpsRect );
- 
+
     int* fps;
     Texture* labelTextureMIN;
     Texture* labelTexturePRT;
@@ -77,4 +73,3 @@ EconomyGraph* getEconomyGraph();
 #endif
 
 /** @file lincity-ng/EconomyGraph.hpp */
-

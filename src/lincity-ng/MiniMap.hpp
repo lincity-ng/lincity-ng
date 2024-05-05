@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Color.hpp"       // for Color
 #include "gui/Component.hpp"   // for Component
 #include "gui/Event.hpp"       // for Event
-#include "gui/Texture.hpp"
 #include "gui/Vector2.hpp"     // for Vector2
 #include "lincity/lintypes.h"  // for Commodity
 

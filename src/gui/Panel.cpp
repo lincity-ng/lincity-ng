@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
 #include <iostream>              // for char_traits, operator<<, basic_ostream
-#include <memory>                // for allocator
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
 #include <string>                // for basic_string
@@ -141,4 +140,3 @@ IMPLEMENT_COMPONENT_FACTORY(Panel)
 
 
 /** @file gui/Panel.cpp */
-

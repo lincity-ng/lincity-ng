@@ -29,7 +29,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"        // for Component
 #include "DocumentElement.hpp"  // for DocumentElement
 #include "Style.hpp"            // for Style
-#include "Texture.hpp"
 
 class Painter;
 class Texture;
@@ -62,4 +61,3 @@ private:
 
 
 /** @file gui/DocumentImage.hpp */
-

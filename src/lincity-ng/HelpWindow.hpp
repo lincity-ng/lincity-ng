@@ -21,8 +21,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stack>   // for stack
 #include <string>  // for string, basic_string
 
-#include "gui/Button.hpp"
-
 class Button;
 class Desktop;
 class Paragraph;
@@ -50,4 +48,3 @@ private:
 #endif
 
 /** @file lincity-ng/HelpWindow.hpp */
-

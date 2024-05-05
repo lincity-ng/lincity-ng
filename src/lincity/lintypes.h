@@ -33,8 +33,6 @@ void get_type_name(short type, char *s);
 */
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
-#include <SDL.h>
-#include <SDL_image.h>
 #include <SDL_mixer.h>                  // for Mix_Chunk
 #include <SDL_surface.h>                // for SDL_Surface
 #include <zlib.h>                       // for gzFile
@@ -45,11 +43,9 @@ void set_map_groups(void);
 /********** Data structures ***************/
 #include <list>                         // for list
 #include <map>                          // for map
-#include <sstream>
 #include <string>                       // for char_traits, basic_string
 #include <vector>                       // for vector
 
-#include "ConstructionCount.h"
 #include "engglobs.h"
 #include "gui/Texture.hpp"              // for Texture
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
@@ -60,6 +56,7 @@ class Coal_power;
 class Coalmine;
 class Commune;
 class Construction;
+class ConstructionGroup;
 class Cricket;
 class Fire;
 class FireStation;
@@ -163,8 +160,6 @@ public:
     int int3;
     int int4;
 };
-
-class ConstructionGroup;
 
 class MapTile {
 public:
@@ -351,8 +346,6 @@ MEMBER_TYPE_TRAITS(bool, Construction::TYPE_BOOL)
 MEMBER_TYPE_TRAITS(unsigned short, Construction::TYPE_USHORT)
 MEMBER_TYPE_TRAITS(double, Construction::TYPE_DOUBLE)
 MEMBER_TYPE_TRAITS(float, Construction::TYPE_FLOAT)
-
-class ConstructionGroup;
 
 template <typename ConstructionClass>
 class RegisteredConstruction: public Construction, public Counted<ConstructionClass>

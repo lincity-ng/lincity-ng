@@ -29,7 +29,6 @@
   are yearly display variables.  They will be displayed in the mini-map
   when the user clicks on the pound sterling icon.
 */
-#include "lintypes.h"
 
 /*daily*/
 extern int ddeaths, dbirths;
@@ -102,4 +101,3 @@ void add_daily_to_monthly(void);
 #endif
 
 /** @file lincity/stats.h */
-

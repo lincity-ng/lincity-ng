@@ -3,8 +3,6 @@
 
 #include <string>  // for string, basic_string
 
-#include "lintypes.h"
-
 class ConstructionGroup;
 
 class UserOperation {

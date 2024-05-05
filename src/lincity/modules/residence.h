@@ -89,11 +89,7 @@
 #include <iostream>                 // for basic_ostream, operator<<, basic_...
 #include <string>                   // for char_traits, basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "cricket.h"
-#include "lincity/all_buildings.h"  // for cyan
-#include "lincity/groups.h"         // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
+#include "modules.h"
 
 class ResidenceConstructionGroup: public ConstructionGroup {
 public:

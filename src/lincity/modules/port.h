@@ -42,10 +42,6 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "../transport.h"
-#include "lincity/all_buildings.h"  // for blue
 #include "modules.h"
 
 class PortConstructionGroup: public ConstructionGroup {

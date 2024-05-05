@@ -22,14 +22,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <memory>       // for unique_ptr
 #include <string>       // for string
 
-#include "gui/Button.hpp"
 #include "main.hpp"     // for MainState
 
 class Button;
 class Component;
 class HelpWindow;
-class Painter;
-class Sound;
 
 class Game
 {
@@ -43,7 +40,7 @@ public:
 
 private:
     std::unique_ptr<Component> gui;
-    
+
     bool running;
     MainState quitState;
     void backToMainMenu();
@@ -60,4 +57,3 @@ Game* getGame();
 
 
 /** @file lincity-ng/Game.hpp */
-

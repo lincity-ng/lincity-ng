@@ -16,9 +16,6 @@
 
 #define COMMUTER_TRAFFIC_RATE 1024
 
-
-class ExtraFrame;
-
 enum VehicleModel
 {
     VEHICLE_BLUECAR,

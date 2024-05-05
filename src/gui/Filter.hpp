@@ -24,7 +24,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __FILTER_HPP__
 #define __FILTER_HPP__
 
-#include <SDL.h>
 #include <SDL_surface.h>  // for SDL_Surface
 
 /** Converts a color to a greyscale surface */
@@ -34,4 +33,3 @@ void color2Grey(SDL_Surface* surface);
 
 
 /** @file gui/Filter.hpp */
-

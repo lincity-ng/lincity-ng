@@ -21,9 +21,7 @@
 
 #include <string>                   // for basic_string
 
-#include "gui_interface/mps.h"      // for mps_store_sddp, mps_store_sd, mps...
-#include "lincity/groups.h"         // for GROUP_WATERWELL
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 WaterwellConstructionGroup waterwellConstructionGroup(
     N_("Water tower"),

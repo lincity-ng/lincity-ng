@@ -11,11 +11,7 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string, operator<
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
-#include "lincity/groups.h"         // for GROUP_SUBSTATION
-#include "lincity/lin-city.h"       // for FALSE
-#include "lincity/lintypes.h"       // for ExtraFrame, Commodity, ResourceGroup
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),

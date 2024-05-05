@@ -19,13 +19,8 @@
 #define OREMINE_ANIMATION_SPEED 200
 
 #include <array>                    // for array
-#include <cstdlib>
 #include <string>                   // for basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "lincity/all_buildings.h"  // for JOBS_LOAD_ORE, red
-#include "lincity/world.h"          // for World
 #include "modules.h"
 
 class OremineConstructionGroup: public ConstructionGroup {

@@ -9,15 +9,8 @@
 #include <cstdlib>                  // for size_t
 #include <vector>                   // for vector
 
+#include "modules.h"
 #include "fire.h"                   // for FIRE_ANIMATION_SPEED
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp, mps_...
-#include "lincity/engine.h"         // for real_time
-#include "lincity/groups.h"         // for GROUP_MARKET
-#include "lincity/lin-city.h"       // for FLAG_EVACUATE, ANIM_THRESHOLD, FALSE
-#include "lincity/lintypes.h"       // for CommodityRule, ExtraFrame, Commodity
-#include "lincity/stats.h"          // for income_tax
-#include "lincity/transport.h"      // for TRANSPORT_QUANTA, MAX_WASTE_IN_MA...
-#include "tinygettext/gettext.hpp"  // for N_
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),

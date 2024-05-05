@@ -10,11 +10,7 @@
 #include <list>                     // for _List_iterator
 #include <map>                      // for map
 
-#include "gui_interface/mps.h"      // for mps_store_sfp, mps_set, mps_store_sd
-#include "lincity/groups.h"         // for GROUP_MONUMENT
-#include "lincity/lin-city.h"       // for FALSE, FLAG_EVACUATE, FLAG_NEVER_...
-#include "lincity/lintypes.h"       // for ExtraFrame, Commodity, Constructi...
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 extern int mps_x, mps_y;
 

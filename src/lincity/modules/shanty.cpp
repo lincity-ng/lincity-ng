@@ -11,17 +11,9 @@
 #include <stdlib.h>                       // for rand
 #include <vector>                         // for vector
 
+#include "modules.h"
 #include "commune.h"                      // for COMMUNE_POP, Commune (ptr o...
 #include "fire.h"                         // for FIRE_ANIMATION_SPEED
-#include "gui_interface/mps.h"            // for mps_store_sd
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
-#include "lincity/ConstructionRequest.h"  // for BurnDownRequest
-#include "lincity/engine.h"               // for find_group, find_bare_area
-#include "lincity/groups.h"               // for GROUP_SHANTY, GROUP_MARKET
-#include "lincity/lintypes.h"             // for Commodity, ExtraFrame, Counted
-#include "lincity/stats.h"                // for coal_tax, goods_tax, income...
-#include "modules_interfaces.h"           // for add_a_shanty, update_shanty
-#include "tinygettext/gettext.hpp"        // for N_
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(

@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                         // for basic_ostream, char_traits
 #include <stdexcept>                       // for runtime_error
 #include <string>                          // for basic_string, operator+
-#include <vector>                          // for allocator
 
 #include "../lincity/lclib.h"              // for num_to_ansi
 #include "Util.hpp"                        // for getParagraph

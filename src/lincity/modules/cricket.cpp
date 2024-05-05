@@ -11,13 +11,7 @@
 #include <list>                     // for _List_iterator
 #include <vector>                   // for vector
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp, mps_...
-#include "lincity/engine.h"         // for real_time
-#include "lincity/groups.h"         // for GROUP_CRICKET
-#include "lincity/lin-city.h"       // for ANIM_THRESHOLD, FALSE, FLAG_CRICK...
-#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
-#include "lincity/stats.h"          // for cricket_cost
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(

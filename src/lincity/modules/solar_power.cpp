@@ -8,10 +8,7 @@
 
 #include "solar_power.h"
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
-#include "lincity/groups.h"         // for GROUP_SOLAR_POWER
-#include "lincity/lintypes.h"       // for Commodity, Construction (ptr only)
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 
 // SolarPower:

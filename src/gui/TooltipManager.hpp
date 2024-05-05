@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __TOOLTIPMANAGER_HPP__
 
 #include <SDL_stdinc.h>   // for Uint32
-#include <map>
 #include <string>         // for string
 #include <vector>         // for vector
 
@@ -33,7 +32,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"  // for Component
 #include "Event.hpp"      // for Event
 
-class Paragraph;
 class Vector2;
 class XmlReader;
 
@@ -70,4 +68,3 @@ extern TooltipManager* tooltipManager;
 
 
 /** @file gui/TooltipManager.hpp */
-

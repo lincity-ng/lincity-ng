@@ -27,7 +27,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_exists
 #include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcmp
-#include <time.h>                          // for size_t, NULL
 #include <cmath>                           // for sqrt, fabs, floor, fabsf
 #include <exception>                       // for exception
 #include <iostream>                        // for cerr, cout

@@ -15,10 +15,6 @@
 #include <array>                    // for array
 #include <string>                   // for basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Registe...
-#include "lincity/all_buildings.h"  // for yellow
-#include "lincity/lin-city.h"       // for MAX_TECH_LEVEL
 #include "modules.h"
 
 

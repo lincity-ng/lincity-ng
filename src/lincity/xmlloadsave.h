@@ -13,8 +13,6 @@
 
 #include <stddef.h>  // for size_t
 #include <zlib.h>    // for gzFile
-#include <fstream>
-#include <iostream>
 #include <map>       // for map
 #include <sstream>   // for ostream, basic_ostringstream, ostringstream
 #include <string>    // for string, basic_string

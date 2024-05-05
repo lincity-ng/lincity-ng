@@ -11,13 +11,7 @@
 #include <string>                   // for basic_string
 #include <vector>                   // for vector
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
-#include "lincity/engine.h"         // for real_time
-#include "lincity/groups.h"         // for GROUP_MILL
-#include "lincity/lin-city.h"       // for FLAG_POWERED, ANIM_THRESHOLD, FALSE
-#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
-#include "lincity/world.h"          // for World
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 
 MillConstructionGroup millConstructionGroup(

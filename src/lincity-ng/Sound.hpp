@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SOUND_HPP__
 #define __SOUND_HPP__
 
-#include <SDL.h>
 #include <SDL_mixer.h>   // for Mix_Chunk, Mix_Music
 #include <SDL_thread.h>  // for SDL_Thread
 #include <map>           // for multimap
@@ -27,7 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 //TODO make use for these:
 enum MusicState {
-    PLAY, PAUSE, STOP  
+    PLAY, PAUSE, STOP
 };
 
 //Used for changing tracks.
@@ -83,4 +82,3 @@ Sound* getSound();
 #endif
 
 /** @file lincity-ng/Sound.hpp */
-

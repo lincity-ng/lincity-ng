@@ -11,11 +11,7 @@
 #include <map>                      // for map
 #include <vector>                   // for vector
 
-#include "gui_interface/mps.h"      // for mps_store_sfp, mps_store_sd
-#include "lincity/engine.h"         // for real_time
-#include "lincity/groups.h"         // for GROUP_INDUSTRY_H
-#include "lincity/world.h"          // for World
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(

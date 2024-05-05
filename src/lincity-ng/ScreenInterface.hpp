@@ -20,9 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>  // for string
 
-#include "lincity/engglobs.h"
-#include "lincity/lctypes.h"
-
 //void screen_full_refresh ();
 void print_stats ();
 

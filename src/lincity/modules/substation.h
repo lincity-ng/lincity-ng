@@ -15,9 +15,6 @@
 
 #include <array>                    // for array
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "lincity/all_buildings.h"  // for yellow
 #include "modules.h"
 
 class SubstationConstructionGroup: public ConstructionGroup {

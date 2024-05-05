@@ -2,10 +2,7 @@
 #define __LC_Permutator_h__
 
 #include <assert.h>  // for assert
-#include <iostream>
 #include <vector>    // for vector
-
-#include "ErrorInterface.hpp"
 
 // Permutator uses a linear feedback shift register to iterate
 // through a permutation of a range of values in an efficient
@@ -25,7 +22,7 @@ public:
 protected:
     unsigned int range;
     //unsigned int *permutation, *p;
-    std::vector<unsigned int> permutation, p; 
+    std::vector<unsigned int> permutation, p;
 };
 
 /* Use case:
@@ -40,4 +37,3 @@ doSimulation() {
 */
 
 #endif
-

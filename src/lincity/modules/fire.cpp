@@ -12,15 +12,7 @@
 #include <map>                            // for map
 #include <vector>                         // for vector
 
-#include "gui_interface/mps.h"            // for mps_store_sd, mps_store_sddp
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
-#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
-#include "lincity/engine.h"               // for do_random_fire, real_time
-#include "lincity/groups.h"               // for GROUP_FIRE
-#include "lincity/lin-city.h"             // for FLAG_IS_GHOST, FLAG_FIRE_COVER
-#include "lincity/lintypes.h"             // for ExtraFrame, MapTile, Resour...
-#include "lincity/world.h"                // for World
-#include "tinygettext/gettext.hpp"        // for N_
+#include "modules.h"
 //#include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(

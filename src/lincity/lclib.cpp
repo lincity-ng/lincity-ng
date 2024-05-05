@@ -5,7 +5,6 @@
  * Portions copyright (c) Corey Keasling, 2001.
  * ---------------------------------------------------------------------- */
 
-#include <math.h>                   // for abs
 #include <stdio.h>                  // for snprintf, size_t, printf, NULL
 #include <stdlib.h>                 // for abs, exit, malloc
 #include <string.h>                 // for strdup
@@ -245,4 +244,3 @@ void *lcalloc(size_t size)
 }
 
 /** @file lincity/lclib.cpp */
-

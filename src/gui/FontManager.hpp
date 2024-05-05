@@ -28,8 +28,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <map>        // for map
 #include <string>     // for basic_string, operator<, operator==, operator>
 
-#include "Style.hpp"
-
 class Style;
 
 /**
@@ -49,7 +47,7 @@ private:
         int fontsize;
         int fontstyle;
 
-        bool operator < (const FontInfo& other) const 
+        bool operator < (const FontInfo& other) const
         {
             if(other.name < name)
                 return true;
@@ -81,4 +79,3 @@ extern FontManager* fontManager;
 
 
 /** @file gui/FontManager.hpp */
-

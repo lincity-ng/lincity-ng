@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <assert.h>                          // for assert
 #include <errno.h>                           // for errno
-#include <math.h>                            // for abs
 #include <stdlib.h>                          // for malloc, abs
 #include <exception>                         // for exception
 #include <iomanip>                           // for operator<<, setfill, setw

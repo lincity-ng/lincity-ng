@@ -21,7 +21,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>               // for string
 #include <vector>               // for vector
 
-#include "MapPoint.hpp"
 #include "gui/Component.hpp"    // for Component
 #include "gui_interface/mps.h"  // for MPS_MAP
 
@@ -65,4 +64,3 @@ extern Mps* envMPS;
 #endif
 
 /** @file lincity-ng/Mps.hpp */
-

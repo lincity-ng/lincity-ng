@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
 #include <iostream>              // for operator<<, basic_ostream, basic_ios
-#include <memory>                // for allocator
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
 
@@ -147,4 +146,3 @@ IMPLEMENT_COMPONENT_FACTORY(Image)
 
 
 /** @file gui/Image.cpp */
-

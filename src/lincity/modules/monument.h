@@ -17,9 +17,6 @@
 #include <array>                    // for array
 #include <string>                   // for basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "lincity/all_buildings.h"  // for white
 #include "modules.h"
 
 class MonumentConstructionGroup: public ConstructionGroup {

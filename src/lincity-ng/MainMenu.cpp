@@ -21,14 +21,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_events.h>                    // for SDL_WaitEventTimeout, SDL_...
 #include <SDL_keycode.h>                   // for KMOD_CTRL, SDLK_ESCAPE
 #include <SDL_timer.h>                     // for SDL_GetTicks
-#include <math.h>                          // for abs
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stdio.h>                         // for fprintf, remove, size_t, NULL
 #include <stdlib.h>                        // for abs, atoi, unsetenv
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for max, sort
 #include <iomanip>                         // for operator<<, setfill, setw
-#include <iostream>                        // for char_traits, basic_ostream
+#include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream, basic_...
 #include <stdexcept>                       // for runtime_error
 #include <utility>                         // for pair
@@ -52,6 +51,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/init_game.h"             // for new_city, city_settings
+#include "lincity/lintypes.h"              // for world, binary_mode, seed_c...
 #include "lincity/loadsave.h"              // for given_scene
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager

@@ -59,6 +59,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lc_error.h"                            // for HANDLE_ERRNO
 #include "lincity/init_game.h"                   // for destroy_game
 #include "lincity/lin-city.h"                    // for FAST_TIME_FOR_YEAR
+#include "lincity/lintypes.h"                    // for fast_time_for_year
 #include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 

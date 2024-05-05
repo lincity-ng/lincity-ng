@@ -9,11 +9,7 @@
 
 #include <list>                     // for _List_iterator
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp, mps_...
-#include "lincity/groups.h"         // for GROUP_ORGANIC_FARM
-#include "lincity/lin-city.h"       // for FLAG_POWERED, FALSE, MAX_TECH_LEVEL
-#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(

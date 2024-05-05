@@ -7,23 +7,27 @@
 #ifndef __modules_h__
 #define __modules_h__
 
-#include "../lctypes.h"
-#include "../lintypes.h"
-#include "../ConstructionManager.h"
+// IWYU pragma: begin_exports
+#include "lincity/lctypes.h"
+#include "lincity/lintypes.h"
+#include "lincity/ConstructionManager.h"
+#include "lincity/ConstructionRequest.h"
 #include "tinygettext/gettext.hpp"
-#include "../lin-city.h"
-#include "../engglobs.h"
-#include "../engine.h"
-#include "../stats.h"
+#include "lincity/lin-city.h"
+#include "lincity/engglobs.h"
+#include "lincity/engine.h"
+#include "lincity/stats.h"
 #include "gui_interface/mps.h"
-#include "../lclib.h"
+#include "lincity/lclib.h"
 
 //#include "../power.h"
-#include "../all_buildings.h"
+#include "lincity/all_buildings.h"
 #include "modules_interfaces.h"
-
+#include "lincity/world.h"
+#include "lincity/transport.h"
+#include "lincity/groups.h"
+// IWYU pragma: end_exports
 
 #endif /* __modules_h__ */
 
 /** @file lincity/modules/modules.h */
-

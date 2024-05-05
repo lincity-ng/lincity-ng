@@ -3,6 +3,9 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+
+#include "transport.h"
+
 #include <stdio.h>                // for NULL
 #include <list>                   // for _List_iterator
 
@@ -11,7 +14,6 @@
 #include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
 #include "lintypes.h"             // for world, MapTile, Construction, Extra...
 #include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
-#include "transport.h"
 #include "world.h"                // for World
 
 
@@ -575,4 +577,3 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
 }
 
 /** @file lincity/transport.cpp */
-

@@ -36,11 +36,6 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string, operator<
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, ExtraFrame
-#include "lincity/all_buildings.h"  // for red
-#include "lincity/lin-city.h"       // for FLAG_NEVER_EVACUATE
-#include "lincity/world.h"          // for World
 #include "modules.h"
 
 class ShantyConstructionGroup: public ConstructionGroup {

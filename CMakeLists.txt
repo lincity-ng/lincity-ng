@@ -22,8 +22,10 @@ include(GetGitRevisionDescription)
 set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE include-what-you-use)
-set(CMAKE_C_INCLUDE_WHAT_YOU_USE include-what-you-use)
+set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
+  "include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
+set(CMAKE_C_INCLUDE_WHAT_YOU_USE
+  "include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
 
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 

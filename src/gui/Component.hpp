@@ -18,10 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
-#include <SDL.h>
-#include <assert.h>
 #include <string>       // for string, basic_string
-#include <vector>
 
 #include "Child.hpp"    // for Child (ptr only), Childs
 #include "Rect2D.hpp"   // for Rect2D
@@ -170,4 +167,3 @@ protected:
 #endif
 
 /** @file gui/Component.hpp */
-

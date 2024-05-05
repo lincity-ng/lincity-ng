@@ -8,11 +8,7 @@
 
 #include "recycle.h"
 
-#include "gui_interface/mps.h"      // for mps_store_sfp, mps_store_sd
-#include "lincity/groups.h"         // for GROUP_RECYCLE
-#include "lincity/lintypes.h"       // for Commodity, Construction (ptr only)
-#include "lincity/stats.h"          // for recycle_cost
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 RecycleConstructionGroup recycleConstructionGroup(
     N_("Recycling Centre"),

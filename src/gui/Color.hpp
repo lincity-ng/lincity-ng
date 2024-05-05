@@ -24,13 +24,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COLOR_HPP__
 #define __COLOR_HPP__
 
-#include <SDL.h>
 #include <SDL_pixels.h>  // for SDL_Color
 #include <stdint.h>      // for uint8_t
 
 /**
  * @class Color
- * @brief This class defines a color in RGBA color space. 
+ * @brief This class defines a color in RGBA color space.
  *
  * You can specify a red, green, blue and alpha value from 0 to 255. For
  * red/green/blue a value of 0 means no saturation a value of 255 is full
@@ -70,4 +69,3 @@ public:
 
 
 /** @file gui/Color.hpp */
-

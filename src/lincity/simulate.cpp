@@ -4,7 +4,6 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <math.h>                          // for abs
 #include <stdlib.h>                        // for rand, abs
 #include <iterator>                        // for advance
 #include <list>                            // for list, _List_iterator, oper...

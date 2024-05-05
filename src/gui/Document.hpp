@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __DOCUMENT_HPP__
 
 #include <string>               // for string
-#include <vector>
 
 #include "Component.hpp"        // for Component
 #include "Style.hpp"            // for Style
@@ -61,4 +60,3 @@ private:
 
 
 /** @file gui/Document.hpp */
-

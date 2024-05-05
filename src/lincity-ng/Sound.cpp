@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                     // for fprintf, stderr
 #include <stdlib.h>                    // for strtod, rand
 #include <string.h>                    // for strcmp, NULL, size_t
-#include <algorithm>                   // for max
 #include <cmath>                       // for round
 #include <iostream>                    // for basic_ostream, operator<<, endl
 #include <utility>                     // for pair

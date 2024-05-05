@@ -7,8 +7,6 @@
 
 #include <string>  // for string
 
-#include "string.h"
-
 #ifndef __loadsave_h__
 #define __loadsave_h__
 

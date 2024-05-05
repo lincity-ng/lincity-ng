@@ -16,11 +16,7 @@
 #include <stdlib.h>                 // for rand
 #include <string>                   // for basic_string
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for NUMOF_DAYS_IN_YEAR, ConstructionG...
-#include "lincity/all_buildings.h"  // for red
 #include "modules.h"
-
 
 class FireConstructionGroup: public ConstructionGroup {
 public:

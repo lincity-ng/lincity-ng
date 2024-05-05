@@ -6,17 +6,13 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "ConstructionCount.h"
-#include "UserOperation.h"
-#include "groups.h"
-#include "lintypes.h"
-#include "world.h"
+#include "ConstructionCount.h"  // for ConstructionCount
+#include "lintypes.h"           // IWYU pragma: keep  // for NUM_OF_GROUPS, ...
+#include "world.h"              // for World
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 
-class ConstructionCount;
 class UserOperation;
-class World;
 
 extern int pix_double;
 
@@ -84,4 +80,3 @@ extern int fast_time_for_year;
 #endif /* __engglobs_h__ */
 
 /** @file lincity/engglobs.h */
-

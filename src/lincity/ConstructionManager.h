@@ -3,8 +3,6 @@
 
 #include <map>  // for map
 
-#include "ConstructionRequest.h"
-
 class Construction;
 class ConstructionRequest;
 
@@ -25,4 +23,3 @@ private:
 */
 
 #endif
-

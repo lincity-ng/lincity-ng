@@ -25,13 +25,7 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string, operator<
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "../transport.h"           // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_...
-#include "lincity/all_buildings.h"  // for blue
-#include "lincity/world.h"          // for World
 #include "modules.h"
-
 
 class MarketConstructionGroup: public ConstructionGroup {
 public:

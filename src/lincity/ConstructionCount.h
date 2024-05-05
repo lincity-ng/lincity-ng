@@ -7,11 +7,7 @@
 #define __ConstructionCount_h__
 
 #include <stddef.h>  // for size_t
-#include <algorithm> //for std::sort
 #include <vector>    // for vector
-
-#include "../lincity-ng/Permutator.hpp"
-#include "lintypes.h"
 
 class Construction;
 class Permutator;
@@ -42,5 +38,3 @@ protected:
 #endif /* __ConstructionCount_h__ */
 
 /** @file lincity/world.h */
-
-

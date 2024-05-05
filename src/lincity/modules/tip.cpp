@@ -9,10 +9,7 @@
 
 #include <list>                     // for _List_iterator
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sfp
-#include "lincity/groups.h"         // for GROUP_TIP
-#include "lincity/lintypes.h"       // for Commodity, ExtraFrame, Constructi...
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 // Tip:
 TipConstructionGroup tipConstructionGroup(

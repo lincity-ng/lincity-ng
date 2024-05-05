@@ -9,12 +9,7 @@
 
 #include <stdlib.h>                 // for rand
 
-#include "gui_interface/mps.h"      // for mps_store_sd, mps_store_sf, mps_s...
-#include "lincity/lin-city.h"       // for FALSE, FLAG_EMPLOYED, FLAG_FED
-#include "lincity/lintypes.h"       // for Commodity, CommodityRule, Constru...
-#include "lincity/stats.h"          // for ddeaths, tunnat_deaths, dbirths
-#include "lincity/world.h"          // for World
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),

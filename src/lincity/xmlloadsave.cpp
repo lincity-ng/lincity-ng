@@ -2,7 +2,6 @@
 #include <stdio.h>                         // for sscanf, size_t, NULL
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for max
-#include <fstream>                         // for basic_ostream, operator<<
 #include <iostream>                        // for cout
 #include <set>                             // for set
 #include <utility>                         // for pair

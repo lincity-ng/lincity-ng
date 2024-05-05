@@ -10,10 +10,7 @@
 #include <stdlib.h>                 // for rand
 #include <vector>                   // for vector
 
-#include "gui_interface/mps.h"      // for mps_store_sfp, mps_store_sd
-#include "lincity/engine.h"         // for real_time
-#include "lincity/groups.h"         // for GROUP_INDUSTRY_L
-#include "tinygettext/gettext.hpp"  // for N_
+#include "modules.h"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(

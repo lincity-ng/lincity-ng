@@ -20,9 +20,6 @@
 
 #include <array>                    // for array
 
-#include "../lctypes.h"
-#include "../lintypes.h"            // for CommodityRule, Commodity, Constru...
-#include "lincity/all_buildings.h"  // for red
 #include "modules.h"
 
 class PotteryConstructionGroup: public ConstructionGroup {
