@@ -1,6 +1,6 @@
 find_package(OpenGL REQUIRED)
 
-add_library(lincity_gui OBJECT
+add_library(lincity_gui  STATIC
 		Button.cpp
 		Child.cpp
 		Color.cpp

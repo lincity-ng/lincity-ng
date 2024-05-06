@@ -1,5 +1,4 @@
-add_library(lincity_lib_modules
-		OBJECT
+add_library(lincity_lib_modules  STATIC
 		all_modules.cpp
 		all_modules.h
 		blacksmith.cpp

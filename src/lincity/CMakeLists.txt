@@ -1,8 +1,6 @@
 add_subdirectory(modules)
 
-add_library(lincity_lib
-		OBJECT
-
+add_library(lincity_lib  STATIC
 		all_buildings.cpp
 		all_buildings.h
 		ConstructionCount.cpp
@@ -45,7 +43,7 @@ add_library(lincity_lib
 		world.h
 		xmlloadsave.cpp
 		xmlloadsave.h
-		)
+)
 
 add_library(LinCity::lib ALIAS lincity_lib)
 

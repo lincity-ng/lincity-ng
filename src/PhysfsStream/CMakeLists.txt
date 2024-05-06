@@ -1,4 +1,4 @@
-add_library(physfsstream OBJECT
+add_library(physfsstream STATIC
 		PhysfsSDL.cpp
 		PhysfsSDL.hpp
 

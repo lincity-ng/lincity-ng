@@ -1,4 +1,4 @@
-add_library(tinygettext OBJECT
+add_library(tinygettext STATIC
 		findlocale.cpp
 		findlocale.hpp
 		gettext.hpp
