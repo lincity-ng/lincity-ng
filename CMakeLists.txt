@@ -80,7 +80,7 @@ if(APPLE)
 	add_compile_definitions("APPLE")
 endif()
 
-if(${CMAKE_SYSTEM_NAME} EQUAL ${CMAKE_HOST_SYSTEM_NAME})
+if(NOT ${CMAKE_CROSSCOMPILING})
 	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
 		"include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
@@ -91,8 +91,29 @@ add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
 add_subdirectory(doc)
 
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_BINDIR})
-install(TARGETS lincity-ng RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS lincity-ng
+	RUNTIME_DEPENDENCY_SET dll_dependencies
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+if(WIN32)
+	# from https://gitlab.kitware.com/cmake/cmake/-/issues/20753#note_870046
+	if(MINGW AND CMAKE_CROSSCOMPILING)
+		# workaround for crosscompiling on linux/mingw for windows
+		install(CODE [[
+			set(CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM "windows+pe")
+			set(CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL "objdump")
+			set(CMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND "${CMAKE_OBJDUMP}")
+			# file(WRITE "objdump_unix2dos.sh" "${CMAKE_OBJDUMP} $@ | unix2dos")
+			# file(CHMOD "objdump_unix2dos.sh" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)
+		]])
+	endif()
 
+	install(RUNTIME_DEPENDENCY_SET dll_dependencies
+		DIRECTORIES ${CMAKE_FIND_ROOT_PATH}/bin  # dll's from mingw
+		UNRESOLVED_DEPENDENCIES_VAR DUMMY  # hacky!
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	)
+endif()
 # if (WIN32)
 # 	install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
 # endif()
