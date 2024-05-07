@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>                                 // for SDL_Init, SDL_Quit
 #include <SDL_error.h>                           // for SDL_GetError
+#include <SDL_main.h>  // IWYU pragma: keep      // for main, SDL_main, WinM...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_render.h>                          // for SDL_CreateRenderer

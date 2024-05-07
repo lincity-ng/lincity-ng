@@ -83,14 +83,17 @@ add_library(lincity_gui  STATIC
 add_library(LinCity::gui ALIAS lincity_gui)
 
 target_link_libraries(lincity_gui
+		PUBLIC
+		LibXml2::LibXml2
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		$<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
+		OpenGL::GL
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		SDL2::SDL2_gfx
-		LibXml2::LibXml2
-		OpenGL::GL
-		)
+		${PHYSFS_LIBRARY}
+)
 
 target_include_directories(lincity_gui
 		PRIVATE

@@ -16,7 +16,7 @@
 #define MAX_JOBS_AT_COALPS (20 * JOBS_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
-#include <stddef.h>            // for NULL
+#include <cstdlib>             // for NULL
 #include <array>               // for array
 #include <iterator>            // for advance
 #include <list>                // for _List_iterator, list, operator!=

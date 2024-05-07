@@ -48,8 +48,6 @@ void set_map_groups(void);
 
 #include "engglobs.h"
 #include "gui/Texture.hpp"              // for Texture
-#include "tinygettext/gettext.hpp"      // for dictionaryManager
-#include "tinygettext/tinygettext.hpp"  // for Dictionary, DictionaryManager
 
 class Blacksmith;
 class Coal_power;
@@ -492,9 +490,7 @@ public:
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(int x, int y) = 0;
 
-    std::string getName(void){
-        return dictionaryManager->get_dictionary().translate( name );
-    }
+    std::string getName(void);
 
     std::string resourceID;           /* name for matching resources from XML*/
     const char *name;           /* inGame name of group */

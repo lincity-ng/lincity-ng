@@ -14,23 +14,24 @@
 #include <utility>                // for pair
 #include <vector>                 // for vector
 
-#include "ConstructionCount.h"    // for ConstructionCount
-#include "ConstructionManager.h"  // for ConstructionManager
-#include "ConstructionRequest.h"  // for ConstructionDeletionRequest, PowerL...
-#include "Vehicles.h"             // for VehicleStrategy, COMMUTER_TRAFFIC_RATE
-#include "all_buildings.h"        // for TileConstructionGroup, desertConstr...
-#include "engglobs.h"             // for world, binary_mode, total_money
-#include "groups.h"               // for GROUP_POWER_LINE, GROUP_DESERT, GRO...
-#include "gui_interface/mps.h"    // for mps_store_ssddp, mps_store_title
-#include "lctypes.h"              // for CST_NONE
-#include "lin-city.h"             // for FALSE, BAD, FLAG_IS_TRANSPORT, FLAG...
-#include "lincity-ng/Config.hpp"  // for getConfig, Config
-#include "lincity-ng/Sound.hpp"   // for getSound, Sound
-#include "modules/all_modules.h"  // for GROUP_RESIDENCE_SIZE, Powerline
-#include "stats.h"                // for coal_tax, goods_tax, income_tax
-#include "transport.h"            // for GROUP_TRANSPORT_SIZE, TRANSPORT_QUANTA
-#include "world.h"                // for World
-#include "xmlloadsave.h"          // for XMLTemplate, bin_template_libary
+#include "ConstructionCount.h"      // for ConstructionCount
+#include "ConstructionManager.h"    // for ConstructionManager
+#include "ConstructionRequest.h"    // for ConstructionDeletionRequest, PowerL...
+#include "Vehicles.h"               // for VehicleStrategy, COMMUTER_TRAFFIC_RATE
+#include "all_buildings.h"          // for TileConstructionGroup, desertConstr...
+#include "engglobs.h"               // for world, binary_mode, total_money
+#include "groups.h"                 // for GROUP_POWER_LINE, GROUP_DESERT, GRO...
+#include "gui_interface/mps.h"      // for mps_store_ssddp, mps_store_title
+#include "lctypes.h"                // for CST_NONE
+#include "lin-city.h"               // for FALSE, BAD, FLAG_IS_TRANSPORT, FLAG...
+#include "lincity-ng/Config.hpp"    // for getConfig, Config
+#include "lincity-ng/Sound.hpp"     // for getSound, Sound
+#include "modules/all_modules.h"    // for GROUP_RESIDENCE_SIZE, Powerline
+#include "stats.h"                  // for coal_tax, goods_tax, income_tax
+#include "tinygettext/gettext.hpp"  // for _
+#include "transport.h"              // for GROUP_TRANSPORT_SIZE, TRANSPORT_QUANTA
+#include "world.h"                  // for World
+#include "xmlloadsave.h"            // for XMLTemplate, bin_template_libary
 
 extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp
 
@@ -1548,6 +1549,10 @@ int ConstructionGroup::placeItem(int x, int y)
     tmpConstr->place();
 
     return 0;
+}
+
+std::string ConstructionGroup::getName(void){
+    return _(name);
 }
 
 extern void ok_dial_box(const char *, int, const char *);

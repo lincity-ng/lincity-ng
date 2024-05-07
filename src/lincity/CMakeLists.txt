@@ -50,11 +50,12 @@ add_library(LinCity::lib ALIAS lincity_lib)
 target_link_libraries(lincity_lib
 		PUBLIC
 		LinCity::lib_modules
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		ZLIB::ZLIB
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream
 		LinCity::gui
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		)
 
 target_include_directories(lincity_lib PRIVATE ${PHYSFS_INCLUDE_DIR})

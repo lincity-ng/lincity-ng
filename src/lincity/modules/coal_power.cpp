@@ -7,7 +7,6 @@
 
 #include "coal_power.h"
 
-#include <stdlib.h>                 // for rand
 #include <vector>                   // for vector
 
 #include "modules.h"

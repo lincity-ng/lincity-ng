@@ -8,7 +8,7 @@ add_library(tinygettext STATIC
 
 target_link_libraries(tinygettext
 		PRIVATE
-		physfsstream
+		LinCity::physfsstream
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
 
