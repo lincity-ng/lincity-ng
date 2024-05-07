@@ -11,9 +11,12 @@
 #include <stdlib.h>                       // for rand
 #include <vector>                         // for vector
 
-#include "modules.h"
 #include "commune.h"                      // for COMMUNE_POP, Commune (ptr o...
 #include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for BurnDownRequest
+#include "modules.h"                      // for Commodity, ExtraFrame, find...
+#include "modules_interfaces.h"           // for add_a_shanty, update_shanty
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(

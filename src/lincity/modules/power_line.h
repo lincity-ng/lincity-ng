@@ -1,6 +1,7 @@
-#include <array>               // for array
+#include <array>                // for array
 
-#include "modules.h"
+#include "lincity/transport.h"  // for MAX_MWH_ON_POWERLINE
+#include "modules.h"            // for Commodity, CommodityRule, Constructio...
 
 #define POWER_LINE_FLASH_SPEED 100
 

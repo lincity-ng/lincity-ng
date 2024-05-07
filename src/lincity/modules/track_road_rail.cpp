@@ -10,9 +10,9 @@
 #include <stdlib.h>                 // for rand
 #include <vector>                   // for vector
 
-#include "modules.h"
 #include "fire.h"                   // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Sound.hpp"     // for getSound, Sound
+#include "modules.h"
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(

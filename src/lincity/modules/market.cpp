@@ -9,8 +9,8 @@
 #include <cstdlib>                  // for size_t
 #include <vector>                   // for vector
 
-#include "modules.h"
 #include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "modules.h"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),

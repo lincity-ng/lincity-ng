@@ -6,33 +6,6 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#define WORLD_SIDE_LEN 100
-#define OLD_MAX_NUMOF_SUBSTATIONS 100
-#define MAX_NUMOF_SUBSTATIONS 512
-
-#define NUMOF_COAL_RESERVES ((world.len() * world.len()) / 400)
-#define NUM_OF_TYPES    404
-#define NUM_OF_GROUPS    51
-
-#define OLD_MAX_NUMOF_MARKETS 100
-#define MAX_NUMOF_MARKETS 512
-
-#define NUMOF_DAYS_IN_MONTH 100
-#define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
-
-#define NUMOF_DISCOUNT_TRIGGERS 6
-
-//pages for report 0,1,2,3,...,LAST_REPORT_PAGE
-#define LAST_REPORT_PAGE 3
-
-/*
-
-int get_group_cost(short group);
-int get_type_cost(short type);
-void get_type_name(short type, char *s);
-*/
-unsigned short get_group_of_type(unsigned short selected_type);
-void set_map_groups(void);
 #include <SDL_mixer.h>                  // for Mix_Chunk
 #include <SDL_surface.h>                // for SDL_Surface
 #include <zlib.h>                       // for gzFile
@@ -40,7 +13,6 @@ void set_map_groups(void);
 #include <array>                        // for array
 #include <cstring>                      // for NULL
 #include <iostream>                     // for basic_ostream, operator<<, cout
-/********** Data structures ***************/
 #include <list>                         // for list
 #include <map>                          // for map
 #include <string>                       // for char_traits, basic_string
@@ -91,6 +63,34 @@ class Waterwell;
 class Windmill;
 class Windpower;
 template <typename MemberType> class MemberTraits;
+
+#define WORLD_SIDE_LEN 100
+#define OLD_MAX_NUMOF_SUBSTATIONS 100
+#define MAX_NUMOF_SUBSTATIONS 512
+
+#define NUMOF_COAL_RESERVES ((world.len() * world.len()) / 400)
+#define NUM_OF_TYPES    404
+#define NUM_OF_GROUPS    51
+
+#define OLD_MAX_NUMOF_MARKETS 100
+#define MAX_NUMOF_MARKETS 512
+
+#define NUMOF_DAYS_IN_MONTH 100
+#define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
+
+#define NUMOF_DISCOUNT_TRIGGERS 6
+
+//pages for report 0,1,2,3,...,LAST_REPORT_PAGE
+#define LAST_REPORT_PAGE 3
+
+/*
+
+int get_group_cost(short group);
+int get_type_cost(short type);
+void get_type_name(short type, char *s);
+*/
+unsigned short get_group_of_type(unsigned short selected_type);
+void set_map_groups(void);
 
 struct ExtraFrame{
     ExtraFrame(void){

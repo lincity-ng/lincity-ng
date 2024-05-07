@@ -1,11 +1,12 @@
-#include <assert.h>            // for assert
-#include <array>               // for array
-#include <iostream>            // for basic_ostream, operator<<, basic_ostre...
-#include <list>                // for _List_iterator, list
-#include <map>                 // for map
-#include <string>              // for char_traits, basic_string, operator<
+#include <assert.h>             // for assert
+#include <array>                // for array
+#include <iostream>             // for basic_ostream, operator<<, basic_ostr...
+#include <list>                 // for _List_iterator, list
+#include <map>                  // for map
+#include <string>               // for char_traits, basic_string, operator<
 
-#include "modules.h"
+#include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
+#include "modules.h"            // for CommodityRule, Commodity, Counted
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:

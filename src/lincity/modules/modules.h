@@ -8,24 +8,16 @@
 #define __modules_h__
 
 // IWYU pragma: begin_exports
-#include "lincity/lctypes.h"
-#include "lincity/lintypes.h"
-#include "lincity/ConstructionManager.h"
-#include "lincity/ConstructionRequest.h"
-#include "tinygettext/gettext.hpp"
-#include "lincity/lin-city.h"
-#include "lincity/engglobs.h"
-#include "lincity/engine.h"
-#include "lincity/stats.h"
-#include "gui_interface/mps.h"
-#include "lincity/lclib.h"
-
-//#include "../power.h"
-#include "lincity/all_buildings.h"
-#include "modules_interfaces.h"
-#include "lincity/world.h"
-#include "lincity/transport.h"
-#include "lincity/groups.h"
+#include "gui_interface/mps.h"            // tally: 111111111111111111111111111111111
+#include "lincity/all_buildings.h"        // tally: 1111111111111111111111111111111
+#include "lincity/engglobs.h"             // tally:
+#include "lincity/engine.h"               // tally: 1111111111111111111
+#include "lincity/groups.h"               // tally: 11111111111111111111111111111111
+#include "lincity/lin-city.h"             // tally: 111111111111111111111111111111111
+#include "lincity/lintypes.h"             // tally: 111111111111111111111111111111111
+#include "lincity/stats.h"                // tally: 11111111111111
+#include "lincity/world.h"                // tally: 111111111111111111111111
+#include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111
 // IWYU pragma: end_exports
 
 #endif /* __modules_h__ */
