@@ -18,14 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAINMENU_HPP__
 #define __MAINMENU_HPP__
 
-#include <SDL_stdinc.h>  // for Uint32
-#include <SDL_video.h>   // for SDL_Window
-#include <map>           // for map
-#include <memory>        // for unique_ptr
-#include <set>           // for set
-#include <string>        // for string, basic_string
+#include <SDL.h>     // for SDL_Window, Uint32
+#include <map>       // for map
+#include <memory>    // for unique_ptr
+#include <set>       // for set
+#include <string>    // for string, basic_string
 
-#include "main.hpp"      // for MainState
+#include "main.hpp"  // for MainState
 
 class Button;
 class CheckButton;

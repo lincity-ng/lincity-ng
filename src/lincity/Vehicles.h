@@ -9,7 +9,7 @@
 #include <list>             // for list
 
 #include "commodities.hpp"  // for Commodity
-#include "lintypes.h"       // for ExtraFrame
+#include "resources.hpp"    // for ExtraFrame
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22

@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __PAINTERGL_HPP__
 #define __PAINTERGL_HPP__
 
-#include <SDL_video.h>      // for SDL_Window
+#include <SDL.h>      // for SDL_Window
 #include <vector>           // for vector
 
 #include "../Vector2.hpp"   // for Vector2

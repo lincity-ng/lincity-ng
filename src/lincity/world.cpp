@@ -6,19 +6,21 @@
 
 #include "world.h"
 
-#include <assert.h>               // for assert
-#include <stdlib.h>     // for size_t
-#include <algorithm>    // for max
-#include <iostream>     // for char_traits, basic_ostream, operator<<, basic...
+#include <assert.h>         // for assert
+#include <stdlib.h>         // for NULL, size_t
+#include <iostream>         // for char_traits, basic_ostream, basic_ostream...
+#include <iterator>         // for advance
+#include <map>              // for map
+#include <string>           // for basic_string, operator==, operator<, oper...
 
-#include "all_buildings.h"
-#include "engglobs.h"   // for dxo, dyo, world, world_id
-#include "groups.h"
-#include "init_game.h"  // for clear_game
-#include "lin-city.h"   // for FLAG_ALTERED
-#include "lintypes.h"   // for MapTile, Ground
-#include "resources.hpp"
-#include "xmlloadsave.h"
+#include "all_buildings.h"  // for TileConstructionGroup, desertConstruction...
+#include "engglobs.h"       // for world, binary_mode, dxo, dyo, world_id
+#include "groups.h"         // for GROUP_WATER, GROUP_DESERT, GROUP_BARE
+#include "init_game.h"      // for clear_game
+#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_ALT...
+#include "lintypes.h"       // for Construction, ConstructionGroup
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup, GraphicsInfo
+#include "xmlloadsave.h"    // for XMLTemplate, bin_template_libary, xml_tem...
 
 
 Ground::Ground() {

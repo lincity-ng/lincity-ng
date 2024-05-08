@@ -18,9 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MiniMap.hpp"
 
-#include <SDL_mouse.h>                     // for SDL_BUTTON_RIGHT, SDL_BUTT...
-#include <SDL_stdinc.h>                    // for Uint16, Uint8
-#include <SDL_surface.h>                   // for SDL_CreateRGBSurface, SDL_...
+#include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf, size_t
 #include <string.h>                        // for strcmp, strlen
@@ -52,15 +50,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"             // for mps_set, mps_global_style
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-//#include "lincity/range.h"
 #include "lincity/all_buildings.h"         // for COAL_RESERVE_SIZE
+#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/engglobs.h"              // for world, coal_survey_done
 #include "lincity/groups.h"                // for GROUP_POWER_LINE, GROUP_FIRE
 #include "lincity/lin-city.h"              // for FLAG_IS_TRANSPORT, SLOW_TI...
-#include "lincity/lintypes.h"              // for MapTile, Construction, Con...
+#include "lincity/lintypes.h"              // for Construction, Construction...
 #include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
-#include "lincity/modules/modules.h"       // for world, Commodity, Commodit...
 #include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
-#include "lincity/world.h"                 // for World
+#include "lincity/world.h"                 // for World, MapTile
 
 
 /** List of mapview buttons. The "" entries separate mapview buttons that are

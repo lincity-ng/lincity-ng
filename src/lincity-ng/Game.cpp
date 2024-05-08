@@ -18,10 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Game.hpp"
 
-#include <SDL_events.h>                    // for SDL_WaitEventTimeout, SDL_...
-#include <SDL_keycode.h>                   // for SDLK_0, SDLK_1, SDLK_2
-#include <SDL_stdinc.h>                    // for Uint32
-#include <SDL_timer.h>                     // for SDL_GetTicks
+#include <SDL.h>                           // for Uint32, SDL_GetTicks, SDL_...
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stddef.h>                        // for NULL, size_t
 #include <algorithm>                       // for min

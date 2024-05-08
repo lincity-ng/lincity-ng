@@ -18,9 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Sound.hpp"
 
-#include <SDL_error.h>                 // for SDL_GetError
+#include <SDL.h>                       // for SDL_GetError, SDL_CreateThread
 #include <SDL_mixer.h>                 // for Mix_Volume, Mix_FreeMusic, Mix...
-#include <SDL_rwops.h>                 // for SDL_RWops
 #include <assert.h>                    // for assert
 #include <physfs.h>                    // for PHYSFS_stat, PHYSFS_FileType
 #include <stdio.h>                     // for NULL, size_t, fprintf, stderr
@@ -38,7 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
 #include "lincity/engglobs.h"          // for tech_level
 #include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
-#include "lincity/lintypes.h"          // for ResourceGroup
+#include "lincity/resources.hpp"       // for ResourceGroup
 
 Sound* soundPtr = 0;
 

@@ -4,7 +4,8 @@
 #include <string>                   // for basic_string, operator<
 
 #include "lincity/all_buildings.h"  // for TileConstructionGroup, bareConstr...
-#include "lincity/lintypes.h"       // for ConstructionGroup, ResourceGroup
+#include "lincity/lintypes.h"       // for ConstructionGroup
+#include "lincity/resources.hpp"    // for ResourceGroup
 
 void initializeModules() {
     ConstructionGroup::clearGroupMap();

@@ -16,9 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#include <SDL_keyboard.h>                        // for SDL_GetKeyboardState
-#include <SDL_scancode.h>                        // for SDL_SCANCODE_D
-#include <SDL_stdinc.h>                          // for Uint8
+#include <SDL.h>                                 // for SDL_GetKeyboardState
 #include <assert.h>                              // for assert
 #include <stdio.h>                               // for printf, NULL
 #include <iomanip>                               // for operator<<, setpreci...
@@ -35,10 +33,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/groups.h"                      // for GROUP_WATER, GROUP_D...
 #include "lincity/lclib.h"                       // for num_to_ansi
 #include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER
-#include "lincity/lintypes.h"                    // for MapTile, Constructio...
+#include "lincity/lintypes.h"                    // for ConstructionGroup
 #include "lincity/modules/modules_interfaces.h"  // for mps_water
 #include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
-#include "lincity/world.h"                       // for World
+#include "lincity/world.h"                       // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"               // for N_, _
 
 class Shanty;

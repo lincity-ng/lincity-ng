@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "TextureManager.hpp"
 
-#include <SDL_error.h>                 // for SDL_GetError
+#include <SDL.h>                 // for SDL_GetError
 #include <SDL_image.h>                 // for IMG_Load_RW
 #include <iostream>                    // for basic_ostream, operator<<, cerr
 #include <sstream>                     // for basic_stringstream

@@ -50,14 +50,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error
+#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/engglobs.h"              // for world, people_pool, total_...
 #include "lincity/engine.h"                // for do_coal_survey
 #include "lincity/lclib.h"                 // for current_year, current_month
 #include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
-#include "lincity/lintypes.h"              // for Counted, MapTile, Construc...
+#include "lincity/lintypes.h"              // for Counted, Construction, NUM...
 #include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
 #include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
-#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
-#include "lincity/world.h"                 // for World
+#include "lincity/world.h"                 // for MapTile, World
 #include "tinygettext/gettext.hpp"         // for _
 
 bool blockingDialogIsOpen = false;

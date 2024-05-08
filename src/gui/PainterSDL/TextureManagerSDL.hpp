@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TEXTUREMANAGERSDL_HPP__
 #define __TEXTUREMANAGERSDL_HPP__
 
-#include <SDL_surface.h>           // for SDL_Surface
+#include <SDL.h>           // for SDL_Surface
 
 #include "gui/TextureManager.hpp"  // for TextureManager
 

@@ -18,9 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainMenu.hpp"
 
-#include <SDL_events.h>                    // for SDL_WaitEventTimeout, SDL_...
-#include <SDL_keycode.h>                   // for KMOD_CTRL, SDLK_ESCAPE
-#include <SDL_timer.h>                     // for SDL_GetTicks
+#include <SDL.h>                           // for SDL_GetWindowSize, SDL_Get...
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stdio.h>                         // for fprintf, remove, size_t, NULL
 #include <stdlib.h>                        // for abs, atoi, unsetenv

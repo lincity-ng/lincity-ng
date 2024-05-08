@@ -23,11 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Paragraph.hpp"
 
-#include <SDL_error.h>           // for SDL_GetError
-#include <SDL_pixels.h>          // for SDL_PIXELFORMAT_RGBA8888
-#include <SDL_rect.h>            // for SDL_Rect
-#include <SDL_stdinc.h>          // for Sint16
-#include <SDL_surface.h>         // for SDL_Surface, SDL_FreeSurface, SDL_Cr...
+#include <SDL.h>                 // for SDL_Surface, SDL_FreeSurface, Sint16
 #include <SDL_ttf.h>             // for TTF_FontHeight, TTF_FontAscent, TTF_...
 #include <ctype.h>               // for isspace
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...

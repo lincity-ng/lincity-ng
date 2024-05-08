@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "EconomyGraph.hpp"
 
-#include <SDL_surface.h>                   // for SDL_Surface
+#include <SDL.h>                   // for SDL_Surface
 #include <SDL_ttf.h>                       // for TTF_RenderUTF8_Blended
 #include <stdio.h>                         // for sscanf, NULL
 #include <stdlib.h>                        // for free, malloc

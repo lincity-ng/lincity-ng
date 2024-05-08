@@ -6,11 +6,12 @@
 #ifndef __world_h__
 #define __world_h__
 
-#include <list>
-#include <set>         // for set
-#include <vector>      // for vector
+#include <iostream>       // for ostream
+#include <list>           // for list
+#include <set>            // for set
+#include <vector>         // for vector
 
-#include "resources.hpp"
+#include "resources.hpp"  // for ExtraFrame, ResourceGroup (ptr only)
 
 class Construction;
 class ConstructionGroup;

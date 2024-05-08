@@ -7,10 +7,7 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#include <SDL_mixer.h>      // for Mix_Chunk
-#include <SDL_surface.h>    // for SDL_Surface
 #include <zlib.h>           // for gzFile
-#include <algorithm>        // for max
 #include <array>            // for array
 #include <cstring>          // for NULL
 #include <iostream>         // for basic_ostream, operator<<, cout, endl
@@ -20,14 +17,9 @@
 #include <vector>           // for vector
 
 #include "commodities.hpp"  // for Commodity, CommodityRule, operator++
-#include "engglobs.h"
-#include "gui/Texture.hpp"  // for Texture
-#include "resources.hpp"
-#include "world.h"
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup
 
-class Construction;
 class ConstructionGroup;
-class ResourceGroup;
 template <typename MemberType> class MemberTraits;
 
 // IWYU pragma: no_forward_declare Blacksmith

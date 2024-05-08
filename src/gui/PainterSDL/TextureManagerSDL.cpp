@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <SDL_pixels.h>    // for SDL_PIXELFORMAT_RGBA8888
-#include <SDL_stdinc.h>    // for Uint8
+#include <SDL.h>           // for SDL_ConvertSurfaceFormat, SDL_FreeSurface
 
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"  // for TextureSDL

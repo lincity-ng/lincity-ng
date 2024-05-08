@@ -18,14 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "CheckButton.hpp"
 
-#include <SDL_mouse.h>               // for SDL_BUTTON_LEFT
-#include <SDL_timer.h>               // for SDL_GetTicks
+#include <SDL.h>                     // for SDL_GetTicks, SDL_BUTTON_LEFT
 #include <assert.h>                  // for assert
 #include <ctype.h>                   // for isspace
 #include <stdio.h>                   // for sscanf
 #include <string.h>                  // for strcmp
 #include <iostream>                  // for operator<<, basic_ostream, cerr
-#include <memory>                    // for allocator, unique_ptr
+#include <memory>                    // for unique_ptr
 #include <sstream>                   // for basic_stringstream
 #include <stdexcept>                 // for runtime_error
 

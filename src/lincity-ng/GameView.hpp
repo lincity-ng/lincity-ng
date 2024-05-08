@@ -18,18 +18,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAMEVIEW_HPP__
 #define __GAMEVIEW_HPP__
 
-#include <SDL_mouse.h>         // for SDL_Cursor
-#include <SDL_stdinc.h>        // for Uint32
-#include <SDL_surface.h>       // for SDL_Surface
-#include <SDL_thread.h>        // for SDL_Thread
-#include <string>              // for string, basic_string
+#include <SDL.h>                  // for Uint32, SDL_Cursor, SDL_Surface
+#include <string>                 // for string, basic_string
 
-#include "MapPoint.hpp"        // for MapPoint
-#include "MiniMap.hpp"         // for MiniMap
-#include "gui/Component.hpp"   // for Component
-#include "gui/Event.hpp"       // for Event
-#include "gui/Vector2.hpp"     // for Vector2
-#include "lincity/lintypes.h"  // for GraphicsInfo
+#include "MapPoint.hpp"           // for MapPoint
+#include "MiniMap.hpp"            // for MiniMap
+#include "gui/Component.hpp"      // for Component
+#include "gui/Event.hpp"          // for Event
+#include "gui/Vector2.hpp"        // for Vector2
+#include "lincity/resources.hpp"  // for GraphicsInfo
 
 class Button;
 class Painter;

@@ -18,8 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __PAINTERSDL_HPP__
 #define __PAINTERSDL_HPP__
 
-#include <SDL_render.h>     // for SDL_Renderer
-#include <SDL_surface.h>    // for SDL_Surface
+#include <SDL.h>            // for SDL_Renderer, SDL_Surface
 #include <vector>           // for vector
 
 #include "../Vector2.hpp"   // for Vector2

@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Button.cpp
  */
 
-#include <SDL_timer.h>           // for SDL_GetTicks
+#include <SDL.h>           // for SDL_GetTicks
 #include <assert.h>              // for assert
 #include <ctype.h>               // for isspace
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...

@@ -18,11 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "GameView.hpp"
 
+#include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_SetCu...
 #include <SDL_image.h>                     // for IMG_Load_RW
-#include <SDL_keyboard.h>                  // for SDL_GetModState
-#include <SDL_keycode.h>                   // for KMOD_CTRL, SDLK_KP_MINUS
-#include <SDL_scancode.h>                  // for SDL_SCANCODE_A, SDL_SCANCO...
-#include <SDL_timer.h>                     // for SDL_Delay, SDL_GetTicks
 #include <assert.h>                        // for assert
 #include <physfs.h>                        // for PHYSFS_exists
 #include <stdio.h>                         // for size_t, sscanf, NULL
@@ -67,9 +64,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engine.h"                // for desert_water_frontiers
 #include "lincity/groups.h"                // for GROUP_DESERT, GROUP_WATER
 #include "lincity/lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_...
-#include "lincity/lintypes.h"              // for GraphicsInfo, ResourceGroup
+#include "lincity/lintypes.h"              // for ConstructionGroup, Constru...
 #include "lincity/transport.h"             // for connect_transport, BRIDGE_...
-#include "lincity/world.h"                 // for World
+#include "lincity/world.h"                 // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"         // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
 

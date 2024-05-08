@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Gradient.cpp
  */
 
-#include <SDL_endian.h>          // for SDL_BIG_ENDIAN, SDL_BYTEORDER
+#include <SDL.h>          // for SDL_BIG_ENDIAN, SDL_BYTEORDER
 #include <assert.h>              // for assert
 #include <math.h>                // for lrintf
 #include <string.h>              // for strcmp

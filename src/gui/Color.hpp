@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COLOR_HPP__
 #define __COLOR_HPP__
 
-#include <SDL_pixels.h>  // for SDL_Color
+#include <SDL.h>  // for SDL_Color
 #include <stdint.h>      // for uint8_t
 
 /**

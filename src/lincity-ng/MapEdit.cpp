@@ -18,10 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MapEdit.hpp"
 
-#include <SDL_keyboard.h>                  // for SDL_GetKeyboardState
-#include <SDL_mouse.h>                     // for SDL_BUTTON_RIGHT
-#include <SDL_scancode.h>                  // for SDL_SCANCODE_K
-#include <SDL_stdinc.h>                    // for Uint8
+#include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_GetK...
 #include <stddef.h>                        // for NULL
 #include <iostream>                        // for basic_ostream, operator<<
 #include <string>                          // for char_traits, basic_string
@@ -38,10 +35,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engine.h"                // for adjust_money, bulldoze_item
 #include "lincity/groups.h"                // for GROUP_MONUMENT, GROUP_RIVER
 #include "lincity/lin-city.h"              // for FLAG_EVACUATE, BAD, FLAG_A...
-#include "lincity/lintypes.h"              // for MapTile, Construction, Con...
+#include "lincity/lintypes.h"              // for Construction, Construction...
 #include "lincity/modules/all_modules.h"   // for ParklandConstructionGroup
 #include "lincity/transport.h"             // for connect_transport
-#include "lincity/world.h"                 // for World
+#include "lincity/world.h"                 // for MapTile, World
 
 extern void ok_dial_box(const char *, int, const char *);
 

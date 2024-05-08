@@ -6,31 +6,30 @@
 
 #include "lintypes.h"
 
-#include <assert.h>               // for assert
-#include <stdlib.h>               // for rand
-#include <iostream>               // for cout
-#include <iterator>               // for advance
-#include <sstream>                // for basic_ostream, operator<<, basic_os...
-#include <utility>                // for pair
-#include <vector>                 // for vector
+#include <assert.h>                 // for assert
+#include <stdlib.h>                 // for rand
+#include <algorithm>                // for copy, max
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <sstream>                  // for basic_istringstream
+#include <utility>                  // for pair
+#include <vector>                   // for vector
 
 #include "ConstructionCount.h"      // for ConstructionCount
 #include "ConstructionManager.h"    // for ConstructionManager
-#include "ConstructionRequest.h"    // for ConstructionDeletionRequest, PowerL...
-#include "Vehicles.h"               // for VehicleStrategy, COMMUTER_TRAFFIC_RATE
-#include "all_buildings.h"          // for TileConstructionGroup, desertConstr...
+#include "ConstructionRequest.h"    // for ConstructionDeletionRequest, Powe...
+#include "Vehicles.h"               // for VehicleStrategy, COMMUTER_TRAFFIC...
 #include "engglobs.h"               // for world, binary_mode, total_money
-#include "groups.h"                 // for GROUP_POWER_LINE, GROUP_DESERT, GRO...
+#include "groups.h"                 // for GROUP_POWER_LINE, GROUP_FIRE, GRO...
 #include "gui_interface/mps.h"      // for mps_store_ssddp, mps_store_title
-#include "lctypes.h"                // for CST_NONE
-#include "lin-city.h"               // for FALSE, BAD, FLAG_IS_TRANSPORT, FLAG...
+#include "lctypes.h"                // for CST_BLACKSMITH_0, CST_BLACKSMITH_1
+#include "lin-city.h"               // for BAD, FLAG_IS_TRANSPORT, FLAG_EVAC...
 #include "lincity-ng/Config.hpp"    // for getConfig, Config
 #include "lincity-ng/Sound.hpp"     // for getSound, Sound
-#include "modules/all_modules.h"    // for GROUP_RESIDENCE_SIZE, Powerline
+#include "modules/all_modules.h"    // for Powerline, GROUP_MARKET_RANGE
 #include "stats.h"                  // for coal_tax, goods_tax, income_tax
 #include "tinygettext/gettext.hpp"  // for _
-#include "transport.h"              // for GROUP_TRANSPORT_SIZE, TRANSPORT_QUANTA
-#include "world.h"                  // for World
+#include "transport.h"              // for TRANSPORT_QUANTA, TRANSPORT_RATE
+#include "world.h"                  // for World, MapTile
 #include "xmlloadsave.h"            // for XMLTemplate, bin_template_libary
 
 extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp

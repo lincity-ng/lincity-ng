@@ -4,7 +4,7 @@
 #include <iostream>
 #include <map>
 #include <SDL_mixer.h>      // for Mix_Chunk
-#include <SDL_surface.h>    // for SDL_Surface
+#include <SDL.h>    // for SDL_Surface
 #include <string>           // for string
 #include <vector>           // for vector
 

@@ -19,15 +19,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "main.hpp"
 
 #include <SDL.h>                                 // for SDL_Init, SDL_Quit
-#include <SDL_error.h>                           // for SDL_GetError
-#include <SDL_main.h>  // IWYU pragma: keep      // for main, SDL_main, WinM...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
-#include <SDL_render.h>                          // for SDL_CreateRenderer
-#include <SDL_stdinc.h>                          // for SDL_strcasecmp, Uint32
-#include <SDL_timer.h>                           // for SDL_Delay
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <SDL_video.h>                           // for SDL_GL_SetAttribute
 #include <assert.h>                              // for assert
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser

@@ -18,10 +18,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __EVENT_HPP__
 #define __EVENT_HPP__
 
-#include <SDL_events.h>    // for SDL_Event
-#include <SDL_keyboard.h>  // for SDL_Keysym
+#include <SDL.h>        // for SDL_Event, SDL_Keysym
 
-#include "Vector2.hpp"     // for Vector2
+#include "Vector2.hpp"  // for Vector2
 
 /**
  * @file Event.hpp
@@ -59,7 +58,7 @@ public:
     };
     /// Create an update Event
     Event(float elapsedTime);
-    
+
     /// type of the event
     Type type;
     /// position of the mouse (relative to component origin)
@@ -72,7 +71,7 @@ public:
     int mousebutton;
     /// symbol of the key that has been pressed (see SDL_keysym)
     SDL_Keysym keysym;
-    /** set to true if the position where the mouse was clicked/released is 
+    /** set to true if the position where the mouse was clicked/released is
      * inside the component and the component is not occupied by another
      * component at this position
      */
