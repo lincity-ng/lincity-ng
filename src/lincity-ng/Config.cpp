@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PhysfsStream/PhysfsStream.hpp"  // for OFileStream
 #include "gui/XmlReader.hpp"              // for XmlReader
 #include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
-#include "lincity/lintypes.h"             // for WORLD_SIDE_LEN
-#include "lincity/world.h"                // for World
+#include "lincity/engglobs.h"             // for world, binary_mode, seed_co...
+#include "lincity/world.h"                // for World, WORLD_SIDE_LEN
 
 Config* configPtr = 0;
 

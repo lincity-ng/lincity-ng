@@ -15,7 +15,7 @@
 
 //#define DEBUG_EXPERIMENTAL
 
-#include <algorithm>                       // for max, copy
+#include <algorithm>                       // for max
 #include <cmath>                           // for pow, exp
 #include <cstdlib>                         // for rand, NULL, size_t, srand
 #include <deque>                           // for deque
@@ -27,6 +27,7 @@
 #include "ConstructionManager.h"           // for ConstructionManager
 #include "Vehicles.h"                      // for Vehicle
 #include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
+#include "engglobs.h"                      // for world, global_mountainity
 #include "engine.h"                        // for desert_water_frontiers
 #include "groups.h"                        // for GROUP_BARE, GROUP_TREE
 #include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
@@ -35,7 +36,7 @@
 #include "lctypes.h"                       // for CST_GREEN, CST_WATER
 #include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
 #include "lincity-ng/Permutator.hpp"       // for Permutator
-#include "lintypes.h"                      // for world, MapTile, Ground
+#include "lintypes.h"                      // for MapTile, Ground, ExtraFrame
 #include "loadsave.h"                      // for given_scene
 #include "modules/all_modules.h"           // for CommuneConstructionGroup
 #include "stats.h"                         // for init_inventory

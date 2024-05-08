@@ -20,12 +20,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL_surface.h>                   // for SDL_Surface
 #include <SDL_ttf.h>                       // for TTF_RenderUTF8_Blended
-#include <stdio.h>                         // for sscanf
-#include <stdlib.h>                        // for free, malloc, NULL
+#include <stdio.h>                         // for sscanf, NULL
+#include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strcmp
 #include <cmath>                           // for log
 #include <exception>                       // for exception
-#include <iostream>                        // for char_traits, basic_ostream
+#include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream, basic_...
 #include <stdexcept>                       // for runtime_error
 
@@ -46,6 +46,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Vector2.hpp"                 // for Vector2
 #include "gui/XmlReader.hpp"               // for XmlReader
 #include "gui_interface/shared_globals.h"  // for monthgraph_nojobs, monthgr...
+#include "lincity/engglobs.h"              // for sustain_flag, people_pool
 #include "lincity/lin-city.h"              // for GOOD
 #include "lincity/lintypes.h"              // for NUMOF_DAYS_IN_MONTH
 #include "lincity/stats.h"                 // for tpopulation, tstarving_pop...

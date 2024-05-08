@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_scancode.h>                  // for SDL_SCANCODE_K
 #include <SDL_stdinc.h>                    // for Uint8
 #include <stddef.h>                        // for NULL
-#include <iostream>                        // for basic_ostream, basic_ios
+#include <iostream>                        // for basic_ostream, operator<<
 #include <string>                          // for char_traits, basic_string
 
 #include "Dialog.hpp"                      // for Dialog, ASK_LAUNCH_ROCKET
@@ -34,6 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"             // for mps_set, MPS_MAP
 #include "gui_interface/shared_globals.h"  // for selected_module_cost
 #include "lincity/UserOperation.h"         // for UserOperation
+#include "lincity/engglobs.h"              // for world, userOperation, tech...
 #include "lincity/engine.h"                // for adjust_money, bulldoze_item
 #include "lincity/groups.h"                // for GROUP_MONUMENT, GROUP_RIVER
 #include "lincity/lin-city.h"              // for FLAG_EVACUATE, BAD, FLAG_A...

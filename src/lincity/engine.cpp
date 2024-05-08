@@ -4,7 +4,7 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 #include <stdlib.h>                        // for rand
-#include <algorithm>                       // for copy, max
+#include <algorithm>                       // for max
 #include <deque>                           // for deque
 #include <set>                             // for set, _Rb_tree_const_iterator
 
@@ -12,13 +12,14 @@
 #include "ConstructionRequest.h"           // for BurnDownRequest, Construct...
 #include "UserOperation.h"                 // for UserOperation
 #include "all_buildings.h"                 // for POL_DIV
+#include "engglobs.h"                      // for world, userOperation, tota...
 #include "engine.h"
 #include "groups.h"                        // for GROUP_DESERT, GROUP_FIRE
 #include "gui_interface/mps.h"             // for mps_update
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars, update_pbar
 #include "lctypes.h"                       // for CST_GREEN, CST_DESERT
 #include "lin-city.h"                      // for BAD, FLAG_FIRE_COVER, FLAG...
-#include "lintypes.h"                      // for world, MapTile, Constructi...
+#include "lintypes.h"                      // for MapTile, ConstructionGroup
 #include "modules/all_modules.h"           // for Residence, GROUP_SHANTY_BU...
 #include "stats.h"                         // for ddeaths, tunnat_deaths
 #include "tinygettext/gettext.hpp"         // for _

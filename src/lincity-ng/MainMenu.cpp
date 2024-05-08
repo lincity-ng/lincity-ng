@@ -50,8 +50,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "lincity/engglobs.h"              // for world, binary_mode, seed_c...
 #include "lincity/init_game.h"             // for new_city, city_settings
-#include "lincity/lintypes.h"              // for world, binary_mode, seed_c...
 #include "lincity/loadsave.h"              // for given_scene
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager

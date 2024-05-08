@@ -25,15 +25,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for snprintf, sprintf
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strlen
-#include <algorithm>                       // for max
+#include <algorithm>                       // for copy, max
 #include <array>                           // for array
 #include <exception>                       // for exception
-#include <fstream>                         // for basic_ostream, char_traits
+#include <fstream>                         // for basic_ostream, operator<<
 #include <iostream>                        // for cerr
 #include <memory>                          // for unique_ptr
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
-#include <vector>                          // for vector, allocator
+#include <vector>                          // for vector
 
 #include "CheckButton.hpp"                 // for CheckButton
 #include "GameView.hpp"                    // for getGameView, GameView
@@ -53,9 +53,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engine.h"                // for do_coal_survey
 #include "lincity/lclib.h"                 // for current_year, current_month
 #include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
-#include "lincity/lintypes.h"              // for CommodityRule, Commodity
+#include "lincity/lintypes.h"              // for Counted, MapTile, Construc...
 #include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
 #include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
+#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _
 

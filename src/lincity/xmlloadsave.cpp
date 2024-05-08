@@ -1,5 +1,5 @@
 #include <assert.h>                        // for assert
-#include <stdio.h>                         // for sscanf, size_t, NULL
+#include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for max
 #include <iostream>                        // for cout
@@ -7,6 +7,7 @@
 #include <utility>                         // for pair
 
 #include "ConstructionCount.h"             // for ConstructionCount
+#include "engglobs.h"                      // for world, binary_mode, constr...
 #include "groups.h"                        // for GROUP_DESERT
 #include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, PBAR_DATA_...
 #include "gui_interface/shared_globals.h"  // for monthgraph_size, cheat_flag

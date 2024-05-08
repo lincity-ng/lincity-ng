@@ -30,6 +30,8 @@ add_library(lincity_lib  STATIC
 		loadsave.h
 		old_ldsvguts.cpp
 		old_ldsvguts.h
+		resources.cpp
+		resources.hpp
 		simulate.cpp
 		simulate.h
 		stats.cpp

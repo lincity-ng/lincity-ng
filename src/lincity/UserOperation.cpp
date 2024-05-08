@@ -1,12 +1,13 @@
 #include "UserOperation.h"
 
 #include <stddef.h>                 // for NULL
-#include <iostream>                 // for char_traits, basic_ostream, opera...
+#include <iostream>                 // for basic_ostream, operator<<, cout
 #include <sstream>                  // for basic_stringstream
 
+#include "engglobs.h"               // for world, tech_level, userOperation
 #include "groups.h"                 // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
 #include "lin-city.h"               // for FLAG_NEVER_EVACUATE, MAX_TECH_LEVEL
-#include "lintypes.h"               // for ConstructionGroup, world, MapTile
+#include "lintypes.h"               // for ConstructionGroup, MapTile, Const...
 #include "tinygettext/gettext.hpp"  // for _
 #include "world.h"                  // for World
 

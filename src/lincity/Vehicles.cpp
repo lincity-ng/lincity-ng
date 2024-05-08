@@ -14,9 +14,10 @@
 #include <string>      // for char_traits, basic_string, operator<
 #include <vector>      // for vector
 
+#include "engglobs.h"  // for world
 #include "engine.h"    // for real_time
 #include "groups.h"    // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE, GROUP_ROAD
-#include "lintypes.h"  // for world, ExtraFrame, MapTile, Construction, Reso...
+#include "lintypes.h"  // for ExtraFrame, MapTile, Construction, ResourceGroup
 #include "world.h"     // for World
 
 std::list<Vehicle*> Vehicle::vehicleList;

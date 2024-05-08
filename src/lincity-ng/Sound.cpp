@@ -23,9 +23,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_rwops.h>                 // for SDL_RWops
 #include <assert.h>                    // for assert
 #include <physfs.h>                    // for PHYSFS_stat, PHYSFS_FileType
-#include <stdio.h>                     // for fprintf, stderr
+#include <stdio.h>                     // for NULL, size_t, fprintf, stderr
 #include <stdlib.h>                    // for strtod, rand
-#include <string.h>                    // for strcmp, NULL, size_t
+#include <string.h>                    // for strcmp
 #include <cmath>                       // for round
 #include <iostream>                    // for basic_ostream, operator<<, endl
 #include <utility>                     // for pair
@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
 #include "gui/XmlReader.hpp"           // for XmlReader
 #include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
+#include "lincity/engglobs.h"          // for tech_level
 #include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
 #include "lincity/lintypes.h"          // for ResourceGroup
 

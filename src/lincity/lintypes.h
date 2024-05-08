@@ -3,24 +3,27 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#include <SDL_mixer.h>                  // for Mix_Chunk
-#include <SDL_surface.h>                // for SDL_Surface
-#include <zlib.h>                       // for gzFile
-#include <algorithm>                    // for max
-#include <array>                        // for array
-#include <cstring>                      // for NULL
-#include <iostream>                     // for basic_ostream, operator<<, cout
-#include <list>                         // for list
-#include <map>                          // for map
-#include <string>                       // for char_traits, basic_string
-#include <vector>                       // for vector
+#include <SDL_mixer.h>      // for Mix_Chunk
+#include <SDL_surface.h>    // for SDL_Surface
+#include <zlib.h>           // for gzFile
+#include <algorithm>        // for max
+#include <array>            // for array
+#include <cstring>          // for NULL
+#include <iostream>         // for basic_ostream, operator<<, cout, endl
+#include <list>             // for list
+#include <map>              // for map
+#include <string>           // for char_traits, basic_string, string, operator<
+#include <vector>           // for vector
 
-#include "commodities.hpp"
+#include "commodities.hpp"  // for Commodity, CommodityRule, operator++
 #include "engglobs.h"
-#include "gui/Texture.hpp"              // for Texture
+#include "gui/Texture.hpp"  // for Texture
+#include "resources.hpp"
+#include "world.h"
 
 class Construction;
 class ConstructionGroup;
@@ -85,19 +88,6 @@ void get_type_name(short type, char *s);
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
 
-struct ExtraFrame{
-    ExtraFrame(void){
-        move_x = 0;
-        move_y = 0;
-        frame = 0;
-        resourceGroup = 0;
-    }
-
-    int move_x; // >0 moves frame to the right
-    int move_y; // >0 moves frame downwards
-    int frame; //frame >= 0 will be rendered as overlay
-    ResourceGroup *resourceGroup; //overlay frame is choosen from its GraphicsInfoVector
-};
 
 // Class to count instanced objects of each construction type
 
@@ -132,70 +122,6 @@ template <typename Class>
 unsigned int Counted<Class>::instanceCount;
 template <typename Class>
 unsigned int Counted<Class>::nextId;
-
-class Ground
-{
-public:
-    Ground();
-    ~Ground();
-    int altitude;       //surface of ground. unused currently
-    int ecotable;       //done at init time: pointer to the table for vegetation
-    int wastes;         //wastes underground
-    int pollution;      //pollution underground
-    int water_alt;      //altitude of water (needed to know drainage basin)
-    int water_pol;      //pollution of water
-    int water_wast;     //wastes in water
-    int water_next;     //next tile(s) where the water will go from here
-    int int1;           //reserved for future (?) use
-    int int2;
-    int int3;
-    int int4;
-};
-
-class MapTile {
-public:
-    MapTile();
-    ~MapTile();
-    Ground ground;                        //the Ground associated to an instance of MapTile
-    Construction *construction;           //the actual construction (e.g. for simulation)
-    Construction *reportingConstruction;  //the construction covering the tile
-    unsigned short type;                  //type of terrain (underneath constructions)
-    unsigned short group;                 //group of the terrain (underneath constructions)
-    int flags;                            //flags are defined in lin-city.h
-    unsigned short coal_reserve;          //underground coal
-    unsigned short ore_reserve;           //underground ore
-    int pollution;                        //air pollution (under ground pollution is in ground[][])
-    std::list<ExtraFrame> *framesptr;    //Overlays to be rendered on top of type, mostly NULL
-                                          //use memberfunctions to add and remove sprites
-
-    void setTerrain(unsigned short group); //places type & group at MapTile
-    std::list<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
-                                                    //to be used by Contstructions and Vehicles
-    void killframe(std::list<ExtraFrame>::iterator it); //kills an extraframe
-
-    unsigned short getType();          //type of bare land or the covering construction
-    unsigned short getTopType();       //type of bare land or the actual construction
-    unsigned short getLowerstVisibleType(); //like getType but type of terrain underneath transparent constructions
-    unsigned short getGroup();        //group of bare land or the covering construction
-    unsigned short getTopGroup();     //group of bare land or the actual construction
-    unsigned short getLowerstVisibleGroup(); //like getGroup but group of terrain underneath transparent constructions
-    unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
-    ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
-    ResourceGroup*     getTileResourceGroup();     //resourceGroup of a tile
-    ConstructionGroup* getConstructionGroup();     //constructionGroup of maptile or the covering construction
-    ConstructionGroup* getTopConstructionGroup();  //constructionGroup of maptile or the actual construction
-    ConstructionGroup* getLowerstVisibleConstructionGroup();
-
-    bool is_bare();                    //true if we there is neither a covering construction nor water
-    bool is_lake();                    //true on lakes (also under bridges)
-    bool is_river();                   //true on rivers (also under bridges)
-    bool is_water();                   //true on bridges or lakes (also under bridges)
-    bool is_visible();                 //true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
-    bool is_transport();               //true on tracks, road, rails and bridges
-    bool is_residence();               //true if any residence covers the tile
-    void writeTemplate();              //create maptile template
-    void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
-};
 
 
 class MemberRule{
@@ -328,69 +254,6 @@ public:
 #endif
     }
     ~RegisteredConstruction(){}
-};
-
-class GraphicsInfo
-{
-    public:
-    GraphicsInfo(void){
-        texture = (Texture*)'\0';
-        image = (SDL_Surface*)'\0';
-        x = 0;
-        y = 0;
-    }
-
-    Texture* texture;
-    SDL_Surface* image;
-    int x, y;
-};
-
-//all instances are added to resMap
-class ResourceGroup {
-public:
-
-    ResourceGroup(const std::string &tag)
-    {
-        graphicsInfoVector.clear();
-        chunks.clear();
-        resourceID = tag;
-        images_loaded = false;
-        sounds_loaded = false;
-        is_vehicle = false;
-        //std::cout << "new resourceGroup: " << tag << std::endl;
-        if (resMap.count(tag))
-        {   std::cout << "rejecting " << tag << " as another ResourceGroup"<< std::endl;}
-        else
-        {   resMap[tag] = this;}
-    }
-    ~ResourceGroup()
-    {
-        std::vector<GraphicsInfo>::iterator it;
-        for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
-        {
-            if(it->texture)
-            {
-                delete it->texture;
-                it->texture = 0;
-            }
-        }
-        if ( resMap.count(resourceID))
-        {
-            resMap.erase(resourceID);
-            //std::cout << "sayonara: " << resourceID << std::endl;
-        }
-        else
-        {   std::cout << "error: unreachable resourceGroup: " << resourceID << std::endl;}
-    }
-    std::string resourceID;
-    bool images_loaded;
-    bool sounds_loaded;
-    bool is_vehicle; //vehicles are always rendered on upper left tile
-    std::vector<Mix_Chunk *> chunks;
-    std::vector<GraphicsInfo> graphicsInfoVector;
-    void growGraphicsInfoVector(void)
-    {   graphicsInfoVector.resize(graphicsInfoVector.size() + 1);}
-    static std::map<std::string, ResourceGroup*> resMap;
 };
 
 class ConstructionGroup {

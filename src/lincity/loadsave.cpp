@@ -9,13 +9,14 @@
 #include <stdio.h>                         // for sscanf, fprintf, printf
 #include <zlib.h>                          // for gzgets, gzclose, gzopen
 //#include <zlib.h> //moved to lintypes.h
-#include <iostream>                        // for basic_ostream, char_traits
+#include <iostream>                        // for basic_ostream, operator<<
 
 #include "../lincity-ng/Config.hpp"        // for getConfig, Config
+#include "engglobs.h"                      // for world, alt_min, alt_max
 #include "groups.h"                        // for GROUP_RAIL_BRIDGE, GROUP_R...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "init_game.h"                     // for clear_game
-#include "lintypes.h"                      // for world, MapTile, Ground
+#include "lintypes.h"                      // for MapTile, Ground, Construct...
 #include "modules/all_modules.h"           // for Residence, MODERN_WINDMILL...
 #include "stats.h"                         // for init_inventory, tpopulation
 #include "tinygettext/gettext.hpp"         // for _

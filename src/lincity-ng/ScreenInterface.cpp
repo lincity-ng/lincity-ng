@@ -20,10 +20,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <assert.h>                          // for assert
 #include <errno.h>                           // for errno
-#include <stdlib.h>                          // for malloc, abs
+#include <stdlib.h>                          // for abs, malloc
 #include <exception>                         // for exception
 #include <iomanip>                           // for operator<<, setfill, setw
-#include <iostream>                          // for char_traits, basic_ostream
+#include <iostream>                          // for basic_ostream, operator<<
 #include <sstream>                           // for basic_ostringstream
 
 #include "ButtonPanel.hpp"                   // for getButtonPanel, ButtonPanel
@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
 #include "gui_interface/shared_globals.h"    // for monthgraph_size, monthgr...
 #include "lc_error.h"                        // for lc_error
+#include "lincity/engglobs.h"                // for total_money, total_time
 #include "lincity/lclib.h"                   // for current_year
 #include "lincity/lintypes.h"                // for NUMOF_DAYS_IN_MONTH
 #include "tinygettext/gettext.hpp"           // for _

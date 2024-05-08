@@ -37,11 +37,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string.h>                              // for strlen, strncmp, strdup
 #include <unistd.h>                              // for NULL, execlp
 #include <exception>                             // for exception
-#include <iostream>                              // for operator<<, char_traits
+#include <iostream>                              // for operator<<, basic_os...
 #include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_ostringstream
 #include <stdexcept>                             // for runtime_error
-#include <string>                                // for basic_string, operat...
+#include <string>                                // for char_traits, basic_s...
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "Game.hpp"                              // for Game
@@ -58,9 +58,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "lc_error.h"                            // for HANDLE_ERRNO
+#include "lincity/engglobs.h"                    // for fast_time_for_year
 #include "lincity/init_game.h"                   // for destroy_game
 #include "lincity/lin-city.h"                    // for FAST_TIME_FOR_YEAR
-#include "lincity/lintypes.h"                    // for fast_time_for_year
 #include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 

@@ -22,14 +22,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <assert.h>                              // for assert
 #include <stdio.h>                               // for printf, NULL
 #include <iomanip>                               // for operator<<, setpreci...
-#include <iostream>                              // for basic_ostream, char_...
+#include <iostream>                              // for basic_ostream, opera...
 #include <sstream>                               // for basic_ostringstream
-#include <string>                                // for basic_string, allocator
+#include <string>                                // for basic_string, char_t...
 
 #include "Game.hpp"                              // for getGame
 #include "MiniMap.hpp"                           // for getMiniMap, MiniMap
 #include "Mps.hpp"                               // for Mps, globalMPS, envMPS
 #include "gui_interface/mps.h"                   // for MPS_MAP, MPS_ENV
+#include "lincity/commodities.hpp"               // for Commodity
+#include "lincity/engglobs.h"                    // for world, people_pool
 #include "lincity/groups.h"                      // for GROUP_WATER, GROUP_D...
 #include "lincity/lclib.h"                       // for num_to_ansi
 #include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER

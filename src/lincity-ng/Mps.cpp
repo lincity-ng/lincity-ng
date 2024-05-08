@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"              // for Paragraph
 #include "gui/XmlReader.hpp"              // for XmlReader
 #include "gui_interface/mps.h"            // for MPS_PARAGRAPH_COUNT
+#include "lincity/engglobs.h"             // for world
 #include "lincity/groups.h"               // for GROUP_ROAD, GROUP_ROAD_BRIDGE
 #include "lincity/lintypes.h"             // for MapTile, Construction, Reso...
 #include "lincity/modules/all_modules.h"  // for Transport

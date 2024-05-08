@@ -16,6 +16,7 @@
 #include "lincity/groups.h"               // tally: 11111111111111111111111111111111
 #include "lincity/lin-city.h"             // tally: 111111111111111111111111111111111
 #include "lincity/lintypes.h"             // tally: 111111111111111111111111111111111
+#include "lincity/resources.hpp"
 #include "lincity/stats.h"                // tally: 11111111111111
 #include "lincity/world.h"                // tally: 111111111111111111111111
 #include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111

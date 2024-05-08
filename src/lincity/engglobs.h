@@ -7,10 +7,7 @@
 #define __engglobs_h__
 
 #include "ConstructionCount.h"  // for ConstructionCount
-#include "groups.h"
-#include "lctypes.h"
-#include "lin-city.h"
-#include "lintypes.h"           // for NUM_OF_GROUPS, ...
+#include "lin-city.h"           // for NUMOF_DISCOUNT_TRIGGERS
 #include "world.h"              // for World
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"

@@ -25,15 +25,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_timer.h>                     // for SDL_Delay, SDL_GetTicks
 #include <assert.h>                        // for assert
 #include <physfs.h>                        // for PHYSFS_exists
-#include <stdio.h>                         // for sscanf
+#include <stdio.h>                         // for size_t, sscanf, NULL
 #include <string.h>                        // for strcmp
 #include <cmath>                           // for sqrt, fabs, floor, fabsf
 #include <exception>                       // for exception
-#include <iostream>                        // for cerr, cout
+#include <iostream>                        // for basic_ostream, operator<<
 #include <iterator>                        // for advance
 #include <list>                            // for _List_iterator, list, oper...
 #include <map>                             // for _Rb_tree_iterator, map
-#include <sstream>                         // for char_traits, basic_ostream
+#include <sstream>                         // for basic_stringstream, basic_...
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
@@ -62,10 +62,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity/UserOperation.h"         // for UserOperation
 #include "lincity/all_buildings.h"         // for TileConstructionGroup, GRO...
+#include "lincity/commodities.hpp"         // for commodityNames
+#include "lincity/engglobs.h"              // for userOperation, world, alt_...
 #include "lincity/engine.h"                // for desert_water_frontiers
 #include "lincity/groups.h"                // for GROUP_DESERT, GROUP_WATER
 #include "lincity/lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_...
-#include "lincity/lintypes.h"              // for GraphicsInfo, userOperation
+#include "lincity/lintypes.h"              // for GraphicsInfo, ResourceGroup
 #include "lincity/transport.h"             // for connect_transport, BRIDGE_...
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, dictionaryManager

@@ -22,8 +22,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for size_t, NULL, sscanf
 #include <string.h>                        // for strcmp
 #include <algorithm>                       // for max
-#include <iostream>                        // for cerr, cout
-#include <sstream>                         // for char_traits, basic_ostream
+#include <iostream>                        // for basic_ostream, operator<<
+#include <sstream>                         // for basic_ostringstream, basic...
 #include <stdexcept>                       // for runtime_error
 
 #include "CheckButton.hpp"                 // for CheckButton
@@ -42,9 +42,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity/all_buildings.h"         // for GROUP_WATER_COST, GROUP_WA...
+#include "lincity/engglobs.h"              // for userOperation, tech_level
 #include "lincity/groups.h"                // for GROUP_BLACKSMITH, GROUP_CO...
 #include "lincity/lin-city.h"              // for GOOD
-#include "lincity/lintypes.h"              // for userOperation, Constructio...
+#include "lincity/lintypes.h"              // for ConstructionGroup
 #include "lincity/modules/all_modules.h"   // for ResidenceConstructionGroup
 #include "tinygettext/gettext.hpp"         // for _
 

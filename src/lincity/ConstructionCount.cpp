@@ -9,6 +9,7 @@
 #include <utility>                    // for pair
 
 #include "ConstructionCount.h"
+#include "engglobs.h"                 // for world
 #include "lincity-ng/Permutator.hpp"  // for Permutator
 #include "lintypes.h"                 // for Construction, ConstructionGroup
 #include "world.h"                    // for World

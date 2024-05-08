@@ -22,11 +22,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_stdinc.h>                    // for Uint16, Uint8
 #include <SDL_surface.h>                   // for SDL_CreateRGBSurface, SDL_...
 #include <assert.h>                        // for assert
-#include <stdio.h>                         // for sscanf
-#include <string.h>                        // for strcmp, strlen, size_t
+#include <stdio.h>                         // for sscanf, size_t
+#include <string.h>                        // for strcmp, strlen
 #include <algorithm>                       // for max
 #include <array>                           // for array
-#include <iostream>                        // for char_traits, basic_ostream
+#include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
@@ -56,7 +56,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/all_buildings.h"         // for COAL_RESERVE_SIZE
 #include "lincity/groups.h"                // for GROUP_POWER_LINE, GROUP_FIRE
 #include "lincity/lin-city.h"              // for FLAG_IS_TRANSPORT, SLOW_TI...
+#include "lincity/lintypes.h"              // for MapTile, Construction, Con...
 #include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
+#include "lincity/modules/modules.h"       // for world, Commodity, Commodit...
 #include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
 #include "lincity/world.h"                 // for World
 

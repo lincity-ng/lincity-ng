@@ -9,11 +9,13 @@
 #include <stdio.h>                // for NULL
 #include <list>                   // for _List_iterator
 
+#include "commodities.hpp"        // for Commodity
 #include "engine.h"               // for check_group, check_topgroup
 #include "groups.h"               // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_...
 #include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
-#include "lintypes.h"             // for world, MapTile, Construction, Extra...
+#include "lintypes.h"             // for MapTile, Construction, ExtraFrame
 #include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
+#include "engglobs.h"             // for world
 #include "world.h"                // for World
 
 

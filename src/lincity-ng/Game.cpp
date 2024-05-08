@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stddef.h>                        // for NULL, size_t
 #include <algorithm>                       // for min
-#include <iostream>                        // for char_traits, basic_ostream
+#include <iostream>                        // for basic_ostream, operator<<
 #include <stdexcept>                       // for runtime_error
 
 #include "ButtonPanel.hpp"                 // for getButtonPanel, ButtonPanel
@@ -50,6 +50,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
+#include "lincity/engglobs.h"              // for constructionCount, fast_ti...
 #include "lincity/lin-city.h"              // for ANIMATE_DELAY
 #include "lincity/lintypes.h"              // for Construction
 #include "lincity/simulate.h"              // for do_animate, do_time_step

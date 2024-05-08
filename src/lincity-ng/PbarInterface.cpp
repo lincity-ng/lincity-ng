@@ -20,7 +20,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "PBar.hpp"                        // for LCPBar, LCPBarPage1, LCPBa...
 #include "gui_interface/pbar_interface.h"  // for pbar_st, PBAR_DATA_SIZE
-#include "lincity/lintypes.h"              // for Commodity, tstat_capacities
+#include "lincity/commodities.hpp"         // for Commodity
+#include "lincity/engglobs.h"              // for housed_population, total_h...
+#include "lincity/lintypes.h"              // for tstat_capacities, tstat_ce...
 
 struct pbar_st pbars[NUM_PBARS];
 
