@@ -128,11 +128,6 @@ void initLincity()
     // initialize constructions
     initializeModules();
 
-    // init_types ();
-    load_png_graphics();
-    main_types[CST_USED].group = GROUP_USED;
-    main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */
-
     // animation time
     reset_start_time ();
 

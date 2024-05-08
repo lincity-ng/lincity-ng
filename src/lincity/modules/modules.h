@@ -10,6 +10,7 @@
 // IWYU pragma: begin_exports
 #include "gui_interface/mps.h"            // tally: 111111111111111111111111111111111
 #include "lincity/all_buildings.h"        // tally: 1111111111111111111111111111111
+#include "lincity/commodities.hpp"
 #include "lincity/engglobs.h"             // tally:
 #include "lincity/engine.h"               // tally: 1111111111111111111
 #include "lincity/groups.h"               // tally: 11111111111111111111111111111111

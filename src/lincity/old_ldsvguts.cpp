@@ -200,13 +200,13 @@ void load_city_old(char *cname)
             world(x, y)->pollution = (unsigned short)n;
             sscanf(gzgets(gzfile, s, 256), "%d", &n);
             world(x, y)->type = (short)n;
+            world(x, y)->group = get_group_of_type(n);
 
         }
         if (((93 * x) / world.len()) % 3 == 0)
             prog_box("", (93 * x) / world.len());
     }
     check_endian();
-    set_map_groups();
 
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originx);
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);

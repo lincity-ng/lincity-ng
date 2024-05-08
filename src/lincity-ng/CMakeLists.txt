@@ -42,7 +42,6 @@ add_executable(lincity-ng
 		Permutator.hpp
 		readdir.cpp
 		readdir.hpp
-		ReadPngInterface.cpp
 		ScreenInterface.cpp
 		ScreenInterface.hpp
 		Sound.cpp

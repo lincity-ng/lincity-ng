@@ -7,7 +7,10 @@
 #define __engglobs_h__
 
 #include "ConstructionCount.h"  // for ConstructionCount
-#include "lintypes.h"           // IWYU pragma: keep  // for NUM_OF_GROUPS, ...
+#include "groups.h"
+#include "lctypes.h"
+#include "lin-city.h"
+#include "lintypes.h"           // for NUM_OF_GROUPS, ...
 #include "world.h"              // for World
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
@@ -17,9 +20,6 @@ class UserOperation;
 extern int pix_double;
 
 extern int use_waterwell, ldsv_version;
-
-extern struct GROUP main_groups[NUM_OF_GROUPS];
-extern struct TYPE main_types[NUM_OF_TYPES];
 
 extern ConstructionCount constructionCount;
 extern World world;

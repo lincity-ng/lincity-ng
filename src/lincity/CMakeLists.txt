@@ -3,6 +3,8 @@ add_subdirectory(modules)
 add_library(lincity_lib  STATIC
 		all_buildings.cpp
 		all_buildings.h
+		commodities.cpp
+		commodities.hpp
 		ConstructionCount.cpp
 		ConstructionCount.h
 		ConstructionManager.cpp

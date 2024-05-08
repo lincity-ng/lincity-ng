@@ -18,59 +18,58 @@
 #include <string>                       // for char_traits, basic_string
 #include <vector>                       // for vector
 
+#include "commodities.hpp"
 #include "engglobs.h"
 #include "gui/Texture.hpp"              // for Texture
 
-class Blacksmith;
-class Coal_power;
-class Coalmine;
-class Commune;
 class Construction;
 class ConstructionGroup;
-class Cricket;
-class Fire;
-class FireStation;
-class HealthCentre;
-class IndustryHeavy;
-class IndustryLight;
-class Market;
-class Mill;
-class Monument;
-class Oremine;
-class Organic_farm;
-class Parkland;
-class Port;
-class Pottery;
-class Powerline;
-class Rail;
-class RailBridge;
-class Recycle;
-class Residence;
 class ResourceGroup;
-class Road;
-class RoadBridge;
-class RocketPad;
-class School;
-class Shanty;
-class SolarPower;
-class Substation;
-class Tip;
-class Track;
-class TrackBridge;
-class Transport;
-class University;
-class Waterwell;
-class Windmill;
-class Windpower;
 template <typename MemberType> class MemberTraits;
 
-#define WORLD_SIDE_LEN 100
+// IWYU pragma: no_forward_declare Blacksmith
+// IWYU pragma: no_forward_declare Coal_power
+// IWYU pragma: no_forward_declare Coalmine
+// IWYU pragma: no_forward_declare Commune
+// IWYU pragma: no_forward_declare Cricket
+// IWYU pragma: no_forward_declare Fire
+// IWYU pragma: no_forward_declare FireStation
+// IWYU pragma: no_forward_declare HealthCentre
+// IWYU pragma: no_forward_declare IndustryHeavy
+// IWYU pragma: no_forward_declare IndustryLight
+// IWYU pragma: no_forward_declare Market
+// IWYU pragma: no_forward_declare Mill
+// IWYU pragma: no_forward_declare Monument
+// IWYU pragma: no_forward_declare Oremine
+// IWYU pragma: no_forward_declare Organic_farm
+// IWYU pragma: no_forward_declare Parkland
+// IWYU pragma: no_forward_declare Port
+// IWYU pragma: no_forward_declare Pottery
+// IWYU pragma: no_forward_declare Powerline
+// IWYU pragma: no_forward_declare Rail
+// IWYU pragma: no_forward_declare RailBridge
+// IWYU pragma: no_forward_declare Recycle
+// IWYU pragma: no_forward_declare Residence
+// IWYU pragma: no_forward_declare Road
+// IWYU pragma: no_forward_declare RoadBridge
+// IWYU pragma: no_forward_declare RocketPad
+// IWYU pragma: no_forward_declare School
+// IWYU pragma: no_forward_declare Shanty
+// IWYU pragma: no_forward_declare SolarPower
+// IWYU pragma: no_forward_declare Substation
+// IWYU pragma: no_forward_declare Tip
+// IWYU pragma: no_forward_declare Track
+// IWYU pragma: no_forward_declare TrackBridge
+// IWYU pragma: no_forward_declare Transport
+// IWYU pragma: no_forward_declare University
+// IWYU pragma: no_forward_declare Waterwell
+// IWYU pragma: no_forward_declare Windmill
+// IWYU pragma: no_forward_declare Windpower
+
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
 
 #define NUMOF_COAL_RESERVES ((world.len() * world.len()) / 400)
-#define NUM_OF_TYPES    404
-#define NUM_OF_GROUPS    51
 
 #define OLD_MAX_NUMOF_MARKETS 100
 #define MAX_NUMOF_MARKETS 512
@@ -78,13 +77,7 @@ template <typename MemberType> class MemberTraits;
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
 
-#define NUMOF_DISCOUNT_TRIGGERS 6
-
-//pages for report 0,1,2,3,...,LAST_REPORT_PAGE
-#define LAST_REPORT_PAGE 3
-
 /*
-
 int get_group_cost(short group);
 int get_type_cost(short type);
 void get_type_name(short type, char *s);
@@ -211,36 +204,6 @@ public:
     void *ptr; //address of ConstructionMember
 };
 
-template <typename MemberType>
-class MemberTraits { };
-
-enum Commodity
-{
-    STUFF_INIT = 0,
-    STUFF_FOOD = STUFF_INIT,
-    STUFF_JOBS,
-    STUFF_COAL,
-    STUFF_GOODS,
-    STUFF_ORE,
-    STUFF_STEEL,
-    STUFF_WASTE,
-    STUFF_KWH,
-    STUFF_MWH,
-    STUFF_WATER,
-    STUFF_COUNT
-};
-Commodity& operator++(Commodity& stuff);
-Commodity operator++(Commodity& stuff, int);
-
-struct CommodityRule{
-    int maxload;
-    bool take;
-    bool give;
-};
-
-
-
-
 class Construction {
 public:
     Construction() {
@@ -327,7 +290,6 @@ public:
     void playSound();//plays random chunk from constructionGroup
 };
 
-extern const char *commodityNames[];
 //global Vars for statistics on commodities
 extern std::map<Commodity, int> tstat_capacities;
 extern std::map<Commodity, int> tstat_census;
@@ -573,30 +535,6 @@ protected:
     static std::map<unsigned short, ConstructionGroup*> groupMap;
 
 };
-
-
-
-
-struct GROUP {
-    const char *name;           // name of group
-    unsigned short no_credit;   // TRUE if need credit to build
-    unsigned short group;       // This is redundant: it must match
-                                // the index into the table
-    unsigned short size;
-    int colour;                 // summary map colour
-    int cost_mul;               // group cost multiplier
-    int bul_cost;               // group bulldoze cost
-    int fire_chance;            // probability of fire
-    int cost;                   // group cost
-    int tech;                   // group tech
-};
-
-
-struct TYPE {
-    int group;                  // What group does this type belong to?
-    char *graphic;              // Bitmap of the graphic
-};
-
 
 #endif /* __lintypes_h__ */
 

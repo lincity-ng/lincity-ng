@@ -1,3 +1,11 @@
+#ifndef __LINCITY_MODULES_BLACKSMITH_H__
+#define __LINCITY_MODULES_BLACKSMITH_H__
+
+#include <array>                    // for array
+
+#include "modules.h"
+
+#define GROUP_BLACKSMITH_NAME N_("Blacksmith")
 #define GROUP_BLACKSMITH_COLOUR (white(15))
 #define GROUP_BLACKSMITH_COST   5000
 #define GROUP_BLACKSMITH_COST_MUL 25
@@ -6,6 +14,7 @@
 #define GROUP_BLACKSMITH_FIREC 60
 #define GROUP_BLACKSMITH_RANGE 0
 #define GROUP_BLACKSMITH_SIZE 2
+#define GROUP_BLACKSMITH_NEED_CREDIT false
 
 #define BLACKSMITH_JOBS    35
 
@@ -21,10 +30,6 @@
 #define BLACKSMITH_BATCH (GOODS_MADE_BY_BLACKSMITH*100)
 //#define BLACKSMITH_ANIM_THRESHOLD 10
 #define BLACKSMITH_ANIM_SPEED    200
-
-#include <array>                    // for array
-
-#include "modules.h"
 
 class BlacksmithConstructionGroup: public ConstructionGroup {
 public:
@@ -90,5 +95,5 @@ public:
     bool animate_enable;
 };
 
-
+#endif // __LINCITY_MODULES_BLACKSMITH_H__
 /** @file lincity/modules/blacksmith.h */

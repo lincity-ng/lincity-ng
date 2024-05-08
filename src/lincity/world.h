@@ -9,6 +9,8 @@
 #include <set>     // for set
 #include <vector>  // for vector
 
+#define WORLD_SIDE_LEN 100
+
 //Array2D is used during map generation in initgame
 template <class T>
 class Array2D

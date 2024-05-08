@@ -14,8 +14,8 @@
 #include "modules.h"
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
-    N_("Blacksmith"),
-    FALSE,                     /* need credit? */
+    GROUP_BLACKSMITH_NAME,
+    GROUP_BLACKSMITH_NEED_CREDIT,
     GROUP_BLACKSMITH,
     GROUP_BLACKSMITH_SIZE,
     GROUP_BLACKSMITH_COLOUR,

@@ -6,6 +6,7 @@
 #define GROUP_PORT_FIREC 50
 #define GROUP_PORT_RANGE 0
 #define GROUP_PORT_SIZE 4
+#define GROUP_PORT_NEED_CREDIT false
 
 #define PORT_FOOD_RATE    1
 #define PORT_JOBS_RATE    5
