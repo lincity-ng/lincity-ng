@@ -1,0 +1,49 @@
+LinCity NG packages built for Windows may include dll's, which are covered under
+their own licenses.
+
+`libgcc_s_seh-1.dll` is provided by MinGW-w64 (https://www.mingw-w64.org/) and
+falls under the custom license that covers that project.
+
+`libiconv-2.dll` is provided by libiconv
+(https://www.gnu.org/software/libiconv/) and falls under the GNU Lesser General
+Public License (LGPL).
+
+`liblzma-5.dll` is provided by XZ-Utils (https://tukaani.org/xz/) and so falls
+under the BSD Zero Clause License (0BSD).
+
+`libphysfs.dll` is provided by PhysicsFS (http://icculus.org/physfs/) and falls
+under the ZLIB License
+(https://hg.icculus.org/icculus/physfs/raw-file/tip/LICENSE.txt).
+
+`libSDL2_gfx-1-0-0.dll` is provided by SDL2_gfx
+(http://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/) and falls under
+the ZLIB License.
+
+`libssp-0.dll` is provided by the GNU Compiler Collection (a.k.a. GCC)
+(https://gcc.gnu.org/) and MinGW-w64 (https://www.mingw-w64.org/) and so falls
+under the applicable licenses for those projects.
+
+`libstdc++-6.dll` is provided by the GNU Compiler Collection (a.k.a. GCC)
+(https://gcc.gnu.org/) and MinGW-w64 (https://www.mingw-w64.org/) and so falls
+under the applicable licenses from those projects.
+
+`libwinpthread-1.dll` is provided by MinGW-w64 (https://www.mingw-w64.org/) and
+falls under the custom license that covers that project.
+
+`libxml2-2.dll` is provided by Libxml2 (http://www.xmlsoft.org/) which is part
+of the GNOME project and falls under the MIT License.
+
+`SDL2.dll` is provided by SDL (http://libsdl.org) and falls under the MIT
+License.
+
+`SDL2_image.dll` is provided by SDL
+(https://github.com/libsdl-org/SDL_image) and falls under the ZLIB License.
+
+`SDL2_mixer.dll` is provided by SDL
+(http://www.libsdl.org/projects/SDL_mixer) and falls under the ZLIB License.
+
+`SDL2_ttf.dll` is provided by SDL (http://libsdl.org) and falls under the MIT
+License.
+
+`zlib1.dll` is provided by zlib (https://www.zlib.net/) and falls under the ZLIB
+License.

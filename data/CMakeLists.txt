@@ -92,6 +92,9 @@ set(infoFiles
   README.md
   RELNOTES
 )
+if(WIN32)
+  set(infoFiles ${infoFiles} COPYING-dll.txt)
+endif()
 foreach(infoFile ${infoFiles})
   add_custom_command(
     OUTPUT ${infoFile}
