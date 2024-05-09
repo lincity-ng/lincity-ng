@@ -23,16 +23,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL2_gfxPrimitives.h>  // for aalineRGBA, aapolygonRGBA, boxRGBA
 #include <SDL2_rotozoom.h>       // for zoomSurface, SMOOTHING_OFF
 #include <stdlib.h>              // for NULL
+#include <typeinfo> // IWYU pragma: keep  // for typeid
 
 #include "../Vector2.hpp"        // for Vector2
 #include "Color.hpp"             // for Color
 #include "Rect2D.hpp"            // for Rect2D
 #include "Texture.hpp"           // for Texture
 #include "TextureSDL.hpp"        // for TextureSDL
-
-#ifdef DEBUG
-#include <typeinfo>              // for typeid
-#endif
 
 class Painter;
 

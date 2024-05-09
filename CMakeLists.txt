@@ -52,6 +52,7 @@ if(NOT TARGET LibXslt::xsltproc)
 endif()
 
 find_program(GETTEXT_XGETTEXT NAMES xgettext)
+find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
 
 git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
 if(FULL_PROJECT_VERSION)
@@ -80,9 +81,9 @@ if(APPLE)
 	add_compile_definitions("APPLE")
 endif()
 
-if(NOT ${CMAKE_CROSSCOMPILING})
+if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE)
 	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
-		"include-what-you-use;-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
+		"${INCLUDE_WHAT_YOU_USE};-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 

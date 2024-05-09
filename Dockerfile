@@ -25,8 +25,8 @@ RUN apt-get install -y \
   libxslt1.1 \
   libxslt1-dev \
   xsltproc \
-  gettext \
   git
+  # gettext \
 
 RUN mkdir -p /home/lincity-ng
 # COPY . /home/lincity-ng/
