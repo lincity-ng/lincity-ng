@@ -24,6 +24,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"        // for Paragraph
 #include "gui/SwitchComponent.hpp"  // for SwitchComponent
 
+#ifdef DEBUG
+#include <stdexcept>
+#include <sstream>
+#include <typeinfo>
+#endif
+
 template<typename T>
 void findComponent(T** result, Component& tree, const std::string& name)
 {

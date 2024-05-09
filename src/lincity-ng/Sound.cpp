@@ -119,6 +119,10 @@ Sound::loadWaves() {
                 fullname = directory + key;
                 file = getPhysfsSDLRWops( fullname.c_str() );
                 chunk = Mix_LoadWAV_RW( file, 1);
+                if(!chunk) {
+                    std::cerr << "warning: failed to load sound '" << key
+                        << "': " << Mix_GetError() << std::endl;
+                }
                 if (resourceID_level && resGrpVec.size())
                 {
                     for(size_t i=0; i< resGrpVec.size(); ++i)
