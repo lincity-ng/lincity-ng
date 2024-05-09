@@ -19,5 +19,10 @@ tool in emergencies.
 IMG_1[This is a monument]: images/tiles/monument5.png
 IMG_2[and this its icon]: images/gui/buttonpanel/parks/monument.png
 
+SUBH: Formulas
+
+100 jobs =&gt; 0 (during construction)
+
+A monument can produce up to .0001 tech per 3 days, and the number of days between tech production increases proportional to the tech level.
 
 ALSO[See also:]: jobs, evacuate

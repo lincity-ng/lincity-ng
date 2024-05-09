@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Мусор</p>
+	<p style="hp">Мусор появляется при создании товаров. Его можно собирать на свалках, перерабатывать в специальных центрах или просто накапливать в магазинах или на дорогах. Однако большое количество неубранного мусора может стать причиной пожаров или сильных загрязнений.</p>
+	<p style="hp">Электрифицированные фермы и коммуны могут обезвреживать небольшое количество мусора.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="tip">Свалка</a></li>
+	<li><a href="recycle">Центр по переработке отходов</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="farm">Ферма</a></li>
+</Document>

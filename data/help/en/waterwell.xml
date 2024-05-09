@@ -4,6 +4,10 @@
 	<p style="htitle">Water well</p>
 	<p style="hp">Water wells provide frash water. Water flows in underground pipes along transport. Lack of water will have the same consequences as lack of food. Informations is shown in starvation overlay/minimap. Beware, too heavy pollution will render the water not drinkable.</p>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">0 =&gt; 1600 water</p>
+	<p style="hp">Water production is reduced proportionally if some tiles under the well are desert.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="food">Food</a></li>
 	<li><a href="water">Water</a></li>

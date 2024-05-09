@@ -11,6 +11,11 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">34 jobs + 250 kWh + 500 waste =&gt; (500 ore + 10 steel) * efficiency</p>
+	<p style="hp">efficiency = .1 + .005 * tech (capped at .8 at 140 tech)</p>
+	<p style="hp">If there is not inventory capacity for the ore/steel, then it is discarded, so the waste can still be dealt with. Note this can cause wasteful production in nearby steel works as it produces steel while the recycling center is discarding steel.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="commodities">Commodities</a></li>
 	<li><a href="power">Power</a></li>

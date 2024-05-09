@@ -13,6 +13,11 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">1: 209 jobs + 1 ore reserve =&gt; 5000 ore</p>
+	<p style="hp">2: 209 jobs + 5000 ore =&gt; 1 ore reserve</p>
+	<p style="hp">Ore mines target 80% coal inventory. If producing 5000 ore would not exceed 80% inventory, then formula 1 is applied. If consuming 5000 ore would not make the remaining inventory less than 80%, then formula 2 is applied.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="ore">Ore</a></li>
 	<li><a href="goods">Goods</a></li>

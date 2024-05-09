@@ -17,6 +17,9 @@
   <p style="hp">and this its mapview overlay icon</p>
    <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">8 jobs + 3 goods =&gt; 1 waste</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
 	<li><a href="goods">Goods</a></li>

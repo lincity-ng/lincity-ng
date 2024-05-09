@@ -13,5 +13,8 @@ alternatives
 IMG_1[This is a coal fired power station]: images/tiles/powerscoal-empty.png
 IMG_2[and this its icon]: images/gui/buttonpanel/power/coalpower.png
 
+SUBH: Formulas
+
+100 jobs + 44 coal =&gt; 11000 MWh + 110 MWh * tech
 
 ALSO[See also:]: tech-level, power, powerline, windmill, powerssolar, msb-power, pollution

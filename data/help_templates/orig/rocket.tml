@@ -23,5 +23,10 @@ Hint, use the evacuate tool to recover the unused resources before you demolish 
 IMG_1[This is a Rocket Launch Pad]: images/tiles/rocket5.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/rocket.png
 
+SUBH: Formulas
+
+construction: 200 jobs + 10000 goods + 240 steel =&gt; 3333 waste + 2 completion steps
+
+The formula is applied as many times as possible per day.
 
 ALSO[See also:]: market, commodities, evacuate

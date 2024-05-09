@@ -14,5 +14,10 @@ IMG_3[The second is a 'modern' wind-farm type. It provides MWh to the cities pow
 
 The type you get depends on your tech-level when you build it.
 
-ALSO[See also:]: power, substation, powerline, tech-level, msb-power, powerscoal, powerssolar
+SUBH: Formulas
 
+low tech: 10 jobs =&gt; 450 kWh + 4.5 kWh * tech
+
+high tech: 15 jobs =&gt; 450 MWh + 4.5 MWh * tech
+
+ALSO[See also:]: power, substation, powerline, tech-level, msb-power, powerscoal, powerssolar

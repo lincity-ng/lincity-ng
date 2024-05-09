@@ -17,6 +17,10 @@
    <img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">The type you get depends on your tech-level when you build it.</p>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">low tech: 10 jobs =&gt; 450 kWh + 4.5 kWh * tech</p>
+	<p style="hp">high tech: 15 jobs =&gt; 450 MWh + 4.5 MWh * tech</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="power">Power</a></li>
 	<li><a href="substation">Substations</a></li>

@@ -174,9 +174,9 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
               }
 
               const char* p = (const char*) reader.getValue();
-              // skip trailing spaces...
-              while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
-                ++p;
+              // skip leading spaces...
+              // while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
+              //   ++p;
 
               bool lastspace = false;
               for( ; *p != 0; ++p) {
@@ -618,4 +618,3 @@ IMPLEMENT_COMPONENT_FACTORY(Paragraph)
 
 
 /** @file gui/Paragraph.cpp */
-

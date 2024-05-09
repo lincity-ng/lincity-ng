@@ -15,6 +15,10 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">250 jobs + 750 goods =&gt; .0004 tech + 250 waste</p>
+	<p style="hp">A university can sustain up to ~20 tech <100 or ~10 tech >100</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="tech-level">Tech Level</a></li>
 	<li><a href="market">Market</a></li>

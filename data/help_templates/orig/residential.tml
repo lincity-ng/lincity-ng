@@ -13,5 +13,20 @@ IMG_4[and this is its icon]: images/gui/buttonpanel/residence/residence-hightec-
 IMG_5[This is a high density housing (hightech)]: images/tiles/reshihi.png
 IMG_6[and this is its icon]: images/gui/buttonpanel/residence/residence-hightec-high.png
 
+SUBH: Formulas
+
+don't starve: (1 food + 1 water =&gt; 0) * pop
+
+power: 30 kWh + 3 kWh * pop =&gt; 0
+
+employment: (0 =&gt; .69 jobs + swing) * pop (with health and sports cover)
+
+swing = .05 * remaining jobs inventory capacity fraction (with health and sports cover)
+
+goods: (.25 goods =&gt; .0833 waste) * pop (only if employed)
+
+extra power: (.5 kWh =&gt; 0) * pop (only if using goods)
+
+extra goods: (.25 goods =&gt; .0833 waste) * pop (only if using extra power)
 
 ALSO[See also:]: market, transport, waterwell, pollution, farm, commodities, health, cricket

@@ -11,6 +11,9 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">50 jobs =&gt; 900 MWh + 9 MWh * tech</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="substation">Substations</a></li>
 	<li><a href="power">Power</a></li>

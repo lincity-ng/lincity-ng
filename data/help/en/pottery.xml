@@ -11,6 +11,9 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">11 ore + 2 coal + 35 jobs =&gt; 35 goods</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="ore">Ore</a></li>

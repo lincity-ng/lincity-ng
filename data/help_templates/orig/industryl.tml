@@ -19,5 +19,14 @@ Light industries produce heavy pollution.
 IMG_1[This is Light Industry]: images/tiles/industryll1.png
 IMG_2[and this its icon]: images/gui/buttonpanel/industry/lightindustry.png
 
+SUBH: Formulas
+
+59 jobs + 250 ore + 12 steel + (4500 MWh or 9000 kWh) =&gt; 1800 goods
+
+40 jobs + 250 ore + (4500 MWh or 9000 kWh) =&gt; 900 goods
+
+59 jobs + 125 ore + 12 steel =&gt; 450 goods
+
+40 jobs + 125 ore =&gt; 225 goods
 
 ALSO[See also:]: transport, market, commodities, pollution

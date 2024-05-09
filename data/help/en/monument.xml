@@ -13,6 +13,10 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">100 jobs =&gt; 0 (during construction)</p>
+	<p style="hp">A monument can produce up to .0001 tech per 3 days, and the number of days between tech production increases proportional to the tech level.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="jobs">Jobs</a></li>
 	<li><a href="evacuate">Evacuate</a></li>

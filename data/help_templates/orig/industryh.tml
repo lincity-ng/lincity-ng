@@ -9,5 +9,12 @@ Steel works cause heavy pollution. You can see when Heavy Industry is working in
 IMG_1[This is a Steel Works]: images/tiles/industryhl1.png
 IMG_2[and this its icon]: images/gui/buttonpanel/industry/heavyindustry2.png
 
+SUBH: Formulas
+
+(3600 MWh or 7200 kWh) + 28 jobs + 612 ore =&gt; 36 steel
+
+(3600 MWh or 7200 kWh or 72 coal) + 46 jobs + 612 ore =&gt; 36 steel
+
+28 jobs + 612 ore =&gt; 7 steel
 
 ALSO[See also:]: pollution, transport, power, coal, ore

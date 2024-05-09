@@ -7,5 +7,13 @@ It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) w
 IMG_1[This is a recycle center]: images/tiles/recycle-centre.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/mining/recycling.png
 
+SUBH: Formulas
+
+34 jobs + 250 kWh + 500 waste =&gt; (500 ore + 10 steel) * efficiency
+
+efficiency = .1 + .005 * tech (capped at .8 at 140 tech)
+
+If there is not inventory capacity for the ore/steel, then it is discarded, so the waste can still be dealt with.
+Note this can cause wasteful production in nearby steel works as it produces steel while the recycling center is discarding steel.
 
 ALSO[See also:]: commodities, power, transport

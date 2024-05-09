@@ -13,5 +13,14 @@ You can see when a tip is working in the usual way, by clicking on it
 IMG_1[This is a tip]: images/tiles/tip0.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/mining/recycling.png
 
+SUBH: Formulas
+
+1: 200 waste =&gt; 200 buried waste
+
+2: 200 buried waste =&gt; 200 waste
+
+Tips target 20% waste inventory. If there is more than 20% waste inventory, then formula 1 is applied. If there is less than 20% waste inventory, then formula 2 is applied.
+
+Buried waste degrades daily at a rate of 0.5% per year.
 
 ALSO[See also:]: waste, market, commune, farm, recycle

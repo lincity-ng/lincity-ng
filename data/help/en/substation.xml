@@ -10,6 +10,10 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">1500 MWh =&gt; 3000 kWh</p>
+	<p style="hp">If there is not enough MWh, then the formula may be scaled down.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="msb-power">Power overlay</a></li>
 	<li><a href="power">Power</a></li>

@@ -12,6 +12,11 @@
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">(3600 MWh or 7200 kWh) + 28 jobs + 612 ore =&gt; 36 steel</p>
+	<p style="hp">(3600 MWh or 7200 kWh or 72 coal) + 46 jobs + 612 ore =&gt; 36 steel</p>
+	<p style="hp">28 jobs + 612 ore =&gt; 7 steel</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="pollution">Pollution</a></li>
 	<li><a href="transport">Transport</a></li>
