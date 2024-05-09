@@ -8,6 +8,11 @@
 #include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
 #include "modules.h"            // for CommodityRule, Commodity, Counted
 
+#ifdef DEBUG
+#include <SDL.h>                // for SDL_GetKeyboardState, SDL_SCANCODE_LS...
+#include <stddef.h>             // for NULL
+#endif
+
 class TransportConstructionGroup: public ConstructionGroup {
 public:
     TransportConstructionGroup(

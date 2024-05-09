@@ -26,7 +26,10 @@
 #include "transport.h"                     // for connect_transport
 #include "world.h"                         // for World
 
-
+#ifdef DEBUG
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for fprintf, stderr
+#endif
 
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
@@ -580,4 +583,3 @@ int find_bare_area(int x, int y, int size)
 }
 
 /** @file lincity/engine.cpp */
-

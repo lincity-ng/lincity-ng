@@ -44,7 +44,10 @@
 #include "transport.h"                     // for connect_transport
 #include "world.h"                         // for World, MapTile, Array2D
 
-
+#ifdef DEBUG
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for fprintf, stderr
+#endif
 
 
 /* Private functions prototypes */

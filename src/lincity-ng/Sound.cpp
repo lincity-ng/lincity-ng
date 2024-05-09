@@ -39,6 +39,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
 #include "lincity/resources.hpp"       // for ResourceGroup
 
+#ifdef DEBUG
+#include <stdexcept>                   // for runtime_error
+#endif
+
 Sound* soundPtr = 0;
 
 Sound *getSound()

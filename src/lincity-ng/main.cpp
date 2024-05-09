@@ -30,7 +30,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdlib.h>                              // for exit, malloc, free
 #include <string.h>                              // for strlen, strncmp, strdup
 #include <unistd.h>                              // for NULL, execlp
-#include <exception>                             // for exception
 #include <iostream>                              // for operator<<, basic_os...
 #include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_ostringstream
@@ -58,6 +57,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
+#ifndef DEBUG
+#include <exception>                             // for exception
+#endif
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;

@@ -39,6 +39,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "callback/Callback.hpp"  // for makeCallback, Callback
 #include "callback/Signal.hpp"    // for Signal
 
+#ifdef DEBUG
+#include <assert.h>
+#endif
+
 static const float MOUSEWHEELSCROLL = 90;
 
 ScrollView::ScrollView()
