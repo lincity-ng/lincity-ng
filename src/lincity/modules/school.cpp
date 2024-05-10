@@ -7,6 +7,8 @@
 
 #include "school.h"
 
+#include "modules.h"
+
 
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(

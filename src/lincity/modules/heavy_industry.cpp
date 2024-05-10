@@ -5,9 +5,13 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "heavy_industry.h"
-#include "../transport.h"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+#include <vector>                   // for vector
+
+#include "modules.h"
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
@@ -24,7 +28,7 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
      GROUP_INDUSTRY_H_RANGE
 );
 
-//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+//helper groups for graphics and sound sets, don't add them to ConstructionGroup::groupMap
 //IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;

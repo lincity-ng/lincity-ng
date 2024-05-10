@@ -15,17 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
+#include <ctype.h>             // for isspace
+#include <libxml/xmlreader.h>  // for XML_READER_TYPE_ELEMENT, XML_READER_TY...
+#include <string.h>            // for strcmp
+#include <time.h>              // for localtime, strftime, time, time_t
+#include <fstream>             // for basic_ostream, operator<<, basic_ofstream
+#include <iostream>            // for cerr
+#include <map>                 // for _Rb_tree_iterator, operator!=, map
+#include <string>              // for basic_string, char_traits, string, ope...
+#include <utility>             // for pair, make_pair
+#include <vector>              // for vector
 
-#include "XmlReader.hpp"
-
-#include <vector>
-#include <map>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cstdlib>
-#include <string.h>
+#include "XmlReader.hpp"       // for XmlReader
 
 typedef std::map<std::string, std::vector<std::string> > Texts;
 Texts texts;

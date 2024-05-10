@@ -24,9 +24,10 @@
 #define ROCKET_LAUNCH_GOOD      2
 #define ROCKET_LAUNCH_EVAC      3
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 
 class RocketPadConstructionGroup: public ConstructionGroup {

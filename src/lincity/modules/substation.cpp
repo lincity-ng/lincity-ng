@@ -6,7 +6,12 @@
  * ---------------------------------------------------------------------- */
 
 #include "substation.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+#include <string>                   // for basic_string, operator<
+
+#include "modules.h"
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),
@@ -22,7 +27,7 @@ SubstationConstructionGroup substationConstructionGroup(
      GROUP_SUBSTATION_RANGE
 );
 
-//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+//helper groups for graphics and sound sets, don't add them to ConstructionGroup::groupMap
 SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstructionGroup;
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 

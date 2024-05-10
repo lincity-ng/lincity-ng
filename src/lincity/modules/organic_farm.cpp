@@ -7,6 +7,10 @@
 
 #include "organic_farm.h"
 
+#include <list>                     // for _List_iterator
+
+#include "modules.h"
+
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
     N_("Farm"),

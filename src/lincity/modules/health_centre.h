@@ -15,9 +15,10 @@
 #define HEALTH_RUNNING_COST  2
 #define HEALTH_RUNNING_COST_MUL 9
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class HealthCentreConstructionGroup: public ConstructionGroup {
 public:

@@ -7,6 +7,10 @@
 
 #include "windmill.h"
 
+#include <list>                     // for _List_iterator
+
+#include "modules.h"
+
 
 WindmillConstructionGroup windmillConstructionGroup(
     N_("Windmill"),

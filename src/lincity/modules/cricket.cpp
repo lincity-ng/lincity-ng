@@ -8,6 +8,11 @@
 
 #include "cricket.h"
 
+#include <list>                     // for _List_iterator
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
     N_("Basketball court"),

@@ -20,9 +20,10 @@
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class CricketConstructionGroup: public ConstructionGroup {
 public:

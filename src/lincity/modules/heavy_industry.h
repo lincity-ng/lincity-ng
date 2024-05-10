@@ -1,3 +1,8 @@
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
+#include "modules.h"
+
 #define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
 #define GROUP_INDUSTRY_H_COST 50000
 #define GROUP_INDUSTRY_H_COST_MUL 20

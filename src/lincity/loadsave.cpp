@@ -6,38 +6,35 @@
 
 /* this is for saving */
 
-#include <fstream>
-#include <sstream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>                         // for sscanf, fprintf, printf
+#include <zlib.h>                          // for gzgets, gzclose, gzopen
 //#include <zlib.h> //moved to lintypes.h
-#include <iostream>
-#include "tinygettext/gettext.hpp"
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/shared_globals.h"
-#include "stats.h"
-#include "init_game.h"
-#include "transport.h"
-#include "modules/all_modules.h"
-#include "../lincity-ng/Config.hpp"
+#include <iostream>                        // for basic_ostream, operator<<
 
-#include <fcntl.h>
-#include <sys/types.h>
+#include "../lincity-ng/Config.hpp"        // for getConfig, Config
+#include "engglobs.h"                      // for world, alt_min, alt_max
+#include "groups.h"                        // for GROUP_RAIL_BRIDGE, GROUP_R...
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "init_game.h"                     // for clear_game
+#include "lintypes.h"                      // for MapTile, Ground, Construct...
+#include "modules/all_modules.h"           // for Residence, MODERN_WINDMILL...
+#include "stats.h"                         // for init_inventory, tpopulation
+#include "tinygettext/gettext.hpp"         // for _
+#include "transport.h"                     // for connect_transport
+#include "world.h"                         // for World
 
 #if defined (TIME_WITH_SYS_TIME)
-#include <time.h>
 #include <sys/time.h>
+#include <time.h>
 #else
 #if defined (HAVE_SYS_TIME_H)
 #include <sys/time.h>
 #else
-#include <time.h>
 #endif
 #endif
 
-#include <cstdlib>
-#include <string.h>
-#include <math.h>
+#include <string.h>                        // for strncmp, strlen
+#include <cstdlib>                         // for NULL
 /*
 #if defined (WIN32)
 #include <winsock.h>
@@ -52,6 +49,7 @@
 
 #if defined (HAVE_DIRENT_H)
 #include <dirent.h>
+
 #define NAMLEN(dirent) strlen((dirent)->d_name)
 #else
 #define dirent direct
@@ -67,23 +65,20 @@
 #endif
 #endif
 
-#include <ctype.h>
+#include <physfs.h>                        // for PHYSFS_getDirSeparator
+
+#include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, init_pbars
 //#include "common.h"
 /*
 #ifdef LC_X11
 #include <X11/cursorfont.h>
 #endif
 */
-#include "lctypes.h"
-#include "lin-city.h"
-#include "engglobs.h"
-#include <physfs.h>
-#include "gui_interface/pbar_interface.h"
-#include "lincity-ng/ErrorInterface.hpp"
-#include "stats.h"
-#include "modules/all_modules.h"
+#include "lctypes.h"                       // for CST_DESERT, CST_USED, CST_...
+#include "lin-city.h"                      // for FLAG_IS_RIVER, VOLATILE_FLAGS
+#include "lincity-ng/ErrorInterface.hpp"   // for do_error
 #include "loadsave.h"
-#include "xmlloadsave.h"
+#include "xmlloadsave.h"                   // for XMLloadsave, xml_loadsave
 
 
 #if defined (WIN32) && !defined (NDEBUG)
@@ -478,7 +473,7 @@ void load_city_2(char *cname)
                 }//endif countConstruction
             }// end for y
         }// end for x
-        std::cout<<"Generated and initialzed "<<constuctionCounter<<" modern Constructions"<<std::endl;
+        std::cout<<"Generated and initialized "<<constuctionCounter<<" modern Constructions"<<std::endl;
         //}
 
 

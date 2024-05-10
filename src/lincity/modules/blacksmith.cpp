@@ -7,9 +7,15 @@
 
 #include "blacksmith.h"
 
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 BlacksmithConstructionGroup blacksmithConstructionGroup(
-    N_("Blacksmith"),
-    FALSE,                     /* need credit? */
+    GROUP_BLACKSMITH_NAME,
+    GROUP_BLACKSMITH_NEED_CREDIT,
     GROUP_BLACKSMITH,
     GROUP_BLACKSMITH_SIZE,
     GROUP_BLACKSMITH_COLOUR,

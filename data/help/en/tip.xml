@@ -13,6 +13,12 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">1: 200 waste =&gt; 200 buried waste</p>
+	<p style="hp">2: 200 buried waste =&gt; 200 waste</p>
+	<p style="hp">Tips target 20% waste inventory. If there is more than 20% waste inventory, then formula 1 is applied. If there is less than 20% waste inventory, then formula 2 is applied.</p>
+	<p style="hp">Buried waste degrades daily at a rate of 0.5% per year.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="waste">Waste</a></li>
 	<li><a href="market">Market</a></li>

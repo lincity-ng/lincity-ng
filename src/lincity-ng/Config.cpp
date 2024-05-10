@@ -15,15 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include "Config.hpp"
-#include "gui/XmlReader.hpp"
-#include "PhysfsStream/PhysfsStream.hpp"
-#include "lincity/engglobs.h"
 
-#include <assert.h>
-#include <iostream>
+#include <assert.h>                       // for assert
+#include <stdio.h>                        // for sscanf
+#include <string.h>                       // for strcmp
+#include <exception>                      // for exception
+#include <iostream>                       // for basic_ostream, operator<<
 
-#include <string.h>
+#include "PhysfsStream/PhysfsStream.hpp"  // for OFileStream
+#include "gui/XmlReader.hpp"              // for XmlReader
+#include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
+#include "lincity/engglobs.h"             // for world, binary_mode, seed_co...
+#include "lincity/world.h"                // for World, WORLD_SIDE_LEN
 
 Config* configPtr = 0;
 
@@ -248,4 +253,3 @@ Config::save(){
 
 
 /** @file lincity-ng/Config.cpp */
-

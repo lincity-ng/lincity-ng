@@ -24,9 +24,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TABLELAYOUT_HPP__
 #define __TABLELAYOUT_HPP__
 
-#include <vector>
-#include "Component.hpp"
+#include <stddef.h>       // for size_t
+#include <vector>         // for vector
 
+#include "Component.hpp"  // for Component
+
+class Painter;
+class Vector2;
 class XmlReader;
 
 /**

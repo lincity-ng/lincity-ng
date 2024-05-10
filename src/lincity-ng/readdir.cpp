@@ -16,10 +16,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #ifdef _MSC_VER
-#include <config.h>
 
 #include "readdir.hpp"
 
+#include <config.h>
 #include <stdio.h>
 
 /* This is an MSVC implementation of the posix opendir/readdir/closedir
@@ -73,4 +73,3 @@ int closedir(DIR *dir)
 
 
 /** @file lincity-ng/readdir.cpp */
-

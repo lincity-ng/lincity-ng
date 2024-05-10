@@ -5,11 +5,11 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "residence.h"
-#include "waterwell.h"
-#include "cricket.h"
-#include <stdlib.h>
+
+#include <stdlib.h>                 // for rand
+
+#include "modules.h"
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),

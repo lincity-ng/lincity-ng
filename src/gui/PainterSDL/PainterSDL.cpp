@@ -17,17 +17,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PainterSDL.hpp"
 
-#include <iostream>
-#include <assert.h>
-#include <math.h>
-#include <typeinfo>
-#include <SDL_opengl.h>
-#include <SDL2_gfxPrimitives.h>
-#include <SDL2_rotozoom.h>
-#include <SDL_video.h>
-#include <stdlib.h>
+#include <assert.h>              // for assert
+#include <cmath>                 // for lroundf, lrint
+#include <SDL.h>                 // for Sint16, SDL_Rect, SDL_CreateTextureF...
+#include <SDL2_gfxPrimitives.h>  // for aalineRGBA, aapolygonRGBA, boxRGBA
+#include <SDL2_rotozoom.h>       // for zoomSurface, SMOOTHING_OFF
+#include <stdlib.h>              // for NULL
+#include <typeinfo> // IWYU pragma: keep  // for typeid
 
-#include "TextureSDL.hpp"
+#include "../Vector2.hpp"        // for Vector2
+#include "Color.hpp"             // for Color
+#include "Rect2D.hpp"            // for Rect2D
+#include "Texture.hpp"           // for Texture
+#include "TextureSDL.hpp"        // for TextureSDL
+
+class Painter;
 
 #ifdef _MSC_VER
 #define lrint(x) (long int)x
@@ -308,4 +312,3 @@ PainterSDL::updateScreen()
 
 
 /** @file gui/PainterSDL/PainterSDL.cpp */
-

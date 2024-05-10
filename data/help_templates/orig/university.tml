@@ -17,5 +17,10 @@ You must have 4 schools per university to supply them with students.
 IMG_1[This is a University]: images/tiles/university.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/misc/university.png
 
+SUBH: Formulas
+
+250 jobs + 750 goods =&gt; .0004 tech + 250 waste
+
+A university can sustain up to ~20 tech <100 or ~10 tech >100
 
 ALSO[See also:]: tech-level, market, transport, goods, jobs, school

@@ -16,9 +16,10 @@
 #define MAX_GOODS_AT_UNIVERSITY (20 * UNIVERSITY_GOODS)
 #define MAX_WASTE_AT_UNIVERSITY (20 * UNIVERSITY_GOODS / 3)
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 
 class UniversityConstructionGroup: public ConstructionGroup {

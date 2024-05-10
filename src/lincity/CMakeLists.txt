@@ -1,10 +1,10 @@
 add_subdirectory(modules)
 
-add_library(lincity_lib
-		OBJECT
-
+add_library(lincity_lib  STATIC
 		all_buildings.cpp
 		all_buildings.h
+		commodities.cpp
+		commodities.hpp
 		ConstructionCount.cpp
 		ConstructionCount.h
 		ConstructionManager.cpp
@@ -30,6 +30,8 @@ add_library(lincity_lib
 		loadsave.h
 		old_ldsvguts.cpp
 		old_ldsvguts.h
+		resources.cpp
+		resources.hpp
 		simulate.cpp
 		simulate.h
 		stats.cpp
@@ -45,17 +47,19 @@ add_library(lincity_lib
 		world.h
 		xmlloadsave.cpp
 		xmlloadsave.h
-		)
+)
 
 add_library(LinCity::lib ALIAS lincity_lib)
 
 target_link_libraries(lincity_lib
+		PUBLIC
+		LinCity::lib_modules
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		ZLIB::ZLIB
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream
-		LinCity::lib_modules
 		LinCity::gui
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		)
 
 target_include_directories(lincity_lib PRIVATE ${PHYSFS_INCLUDE_DIR})
@@ -64,3 +68,5 @@ target_link_libraries(lincity_lib PRIVATE ${PHYSFS_LIBRARY})
 if (NOT WIN32)
 	add_compile_definitions(lincity_lib PRIVATE DEFAULT_LIBDIR="lib")    # TODO
 endif()
+
+include_directories(.)

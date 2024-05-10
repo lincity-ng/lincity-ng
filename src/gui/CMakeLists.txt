@@ -1,6 +1,6 @@
 find_package(OpenGL REQUIRED)
 
-add_library(lincity_gui OBJECT
+add_library(lincity_gui  STATIC
 		Button.cpp
 		Child.cpp
 		Color.cpp
@@ -83,14 +83,17 @@ add_library(lincity_gui OBJECT
 add_library(LinCity::gui ALIAS lincity_gui)
 
 target_link_libraries(lincity_gui
+		PUBLIC
+		LibXml2::LibXml2
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		$<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
+		OpenGL::GL
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		SDL2::SDL2_gfx
-		LibXml2::LibXml2
-		OpenGL::GL
-		)
+		${PHYSFS_LIBRARY}
+)
 
 target_include_directories(lincity_gui
 		PRIVATE
@@ -98,3 +101,5 @@ target_include_directories(lincity_gui
 		PUBLIC
 		${LIBXML2_INCLUDE_DIR})
 target_link_libraries(lincity_gui PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

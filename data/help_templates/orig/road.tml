@@ -5,5 +5,12 @@ Roads carry more than tracks, but not as much as railways. They produce more pol
 IMG_1[This is a road]: images/tiles/roadud.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/road.png
 
+SUBH: Formulas
+
+3 kWh =&gt; 0
+
+1/32 goods =&gt; 1/32 waste
+
+If a road has more than 90% waste, then it consumes 100 waste and produces 50 pollution.
 
 ALSO[See also:]: transport, pollution

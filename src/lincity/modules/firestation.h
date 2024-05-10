@@ -16,9 +16,10 @@
 #define FIRESTATION_RUNNING_COST_MUL 6
 #define FIRESTATION_ANIMATION_SPEED 250
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class FireStationConstructionGroup: public ConstructionGroup {
 public:

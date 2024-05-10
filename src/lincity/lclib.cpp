@@ -5,9 +5,12 @@
  * Portions copyright (c) Corey Keasling, 2001.
  * ---------------------------------------------------------------------- */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "lin-city.h"
+#include <stdio.h>                  // for snprintf, size_t, printf, NULL
+#include <stdlib.h>                 // for abs, exit, malloc
+#include <string.h>                 // for strdup
+
+#include "lintypes.h"               // for NUMOF_DAYS_IN_YEAR, NUMOF_DAYS_IN...
+#include "tinygettext/gettext.hpp"  // for N_, _
 
 char *months[] = { (char*)N_("Jan"), (char*)N_("Feb"), (char*)N_("Mar"), (char*)N_("Apr"),
     (char*)N_("May"), (char*)N_("Jun"), (char*)N_("Jul"), (char*)N_("Aug"),
@@ -241,4 +244,3 @@ void *lcalloc(size_t size)
 }
 
 /** @file lincity/lclib.cpp */
-

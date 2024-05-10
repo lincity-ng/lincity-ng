@@ -7,6 +7,12 @@
 
 #include "pottery.h"
 
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 PotteryConstructionGroup potteryConstructionGroup(
     N_("Pottery"),
     FALSE,                     /* need credit? */

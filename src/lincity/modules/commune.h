@@ -24,10 +24,9 @@
 #define COMMUNE_WATER_GET (16 * WATER_FOREST)
 #define MAX_WATER_AT_COMMUNE (20*COMMUNE_WATER_GET)
 
+#include <array>                    // for array
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include <cstdlib>
 
 class CommuneConstructionGroup: public ConstructionGroup {
 public:
@@ -99,7 +98,8 @@ public:
         commodityMaxCons[STUFF_WATER] = 100 *
           constructionGroup->size * constructionGroup->size * WATER_FOREST;
         commodityMaxProd[STUFF_COAL] = 100 * COMMUNE_COAL_MADE;
-        commodityMaxProd[STUFF_ORE] = 100 * COMMUNE_ORE_MADE;
+        commodityMaxProd[STUFF_ORE] = 100 *
+          (COMMUNE_ORE_MADE + COMMUNE_ORE_FROM_WASTE);
         commodityMaxCons[STUFF_WASTE] = 100 * COMMUNE_WASTE_GET;
         commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
     }

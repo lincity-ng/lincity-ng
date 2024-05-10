@@ -6,7 +6,11 @@
  * ---------------------------------------------------------------------- */
 
 #include "monument.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "modules.h"
 
 extern int mps_x, mps_y;
 
@@ -47,7 +51,7 @@ void Monument::update()
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
             if (mps_x == x && mps_y == y)
             {   mps_set(x, y, MPS_MAP);}
-            //dont clear commodiyCount for savegame compatability
+            //don't clear commodiyCount for savegame compatability
         }
         /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */

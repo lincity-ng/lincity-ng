@@ -8,6 +8,11 @@
 
 #include "firestation.h"
 
+#include <list>                     // for _List_iterator
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 
 // FireStation:
 FireStationConstructionGroup fireStationConstructionGroup(

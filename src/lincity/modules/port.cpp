@@ -5,9 +5,9 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "port.h"
-#include "../transport.h"
+
+#include "modules.h"
 
 // Port:
 PortConstructionGroup portConstructionGroup(

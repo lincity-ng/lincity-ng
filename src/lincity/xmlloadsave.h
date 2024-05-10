@@ -11,15 +11,15 @@
 /* New load/save format */
 #define XML_LOADSAVE_VERSION 1328
 
-#include <map>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <zlib.h>
+#include <stddef.h>  // for size_t
+#include <zlib.h>    // for gzFile
+#include <map>       // for map
+#include <sstream>   // for ostream, basic_ostringstream, ostringstream
+#include <string>    // for string, basic_string
+#include <vector>    // for vector
 
 class XMLTemplate;
+
 extern std::map <std::string, XMLTemplate*> xml_template_libary;
 extern std::map <unsigned short, XMLTemplate*> bin_template_libary;
 

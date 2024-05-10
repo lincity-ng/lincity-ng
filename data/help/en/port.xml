@@ -3,7 +3,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Ports</p>
 	<p style="hp">Ports let you import and export goods, steel, ore, coal and food. Importing costs you money and exporting makes you money.</p>
-	<p style="hp">You choose what to import by double clicking on the port. This brings up a menu with boxes to select what to import and what to export.</p>
+	<p style="hp">You choose what to import by double clicking on the port. This brings up a menu with boxes to select what to import and what to export. If "buy" and "sell" are both checked or both unchecked for a commodity, then that commodity will not be imported or exported.</p>
 	<p style="hp">They must be connected to rivers all along the right hand side.</p>
 	<p style="hp">Nothing will be imported or exported until you have checked the appropriate box.</p>
 	<p style="hp">The export area will take as much as it is given. If you need to export, but want to restrict the amount, you may want to use a type of transport with less capacity, use a long piece or pass the product through a market. You will need to experiment to get the right transport configuration.</p>
@@ -14,6 +14,13 @@
 
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">export: 50% of inventory =&gt; money</p>
+	<p style="hp">import: money =&gt; 50% of remaining capacity</p>
+	<p style="hp">For import or export to occur, 100 jobs must be consumed.</p>
+	<p style="hp">If there is both import and export, then .0002 tech is produced, which can sustain up to ~10 tech <100 or ~5 tech >100.</p>
+	<p style="hp">If there is less than 6.67% inventory of a commodity, then export does not occur. If there is more than 93.33% inventory of a commodity, then import does not occur.</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="export">Import and export areas</a></li>

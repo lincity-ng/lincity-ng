@@ -2,15 +2,13 @@ Fire stations
 
 Fire stations prevent the start and spread of fire within
 the range that they cover. They need to be supplied with goods and jobs
-to work. They do not have to be connected to transport, they do though have
-to be within range of a market that can supply the jobs and goods. They also cost money to run.
+to work. They also cost money to run.
 
 When you build a fire station, it does not start straight away.
 There is usually a three month wait before fire cover is provided.
 
 To see the area that your fire stations cover, click on the
-fire station button under the mini screen. Areas that have fire cover are
-displayed as normal, areas not covered are just dark green.
+fire station button under the mini screen.
 
 Fire stations increase the desirability of residential
 areas within their range.
@@ -22,5 +20,8 @@ IMG_1[This is a fire station]: images/tiles/firestation1.png
 IMG_2[and this its icon]: images/gui/buttonpanel/misc/fire.png
 IMG_3[and this its mapview overlay icon]: images/gui/mapview/roundbuttons/round_fire.png
 
+SUBH: Formulas
+
+6 jobs + 3 goods =&gt; 1 waste
 
 ALSO[See also:]: mini-screen, goods, market, jobs, msb-fire

@@ -26,14 +26,14 @@ use or other dealings in this Software without prior written authorization
 from the Author.
 
 */
-#include <config.h>
-
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <ctype.h>   // for isalnum, tolower, toupper
+#include <stdlib.h>  // for free, NULL, malloc, getenv
+#include <string.h>  // for strcmp, strdup
 
 #ifdef WIN32
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <winnt.h>
@@ -179,6 +179,7 @@ canonise_fl(FL_Locale *l) {
 
 #ifdef WIN32
 #include <stdio.h>
+
 #define ML(pn,sn) MAKELANGID(LANG_##pn, SUBLANG_##pn##_##sn)
 #define MLN(pn) MAKELANGID(LANG_##pn, SUBLANG_DEFAULT)
 #define RML(pn,sn) MAKELANGID(LANG_##pn, SUBLANG_##sn)
@@ -555,4 +556,3 @@ FL_FreeLocale(FL_Locale **locale) {
 }
 
 /** @file tinygettext/findlocale.cpp */
-

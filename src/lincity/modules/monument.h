@@ -14,9 +14,10 @@
 #define MONUMENT_TECH_EXPIRE    400
 //#define MONUMENT_ANIM_SPEED     300 //actually used?
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class MonumentConstructionGroup: public ConstructionGroup {
 public:
@@ -57,7 +58,7 @@ public:
         setMemberSaved(&this->tail_off, "tail_off");
         this->completion = 0;
         setMemberSaved(&this->completion, "completion");
-        this->completed = false; //dont save this one
+        this->completed = false; //don't save this one
         this->jobs_consumed = 0;
         setMemberSaved(&this->jobs_consumed, "jobs_consumed");
         initialize_commodities();

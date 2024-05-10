@@ -15,26 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
-#include "gui_interface/mps.h"
+#include <SDL.h>                                 // for SDL_GetKeyboardState
+#include <assert.h>                              // for assert
+#include <stdio.h>                               // for printf, NULL
+#include <iomanip>                               // for operator<<, setpreci...
+#include <iostream>                              // for basic_ostream, opera...
+#include <sstream>                               // for basic_ostringstream
+#include <string>                                // for basic_string, char_t...
 
-#include "Mps.hpp"
+#include "Game.hpp"                              // for getGame
+#include "MiniMap.hpp"                           // for getMiniMap, MiniMap
+#include "Mps.hpp"                               // for Mps, globalMPS, envMPS
+#include "gui_interface/mps.h"                   // for MPS_MAP, MPS_ENV
+#include "lincity/commodities.hpp"               // for Commodity
+#include "lincity/engglobs.h"                    // for world, people_pool
+#include "lincity/groups.h"                      // for GROUP_WATER, GROUP_D...
+#include "lincity/lclib.h"                       // for num_to_ansi
+#include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER
+#include "lincity/lintypes.h"                    // for ConstructionGroup
+#include "lincity/modules/modules_interfaces.h"  // for mps_water
+#include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
+#include "lincity/world.h"                       // for World, MapTile, Ground
+#include "tinygettext/gettext.hpp"               // for N_, _
 
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-
-#include "lincity/stats.h"
-#include "lincity/lclib.h"
-#include "lincity/engglobs.h"
-#include "tinygettext/gettext.hpp"
-#include "lincity/modules/modules_interfaces.h"
-#include "lincity/lctypes.h"
-#include "lincity/lin-city.h"
-#include "lincity/modules/shanty.h" //for counting Shanties in housing display
-#include "MiniMap.hpp"
-#include "Game.hpp"
+class Shanty;
 
 // implement everything here
 

@@ -3,7 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include "lintypes.h"
+#include "all_buildings.h"  // for magenta, white, yellow
 
 #ifndef __TRANSPORT_H__
 #define __TRANSPORT_H__
@@ -142,4 +142,3 @@ void connect_transport(int originx, int originy, int w, int h);
 
 
 /** @file lincity/transport.h */
-

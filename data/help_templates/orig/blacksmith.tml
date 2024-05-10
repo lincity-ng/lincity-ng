@@ -5,12 +5,15 @@ Blacksmiths turn steel and coal into goods. You will use them mostly early on in
 Before you have steel works, you must rely on the steel produced by communes.
 5 or 6 communes per blacksmith is recommended.
 
-Blacksmiths do not have to be connected to transport. 
-They can get all they need from markets that are within range.
-
 You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.
 
 IMG_1[This is a blacksmith] images/tiles/blacksmith0.png
 IMG_2[and this its icon]    images/gui/buttonpanel/industry/blacksmith.png
+
+SUBH: Formulas
+
+1 coal + 1 steel + 35 jobs =&gt; 50 goods
+
+Per 100 days of working, 1 <a href="pollution">pollution</a> is produced.
 
 ALSO[See also:]: market, ore, commune, steel, jobs

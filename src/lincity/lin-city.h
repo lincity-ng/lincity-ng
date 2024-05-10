@@ -128,15 +128,13 @@
 #define TECH_LEVEL_UNAIDED 2
 
 
+#define NUMOF_DISCOUNT_TRIGGERS 6
 #define EX_DISCOUNT_TRIGGER_1   25000
 #define EX_DISCOUNT_TRIGGER_2   50000
 #define EX_DISCOUNT_TRIGGER_3  100000
 #define EX_DISCOUNT_TRIGGER_4  200000
 #define EX_DISCOUNT_TRIGGER_5  400000
 #define EX_DISCOUNT_TRIGGER_6  800000
-
-
-#include "lintypes.h"
 
 #endif /* __lin_city_h__ */
 

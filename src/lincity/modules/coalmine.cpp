@@ -8,6 +8,13 @@
 
 #include "coalmine.h"
 
+#include <list>                           // for _List_iterator
+#include <map>                            // for map
+
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
+#include "modules.h"                      // for Commodity, ExtraFrame, MapTile
+
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(
     N_("Coal Mine"),

@@ -6,17 +6,16 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include "lintypes.h"
-#include <list>
+#include <list>             // for list
+
+#include "commodities.hpp"  // for Commodity
+#include "resources.hpp"    // for ExtraFrame
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22
 #define ROAD_BRIDGE_HEIGHT 44
 
 #define COMMUTER_TRAFFIC_RATE 1024
-
-
-class ExtraFrame;
 
 enum VehicleModel
 {

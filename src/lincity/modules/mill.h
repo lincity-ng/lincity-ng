@@ -21,9 +21,9 @@
 
 #define MILL_ANIM_SPEED    300
 
+#include <array>                    // for array
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class MillConstructionGroup: public ConstructionGroup {
 public:

@@ -113,7 +113,7 @@
 /********   end of buildings // groups   ************/
 
 
- #include "lintypes.h"
+#include "lintypes.h"
 
 /*
 * TileConstructionGroups hold information about inactive tiles

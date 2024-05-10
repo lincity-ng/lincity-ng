@@ -17,9 +17,10 @@
 
 #define MODERN_WINDMILL_TECH 450000
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class WindmillConstructionGroup: public ConstructionGroup {
 public:

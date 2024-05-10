@@ -7,6 +7,15 @@
 
 #include "commune.h"
 
+#include <cstdlib>                        // for rand
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string
+#include <vector>                         // for vector
+
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
+#include "modules.h"                      // for Commodity, N_, Construction...
+
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),
     FALSE,                     /* need credit? */
@@ -58,7 +67,7 @@ void Commune::update()
         monthly_stuff_made++;
         animate_enable = true;
         if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
-        {   commodityCount[STUFF_ORE] += COMMUNE_ORE_FROM_WASTE;}
+        {   produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);}
     }
     if (total_time % 10 == 0)
     {

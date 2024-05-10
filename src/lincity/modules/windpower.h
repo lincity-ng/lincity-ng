@@ -18,9 +18,10 @@
 
 #define WIND_POWER_TECH 450000
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class WindpowerConstructionGroup: public ConstructionGroup {
 public:

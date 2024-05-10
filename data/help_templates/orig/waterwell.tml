@@ -5,6 +5,10 @@ Lack of water will have the same consequences as lack of food.
 Informations is shown in starvation overlay/minimap. Beware, too heavy pollution will
 render the water not drinkable.
 
+SUBH: Formulas
 
+0 =&gt; 1600 water
+
+Water production is reduced proportionally if some tiles under the well are desert.
 
 ALSO[See also:]: food, water, transport, msb-starve, pollution

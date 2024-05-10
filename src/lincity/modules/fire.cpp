@@ -7,6 +7,14 @@
 
 
 #include "fire.h"
+
+#include <list>                           // for _List_iterator
+#include <map>                            // for map
+#include <vector>                         // for vector
+
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
+#include "modules.h"                      // for ExtraFrame, do_random_fire
 //#include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(

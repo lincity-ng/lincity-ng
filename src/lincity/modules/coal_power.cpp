@@ -6,7 +6,10 @@
  * ---------------------------------------------------------------------- */
 
 #include "coal_power.h"
-#include <stdlib.h>
+
+#include <vector>                   // for vector
+
+#include "modules.h"
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),

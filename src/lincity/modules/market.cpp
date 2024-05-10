@@ -4,11 +4,13 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <vector>
-#include <cstdlib>
 #include "market.h"
-#include "fire.h" //for playing with fire
-#include "lincity-ng/Sound.hpp"
+
+#include <cstdlib>                  // for size_t
+#include <vector>                   // for vector
+
+#include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "modules.h"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -174,24 +176,18 @@ void Market::animate() {
   }
   soundGroup = frameIt->resourceGroup;
 
-  if(start_burning_waste) {
+  if(start_burning_waste) { // start fire
     start_burning_waste = false;
     anim = real_time + ANIM_THRESHOLD(6 * WASTE_BURN_TIME);
-    if(!world(x+1,y+1)->construction) {
-      Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
-      //waste burning never spreads
-      (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-      world(x+1,y+1)->construction = fire;
-      world(x+1,y+1)->reportingConstruction = fire;
-      ::constructionCount.add_construction(fire);
-    }
   }
-  else if(real_time >= anim && world(x+1,y+1)->construction) {
-      ::constructionCount.remove_construction(world(x+1,y+1)->construction);
-      world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
-      delete world(x+1,y+1)->construction;
-      world(x+1,y+1)->construction = NULL;
-      world(x+1,y+1)->reportingConstruction = this;
+  if(real_time >= anim) { // stop fire
+    waste_fire_frit->frame = -1;
+  }
+  else if(real_time >= waste_fire_anim) { // continue fire
+    waste_fire_anim = real_time + ANIM_THRESHOLD(FIRE_ANIMATION_SPEED);
+    int num_frames = waste_fire_frit->resourceGroup->graphicsInfoVector.size();
+    if(++waste_fire_frit->frame >= num_frames)
+      waste_fire_frit->frame = 0;
   }
 }
 

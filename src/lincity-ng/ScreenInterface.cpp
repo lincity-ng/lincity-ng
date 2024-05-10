@@ -15,35 +15,35 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-#include <iostream>
-#include <iomanip>
-#include <stdarg.h>
-#include <error.h>
-
-#include <sys/stat.h>
 
 #include "ScreenInterface.hpp"
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/shared_globals.h"
-#include "gui_interface/pbar_interface.h"
-#include "gui_interface/mps.h"
 
-#include "lincity/engglobs.h"
-#include "lincity/lclib.h"
+#include <assert.h>                          // for assert
+#include <errno.h>                           // for errno
+#include <stdlib.h>                          // for abs, malloc
+#include <exception>                         // for exception
+#include <iomanip>                           // for operator<<, setfill, setw
+#include <iostream>                          // for basic_ostream, operator<<
+#include <sstream>                           // for basic_ostringstream
 
-#include "gui/Component.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/Desktop.hpp"
-#include "tinygettext/gettext.hpp"
-
-#include "GameView.hpp"
-#include "Util.hpp"
-#include "Config.hpp"
-#include "ButtonPanel.hpp"
-#include "Dialog.hpp"
-#include "EconomyGraph.hpp"
+#include "ButtonPanel.hpp"                   // for getButtonPanel, ButtonPanel
+#include "Config.hpp"                        // for getConfig, Config
+#include "Dialog.hpp"                        // for Dialog, MSG_DIALOG
+#include "EconomyGraph.hpp"                  // for getEconomyGraph, Economy...
+#include "GameView.hpp"                      // for getGameView, GameView
+#include "Util.hpp"                          // for getParagraph
+#include "gui/Component.hpp"                 // for Component
+#include "gui/ComponentLoader.hpp"           // for loadGUIFile
+#include "gui/Desktop.hpp"                   // for Desktop
+#include "gui/Paragraph.hpp"                 // for Paragraph
+#include "gui_interface/mps.h"               // for mps_refresh
+#include "gui_interface/screen_interface.h"  // for initialize_monthgraph
+#include "gui_interface/shared_globals.h"    // for monthgraph_size, monthgr...
+#include "lc_error.h"                        // for lc_error
+#include "lincity/engglobs.h"                // for total_money, total_time
+#include "lincity/lclib.h"                   // for current_year
+#include "lincity/lintypes.h"                // for NUMOF_DAYS_IN_MONTH
+#include "tinygettext/gettext.hpp"           // for _
 
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 
@@ -69,19 +69,19 @@ void initialize_monthgraph (void){
 
     monthgraph_pop = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_pop == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_starve = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_starve == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_nojobs = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_nojobs == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     monthgraph_ppool = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_ppool == 0) {
-    error(-1, errno, "malloc");
+    lc_error(-1, errno, "malloc");
     }
     for (i = 0; i < monthgraph_size; i++) {
     monthgraph_pop[i] = 0;

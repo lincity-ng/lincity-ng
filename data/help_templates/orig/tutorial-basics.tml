@@ -14,11 +14,11 @@ Clicking on a building (in the main screen) displays information about it in the
 
 SUBH: Market 
 
-Market is a key building in Lincity. They are mandatory for nearly all local trades. You <b> must </b> read the help on <a href="market">market </a> :-). <i>Of course, when a market is empty it cannot sell the corresponding item, and when it is full it cannot buy more. This may help you to understand why some building does not work (probably they cannot find what they need, or they cannot sell their production)</i> 
+Market is a key building in Lincity. They are mandatory for nearly all local trades. You <b> must</b> read the help on <a href="market">market</a> :-). <i>Of course, when a market is empty it cannot sell the corresponding item, and when it is full it cannot buy more. This may help you to understand why some building does not work (probably they cannot find what they need, or they cannot sell their production)</i> 
 
 SUBH: Transport 
 
-<a href="transport">Transport </a> is needed for long distance exchanges, and for some specific activities (it is then written in the corresponding help message, for example communes). Like markets they have a limited capacity and can get saturated.
+<a href="transport">Transport</a> is needed for long distance exchanges, and for some specific activities (it is then written in the corresponding help message, for example communes). Like markets they have a limited capacity and can get saturated.
 
 If a 'normal' building is not in the range of a market, then it must be connected to transport. But remember that roads and rails have a yearly cost, so unless you really want to isolate one building (e.g. a monument) it is generally better (and cheaper) to use markets when needed. 
 
@@ -26,19 +26,19 @@ In the initial village tracks are not needed. But they will be useful when the v
 
 SUBH: Money 
 
-Productions are taxed and thus earn you money. In the miniwindow, the third tab is <a href="finance"> Finance window </a>.  Take care of not investing too much too quickly: when your money is negative, you cannot build some things, and you have per year cost due to the debt. This can lead to bankruptcy (see <a href="tutorial-scenario"> Hard-time scenario </a>. 
+Productions are taxed and thus earn you money. In the miniwindow, the third tab is <a href="finance"> Finance window</a>.  Take care of not investing too much too quickly: when your money is negative, you cannot build some things, and you have per year cost due to the debt. This can lead to bankruptcy (see <a href="tutorial-scenario"> Hard-time scenario</a>. 
 
 SUBH: Developing the city 
 
-Remember people eat food and drink water, or die. To control population growth, you have to find a balance in the kind of <a href="residential"> Residential area </a> you build (they have different rate of birth/death). The new population will allow more jobs, but also need more food, goods, jobs ... 
+Remember people eat food and drink water, or die. To control population growth, you have to find a balance in the kind of <a href="residential"> Residential area</a> you build (they have different rate of birth/death). The new population will allow more jobs, but also need more food, goods, jobs ... 
 
 You will have to augment your production (add potteries, blacksmith) and at the same time take care that they are supplied. So you will also need to add communes accordingly. 
 
-To get new buildings you must raise your <a href="tech-level"> Tech Level </a>.
+To get new buildings you must raise your <a href="tech-level"> Tech Level</a>.
 
- At some point you will have to choose your aim: either <a href="sustain"> Sustainable economy </a> or evacuation with <a href="rocket"> spaceships </a>.
+ At some point you will have to choose your aim: either <a href="sustain"> Sustainable economy</a> or evacuation with <a href="rocket"> spaceships</a>.
 
-You'll have to check very often the <a href="pbar"> total market stocks </a>. Also minimaps can give you better insight on your economy, and for precise investigation remember that clicking on a building (in the main screen) displays information about it in the information window in lower right. 
+You'll have to check very often the <a href="pbar"> total market stocks</a>. Also minimaps can give you better insight on your economy, and for precise investigation remember that clicking on a building (in the main screen) displays information about it in the information window in lower right. 
 
 * Hint: Make one or two changes then wait a little (read help files ;-) or put the game at a faster speed, and watch how your economic indicators vary.
 

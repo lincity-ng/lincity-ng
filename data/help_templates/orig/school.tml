@@ -15,5 +15,10 @@ You can see when a school is working in the usual way, by clicking on it.
 IMG_1[This is a school]: images/tiles/school0.png
 IMG_2[and this its icon]: images/gui/buttonpanel/misc/book.png
 
+SUBH: Formulas
+
+200 jobs + 75 goods =&gt; .0002 tech + 25 waste
+
+A school can sustain up to ~10 tech <100 or ~5 tech >100
 
 ALSO[See also:]: tech-level, market, university, transport, goods, jobs

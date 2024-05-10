@@ -5,10 +5,18 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "shanty.h"
-#include "commune.h"
-#include "fire.h"
+
+#include <stdio.h>                        // for fprintf, printf, stderr
+#include <stdlib.h>                       // for rand
+#include <vector>                         // for vector
+
+#include "commune.h"                      // for COMMUNE_POP, Commune (ptr o...
+#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for BurnDownRequest
+#include "modules.h"                      // for Commodity, ExtraFrame, find...
+#include "modules_interfaces.h"           // for add_a_shanty, update_shanty
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
@@ -152,32 +160,32 @@ void Shanty::update()
     if (commodityCount[STUFF_STEEL] >= SHANTY_GET_STEEL)
     {   consumeStuff(STUFF_STEEL, SHANTY_GET_STEEL);}
     produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
-    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
+    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY)
     {
-        anim = real_time + 3 * WASTE_BURN_TIME;
         world(x+1,y+1)->pollution += commodityCount[STUFF_WASTE];
         levelStuff(STUFF_WASTE, 0);
-        if(!world(x+1,y+1)->construction)
-        {
-            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
-            world(x+1,y+1)->construction = fire;
-            world(x+1,y+1)->reportingConstruction = fire;
-            dynamic_cast<Fire*>(fire)->flags |= FLAG_IS_GHOST;
-            ::constructionCount.add_construction(fire);
-        }
-    }
-    else if ( real_time > anim && world(x+1,y+1)->construction)
-    {
-        ::constructionCount.remove_construction(world(x+1,y+1)->construction);
-        world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
-        delete world(x+1,y+1)->construction;
-        world(x+1,y+1)->construction = NULL;
-        world(x+1,y+1)->reportingConstruction = this;
+        start_burning_waste = true;
     }
 
     if(total_time % 100 == 99) {
         reset_prod_counters();
     }
+}
+
+void Shanty::animate() {
+  if(start_burning_waste) { // start fire
+    start_burning_waste = false;
+    anim = real_time + ANIM_THRESHOLD(3 * WASTE_BURN_TIME);
+  }
+  if(real_time >= anim) { // stop fire
+    waste_fire_frit->frame = -1;
+  }
+  else if(real_time >= waste_fire_anim) { // continue fire
+    waste_fire_anim = real_time + ANIM_THRESHOLD(FIRE_ANIMATION_SPEED);
+    int num_frames = waste_fire_frit->resourceGroup->graphicsInfoVector.size();
+    if(++waste_fire_frit->frame >= num_frames)
+      waste_fire_frit->frame = 0;
+  }
 }
 
 void Shanty::report()

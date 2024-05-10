@@ -10,6 +10,10 @@
   <p style="hp">and this is its icon</p>
    <img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
 
+	<p style="hsubtitle">Formulas</p>
+	<p style="hp">3 kWh =&gt; 0</p>
+	<p style="hp">If a track has more than 90% waste, then it consumes 100 waste and produces 50 pollution.</p>
+
   <p style="hsubtitle">See also:</p>
 	<li><a href="transport">Transport</a></li>
 </Document>

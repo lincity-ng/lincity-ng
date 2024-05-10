@@ -25,11 +25,11 @@ RUN apt-get install -y \
   libxslt1.1 \
   libxslt1-dev \
   xsltproc \
-  gettext \
   git
+  # gettext \
 
 RUN mkdir -p /home/lincity-ng
 # COPY . /home/lincity-ng/
 WORKDIR /home/lincity-ng
 
-CMD bash -c "cmake -B build-ubuntu && cmake --build build-ubuntu --parallel -t package"
+CMD bash -c "cmake -B build/ubuntu && cmake --build build/ubuntu --parallel -t package -t package_source"

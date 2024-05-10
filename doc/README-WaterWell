@@ -79,7 +79,7 @@ or go in the wiki.
    - the drawing modules uses the info to choose correct tile, and manage looping for
                 cleaner animation (currently fast speed skip frames => weird animation).
 
-* Within market range, everything can already jump accross rivers.
+* Within market range, everything can already jump across rivers.
 
 * rivers are ready for transport: in lin-city.h  
   #define MAX_FOOD_ON_RIVER (MAX_FOOD_ON_TRACK*2)

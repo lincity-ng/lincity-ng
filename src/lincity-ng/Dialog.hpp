@@ -18,25 +18,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DIALOG_HPP__
 #define __DIALOG_HPP__
 
-#include <vector>
-#include "MapPoint.hpp"
-#include "gui/Component.hpp"
-#include "gui/Desktop.hpp"
-#include "gui/Button.hpp"
+#include <string>  // for string
+
+
+class Button;
+class Component;
+class Desktop;
 
 #define BULLDOZE_MONUMENT 1
 #define BULLDOZE_RIVER    2
 #define BULLDOZE_SHANTY   3
 #define EDIT_MARKET       4
 #define EDIT_PORT         5
-#define ASK_COAL_SURVEY   6 
-#define ASK_LAUNCH_ROCKET 7 
-#define GAME_STATS        8            
-#define MSG_DIALOG        9            
+#define ASK_COAL_SURVEY   6
+#define ASK_LAUNCH_ROCKET 7
+#define GAME_STATS        8
+#define MSG_DIALOG        9
 
 extern bool blockingDialogIsOpen;
 
-class Dialog;
 void closeAllDialogs();
 
 class Dialog
@@ -62,13 +62,13 @@ class Dialog
         void saveGameStats();
 
         void msgDialog( std::string message, std::string extraString);
-       
+
         void initDialog( int x = -1 , int y = -1 );
         Desktop* desktop;
         Component* myDialogComponent;
         int pointX;
         int pointY;
- 
+
         template<typename T> void setTableRC( const std::string basename, const int row, const int column, const std::string text, const T value );
 
         void setParagraphN( const std::string basename, const int number, const std::string text );
@@ -90,4 +90,3 @@ class Dialog
 #endif
 
 /** @file lincity-ng/Dialog.hpp */
-

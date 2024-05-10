@@ -28,6 +28,19 @@ IMG_3[This means the trade is allowed.]: images/gui/checkbox/checkbox_checked.pn
 IMG_4[This means the trade is <b>not</b> allowed.]: images/gui/checkbox/checkbox.png
 The numbers between the words Buy and Sell are the map reference for that market.
 
+SUBH: Formulas
 
+A market consumes jobs in order to trade any other commodities.
+The number of jobs consumed is dependent on the inventory of all commodities at the market.
+
+0% to 10% inventory: 1 jobs =&gt; 0
+
+10% to 20% inventory: 5 jobs =&gt; 0
+
+2% to 50% inventory: 12 jobs =&gt; 0
+
+50% to 100% inventory: 28 jobs =&gt; 0
+
+If a market has more than 85% waste, then it will burn 2867 waste and produce 204 pollution.
 
 ALSO[See also:]: commodities, transport, msb-transport

@@ -8,7 +8,11 @@
 
 #include "oremine.h"
 
+#include <list>                           // for _List_iterator
 
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for OreMineDeletionRequest
+#include "modules.h"                      // for Commodity, ConstructionGroup
 
 // Oremine:
 OremineConstructionGroup oremineConstructionGroup(

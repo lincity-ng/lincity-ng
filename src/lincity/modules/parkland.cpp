@@ -6,7 +6,10 @@
  * ---------------------------------------------------------------------- */
 
 #include "parkland.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <string>                   // for basic_string
+
+#include "modules.h"
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
@@ -57,4 +60,3 @@ void Parkland::report()
 }
 
 /** @file lincity/modules/parkland.cpp */
-
