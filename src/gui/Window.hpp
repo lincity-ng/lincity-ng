@@ -58,17 +58,37 @@ private:
     Child& background()
     { return childs[0]; }
     Child& title_background()
-    { return childs[1]; }        
+    { return childs[1]; }
     Child& title()
     { return childs[2]; }
     Child& closeButton()
     { return childs[3]; }
     Child& contents()
     { return childs[4]; }
+
+    enum class Edge {
+      NONE = 0,
+      N = 1 << 0,
+      S = 1 << 1,
+      E = 1 << 2,
+      W = 1 << 3,
+      NE = N | E,
+      NW = N | W,
+      SE = S | E,
+      SW = S | W,
+      NS = N | S,
+      EW = E | W,
+      NSE = N | S | E,
+      NSW = N | S | W,
+      NEW = N | E | W,
+      SEW = S | E | W,
+      NSEW = N | S | E | W,
+    };
+    Edge edgeAt(Vector2 &pos);
+    Edge resizeEdge;
 };
 
 #endif
 
 
 /** @file gui/Window.hpp */
-

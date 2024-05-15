@@ -106,6 +106,7 @@ GameView::~GameView()
 
     if(panningCursor) {
         SDL_FreeCursor(panningCursor);
+        panningCursor = NULL;
     }
 }
 
@@ -749,7 +750,6 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                setPanningCursor();
                 dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
@@ -795,6 +795,7 @@ void GameView::event(const Event& event)
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
+                setPanningCursor();
                 break;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ) {
@@ -1124,14 +1125,11 @@ void GameView::event(const Event& event)
 }
 
 void GameView::setPanningCursor() {
-    if(!panningCursor) {
-        panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
-    }
-    SDL_SetCursor(panningCursor);
+    desktop->setSystemCursor(this, SDL_SYSTEM_CURSOR_SIZEALL);
 }
 
 void GameView::setDefaultCursor() {
-    SDL_SetCursor(SDL_GetDefaultCursor());
+    desktop->tryClearCursor(this);
 }
 
 /*

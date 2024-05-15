@@ -40,6 +40,7 @@ class Painter;
 Desktop::Desktop()
 {
     setFlags(FLAG_RESIZABLE);
+    desktop = this;
 }
 
 Desktop::~Desktop()
@@ -92,7 +93,7 @@ Desktop::event(const Event& event)
     for(std::vector<Component*>::iterator i = addQueue.begin();
             i != addQueue.end(); ++i) {
         Child& child = addChild(*i);
-        child.setPos(Vector2( 
+        child.setPos(Vector2(
                     (getWidth() - child.getComponent()->getWidth()) / 2,
                     (getHeight() - child.getComponent()->getHeight()) / 2));
     }
@@ -108,8 +109,11 @@ Desktop::needsRedraw() const
 void
 Desktop::draw(Painter& painter)
 {
-    if(dirtyRectangles.size() > 0)
+    if(dirtyRectangles.size() > 0) {
         Component::draw(painter);
+        if(cursor != SDL_GetCursor())
+            SDL_SetCursor(cursor);
+    }
     dirtyRectangles.clear();
 }
 
@@ -120,7 +124,7 @@ Desktop::opaque(const Vector2& pos) const
         const Child& child = *i;
         if(child.getComponent() == 0)
             continue;
-        
+
         if(child.getComponent()->opaque(pos + child.getPos())) {
             return true;
         }
@@ -137,10 +141,10 @@ Desktop::resize(float width, float height)
         if(component->getFlags() & FLAG_RESIZABLE)
             component->resize(width, height);
 #ifdef DEBUG
-        if(! (component->getFlags() & FLAG_RESIZABLE) 
+        if(! (component->getFlags() & FLAG_RESIZABLE)
                 && (component->getWidth() <= 0 || component->getHeight() <= 0))
-            std::cerr << "Warning: component with name '" 
-                << component->getName() 
+            std::cerr << "Warning: component with name '"
+                << component->getName()
                 << "' has invalid width/height but is not resizable.\n";
 #endif
     }
@@ -168,7 +172,7 @@ Desktop::getPos(Component* component)
 }
 
 void
-Desktop::move(Component* component, Vector2 newpos)
+Desktop::move(Component* component, Vector2 &newpos)
 {
     if(component->getFlags() & FLAG_RESIZABLE)
         throw std::runtime_error("Can't move resizable components around");
@@ -184,7 +188,7 @@ Desktop::move(Component* component, Vector2 newpos)
     if(child == 0)
         throw std::runtime_error(
                 "Trying to getPos a component that is not a direct child");
-    
+
     // keep component in bounds...
     if(newpos.x + component->getWidth() > width)
         newpos.x = width - component->getWidth();
@@ -200,9 +204,78 @@ Desktop::move(Component* component, Vector2 newpos)
 }
 
 void
+Desktop::resize(Component* component, Vector2 &newSize)
+{
+    if(component->getFlags() & FLAG_RESIZABLE)
+        throw std::runtime_error("Can't move resizable components around");
+
+    // find child
+    Child* child = 0;
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        if(i->getComponent() == component) {
+            child = &(*i);
+            break;
+        }
+    }
+    if(child == 0)
+        throw std::runtime_error(
+                "Trying to getPos a component that is not a direct child");
+
+    // keep component in bounds...
+    if(child->position.x + newSize.x > width)
+        newSize.x = width - child->position.x;
+    if(child->position.y + newSize.y > height)
+        newSize.y = height - child->position.y;
+
+    child->component->width = newpos.x;
+    child->component->height = newpos.y;
+    child->component->setDirty();
+}
+
+void
 Desktop::remove(Component* component)
 {
     removeQueue.push_back(component);
+}
+
+void
+Desktop::setCursor(Component *owner, SDL_Cursor *cursor) {
+    if(cursor != this->cursor)
+        setDirty(Rect2D());
+    this->cursor = cursor;
+    cursorOwner = owner;
+}
+
+void
+Desktop::setSystemCursor(Component *owner, SDL_SystemCursor id) {
+    setCursor(owner, getSystemCursor(id));
+}
+
+void
+Desktop::tryClearCursor(Component *owner) {
+    if(owner == cursorOwner) {
+        setCursor(NULL, SDL_GetDefaultCursor());
+    }
+}
+
+SDL_Cursor *
+Desktop::getSystemCursor(SDL_SystemCursor id) {
+    SDL_Cursor *&cursor = systemCursors[id];
+    if(!cursor)
+        cursor = SDL_CreateSystemCursor(id);
+    return cursor;
+}
+
+void
+Desktop::freeSystemCursor(SDL_SystemCursor id) {
+    SDL_FreeCursor(systemCursors[id]);
+    systemCursors[id] = NULL;
+}
+
+void
+Desktop::freeAllSystemCursors() {
+    for(SDL_SystemCursor id = 0; id < SDL_NUM_SYSTEM_CURSORS; id++)
+        freeSystemCursor(id);
 }
 
 void
@@ -232,7 +305,7 @@ Desktop::setDirty(const Rect2D& rect)
     }
 
     // add a new dirty rectangle if no overlap occured
-    /*std::cout << "Adding new rectangle: " 
+    /*std::cout << "Adding new rectangle: "
         << rect.p1.x << "," << rect.p1.y << ","
         << rect.p2.x << "," << rect.p2.y << "\n"; */
     dirtyRectangles.push_back(rect);
@@ -249,4 +322,3 @@ Desktop::addChildComponent(Component* component)
 }
 
 /** @file gui/Desktop.cpp */
-

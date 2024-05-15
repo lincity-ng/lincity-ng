@@ -55,23 +55,34 @@ public:
     void centerChildComponent(Component* child);
 
     Vector2 getPos(Component* component);
-    void move(Component* component, Vector2 pos);
+    void move(Component* component, Vector2 &pos);
+    void resize(Component* component, Vector2 &size);
     void remove(Component* component);
+
+    void setCursor(Component *owner, SDL_Cursor *cursor);
+    void setSystemCursor(Component *owner, SDL_SystemCursor id);
+    void tryClearCursor(Component *owner);
+    SDL_Cursor *getSystemCursor(SDL_SystemCursor id);
+    void freeSystemCursor(SDL_SystemCursor id);
+    void freeAllSystemCursors();
 
 protected:
     void setDirty(const Rect2D& rect);
-    
+
 private:
     void internal_remove(Component* component);
-    
+
     std::vector<Component*> removeQueue;
     std::vector<Component*> addQueue;
     typedef std::vector<Rect2D> DirtyRectangles;
     DirtyRectangles dirtyRectangles;
+
+    SDL_Cursor *cursor;
+    Component *cursorOwner;
+    SDL_Cursor *systemCursors[SDL_NUM_SYSTEM_CURSORS];
 };
 
 #endif
 
 
 /** @file gui/Desktop.hpp */
-

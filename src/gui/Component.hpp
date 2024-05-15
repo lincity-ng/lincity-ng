@@ -77,7 +77,7 @@ public:
      */
     virtual bool opaque(const Vector2& pos) const
     {
-        if(pos.x >= 0 && pos.y >= 0 && pos.x <= width && pos.y <= height)
+        if(pos.x >= 0 && pos.y >= 0 && pos.x < width && pos.y < height)
             return true;
 
         return false;
@@ -117,6 +117,9 @@ public:
         return parent;
     }
     Component* findComponent(const std::string& name);
+    Desktop* getDesktop() const {
+        return desktop;
+    }
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -157,6 +160,7 @@ protected:
     }
 
     Component* parent;
+    Desktop *desktop;
     int flags;
     float width, height;
     std::string name;
