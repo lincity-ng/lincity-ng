@@ -215,13 +215,17 @@ Window::resize(float width, float height) {
   }
 
   contents().setPos(Vector2(border, border + titlesize));
-  targetSize = Vector2(compSize.x, compSize.y - titlesize);
-  contents().getComponent()->resize(targetSize);
+  targetSize = actualSize = Vector2(compSize.x, compSize.y - titlesize);
+  if(actualSize.x < 1) actualSize.x = 1;
+  if(actualSize.y < 1) actualSize.y = 1;
+  contents().getComponent()->resize(actualSize);
   actualSize = contents().getComponent()->getSize();
   if(actualSize != targetSize) {
     size += actualSize - targetSize;
     goto retry;
   }
+  contents().setClipRect(
+    Rect2D(Vector2(),targetSize).move(contents().getPos()));
 
   if(background().getComponent() != 0) {
     background().setPos(Vector2(0, 0));

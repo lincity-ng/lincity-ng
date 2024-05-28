@@ -78,10 +78,11 @@ public:
     setHeight(height);
   }
 
-  void move(const Vector2& v)
+  Rect2D &move(const Vector2& v)
   {
     p1 += v;
     p2 += v;
+    return *this;
   }
 
   bool inside(const Vector2& v) const
