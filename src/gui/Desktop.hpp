@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <vector>         // for vector
 
+#include <SDL.h>
 #include "Component.hpp"  // for Component
 #include "Rect2D.hpp"     // for Rect2D
 #include "Vector2.hpp"    // for Vector2
@@ -52,7 +53,6 @@ public:
     bool opaque(const Vector2& pos) const;
 
     void addChildComponent(Component* child);
-    void centerChildComponent(Component* child);
 
     Vector2 getPos(Component* component);
     void move(Component* component, Vector2 &pos);
@@ -79,7 +79,7 @@ private:
 
     SDL_Cursor *cursor;
     Component *cursorOwner;
-    SDL_Cursor *systemCursors[SDL_NUM_SYSTEM_CURSORS];
+    SDL_Cursor *systemCursors[SDL_NUM_SYSTEM_CURSORS] = {0};
 };
 
 #endif

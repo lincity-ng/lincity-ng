@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Painter.hpp"  // for Painter
 
 Component::Component() :
-  parent(0), desktop(NULL), flags(0), width(0), height(0)
+  parent(0), desktop(NULL), flags(0)
 {
 }
 

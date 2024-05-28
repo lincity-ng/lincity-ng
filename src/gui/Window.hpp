@@ -46,14 +46,13 @@ public:
 
     void draw(Painter& painter);
     void event(const Event& event);
+    void resize(float width, float height) override;
 
 private:
     void closeButtonClicked(Button* button);
 
     float border;
     float titlesize;
-    bool dragging;
-    Vector2 dragOffset;
 
     Child& background()
     { return childs[0]; }
@@ -66,26 +65,7 @@ private:
     Child& contents()
     { return childs[4]; }
 
-    enum class Edge {
-      NONE = 0,
-      N = 1 << 0,
-      S = 1 << 1,
-      E = 1 << 2,
-      W = 1 << 3,
-      NE = N | E,
-      NW = N | W,
-      SE = S | E,
-      SW = S | W,
-      NS = N | S,
-      EW = E | W,
-      NSE = N | S | E,
-      NSW = N | S | W,
-      NEW = N | E | W,
-      SEW = S | E | W,
-      NSEW = N | S | E | W,
-    };
-    Edge edgeAt(Vector2 &pos);
-    Edge resizeEdge;
+    friend class WindowManager;
 };
 
 #endif

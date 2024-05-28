@@ -34,8 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * instead of upper left and width/height here, because that makes the
  * collision dectection a little bit more efficient.
  */
-class Rect2D
-{
+class Rect2D {
 public:
   Rect2D()
   { }
@@ -77,7 +76,7 @@ public:
   {
     setWidth(width);
     setHeight(height);
-  }                                         
+  }
 
   void move(const Vector2& v)
   {
@@ -91,12 +90,12 @@ public:
   }
   bool overlap(const Rect2D& other) const
   {
-      if(p1.x >= other.p2.x || other.p1.x >= p2.x)
-          return false;
-      if(p1.y >= other.p2.y || other.p1.y >= p2.y)
-          return false;
+    if(p1.x >= other.p2.x || other.p1.x >= p2.x)
+      return false;
+    if(p1.y >= other.p2.y || other.p1.y >= p2.y)
+      return false;
 
-      return true;
+    return true;
   }
 
   void join(const Rect2D& other);
@@ -113,4 +112,3 @@ public:
 #endif
 
 /** @file gui/Rect2D.hpp */
-

@@ -94,7 +94,6 @@ GameView::GameView()
     mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
-    panningCursor = NULL;
 }
 
 GameView::~GameView()
@@ -103,11 +102,6 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
-
-    if(panningCursor) {
-        SDL_FreeCursor(panningCursor);
-        panningCursor = NULL;
-    }
 }
 
 //Static function to use with SDL_CreateThread

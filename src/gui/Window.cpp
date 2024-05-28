@@ -46,8 +46,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "callback/Signal.hpp"    // for Signal
 
 Window::Window()
-    : border(1), titlesize(0), dragging(false), resizeEdge(0)
+    : border(1), titlesize(0)
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 Window::~Window()
@@ -189,131 +190,16 @@ Window::draw(Painter& painter)
 void
 Window::event(const Event& event)
 {
-    switch(event.type) {
-        case Event::MOUSEBUTTONDOWN:
-            if(event.inside && event.button == SDL_BUTTON_LEFT
-                && title().inside(event.mousepos)
-            ) {
-                dragging = true;
-                dragOffset = desktop->getPos(this) - event.mousepos;
-                desktop->setSystemCursor(this, SDL_SYSTEM_CURSOR_SIZEALL);
-            }
-            else if(resizeEdge && event.button == SDL_BUTTON_LEFT) {
-                dragOffset = Vector2(getWidth(), getHeight());
-                if(resizeEdge & Window::Edge::N)
-                    dragOffset.x = -dragOffset.x;
-                if(resizeEdge & Window::Edge::W)
-                    dragOffset.y = -dragOffset.y;
-                dragOffset -= event.mousepos;
-            }
-            else if(resizeEdge) {
-                // cancel window resize because a wrong mouse button is pressed
-                resizeEdge = Window::Edge::NONE;
-                desktop->tryClearCursor(this);
-            }
-            break;
-
-        case Event::MOUSEBUTTONUP:
-            if(dragging) {
-                dragging = false;
-                desktop->tryClearCursor(this);
-            }
-            break;
-
-        case Event::MOUSEMOTION: {
-            if(dragging) {
-                assert(desktop != 0);
-                if(!desktop)
-                    return;
-
-                // try to move window...
-                desktop->move(this, event.mousepos + dragOffset);
-            }
-            else if((event.inside || resizeEdge) && !event.mousebuttonstate
-                && resizeEdge != (resizeEdge = edgeAt(event.mousepos))
-            ) {
-                SDL_SystemCursor cursorId = SDL_SYSTEM_CURSOR_SIZENWSE;
-                switch(resizeEdge) {
-                case Window::Edge::N:
-                case Window::Edge::S:
-                    cursorId++;
-                case Window::Edge::E:
-                case Window::Edge::W:
-                    cursorId++;
-                case Window::Edge::NE:
-                case Window::Edge::SW:
-                    cursorId++;
-                case Window::Edge::NW:
-                case Window::Edge::SE:
-                    desktop->setSystemCursor(this, cursorId);
-                    break;
-                default:
-                    assert(false);
-                case Window::Edge::NONE:
-                    desktop->tryClearCursor(this);
-                }
-            }
-            else if(resizeEdge && event.mousebuttonstate) {
-                assert(event.mousebuttonstate == SDL_BUTTON_LMASK);
-
-                // if move, then
-                //   new size = -(mousepos + offset)
-                //   new size > old size => move neg (expand)
-                //   new size < old size => move pos (shrink)
-                // if no move, then do the resize
-                //   new size = mousepos + offset
-                // if move neg (expand), then move then resize
-                //   new pos  = old pos + old size + mousepos + offset
-                //   new size = old pos + old size - new pos
-                // if move pos (shrink), then resize then move
-                //   new size = -(mousepos + offset)
-                //   new pos  = old pos + old size - new size
-
-                #define DIM(P, X, Y) (ISX?(P##X):(P##Y))
-                #define XY(V) DIM(V.,x,y)
-                #define DIMDUP(CODE) {bool ISX=1;CODE ISX=0;CODE}
-
-                Vector2 oldSize(getWidth(), getHeight());
-                Vector2 newSize = oldSize;
-                Vector2 minSize = getMinSize();
-                Vector2 oldPos = desktop->getPos(this);
-                Vector2 newPos = oldPos;
-                Vector2 oldSE = oldPos + oldSize;
-
-                DIMDUP({
-                  if(resizeEdge & DIM(Window::Edge::EW,NS)) {
-                    XY(newSize) = XY(event.mousepos) + XY(dragOffset);
-                    if(resizeEdge & DIM(Window::Edge::,W,N))
-                      XY(newSize) = -XY(newSize);
-                    if(XY(newSize) < XY(minSize))
-                      XY(newSize) = XY(minSize);
-                    if(XY(newsize) < XY(oldSize))
-                      DIM(,width,height) = XY(newSize);
-                    if(resizeEdge & DIM(Window::Edge::,W,N))
-                      XY(newPos) = XY(oldSE) - XY(newSize);
-                  }
-                })
-
-                if(resizeEdge & Window::Edge::NW) {
-                  desktop->move(this, newPos);
-
-                  DIMDUP({
-                    if(resizeEdge & DIM(Window::Edge::,W,N))
-                      XY(newSize) = XY(oldSE) - XY(newPos);
-                  })
-                }
-
-                desktop->resize(this, newSize);
-            }
-            break;
-        }
-
-        default:
-            break;
-    }
-
     // distribute event to child components...
     Component::event(event);
+}
+
+void
+Window::resize(float width, float height) {
+  size.x = width;
+  size.y = height;
+  if(size.x < 10) size.x = 10;
+  if(size.y < 10) size.y = 10;
 }
 
 void
@@ -325,44 +211,6 @@ Window::closeButtonClicked(Button* )
         return;
 
     desktop->remove(this);
-}
-
-Window::Edge
-Window::edgeAt(const Vector2 &pos) {
-  Edge edge = Edge::NONE;
-  if(pos.y >= -1 && pos.y < 1)
-    edge |= Edge::N;
-  else if(height - 1 - pos.y >= -1 && height - 1 - pos.y < 1)
-    edge |= Edge::S;
-  if(pos.x >= -1 && pos.x < 1)
-    edge |= Edge::W;
-  else if(width - 1 - pos.x >= -1 && width - 1 - pos.x < 1)
-    edge |= Edge::E;
-  return edge;
-}
-
-void
-Window::setResizeCursor() {
-    SDL_SystemCursor cursorId = SDL_SYSTEM_CURSOR_SIZENWSE;
-    switch(resizeEdge) {
-    case Window::Edge::N:
-    case Window::Edge::S:
-        cursorId++;
-    case Window::Edge::E:
-    case Window::Edge::W:
-        cursorId++;
-    case Window::Edge::NE:
-    case Window::Edge::SW:
-        cursorId++;
-    case Window::Edge::NW:
-    case Window::Edge::SE:
-        desktop->setSystemCursor(this, cursorId);
-        break;
-    default:
-        assert(false);
-    case Window::Edge::NONE:
-        desktop->tryClearCursor(this);
-    }
 }
 
 

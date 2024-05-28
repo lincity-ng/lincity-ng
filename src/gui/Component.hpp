@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Rect2D.hpp"   // for Rect2D
 #include "Vector2.hpp"  // for Vector2
 
+class Desktop;
 class Event;
 class Painter;
 
@@ -91,6 +92,10 @@ public:
     float getHeight() const
     {
         return height;
+    }
+
+    Vector2 getSize() const {
+        return size;
     }
 
     const std::string& getName() const
@@ -162,7 +167,9 @@ protected:
     Component* parent;
     Desktop *desktop;
     int flags;
-    float width, height;
+    Vector2 size;
+    float &width = size.x;
+    float &height = size.y;
     std::string name;
 
     friend class ButtonPanel;

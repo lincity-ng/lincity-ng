@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <assert.h>             // for assert
 #include <libxml/xmlreader.h>   // for XML_READER_TYPE_ELEMENT
 #include <iostream>             // for char_traits, operator<<, basic_ostream
+#include <SDL.h>
 #include <stdexcept>            // for runtime_error
 #include <string>               // for basic_string, operator==, string
 
@@ -41,10 +42,12 @@ Desktop::Desktop()
 {
     setFlags(FLAG_RESIZABLE);
     desktop = this;
+    cursor = SDL_GetDefaultCursor();
+    cursorOwner = NULL;
 }
 
-Desktop::~Desktop()
-{
+Desktop::~Desktop() {
+    freeAllSystemCursors();
 }
 
 void
@@ -122,10 +125,10 @@ Desktop::opaque(const Vector2& pos) const
 {
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
         const Child& child = *i;
-        if(child.getComponent() == 0)
+        if(!child.getComponent() || !child.isEnabled())
             continue;
 
-        if(child.getComponent()->opaque(pos + child.getPos())) {
+        if(child.getComponent()->opaque(pos - child.getPos())) {
             return true;
         }
     }
@@ -222,14 +225,12 @@ Desktop::resize(Component* component, Vector2 &newSize)
                 "Trying to getPos a component that is not a direct child");
 
     // keep component in bounds...
-    if(child->position.x + newSize.x > width)
-        newSize.x = width - child->position.x;
-    if(child->position.y + newSize.y > height)
-        newSize.y = height - child->position.y;
+    if(child->getPos().x + newSize.x > width)
+        newSize.x = width - child->getPos().x;
+    if(child->getPos().y + newSize.y > height)
+        newSize.y = height - child->getPos().y;
 
-    child->component->width = newpos.x;
-    child->component->height = newpos.y;
-    child->component->setDirty();
+    child->getComponent()->resize(newSize.x, newSize.y);
 }
 
 void
@@ -274,8 +275,8 @@ Desktop::freeSystemCursor(SDL_SystemCursor id) {
 
 void
 Desktop::freeAllSystemCursors() {
-    for(SDL_SystemCursor id = 0; id < SDL_NUM_SYSTEM_CURSORS; id++)
-        freeSystemCursor(id);
+    for(int id = 0; id < SDL_NUM_SYSTEM_CURSORS; id++)
+        freeSystemCursor((SDL_SystemCursor)id);
 }
 
 void

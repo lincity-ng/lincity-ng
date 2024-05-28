@@ -34,12 +34,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ScrollView.hpp"           // for ScrollView
 #include "gui/callback/Callback.hpp"    // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"      // for Signal
+#include "gui/WindowManager.hpp"
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 HelpWindow::HelpWindow(Desktop* desktop)
 {
-    this->desktop = desktop;
+    this->windowManager = dynamic_cast<WindowManager *>(
+      desktop->findComponent("windowManager"));
 }
 
 HelpWindow::~HelpWindow()
@@ -58,10 +60,12 @@ HelpWindow::showTopic(const std::string& topic)
 {
     try {
         // make sure HelpWindow is open
-        Component* helpWindow = desktop->findComponent("HelpWindow");
+        Window* helpWindow = dynamic_cast<Window *>(
+          windowManager->findComponent("HelpWindow"));
         if(helpWindow == 0) {
-            helpWindow = loadGUIFile("gui/helpwindow.xml");
-            desktop->addChildComponent(helpWindow);
+            helpWindow = dynamic_cast<Window *>(
+              loadGUIFile("gui/helpwindow.xml"));
+            windowManager->addWindow(helpWindow);
             // connect history back button
             historyBackButton = getButton(*helpWindow, "HistoryBack");
             historyBackButton->clicked.connect(
