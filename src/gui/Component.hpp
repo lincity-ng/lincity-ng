@@ -69,6 +69,7 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(const Event& event);
     virtual void resize(float width, float height);
+    void resize(Vector2 newSize) {resize(newSize.x, newSize.y);}
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();

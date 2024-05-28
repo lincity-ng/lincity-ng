@@ -42,6 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Painter.hpp"            // for Painter
 #include "Rect2D.hpp"             // for Rect2D
 #include "XmlReader.hpp"          // for XmlReader
+#include "WindowManager.hpp"
 #include "callback/Callback.hpp"  // for makeCallback, Callback
 #include "callback/Signal.hpp"    // for Signal
 
@@ -128,42 +129,7 @@ Window::parse(XmlReader& reader)
         }
     }
 
-    // layout
-    float closeButtonHeight = 0;
-    float closeButtonWidth = 0;
-    float closeButtonBorder = 0;
-    if(closeButton().getComponent() != 0) {
-        closeButtonHeight = closeButton().getComponent()->getHeight();
-        if(titlesize < closeButtonHeight) {
-            titlesize = closeButtonHeight;
-        }
-
-        closeButtonWidth = closeButton().getComponent()->getWidth();
-        closeButtonBorder = (titlesize - closeButtonHeight) / 2;
-        closeButtonWidth += 2*closeButtonBorder;
-        closeButtonHeight += 2*closeButtonBorder;
-    }
-
-    float compWidth = width - 2*border;
-    float compHeight = height - 2*border;
-    title().setPos(Vector2(border, border));
-    title().getComponent()->resize(compWidth - closeButtonWidth, titlesize);
-    if(title_background().getComponent() != 0) {
-        title_background().setPos(title().getPos());
-        title_background().getComponent()->resize(
-                compWidth - closeButtonWidth, titlesize);
-    }
-    if(closeButton().getComponent() != 0) {
-        closeButton().setPos(Vector2(
-                    border + compWidth - closeButtonWidth + closeButtonBorder,
-                    border + closeButtonBorder));
-    }
-    contents().setPos(Vector2(border, border + titlesize));
-    contents().getComponent()->resize(compWidth, compHeight - titlesize);
-    if(background().getComponent() != 0) {
-        background().setPos(Vector2(0, 0));
-        background().getComponent()->resize(width, height);
-    }
+    reLayout();
 
     // connect signals...
     if(closeButton().getComponent() != 0) {
@@ -198,19 +164,87 @@ void
 Window::resize(float width, float height) {
   size.x = width;
   size.y = height;
+
+  retry:
+
   if(size.x < 10) size.x = 10;
   if(size.y < 10) size.y = 10;
+
+  // layout
+  float closeButtonHeight = 0;
+  float closeButtonWidth = 0;
+  float closeButtonBorder = 0;
+  if(closeButton().getComponent() != 0) {
+      closeButtonHeight = closeButton().getComponent()->getHeight();
+      if(titlesize < closeButtonHeight) {
+          titlesize = closeButtonHeight;
+      }
+
+      closeButtonWidth = closeButton().getComponent()->getWidth();
+      closeButtonBorder = (titlesize - closeButtonHeight) / 2;
+      closeButtonWidth += 2*closeButtonBorder;
+      closeButtonHeight += 2*closeButtonBorder;
+  }
+  Vector2 compSize = size - Vector2(border,border)*2;
+
+  Vector2 targetSize;
+  Vector2 actualSize;
+  title().setPos(Vector2(border, border));
+  targetSize = Vector2(compSize.x - closeButtonWidth, titlesize);
+  title().getComponent()->resize(targetSize);
+  actualSize = title().getComponent()->getSize();
+  if(actualSize.x != targetSize.x) {
+    size.x = actualSize.x + closeButtonWidth + 2*border;
+    goto retry;
+  }
+
+  if(title_background().getComponent() != 0) {
+    title_background().setPos(title().getPos());
+    targetSize = Vector2(compSize.x - closeButtonWidth, titlesize);
+    title_background().getComponent()->resize(targetSize);
+    actualSize = title_background().getComponent()->getSize();
+    if(actualSize.x != targetSize.x) {
+      size.x = actualSize.x + closeButtonWidth + 2*border;
+      goto retry;
+    }
+  }
+
+  if(closeButton().getComponent() != 0) {
+    closeButton().setPos(Vector2(
+      border + compSize.x - closeButtonWidth + closeButtonBorder,
+      border + closeButtonBorder));
+  }
+
+  contents().setPos(Vector2(border, border + titlesize));
+  targetSize = Vector2(compSize.x, compSize.y - titlesize);
+  contents().getComponent()->resize(targetSize);
+  actualSize = contents().getComponent()->getSize();
+  if(actualSize != targetSize) {
+    size += actualSize - targetSize;
+    goto retry;
+  }
+
+  if(background().getComponent() != 0) {
+    background().setPos(Vector2(0, 0));
+    targetSize = size;
+    background().getComponent()->resize(targetSize);
+    actualSize = background().getComponent()->getSize();
+    if(actualSize != targetSize) {
+      size = actualSize;
+      goto retry;
+    }
+  }
 }
 
 void
 Window::closeButtonClicked(Button* )
 {
-    Desktop* desktop = dynamic_cast<Desktop*> (getParent());
-    assert(desktop != 0);
-    if(!desktop)
+    WindowManager* windowManager = dynamic_cast<WindowManager *>(getParent());
+    assert(windowManager != 0);
+    if(!windowManager)
         return;
 
-    desktop->remove(this);
+    windowManager->removeWindow(this);
 }
 
 

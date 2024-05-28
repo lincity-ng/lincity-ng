@@ -67,7 +67,6 @@ WindowManager::event(const Event& event) {
     && event.mousebutton != SDL_BUTTON_LEFT
   ) {
     // cancel window resize because a wrong mouse button is pressed
-    std::cout << "canceling drag" << '\n';
     dragWindow = NULL;
     dragEdge = Edge::NONE;
     desktop->tryClearCursor(this);
@@ -75,7 +74,6 @@ WindowManager::event(const Event& event) {
   else if(event.type == Event::MOUSEBUTTONUP
     && dragEdge == Edge::NSWE && hasMoved
   ) {
-    std::cout << "ending move" << '\n';
     desktop->tryClearCursor(this);
     hasMoved = false;
     visible = false;
@@ -92,7 +90,6 @@ WindowManager::event(const Event& event) {
     switch(event.type) {
     case Event::MOUSEBUTTONDOWN:
       if(dragWindow == window) {
-        std::cout << "starting drag" << '\n';
         dragOffset = -mousepos;
         if(!(dragEdge & Edge::W)) {
           dragOffset.x += window->getSize().x;
@@ -112,7 +109,6 @@ WindowManager::event(const Event& event) {
       if(event.mousebuttonstate) {
         if(dragEdge == Edge::NSWE) {
           // move the window
-          std::cout << "executing move" << '\n';
           Vector2 pos = event.mousepos + dragOffset;
           pos.constrain(Rect2D(Vector2(), getSize() - window->getSize()));
           child.setPos(pos);
@@ -123,7 +119,6 @@ WindowManager::event(const Event& event) {
         }
         else if(dragEdge) {
           // resize the window
-          std::cout << "executing resize" << '\n';
           const Vector2 oldSize = window->getSize();
           Vector2 newSize = oldSize;
           const Vector2 oldPos = child.getPos();
@@ -151,16 +146,13 @@ WindowManager::event(const Event& event) {
         }
       }
       else {
-        std::cout << "evaluating new edge" << '\n';
         Edge edge = visible ? edgeAt(child, event.mousepos) : Edge::NONE;
         if(!edge && window == dragWindow) {
-          std::cout << "mouse exitted drag area" << '\n';
           dragWindow = NULL;
           dragEdge = Edge::NONE;
           desktop->tryClearCursor(this);
         }
         else if(edge && (edge != dragEdge || window != dragWindow)) {
-          std::cout << "mouse entered drag area" << '\n';
           dragWindow = window;
           dragEdge = edge;
           int cursorId = SDL_SYSTEM_CURSOR_SIZENWSE;
