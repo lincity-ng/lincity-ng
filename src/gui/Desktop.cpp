@@ -84,23 +84,6 @@ void
 Desktop::event(const Event& event)
 {
     Component::event(event);
-
-    // process pending remove events...
-    for(std::vector<Component*>::iterator i = removeQueue.begin();
-            i != removeQueue.end(); ++i) {
-        internal_remove(*i);
-    }
-    removeQueue.clear();
-
-    // process pending child adds...
-    for(std::vector<Component*>::iterator i = addQueue.begin();
-            i != addQueue.end(); ++i) {
-        Child& child = addChild(*i);
-        child.setPos(Vector2(
-                    (getWidth() - child.getComponent()->getWidth()) / 2,
-                    (getHeight() - child.getComponent()->getHeight()) / 2));
-    }
-    addQueue.clear();
 }
 
 bool
@@ -175,71 +158,6 @@ Desktop::getPos(Component* component)
 }
 
 void
-Desktop::move(Component* component, Vector2 &newpos)
-{
-    if(component->getFlags() & FLAG_RESIZABLE)
-        throw std::runtime_error("Can't move resizable components around");
-
-    // find child
-    Child* child = 0;
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        if(i->getComponent() == component) {
-            child = &(*i);
-            break;
-        }
-    }
-    if(child == 0)
-        throw std::runtime_error(
-                "Trying to getPos a component that is not a direct child");
-
-    // keep component in bounds...
-    if(newpos.x + component->getWidth() > width)
-        newpos.x = width - component->getWidth();
-    if(newpos.y + component->getHeight() > height)
-        newpos.y = height - component->getHeight();
-    if(newpos.x < 0)
-        newpos.x = 0;
-    if(newpos.y < 0)
-        newpos.y = 0;
-
-    child->setPos(newpos);
-    Component::setDirty();
-}
-
-void
-Desktop::resize(Component* component, Vector2 &newSize)
-{
-    if(component->getFlags() & FLAG_RESIZABLE)
-        throw std::runtime_error("Can't move resizable components around");
-
-    // find child
-    Child* child = 0;
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        if(i->getComponent() == component) {
-            child = &(*i);
-            break;
-        }
-    }
-    if(child == 0)
-        throw std::runtime_error(
-                "Trying to getPos a component that is not a direct child");
-
-    // keep component in bounds...
-    if(child->getPos().x + newSize.x > width)
-        newSize.x = width - child->getPos().x;
-    if(child->getPos().y + newSize.y > height)
-        newSize.y = height - child->getPos().y;
-
-    child->getComponent()->resize(newSize.x, newSize.y);
-}
-
-void
-Desktop::remove(Component* component)
-{
-    removeQueue.push_back(component);
-}
-
-void
 Desktop::setCursor(Component *owner, SDL_Cursor *cursor) {
     if(cursor != this->cursor)
         setDirty(Rect2D());
@@ -280,20 +198,6 @@ Desktop::freeAllSystemCursors() {
 }
 
 void
-Desktop::internal_remove(Component* component)
-{
-    // find child
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        if(i->getComponent() == component) {
-            childs.erase(i);
-            return;
-        }
-    }
-    throw std::runtime_error(
-            "Trying to remove a component that is not a direct child");
-}
-
-void
 Desktop::setDirty(const Rect2D& rect)
 {
     // check if rectangle overlaps with 1 of the existing rectangles
@@ -312,14 +216,6 @@ Desktop::setDirty(const Rect2D& rect)
     dirtyRectangles.push_back(rect);
 
     Component::setDirty(rect);
-}
-
-void
-Desktop::addChildComponent(Component* component)
-{
-    assert( component != 0 );
-    assert( component->getParent() == 0 );
-    addQueue.push_back(component);
 }
 
 /** @file gui/Desktop.cpp */

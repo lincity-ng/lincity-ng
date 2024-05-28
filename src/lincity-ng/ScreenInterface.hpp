@@ -27,7 +27,7 @@ void print_stats ();
 void updateDate();
 void updateMoney();
 
-void updateMessageText( const std::string text );
+// void updateMessageText( const std::string text );
 
 #endif
 

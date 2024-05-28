@@ -233,9 +233,9 @@ void EconomyGraph::updateData(){
                 new Dialog( MSG_DIALOG, "allgone.xml", message );
             } catch(std::exception& e) {
                 std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
-                std::ostringstream text;
-                text << "ok_dial_box:' allgone.xml" << "' + \"" << message << "\"\n";
-                updateMessageText( text.str() );
+                // std::ostringstream text;
+                // text << "ok_dial_box:' allgone.xml" << "' + \"" << message << "\"\n";
+                // updateMessageText( text.str() );
             }
             nobodyHomeDialogShown = true;
         }

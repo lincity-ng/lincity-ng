@@ -137,50 +137,50 @@ void ok_dial_box (const char *fn, int good_bad, const char *xs)
         new Dialog( MSG_DIALOG, std::string( fn ), std::string( xs ? xs : "" ) );
     } catch(std::exception& e) {
         std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
-        std::ostringstream text;
-        text << "Problem with ok_dial_box: '" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
-        updateMessageText( text.str() );
+        // std::ostringstream text;
+        // text << "Problem with ok_dial_box: '" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
+        // updateMessageText( text.str() );
     }
 }
 
 /*
  * Update Message in Message Window
  */
-void updateMessageText( const std::string text )
-{
-    //Dialog Test
-    Component* root = getGameView();
-    if(!root) {
-        //happens while in menu.
-        std::cerr << "Root not found.\n";
-        return;
-    }
-    while( root->getParent() )
-        root = root->getParent();
-    Desktop* desktop = dynamic_cast<Desktop*> (root);
-    if(!desktop) {
-        std::cerr << "Root not a desktop!?!\n";
-        return;
-    }
-
-    try {
-        //test if message Windows is open
-        Component* messageTextComponent = 0;
-        messageTextComponent = root->findComponent( "messageText" );
-        if(messageTextComponent == 0) {
-            messageTextComponent = loadGUIFile("gui/messagearea.xml");
-            assert(messageTextComponent != 0);
-            desktop->addChildComponent(messageTextComponent);
-        }
-        Paragraph* messageText = getParagraph(*messageTextComponent, "messageText");
-
-        messageText->setText( text );
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message '" << text << "': "
-            << e.what() << "\n";
-        return;
-    }
-}
+// void updateMessageText( const std::string text )
+// {
+//     //Dialog Test
+//     Component* root = getGameView();
+//     if(!root) {
+//         //happens while in menu.
+//         std::cerr << "Root not found.\n";
+//         return;
+//     }
+//     while( root->getParent() )
+//         root = root->getParent();
+//     Desktop* desktop = dynamic_cast<Desktop*> (root);
+//     if(!desktop) {
+//         std::cerr << "Root not a desktop!?!\n";
+//         return;
+//     }
+//
+//     try {
+//         //test if message Windows is open
+//         Component* messageTextComponent = 0;
+//         messageTextComponent = root->findComponent( "messageText" );
+//         if(messageTextComponent == 0) {
+//             messageTextComponent = loadGUIFile("gui/messagearea.xml");
+//             assert(messageTextComponent != 0);
+//             desktop->addChildComponent(messageTextComponent);
+//         }
+//         Paragraph* messageText = getParagraph(*messageTextComponent, "messageText");
+//
+//         messageText->setText( text );
+//     } catch(std::exception& e) {
+//         std::cerr << "Couldn't display message '" << text << "': "
+//             << e.what() << "\n";
+//         return;
+//     }
+// }
 
 void updateDate()
 {
