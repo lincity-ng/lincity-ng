@@ -85,9 +85,11 @@
 
 #endif /* __residence_h__ */
 
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "cricket.h"
+#include <array>                    // for array
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <string>                   // for char_traits, basic_string
+
+#include "modules.h"
 
 class ResidenceConstructionGroup: public ConstructionGroup {
 public:

@@ -18,16 +18,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAINMENU_HPP__
 #define __MAINMENU_HPP__
 
-#include "main.hpp"
-#include "gui/Paragraph.hpp"
-#include <memory>
+#include <SDL.h>     // for SDL_Window, Uint32
+#include <map>       // for map
+#include <memory>    // for unique_ptr
+#include <set>       // for set
+#include <string>    // for string, basic_string
 
-#include <map>
+#include "main.hpp"  // for MainState
 
-class Component;
-class Desktop;
 class Button;
 class CheckButton;
+class Component;
+class Desktop;
+class Paragraph;
 
 class MainMenu
 {
@@ -112,4 +115,3 @@ private:
 
 
 /** @file lincity-ng/MainMenu.hpp */
-

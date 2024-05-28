@@ -7,6 +7,11 @@
 
 #include "windpower.h"
 
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "modules.h"
+
 WindpowerConstructionGroup windpowerConstructionGroup(
     N_("Wind Power"),
      TRUE,                     /* need credit? */

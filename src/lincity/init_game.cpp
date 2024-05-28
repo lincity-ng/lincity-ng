@@ -15,28 +15,39 @@
 
 //#define DEBUG_EXPERIMENTAL
 
-#include <math.h>
-#include <cstdlib>
-#include <vector>
+#include <algorithm>                       // for max
+#include <cmath>                           // for pow, exp
+#include <cstdlib>                         // for rand, NULL, size_t, srand
+#include <deque>                           // for deque
+#include <iostream>                        // for basic_ostream, operator<<
+#include <list>                            // for list
+#include <vector>                          // for vector
+
+#include "ConstructionCount.h"             // for ConstructionCount
+#include "ConstructionManager.h"           // for ConstructionManager
+#include "Vehicles.h"                      // for Vehicle
+#include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
+#include "engglobs.h"                      // for world, global_mountainity
+#include "engine.h"                        // for desert_water_frontiers
+#include "groups.h"                        // for GROUP_BARE, GROUP_TREE
+#include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
+#include "gui_interface/shared_globals.h"  // for update_avail_modules, mont...
 #include "init_game.h"
-#include "simulate.h"
-#include "gui_interface/shared_globals.h"
-#include "lctypes.h"
-#include "lin-city.h"
-#include "engglobs.h"
-#include "gui_interface/screen_interface.h"
-#include "stats.h"
-#include "gui_interface/pbar_interface.h"
-#include "modules/modules_interfaces.h"
-#include "modules/all_modules.h"
-#include "transport.h"
-#include "all_buildings.h"
-#include "engine.h"
-#include "Vehicles.h"
-#include "loadsave.h"
-#include <deque>
+#include "lctypes.h"                       // for CST_GREEN, CST_WATER
+#include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
+#include "lincity-ng/Permutator.hpp"       // for Permutator
+#include "lintypes.h"                      // for Construction, Construction...
+#include "loadsave.h"                      // for given_scene
+#include "modules/all_modules.h"           // for CommuneConstructionGroup
+#include "resources.hpp"                   // for ExtraFrame
+#include "stats.h"                         // for init_inventory
+#include "transport.h"                     // for connect_transport
+#include "world.h"                         // for World, MapTile, Array2D
 
-
+#ifdef DEBUG
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for fprintf, stderr
+#endif
 
 
 /* Private functions prototypes */

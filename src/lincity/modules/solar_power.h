@@ -12,9 +12,10 @@
 #define MAX_JOBS_AT_SOLARPS (20 * SOLAR_POWER_JOBS)
 #define MAX_MWH_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 
 class SolarPowerConstructionGroup: public ConstructionGroup {
@@ -71,8 +72,8 @@ public:
         commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
     }
 
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
     int  mwh_output;
     int  tech;
     int  working_days, busy;

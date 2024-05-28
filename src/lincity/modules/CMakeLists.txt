@@ -1,5 +1,4 @@
-add_library(lincity_lib_modules
-
+add_library(lincity_lib_modules  STATIC
 		all_modules.cpp
 		all_modules.h
 		blacksmith.cpp
@@ -75,14 +74,12 @@ add_library(lincity_lib_modules
 add_library(LinCity::lib_modules ALIAS lincity_lib_modules)
 
 target_link_libraries(lincity_lib_modules
-		PRIVATE
-		ZLIB::ZLIB
+		PUBLIC
 		tinygettext
-		LinCity::physfsstream
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-		$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
-		$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
-		$<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>)
+		LinCity::lib
+)
 
 target_include_directories(lincity_lib_modules PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity_lib_modules PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

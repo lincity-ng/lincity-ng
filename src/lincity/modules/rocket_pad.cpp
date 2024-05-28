@@ -5,13 +5,18 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/pbar_interface.h"
 #include "rocket_pad.h"
-#include "residence.h" //for removing people
-#include "lincity-ng/Sound.hpp"
-#include "lincity-ng/Dialog.hpp"
+
+#include <stdlib.h>                        // for rand
+#include <list>                            // for _List_iterator
+#include <vector>                          // for vector
+
+#include "modules.h"
+#include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
+#include "lincity-ng/Dialog.hpp"           // for ASK_LAUNCH_ROCKET, Dialog
+#include "lincity-ng/Sound.hpp"            // for getSound, Sound
+#include "lincity/ConstructionCount.h"     // for ConstructionCount
+#include "residence.h"                     // for Residence
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),

@@ -13,9 +13,9 @@
 #define MAX_KWH_AT_SUBSTATION    (20 * SUBSTATION_KWH)
 
 
+#include <array>                    // for array
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class SubstationConstructionGroup: public ConstructionGroup {
 public:

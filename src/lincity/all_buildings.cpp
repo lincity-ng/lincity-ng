@@ -6,7 +6,9 @@
  * ---------------------------------------------------------------------- */
 
  #include "all_buildings.h"
- #include <stdlib.h>
+
+#include "groups.h"                 // for GROUP_BARE, GROUP_DESERT, GROUP_TREE
+#include "tinygettext/gettext.hpp"  // for N_
 
 TileConstructionGroup waterConstructionGroup(
     N_("Water"),

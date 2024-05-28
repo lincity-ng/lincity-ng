@@ -17,20 +17,21 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include <config.h>
+#include <SDL.h>                          // for SDL_free, SDL_iconv_string
+#include <ctype.h>                        // for isspace, toupper
+#include <physfs.h>                       // for PHYSFS_enumerateFiles, PHYS...
+#include <stdio.h>                        // for EOF, sscanf
+#include <stdlib.h>                       // for getenv
+#include <string.h>                       // for strcpy, strlen
+#include <algorithm>                      // for max, transform
+#include <exception>                      // for exception
+#include <fstream>                        // for basic_ostream, operator<<
+#include <iostream>                       // for cerr, cout
+#include <utility>                        // for pair, make_pair
 
-#include <sys/types.h>
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-#include <ctype.h>
-#include <errno.h>
-
-#include "SDL.h"
-
+#include "PhysfsStream/PhysfsStream.hpp"  // for IFileStream
+#include "findlocale.hpp"                 // for FL_FindLocale, FL_FreeLocale
 #include "tinygettext.hpp"
-#include "PhysfsStream/PhysfsStream.hpp"
-#include "findlocale.hpp"
 
 //#define TRANSLATION_DEBUG
 
@@ -47,7 +48,7 @@ std::string convert(const std::string& text,
   char *in = new char[text.length() + 1];
   strcpy(in, text.c_str());
   char *out = SDL_iconv_string(to_charset.c_str(), from_charset.c_str(), in, text.length() + 1);
-  delete[] in; 
+  delete[] in;
   if(out == 0)
   {
     std::cerr << "Error: conversion from " << from_charset << " to " << to_charset << " failed" << std::endl;
@@ -618,7 +619,7 @@ public:
           }
         else
           {
-            std::cerr << "tinygettext: expected 'msgid' keyword, got " << token.keyword 
+            std::cerr << "tinygettext: expected 'msgid' keyword, got " << token.keyword
                       << " at line " << line_num << std::endl;
           }
         break;
@@ -651,7 +652,7 @@ public:
           }
         else
           {
-            std::cerr << "tinygettext: expected 'msgstr' keyword, got " << token.keyword 
+            std::cerr << "tinygettext: expected 'msgstr' keyword, got " << token.keyword
                       << " at line " << line_num << std::endl;
           }
         break;
@@ -792,4 +793,3 @@ void read_po_file(Dictionary& dict_, std::istream& in)
 /* EOF */
 
 /** @file tinygettext/TinyGetText.cpp */
-

@@ -12,4 +12,6 @@ target_link_libraries(TinyLandGen
 		ZLIB::ZLIB
 		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-		)
+)
+
+include_directories(.)

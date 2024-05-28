@@ -24,16 +24,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TEXTBOX_HPP__
 #define __TEXTBOX_HPP__
 
-#include <vector>
-#include <string>
-#include "Texture.hpp"
-#include "Component.hpp"
-#include "Style.hpp"
-#include "DocumentElement.hpp"
-#include "callback/Signal.hpp"
+#include <string>               // for string, basic_string
+#include <vector>               // for vector
 
+#include "Component.hpp"        // for Component
+#include "DocumentElement.hpp"  // for DocumentElement
+#include "Event.hpp"            // for Event
+#include "Rect2D.hpp"           // for Rect2D
+#include "Style.hpp"            // for Style
+#include "callback/Signal.hpp"  // for Signal
 
-
+class Painter;
+class Texture;
 class XmlReader;
 
 /**
@@ -119,4 +121,3 @@ private:
 
 
 /** @file gui/Paragraph.hpp */
-

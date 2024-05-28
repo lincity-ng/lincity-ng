@@ -8,6 +8,8 @@
 
 #include "recycle.h"
 
+#include "modules.h"
+
 RecycleConstructionGroup recycleConstructionGroup(
     N_("Recycling Centre"),
     FALSE,                     /* need credit? */

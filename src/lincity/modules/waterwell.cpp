@@ -19,6 +19,10 @@
 
 #include "waterwell.h"
 
+#include <string>                   // for basic_string
+
+#include "modules.h"
+
 WaterwellConstructionGroup waterwellConstructionGroup(
     N_("Water tower"),
      FALSE,                     /* need credit? */

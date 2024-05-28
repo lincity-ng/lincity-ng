@@ -18,10 +18,10 @@
 #define ORE_LEVEL_TARGET 80 //mine will only supply so much
 #define OREMINE_ANIMATION_SPEED 200
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include <cstdlib>
 
 class OremineConstructionGroup: public ConstructionGroup {
 public:

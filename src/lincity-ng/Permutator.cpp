@@ -1,5 +1,7 @@
 #include "Permutator.hpp"
 
+#include "ErrorInterface.hpp"  // for DO_ERROR
+
 Permutator::Permutator(unsigned int range, unsigned int seed) {
     if (range <= 0) DO_ERROR("range must be positive");
     if (seed == 0) DO_ERROR("seed must not be zero");

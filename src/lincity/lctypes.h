@@ -6,6 +6,8 @@
 #ifndef __lctypes_h__
 #define __lctypes_h__
 
+#define NUM_OF_TYPES    404
+
 #define CST_GREEN		0
 #define LCT_GREEN_G		"green"
 
@@ -716,4 +718,3 @@
 #endif /* __lctypes_h__ */
 
 /** @file lincity/lctypes.h */
-

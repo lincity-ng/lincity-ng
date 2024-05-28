@@ -24,9 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SWITCH_COMPONENT_HPP__
 #define __SWITCH_COMPONENT_HPP__
 
-#include <string>
-#include "Component.hpp"
+#include <string>         // for string
 
+#include "Component.hpp"  // for Component
+
+class Vector2;
 class XmlReader;
 
 /**

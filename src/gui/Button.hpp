@@ -24,12 +24,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __BUTTON_HPP__
 #define __BUTTON_HPP__
 
-#include <SDL.h>
-#include "Component.hpp"
-#include "callback/Signal.hpp"
+#include <SDL.h>         // for Uint32
+#include <string>               // for string, basic_string
+#include <vector>               // for vector
 
+#include "Child.hpp"            // for Child, Childs
+#include "Component.hpp"        // for Component
+#include "Event.hpp"            // for Event
+#include "Vector2.hpp"          // for Vector2
+#include "callback/Signal.hpp"  // for Signal
+
+class Painter;
 class XmlReader;
-class Texture;
 
 /**
  * @class Button
@@ -52,7 +58,7 @@ public:
     void draw(Painter& painter);
     void event(const Event& event);
     void reLayout();
-    
+
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
 
@@ -65,9 +71,9 @@ public:
         STATE_HOVER,
         STATE_CLICKED
     };
-    
+
     State state;
-    
+
 private:
     void setChildImage(Child& child, XmlReader& reader);
     void setChildText(Child& child, XmlReader& reader);
@@ -80,7 +86,7 @@ private:
     { return childs[2]; }
     Child& comp_caption()
     { return childs[3]; }
-    
+
     bool lowerOnClick;
     std::string tooltip;
     Uint32 mouseholdTicks;
@@ -91,4 +97,3 @@ private:
 #endif
 
 /** @file gui/Button.hpp */
-

@@ -14,9 +14,10 @@
 #define MONUMENT_TECH_EXPIRE    400
 //#define MONUMENT_ANIM_SPEED     300 //actually used?
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class MonumentConstructionGroup: public ConstructionGroup {
 public:

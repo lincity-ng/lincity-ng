@@ -18,10 +18,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __WINDOW_HPP__
 #define __WINDOW_HPP__
 
-#include "Component.hpp"
+#include <vector>         // for vector
 
-class XmlReader;
+#include "Child.hpp"      // for Child, Childs
+#include "Component.hpp"  // for Component
+#include "Event.hpp"      // for Event
+#include "Vector2.hpp"    // for Vector2
+
 class Button;
+class Painter;
+class XmlReader;
 
 /**
  * @class Window

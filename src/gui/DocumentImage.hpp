@@ -24,10 +24,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DOCUMENTIMAGE_HPP__
 #define __DOCUMENTIMAGE_HPP__
 
-#include "Component.hpp"
-#include "DocumentElement.hpp"
-#include "Style.hpp"
-#include "Texture.hpp"
+#include <string>               // for basic_string, string
+
+#include "Component.hpp"        // for Component
+#include "DocumentElement.hpp"  // for DocumentElement
+#include "Style.hpp"            // for Style
+
+class Painter;
+class Texture;
+class XmlReader;
 
 /**
  * @class DocumentImage
@@ -56,4 +61,3 @@ private:
 
 
 /** @file gui/DocumentImage.hpp */
-

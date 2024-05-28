@@ -7,6 +7,8 @@
 
 #include "health_centre.h"
 
+#include "modules.h"
+
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
      N_("Health Centre"),

@@ -5,9 +5,13 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "heavy_industry.h"
-#include "../transport.h"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+#include <vector>                   // for vector
+
+#include "modules.h"
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(

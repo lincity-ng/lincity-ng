@@ -1,3 +1,12 @@
+#include <stddef.h>                 // for NULL
+#include <array>                    // for array
+#include <iterator>                 // for advance
+#include <list>                     // for list, _List_iterator, operator!=
+#include <map>                      // for map
+#include <string>                   // for basic_string, operator<
+
+#include "modules.h"
+
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000
 #define GROUP_INDUSTRY_L_COST_MUL 25

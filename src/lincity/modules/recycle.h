@@ -22,9 +22,10 @@
 
 
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class RecycleConstructionGroup: public ConstructionGroup {
 public:
@@ -106,8 +107,8 @@ public:
     }
 
     virtual ~Recycle() { }
-    virtual void update();
-    virtual void report();
+    virtual void update() override;
+    virtual void report() override;
 
     int  tech;
     int  make_ore;

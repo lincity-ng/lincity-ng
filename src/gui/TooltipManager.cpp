@@ -22,11 +22,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "TooltipManager.hpp"
-#include "XmlReader.hpp"
-#include "ComponentFactory.hpp"
-#include "Paragraph.hpp"
-#include "Document.hpp"
-#include "Event.hpp"
+
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <iostream>              // for operator<<, basic_ostream, cerr, bas...
+#include <map>                   // for map, _Rb_tree_iterator, operator==
+#include <memory>                // for unique_ptr
+#include <utility>               // for pair
+
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Document.hpp"          // for Document
+#include "Event.hpp"             // for Event
+#include "Paragraph.hpp"         // for Paragraph
+#include "Style.hpp"             // for Style, styleRegistry
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 TooltipManager* tooltipManager = 0;
 

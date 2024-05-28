@@ -1,11 +1,10 @@
 #ifndef CONSTRUCTION_MANAGER_H__
 #define CONSTRUCTION_MANAGER_H__
 
-#include <map>
-
-#include "ConstructionRequest.h"
+#include <map>  // for map
 
 class Construction;
+class ConstructionRequest;
 
 class ConstructionManager {
 public:
@@ -24,4 +23,3 @@ private:
 */
 
 #endif
-

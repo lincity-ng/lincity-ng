@@ -23,15 +23,24 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Document.hpp"
 
-#include <iostream>
+#include <assert.h>               // for assert
+#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT, XML_READER...
+#include <string.h>               // for strcmp
+#include <iostream>               // for char_traits, operator<<, basic_ostream
+#include <memory>                 // for unique_ptr
+#include <vector>                 // for vector, allocator
 
-#include "Paragraph.hpp"
-#include "XmlReader.hpp"
-#include "Vector2.hpp"
-#include "Painter.hpp"
-#include "ComponentFactory.hpp"
-#include "DocumentImage.hpp"
-#include "callback/Callback.hpp"
+#include "Child.hpp"              // for Childs, Child
+#include "Color.hpp"              // for Color
+#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
+#include "DocumentElement.hpp"    // for DocumentElement
+#include "DocumentImage.hpp"      // for DocumentImage
+#include "Painter.hpp"            // for Painter
+#include "Paragraph.hpp"          // for Paragraph
+#include "Rect2D.hpp"             // for Rect2D
+#include "Vector2.hpp"            // for Vector2
+#include "XmlReader.hpp"          // for XmlReader
+#include "callback/Callback.hpp"  // for makeCallback, Callback
 
 Document::Document()
 {

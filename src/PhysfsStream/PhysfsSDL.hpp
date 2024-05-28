@@ -18,8 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __PHYSFSSDL_HPP__
 #define __PHYSFSSDL_HPP__
 
-#include <SDL.h>
-#include <string>
+#include <SDL.h>  // for SDL_RWops
+#include <string>       // for string
 
 SDL_RWops* getPhysfsSDLRWops(const std::string& filename);
 
@@ -27,4 +27,3 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename);
 
 
 /** @file PhysfsStream/PhysfsSDL.hpp */
-

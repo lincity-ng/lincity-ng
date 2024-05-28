@@ -4,11 +4,13 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <vector>
-#include <cstdlib>
 #include "market.h"
-#include "fire.h" //for playing with fire
-#include "lincity-ng/Sound.hpp"
+
+#include <cstdlib>                  // for size_t
+#include <vector>                   // for vector
+
+#include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "modules.h"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),

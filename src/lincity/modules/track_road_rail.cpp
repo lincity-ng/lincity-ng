@@ -6,8 +6,13 @@
  * ---------------------------------------------------------------------- */
 
 #include "track_road_rail.h"
-#include "fire.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <stdlib.h>                 // for rand
+#include <vector>                   // for vector
+
+#include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Sound.hpp"     // for getSound, Sound
+#include "modules.h"
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(

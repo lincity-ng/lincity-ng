@@ -17,16 +17,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "TableLayout.hpp"
 
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <typeinfo>
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp, size_t
+#include <iostream>              // for operator<<, basic_ostream, char_traits
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for operator==, basic_string, operator<<
 
-#include "Painter.hpp"
-#include "Event.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "XmlReader.hpp"
+#include "Child.hpp"             // for Childs, Child
+#include "Color.hpp"             // for Color
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 TableLayout::TableLayout()
 {

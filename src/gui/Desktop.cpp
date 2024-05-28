@@ -23,13 +23,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Desktop.hpp"
 
-#include <iostream>
-#include <stdexcept>
+#include <assert.h>             // for assert
+#include <libxml/xmlreader.h>   // for XML_READER_TYPE_ELEMENT
+#include <iostream>             // for char_traits, operator<<, basic_ostream
+#include <stdexcept>            // for runtime_error
+#include <string>               // for basic_string, operator==, string
 
-#include "XmlReader.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "Style.hpp"
+#include "Child.hpp"            // for Childs, Child
+#include "ComponentLoader.hpp"  // for createComponent
+#include "Style.hpp"            // for parseStyleDef
+#include "XmlReader.hpp"        // for XmlReader
+
+class Event;
+class Painter;
 
 Desktop::Desktop()
 {

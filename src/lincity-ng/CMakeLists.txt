@@ -8,7 +8,6 @@ add_executable(lincity-ng
 		Config.hpp
 		Dialog.cpp
 		Dialog.hpp
-		lcerror.hpp
 		EconomyGraph.cpp
 		EconomyGraph.hpp
 		ErrorInterface.cpp
@@ -20,6 +19,8 @@ add_executable(lincity-ng
 		getBundleSharePath.cpp
 		HelpWindow.cpp
 		HelpWindow.hpp
+		lc_error.c
+		lc_error.h
 		main.cpp
 		main.hpp
 		MainLincity.cpp
@@ -41,7 +42,6 @@ add_executable(lincity-ng
 		Permutator.hpp
 		readdir.cpp
 		readdir.hpp
-		ReadPngInterface.cpp
 		ScreenInterface.cpp
 		ScreenInterface.hpp
 		Sound.cpp
@@ -50,7 +50,7 @@ add_executable(lincity-ng
 		TimerInterface.hpp
 		Util.cpp
 		Util.hpp
-		)
+)
 
 if (WIN32)
 	set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_SOURCE_DIR}/contrib/win32/lincity-ng.rc")
@@ -58,15 +58,19 @@ if (WIN32)
 endif()
 
 target_link_libraries(lincity-ng
-		PRIVATE
-		tinygettext
-		LinCity::physfsstream
-		LinCity::lib
-		LinCity::gui
-		PUBLIC
-		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-		)
+	PUBLIC
+	LinCity::lib
+	LinCity::gui
+	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+	PRIVATE
+	tinygettext
+	LinCity::physfsstream
+	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
+)
 
 target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
 target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})
+
+include_directories(.)

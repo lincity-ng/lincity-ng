@@ -15,19 +15,27 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include "CheckButton.hpp"
-#include "gui/Event.hpp"
-#include "gui/ComponentFactory.hpp"
-#include "Debug.hpp"
 
-#include <stdexcept>
+#include <SDL.h>                     // for SDL_GetTicks, SDL_BUTTON_LEFT
+#include <assert.h>                  // for assert
+#include <ctype.h>                   // for isspace
+#include <stdio.h>                   // for sscanf
+#include <string.h>                  // for strcmp
+#include <iostream>                  // for operator<<, basic_ostream, cerr
+#include <memory>                    // for unique_ptr
+#include <sstream>                   // for basic_stringstream
+#include <stdexcept>                 // for runtime_error
 
-#include "gui/Painter.hpp"
-#include "gui/TextureManager.hpp"
-#include "gui/Image.hpp"
-#include "gui/Paragraph.hpp"
-#include "gui/TooltipManager.hpp"
-#include "gui/XmlReader.hpp"
+#include "gui/ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONE...
+#include "gui/Event.hpp"             // for Event
+#include "gui/Image.hpp"             // for Image
+#include "gui/Painter.hpp"           // for Painter
+#include "gui/Paragraph.hpp"         // for Paragraph
+#include "gui/TooltipManager.hpp"    // for tooltipManager, TOOLTIP_TIME
+#include "gui/XmlReader.hpp"         // for XmlReader
+#include "libxml/xmlreader.h"        // for XML_READER_TYPE_ELEMENT, XML_REA...
 
 CheckButton::CheckButton()
     : state(STATE_NORMAL), lowerOnClick(true), checked(false),
@@ -460,4 +468,3 @@ IMPLEMENT_COMPONENT_FACTORY(CheckButton)
 
 
 /** @file lincity-ng/CheckButton.cpp */
-

@@ -17,12 +17,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PainterGL.hpp"
 
-#include <SDL.h>
-#include <SDL_opengl.h>
-#include <iostream>
-#include <typeinfo>
+#include <SDL_opengl.h>   // for glVertex2f, glDisable, glEnable, GL_TEXTURE_2D
+#include <assert.h>       // for assert
+#include <iostream>       // for operator<<, basic_ostream, cerr
 
-#include "TextureGL.hpp"
+#include "../Vector2.hpp"  // for Vector2
+#include "Color.hpp"      // for Color
+#include "Rect2D.hpp"     // for Rect2D
+#include "Texture.hpp"    // for Texture
+#include "TextureGL.hpp"  // for TextureGL
+
+#ifdef DEBUG
+#include <typeinfo>       // for typeid
+#endif
+
+class Painter;
 
 PainterGL::PainterGL(SDL_Window* _window)
     : window(_window)
@@ -274,4 +283,3 @@ PainterGL::updateScreen()
 }
 
 /** @file gui/PainterGL/PainterGL.cpp */
-

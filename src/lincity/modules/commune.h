@@ -24,10 +24,9 @@
 #define COMMUNE_WATER_GET (16 * WATER_FOREST)
 #define MAX_WATER_AT_COMMUNE (20*COMMUNE_WATER_GET)
 
+#include <array>                    // for array
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include <cstdlib>
 
 class CommuneConstructionGroup: public ConstructionGroup {
 public:

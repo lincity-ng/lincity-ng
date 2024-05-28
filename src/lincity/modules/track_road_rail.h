@@ -1,11 +1,17 @@
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "../transport.h"
+#include <assert.h>             // for assert
+#include <array>                // for array
+#include <iostream>             // for basic_ostream, operator<<, basic_ostr...
+#include <list>                 // for _List_iterator, list
+#include <map>                  // for map
+#include <string>               // for char_traits, basic_string, operator<
 
-#include "SDL.h"
+#include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
+#include "modules.h"            // for CommodityRule, Commodity, Counted
 
-class Transport;
+#ifdef DEBUG
+#include <SDL.h>                // for SDL_GetKeyboardState, SDL_SCANCODE_LS...
+#include <stddef.h>             // for NULL
+#endif
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:

@@ -25,10 +25,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __XMLREADER_HPP__
 #define __XMLREADER_HPP__
 
-#include <libxml/xmlreader.h>
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
+#include <libxml/xmlreader.h>  // for xmlTextReaderConstName, xmlTextReaderC...
+#include <libxml/xmlstring.h>  // for xmlChar
+#include <sstream>             // for basic_stringstream, basic_ostream, ope...
+#include <stdexcept>           // for runtime_error
+#include <string>              // for char_traits, allocator, basic_string
 
 class XmlReader
 {
@@ -70,13 +71,13 @@ public:
     {
         xmlTextReaderNext(reader);
     }
-    
+
     const xmlChar* readString()
     {
         return xmlTextReaderReadString(reader);
     }
 
-    class AttributeIterator 
+    class AttributeIterator
     {
     public:
         AttributeIterator(XmlReader& reader)
@@ -99,14 +100,14 @@ public:
                 res = xmlTextReaderMoveToFirstAttribute(reader);
             } else {
                 res = xmlTextReaderMoveToNextAttribute(reader);
-                
+
             }
 
             if(res < 0)
                 throw std::runtime_error("parse error.");
             if(res == 0) {
                 last = true;
-                xmlTextReaderMoveToElement(reader);               
+                xmlTextReaderMoveToElement(reader);
                 return false;
             }
             first = false;
@@ -154,7 +155,7 @@ public:
 #endif
         return ret == 1;
     }
-       
+
 private:
     xmlTextReaderPtr reader;
 
@@ -166,4 +167,3 @@ private:
 
 
 /** @file gui/XmlReader.hpp */
-

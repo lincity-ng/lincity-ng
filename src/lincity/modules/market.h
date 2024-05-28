@@ -20,11 +20,13 @@
 #define JOBS_MARKET_MED    12
 #define JOBS_MARKET_FULL   28
 
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "../transport.h"
+#include <array>                // for array
+#include <list>                 // for _List_iterator, list
+#include <map>                  // for map
+#include <string>               // for basic_string, operator<
 
+#include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
+#include "modules.h"            // for CommodityRule, Commodity, Constructio...
 
 class MarketConstructionGroup: public ConstructionGroup {
 public:

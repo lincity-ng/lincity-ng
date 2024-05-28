@@ -15,45 +15,50 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "MiniMap.hpp"
-#include "GameView.hpp"
-#include "MainLincity.hpp"
-#include "PBar.hpp"
 
-#include "gui/Painter.hpp"
-#include "gui/Button.hpp"
-#include "gui/Rect2D.hpp"
-#include "gui/ComponentFactory.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/Event.hpp"
-#include "gui/SwitchComponent.hpp"
-#include "gui_interface/mps.h"
+#include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for sscanf, size_t
+#include <string.h>                        // for strcmp, strlen
+#include <algorithm>                       // for max
+#include <array>                           // for array
+#include <iostream>                        // for basic_ostream, operator<<
+#include <sstream>                         // for basic_stringstream
+#include <stdexcept>                       // for runtime_error
 
-#include "lincity/lin-city.h"
-#include "lincity/engglobs.h"
-#include "lincity/lctypes.h"
-//#include "lincity/range.h"
-#include "lincity/all_buildings.h"
-#include "lincity/transport.h"
-#include "lincity/modules/all_modules.h"
-
-#include "gui/callback/Callback.hpp"
-
-#include "gui_interface/shared_globals.h"
-#include "gui_interface/screen_interface.h"
-
-#include <set>
-#include <iostream>
-
-#include "Debug.hpp"
-#include "Util.hpp"
-#include "Mps.hpp"
-#include "CheckButton.hpp"
-#include "Dialog.hpp"
-#include "Game.hpp"
-#include "HelpWindow.hpp"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "Dialog.hpp"                      // for ASK_COAL_SURVEY, Dialog
+#include "Game.hpp"                        // for getGame, Game
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "MainLincity.hpp"                 // for setLincitySpeed
+#include "Mps.hpp"                         // for mps_x, mps_y, mps_style
+#include "PBar.hpp"                        // for pbarGlobalStyle, PBAR_GLOB...
+#include "Util.hpp"                        // for getCheckButton, getSwitchC...
+#include "gui/Button.hpp"                  // for Button
+#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Event.hpp"                   // for Event
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/SwitchComponent.hpp"         // for SwitchComponent
+#include "gui/Texture.hpp"                 // for Texture
+#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/mps.h"             // for mps_set, mps_global_style
+#include "gui_interface/pbar_interface.h"  // for refresh_pbars
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "lincity/all_buildings.h"         // for COAL_RESERVE_SIZE
+#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/engglobs.h"              // for world, coal_survey_done
+#include "lincity/groups.h"                // for GROUP_POWER_LINE, GROUP_FIRE
+#include "lincity/lin-city.h"              // for FLAG_IS_TRANSPORT, SLOW_TI...
+#include "lincity/lintypes.h"              // for Construction, Construction...
+#include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
+#include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
+#include "lincity/world.h"                 // for World, MapTile
 
 
 /** List of mapview buttons. The "" entries separate mapview buttons that are

@@ -8,6 +8,8 @@
 
 #include "solar_power.h"
 
+#include "modules.h"
+
 
 // SolarPower:
 SolarPowerConstructionGroup solarPowerConstructionGroup(

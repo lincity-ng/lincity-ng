@@ -15,26 +15,33 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Sound.hpp"
-#include "Game.hpp"
 
-#include <assert.h>
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <stdexcept>
-#include <math.h>
+#include <SDL.h>                       // for SDL_GetError, SDL_CreateThread
+#include <SDL_mixer.h>                 // for Mix_Volume, Mix_FreeMusic, Mix...
+#include <assert.h>                    // for assert
+#include <physfs.h>                    // for PHYSFS_stat, PHYSFS_FileType
+#include <stdio.h>                     // for NULL, size_t, fprintf, stderr
+#include <stdlib.h>                    // for strtod, rand
+#include <string.h>                    // for strcmp
+#include <cmath>                       // for round
+#include <iostream>                    // for basic_ostream, operator<<, endl
+#include <utility>                     // for pair
+#include <vector>                      // for vector
 
-#include "gui/XmlReader.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
+#include "Config.hpp"                  // for getConfig, Config
+#include "Game.hpp"                    // for getGame
+#include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
+#include "gui/XmlReader.hpp"           // for XmlReader
+#include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
+#include "lincity/engglobs.h"          // for tech_level
+#include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
+#include "lincity/resources.hpp"       // for ResourceGroup
 
-#include <SDL_mixer.h>
-#include <physfs.h>
-#include "Config.hpp"
-#include "lincity/engglobs.h"
-#include "lincity/modules/all_modules.h"
+#ifdef DEBUG
+#include <stdexcept>                   // for runtime_error
+#endif
 
 Sound* soundPtr = 0;
 
@@ -116,6 +123,10 @@ Sound::loadWaves() {
                 fullname = directory + key;
                 file = getPhysfsSDLRWops( fullname.c_str() );
                 chunk = Mix_LoadWAV_RW( file, 1);
+                if(!chunk) {
+                    std::cerr << "warning: failed to load sound '" << key
+                        << "': " << Mix_GetError() << std::endl;
+                }
                 if (resourceID_level && resGrpVec.size())
                 {
                     for(size_t i=0; i< resGrpVec.size(); ++i)

@@ -16,9 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#include "PhysfsSDL.hpp"
-
-#include <physfs.h>
+#include <physfs.h>  // for PHYSFS_getErrorByCode, PHYSFS_getLastErrorCode
 
 const char *getPhysfsLastError() {
   PHYSFS_ErrorCode lastError = PHYSFS_getLastErrorCode();

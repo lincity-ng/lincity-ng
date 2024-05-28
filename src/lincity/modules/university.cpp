@@ -7,6 +7,8 @@
 
 #include "university.h"
 
+#include "modules.h"
+
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
     N_("University"),

@@ -16,11 +16,14 @@
 #define MAX_JOBS_AT_COALPS (20 * JOBS_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
+#include <cstdlib>             // for NULL
+#include <array>               // for array
+#include <iterator>            // for advance
+#include <list>                // for _List_iterator, list, operator!=
+#include <map>                 // for map
+#include <string>              // for basic_string, operator<
 
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-
 
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:

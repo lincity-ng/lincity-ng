@@ -24,11 +24,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __IMAGE_HPP__
 #define __IMAGE_HPP__
 
-#include "Component.hpp"
-#include <memory>
+#include <string>         // for string, basic_string
 
-class XmlReader;
+#include "Component.hpp"  // for Component
+
+class Painter;
 class Texture;
+class XmlReader;
 
 /**
  * @class Image
@@ -57,4 +59,3 @@ private:
 
 
 /** @file gui/Image.hpp */
-

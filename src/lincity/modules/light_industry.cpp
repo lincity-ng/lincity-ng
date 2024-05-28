@@ -5,8 +5,12 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "light_industry.h"
+
+#include <stdlib.h>                 // for rand
+#include <vector>                   // for vector
+
+#include "modules.h"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(

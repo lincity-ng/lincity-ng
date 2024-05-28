@@ -1,9 +1,10 @@
 #ifndef ALL_MODULES_H
 #define ALL_MODULES_H
 
+// IWYU pragma: begin_exports
 #include "blacksmith.h"
-#include "coalmine.h"
 #include "coal_power.h"
+#include "coalmine.h"
 #include "commune.h"
 #include "cricket.h"
 #include "fire.h"
@@ -11,6 +12,7 @@
 #include "health_centre.h"
 #include "heavy_industry.h"
 #include "light_industry.h"
+#include "market.h"
 #include "mill.h"
 #include "monument.h"
 #include "oremine.h"
@@ -33,10 +35,10 @@
 //#include "track.h" //superseeded by track_road_rail_powerline.h
 #include "university.h"
 #include "water.h"
+#include "waterwell.h"
 #include "windmill.h"
 #include "windpower.h"
-#include "market.h"
-#include "waterwell.h"
+// IWYU pragma: end_exports
 
 void initializeModules();
 
@@ -44,4 +46,3 @@ void initializeModules();
 
 
 /** @file lincity/modules/all_modules.h */
-

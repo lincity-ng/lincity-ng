@@ -6,7 +6,11 @@
  * ---------------------------------------------------------------------- */
 
 #include "monument.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "modules.h"
 
 extern int mps_x, mps_y;
 

@@ -15,42 +15,51 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
-#include <memory>
-#include <new>
-#include <physfs.h>
-#include <SDL.h>
-#include <SDL_opengl.h>
-#include <SDL_ttf.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <libxml/parser.h>
-
-#include "gui/FontManager.hpp"
-#include "gui/TextureManager.hpp"
-#include "gui/PainterSDL/TextureManagerSDL.hpp"
-#include "gui/PainterSDL/PainterSDL.hpp"
-#include "gui/PainterGL/TextureManagerGL.hpp"
-#include "gui/PainterGL/PainterGL.hpp"
 
 #include "main.hpp"
-#include "MainLincity.hpp"
-#include "MainMenu.hpp"
-#include "Game.hpp"
-#include "Sound.hpp"
-#include "Config.hpp"
-#include "lcerror.hpp"
-#include "PBar.hpp"
-#include "lincity/loadsave.h"
-#include "lincity/engglobs.h"
-#include "lincity/lin-city.h"
-#include "lincity/init_game.h"
-#include "PhysfsStream/PhysfsError.hpp"
 
+#include <SDL.h>                                 // for SDL_Init, SDL_Quit
+#include <SDL_mixer.h>                           // for Mix_HookMusicFinished
+#include <SDL_opengl.h>                          // for glDisable, glLoadIde...
+#include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
+#include <assert.h>                              // for assert
+#include <config.h>                              // for PACKAGE_NAME, PACKAG...
+#include <libxml/parser.h>                       // for xmlCleanupParser
+#include <physfs.h>                              // for PHYSFS_mount, PHYSFS...
+#include <stdio.h>                               // for fprintf, printf, spr...
+#include <stdlib.h>                              // for exit, malloc, free
+#include <string.h>                              // for strlen, strncmp, strdup
+#include <unistd.h>                              // for NULL, execlp
+#include <iostream>                              // for operator<<, basic_os...
+#include <memory>                                // for allocator, unique_ptr
+#include <sstream>                               // for basic_ostringstream
+#include <stdexcept>                             // for runtime_error
+#include <string>                                // for char_traits, basic_s...
+
+#include "Config.hpp"                            // for getConfig, Config
+#include "Game.hpp"                              // for Game
+#include "MainLincity.hpp"                       // for initLincity
+#include "MainMenu.hpp"                          // for MainMenu
+#include "PBar.hpp"                              // for LCPBarPage1, LCPBarP...
+#include "PhysfsStream/PhysfsError.hpp"          // for getPhysfsLastError
+#include "Sound.hpp"                             // for Sound, getSound, Mus...
+#include "gui/FontManager.hpp"                   // for FontManager, fontMan...
+#include "gui/Painter.hpp"                       // for Painter
+#include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
+#include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
+#include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
+#include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
+#include "gui/TextureManager.hpp"                // for texture_manager, Tex...
+#include "lc_error.h"                            // for HANDLE_ERRNO
+#include "lincity/engglobs.h"                    // for fast_time_for_year
+#include "lincity/init_game.h"                   // for destroy_game
+#include "lincity/lin-city.h"                    // for FAST_TIME_FOR_YEAR
+#include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
+#include "tinygettext/tinygettext.hpp"           // for DictionaryManager
+
+#ifndef DEBUG
+#include <exception>                             // for exception
+#endif
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
@@ -64,6 +73,15 @@ const char *appdatadir;
      extern char *getBundleSharePath(char *packageName);
 #endif
 
+#ifdef WIN32
+static char *strndup(const char *s, size_t n) {
+  n = strnlen(s, n);
+  char *d;
+  if(d = (char *)malloc((n + 1) * sizeof(char)))
+    strncpy(d, s, n);
+  return d;
+}
+#endif
 
 /**
  * Computes the path of the root of `subtrahend` relative to the root of

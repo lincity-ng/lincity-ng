@@ -22,10 +22,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "Image.hpp"
-#include "XmlReader.hpp"
-#include "TextureManager.hpp"
-#include "ComponentFactory.hpp"
-#include "Painter.hpp"
+
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <iostream>              // for operator<<, basic_ostream, basic_ios
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
+#include "Texture.hpp"           // for Texture
+#include "TextureManager.hpp"    // for TextureManager, texture_manager
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 Image::Image()
     : texture(0)
@@ -136,4 +146,3 @@ IMPLEMENT_COMPONENT_FACTORY(Image)
 
 
 /** @file gui/Image.cpp */
-

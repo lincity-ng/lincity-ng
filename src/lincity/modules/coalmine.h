@@ -18,11 +18,10 @@
 
 #define TARGET_COAL_LEVEL 80
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-
-
 
 class CoalmineConstructionGroup: public ConstructionGroup {
 public:

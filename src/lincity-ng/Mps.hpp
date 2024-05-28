@@ -18,10 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_mps_h__
 #define __lc_mps_h__
 
-#include "gui/Component.hpp"
-#include "MapPoint.hpp"
-#include "gui_interface/mps.h"
+#include <string>               // for string
+#include <vector>               // for vector
 
+#include "gui/Component.hpp"    // for Component
+#include "gui_interface/mps.h"  // for MPS_MAP
+
+class MapPoint;
 class XmlReader;
 
 void mps_update(int mps_x, int mps_y, int mps_style);
@@ -61,4 +64,3 @@ extern Mps* envMPS;
 #endif
 
 /** @file lincity-ng/Mps.hpp */
-

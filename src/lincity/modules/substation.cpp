@@ -6,7 +6,12 @@
  * ---------------------------------------------------------------------- */
 
 #include "substation.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+#include <string>                   // for basic_string, operator<
+
+#include "modules.h"
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),

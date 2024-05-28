@@ -7,35 +7,31 @@
  * and convert them to new format + data structure
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <zlib.h>
-#include <iostream>
-#include "tinygettext/gettext.hpp"
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/shared_globals.h"
-#include "stats.h"
-#include "init_game.h"
-#include "all_buildings.h"
-#include "modules/all_modules.h"
+#include <stdio.h>                         // for sscanf, fprintf, printf
+#include <zlib.h>                          // for gzgets, gzclose, gzopen
 
-#include <fcntl.h>
-#include <sys/types.h>
+#include "engglobs.h"                      // for world, ldsv_version, tech_...
+#include "groups.h"                        // for GROUP_COAL_POWER, GROUP_IN...
+#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
+#include "init_game.h"                     // for setup_land
+#include "lintypes.h"                      // for MapTile, Ground, get_group...
+#include "modules/all_modules.h"           // for MODERN_WINDMILL_TECH
+#include "stats.h"                         // for init_inventory, tpopulation
+#include "tinygettext/gettext.hpp"         // for _
+#include "world.h"                         // for World
 
 #if defined (TIME_WITH_SYS_TIME)
-#include <time.h>
 #include <sys/time.h>
+#include <time.h>
 #else
 #if defined (HAVE_SYS_TIME_H)
 #include <sys/time.h>
 #else
-#include <time.h>
 #endif
 #endif
 
-#include <cstdlib>
-#include <string.h>
-#include <math.h>
+#include <string.h>                        // for strncmp, strlen
+#include <cstdlib>                         // for rand, NULL
 /*
 #if defined (WIN32)
 #include <winsock.h>
@@ -50,6 +46,7 @@
 
 #if defined (HAVE_DIRENT_H)
 #include <dirent.h>
+
 #define NAMLEN(dirent) strlen((dirent)->d_name)
 #else
 #define dirent direct
@@ -65,25 +62,13 @@
 #endif
 #endif
 
-#include <ctype.h>
-//#include "common.h"
-/*
-#ifdef LC_X11
-#include <X11/cursorfont.h>
-#endif
-*/
-#include "lctypes.h"
-#include "lin-city.h"
-#include "engglobs.h"
+#include "../lincity-ng/Config.hpp"        // for getConfig, Config
 //#include "power.h"
-#include "gui_interface/pbar_interface.h"
-#include "lincity-ng/ErrorInterface.hpp"
-#include "stats.h"
+#include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, init_pbars
+#include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
+#include "lincity-ng/ErrorInterface.hpp"   // for do_error
+#include "loadsave.h"                      // for given_scene, WATERWELL_V2
 #include "old_ldsvguts.h"
-#include "loadsave.h"
-#include "simulate.h"
-#include "engine.h"
-#include "../lincity-ng/Config.hpp"
 //#include "modules/market.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
@@ -216,13 +201,13 @@ void load_city_old(char *cname)
             world(x, y)->pollution = (unsigned short)n;
             sscanf(gzgets(gzfile, s, 256), "%d", &n);
             world(x, y)->type = (short)n;
+            world(x, y)->group = get_group_of_type(n);
 
         }
         if (((93 * x) / world.len()) % 3 == 0)
             prog_box("", (93 * x) / world.len());
     }
     check_endian();
-    set_map_groups();
 
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originx);
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);

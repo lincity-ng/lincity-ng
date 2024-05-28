@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAP_EDIT_HPP__
 #define __MAP_EDIT_HPP__
 
-#include "MapPoint.hpp"
+class MapPoint;
 
 void editMap(MapPoint point, int button);
 void check_bulldoze_area (int x, int y);
@@ -32,4 +32,3 @@ extern int build_bridge_flag;
 #endif
 
 /** @file lincity-ng/MapEdit.hpp */
-
