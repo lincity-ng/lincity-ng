@@ -1133,6 +1133,8 @@ void GameView::resize(float newwidth , float newheight )
 {
     width = newwidth;
     height = newheight;
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     requestRedraw();
 }
 

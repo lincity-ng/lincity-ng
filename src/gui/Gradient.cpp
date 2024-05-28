@@ -86,6 +86,8 @@ void
 Gradient::resize(float width, float height)
 {
     assert(direction == LEFT_RIGHT || direction == TOP_BOTTOM);
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     float w = direction == LEFT_RIGHT ? width : height;
     float dr = ((float) to.r - (float) from.r) / w;
     float dg = ((float) to.g - (float) from.g) / w;

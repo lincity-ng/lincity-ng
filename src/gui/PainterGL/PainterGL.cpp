@@ -33,18 +33,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class Painter;
 
+static void checkGlErrors();
+
 PainterGL::PainterGL(SDL_Window* _window)
     : window(_window)
 {
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    checkGlErrors();
 }
 
 PainterGL::~PainterGL()
 {
     glDisable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -66,12 +70,14 @@ PainterGL::drawTextureRect(const Texture* texture, const Rect2D& rect)
     glTexCoord2f(r.p2.x, r.p1.y);
     glVertex3f(rect.p2.x, rect.p1.y, 0);
     glEnd();
+    checkGlErrors();
 }
 void
 PainterGL::drawTexture(const Texture* texture, const Vector2& pos)
 {
     Rect2D rect(pos, pos + Vector2(texture->getWidth(), texture->getHeight()));
     drawTextureRect(texture, rect);
+    checkGlErrors();
 }
 
 void
@@ -87,6 +93,7 @@ PainterGL::drawStretchTexture(Texture* texture, const Rect2D& rect)
         return;
     }
     drawTextureRect(texture, rect);
+    checkGlErrors();
 }
 
 void
@@ -101,6 +108,7 @@ PainterGL::drawLine( const Vector2 pointA, const Vector2 pointB )
     glEnd();
 
     glEnable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -119,6 +127,7 @@ PainterGL::fillRectangle(const Rect2D& rect)
     glEnd();
 
     glEnable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -135,6 +144,7 @@ PainterGL::drawRectangle(const Rect2D& rect)
     glEnd();
 
     glEnable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -149,6 +159,7 @@ PainterGL::fillPolygon(int numberPoints, const Vector2* points)
     glEnd();
 
     glEnable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -163,6 +174,7 @@ PainterGL::drawPolygon(int numberPoints, const Vector2* points)
     glEnd();
 
     glEnable(GL_TEXTURE_2D);
+    checkGlErrors();
 }
 
 void
@@ -181,6 +193,7 @@ void
 PainterGL::translate(const Vector2& vec)
 {
     glTranslatef(vec.x, vec.y, 0);
+    checkGlErrors();
 }
 
 void
@@ -188,6 +201,7 @@ PainterGL::pushTransform()
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    checkGlErrors();
 }
 
 void
@@ -195,25 +209,33 @@ PainterGL::popTransform()
 {
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+    checkGlErrors();
 }
 
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
     GLfloat matrix[16];
+    checkGlErrors();
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
 
     int screenWidth = 0, screenHeight = 0;
+    checkGlErrors();
     SDL_GetWindowSize(window, &screenWidth, &screenHeight);
+    checkGlErrors();
     glViewport((GLint) (rect.p1.x + matrix[12]),
                (GLint) (screenHeight - rect.getHeight() - (rect.p1.y + matrix[13])),
                (GLsizei) rect.getWidth(),
                (GLsizei) rect.getHeight());
+    checkGlErrors();
     glMatrixMode(GL_PROJECTION);
+    checkGlErrors();
     glLoadIdentity();
+    checkGlErrors();
     glOrtho(rect.p1.x + matrix[12], rect.p1.x + matrix[12] + rect.getWidth(),
             rect.p1.y + matrix[13] + rect.getHeight(),
             rect.p1.y + matrix[13], -1, 1);
+    checkGlErrors();
 }
 
 void
@@ -225,6 +247,7 @@ PainterGL::clearClipRectangle()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, width, height, 0, -1, 1);
+    checkGlErrors();
 }
 
 Painter*
@@ -236,7 +259,7 @@ PainterGL::createTexturePainter(Texture* texture)
 }
 
 
-void checkGlErrors()
+static void checkGlErrors()
 {
     GLenum glerror = glGetError();
     if( glerror == GL_NO_ERROR ){
@@ -273,6 +296,7 @@ void checkGlErrors()
         glerror = glGetError();
     }
     std::cerr << "\n";
+    std::cerr << "";
 }
 
 void
@@ -280,6 +304,7 @@ PainterGL::updateScreen()
 {
     checkGlErrors();
     SDL_GL_SwapWindow(window);
+    checkGlErrors();
 }
 
 /** @file gui/PainterGL/PainterGL.cpp */

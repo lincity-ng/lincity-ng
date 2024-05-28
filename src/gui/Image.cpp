@@ -117,6 +117,8 @@ Image::parse(XmlReader& reader)
 void
 Image::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 }

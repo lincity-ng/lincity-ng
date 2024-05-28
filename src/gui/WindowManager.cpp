@@ -54,6 +54,8 @@ WindowManager::parse(XmlReader& reader) {
 
 void
 WindowManager::resize(float width, float height) {
+  if(width < 0) width = 0;
+  if(height < 0) height = 0;
   size = Vector2(width, height);
   for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
     Child &child = *i;
@@ -62,6 +64,7 @@ WindowManager::resize(float width, float height) {
     child.setPos(childPos.constrain(Rect2D(Vector2(), size - window->size)));
     window->size.constrain(Rect2D(Vector2(), size));
     window->reLayout();
+    // TODO: honor minimum sizes of children
   }
 }
 
