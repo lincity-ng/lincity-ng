@@ -20,12 +20,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>  // for string
 
-#include "gui/WindowManager.hpp"
-
 class Button;
-class Component;
-class Desktop;
 class Window;
+class WindowManager;
 
 #define BULLDOZE_MONUMENT 1
 #define BULLDOZE_RIVER    2

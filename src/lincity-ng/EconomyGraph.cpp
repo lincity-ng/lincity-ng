@@ -18,21 +18,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "EconomyGraph.hpp"
 
-#include <SDL.h>                   // for SDL_Surface
+#include <SDL.h>                           // for SDL_Surface
 #include <SDL_ttf.h>                       // for TTF_RenderUTF8_Blended
 #include <stdio.h>                         // for sscanf, NULL
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strcmp
 #include <cmath>                           // for log
 #include <exception>                       // for exception
-#include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_stringstream, basic_...
+#include <iostream>                        // for operator<<, basic_ostream
+#include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
 #include "CheckButton.hpp"                 // for CheckButton
 #include "Config.hpp"                      // for getConfig, Config
 #include "Dialog.hpp"                      // for Dialog, MSG_DIALOG
-#include "ScreenInterface.hpp"             // for updateMessageText
 #include "Util.hpp"                        // for getCheckButton
 #include "gui/Color.hpp"                   // for Color
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY

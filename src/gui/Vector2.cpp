@@ -1,5 +1,6 @@
 
 #include "Vector2.hpp"
+
 #include "Rect2D.hpp"
 
 const Vector2&

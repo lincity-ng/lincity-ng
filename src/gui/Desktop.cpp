@@ -23,12 +23,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Desktop.hpp"
 
-#include <assert.h>             // for assert
+#include <SDL.h>                // for SDL_GetDefaultCursor, SDL_SystemCursor
 #include <libxml/xmlreader.h>   // for XML_READER_TYPE_ELEMENT
-#include <iostream>             // for char_traits, operator<<, basic_ostream
-#include <SDL.h>
+#include <stddef.h>             // for NULL
+#include <iostream>             // for basic_ostream, operator<<, cerr
 #include <stdexcept>            // for runtime_error
-#include <string>               // for basic_string, operator==, string
+#include <string>               // for char_traits, basic_string, operator==
 
 #include "Child.hpp"            // for Childs, Child
 #include "ComponentLoader.hpp"  // for createComponent

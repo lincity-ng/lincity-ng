@@ -25,8 +25,6 @@
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
-#include <math.h>
-
 class Rect2D;
 
 /**

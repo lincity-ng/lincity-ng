@@ -32,9 +32,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"              // for Desktop
 #include "gui/Document.hpp"             // for Document
 #include "gui/ScrollView.hpp"           // for ScrollView
+#include "gui/Window.hpp"               // for Window
+#include "gui/WindowManager.hpp"        // for WindowManager
 #include "gui/callback/Callback.hpp"    // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"      // for Signal
-#include "gui/WindowManager.hpp"
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 

@@ -1,11 +1,18 @@
 
 #include "WindowManager.hpp"
 
-#include <iostream>
+#include <SDL.h>                 // for SDL_BUTTON_LEFT, SDL_SYSTEM_CURSOR_S...
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <iostream>              // for char_traits, basic_ostream, operator<<
+#include <stdexcept>             // for runtime_error
+#include <string>                // for basic_string, operator<<, string
 
-#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
-#include "Desktop.hpp"
-#include "XmlReader.hpp"
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Desktop.hpp"           // for Desktop
+#include "Event.hpp"             // for Event
+#include "Rect2D.hpp"            // for Rect2D
+#include "Window.hpp"            // for Window
+#include "XmlReader.hpp"         // for XmlReader
 
 // some macros to reduce code duplication when using Vector2
 #define AXIS(P, X, Y) (AXISID?(P Y):(P X))

@@ -24,9 +24,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DESKTOP_HPP__
 #define __DESKTOP_HPP__
 
+#include <SDL.h>
 #include <vector>         // for vector
 
-#include <SDL.h>
 #include "Component.hpp"  // for Component
 #include "Rect2D.hpp"     // for Rect2D
 #include "Vector2.hpp"    // for Vector2

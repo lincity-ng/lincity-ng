@@ -18,13 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScreenInterface.hpp"
 
-#include <assert.h>                          // for assert
 #include <errno.h>                           // for errno
 #include <stdlib.h>                          // for abs, malloc
 #include <exception>                         // for exception
 #include <iomanip>                           // for operator<<, setfill, setw
 #include <iostream>                          // for basic_ostream, operator<<
 #include <sstream>                           // for basic_ostringstream
+#include <string>                            // for char_traits, basic_string
 
 #include "ButtonPanel.hpp"                   // for getButtonPanel, ButtonPanel
 #include "Config.hpp"                        // for getConfig, Config
@@ -33,8 +33,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "GameView.hpp"                      // for getGameView, GameView
 #include "Util.hpp"                          // for getParagraph
 #include "gui/Component.hpp"                 // for Component
-#include "gui/ComponentLoader.hpp"           // for loadGUIFile
-#include "gui/Desktop.hpp"                   // for Desktop
 #include "gui/Paragraph.hpp"                 // for Paragraph
 #include "gui_interface/mps.h"               // for mps_refresh
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph

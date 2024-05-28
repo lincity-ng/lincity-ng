@@ -27,22 +27,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
 #include <stdio.h>                // for sscanf
 #include <string.h>               // for strcmp
-#include <iostream>               // for char_traits, basic_ostream, operator<<
-#include <memory>                 // for allocator, unique_ptr
+#include <iostream>               // for basic_ostream, operator<<, stringst...
+#include <memory>                 // for unique_ptr
 #include <sstream>                // for basic_stringstream
 #include <stdexcept>              // for runtime_error
-#include <string>                 // for basic_string, operator==, operator<<
+#include <string>                 // for char_traits, basic_string, operator==
 
 #include "Button.hpp"             // for Button
 #include "Color.hpp"              // for Color
 #include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
 #include "ComponentLoader.hpp"    // for parseEmbeddedComponent
-#include "Desktop.hpp"            // for Desktop
-#include "Event.hpp"              // for Event
 #include "Painter.hpp"            // for Painter
 #include "Rect2D.hpp"             // for Rect2D
+#include "Vector2.hpp"            // for Vector2
+#include "WindowManager.hpp"      // for WindowManager
 #include "XmlReader.hpp"          // for XmlReader
-#include "WindowManager.hpp"
 #include "callback/Callback.hpp"  // for makeCallback, Callback
 #include "callback/Signal.hpp"    // for Signal
 

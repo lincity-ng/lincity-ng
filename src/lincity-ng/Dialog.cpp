@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for snprintf, sprintf
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strlen
-#include <algorithm>                       // for copy, max
+#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <exception>                       // for exception
 #include <fstream>                         // for basic_ostream, operator<<
@@ -43,8 +43,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"                  // for Button
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
-#include "gui/Desktop.hpp"                 // for Desktop
 #include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Window.hpp"                  // for Window
+#include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh

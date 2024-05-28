@@ -1,16 +1,15 @@
 #ifndef __WINDOW_MANAGER_HPP__
 #define __WINDOW_MANAGER_HPP__
 
+#include <stddef.h>       // for NULL
 #include <vector>         // for vector
 
-#include <SDL.h>
+#include "Child.hpp"      // for Child
 #include "Component.hpp"  // for Component
-#include "Rect2D.hpp"     // for Rect2D
 #include "Vector2.hpp"    // for Vector2
-#include "Window.hpp"
 
 class Event;
-class Painter;
+class Window;
 class XmlReader;
 
 class WindowManager : public Component
