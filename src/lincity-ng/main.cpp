@@ -348,12 +348,12 @@ void videoSizeChanged(int width, int height) {
 }
 void resizeVideo(int width, int height, bool fullscreen)
 {
-    SDL_SetWindowSize(window, width, height);
     // Set fullscreen (video mode change)
     if (fullscreen) {
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     } else {
         SDL_SetWindowFullscreen(window, 0);
+        SDL_SetWindowSize(window, width, height);
     }
 }
 

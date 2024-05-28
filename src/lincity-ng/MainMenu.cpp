@@ -588,12 +588,13 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         }
         else
         {
-            int width = 0, height = 0;
-            SDL_GetWindowSize(window, &width, &height);
-            resizeVideo(width, height, getConfig()->useFullScreen);
-            // switching to fullscreen may change window size again
-            SDL_GetWindowSize(window, &width, &height);
-            currentMenu->resize(width, height);
+            resizeVideo(
+              getConfig()->videoX,
+              getConfig()->videoY,
+              getConfig()->useFullScreen
+            );
+            // switching to/from fullscreen may change the window size
+            // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
             loadOptionsMenu();
         }
     } else if( buttonName == "TrackPrev"){
