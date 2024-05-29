@@ -81,12 +81,13 @@ WindowManager::event(const Event& event) {
     dragEdge = Edge::NONE;
     desktop->tryClearCursor(this);
   }
-  else if(event.type == Event::MOUSEBUTTONUP
-    && dragEdge == Edge::NSWE && hasMoved
-  ) {
-    desktop->tryClearCursor(this);
-    hasMoved = false;
-    visible = false;
+  else if(event.type == Event::MOUSEBUTTONUP) {
+    if(dragEdge == Edge::NSWE && hasMoved) {
+      desktop->tryClearCursor(this);
+      hasMoved = false;
+      visible = false;
+    }
+    dragging = false;
   }
 
   for(Childs::reverse_iterator i = childs.rbegin(); i != childs.rend(); ++i) {
@@ -107,6 +108,7 @@ WindowManager::event(const Event& event) {
         if(!(dragEdge & Edge::N)) {
           dragOffset.y += window->getSize().y;
         }
+        dragging = true;
         hasMoved = false;
       }
 
@@ -116,7 +118,7 @@ WindowManager::event(const Event& event) {
       break;
 
     case Event::MOUSEMOTION: {
-      if(event.mousebuttonstate) {
+      if(dragging && dragWindow == window) {
         if(dragEdge == Edge::NSWE) {
           // move the window
           Vector2 pos = event.mousepos + dragOffset;
@@ -155,7 +157,7 @@ WindowManager::event(const Event& event) {
           setDirty();
         }
       }
-      else {
+      else if(!dragging) {
         Edge edge = visible ? edgeAt(child, event.mousepos) : Edge::NONE;
         if(!edge && window == dragWindow) {
           dragWindow = NULL;
@@ -167,8 +169,6 @@ WindowManager::event(const Event& event) {
           dragEdge = edge;
           int cursorId = SDL_SYSTEM_CURSOR_SIZENWSE;
           switch(dragEdge) {
-          case Edge::NSWE:
-            cursorId++;
           case Edge::N:
           case Edge::S:
             cursorId++;
@@ -178,8 +178,10 @@ WindowManager::event(const Event& event) {
           case Edge::NE:
           case Edge::SW:
             cursorId++;
+          case Edge::NW:
+          case Edge::SE:
+            desktop->setSystemCursor(this, (SDL_SystemCursor)cursorId);
           }
-          desktop->setSystemCursor(this, (SDL_SystemCursor)cursorId);
         }
       }
     }
@@ -191,8 +193,9 @@ WindowManager::event(const Event& event) {
 
     if(window == dragWindow && dragEdge != Edge::NSWE)
       visible = false;
-
     if(eventChild(child, event, visible))
+      visible = false;
+    if(window == dragWindow)
       visible = false;
   }
   unlockChilds();
@@ -200,6 +203,9 @@ WindowManager::event(const Event& event) {
 
 bool
 WindowManager::opaque(const Vector2& pos) const {
+  if(dragging)
+    return true;
+
   for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
     const Child& child = *i;
     if(!child.getComponent() || !child.isEnabled())
@@ -235,12 +241,17 @@ WindowManager::edgeAt(const Child &child, Vector2 pos) const {
   pos -= child.getPos();
 
   int edge = Edge::NONE;
-  EACHAXIS({
-    if(XY(pos) >= -grabDist && XY(pos) < grabDist)
-      edge |= AXIS(Edge::,W,N);
-    else if(XY(size) - XY(pos) >= -grabDist && XY(size) - XY(pos) < grabDist)
-      edge |= AXIS(Edge::,E,S);
-  })
+  if(
+    pos.x >= -grabDist && pos.x - size.x < grabDist &&
+    pos.y >= -grabDist && pos.y - size.y < grabDist
+  ) {
+    EACHAXIS({
+      if(XY(pos) < grabDist)
+        edge |= AXIS(Edge::,W,N);
+      else if(XY(pos) - XY(size) >= -grabDist)
+        edge |= AXIS(Edge::,E,S);
+    })
+  }
 
   if(!edge && window->title().inside(pos))
     edge = Edge::NSWE;

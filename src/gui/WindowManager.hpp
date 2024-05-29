@@ -48,6 +48,7 @@ private:
     NSWE = N | S | W | E,
   };
   Edge edgeAt(const Child &child, Vector2 pos) const;
+  bool dragging = false;
   Window *dragWindow = NULL;
   Edge dragEdge = Edge::NONE;
   Vector2 dragOffset;
