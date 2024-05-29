@@ -4,7 +4,7 @@ Wooden windmills provide power for residences and farms. They enable the farmer 
 
 Providing power to residences makes the people there use more goods.
 
-Windmills also need manpower for producing power. If a windmill does not have enough jobs, it will produce less power and it will produce no power at all if it has no jobs.
+Windmills also need manpower for producing power. If a windmill does not have enough labor, it will produce less power and it will produce no power at all if it has no labor.
 
 There are two forms of windmills.
 
@@ -16,8 +16,8 @@ The type you get depends on your tech-level when you build it.
 
 SUBH: Formulas
 
-low tech: 10 jobs =&gt; 450 lo-volt + 4.5 lo-volt * tech
+low tech: 10 labor =&gt; 450 lo-volt + 4.5 lo-volt * tech
 
-high tech: 15 jobs =&gt; 450 hi-volt + 4.5 hi-volt * tech
+high tech: 15 labor =&gt; 450 hi-volt + 4.5 hi-volt * tech
 
 ALSO[See also:]: power, substation, powerline, tech-level, msb-power, powerscoal, powerssolar

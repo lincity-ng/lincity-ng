@@ -25,8 +25,8 @@ enum VehicleModel
 
 enum VehicleStrategy
 {
-    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_JOBS
-    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_JOBS
+    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_LABOR
+    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_LABOR
     VEHICLE_STRATEGY_RANDOM    //just do a random walk
 };
 

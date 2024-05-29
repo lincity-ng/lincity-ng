@@ -7,9 +7,9 @@
 #define GROUP_MONUMENT_RANGE  0
 #define GROUP_MONUMENT_SIZE  2
 
-#define BUILD_MONUMENT_JOBS     350000
-#define MONUMENT_GET_JOBS       100
-#define MAX_JOBS_AT_MONUMENT    (MONUMENT_GET_JOBS*20)
+#define BUILD_MONUMENT_LABOR     350000
+#define MONUMENT_GET_LABOR       100
+#define MAX_LABOR_AT_MONUMENT    (MONUMENT_GET_LABOR*20)
 #define MONUMENT_DAYS_PER_TECH  3
 #define MONUMENT_TECH_EXPIRE    400
 //#define MONUMENT_ANIM_SPEED     300 //actually used?
@@ -32,9 +32,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MONUMENT;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_MONUMENT;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
 
     }
     // overriding method that creates a monument
@@ -59,11 +59,11 @@ public:
         this->completion = 0;
         setMemberSaved(&this->completion, "completion");
         this->completed = false; //don't save this one
-        this->jobs_consumed = 0;
-        setMemberSaved(&this->jobs_consumed, "jobs_consumed");
+        this->labor_consumed = 0;
+        setMemberSaved(&this->labor_consumed, "jobs_consumed");
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * MONUMENT_GET_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * MONUMENT_GET_LABOR;
     }
 
     virtual ~Monument() { }
@@ -76,7 +76,7 @@ public:
     int  tail_off;
     int  completion;
     bool completed;
-    int  jobs_consumed;
+    int  labor_consumed;
 };
 
 /** @file lincity/modules/monument.h */

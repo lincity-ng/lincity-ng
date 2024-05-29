@@ -4,7 +4,7 @@ There are three types of transport in Lincity: tracks, roads and railways.
 
 There is a fourth form that consists of 'hopping across a field' to reach a market. This is a very short range form of trading and will not be referred to as transport again. However, it is very important, so you should read again <a href="market"> markets</a>.
 
-Tracks, roads and railways are used to carry food, jobs, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:
+Tracks, roads and railways are used to carry food, labor, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:
 
 The transportation network can pick up, distribute and deliever any kind of commodity, except for high-voltage power which are flowing in power lines. All steps to, inside and from the transportation network require direct adjacency. The market behaves differently.
 

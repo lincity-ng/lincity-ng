@@ -131,7 +131,7 @@ void
 MiniMap::toggleStuffID(int step)
 {
     static const Commodity commodities[]  =
-    {STUFF_FOOD,STUFF_JOBS,
+    {STUFF_FOOD,STUFF_LABOR,
     STUFF_COAL,STUFF_ORE,
     STUFF_GOODS,STUFF_STEEL,
     STUFF_WASTE,STUFF_LOVOLT,
@@ -967,7 +967,7 @@ Color MiniMap::getColor(int x,int y) const
         case UB40: {
             /* Display residence with un/employed people (red / green) == too many people here */
             int job_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_JOBS, -1):-1;
+            world(xx,yy)->reportingConstruction->tellstuff(STUFF_LABOR, -1):-1;
             if (job_level == -1) // Not a "jobby" place at all
             {
                 return makeGrey(getColorNormal(xx,yy));
@@ -983,7 +983,7 @@ Color MiniMap::getColor(int x,int y) const
                     //return Color(0,0xFF,0);
             }
 
-            /* display buildings with unsatisfied requests for jobs (yellow) == too few people here */
+            /* display buildings with unsatisfied requests for labor (yellow) == too few people here */
 
             else //not a residence
             {

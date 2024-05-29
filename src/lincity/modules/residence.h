@@ -111,7 +111,7 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LL_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
             break;
@@ -119,7 +119,7 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload = 20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_ML_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
             break;
@@ -127,7 +127,7 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload =  20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HL_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
             break;
@@ -135,7 +135,7 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
             break;
@@ -143,7 +143,7 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_MH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
             break;
@@ -151,15 +151,15 @@ public:
                 commodityRuleCount[STUFF_LOVOLT].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
+                commodityRuleCount[STUFF_LABOR].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
             break;
         }
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = false;
-        commodityRuleCount[STUFF_JOBS].take = false;
-        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_LABOR].take = false;
+        commodityRuleCount[STUFF_LABOR].give = true;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
         commodityRuleCount[STUFF_WASTE].take = false;
@@ -212,7 +212,7 @@ public:
         commodityMaxCons[STUFF_WATER] = 100 * max_population;
         commodityMaxCons[STUFF_LOVOLT] = 100 * (POWER_RES_OVERHEAD +
           (POWER_USE_PER_PERSON * max_population) + max_population/2);
-        commodityMaxProd[STUFF_JOBS] = 100 * (max_population * (
+        commodityMaxProd[STUFF_LABOR] = 100 * (max_population * (
             WORKING_POP_PERCENT + JOB_SWING +
             HC_WORKING_POP + HC_JOB_SWING +
             CRICKET_WORKING_POP + CRICKET_JOB_SWING)

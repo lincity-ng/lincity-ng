@@ -107,7 +107,7 @@ void Residence::update()
     int brm = 0, drm = 0;       /* birth/death rate modifier */
     /* birts = 1/(BASE_BR + brm) deaths = 1/(BASE_DR - drm)
     the different signs are intentional higher brm less a little less babys, higher drm much more deaths*/
-    bool cc = false;                 /* extra jobs from sports activity*/
+    bool cc = false;                 /* extra labor from sports activity*/
     int birth_flag = (FLAG_FED | FLAG_EMPLOYED);/* can we have babies*/
     bool extra_births = false;  /* full houses are more fertile*/
     bool hc = false;            /* have health cover ? */
@@ -181,16 +181,16 @@ void Residence::update()
         {   bad += 50;}
     }
 
-    /* now supply jobs and buy goods if employed */
-    const int& jobs_cap =
-      constructionGroup->commodityRuleCount[STUFF_JOBS].maxload;
+    /* now supply labor and buy goods if employed */
+    const int& labor_cap =
+      constructionGroup->commodityRuleCount[STUFF_LABOR].maxload;
     swing = JOB_SWING + (hc?HC_JOB_SWING:0) + (cc?CRICKET_JOB_SWING:0);
     int working_pop = WORKING_POP_PERCENT + (hc?HC_WORKING_POP:0) +
       (cc?CRICKET_WORKING_POP:0);
-    int swing_amt = swing * (jobs_cap - commodityCount[STUFF_JOBS]) / jobs_cap;
+    int swing_amt = swing * (labor_cap - commodityCount[STUFF_LABOR]) / labor_cap;
     int job_prod = local_population * (working_pop + swing_amt) / 100;
-    if (jobs_cap - commodityCount[STUFF_JOBS] >= job_prod) {
-        produceStuff(STUFF_JOBS, job_prod);
+    if (labor_cap - commodityCount[STUFF_LABOR] >= job_prod) {
+        produceStuff(STUFF_LABOR, job_prod);
         flags |= FLAG_EMPLOYED; //enable births
         good += 20;
         if ((commodityCount[STUFF_GOODS] >= local_population/4)

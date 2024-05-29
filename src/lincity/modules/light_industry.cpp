@@ -50,12 +50,12 @@ void IndustryLight::update()
 
     goods_today = 0;
 
-    // make some goods with jobs and ore
-    if ((commodityCount[STUFF_JOBS] >= (INDUSTRY_L_JOBS_USED + INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE))
+    // make some goods with labor and ore
+    if ((commodityCount[STUFF_LABOR] >= (INDUSTRY_L_LABOR_USED + INDUSTRY_L_LABOR_LOAD_ORE + LABOR_LOAD_ORE))
      && (commodityCount[STUFF_ORE] >= INDUSTRY_L_ORE_USED)
      && (commodityCount[STUFF_GOODS] + INDUSTRY_L_MAKE_GOODS <= MAX_GOODS_AT_INDUSTRY_L))
     {
-        consumeStuff(STUFF_JOBS, INDUSTRY_L_JOBS_USED + INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE);
+        consumeStuff(STUFF_LABOR, INDUSTRY_L_LABOR_USED + INDUSTRY_L_LABOR_LOAD_ORE + LABOR_LOAD_ORE);
         consumeStuff(STUFF_ORE, INDUSTRY_L_ORE_USED);
         goods_today = INDUSTRY_L_MAKE_GOODS;
         //make some pollution and waste
@@ -67,12 +67,12 @@ void IndustryLight::update()
             int excess = -levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_L);
             world(x,y)->pollution += excess;
         }
-        //now double goods_today if there are more jobs and steel
-        if ((commodityCount[STUFF_JOBS] >= (INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL))
+        //now double goods_today if there are more labor and steel
+        if ((commodityCount[STUFF_LABOR] >= (INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL))
          && (commodityCount[STUFF_STEEL] >= INDUSTRY_L_STEEL_USED )
         && (commodityCount[STUFF_GOODS] + 2 * goods_today <= MAX_GOODS_AT_INDUSTRY_L))
         {
-            consumeStuff(STUFF_JOBS, INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL);
+            consumeStuff(STUFF_LABOR, INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL);
             consumeStuff(STUFF_STEEL, INDUSTRY_L_STEEL_USED);
             goods_today *= 2;
         }

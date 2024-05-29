@@ -33,9 +33,9 @@
 #define COAL_RESERVE_SIZE 10000
 #define COAL_PER_RESERVE  1000
 
-#define JOBS_LOAD_COAL 18
-#define JOBS_LOAD_ORE  9
-#define JOBS_LOAD_STEEL 15
+#define LABOR_LOAD_COAL  18
+#define LABOR_LOAD_ORE    9
+#define LABOR_LOAD_STEEL 15
 
 //used on markets, transport, shanties when burning waste
 #define WASTE_BURN_TIME 350

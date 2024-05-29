@@ -23,16 +23,16 @@
 
 			<cell row="2" col="1">
 				<Paragraph style="message" translatable="yes">
-				Jobs</Paragraph>
+				Labor</Paragraph>
 			</cell>
 			<cell row="2" col="2">
-				<CheckButton name="BuyJobs">
+				<CheckButton name="BuyLabor">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="2" col="3">
-				<CheckButton name="SellJobs">
+				<CheckButton name="SellLabor">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>

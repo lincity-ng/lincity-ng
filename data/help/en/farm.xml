@@ -10,11 +10,11 @@
 
   <p style="hp">and this its icon</p>
    <img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
-	<p style="hp">Farms need jobs to produce more than a minimal amount of food. Providing elecricity (lo-volt) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption.</p>
+	<p style="hp">Farms need labor to produce more than a minimal amount of food. Providing elecricity (lo-volt) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption.</p>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">13 jobs + 50 lo-volt =&gt; 550 food + 5.5 food * tech</p>
-	<p style="hp">13 jobs =&gt; 132 food</p>
+	<p style="hp">13 labor + 50 lo-volt =&gt; 550 food + 5.5 food * tech</p>
+	<p style="hp">13 labor =&gt; 132 food</p>
 	<p style="hp">If a farm has less than 100% fertility, then it will produce proportionally less food. A powered farm can compensate for lack of fertility by consuming 50 water per desert tile.</p>
 	<p style="hp">Unlike most other constructions, a farm scales the formulas proportionally when they cannot be fully applied.</p>
 

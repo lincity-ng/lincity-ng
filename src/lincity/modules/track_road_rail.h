@@ -32,7 +32,7 @@ public:
             case GROUP_TRACK:
             case GROUP_TRACK_BRIDGE:
                 commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_TRACK;
-                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_TRACK;
+                commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_ON_TRACK;
                 commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_TRACK;
                 commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_TRACK;
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_TRACK;
@@ -44,7 +44,7 @@ public:
             case GROUP_ROAD:
             case GROUP_ROAD_BRIDGE:
                 commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_ROAD;
-                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_ROAD;
+                commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_ON_ROAD;
                 commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_ROAD;
                 commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_ROAD;
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_ROAD;
@@ -56,7 +56,7 @@ public:
             case GROUP_RAIL:
             case GROUP_RAIL_BRIDGE:
                 commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_RAIL;
-                commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_RAIL;
+                commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_ON_RAIL;
                 commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_ON_RAIL;
                 commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_ON_RAIL;
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_RAIL;
@@ -68,8 +68,8 @@ public:
         } // end switch group
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = true;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = true;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = true;
         commodityRuleCount[STUFF_GOODS].take = true;

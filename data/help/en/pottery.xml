@@ -2,7 +2,7 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Potteries</p>
-	<p style="hp">Potteries use ore, coal and jobs to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and jobs and be able to receive goods.</p>
+	<p style="hp">Potteries use ore, coal and labor to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and labor and be able to receive goods.</p>
 	<p style="hp">You can tell when potteries are working by the kilns producing smoke.</p>
 
   <p style="hp">This is a pottery</p>
@@ -12,12 +12,12 @@
    <img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">11 ore + 2 coal + 35 jobs =&gt; 35 goods</p>
+	<p style="hp">11 ore + 2 coal + 35 labor =&gt; 35 goods</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="ore">Ore</a></li>
 	<li><a href="coal">Coal</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="labor">Labor</a></li>
 	<li><a href="market">Market</a></li>
 </Document>

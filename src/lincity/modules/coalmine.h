@@ -10,9 +10,9 @@
 
 #define COALMINE_POLLUTION      3
 #define COAL_PER_RESERVE   1000
-#define JOBS_DIG_COAL 900
-#define COALMINE_JOBS (JOBS_DIG_COAL + JOBS_LOAD_COAL)
-#define MAX_JOBS_AT_COALMINE (20 * COALMINE_JOBS)
+#define LABOR_DIG_COAL 900
+#define COALMINE_LABOR (LABOR_DIG_COAL + LABOR_LOAD_COAL)
+#define MAX_LABOR_AT_COALMINE (20 * COALMINE_LABOR)
 #define MAX_COAL_AT_MINE (20 * COAL_PER_RESERVE)
 
 
@@ -36,9 +36,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_COALMINE;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_COALMINE;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_MINE;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = true;
@@ -93,7 +93,7 @@ public:
 
         commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
         commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
-        commodityMaxCons[STUFF_JOBS] = 100 * COALMINE_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * COALMINE_LABOR;
     }
     virtual ~Coalmine() { }
     virtual void update() override;

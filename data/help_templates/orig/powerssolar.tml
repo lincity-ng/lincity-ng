@@ -4,13 +4,13 @@ Solar power stations output their power to power lines in packets.
 The amount of power that it can produce increases with the tech-level when it was built.
 
 Solar power stations need also manpower for producing power.
-If a solar power station has no jobs, it will produce no power.
+If a solar power station has no labor, it will produce no power.
 
 IMG_1[This is a Solar power station]: images/tiles/powerssolar.png
 IMG_2[and this its icon]: images/gui/buttonpanel/power/solarpower.png
 
 SUBH: Formulas
 
-50 jobs =&gt; 900 hi-volt + 9 hi-volt * tech
+50 labor =&gt; 900 hi-volt + 9 hi-volt * tech
 
 ALSO[See also:]: substation, power, powerline, tech-level, msb-power, windmill

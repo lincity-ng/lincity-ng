@@ -9,21 +9,21 @@
 #define GROUP_PORT_NEED_CREDIT false
 
 #define PORT_FOOD_RATE    1
-#define PORT_JOBS_RATE    5
+#define PORT_LABOR_RATE    5
 #define PORT_COAL_RATE    50
 #define PORT_ORE_RATE     1
 #define PORT_GOODS_RATE   3
 #define PORT_STEEL_RATE   100
 #define PORT_POLLUTION    1
 //FIXME Guessing some values
-#define PORT_JOBS  100
+#define PORT_LABOR  100
 #define PORT_FOOD  500
 #define PORT_COAL  100
 #define PORT_GOODS 100
 #define PORT_ORE   300
 #define PORT_STEEL 50
 
-#define MAX_JOBS_ON_PORT  (20 * PORT_JOBS)
+#define MAX_LABOR_ON_PORT  (20 * PORT_LABOR)
 #define MAX_FOOD_ON_PORT  (20 * PORT_FOOD)
 #define MAX_COAL_ON_PORT  (20 * PORT_COAL)
 #define MAX_GOODS_ON_PORT (20 * PORT_GOODS)
@@ -58,9 +58,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_ON_PORT;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_ON_PORT;
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = true;
@@ -109,9 +109,9 @@ public:
         initialize_commodities();
         //local copy of commodityRuleCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
-        //do not trade jobs
-        // commodityRuleCount.erase (STUFF_JOBS);
-        commodityRuleCount[STUFF_JOBS] = (CommodityRule){
+        //do not trade labor
+        // commodityRuleCount.erase (STUFF_LABOR);
+        commodityRuleCount[STUFF_LABOR] = (CommodityRule){
           .maxload = 0,
           .take = false,
           .give = false
@@ -128,7 +128,7 @@ public:
         commodityRuleCount[STUFF_STEEL].give = false;
         setCommodityRulesSaved(&commodityRuleCount);
 
-        commodityMaxCons[STUFF_JOBS] = 100 * PORT_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
         for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
             if(!commodityRuleCount[stuff].maxload) continue;
             commodityMaxCons[stuff] = 100 * ((

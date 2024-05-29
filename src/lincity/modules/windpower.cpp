@@ -38,12 +38,12 @@ void Windpower::update()
     if (!(total_time%(WIND_POWER_RCOST)))
     {   windmill_cost++;}
     int hivolt_made = (commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_WIND_POWER)?hivolt_output:MAX_HIVOLT_AT_WIND_POWER-commodityCount[STUFF_HIVOLT];
-    int jobs_used = WIND_POWER_JOBS * hivolt_made/hivolt_output;
+    int labor_used = WIND_POWER_LABOR * hivolt_made/hivolt_output;
 
-    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+    if ((commodityCount[STUFF_LABOR] >= labor_used)
      && hivolt_made > WIND_POWER_HIVOLT)
     {
-        consumeStuff(STUFF_JOBS, jobs_used);
+        consumeStuff(STUFF_LABOR, labor_used);
         produceStuff(STUFF_HIVOLT, hivolt_made);
         animate_enable = true;
         working_days += hivolt_made;

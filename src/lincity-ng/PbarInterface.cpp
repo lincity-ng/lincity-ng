@@ -83,7 +83,7 @@ void update_pbars_monthly()
     update_pbar (PTECH, tech_level, 1);
     update_pbar (PMONEY, total_money, 1);
     update_pbar (PFOOD, tstat_census[STUFF_FOOD] * 1000L / tstat_capacities[STUFF_FOOD], 1);
-    update_pbar (PJOBS, tstat_census[STUFF_JOBS] * 1000L / tstat_capacities[STUFF_JOBS], 1);
+    update_pbar (PLABOR, tstat_census[STUFF_LABOR] * 1000L / tstat_capacities[STUFF_LABOR], 1);
     update_pbar (PGOODS, tstat_census[STUFF_GOODS] * 1000L / tstat_capacities[STUFF_GOODS], 1);
     update_pbar (PCOAL, tstat_census[STUFF_COAL] * 1000L / tstat_capacities[STUFF_COAL], 1);
     update_pbar (PORE, tstat_census[STUFF_ORE] * 1000L / tstat_capacities[STUFF_ORE], 1);

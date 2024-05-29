@@ -13,7 +13,7 @@
    <img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">100 jobs + 44 coal =&gt; 11000 hi-volt + 110 hi-volt * tech</p>
+	<p style="hp">100 labor + 44 coal =&gt; 11000 hi-volt + 110 hi-volt * tech</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="tech-level">Tech Level</a></li>

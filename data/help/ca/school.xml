@@ -5,16 +5,16 @@
 	<p style="hp">Les escoles <b>no</b> cal que estiguin connectades als sistemes de transports tot i que s'han de trobar al radi d'acció d'un mercat que els proveeixi els béns i els treballadors necessaris per a que l'escola funcioni.</p>
 	<p style="hp">Tenir una escola suposa un cost. Podeu veure el cost total de <b>l'últim</b> any clicant al botó de dinders. El valor 'scl' és el cost de les escoles.</p>
 	<p style="hp">Podeu veure si una escola està en funcionament clicant sobre ella i, de tant en tant quan l'animació es mogui.</p>
-	
+
 	<p style="hp">Això és una escola</p>
 	<img src="images/tiles/school0.png" halign="center"/>
 	<p style="hp">i aquesta n'és la seva icona</p>
 	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
-	
+
 	<p style="hsubtitle">Temes relacionats:</p>
 	<li><a href="market">Mercat</a></li>
 	<li><a href="university">Universitats</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="goods">Béns</a></li>
-	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="labor">Ocupació</a></li>
 </Document>

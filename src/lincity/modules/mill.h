@@ -7,14 +7,14 @@
 #define GROUP_MILL_RANGE  0
 #define GROUP_MILL_SIZE 2
 
-#define MILL_JOBS          35
+#define MILL_LABOR          35
 #define GOODS_MADE_BY_MILL 75
 #define FOOD_USED_BY_MILL  (GOODS_MADE_BY_MILL/2)
 #define MILL_POWER_PER_COAL 60
 #define COAL_USED_BY_MILL  1
 
 #define MAX_LOVOLT_AT_MILL    (COAL_USED_BY_MILL * MILL_POWER_PER_COAL * 20)
-#define MAX_JOBS_AT_MILL   (MILL_JOBS * 20)
+#define MAX_LABOR_AT_MILL   (MILL_LABOR * 20)
 #define MAX_FOOD_AT_MILL   (FOOD_USED_BY_MILL * 20)
 #define MAX_COAL_AT_MILL   (COAL_USED_BY_MILL * 20)
 #define MAX_GOODS_AT_MILL  (GOODS_MADE_BY_MILL * 20)
@@ -39,9 +39,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_MILL;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_MILL;
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = false;
@@ -78,7 +78,7 @@ public:
         commodityMaxCons[STUFF_LOVOLT] = 100 *
           COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
         commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
-        commodityMaxCons[STUFF_JOBS] = 100 * MILL_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * MILL_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
     }
     virtual ~Mill() { }

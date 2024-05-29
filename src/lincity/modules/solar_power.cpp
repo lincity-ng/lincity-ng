@@ -33,12 +33,12 @@ Construction *SolarPowerConstructionGroup::createConstruction(int x, int y) {
 void SolarPower::update()
 {
     int hivolt_made = (commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_SOLARPS)?hivolt_output:MAX_HIVOLT_AT_SOLARPS-commodityCount[STUFF_HIVOLT];
-    int jobs_used = SOLAR_POWER_JOBS * hivolt_made / hivolt_output;
+    int labor_used = SOLAR_POWER_LABOR * hivolt_made / hivolt_output;
 
-    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+    if ((commodityCount[STUFF_LABOR] >= labor_used)
      && (hivolt_made >= POWERS_SOLAR_OUTPUT))
     {
-        consumeStuff(STUFF_JOBS, jobs_used);
+        consumeStuff(STUFF_LABOR, labor_used);
         produceStuff(STUFF_HIVOLT, hivolt_made);
         working_days += hivolt_made;
     }

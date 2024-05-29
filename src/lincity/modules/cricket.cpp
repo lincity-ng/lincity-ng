@@ -35,11 +35,11 @@ Construction *CricketConstructionGroup::createConstruction(int x, int y) {
 void Cricket::update()
 {
     ++daycount;
-    if (commodityCount[STUFF_JOBS] >= CRICKET_JOBS
+    if (commodityCount[STUFF_LABOR] >= CRICKET_LABOR
     &&  commodityCount[STUFF_GOODS] >= CRICKET_GOODS
     &&  commodityCount[STUFF_WASTE] + (CRICKET_GOODS / 3) <= MAX_WASTE_AT_CRICKET)
     {
-        consumeStuff(STUFF_JOBS, CRICKET_JOBS);
+        consumeStuff(STUFF_LABOR, CRICKET_LABOR);
         consumeStuff(STUFF_GOODS, CRICKET_GOODS);
         produceStuff(STUFF_WASTE, CRICKET_GOODS / 3);
         ++covercount;

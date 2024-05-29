@@ -7,10 +7,10 @@
 #define GROUP_SCHOOL_RANGE 0
 #define GROUP_SCHOOL_SIZE 2
 
-#define JOBS_MAKE_TECH_SCHOOL  200
+#define LABOR_MAKE_TECH_SCHOOL  200
 #define GOODS_MAKE_TECH_SCHOOL  75
 #define TECH_MADE_BY_SCHOOL    2
-#define MAX_JOBS_AT_SCHOOL     (20 * JOBS_MAKE_TECH_SCHOOL)
+#define MAX_LABOR_AT_SCHOOL     (20 * LABOR_MAKE_TECH_SCHOOL)
 #define MAX_GOODS_AT_SCHOOL    (20 * GOODS_MAKE_TECH_SCHOOL)
 #define MAX_WASTE_AT_SCHOOL    (20 * GOODS_MAKE_TECH_SCHOOL / 3)
 #define SCHOOL_RUNNING_COST    2
@@ -42,9 +42,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_SCHOOL;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_SCHOOL;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -80,7 +80,7 @@ public:
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_MAKE_TECH_SCHOOL;
+        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MAKE_TECH_SCHOOL;
         commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MAKE_TECH_SCHOOL;
         commodityMaxProd[STUFF_WASTE] = 100 * (GOODS_MAKE_TECH_SCHOOL/3);
     }

@@ -7,9 +7,9 @@
 #define GROUP_SOLAR_POWER_RANGE 0
 #define GROUP_SOLAR_POWER_SIZE 4
 
-#define SOLAR_POWER_JOBS 50
+#define SOLAR_POWER_LABOR 50
 #define POWERS_SOLAR_OUTPUT 900 //1800
-#define MAX_JOBS_AT_SOLARPS (20 * SOLAR_POWER_JOBS)
+#define MAX_LABOR_AT_SOLARPS (20 * SOLAR_POWER_LABOR)
 #define MAX_HIVOLT_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
 #include <array>                    // for array
@@ -32,9 +32,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SOLARPS;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_SOLARPS;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_SOLARPS;
         commodityRuleCount[STUFF_HIVOLT].take = false;
         commodityRuleCount[STUFF_HIVOLT].give = true;
@@ -59,7 +59,7 @@ public:
         setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * SOLAR_POWER_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
         // commodityMaxCons[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 

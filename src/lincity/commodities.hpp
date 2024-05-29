@@ -4,7 +4,7 @@
 enum Commodity : int {
   STUFF_INIT = 0,
   STUFF_FOOD = STUFF_INIT,
-  STUFF_JOBS,
+  STUFF_LABOR,
   STUFF_COAL,
   STUFF_GOODS,
   STUFF_ORE,

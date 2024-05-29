@@ -38,7 +38,7 @@ void Mill::update()
     flags &= ~(FLAG_POWERED);
     if ((use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_LOVOLT]) >= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL)
     && (flags |= FLAG_POWERED, commodityCount[STUFF_FOOD] >= FOOD_USED_BY_MILL)
-    && (commodityCount[STUFF_JOBS] >= MILL_JOBS)
+    && (commodityCount[STUFF_LABOR] >= MILL_LABOR)
     && (commodityCount[STUFF_GOODS] <= MAX_GOODS_AT_MILL - GOODS_MADE_BY_MILL))
     {
         if(use_coal)
@@ -46,7 +46,7 @@ void Mill::update()
         else
             consumeStuff(STUFF_LOVOLT, COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
         consumeStuff(STUFF_FOOD, FOOD_USED_BY_MILL);
-        consumeStuff(STUFF_JOBS, MILL_JOBS);
+        consumeStuff(STUFF_LABOR, MILL_LABOR);
         produceStuff(STUFF_GOODS, GOODS_MADE_BY_MILL);
         ++working_days;
         animate_enable = true;

@@ -3,13 +3,13 @@ Market
 Markets are key buildings in Lincity.
 
 Market is probably a bad name for these areas. They are more like job centres, shops,
-warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to
+warehouses and markets all rolled into one. They buy and sell food, labor, coal, goods, ore and steel to
 surrounding areas, and to adjacent transports such as roads.
 
 Within the range of a market all exchanges are done remotely.
 Use the Transportation overlay to check if a building is within the range of a market.
 People can obtain food, goods and employment from markets that are within walking distance of their residential area.
-All areas that require jobs (employees) get them from markets.
+All areas that require labor (employees) get them from markets.
 Farms can sell their food directly to markets.
 Mills, Potteries and blacksmiths sell goods directly to nearby markets,
 they also get their raw materials from the same markets.
@@ -30,16 +30,16 @@ The numbers between the words Buy and Sell are the map reference for that market
 
 SUBH: Formulas
 
-A market consumes jobs in order to trade any other commodities.
-The number of jobs consumed is dependent on the inventory of all commodities at the market.
+A market consumes labor in order to trade any other commodities.
+The number of labor consumed is dependent on the inventory of all commodities at the market.
 
-0% to 10% inventory: 1 jobs =&gt; 0
+0% to 10% inventory: 1 labor =&gt; 0
 
-10% to 20% inventory: 5 jobs =&gt; 0
+10% to 20% inventory: 5 labor =&gt; 0
 
-2% to 50% inventory: 12 jobs =&gt; 0
+2% to 50% inventory: 12 labor =&gt; 0
 
-50% to 100% inventory: 28 jobs =&gt; 0
+50% to 100% inventory: 28 labor =&gt; 0
 
 If a market has more than 85% waste, then it will burn 2867 waste and produce 204 pollution.
 

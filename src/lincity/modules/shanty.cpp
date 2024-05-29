@@ -136,10 +136,10 @@ void Shanty::update()
     produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
     if (commodityCount[STUFF_FOOD] >= SHANTY_GET_FOOD)
     {   consumeStuff(STUFF_FOOD, SHANTY_GET_FOOD);}
-    if (commodityCount[STUFF_JOBS] >= SHANTY_GET_JOBS)
+    if (commodityCount[STUFF_LABOR] >= SHANTY_GET_LABOR)
     {
-        consumeStuff(STUFF_JOBS, SHANTY_GET_JOBS);
-        if ((income_tax -= SHANTY_GET_JOBS * 2) < 0)
+        consumeStuff(STUFF_LABOR, SHANTY_GET_LABOR);
+        if ((income_tax -= SHANTY_GET_LABOR * 2) < 0)
         {   income_tax = 0;}
     }
     if (commodityCount[STUFF_GOODS] >= SHANTY_GET_GOODS)

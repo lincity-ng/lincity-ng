@@ -14,7 +14,7 @@
 #define SHANTY_WASTE_BURN_DAYS 10;
 
 #define SHANTY_GET_FOOD   50
-#define SHANTY_GET_JOBS   5
+#define SHANTY_GET_LABOR   5
 #define SHANTY_GET_GOODS  50
 #define SHANTY_GET_COAL   1
 #define SHANTY_GET_ORE    10
@@ -23,7 +23,7 @@
 #define SHANTY_GET_LOVOLT    50
 
 #define MAX_FOOD_AT_SHANTY  (SHANTY_GET_FOOD * 20)
-#define MAX_JOBS_AT_SHANTY  (SHANTY_GET_JOBS * 20)
+#define MAX_LABOR_AT_SHANTY  (SHANTY_GET_LABOR * 20)
 #define MAX_GOODS_AT_SHANTY (SHANTY_GET_GOODS * 20)
 #define MAX_COAL_AT_SHANTY  (SHANTY_GET_COAL * 20)
 #define MAX_ORE_AT_SHANTY   (SHANTY_GET_ORE * 20)
@@ -54,9 +54,9 @@ public:
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_SHANTY;
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = false;
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SHANTY;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_SHANTY;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_SHANTY;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -102,7 +102,7 @@ public:
         commodityMaxProd[STUFF_WASTE] = 100 *
           (SHANTY_PUT_WASTE * 2 + SHANTY_GET_GOODS / 3);
         commodityMaxCons[STUFF_FOOD] = 100 * SHANTY_GET_FOOD;
-        commodityMaxCons[STUFF_JOBS] = 100 * SHANTY_GET_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * SHANTY_GET_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * SHANTY_GET_GOODS;
         commodityMaxCons[STUFF_COAL] = 100 * SHANTY_GET_COAL;
         commodityMaxCons[STUFF_ORE] = 100 * SHANTY_GET_ORE;

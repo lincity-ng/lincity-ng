@@ -655,10 +655,10 @@ void Dialog::editMarket(){
     p->setText( title.str() );
     Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
-    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
-    if( market->commodityRuleCount[STUFF_JOBS].take ) cb->check(); else cb->uncheck();
-    cb = getCheckButton( *myDialogComponent, "SellJobs" );
-    if( market->commodityRuleCount[STUFF_JOBS].give ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    if( market->commodityRuleCount[STUFF_LABOR].take ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    if( market->commodityRuleCount[STUFF_LABOR].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( market->commodityRuleCount[STUFF_FOOD].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
@@ -750,17 +750,17 @@ void Dialog::editPort(){
 void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
     Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
-    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[STUFF_JOBS].take = true;
+        market->commodityRuleCount[STUFF_LABOR].take = true;
     } else {
-        market->commodityRuleCount[STUFF_JOBS].take = false;
+        market->commodityRuleCount[STUFF_LABOR].take = false;
     }
-    cb = getCheckButton( *myDialogComponent, "SellJobs" );
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[STUFF_JOBS].give = true;
+        market->commodityRuleCount[STUFF_LABOR].give = true;
     } else {
-        market->commodityRuleCount[STUFF_JOBS].give = false;
+        market->commodityRuleCount[STUFF_LABOR].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){

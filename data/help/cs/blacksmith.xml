@@ -10,11 +10,11 @@
 	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">a toto je její ikona</p>
 	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
-	
+
 	<p style="hsubtitle">Viz také:</p>
 	<li><a href="market">Obchod</a></li>
 	<li><a href="ore">Ruda</a></li>
 	<li><a href="commune">Milíř</a></li>
 	<li><a href="steel">Železo</a></li>
-	<li><a href="jobs">Práce</a></li>
+	<li><a href="labor">Práce</a></li>
 </Document>

@@ -2,7 +2,7 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Basketball courts</p>
-	<p style="hp">Basketball courts provide sport and entertainment for your residents. They need goods and jobs to work. They do not have to be connected to transport, though if not, they do have to be within range of a market that can supply the jobs and goods. They also cost money to run.</p>
+	<p style="hp">Basketball courts provide sport and entertainment for your residents. They need goods and labor to work. They do not have to be connected to transport, though if not, they do have to be within range of a market that can supply the labor and goods. They also cost money to run.</p>
 	<p style="hp">When you build a basketball court, it does not start straight away. There is usually a three month wait before baskets are installed.</p>
 	<p style="hp">To see the range that your basketball courts cover, click on the sports button below the 'mini screen'. Areas that have cover are displayed as normal, areas not covered are just dark green.</p>
 	<p style="hp">Basketball courts increase the desirability of residential areas within their range.</p>
@@ -18,12 +18,12 @@
    <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">8 jobs + 3 goods =&gt; 1 waste</p>
+	<p style="hp">8 labor + 3 goods =&gt; 1 waste</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
 	<li><a href="goods">Goods</a></li>
 	<li><a href="market">Market</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="labor">Labor</a></li>
 	<li><a href="msb-cricket">Sports overlay</a></li>
 </Document>

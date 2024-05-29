@@ -13,7 +13,7 @@ Commodity operator++(Commodity& stuff, int) {
 
 const char *commodityNames[] = {
   N_("Food"),
-  N_("Jobs"),
+  N_("Labor"),
   N_("Coal"),
   N_("Goods"),
   N_("Ore"),

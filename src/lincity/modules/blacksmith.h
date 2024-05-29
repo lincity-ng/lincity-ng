@@ -16,12 +16,12 @@
 #define GROUP_BLACKSMITH_SIZE 2
 #define GROUP_BLACKSMITH_NEED_CREDIT false
 
-#define BLACKSMITH_JOBS    35
+#define BLACKSMITH_LABOR    35
 
 #define BLACKSMITH_STEEL_USED 1
 #define BLACKSMITH_COAL_USED  1
 #define GOODS_MADE_BY_BLACKSMITH 50
-#define MAX_JOBS_AT_BLACKSMITH (BLACKSMITH_JOBS*20)
+#define MAX_LABOR_AT_BLACKSMITH (BLACKSMITH_LABOR*20)
 #define MAX_COAL_AT_BLACKSMITH (BLACKSMITH_COAL_USED*20)
 #define MAX_STEEL_AT_BLACKSMITH (BLACKSMITH_STEEL_USED*20)
 #define MAX_GOODS_AT_BLACKSMITH (GOODS_MADE_BY_BLACKSMITH*20)
@@ -45,9 +45,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_BLACKSMITH;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_BLACKSMITH;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_BLACKSMITH;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = false;
@@ -81,7 +81,7 @@ public:
         commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_BLACKSMITH;
         commodityMaxCons[STUFF_COAL] = 100 * BLACKSMITH_COAL_USED;
         commodityMaxCons[STUFF_STEEL] = 100 * BLACKSMITH_STEEL_USED;
-        commodityMaxCons[STUFF_JOBS] = 100 * BLACKSMITH_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * BLACKSMITH_LABOR;
     }
     virtual ~Blacksmith() { }
     virtual void update() override;

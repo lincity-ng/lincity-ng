@@ -52,7 +52,7 @@ void Coalmine::update()
     // mine some coal
     if ((current_coal_reserve > 0)
     && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
-    && (commodityCount[STUFF_JOBS] >= COALMINE_JOBS))
+    && (commodityCount[STUFF_LABOR] >= COALMINE_LABOR))
     {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
@@ -64,7 +64,7 @@ void Coalmine::update()
                     world(xx,yy)->pollution += COALMINE_POLLUTION;
                     world(xx,yy)->flags |= FLAG_ALTERED;
                     produceStuff(STUFF_COAL, COAL_PER_RESERVE);
-                    consumeStuff(STUFF_JOBS, COALMINE_JOBS);
+                    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
                     if (current_coal_reserve < initial_coal_reserve)
                     {   sust_dig_ore_coal_tip_flag = 0;}
                     coal_found = true;
@@ -74,7 +74,7 @@ void Coalmine::update()
         }
     }
     else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
-    && (commodityCount[STUFF_JOBS] >= COALMINE_JOBS))
+    && (commodityCount[STUFF_LABOR] >= COALMINE_LABOR))
     {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
@@ -85,7 +85,7 @@ void Coalmine::update()
                     world(xx,yy)->coal_reserve++;
                     world(xx,yy)->flags |= FLAG_ALTERED;
                     consumeStuff(STUFF_COAL, COAL_PER_RESERVE);
-                    consumeStuff(STUFF_JOBS, COALMINE_JOBS);
+                    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
                     coal_found = true;
                     working_days++;
                 }
@@ -106,7 +106,7 @@ void Coalmine::update()
 
     //Abandon the Coalmine if it is really empty
     if ((current_coal_reserve == 0)
-      &&(commodityCount[STUFF_JOBS] == 0)
+      &&(commodityCount[STUFF_LABOR] == 0)
       &&(commodityCount[STUFF_COAL] == 0) )
     {   ConstructionManager::submitRequest(new ConstructionDeletionRequest(this));}
 }

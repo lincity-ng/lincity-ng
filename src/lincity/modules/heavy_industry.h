@@ -12,7 +12,7 @@
 #define GROUP_INDUSTRY_H_RANGE 0
 #define GROUP_INDUSTRY_H_SIZE 4
 
-#define JOBS_MAKE_STEEL 140
+#define LABOR_MAKE_STEEL 140
 #define ORE_MAKE_STEEL 17
 #define POWER_MAKE_STEEL 200
 #define COAL_MAKE_STEEL 2
@@ -21,7 +21,7 @@
 #define MAX_ORE_AT_INDUSTRY_H (20 * MAX_ORE_USED)
 #define MAX_COAL_AT_INDUSTRY_H (2 * MAX_ORE_AT_INDUSTRY_H / ORE_MAKE_STEEL)
 #define MAX_STEEL_AT_INDUSTRY_H (MAX_ORE_AT_INDUSTRY_H / ORE_MAKE_STEEL)
-#define MAX_JOBS_AT_INDUSTRY_H (MAX_ORE_AT_INDUSTRY_H / JOBS_MAKE_STEEL + 20*(JOBS_LOAD_ORE + JOBS_LOAD_COAL + JOBS_LOAD_STEEL))
+#define MAX_LABOR_AT_INDUSTRY_H (MAX_ORE_AT_INDUSTRY_H / LABOR_MAKE_STEEL + 20*(LABOR_LOAD_ORE + LABOR_LOAD_COAL + LABOR_LOAD_STEEL))
 
 #define MAX_WASTE_AT_INDUSTRY_H (MAX_STEEL_AT_INDUSTRY_H * POL_PER_STEEL_MADE)
 #define MAX_LOVOLT_AT_INDUSTY_H (MAX_STEEL_AT_INDUSTRY_H * POWER_MAKE_STEEL)
@@ -46,9 +46,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_H;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_INDUSTRY_H;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_INDUSTRY_H;
         commodityRuleCount[STUFF_ORE].take = true;
         commodityRuleCount[STUFF_ORE].give = false;
@@ -114,8 +114,8 @@ public:
         commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
         commodityMaxCons[STUFF_LOVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL);
         commodityMaxCons[STUFF_COAL] = 100 * (steel_prod * COAL_MAKE_STEEL);
-        commodityMaxCons[STUFF_JOBS] = 100 * (MAX_ORE_USED / JOBS_MAKE_STEEL +
-          JOBS_LOAD_COAL + JOBS_LOAD_ORE + JOBS_LOAD_STEEL);
+        commodityMaxCons[STUFF_LABOR] = 100 * (MAX_ORE_USED / LABOR_MAKE_STEEL +
+          LABOR_LOAD_COAL + LABOR_LOAD_ORE + LABOR_LOAD_STEEL);
         commodityMaxCons[STUFF_ORE] = 100 * MAX_ORE_USED;
         commodityMaxProd[STUFF_STEEL] = 100 * steel_prod;
         // commodityMaxProd[STUFF_WASTE] = 100 * (int)(

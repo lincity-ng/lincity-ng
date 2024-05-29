@@ -8,8 +8,8 @@
 #define GROUP_WINDMILL_SIZE  2
 
 #define WINDMILL_LOVOLT     450
-#define WINDMILL_JOBS       10
-#define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)
+#define WINDMILL_LABOR       10
+#define MAX_LABOR_AT_WINDMILL 20*(WINDMILL_LABOR)
 #define MAX_LOVOLT_AT_WINDMILL 20*(WINDMILL_LOVOLT)
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      4
@@ -35,9 +35,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WINDMILL;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_WINDMILL;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_WINDMILL;
         commodityRuleCount[STUFF_LOVOLT].take = false;
         commodityRuleCount[STUFF_LOVOLT].give = true;
@@ -64,7 +64,7 @@ public:
         setMemberSaved(&this->lovolt_output, "kwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * WINDMILL_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
         // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
     }
 

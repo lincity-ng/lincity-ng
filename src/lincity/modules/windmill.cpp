@@ -35,12 +35,12 @@ void Windmill::update()
     if (!(total_time%(WINDMILL_RCOST)))
     {   windmill_cost++;}
     int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
-    int jobs_used = WINDMILL_JOBS * lovolt_made / lovolt_output;
+    int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
 
-    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+    if ((commodityCount[STUFF_LABOR] >= labor_used)
      && (lovolt_made >= WINDMILL_LOVOLT))
     {
-        consumeStuff(STUFF_JOBS, jobs_used);
+        consumeStuff(STUFF_LABOR, labor_used);
         produceStuff(STUFF_LOVOLT, lovolt_made);
         animate_enable = true;
         working_days += lovolt_made;

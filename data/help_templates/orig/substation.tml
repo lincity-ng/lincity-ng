@@ -1,7 +1,7 @@
 Substations
 
 Substations take power packets from power lines (high-voltage) and distribute the power to
-adjacent transport (low-voltage). Check the power overlay to see where you need more power. The transformers don't require any jobs to function.
+adjacent transport (low-voltage). Check the power overlay to see where you need more power. The transformers don't require any labor to function.
 
 IMG_1[This is a substation]: images/tiles/substation-G.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/power/substation.png

@@ -12,8 +12,8 @@
 #define POWER_PER_COAL 250
 #define MAX_COAL_AT_COALPS (20 * POWERS_COAL_OUTPUT / POWER_PER_COAL)
 #define POWERS_COAL_POLLUTION  20
-#define JOBS_COALPS_GENERATE 100
-#define MAX_JOBS_AT_COALPS (20 * JOBS_COALPS_GENERATE)
+#define LABOR_COALPS_GENERATE 100
+#define MAX_LABOR_AT_COALPS (20 * LABOR_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
 #include <cstdlib>             // for NULL
@@ -38,9 +38,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_COALPS;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_COALPS;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_COALPS;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = false;
@@ -107,7 +107,7 @@ public:
         setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_COALPS_GENERATE;
+        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_COALPS_GENERATE;
         commodityMaxCons[STUFF_COAL] = 100 *
           (POWERS_COAL_OUTPUT / POWER_PER_COAL);
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;

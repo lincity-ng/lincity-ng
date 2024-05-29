@@ -38,13 +38,13 @@ void Coal_power::update()
 {
     int hivolt_made = (
       commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_COALPS)?hivolt_output:MAX_HIVOLT_AT_COALPS-commodityCount[STUFF_HIVOLT];
-    int jobs_used = JOBS_COALPS_GENERATE*(hivolt_made/100)/(hivolt_output/100);
+    int labor_used = LABOR_COALPS_GENERATE*(hivolt_made/100)/(hivolt_output/100);
     int coal_used = POWERS_COAL_OUTPUT / POWER_PER_COAL * (hivolt_made/100) /(hivolt_output/100);
-    if ((commodityCount[STUFF_JOBS] >= jobs_used )
+    if ((commodityCount[STUFF_LABOR] >= labor_used )
      && (commodityCount[STUFF_COAL] >= coal_used)
      && (hivolt_made >= POWERS_COAL_OUTPUT))
     {
-        consumeStuff(STUFF_JOBS, jobs_used);
+        consumeStuff(STUFF_LABOR, labor_used);
         consumeStuff(STUFF_COAL, coal_used);
         produceStuff(STUFF_HIVOLT, hivolt_made);
         world(x,y)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);

@@ -24,7 +24,7 @@ void update_pbars_monthly(void);
 #define PTECH   1
 #define PMONEY  2
 #define PFOOD   3
-#define PJOBS   4
+#define PLABOR  4
 #define PGOODS  5
 #define PCOAL   6
 #define PORE    7

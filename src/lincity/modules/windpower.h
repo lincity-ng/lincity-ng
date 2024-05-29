@@ -9,8 +9,8 @@
 #define GROUP_WIND_POWER_SIZE  2
 
 #define WIND_POWER_HIVOLT     450
-#define WIND_POWER_JOBS       15
-#define MAX_JOBS_AT_WIND_POWER 20*(WIND_POWER_JOBS)
+#define WIND_POWER_LABOR       15
+#define MAX_LABOR_AT_WIND_POWER 20*(WIND_POWER_LABOR)
 #define MAX_HIVOLT_AT_WIND_POWER 20*(WIND_POWER_HIVOLT)
 /* WIND_POWER_RCOST is days per quid */
 #define WIND_POWER_RCOST      2
@@ -36,9 +36,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_WIND_POWER;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_WIND_POWER;
         commodityRuleCount[STUFF_HIVOLT].take = false;
         commodityRuleCount[STUFF_HIVOLT].give = true;
@@ -67,7 +67,7 @@ public:
         setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * WIND_POWER_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 

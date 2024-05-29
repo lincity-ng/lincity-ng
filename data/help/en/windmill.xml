@@ -4,7 +4,7 @@
 	<p style="htitle">Windmills</p>
 	<p style="hp">Wooden windmills provide power for residences and farms. They enable the farmer to process food more efficiently and make residences more desirable.</p>
 	<p style="hp">Providing power to residences makes the people there use more goods.</p>
-	<p style="hp">Windmills also need manpower for producing power. If a windmill does not have enough jobs, it will produce less power and it will produce no power at all if it has no jobs.</p>
+	<p style="hp">Windmills also need manpower for producing power. If a windmill does not have enough labor, it will produce less power and it will produce no power at all if it has no labor.</p>
 	<p style="hp">There are two forms of windmills.</p>
 
   <p style="hp">There are two forms of windmills:</p>
@@ -18,8 +18,8 @@
 	<p style="hp">The type you get depends on your tech-level when you build it.</p>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">low tech: 10 jobs =&gt; 450 lo-volt + 4.5 lo-volt * tech</p>
-	<p style="hp">high tech: 15 jobs =&gt; 450 hi-volt + 4.5 hi-volt * tech</p>
+	<p style="hp">low tech: 10 labor =&gt; 450 lo-volt + 4.5 lo-volt * tech</p>
+	<p style="hp">high tech: 15 labor =&gt; 450 hi-volt + 4.5 hi-volt * tech</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="power">Power</a></li>

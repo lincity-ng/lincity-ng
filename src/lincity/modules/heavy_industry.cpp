@@ -40,7 +40,7 @@ Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
 void IndustryHeavy::update()
 {
     // can we produce steel?
-    int steel = ( commodityCount[STUFF_JOBS] >= MAX_ORE_USED / JOBS_MAKE_STEEL + JOBS_LOAD_ORE + JOBS_LOAD_COAL + JOBS_LOAD_STEEL
+    int steel = ( commodityCount[STUFF_LABOR] >= MAX_ORE_USED / LABOR_MAKE_STEEL + LABOR_LOAD_ORE + LABOR_LOAD_COAL + LABOR_LOAD_STEEL
     && commodityCount[STUFF_ORE] >= MAX_ORE_USED
     && commodityCount[STUFF_STEEL] + MAX_ORE_USED / ORE_MAKE_STEEL <= MAX_STEEL_AT_INDUSTRY_H) ? MAX_ORE_USED / ORE_MAKE_STEEL : 0;
 
@@ -77,7 +77,7 @@ void IndustryHeavy::update()
             if(used_COAL)// coal power is more laborous
             {
                 consumeStuff(STUFF_COAL, used_COAL);
-                consumeStuff(STUFF_JOBS, JOBS_LOAD_COAL);
+                consumeStuff(STUFF_LABOR, LABOR_LOAD_COAL);
             }
         }
         else
@@ -85,11 +85,11 @@ void IndustryHeavy::update()
 
         if (steel>0)
         {
-            consumeStuff(STUFF_JOBS, MAX_ORE_USED / JOBS_MAKE_STEEL);
-            //use jobs for loading the ore
-            consumeStuff(STUFF_JOBS, JOBS_LOAD_ORE);
-            //use jobs for loading the steel
-            consumeStuff(STUFF_JOBS, JOBS_LOAD_STEEL);
+            consumeStuff(STUFF_LABOR, MAX_ORE_USED / LABOR_MAKE_STEEL);
+            //use labor for loading the ore
+            consumeStuff(STUFF_LABOR, LABOR_LOAD_ORE);
+            //use labor for loading the steel
+            consumeStuff(STUFF_LABOR, LABOR_LOAD_STEEL);
             consumeStuff(STUFF_ORE, MAX_ORE_USED);
             produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;

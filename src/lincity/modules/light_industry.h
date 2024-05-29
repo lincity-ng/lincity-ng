@@ -18,15 +18,15 @@
 
 #define INDUSTRY_L_ORE_USED  125
 #define INDUSTRY_L_STEEL_USED  12
-#define INDUSTRY_L_JOBS_USED   30
-#define INDUSTRY_L_JOBS_LOAD_ORE 1
-#define INDUSTRY_L_JOBS_LOAD_STEEL 4
-#define MIN_JOBS_AT_INDUSTRY_L (INDUSTRY_L_JOBS_LOAD_ORE + INDUSTRY_L_JOBS_LOAD_STEEL + INDUSTRY_L_JOBS_USED)
+#define INDUSTRY_L_LABOR_USED   30
+#define INDUSTRY_L_LABOR_LOAD_ORE 1
+#define INDUSTRY_L_LABOR_LOAD_STEEL 4
+#define MIN_LABOR_AT_INDUSTRY_L (INDUSTRY_L_LABOR_LOAD_ORE + INDUSTRY_L_LABOR_LOAD_STEEL + INDUSTRY_L_LABOR_USED)
 #define INDUSTRY_L_MAKE_GOODS 225
 #define INDUSTRY_L_POWER_PER_GOOD 10
 
 #define MAX_ORE_AT_INDUSTRY_L (20 * INDUSTRY_L_ORE_USED)
-#define MAX_JOBS_AT_INDUSTRY_L (20 * MIN_JOBS_AT_INDUSTRY_L)
+#define MAX_LABOR_AT_INDUSTRY_L (20 * MIN_LABOR_AT_INDUSTRY_L)
 #define MAX_GOODS_AT_INDUSTRY_L (20*2*4 * INDUSTRY_L_MAKE_GOODS)
 #define MAX_WASTE_AT_INDUSTRY_L (MAX_GOODS_AT_INDUSTRY_L / 20)
 #define MAX_LOVOLT_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L)
@@ -50,9 +50,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_L;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_INDUSTRY_L;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_INDUSTRY_L;
         commodityRuleCount[STUFF_GOODS].take = false;
         commodityRuleCount[STUFF_GOODS].give = true;
@@ -137,9 +137,9 @@ public:
         //     }
         // }
 
-        commodityMaxCons[STUFF_JOBS] = 100 * (INDUSTRY_L_JOBS_USED +
-          INDUSTRY_L_JOBS_LOAD_ORE + JOBS_LOAD_ORE +
-          INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL);
+        commodityMaxCons[STUFF_LABOR] = 100 * (INDUSTRY_L_LABOR_USED +
+          INDUSTRY_L_LABOR_LOAD_ORE + LABOR_LOAD_ORE +
+          INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL);
         commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
         commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
         commodityMaxCons[STUFF_LOVOLT] = 100 *
