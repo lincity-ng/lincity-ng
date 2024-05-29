@@ -77,8 +77,8 @@ void IndustryLight::update()
             goods_today *= 2;
         }
         //now check for more ore and power to quadruple goods_today again
-        //light industry can use KWH and MWH simultaneously
-        int total_power_p_good = (commodityCount[STUFF_KWH] + 2 * commodityCount[STUFF_MWH]) / (4 * goods_today);
+        //light industry can use LO-VOLT and HI-VOLT simultaneously
+        int total_power_p_good = (commodityCount[STUFF_LOVOLT] + 2 * commodityCount[STUFF_HIVOLT]) / (4 * goods_today);
         if ((total_power_p_good >= INDUSTRY_L_POWER_PER_GOOD)
          && (commodityCount[STUFF_ORE] >= INDUSTRY_L_ORE_USED)
          && (commodityCount[STUFF_GOODS] + 4 * goods_today <= MAX_GOODS_AT_INDUSTRY_L))
@@ -86,22 +86,22 @@ void IndustryLight::update()
             goods_today *= 4;
             consumeStuff(STUFF_ORE, INDUSTRY_L_ORE_USED);
             //prefer the mor abundant power
-            if(2 * commodityCount[STUFF_MWH] > commodityCount[STUFF_KWH])
+            if(2 * commodityCount[STUFF_HIVOLT] > commodityCount[STUFF_LOVOLT])
             {
-                consumeStuff(STUFF_MWH, INDUSTRY_L_POWER_PER_GOOD * (goods_today / 2));
-                if(commodityCount[STUFF_MWH] < 0)
+                consumeStuff(STUFF_HIVOLT, INDUSTRY_L_POWER_PER_GOOD * (goods_today / 2));
+                if(commodityCount[STUFF_HIVOLT] < 0)
                 {
-                    int deficit = levelStuff(STUFF_MWH, 0);
-                    consumeStuff(STUFF_KWH, deficit * 2);
+                    int deficit = levelStuff(STUFF_HIVOLT, 0);
+                    consumeStuff(STUFF_LOVOLT, deficit * 2);
                 }
             }
             else
             {
-                consumeStuff(STUFF_KWH, INDUSTRY_L_POWER_PER_GOOD * goods_today);
-                if(commodityCount[STUFF_KWH] < 0)
+                consumeStuff(STUFF_LOVOLT, INDUSTRY_L_POWER_PER_GOOD * goods_today);
+                if(commodityCount[STUFF_LOVOLT] < 0)
                 {
-                    int deficit = levelStuff(STUFF_KWH, 0);
-                    consumeStuff(STUFF_MWH, deficit / 2);
+                    int deficit = levelStuff(STUFF_LOVOLT, 0);
+                    consumeStuff(STUFF_HIVOLT, deficit / 2);
                 }
             }
         }

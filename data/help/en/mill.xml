@@ -16,7 +16,7 @@
    <img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">(1 coal or 60 kWh) + 37 food + 35 jobs =&gt; 75 goods</p>
+	<p style="hp">(1 coal or 60 lo-volt) + 37 food + 35 jobs =&gt; 75 goods</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="goods">Goods</a></li>

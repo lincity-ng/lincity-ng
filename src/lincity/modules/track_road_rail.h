@@ -38,7 +38,7 @@ public:
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_TRACK;
                 commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_TRACK;
                 commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_TRACK;
-                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_TRACK;
+                commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_ON_TRACK;
                 commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_TRACK;
             break;
             case GROUP_ROAD:
@@ -50,7 +50,7 @@ public:
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_ROAD;
                 commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_ROAD;
                 commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_ROAD;
-                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_ROAD;
+                commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_ON_ROAD;
                 commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_ROAD;
             break;
             case GROUP_RAIL:
@@ -62,7 +62,7 @@ public:
                 commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_ON_RAIL;
                 commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_ON_RAIL;
                 commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_ON_RAIL;
-                commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_ON_RAIL;
+                commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_ON_RAIL;
                 commodityRuleCount[STUFF_WATER].maxload = MAX_WATER_ON_RAIL;
             break;
         } // end switch group
@@ -80,8 +80,8 @@ public:
         commodityRuleCount[STUFF_STEEL].give = true;
         commodityRuleCount[STUFF_WASTE].take = true;
         commodityRuleCount[STUFF_WASTE].give = true;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = true;
         commodityRuleCount[STUFF_WATER].take = true;
         commodityRuleCount[STUFF_WATER].give = true;
     }
@@ -215,7 +215,7 @@ public:
               (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
             break;
         }
-        commodityMaxCons[STUFF_KWH] = 100 * KWH_LOSS_ON_TRANSPORT;
+        commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_LOSS_ON_TRANSPORT;
         commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
     }
     ~Transport()

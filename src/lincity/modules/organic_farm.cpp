@@ -43,7 +43,7 @@ void Organic_farm::update()
     used_jobs = (FARM_JOBS_USED<commodityCount[STUFF_JOBS]?FARM_JOBS_USED:commodityCount[STUFF_JOBS]);
     flags &= ~(FLAG_POWERED);
     /* check for power */
-    if (commodityCount[STUFF_KWH] >= ORG_FARM_POWER_REC)
+    if (commodityCount[STUFF_LOVOLT] >= ORG_FARM_POWER_REC)
     {
         used_power = ORG_FARM_POWER_REC;
         flags |= FLAG_POWERED;
@@ -79,7 +79,7 @@ void Organic_farm::update()
     {
         consumeStuff(STUFF_JOBS, used_jobs);
         produceStuff(STUFF_FOOD, foodprod);
-        consumeStuff(STUFF_KWH, used_power);
+        consumeStuff(STUFF_LOVOLT, used_power);
         consumeStuff(STUFF_WATER, used_water * WATER_FARM);
         food_this_month += 100 * foodprod / max_foodprod;
     }

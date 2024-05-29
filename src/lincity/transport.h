@@ -57,7 +57,7 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_POWER_LINE_FIREC 0
 #define GROUP_POWER_LINE_RANGE 0
 #define GROUP_POWER_LINE_SIZE 1
-#define POWER_LINE_LOSS 1       /* one MWH */
+#define POWER_LINE_LOSS 1       /* one hi-volt */
 #define POWER_MODULUS 18        /* Controls how often we see a packet in anim */
 
 
@@ -104,12 +104,12 @@ void connect_transport(int originx, int originy, int w, int h);
 #define WASTE_BURN_ON_TRANSPORT 100
 #define WASTE_BURN_ON_TRANSPORT_POLLUTE WASTE_BURN_ON_TRANSPORT/2
 
-#define MAX_KWH_ON_TRACK 2048
-#define MAX_KWH_ON_ROAD (MAX_KWH_ON_TRACK*4)
-#define MAX_KWH_ON_RAIL (MAX_KWH_ON_TRACK*16)
-#define KWH_LOSS_ON_TRANSPORT 3
+#define MAX_LOVOLT_ON_TRACK 2048
+#define MAX_LOVOLT_ON_ROAD (MAX_LOVOLT_ON_TRACK*4)
+#define MAX_LOVOLT_ON_RAIL (MAX_LOVOLT_ON_TRACK*16)
+#define LOVOLT_LOSS_ON_TRANSPORT 3
 
-#define MAX_MWH_ON_POWERLINE (MAX_KWH_ON_RAIL*8)
+#define MAX_HIVOLT_ON_POWERLINE (MAX_LOVOLT_ON_RAIL*8)
 
 #define MAX_WATER_ON_TRACK (2 * MAX_FOOD_ON_TRACK)
 #define MAX_WATER_ON_ROAD (MAX_WATER_ON_TRACK*4)

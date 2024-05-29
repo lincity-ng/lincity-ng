@@ -62,17 +62,17 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
             case GROUP_POWER_LINE:
             {
                 bool far = false;
-                int mwh = -1;
+                int hivolt = -1;
                 world(x,y)->reportingConstruction->deneighborize();
                 /* up -- (ThMO) */
-                mwh = world(x, y-1)->reportingConstruction?
-                world(x, y-1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x, y-1)->reportingConstruction?
+                world(x, y-1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
                 {
-                    mwh = world(x, y-2)->reportingConstruction?
-                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x, y-2)->reportingConstruction?
+                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -94,14 +94,14 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 /* left -- (ThMO) */
-                mwh = world(x-1, y)->reportingConstruction?
-                world(x-1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x-1, y)->reportingConstruction?
+                world(x-1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
                 {
-                    mwh = world(x-2, y)->reportingConstruction?
-                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x-2, y)->reportingConstruction?
+                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -123,14 +123,14 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* right -- (ThMO) */
-                mwh = world(x+1, y)->reportingConstruction?
-                world(x+1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x+1, y)->reportingConstruction?
+                world(x+1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
                 {
-                    mwh = world(x+2, y)->reportingConstruction?
-                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x+2, y)->reportingConstruction?
+                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -152,13 +152,13 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* down -- (ThMO) */
-                mwh = world(x, y+1)->reportingConstruction?
-                world(x, y+1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x, y+1)->reportingConstruction?
+                world(x, y+1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
                 {
-                    mwh = world(x, y+2)->reportingConstruction?
-                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;}
-                if(mwh != -1)
+                    hivolt = world(x, y+2)->reportingConstruction?
+                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;}
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {

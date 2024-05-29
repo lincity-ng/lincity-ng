@@ -90,8 +90,8 @@ void update_pbars_monthly()
     update_pbar (PSTEEL, tstat_census[STUFF_STEEL] * 1000L / tstat_capacities[STUFF_STEEL], 1);
 
     update_pbar (PPOL, total_pollution, 1);
-    update_pbar (PKWH, tstat_census[STUFF_KWH] * 1000L / tstat_capacities[STUFF_KWH], 1);
-    update_pbar (PMWH, tstat_census[STUFF_MWH] * 1000L / tstat_capacities[STUFF_MWH], 1);
+    update_pbar (PLOVOLT, tstat_census[STUFF_LOVOLT] * 1000L / tstat_capacities[STUFF_LOVOLT], 1);
+    update_pbar (PHIVOLT, tstat_census[STUFF_HIVOLT] * 1000L / tstat_capacities[STUFF_HIVOLT], 1);
     update_pbar (PWATER, tstat_census[STUFF_WATER] * 1000L / tstat_capacities[STUFF_WATER], 1);
     update_pbar (PWASTE, tstat_census[STUFF_WASTE] * 1000L / tstat_capacities[STUFF_WASTE], 1);
     if (total_housing)

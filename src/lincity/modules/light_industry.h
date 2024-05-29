@@ -29,8 +29,8 @@
 #define MAX_JOBS_AT_INDUSTRY_L (20 * MIN_JOBS_AT_INDUSTRY_L)
 #define MAX_GOODS_AT_INDUSTRY_L (20*2*4 * INDUSTRY_L_MAKE_GOODS)
 #define MAX_WASTE_AT_INDUSTRY_L (MAX_GOODS_AT_INDUSTRY_L / 20)
-#define MAX_KWH_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L)
-#define MAX_MWH_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L / 2)
+#define MAX_LOVOLT_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L)
+#define MAX_HIVOLT_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L / 2)
 #define MAX_STEEL_AT_INDUSTRY_L (20 * INDUSTRY_L_STEEL_USED)
 
 #define INDUSTRY_L_ANIM_SPEED 290
@@ -65,12 +65,12 @@ public:
         commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_INDUSTRY_L;
         commodityRuleCount[STUFF_WASTE].take = false;
         commodityRuleCount[STUFF_WASTE].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_INDUSTY_L;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_INDUSTY_L;
-        commodityRuleCount[STUFF_MWH].take = true;
-        commodityRuleCount[STUFF_MWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_INDUSTY_L;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_INDUSTY_L;
+        commodityRuleCount[STUFF_HIVOLT].take = true;
+        commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a LightIndustry
     virtual Construction *createConstruction(int x, int y);
@@ -142,9 +142,9 @@ public:
           INDUSTRY_L_JOBS_LOAD_STEEL + JOBS_LOAD_STEEL);
         commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
         commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
-        commodityMaxCons[STUFF_KWH] = 100 *
+        commodityMaxCons[STUFF_LOVOLT] = 100 *
           INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 8;
-        commodityMaxCons[STUFF_MWH] = 100 *
+        commodityMaxCons[STUFF_HIVOLT] = 100 *
           INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 4;
         commodityMaxProd[STUFF_GOODS] = 100 * INDUSTRY_L_MAKE_GOODS * 8;
         // commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *

@@ -20,7 +20,7 @@
 #define SHANTY_GET_ORE    10
 #define SHANTY_GET_STEEL  1
 #define SHANTY_PUT_WASTE  1
-#define SHANTY_GET_KWH    50
+#define SHANTY_GET_LOVOLT    50
 
 #define MAX_FOOD_AT_SHANTY  (SHANTY_GET_FOOD * 20)
 #define MAX_JOBS_AT_SHANTY  (SHANTY_GET_JOBS * 20)
@@ -29,7 +29,7 @@
 #define MAX_ORE_AT_SHANTY   (SHANTY_GET_ORE * 20)
 #define MAX_STEEL_AT_SHANTY (SHANTY_GET_STEEL * 20)
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
-#define MAX_KWH_AT_SHANTY   (SHANTY_GET_KWH * 20)
+#define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
 
 #include <array>                    // for array
 #include <list>                     // for _List_iterator, list
@@ -72,9 +72,9 @@ public:
         commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_SHANTY;
         commodityRuleCount[STUFF_WASTE].take = false;
         commodityRuleCount[STUFF_WASTE].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_SHANTY;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_SHANTY;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a Shanty
     virtual Construction *createConstruction(int x, int y);

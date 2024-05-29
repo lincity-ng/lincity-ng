@@ -11,6 +11,6 @@ IMG_2[and this its icon]: images/gui/buttonpanel/power/solarpower.png
 
 SUBH: Formulas
 
-50 jobs =&gt; 900 MWh + 9 MWh * tech
+50 jobs =&gt; 900 hi-volt + 9 hi-volt * tech
 
 ALSO[See also:]: substation, power, powerline, tech-level, msb-power, windmill

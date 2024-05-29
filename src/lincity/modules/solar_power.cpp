@@ -32,20 +32,20 @@ Construction *SolarPowerConstructionGroup::createConstruction(int x, int y) {
 
 void SolarPower::update()
 {
-    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_SOLARPS)?mwh_output:MAX_MWH_AT_SOLARPS-commodityCount[STUFF_MWH];
-    int jobs_used = SOLAR_POWER_JOBS * mwh_made / mwh_output;
+    int hivolt_made = (commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_SOLARPS)?hivolt_output:MAX_HIVOLT_AT_SOLARPS-commodityCount[STUFF_HIVOLT];
+    int jobs_used = SOLAR_POWER_JOBS * hivolt_made / hivolt_output;
 
     if ((commodityCount[STUFF_JOBS] >= jobs_used)
-     && (mwh_made >= POWERS_SOLAR_OUTPUT))
+     && (hivolt_made >= POWERS_SOLAR_OUTPUT))
     {
         consumeStuff(STUFF_JOBS, jobs_used);
-        produceStuff(STUFF_MWH, mwh_made);
-        working_days += mwh_made;
+        produceStuff(STUFF_HIVOLT, hivolt_made);
+        working_days += hivolt_made;
     }
     if (total_time % 100 == 99) //monthly update
     {
         reset_prod_counters();
-        busy = working_days / mwh_output;
+        busy = working_days / hivolt_output;
         working_days = 0;
     }
 }
@@ -58,7 +58,7 @@ void SolarPower::report()
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), mwh_output);
+    mps_store_sd(i++, N_("Output"), hivolt_output);
     // i++;
     list_commodities(&i);
 }

@@ -166,9 +166,9 @@ void Residence::update()
     }
 
      /* now get power for nothing */
-    if (commodityCount[STUFF_KWH] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
+    if (commodityCount[STUFF_LOVOLT] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
-        consumeStuff(STUFF_KWH, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
+        consumeStuff(STUFF_LOVOLT, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
         flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
@@ -199,9 +199,9 @@ void Residence::update()
             consumeStuff(STUFF_GOODS, local_population/4);
             produceStuff(STUFF_WASTE, local_population/12);
             good += 10;
-            if (commodityCount[STUFF_KWH] >= local_population/2)
+            if (commodityCount[STUFF_LOVOLT] >= local_population/2)
             {
-                consumeStuff(STUFF_KWH, local_population/2);
+                consumeStuff(STUFF_LOVOLT, local_population/2);
                 good += 5;
                 brm += 10;
                 /*     buy more goods if got power for them */

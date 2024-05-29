@@ -1,8 +1,7 @@
 #ifndef __LINCITY_COMMODITIES_HPP__
 #define __LINCITY_COMMODITIES_HPP__
 
-enum Commodity
-{
+enum Commodity : int {
   STUFF_INIT = 0,
   STUFF_FOOD = STUFF_INIT,
   STUFF_JOBS,
@@ -11,8 +10,8 @@ enum Commodity
   STUFF_ORE,
   STUFF_STEEL,
   STUFF_WASTE,
-  STUFF_KWH,
-  STUFF_MWH,
+  STUFF_LOVOLT,
+  STUFF_HIVOLT,
   STUFF_WATER,
   STUFF_COUNT
 };

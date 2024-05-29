@@ -9,15 +9,15 @@ Windmills also need manpower for producing power. If a windmill does not have en
 There are two forms of windmills.
 
 IMG_1[There are two forms of windmills:]: images/gui/buttonpanel/power/windmills.png
-IMG_2[The first is a low-tech 'wooden' windmill. It provides kWh for the local neighborhood:] images/tiles/windmill1w.png
-IMG_3[The second is a 'modern' wind-farm type. It provides MWh to the cities power grid:]  images/tiles/windmill1g.png
+IMG_2[The first is a low-tech 'wooden' windmill. It provides low-voltage power for the local neighborhood:] images/tiles/windmill1w.png
+IMG_3[The second is a 'modern' wind-farm type. It provides high-voltage power to the city's power grid:]  images/tiles/windmill1g.png
 
 The type you get depends on your tech-level when you build it.
 
 SUBH: Formulas
 
-low tech: 10 jobs =&gt; 450 kWh + 4.5 kWh * tech
+low tech: 10 jobs =&gt; 450 lo-volt + 4.5 lo-volt * tech
 
-high tech: 15 jobs =&gt; 450 MWh + 4.5 MWh * tech
+high tech: 15 jobs =&gt; 450 hi-volt + 4.5 hi-volt * tech
 
 ALSO[See also:]: power, substation, powerline, tech-level, msb-power, powerscoal, powerssolar

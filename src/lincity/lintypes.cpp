@@ -14,6 +14,7 @@
 #include <utility>                  // for pair
 #include <vector>                   // for vector
 
+#include "commodities.hpp"
 #include "ConstructionCount.h"      // for ConstructionCount
 #include "ConstructionManager.h"    // for ConstructionManager
 #include "ConstructionRequest.h"    // for ConstructionDeletionRequest, Powe...

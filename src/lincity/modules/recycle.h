@@ -10,12 +10,12 @@
 #define WASTE_RECYCLED       500
 #define RECYCLE_JOBS   (WASTE_RECYCLED/50 + JOBS_LOAD_ORE + JOBS_LOAD_STEEL)
 #define RECYCLE_RUNNING_COST 3
-#define KWH_RECYCLE_WASTE (WASTE_RECYCLED/2)
+#define LOVOLT_RECYCLE_WASTE (WASTE_RECYCLED/2)
 
 #define MAX_JOBS_AT_RECYCLE (20 * RECYCLE_JOBS)
 #define MAX_WASTE_AT_RECYCLE (20 * WASTE_RECYCLED)
 #define MAX_ORE_AT_RECYCLE (16 * WASTE_RECYCLED)
-#define MAX_KWH_AT_RECYCLE   (20 * KWH_RECYCLE_WASTE)
+#define MAX_LOVOLT_AT_RECYCLE   (20 * LOVOLT_RECYCLE_WASTE)
 #define MAX_STEEL_AT_RECYCLE (16 * WASTE_RECYCLED/50)
 
 #define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
@@ -47,9 +47,9 @@ public:
         commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_RECYCLE;
         commodityRuleCount[STUFF_WASTE].take = true;
         commodityRuleCount[STUFF_WASTE].give = false;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_RECYCLE;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_RECYCLE;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
         commodityRuleCount[STUFF_STEEL].maxload = MAX_STEEL_AT_RECYCLE;
         commodityRuleCount[STUFF_STEEL].take = false;
         commodityRuleCount[STUFF_STEEL].give = true;
@@ -84,7 +84,7 @@ public:
         setMemberSaved(&this->make_steel, "make_steel"); // compatibility
 
         commodityMaxCons[STUFF_JOBS] = 100 * RECYCLE_JOBS;
-        commodityMaxCons[STUFF_KWH] = 100 * KWH_RECYCLE_WASTE;
+        commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
         commodityMaxCons[STUFF_WASTE] = 100 *
           (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
         // commodityMaxProd[STUFF_ORE] = 100 * make_ore;

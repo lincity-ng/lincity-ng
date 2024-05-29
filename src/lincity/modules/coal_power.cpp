@@ -36,23 +36,24 @@ Construction *Coal_powerConstructionGroup::createConstruction(int x, int y) {
 
 void Coal_power::update()
 {
-    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_COALPS)?mwh_output:MAX_MWH_AT_COALPS-commodityCount[STUFF_MWH];
-    int jobs_used = JOBS_COALPS_GENERATE*(mwh_made/100)/(mwh_output/100);
-    int coal_used = POWERS_COAL_OUTPUT / POWER_PER_COAL * (mwh_made/100) /(mwh_output/100);
+    int hivolt_made = (
+      commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_COALPS)?hivolt_output:MAX_HIVOLT_AT_COALPS-commodityCount[STUFF_HIVOLT];
+    int jobs_used = JOBS_COALPS_GENERATE*(hivolt_made/100)/(hivolt_output/100);
+    int coal_used = POWERS_COAL_OUTPUT / POWER_PER_COAL * (hivolt_made/100) /(hivolt_output/100);
     if ((commodityCount[STUFF_JOBS] >= jobs_used )
      && (commodityCount[STUFF_COAL] >= coal_used)
-     && (mwh_made >= POWERS_COAL_OUTPUT))
+     && (hivolt_made >= POWERS_COAL_OUTPUT))
     {
         consumeStuff(STUFF_JOBS, jobs_used);
         consumeStuff(STUFF_COAL, coal_used);
-        produceStuff(STUFF_MWH, mwh_made);
-        world(x,y)->pollution += POWERS_COAL_POLLUTION *(mwh_made/100)/(mwh_output/100);
-        working_days += (mwh_made/100);
+        produceStuff(STUFF_HIVOLT, hivolt_made);
+        world(x,y)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);
+        working_days += (hivolt_made/100);
     }
     //monthly update
     if (total_time % 100 == 99) {
         reset_prod_counters();
-        busy = working_days / (mwh_output/100);
+        busy = working_days / (hivolt_output/100);
         working_days = 0;
     }
 }
@@ -95,7 +96,7 @@ void Coal_power::report()
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), mwh_output);
+    mps_store_sd(i++, N_("Output"), hivolt_output);
     // i++;
     list_commodities(&i);
 }

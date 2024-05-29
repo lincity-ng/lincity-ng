@@ -1,16 +1,15 @@
 Substations
 
-Substations take power packets from power lines (MWH) and distribute the power to
-adjacent transport (kWH). Check the power overlay to see where you need more power. The transformators
-dont require any jobs to function.
+Substations take power packets from power lines (high-voltage) and distribute the power to
+adjacent transport (low-voltage). Check the power overlay to see where you need more power. The transformers don't require any jobs to function.
 
 IMG_1[This is a substation]: images/tiles/substation-G.png
 IMG_2[and this is its icon]: images/gui/buttonpanel/power/substation.png
 
 SUBH: Formulas
 
-1500 MWh =&gt; 3000 kWh
+1500 hi-volt =&gt; 3000 lo-volt
 
-If there is not enough MWh, then the formula may be scaled down.
+If there is not enough high-voltage power, then the formula may be scaled down.
 
 ALSO[See also:]: msb-power, power, powerline, windmill, powerscoal, powerssolar

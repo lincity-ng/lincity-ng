@@ -51,9 +51,9 @@ public:
         commodityRuleCount[STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;
         commodityRuleCount[STUFF_FOOD].take = false;
         commodityRuleCount[STUFF_FOOD].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_ORG_FARM_POWER;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_ORG_FARM_POWER;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
         commodityRuleCount[STUFF_JOBS].maxload = MAX_FARM_JOBS;
         commodityRuleCount[STUFF_JOBS].take = true;
         commodityRuleCount[STUFF_JOBS].give = false;
@@ -107,7 +107,7 @@ public:
 
         commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
         commodityMaxCons[STUFF_JOBS] = 100 * FARM_JOBS_USED;
-        commodityMaxCons[STUFF_KWH] = 100 * ORG_FARM_POWER_REC;
+        commodityMaxCons[STUFF_LOVOLT] = 100 * ORG_FARM_POWER_REC;
         commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
         // commodityMaxProd[STUFF_FOOD] = 100 *
         //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);

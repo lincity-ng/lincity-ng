@@ -7,8 +7,8 @@
 #define GROUP_COAL_POWER_RANGE  0
 #define GROUP_COAL_POWER_SIZE  4
 
-#define POWERS_COAL_OUTPUT 11000 //x2 for kWh
-#define MAX_MWH_AT_COALPS (20 * POWERS_COAL_OUTPUT)
+#define POWERS_COAL_OUTPUT 11000 //x2 for lo-volt
+#define MAX_HIVOLT_AT_COALPS (20 * POWERS_COAL_OUTPUT)
 #define POWER_PER_COAL 250
 #define MAX_COAL_AT_COALPS (20 * POWERS_COAL_OUTPUT / POWER_PER_COAL)
 #define POWERS_COAL_POLLUTION  20
@@ -44,9 +44,9 @@ public:
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_COALPS;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = false;
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_COALPS;
-        commodityRuleCount[STUFF_MWH].take = false;
-        commodityRuleCount[STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_COALPS;
+        commodityRuleCount[STUFF_HIVOLT].take = false;
+        commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Coal_power
     virtual Construction *createConstruction(int x, int y);
@@ -103,22 +103,22 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->mwh_output = (int)(POWERS_COAL_OUTPUT + (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output"); // compatibility
+        // this->hivolt_output = (int)(POWERS_COAL_OUTPUT + (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_JOBS] = 100 * JOBS_COALPS_GENERATE;
         commodityMaxCons[STUFF_COAL] = 100 *
           (POWERS_COAL_OUTPUT / POWER_PER_COAL);
-        // commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
+        // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual void initialize() override {
         RegisteredConstruction::initialize();
 
-        this->mwh_output = (int)(POWERS_COAL_OUTPUT +
+        this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
           (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
-        commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
+        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual ~Coal_power() //remove 2 or more extraframes
@@ -140,7 +140,7 @@ public:
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int anim;
-    int  mwh_output;
+    int  hivolt_output;
     int  tech;
     int  working_days, busy;
 };

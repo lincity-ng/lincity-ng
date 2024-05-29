@@ -38,26 +38,26 @@ Construction *SubstationConstructionGroup::createConstruction(int x, int y) {
 
 void Substation::update()
 {
-    int use_MWH = (SUBSTATION_MWH < commodityCount[STUFF_MWH])?SUBSTATION_MWH:commodityCount[STUFF_MWH];
-    if ( (use_MWH > 0)
-     && (commodityCount[STUFF_KWH] <= MAX_KWH_AT_SUBSTATION-2 * use_MWH))
+    int use_hivolt = (SUBSTATION_HIVOLT < commodityCount[STUFF_HIVOLT])?SUBSTATION_HIVOLT:commodityCount[STUFF_HIVOLT];
+    if ( (use_hivolt > 0)
+     && (commodityCount[STUFF_LOVOLT] <= MAX_LOVOLT_AT_SUBSTATION-2 * use_hivolt))
     {
-        consumeStuff(STUFF_MWH, use_MWH);
-        produceStuff(STUFF_KWH, 2 * use_MWH);
-        working_days += use_MWH;
+        consumeStuff(STUFF_HIVOLT, use_hivolt);
+        produceStuff(STUFF_LOVOLT, 2 * use_hivolt);
+        working_days += use_hivolt;
     }
     if (total_time % 100 == 99) //monthly update
     {
         reset_prod_counters();
-        busy = working_days/SUBSTATION_MWH;
+        busy = working_days/SUBSTATION_HIVOLT;
         working_days = 0;
     }
 }
 
 void Substation::animate() {
-  if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
+  if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 2))
     frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];
-  else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
+  else if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 10))
     frameIt->resourceGroup = ResourceGroup::resMap["SubstationOff"];
   else
     frameIt->resourceGroup = ResourceGroup::resMap["Substation"];

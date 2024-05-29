@@ -32,12 +32,12 @@ void update_pbars_monthly(void);
 
 #define PBAR_PAGE_SHIFT 6
 
-#define PPOL    9
-#define PKWH   10
-#define PMWH   11
-#define PWATER 12
-#define PWASTE 13
-#define PHOUSE 14
+#define PPOL     9
+#define PLOVOLT 10
+#define PHIVOLT 11
+#define PWATER  12
+#define PWASTE  13
+#define PHOUSE  14
 
 /* Number of elements per pbar */
 #define PBAR_DATA_SIZE 1

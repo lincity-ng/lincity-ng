@@ -1,6 +1,6 @@
 Recycle centres
 
-Recycle centres convert waste into ore. Jobs, electric power (kWH) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.
+Recycle centres convert waste into ore. Jobs, electric power (low-voltage) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.
 
 It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the losses.
 
@@ -9,7 +9,7 @@ IMG_2[and this is its icon]: images/gui/buttonpanel/mining/recycling.png
 
 SUBH: Formulas
 
-34 jobs + 250 kWh + 500 waste =&gt; (500 ore + 10 steel) * efficiency
+34 jobs + 250 lo-volt + 500 waste =&gt; (500 ore + 10 steel) * efficiency
 
 efficiency = .1 + .005 * tech (capped at .8 at 140 tech)
 

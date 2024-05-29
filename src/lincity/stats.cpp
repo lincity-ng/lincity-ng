@@ -150,8 +150,8 @@ void init_census()
     tstat_census[STUFF_GOODS] = 0;
     tstat_census[STUFF_WASTE] = 0;
     tstat_census[STUFF_STEEL] = 0;
-    tstat_census[STUFF_KWH] = 0;
-    tstat_census[STUFF_MWH] = 0;
+    tstat_census[STUFF_LOVOLT] = 0;
+    tstat_census[STUFF_HIVOLT] = 0;
 
     tstat_capacities[STUFF_FOOD] = 1;
     tstat_capacities[STUFF_JOBS] = 1;
@@ -161,8 +161,8 @@ void init_census()
     tstat_capacities[STUFF_WATER] = 1;
     tstat_capacities[STUFF_GOODS] = 1;
     tstat_capacities[STUFF_WASTE] = 1;
-    tstat_capacities[STUFF_KWH] = 1;
-    tstat_capacities[STUFF_MWH] = 1;
+    tstat_capacities[STUFF_LOVOLT] = 1;
+    tstat_capacities[STUFF_HIVOLT] = 1;
 }
 
 void init_yearly(void)

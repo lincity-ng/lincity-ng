@@ -13,7 +13,7 @@
 #define MILL_POWER_PER_COAL 60
 #define COAL_USED_BY_MILL  1
 
-#define MAX_KWH_AT_MILL    (COAL_USED_BY_MILL * MILL_POWER_PER_COAL * 20)
+#define MAX_LOVOLT_AT_MILL    (COAL_USED_BY_MILL * MILL_POWER_PER_COAL * 20)
 #define MAX_JOBS_AT_MILL   (MILL_JOBS * 20)
 #define MAX_FOOD_AT_MILL   (FOOD_USED_BY_MILL * 20)
 #define MAX_COAL_AT_MILL   (COAL_USED_BY_MILL * 20)
@@ -51,9 +51,9 @@ public:
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_MILL;
         commodityRuleCount[STUFF_GOODS].take = false;
         commodityRuleCount[STUFF_GOODS].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_MILL;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_MILL;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a mill
     virtual Construction *createConstruction(int x, int y);
@@ -75,7 +75,7 @@ public:
         initialize_commodities();
 
         commodityMaxCons[STUFF_COAL] = 100 * COAL_USED_BY_MILL;
-        commodityMaxCons[STUFF_KWH] = 100 *
+        commodityMaxCons[STUFF_LOVOLT] = 100 *
           COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
         commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
         commodityMaxCons[STUFF_JOBS] = 100 * MILL_JOBS;
