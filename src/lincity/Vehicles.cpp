@@ -6,19 +6,20 @@
 
 #include "Vehicles.h"
 
-#include <stdlib.h>    // for NULL, rand
-#include <cmath>       // for ceil
-#include <iostream>    // for basic_ostream, basic_ostream::operator<<, oper...
-#include <iterator>    // for advance
-#include <map>         // for map
-#include <string>      // for char_traits, basic_string, operator<
-#include <vector>      // for vector
+#include <stdlib.h>         // for NULL, rand
+#include <cmath>            // for ceil
+#include <iostream>         // for basic_ostream, basic_ostream::operator<<
+#include <iterator>         // for advance
+#include <map>              // for map
+#include <string>           // for char_traits, basic_string, operator<
+#include <vector>           // for vector
 
-#include "engglobs.h"  // for world
-#include "engine.h"    // for real_time
-#include "groups.h"    // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE, GROUP_ROAD
-#include "lintypes.h"  // for ExtraFrame, MapTile, Construction, ResourceGroup
-#include "world.h"     // for World
+#include "commodities.hpp"  // for Commodity
+#include "engglobs.h"       // for world
+#include "engine.h"         // for real_time
+#include "groups.h"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
+#include "lintypes.h"       // for Construction
+#include "world.h"          // for World, MapTile
 
 std::list<Vehicle*> Vehicle::vehicleList;
 

@@ -6,10 +6,11 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include <list>             // for list
+#include <list>           // for list
 
-#include "commodities.hpp"  // for Commodity
-#include "resources.hpp"    // for ExtraFrame
+#include "resources.hpp"  // for ExtraFrame
+
+enum Commodity : int;
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22
