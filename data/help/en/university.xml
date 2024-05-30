@@ -2,9 +2,9 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">University</p>
-	<p style="hp">Universities help to increase your technology level. In the process they consume goods and jobs. They produce more than schools for a given goods/jobs input. However they consume a lot of goods and jobs and also cost quite a lot of money to run, so you should have the economic and industrial capacity to supply them.</p>
+	<p style="hp">Universities help to increase your technology level. In the process they consume goods and labor. They produce more than schools for a given goods/labor input. However they consume a lot of goods and labor and also cost quite a lot of money to run, so you should have the economic and industrial capacity to supply them.</p>
 	<p style="hp">You will need a number of universities to achieve a tech level close to 100%</p>
-	<p style="hp">Universities do not need to be connected to transport; they can get all their requirements from markets within range and with enough jobs and goods available.</p>
+	<p style="hp">Universities do not need to be connected to transport; they can get all their requirements from markets within range and with enough labor and goods available.</p>
 
 	<p style="hsubtitle">NOTE</p>
 	<p style="hp">You must have 4 schools per university to supply them with students.</p>
@@ -16,7 +16,7 @@
    <img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">250 jobs + 750 goods =&gt; .0004 tech + 250 waste</p>
+	<p style="hp">250 labor + 750 goods =&gt; .0004 tech + 250 waste</p>
 	<p style="hp">A university can sustain up to ~20 tech <100 or ~10 tech >100</p>
 
   <p style="hsubtitle">See also:</p>
@@ -24,6 +24,6 @@
 	<li><a href="market">Market</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="goods">Goods</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="labor">Labor</a></li>
 	<li><a href="school">Schools</a></li>
 </Document>

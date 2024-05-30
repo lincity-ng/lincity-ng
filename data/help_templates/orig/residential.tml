@@ -17,15 +17,15 @@ SUBH: Formulas
 
 don't starve: (1 food + 1 water =&gt; 0) * pop
 
-power: 30 kWh + 3 kWh * pop =&gt; 0
+power: 30 lo-volt + 3 lo-volt * pop =&gt; 0
 
-employment: (0 =&gt; .69 jobs + swing) * pop (with health and sports cover)
+employment: (0 =&gt; .69 labor + swing) * pop (with health and sports cover)
 
-swing = .05 * remaining jobs inventory capacity fraction (with health and sports cover)
+swing = .05 * remaining labor inventory capacity fraction (with health and sports cover)
 
 goods: (.25 goods =&gt; .0833 waste) * pop (only if employed)
 
-extra power: (.5 kWh =&gt; 0) * pop (only if using goods)
+extra power: (.5 lo-volt =&gt; 0) * pop (only if using goods)
 
 extra goods: (.25 goods =&gt; .0833 waste) * pop (only if using extra power)
 

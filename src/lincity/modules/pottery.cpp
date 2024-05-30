@@ -46,12 +46,12 @@ void Pottery::update()
     if ((commodityCount[STUFF_GOODS] + POTTERY_MADE_GOODS <= MAX_GOODS_AT_POTTERY)
      && (commodityCount[STUFF_ORE] >= POTTERY_ORE_MAKE_GOODS)
      && (commodityCount[STUFF_COAL] >= POTTERY_COAL_MAKE_GOODS)
-     && (commodityCount[STUFF_JOBS] >= POTTERY_JOBS))
+     && (commodityCount[STUFF_LABOR] >= POTTERY_LABOR))
     {
         produceStuff(STUFF_GOODS, POTTERY_MADE_GOODS);
         consumeStuff(STUFF_ORE, POTTERY_ORE_MAKE_GOODS);
         consumeStuff(STUFF_COAL, POTTERY_COAL_MAKE_GOODS);
-        consumeStuff(STUFF_JOBS, POTTERY_JOBS);
+        consumeStuff(STUFF_LABOR, POTTERY_LABOR);
 
         animate_enable = true;
         if(!((working_days++)%10))

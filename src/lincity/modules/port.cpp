@@ -72,12 +72,12 @@ void Port::update()
     daily_ic = 0;
     daily_et = 0;
 
-    if (commodityCount[STUFF_JOBS] >= PORT_JOBS)//there is enough workforce
+    if (commodityCount[STUFF_LABOR] >= PORT_LABOR)//there is enough workforce
     {
         trade_connection();
         if (daily_ic || daily_et)
         {
-            consumeStuff(STUFF_JOBS, PORT_JOBS);
+            consumeStuff(STUFF_LABOR, PORT_LABOR);
             world(x,y)->pollution += PORT_POLLUTION;
             sust_port_flag = 0;
             tech_made++;

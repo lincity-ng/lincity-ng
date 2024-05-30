@@ -29,20 +29,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>               // for basic_string, operator<, string
 #include <utility>              // for pair, make_pair
 
-#include "Button.hpp"           // for Button
-#include "Desktop.hpp"          // for Desktop
-#include "Document.hpp"         // for Document
-#include "FilledRectangle.hpp"  // for FilledRectangle
-#include "Gradient.hpp"         // for Gradient
-#include "Image.hpp"            // for Image
-#include "Panel.hpp"            // for Panel
-#include "Paragraph.hpp"        // for Paragraph
-#include "ScrollBar.hpp"        // for ScrollBar
-#include "ScrollView.hpp"       // for ScrollView
-#include "SwitchComponent.hpp"  // for SwitchComponent
-#include "TableLayout.hpp"      // for TableLayout
-#include "TooltipManager.hpp"   // for TooltipManager
-#include "Window.hpp"           // for Window
+// IWYU pragma: no_include "Button.hpp"
+// IWYU pragma: no_include "Desktop.hpp"
+// IWYU pragma: no_include "Document.hpp"
+// IWYU pragma: no_include "FilledRectangle.hpp"
+// IWYU pragma: no_include "Gradient.hpp"
+// IWYU pragma: no_include "Image.hpp"
+// IWYU pragma: no_include "Panel.hpp"
+// IWYU pragma: no_include "Paragraph.hpp"
+// IWYU pragma: no_include "ScrollBar.hpp"
+// IWYU pragma: no_include "ScrollView.hpp"
+// IWYU pragma: no_include "SwitchComponent.hpp"
+// IWYU pragma: no_include "TableLayout.hpp"
+// IWYU pragma: no_include "TooltipManager.hpp"
+// IWYU pragma: no_include "Window.hpp"
+// IWYU pragma: no_include "WindowManager.hpp"
 
 const char * GUI_TRANSLATE(const char * msgid);
 std::string  GUI_TRANSLATE(const std::string& msgid);

@@ -9,9 +9,10 @@
 #include <map>                  // for map
 
 #include "ConstructionCount.h"  // for ConstructionCount
-#include "commodities.hpp"      // for Commodity
 #include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...
 #include "world.h"              // for World, WORLD_SIDE_LEN
+
+enum Commodity : int;
 
 /* load/save version for compatibility with(out) waterwell */
 int ldsv_version;

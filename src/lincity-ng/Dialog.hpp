@@ -20,10 +20,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>  // for string
 
-
 class Button;
-class Component;
-class Desktop;
+class Window;
+class WindowManager;
 
 #define BULLDOZE_MONUMENT 1
 #define BULLDOZE_RIVER    2
@@ -64,8 +63,8 @@ class Dialog
         void msgDialog( std::string message, std::string extraString);
 
         void initDialog( int x = -1 , int y = -1 );
-        Desktop* desktop;
-        Component* myDialogComponent;
+        WindowManager* windowManager;
+        Window* myDialogComponent;
         int pointX;
         int pointY;
 

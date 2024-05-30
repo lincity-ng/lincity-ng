@@ -26,7 +26,9 @@ add_library(lincity_gui  STATIC
 		TableLayout.cpp
 		TextureManager.cpp
 		TooltipManager.cpp
+		Vector2.cpp
 		Window.cpp
+		WindowManager.cpp
 		XmlReader.cpp
 
 		Button.hpp
@@ -59,6 +61,7 @@ add_library(lincity_gui  STATIC
 		TooltipManager.hpp
 		Vector2.hpp
 		Window.hpp
+		WindowManager.hpp
 		XmlReader.hpp
 
 		callback/Callback.hpp

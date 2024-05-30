@@ -31,11 +31,11 @@ Construction *HealthCentreConstructionGroup::createConstruction(int x, int y ) {
 void HealthCentre::update()
 {
     ++daycount;
-    if (commodityCount[STUFF_JOBS] >= HEALTH_CENTRE_JOBS
+    if (commodityCount[STUFF_LABOR] >= HEALTH_CENTRE_LABOR
     &&  commodityCount[STUFF_GOODS] >= HEALTH_CENTRE_GOODS
     &&  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS / 3) <= MAX_WASTE_AT_HEALTH_CENTRE)
     {
-        consumeStuff(STUFF_JOBS, HEALTH_CENTRE_JOBS);
+        consumeStuff(STUFF_LABOR, HEALTH_CENTRE_LABOR);
         consumeStuff(STUFF_GOODS, HEALTH_CENTRE_GOODS);
         produceStuff(STUFF_WASTE, HEALTH_CENTRE_GOODS / 3);
         ++covercount;

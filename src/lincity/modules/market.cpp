@@ -50,11 +50,11 @@ void Market::update()
     for(stuff_ID = STUFF_INIT ; stuff_ID < STUFF_COUNT ; stuff_ID++ )
     {
         //dont handle stuff if neither give nor take
-        //dont handle anything else if there are to little jobs
+        //dont handle anything else if there are to little labor
         const CommodityRule& market_rule = commodityRuleCount[stuff_ID];
         if ((!market_rule.give
          && !market_rule.take) ||
-         (commodityCount[STUFF_JOBS] < jobs && stuff_ID != STUFF_JOBS))
+         (commodityCount[STUFF_LABOR] < labor && stuff_ID != STUFF_LABOR))
         {   continue;}
 
         market_lvl = commodityCount[stuff_ID];
@@ -100,11 +100,11 @@ void Market::update()
         commodityCount[stuff_ID] = market_lvl;
     }
 
-    if (commodityCount[STUFF_JOBS] >= jobs)
+    if (commodityCount[STUFF_LABOR] >= labor)
     {
-        consumeStuff(STUFF_JOBS, jobs);
+        consumeStuff(STUFF_LABOR, labor);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
-        income_tax += jobs;
+        income_tax += labor;
         ++working_days;
     }
 
@@ -132,19 +132,19 @@ void Market::update()
 
         if (market_ratio < 10)
         {
-            jobs = JOBS_MARKET_EMPTY;
+            labor = LABOR_MARKET_EMPTY;
         }
         else if (market_ratio < 20)
         {
-            jobs = JOBS_MARKET_LOW;
+            labor = LABOR_MARKET_LOW;
         }
         else if (market_ratio < 50)
         {
-            jobs = JOBS_MARKET_MED;
+            labor = LABOR_MARKET_MED;
         }
         else
         {
-            jobs = JOBS_MARKET_FULL;
+            labor = LABOR_MARKET_FULL;
         }
     }
 

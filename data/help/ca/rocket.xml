@@ -11,11 +11,11 @@
 	<img src="images/tiles/rocket5.png" halign="center"/>
 	<p style="hp">i aquesta n'és la seva icona</p>
 	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
-	
+
 	<p style="hsubtitle">Temes relacionats:</p>
 	<li><a href="market">Mercat</a></li>
 	<li><a href="ore">Mena</a></li>
 	<li><a href="commune">Comuna</a></li>
 	<li><a href="steel">Acer</a></li>
-	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="labor">Ocupació</a></li>
 </Document>

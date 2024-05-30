@@ -6,10 +6,11 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include <list>             // for list
+#include <list>           // for list
 
-#include "commodities.hpp"  // for Commodity
-#include "resources.hpp"    // for ExtraFrame
+#include "resources.hpp"  // for ExtraFrame
+
+enum Commodity : int;
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22
@@ -25,8 +26,8 @@ enum VehicleModel
 
 enum VehicleStrategy
 {
-    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_JOBS
-    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_JOBS
+    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_LABOR
+    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_LABOR
     VEHICLE_STRATEGY_RANDOM    //just do a random walk
 };
 

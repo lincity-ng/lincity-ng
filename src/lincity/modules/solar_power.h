@@ -7,10 +7,10 @@
 #define GROUP_SOLAR_POWER_RANGE 0
 #define GROUP_SOLAR_POWER_SIZE 4
 
-#define SOLAR_POWER_JOBS 50
+#define SOLAR_POWER_LABOR 50
 #define POWERS_SOLAR_OUTPUT 900 //1800
-#define MAX_JOBS_AT_SOLARPS (20 * SOLAR_POWER_JOBS)
-#define MAX_MWH_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
+#define MAX_LABOR_AT_SOLARPS (20 * SOLAR_POWER_LABOR)
+#define MAX_HIVOLT_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
 #include <array>                    // for array
 #include <string>                   // for basic_string
@@ -32,12 +32,12 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SOLARPS;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_SOLARPS;
-        commodityRuleCount[STUFF_MWH].take = false;
-        commodityRuleCount[STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_SOLARPS;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_SOLARPS;
+        commodityRuleCount[STUFF_HIVOLT].take = false;
+        commodityRuleCount[STUFF_HIVOLT].give = true;
     };
     // overriding method that creates a Solar Power Plant
     virtual Construction *createConstruction(int x, int y);
@@ -55,26 +55,26 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->mwh_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output"); // compatibility
+        // this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * SOLAR_POWER_JOBS;
-        // commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
+        commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
+        // commodityMaxCons[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual void initialize() override {
         RegisteredConstruction::initialize();
 
-        this->mwh_output = (int)(POWERS_SOLAR_OUTPUT +
+        this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
           (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
 
-        commodityMaxCons[STUFF_MWH] = 100 * mwh_output;
+        commodityMaxCons[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual void update() override;
     virtual void report() override;
-    int  mwh_output;
+    int  hivolt_output;
     int  tech;
     int  working_days, busy;
 };

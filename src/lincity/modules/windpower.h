@@ -8,10 +8,10 @@
 #define GROUP_WIND_POWER_RANGE  0
 #define GROUP_WIND_POWER_SIZE  2
 
-#define WIND_POWER_MWH        450
-#define WIND_POWER_JOBS       15
-#define MAX_JOBS_AT_WIND_POWER 20*(WIND_POWER_JOBS)
-#define MAX_MWH_AT_WIND_POWER 20*(WIND_POWER_MWH)
+#define WIND_POWER_HIVOLT     450
+#define WIND_POWER_LABOR       15
+#define MAX_LABOR_AT_WIND_POWER 20*(WIND_POWER_LABOR)
+#define MAX_HIVOLT_AT_WIND_POWER 20*(WIND_POWER_HIVOLT)
 /* WIND_POWER_RCOST is days per quid */
 #define WIND_POWER_RCOST      2
 #define WIND_POWER_ANIM_SPEED 120
@@ -36,12 +36,12 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
-        commodityRuleCount[STUFF_MWH].take = false;
-        commodityRuleCount[STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_WIND_POWER;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_WIND_POWER;
+        commodityRuleCount[STUFF_HIVOLT].take = false;
+        commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Windpower
     virtual Construction *createConstruction(int x, int y);
@@ -63,21 +63,21 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->mwh_output = (int)(WIND_POWER_MWH + (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output"); // compatibility
+        // this->hivolt_output = (int)(WIND_POWER_HIVOLT + (((double)tech_level * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * WIND_POWER_JOBS;
-        // commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
+        commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
+        // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual void initialize() override {
         RegisteredConstruction::initialize();
 
-        this->mwh_output = (int)(WIND_POWER_MWH +
-          (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
+        this->hivolt_output = (int)(WIND_POWER_HIVOLT +
+          (((double)tech_level * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
 
-        commodityMaxProd[STUFF_MWH] = 100 * mwh_output;
+        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual ~Windpower() { }
@@ -85,7 +85,7 @@ public:
     virtual void report() override;
     virtual void animate() override;
 
-    int  mwh_output;
+    int  hivolt_output;
     int  tech;
     int  anim;
     int  working_days, busy;

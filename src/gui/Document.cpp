@@ -118,10 +118,10 @@ Document::resize(float newwidth, float newheight)
         float compwidth = newwidth - element->getStyle().margin_left - element->getStyle().margin_right;
         if(compwidth < 0)
             compwidth = 0;
-        
+
         component->resize(compwidth, -1);
         float posx = element->getStyle().margin_left;
-        switch(element->getStyle().alignment) 
+        switch(element->getStyle().alignment)
         {
             case Style::ALIGN_LEFT:
                 posx += 0;
@@ -141,6 +141,7 @@ Document::resize(float newwidth, float newheight)
         height += component->getHeight() + element->getStyle().margin_bottom;
     }
     width = newwidth;
+    if(width < 0) width = 0;
 
     if(height < newheight)
         height = newheight;
@@ -175,4 +176,3 @@ Document::paragraphLinkClicked(Paragraph* paragraph, const std::string& href)
 IMPLEMENT_COMPONENT_FACTORY(Document)
 
 /** @file gui/Document.cpp */
-

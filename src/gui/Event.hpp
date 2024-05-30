@@ -53,8 +53,6 @@ public:
         WINDOWENTER,
         /// window lost mouse focus
         WINDOWLEAVE,
-        /// other window event
-        WINDOWOTHER,
     };
     /// Create an update Event
     Event(float elapsedTime);
@@ -69,6 +67,8 @@ public:
     int scrolly;
     /// number of the mousebutton that has been pressed
     int mousebutton;
+    /// mouse button state (can be decoded with SDL_BUTTON macros)
+    Uint32 mousebuttonstate;
     /// symbol of the key that has been pressed (see SDL_keysym)
     SDL_Keysym keysym;
     /** set to true if the position where the mouse was clicked/released is

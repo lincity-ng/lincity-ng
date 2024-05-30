@@ -32,11 +32,11 @@ void University::update()
 {
     university_cost += UNIVERSITY_RUNNING_COST;
     //do the teaching
-    if (commodityCount[STUFF_JOBS] >= UNIVERSITY_JOBS
+    if (commodityCount[STUFF_LABOR] >= UNIVERSITY_LABOR
     &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
     &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY)
     {
-        consumeStuff(STUFF_JOBS, UNIVERSITY_JOBS);
+        consumeStuff(STUFF_LABOR, UNIVERSITY_LABOR);
         consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
         produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
         ++working_days;

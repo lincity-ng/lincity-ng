@@ -7,10 +7,10 @@
 #define GROUP_SUBSTATION_RANGE 0
 #define GROUP_SUBSTATION_SIZE 2
 
-#define SUBSTATION_MWH                          (1500)
-#define MAX_MWH_AT_SUBSTATION    (20 * SUBSTATION_MWH)
-#define SUBSTATION_KWH            (2 * SUBSTATION_MWH)
-#define MAX_KWH_AT_SUBSTATION    (20 * SUBSTATION_KWH)
+#define SUBSTATION_HIVOLT                          (1500)
+#define MAX_HIVOLT_AT_SUBSTATION    (20 * SUBSTATION_HIVOLT)
+#define SUBSTATION_LOVOLT            (2 * SUBSTATION_HIVOLT)
+#define MAX_LOVOLT_AT_SUBSTATION    (20 * SUBSTATION_LOVOLT)
 
 
 #include <array>                    // for array
@@ -31,12 +31,12 @@ public:
         cost, tech, range, 2/*mps_pages*/
     ) {
 
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;
-        commodityRuleCount[STUFF_MWH].take = true;
-        commodityRuleCount[STUFF_MWH].give = false;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_SUBSTATION;
-        commodityRuleCount[STUFF_KWH].take = false;
-        commodityRuleCount[STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_AT_SUBSTATION;
+        commodityRuleCount[STUFF_HIVOLT].take = true;
+        commodityRuleCount[STUFF_HIVOLT].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_SUBSTATION;
+        commodityRuleCount[STUFF_LOVOLT].take = false;
+        commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Substation
     virtual Construction *createConstruction(int x, int y);
@@ -56,8 +56,8 @@ public:
         this->busy = 0;
         initialize_commodities();
 
-        commodityMaxCons[STUFF_MWH] = 100 * SUBSTATION_MWH;
-        commodityMaxProd[STUFF_KWH] = 100 * 2 * SUBSTATION_MWH;
+        commodityMaxCons[STUFF_HIVOLT] = 100 * SUBSTATION_HIVOLT;
+        commodityMaxProd[STUFF_LOVOLT] = 100 * 2 * SUBSTATION_HIVOLT;
     }
     virtual ~Substation() { }
     virtual void update() override;

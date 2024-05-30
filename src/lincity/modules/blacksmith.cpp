@@ -38,12 +38,12 @@ void Blacksmith::update()
     if ((commodityCount[STUFF_GOODS] + GOODS_MADE_BY_BLACKSMITH <= MAX_GOODS_AT_BLACKSMITH )
         && (commodityCount[STUFF_COAL] >= BLACKSMITH_COAL_USED)
         && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
-        && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
+        && (commodityCount[STUFF_LABOR] >= BLACKSMITH_LABOR))
     {
         produceStuff(STUFF_GOODS, GOODS_MADE_BY_BLACKSMITH);
         consumeStuff(STUFF_COAL, BLACKSMITH_COAL_USED);
         consumeStuff(STUFF_STEEL, BLACKSMITH_STEEL_USED);
-        consumeStuff(STUFF_JOBS, BLACKSMITH_JOBS);
+        consumeStuff(STUFF_LABOR, BLACKSMITH_LABOR);
         working_days++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
         {

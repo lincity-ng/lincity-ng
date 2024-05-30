@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string.h>                     // for strcmp
 
 #include "ComponentLoader.hpp"          // for createComponent
-#include "Desktop.hpp"                  // for Desktop
 #include "XmlReader.hpp"                // for XmlReader
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager, Dictionary
 //#include "../lincity-ng/CheckButton.hpp" //FIXME will that help?
@@ -100,9 +99,10 @@ ImportFactory::createComponent(XmlReader& reader)
  * some reasons also global constructor seems to be considered unused if noone
  * uses the global object. So can't use our slick component factory registration
  * tricks :-/ And have to fill in the list manually here
- */
+**/
 
 #include "Button.hpp"                   // for Button
+#include "Desktop.hpp"                  // for Desktop
 #include "Document.hpp"                 // for Document
 #include "FilledRectangle.hpp"          // for FilledRectangle
 #include "Gradient.hpp"                 // for Gradient
@@ -115,6 +115,7 @@ ImportFactory::createComponent(XmlReader& reader)
 #include "TableLayout.hpp"              // for TableLayout
 #include "TooltipManager.hpp"           // for TooltipManager
 #include "Window.hpp"                   // for Window
+#include "WindowManager.hpp"            // for WindowManager
 
 //DECLARE_COMPONENT_FACTORY(CheckButton); //FIXME will this help?
 DECLARE_COMPONENT_FACTORY(Button)
@@ -131,6 +132,7 @@ DECLARE_COMPONENT_FACTORY(SwitchComponent)
 DECLARE_COMPONENT_FACTORY(TableLayout)
 DECLARE_COMPONENT_FACTORY(TooltipManager)
 DECLARE_COMPONENT_FACTORY(Window)
+DECLARE_COMPONENT_FACTORY(WindowManager)
 
 void initFactories()
 {
@@ -154,6 +156,7 @@ void initFactories()
         new INTERN_TableLayoutFactory();
         new INTERN_TooltipManagerFactory();
         new INTERN_WindowFactory();
+        new INTERN_WindowManagerFactory();
         new ImportFactory();
 
         dictionaryGUIManager = new tinygettext::DictionaryManager();
@@ -168,4 +171,3 @@ void initFactories()
 
 
 /** @file gui/ComponentFactory.cpp */
-

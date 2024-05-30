@@ -2,17 +2,17 @@ Light industrial areas
 
 Light industry converts ore into goods.
 The conversion becomes more efficient if steel is also available.
-Power increases the output further still. Inefficient kWh may
-be delivered by transport. MWh can be directly supplied by powerlines.
-Windmills will barely provide enough kWH
+Power increases the output further still. Inefficient low-voltage power may
+be delivered by transport. High-voltage power can be directly supplied by power lines.
+Windmills will barely provide enough low-voltage power.
 
 As a rule of thumb, the output of a light industrial
 area is mainly dependent on the amount of raw materials,
-including jobs, that it can receive, and also the amount
+including labor, that it can receive, and also the amount
 of goods that can be taken away.
 
 These areas connect directly to transport to exchange
-jobs, ore, steel, kWh and goods. They may need a market to run at full capacity.
+labor, ore, steel, power and goods. They may need a market to run at full capacity.
 
 Light industries produce heavy pollution.
 
@@ -21,12 +21,12 @@ IMG_2[and this its icon]: images/gui/buttonpanel/industry/lightindustry.png
 
 SUBH: Formulas
 
-59 jobs + 250 ore + 12 steel + (4500 MWh or 9000 kWh) =&gt; 1800 goods
+59 labor + 250 ore + 12 steel + (4500 hi-volt or 9000 lo-volt) =&gt; 1800 goods
 
-40 jobs + 250 ore + (4500 MWh or 9000 kWh) =&gt; 900 goods
+40 labor + 250 ore + (4500 hi-volt or 9000 lo-volt) =&gt; 900 goods
 
-59 jobs + 125 ore + 12 steel =&gt; 450 goods
+59 labor + 125 ore + 12 steel =&gt; 450 goods
 
-40 jobs + 125 ore =&gt; 225 goods
+40 labor + 125 ore =&gt; 225 goods
 
 ALSO[See also:]: transport, market, commodities, pollution

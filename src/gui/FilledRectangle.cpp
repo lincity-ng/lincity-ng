@@ -58,8 +58,10 @@ FilledRectangle::parse(XmlReader& reader)
 }
 
 void
-FilledRectangle::resize(float width, float height) 
+FilledRectangle::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 }
@@ -74,4 +76,3 @@ FilledRectangle::draw(Painter& painter)
 IMPLEMENT_COMPONENT_FACTORY(FilledRectangle)
 
 /** @file gui/FilledRectangle.cpp */
-

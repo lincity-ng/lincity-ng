@@ -7,7 +7,7 @@
 #define GROUP_COMMUNE_RANGE 0
 #define GROUP_COMMUNE_SIZE 4
 
-//#define JOBS_AT_COMMUNE_GATE 4
+//#define LABOR_AT_COMMUNE_GATE 4
 #define COMMUNE_ANIM_SPEED 750
 #define COMMUNE_POP  5 //Used at shanty
 

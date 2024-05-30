@@ -42,7 +42,7 @@ void Oremine::update()
     // see if we can/need to extract some underground ore
     if ((total_ore_reserve)
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
-    && (commodityCount[STUFF_JOBS] >= OREMINE_JOBS))
+    && (commodityCount[STUFF_LABOR] >= OREMINE_LABOR))
     {
         for (yy = y; (yy < y + constructionGroup->size); yy++)
         {
@@ -54,7 +54,7 @@ void Oremine::update()
                     world(xx,yy)->flags |= FLAG_ALTERED;
                     total_ore_reserve--;
                     produceStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_JOBS, OREMINE_JOBS);
+                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
                     //FIXME ore_tax should be handled upon delivery
                     //ore_made += ORE_PER_RESERVE;
                     if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
@@ -68,7 +68,7 @@ void Oremine::update()
     }
     // return the ore to ore_reserve if there is enough sustainable ore available
     else if ((commodityCount[STUFF_ORE] - ORE_PER_RESERVE > ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE )/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE))
+    && (commodityCount[STUFF_LABOR] >= LABOR_DIG_ORE))
     {
         for (yy = y; (yy < y + constructionGroup->size); yy++)
         {
@@ -80,7 +80,7 @@ void Oremine::update()
                     world(xx,yy)->flags |= FLAG_ALTERED;
                     total_ore_reserve++;
                     consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_JOBS, OREMINE_JOBS);
+                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
                     animate_enable = true;
                     working_days++;
                     goto end_mining;
@@ -103,7 +103,7 @@ void Oremine::update()
 
     //Abandon the Oremine if it is really empty
     if ((total_ore_reserve == 0)
-      &&(commodityCount[STUFF_JOBS] == 0)
+      &&(commodityCount[STUFF_LABOR] == 0)
       &&(commodityCount[STUFF_ORE] == 0) )
     {   ConstructionManager::submitRequest(new OreMineDeletionRequest(this));}
 }

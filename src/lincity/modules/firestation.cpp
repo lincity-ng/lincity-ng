@@ -36,11 +36,11 @@ Construction *FireStationConstructionGroup::createConstruction(int x, int y ) {
 void FireStation::update()
 {
     ++daycount;
-    if (commodityCount[STUFF_JOBS] >= FIRESTATION_JOBS
+    if (commodityCount[STUFF_LABOR] >= FIRESTATION_LABOR
     &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
     &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION)
     {
-        consumeStuff(STUFF_JOBS, FIRESTATION_JOBS);
+        consumeStuff(STUFF_LABOR, FIRESTATION_LABOR);
         consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
         produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
         ++covercount;
