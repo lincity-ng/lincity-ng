@@ -3,7 +3,9 @@
 Fixes since 2.10.2:
 * Fixed portability for Windows.
 * Fixed failure to load sound effects.
+* Fixed error displaying school and university help pages.
 * Fixed "Invalid ExtraFrames" warning caused by waste fires.
+* Fixed warning re. excessive goods production by mills.
 * Fixed missing git describe in package versions that are generated with CPack.
 * Removed extraneous link libraries.
 * Fixed handling of window size in fullscreen mode.
@@ -34,6 +36,7 @@ Removals since 2.10.2:
 Regressions since 2.10.2:
 * Some translations may be outdated since renaming commodities.
 * Production/Consumption formulas do not exist in translated help pages.
+
 
 *** Lincity NG 2.10.2 *** [git: a610129] 2024-04-19
 
