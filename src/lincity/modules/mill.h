@@ -79,7 +79,7 @@ public:
           COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
         commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
         commodityMaxCons[STUFF_LABOR] = 100 * MILL_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
+        commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
     }
     virtual ~Mill() { }
     virtual void update() override;
