@@ -3,7 +3,6 @@
 Fixes since 2.10.2:
 * Fixed portability for Windows.
 * Fixed failure to load sound effects.
-* Fixed error displaying school and university help pages.
 * Fixed "Invalid ExtraFrames" warning caused by waste fires.
 * Fixed warning re. excessive goods production by mills.
 * Fixed missing git describe in package versions that are generated with CPack.
@@ -13,7 +12,7 @@ Fixes since 2.10.2:
 
 Additions since 2.10.2:
 * Added support for cross-compiling from Linux to Windows with MinGW-w64. (Now
-  Windows binaries can be included in the release.)
+  Windows binaries can be included in releases.)
 * Made in-game windows and dialogs resizable by dragging the edges/corners.
 * Added production/consumption formulas for each module to help pages.
 * Added error checking for loading sound effects.
