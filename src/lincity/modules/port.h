@@ -49,6 +49,8 @@
 
 #include "modules.h"
 
+extern CommodityRule ixRule[STUFF_COUNT];
+
 class PortConstructionGroup: public ConstructionGroup {
 public:
     PortConstructionGroup(

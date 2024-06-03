@@ -106,6 +106,4 @@ int alt_min, alt_max, alt_step;
 
 int fast_time_for_year;
 
-bool importEnable[STUFF_COUNT], exportEnable[STUFF_COUNT];
-
 /** @file lincity/engglobs.cpp */

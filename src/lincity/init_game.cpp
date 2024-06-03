@@ -156,7 +156,7 @@ void clear_game(void)
     sust_fire_count = 0;
 
     for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++)
-        importEnable[s] = exportEnable[s] = true;
+        ixRule[s].take = ixRule[s].give = true;
 
     init_pbars();
     refresh_pbars();
