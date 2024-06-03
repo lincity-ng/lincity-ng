@@ -14,26 +14,29 @@
 #define SHANTY_WASTE_BURN_DAYS 10;
 
 #define SHANTY_GET_FOOD   50
-#define SHANTY_GET_JOBS   5
+#define SHANTY_GET_LABOR   5
 #define SHANTY_GET_GOODS  50
 #define SHANTY_GET_COAL   1
 #define SHANTY_GET_ORE    10
 #define SHANTY_GET_STEEL  1
 #define SHANTY_PUT_WASTE  1
-#define SHANTY_GET_KWH    50
+#define SHANTY_GET_LOVOLT    50
 
 #define MAX_FOOD_AT_SHANTY  (SHANTY_GET_FOOD * 20)
-#define MAX_JOBS_AT_SHANTY  (SHANTY_GET_JOBS * 20)
+#define MAX_LABOR_AT_SHANTY  (SHANTY_GET_LABOR * 20)
 #define MAX_GOODS_AT_SHANTY (SHANTY_GET_GOODS * 20)
 #define MAX_COAL_AT_SHANTY  (SHANTY_GET_COAL * 20)
 #define MAX_ORE_AT_SHANTY   (SHANTY_GET_ORE * 20)
 #define MAX_STEEL_AT_SHANTY (SHANTY_GET_STEEL * 20)
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
-#define MAX_KWH_AT_SHANTY   (SHANTY_GET_KWH * 20)
+#define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
+
+#include <array>                    // for array
+#include <list>                     // for _List_iterator, list
+#include <map>                      // for map
+#include <string>                   // for basic_string, operator<
 
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:
@@ -51,9 +54,9 @@ public:
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_AT_SHANTY;
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = false;
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_SHANTY;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_SHANTY;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_SHANTY;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -69,9 +72,9 @@ public:
         commodityRuleCount[STUFF_WASTE].maxload = MAX_WASTE_AT_SHANTY;
         commodityRuleCount[STUFF_WASTE].take = false;
         commodityRuleCount[STUFF_WASTE].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_SHANTY;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_SHANTY;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a Shanty
     virtual Construction *createConstruction(int x, int y);
@@ -99,7 +102,7 @@ public:
         commodityMaxProd[STUFF_WASTE] = 100 *
           (SHANTY_PUT_WASTE * 2 + SHANTY_GET_GOODS / 3);
         commodityMaxCons[STUFF_FOOD] = 100 * SHANTY_GET_FOOD;
-        commodityMaxCons[STUFF_JOBS] = 100 * SHANTY_GET_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * SHANTY_GET_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * SHANTY_GET_GOODS;
         commodityMaxCons[STUFF_COAL] = 100 * SHANTY_GET_COAL;
         commodityMaxCons[STUFF_ORE] = 100 * SHANTY_GET_ORE;

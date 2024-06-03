@@ -23,9 +23,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "SwitchComponent.hpp"
-#include "XmlReader.hpp"
-#include "ComponentLoader.hpp"
-#include "ComponentFactory.hpp"
+
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <iostream>              // for operator<<, basic_ostream, basic_ios
+#include <vector>                // for vector
+
+#include "Child.hpp"             // for Childs, Child
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for createComponent
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 /**
  * Class constructor.
@@ -86,6 +93,8 @@ SwitchComponent::parse(XmlReader& reader)
 void
 SwitchComponent::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
         if(child.getComponent() == 0) {
@@ -96,8 +105,9 @@ SwitchComponent::resize(float width, float height)
         }
         if(! (child.getComponent()->getFlags() & FLAG_RESIZABLE))
             continue;
-				
+
         child.getComponent()->resize(width, height);
+        // TODO: honor minimum size of children
     }
     this->width = width;
     this->height = height;
@@ -121,7 +131,7 @@ SwitchComponent::switchComponent(const std::string& name)
             child.enable(false);
         }
     }
-		
+
     if(!found) {
 #ifdef DEBUG
         std::cerr << "No component named '" << name << "' found "
@@ -177,4 +187,3 @@ SwitchComponent::opaque(const Vector2& pos) const
 IMPLEMENT_COMPONENT_FACTORY(SwitchComponent)
 
 /** @file gui/SwitchComponent.cpp */
-

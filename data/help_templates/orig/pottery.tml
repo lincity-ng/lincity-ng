@@ -1,6 +1,6 @@
 Potteries
 
-Potteries use ore, coal and jobs to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and jobs and be able to receive goods.
+Potteries use ore, coal and labor to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and labor and be able to receive goods.
 
 You can tell when potteries are working by the kilns producing smoke.
 
@@ -9,6 +9,6 @@ IMG_2[and this its icon]: images/gui/buttonpanel/industry/pottery.png
 
 SUBH: Formulas
 
-11 ore + 2 coal + 35 jobs =&gt; 35 goods
+11 ore + 2 coal + 35 labor =&gt; 35 goods
 
-ALSO[See also:]: transport, ore, coal, jobs, market
+ALSO[See also:]: transport, ore, coal, labor, market

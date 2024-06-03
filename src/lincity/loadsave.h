@@ -5,7 +5,7 @@
 
 /* This is the loading/saving facility */
 
-#include "string.h"
+#include <string>  // for string
 
 #ifndef __loadsave_h__
 #define __loadsave_h__

@@ -22,15 +22,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "XmlReader.hpp"
-#include "Desktop.hpp"
-#include "tinygettext/tinygettext.hpp"
+
+#include <string.h>                     // for strcmp
+
+#include "ComponentLoader.hpp"          // for createComponent
+#include "XmlReader.hpp"                // for XmlReader
+#include "tinygettext/tinygettext.hpp"  // for DictionaryManager, Dictionary
 //#include "../lincity-ng/CheckButton.hpp" //FIXME will that help?
 
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
+#include <iostream>                     // for operator<<, basic_ostream, cerr
+#include <stdexcept>                    // for runtime_error
 
 tinygettext::DictionaryManager* dictionaryGUIManager = 0;
 
@@ -98,22 +99,23 @@ ImportFactory::createComponent(XmlReader& reader)
  * some reasons also global constructor seems to be considered unused if noone
  * uses the global object. So can't use our slick component factory registration
  * tricks :-/ And have to fill in the list manually here
- */
+**/
 
-#include "Button.hpp"
-#include "Desktop.hpp"
-#include "Document.hpp"
-#include "FilledRectangle.hpp"
-#include "Gradient.hpp"
-#include "Image.hpp"
-#include "Panel.hpp"
-#include "Paragraph.hpp"
-#include "ScrollBar.hpp"
-#include "ScrollView.hpp"
-#include "SwitchComponent.hpp"
-#include "TableLayout.hpp"
-#include "TooltipManager.hpp"
-#include "Window.hpp"
+#include "Button.hpp"                   // for Button
+#include "Desktop.hpp"                  // for Desktop
+#include "Document.hpp"                 // for Document
+#include "FilledRectangle.hpp"          // for FilledRectangle
+#include "Gradient.hpp"                 // for Gradient
+#include "Image.hpp"                    // for Image
+#include "Panel.hpp"                    // for Panel
+#include "Paragraph.hpp"                // for Paragraph
+#include "ScrollBar.hpp"                // for ScrollBar
+#include "ScrollView.hpp"               // for ScrollView
+#include "SwitchComponent.hpp"          // for SwitchComponent
+#include "TableLayout.hpp"              // for TableLayout
+#include "TooltipManager.hpp"           // for TooltipManager
+#include "Window.hpp"                   // for Window
+#include "WindowManager.hpp"            // for WindowManager
 
 //DECLARE_COMPONENT_FACTORY(CheckButton); //FIXME will this help?
 DECLARE_COMPONENT_FACTORY(Button)
@@ -130,6 +132,7 @@ DECLARE_COMPONENT_FACTORY(SwitchComponent)
 DECLARE_COMPONENT_FACTORY(TableLayout)
 DECLARE_COMPONENT_FACTORY(TooltipManager)
 DECLARE_COMPONENT_FACTORY(Window)
+DECLARE_COMPONENT_FACTORY(WindowManager)
 
 void initFactories()
 {
@@ -153,6 +156,7 @@ void initFactories()
         new INTERN_TableLayoutFactory();
         new INTERN_TooltipManagerFactory();
         new INTERN_WindowFactory();
+        new INTERN_WindowManagerFactory();
         new ImportFactory();
 
         dictionaryGUIManager = new tinygettext::DictionaryManager();
@@ -167,4 +171,3 @@ void initFactories()
 
 
 /** @file gui/ComponentFactory.cpp */
-

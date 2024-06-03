@@ -1,3 +1,4 @@
+
 include_directories(.)
 
 configure_file(config.h.in config.h)

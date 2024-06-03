@@ -3,16 +3,68 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#define WORLD_SIDE_LEN 100
+#include <zlib.h>           // for gzFile
+#include <array>            // for array
+#include <cstring>          // for NULL
+#include <iostream>         // for basic_ostream, operator<<, cout, endl
+#include <list>             // for list
+#include <map>              // for map
+#include <string>           // for char_traits, basic_string, string, operator<
+#include <vector>           // for vector
+
+#include "commodities.hpp"  // for Commodity, CommodityRule, operator++
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup
+
+class ConstructionGroup;
+template <typename MemberType> class MemberTraits;
+
+// IWYU pragma: no_forward_declare Blacksmith
+// IWYU pragma: no_forward_declare Coal_power
+// IWYU pragma: no_forward_declare Coalmine
+// IWYU pragma: no_forward_declare Commune
+// IWYU pragma: no_forward_declare Cricket
+// IWYU pragma: no_forward_declare Fire
+// IWYU pragma: no_forward_declare FireStation
+// IWYU pragma: no_forward_declare HealthCentre
+// IWYU pragma: no_forward_declare IndustryHeavy
+// IWYU pragma: no_forward_declare IndustryLight
+// IWYU pragma: no_forward_declare Market
+// IWYU pragma: no_forward_declare Mill
+// IWYU pragma: no_forward_declare Monument
+// IWYU pragma: no_forward_declare Oremine
+// IWYU pragma: no_forward_declare Organic_farm
+// IWYU pragma: no_forward_declare Parkland
+// IWYU pragma: no_forward_declare Port
+// IWYU pragma: no_forward_declare Pottery
+// IWYU pragma: no_forward_declare Powerline
+// IWYU pragma: no_forward_declare Rail
+// IWYU pragma: no_forward_declare RailBridge
+// IWYU pragma: no_forward_declare Recycle
+// IWYU pragma: no_forward_declare Residence
+// IWYU pragma: no_forward_declare Road
+// IWYU pragma: no_forward_declare RoadBridge
+// IWYU pragma: no_forward_declare RocketPad
+// IWYU pragma: no_forward_declare School
+// IWYU pragma: no_forward_declare Shanty
+// IWYU pragma: no_forward_declare SolarPower
+// IWYU pragma: no_forward_declare Substation
+// IWYU pragma: no_forward_declare Tip
+// IWYU pragma: no_forward_declare Track
+// IWYU pragma: no_forward_declare TrackBridge
+// IWYU pragma: no_forward_declare Transport
+// IWYU pragma: no_forward_declare University
+// IWYU pragma: no_forward_declare Waterwell
+// IWYU pragma: no_forward_declare Windmill
+// IWYU pragma: no_forward_declare Windpower
+
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
 
 #define NUMOF_COAL_RESERVES ((world.len() * world.len()) / 400)
-#define NUM_OF_TYPES    404
-#define NUM_OF_GROUPS    51
 
 #define OLD_MAX_NUMOF_MARKETS 100
 #define MAX_NUMOF_MARKETS 512
@@ -20,53 +72,14 @@
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
 
-#define NUMOF_DISCOUNT_TRIGGERS 6
-
-//pages for report 0,1,2,3,...,LAST_REPORT_PAGE
-#define LAST_REPORT_PAGE 3
-
 /*
-
 int get_group_cost(short group);
 int get_type_cost(short type);
 void get_type_name(short type, char *s);
 */
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
-/********** Data structures ***************/
-#include <list>
-#include <array>
-#include <vector>
-#include <map>
-#include <string>
-#include <cstring>
-#include <sstream>
-#include <zlib.h>
-#include "ConstructionCount.h"
-// #include "engglobs.h"
-#include "groups.h"
-#include <SDL_mixer.h>
-#include <SDL.h>
-#include <SDL_image.h>
-#include "gui/Texture.hpp"
-#include "tinygettext/gettext.hpp"
 
-class Construction;
-class ResourceGroup;
-
-struct ExtraFrame{
-    ExtraFrame(void){
-        move_x = 0;
-        move_y = 0;
-        frame = 0;
-        resourceGroup = 0;
-    }
-
-    int move_x; // >0 moves frame to the right
-    int move_y; // >0 moves frame downwards
-    int frame; //frame >= 0 will be rendered as overlay
-    ResourceGroup *resourceGroup; //overlay frame is choosen from its GraphicsInfoVector
-};
 
 // Class to count instanced objects of each construction type
 
@@ -102,108 +115,12 @@ unsigned int Counted<Class>::instanceCount;
 template <typename Class>
 unsigned int Counted<Class>::nextId;
 
-class Ground
-{
-public:
-    Ground();
-    ~Ground();
-    int altitude;       //surface of ground. unused currently
-    int ecotable;       //done at init time: pointer to the table for vegetation
-    int wastes;         //wastes underground
-    int pollution;      //pollution underground
-    int water_alt;      //altitude of water (needed to know drainage basin)
-    int water_pol;      //pollution of water
-    int water_wast;     //wastes in water
-    int water_next;     //next tile(s) where the water will go from here
-    int int1;           //reserved for future (?) use
-    int int2;
-    int int3;
-    int int4;
-};
-
-class ConstructionGroup;
-
-class MapTile {
-public:
-    MapTile();
-    ~MapTile();
-    Ground ground;                        //the Ground associated to an instance of MapTile
-    Construction *construction;           //the actual construction (e.g. for simulation)
-    Construction *reportingConstruction;  //the construction covering the tile
-    unsigned short type;                  //type of terrain (underneath constructions)
-    unsigned short group;                 //group of the terrain (underneath constructions)
-    int flags;                            //flags are defined in lin-city.h
-    unsigned short coal_reserve;          //underground coal
-    unsigned short ore_reserve;           //underground ore
-    int pollution;                        //air pollution (under ground pollution is in ground[][])
-    std::list<ExtraFrame> *framesptr;    //Overlays to be rendered on top of type, mostly NULL
-                                          //use memberfunctions to add and remove sprites
-
-    void setTerrain(unsigned short group); //places type & group at MapTile
-    std::list<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
-                                                    //to be used by Contstructions and Vehicles
-    void killframe(std::list<ExtraFrame>::iterator it); //kills an extraframe
-
-    unsigned short getType();          //type of bare land or the covering construction
-    unsigned short getTopType();       //type of bare land or the actual construction
-    unsigned short getLowerstVisibleType(); //like getType but type of terrain underneath transparent constructions
-    unsigned short getGroup();        //group of bare land or the covering construction
-    unsigned short getTopGroup();     //group of bare land or the actual construction
-    unsigned short getLowerstVisibleGroup(); //like getGroup but group of terrain underneath transparent constructions
-    unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
-    ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
-    ResourceGroup*     getTileResourceGroup();     //resourceGroup of a tile
-    ConstructionGroup* getConstructionGroup();     //constructionGroup of maptile or the covering construction
-    ConstructionGroup* getTopConstructionGroup();  //constructionGroup of maptile or the actual construction
-    ConstructionGroup* getLowerstVisibleConstructionGroup();
-
-    bool is_bare();                    //true if we there is neither a covering construction nor water
-    bool is_lake();                    //true on lakes (also under bridges)
-    bool is_river();                   //true on rivers (also under bridges)
-    bool is_water();                   //true on bridges or lakes (also under bridges)
-    bool is_visible();                 //true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
-    bool is_transport();               //true on tracks, road, rails and bridges
-    bool is_residence();               //true if any residence covers the tile
-    void writeTemplate();              //create maptile template
-    void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
-};
-
 
 class MemberRule{
 public:
     int memberType; //type of ConstructionMember
     void *ptr; //address of ConstructionMember
 };
-
-template <typename MemberType>
-class MemberTraits { };
-
-enum Commodity
-{
-    STUFF_INIT = 0,
-    STUFF_FOOD = STUFF_INIT,
-    STUFF_JOBS,
-    STUFF_COAL,
-    STUFF_GOODS,
-    STUFF_ORE,
-    STUFF_STEEL,
-    STUFF_WASTE,
-    STUFF_KWH,
-    STUFF_MWH,
-    STUFF_WATER,
-    STUFF_COUNT
-};
-Commodity& operator++(Commodity& stuff);
-Commodity operator++(Commodity& stuff, int);
-
-struct CommodityRule{
-    int maxload;
-    bool take;
-    bool give;
-};
-
-
-
 
 class Construction {
 public:
@@ -291,7 +208,6 @@ public:
     void playSound();//plays random chunk from constructionGroup
 };
 
-extern const char *commodityNames[];
 //global Vars for statistics on commodities
 extern std::map<Commodity, int> tstat_capacities;
 extern std::map<Commodity, int> tstat_census;
@@ -308,8 +224,6 @@ MEMBER_TYPE_TRAITS(bool, Construction::TYPE_BOOL)
 MEMBER_TYPE_TRAITS(unsigned short, Construction::TYPE_USHORT)
 MEMBER_TYPE_TRAITS(double, Construction::TYPE_DOUBLE)
 MEMBER_TYPE_TRAITS(float, Construction::TYPE_FLOAT)
-
-class ConstructionGroup;
 
 template <typename ConstructionClass>
 class RegisteredConstruction: public Construction, public Counted<ConstructionClass>
@@ -332,69 +246,6 @@ public:
 #endif
     }
     ~RegisteredConstruction(){}
-};
-
-class GraphicsInfo
-{
-    public:
-    GraphicsInfo(void){
-        texture = (Texture*)'\0';
-        image = (SDL_Surface*)'\0';
-        x = 0;
-        y = 0;
-    }
-
-    Texture* texture;
-    SDL_Surface* image;
-    int x, y;
-};
-
-//all instances are added to resMap
-class ResourceGroup {
-public:
-
-    ResourceGroup(const std::string &tag)
-    {
-        graphicsInfoVector.clear();
-        chunks.clear();
-        resourceID = tag;
-        images_loaded = false;
-        sounds_loaded = false;
-        is_vehicle = false;
-        //std::cout << "new resourceGroup: " << tag << std::endl;
-        if (resMap.count(tag))
-        {   std::cout << "rejecting " << tag << " as another ResourceGroup"<< std::endl;}
-        else
-        {   resMap[tag] = this;}
-    }
-    ~ResourceGroup()
-    {
-        std::vector<GraphicsInfo>::iterator it;
-        for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
-        {
-            if(it->texture)
-            {
-                delete it->texture;
-                it->texture = 0;
-            }
-        }
-        if ( resMap.count(resourceID))
-        {
-            resMap.erase(resourceID);
-            //std::cout << "sayonara: " << resourceID << std::endl;
-        }
-        else
-        {   std::cout << "error: unreachable resourceGroup: " << resourceID << std::endl;}
-    }
-    std::string resourceID;
-    bool images_loaded;
-    bool sounds_loaded;
-    bool is_vehicle; //vehicles are always rendered on upper left tile
-    std::vector<Mix_Chunk *> chunks;
-    std::vector<GraphicsInfo> graphicsInfoVector;
-    void growGraphicsInfoVector(void)
-    {   graphicsInfoVector.resize(graphicsInfoVector.size() + 1);}
-    static std::map<std::string, ResourceGroup*> resMap;
 };
 
 class ConstructionGroup {
@@ -456,9 +307,7 @@ public:
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(int x, int y) = 0;
 
-    std::string getName(void){
-        return dictionaryManager->get_dictionary().translate( name );
-    }
+    std::string getName(void);
 
     std::string resourceID;           /* name for matching resources from XML*/
     const char *name;           /* inGame name of group */
@@ -540,29 +389,6 @@ protected:
     // Map associating group ids with the respective construction group objects
     static std::map<unsigned short, ConstructionGroup*> groupMap;
 
-};
-
-
-
-
-struct GROUP {
-    const char *name;           // name of group
-    unsigned short no_credit;   // TRUE if need credit to build
-    unsigned short group;       // This is redundant: it must match
-                                // the index into the table
-    unsigned short size;
-    int colour;                 // summary map colour
-    int cost_mul;               // group cost multiplier
-    int bul_cost;               // group bulldoze cost
-    int fire_chance;            // probability of fire
-    int cost;                   // group cost
-    int tech;                   // group tech
-};
-
-
-struct TYPE {
-    int group;                  // What group does this type belong to?
-    char *graphic;              // Bitmap of the graphic
 };
 
 #endif /* __lintypes_h__ */

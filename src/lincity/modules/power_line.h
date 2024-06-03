@@ -1,7 +1,7 @@
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "../transport.h"
+#include <array>                // for array
+
+#include "lincity/transport.h"  // for MAX_HIVOLT_ON_POWERLINE
+#include "modules.h"            // for Commodity, CommodityRule, Constructio...
 
 #define POWER_LINE_FLASH_SPEED 100
 
@@ -19,9 +19,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
-        commodityRuleCount[STUFF_MWH].take = true;
-        commodityRuleCount[STUFF_MWH].give = true;
+        commodityRuleCount[STUFF_HIVOLT].maxload = MAX_HIVOLT_ON_POWERLINE;
+        commodityRuleCount[STUFF_HIVOLT].take = true;
+        commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a power line
     virtual Construction *createConstruction(int x, int y);
@@ -42,7 +42,7 @@ public:
         initialize_commodities();
         this->trafficCount = this->commodityCount;
 
-        commodityMaxCons[STUFF_MWH] = 100 * 1;
+        commodityMaxCons[STUFF_HIVOLT] = 100 * 1;
     }
     virtual ~Powerline() { }
     virtual void update() override;

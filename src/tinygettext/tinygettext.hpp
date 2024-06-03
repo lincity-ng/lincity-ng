@@ -20,10 +20,12 @@
 #ifndef HEADER_TINYGETTEXT_H
 #define HEADER_TINYGETTEXT_H
 
-#include <map>
-#include <vector>
-#include <set>
-#include <string>
+#include <algorithm>  // for max
+#include <iosfwd>     // for istream
+#include <map>        // for map
+#include <set>        // for set
+#include <string>     // for string, basic_string, operator<
+#include <vector>     // for vector
 
 namespace tinygettext {
 

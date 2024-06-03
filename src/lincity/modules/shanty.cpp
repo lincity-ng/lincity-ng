@@ -5,10 +5,18 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "shanty.h"
-#include "commune.h"
-#include "fire.h"
+
+#include <stdio.h>                        // for fprintf, printf, stderr
+#include <stdlib.h>                       // for rand
+#include <vector>                         // for vector
+
+#include "commune.h"                      // for COMMUNE_POP, Commune (ptr o...
+#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity/ConstructionManager.h"  // for ConstructionManager
+#include "lincity/ConstructionRequest.h"  // for BurnDownRequest
+#include "modules.h"                      // for Commodity, ExtraFrame, find...
+#include "modules_interfaces.h"           // for add_a_shanty, update_shanty
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
@@ -128,10 +136,10 @@ void Shanty::update()
     produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
     if (commodityCount[STUFF_FOOD] >= SHANTY_GET_FOOD)
     {   consumeStuff(STUFF_FOOD, SHANTY_GET_FOOD);}
-    if (commodityCount[STUFF_JOBS] >= SHANTY_GET_JOBS)
+    if (commodityCount[STUFF_LABOR] >= SHANTY_GET_LABOR)
     {
-        consumeStuff(STUFF_JOBS, SHANTY_GET_JOBS);
-        if ((income_tax -= SHANTY_GET_JOBS * 2) < 0)
+        consumeStuff(STUFF_LABOR, SHANTY_GET_LABOR);
+        if ((income_tax -= SHANTY_GET_LABOR * 2) < 0)
         {   income_tax = 0;}
     }
     if (commodityCount[STUFF_GOODS] >= SHANTY_GET_GOODS)

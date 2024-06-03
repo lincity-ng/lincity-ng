@@ -24,8 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __FONTMANAGER_HPP__
 #define __FONTMANAGER_HPP__
 
-#include "Style.hpp"
-#include <SDL_ttf.h>
+#include <SDL_ttf.h>  // for TTF_Font
+#include <map>        // for map
+#include <string>     // for basic_string, operator<, operator==, operator>
+
+class Style;
 
 /**
  * @class FontManager
@@ -44,7 +47,7 @@ private:
         int fontsize;
         int fontstyle;
 
-        bool operator < (const FontInfo& other) const 
+        bool operator < (const FontInfo& other) const
         {
             if(other.name < name)
                 return true;
@@ -76,4 +79,3 @@ extern FontManager* fontManager;
 
 
 /** @file gui/FontManager.hpp */
-

@@ -7,9 +7,15 @@
 
 #include "blacksmith.h"
 
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 BlacksmithConstructionGroup blacksmithConstructionGroup(
-    N_("Blacksmith"),
-    FALSE,                     /* need credit? */
+    GROUP_BLACKSMITH_NAME,
+    GROUP_BLACKSMITH_NEED_CREDIT,
     GROUP_BLACKSMITH,
     GROUP_BLACKSMITH_SIZE,
     GROUP_BLACKSMITH_COLOUR,
@@ -32,12 +38,12 @@ void Blacksmith::update()
     if ((commodityCount[STUFF_GOODS] + GOODS_MADE_BY_BLACKSMITH <= MAX_GOODS_AT_BLACKSMITH )
         && (commodityCount[STUFF_COAL] >= BLACKSMITH_COAL_USED)
         && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
-        && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
+        && (commodityCount[STUFF_LABOR] >= BLACKSMITH_LABOR))
     {
         produceStuff(STUFF_GOODS, GOODS_MADE_BY_BLACKSMITH);
         consumeStuff(STUFF_COAL, BLACKSMITH_COAL_USED);
         consumeStuff(STUFF_STEEL, BLACKSMITH_STEEL_USED);
-        consumeStuff(STUFF_JOBS, BLACKSMITH_JOBS);
+        consumeStuff(STUFF_LABOR, BLACKSMITH_LABOR);
         working_days++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
         {

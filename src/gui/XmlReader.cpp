@@ -24,8 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "./XmlReader.hpp"
 
-#include "PhysfsStream/PhysfsError.hpp"
-#include <physfs.h>
+#include <libxml/parser.h>               // for XML_PARSE_NONET
+#include <physfs.h>                      // for PHYSFS_file, PHYSFS_close
+#include <iostream>                      // for basic_ostream, char_traits
+
+#include "PhysfsStream/PhysfsError.hpp"  // for getPhysfsLastError
 
 /**
  * Class constructor: parses a given XML file and parse it with libxml2.

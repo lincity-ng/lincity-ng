@@ -5,11 +5,11 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "residence.h"
-#include "waterwell.h"
-#include "cricket.h"
-#include <stdlib.h>
+
+#include <stdlib.h>                 // for rand
+
+#include "modules.h"
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),
@@ -107,7 +107,7 @@ void Residence::update()
     int brm = 0, drm = 0;       /* birth/death rate modifier */
     /* birts = 1/(BASE_BR + brm) deaths = 1/(BASE_DR - drm)
     the different signs are intentional higher brm less a little less babys, higher drm much more deaths*/
-    bool cc = false;                 /* extra jobs from sports activity*/
+    bool cc = false;                 /* extra labor from sports activity*/
     int birth_flag = (FLAG_FED | FLAG_EMPLOYED);/* can we have babies*/
     bool extra_births = false;  /* full houses are more fertile*/
     bool hc = false;            /* have health cover ? */
@@ -166,9 +166,9 @@ void Residence::update()
     }
 
      /* now get power for nothing */
-    if (commodityCount[STUFF_KWH] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
+    if (commodityCount[STUFF_LOVOLT] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
-        consumeStuff(STUFF_KWH, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
+        consumeStuff(STUFF_LOVOLT, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
         flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
@@ -181,16 +181,16 @@ void Residence::update()
         {   bad += 50;}
     }
 
-    /* now supply jobs and buy goods if employed */
-    const int& jobs_cap =
-      constructionGroup->commodityRuleCount[STUFF_JOBS].maxload;
+    /* now supply labor and buy goods if employed */
+    const int& labor_cap =
+      constructionGroup->commodityRuleCount[STUFF_LABOR].maxload;
     swing = JOB_SWING + (hc?HC_JOB_SWING:0) + (cc?CRICKET_JOB_SWING:0);
     int working_pop = WORKING_POP_PERCENT + (hc?HC_WORKING_POP:0) +
       (cc?CRICKET_WORKING_POP:0);
-    int swing_amt = swing * (jobs_cap - commodityCount[STUFF_JOBS]) / jobs_cap;
+    int swing_amt = swing * (labor_cap - commodityCount[STUFF_LABOR]) / labor_cap;
     int job_prod = local_population * (working_pop + swing_amt) / 100;
-    if (jobs_cap - commodityCount[STUFF_JOBS] >= job_prod) {
-        produceStuff(STUFF_JOBS, job_prod);
+    if (labor_cap - commodityCount[STUFF_LABOR] >= job_prod) {
+        produceStuff(STUFF_LABOR, job_prod);
         flags |= FLAG_EMPLOYED; //enable births
         good += 20;
         if ((commodityCount[STUFF_GOODS] >= local_population/4)
@@ -199,9 +199,9 @@ void Residence::update()
             consumeStuff(STUFF_GOODS, local_population/4);
             produceStuff(STUFF_WASTE, local_population/12);
             good += 10;
-            if (commodityCount[STUFF_KWH] >= local_population/2)
+            if (commodityCount[STUFF_LOVOLT] >= local_population/2)
             {
-                consumeStuff(STUFF_KWH, local_population/2);
+                consumeStuff(STUFF_LOVOLT, local_population/2);
                 good += 5;
                 brm += 10;
                 /*     buy more goods if got power for them */

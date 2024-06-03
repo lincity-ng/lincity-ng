@@ -17,8 +17,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "Event.hpp"
 
-#include <assert.h>
-#include <SDL_version.h>
+#include <SDL.h>     // for SDL_Event, SDL_KEYDOWN, SDL_KEYUP, SDL_MOUSEBUTT...
+#include <assert.h>  // for assert
 
 Event::Event(SDL_Event& event)
     : inside(true)
@@ -36,6 +36,7 @@ Event::Event(SDL_Event& event)
             type = MOUSEMOTION;
             mousepos = Vector2(event.motion.x, event.motion.y);
             mousemove = Vector2(event.motion.xrel, event.motion.yrel);
+            mousebuttonstate = event.motion.state;
             break;
         case SDL_MOUSEBUTTONUP:
             type = MOUSEBUTTONUP;
@@ -53,9 +54,7 @@ Event::Event(SDL_Event& event)
             #if SDL_VERSION_ATLEAST(2,26,0)
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             #else
-            int x, y;
-            SDL_GetMouseState(&x, &y);
-            mousepos = Vector2(x, y);
+            SDL_GetMouseState(&mousepos.x, &mousepos.y);
             #endif
             break;
         case SDL_WINDOWEVENT:
@@ -67,7 +66,7 @@ Event::Event(SDL_Event& event)
                 type = WINDOWLEAVE;
                 break;
             default:
-                type = WINDOWOTHER;
+                assert(false);
             }
             break;
         default:

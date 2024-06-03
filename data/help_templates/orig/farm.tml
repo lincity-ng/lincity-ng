@@ -7,13 +7,13 @@ Production of farm depends on underground water. Tiles with water are green, oth
 IMG_1[This is a farm]: images/tiles/farm0.png
 IMG_2[and this its icon]: images/gui/buttonpanel/parks/farm.png
 
-Farms need jobs to produce more than a minimal amount of food. Providing elecricity (kWH) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption.
+Farms need labor to produce more than a minimal amount of food. Providing elecricity (lo-volt) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption.
 
 SUBH: Formulas
 
-13 jobs + 50kWh =&gt; 550 food + 5.5 food * tech
+13 labor + 50 lo-volt =&gt; 550 food + 5.5 food * tech
 
-13 jobs =&gt; 132 food
+13 labor =&gt; 132 food
 
 If a farm has less than 100% fertility, then it will produce proportionally less food.
 A powered farm can compensate for lack of fertility by consuming 50 water per desert tile.

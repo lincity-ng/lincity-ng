@@ -15,9 +15,10 @@
 #define CRITICAL_WASTE_LEVEL 20 //gives waste if inbox is below and swallows if above
 #define TIP_TAKES_WASTE (20 * WASTE_BURRIED)
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 
 class TipConstructionGroup: public ConstructionGroup {

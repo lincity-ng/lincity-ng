@@ -2,7 +2,7 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Recycle centres</p>
-	<p style="hp">Recycle centres convert waste into ore. Jobs, electric power (kWH) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.</p>
+	<p style="hp">Recycle centres convert waste into ore. Labor, electric power (low-voltage) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.</p>
 	<p style="hp">It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the losses.</p>
 
   <p style="hp">This is a recycle center</p>
@@ -12,7 +12,7 @@
    <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">34 jobs + 250 kWh + 500 waste =&gt; (500 ore + 10 steel) * efficiency</p>
+	<p style="hp">34 labor + 250 lo-volt + 500 waste =&gt; (500 ore + 10 steel) * efficiency</p>
 	<p style="hp">efficiency = .1 + .005 * tech (capped at .8 at 140 tech)</p>
 	<p style="hp">If there is not inventory capacity for the ore/steel, then it is discarded, so the waste can still be dealt with. Note this can cause wasteful production in nearby steel works as it produces steel while the recycling center is discarding steel.</p>
 

@@ -1,6 +1,8 @@
 #include "lc_locale.h"
+
+#ifdef WIN32
 #include <stdlib.h>
-#include <stdio.h>
+#endif
 
 void lincity_set_locale(void)
 {

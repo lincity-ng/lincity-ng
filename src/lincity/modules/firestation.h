@@ -7,8 +7,8 @@
 #define GROUP_FIRESTATION_RANGE 17
 #define GROUP_FIRESTATION_SIZE 2
 
-#define FIRESTATION_JOBS   6
-#define MAX_JOBS_AT_FIRESTATION (20 * FIRESTATION_JOBS)
+#define FIRESTATION_LABOR   6
+#define MAX_LABOR_AT_FIRESTATION (20 * FIRESTATION_LABOR)
 #define FIRESTATION_GOODS  3
 #define MAX_GOODS_AT_FIRESTATION (20 * FIRESTATION_GOODS)
 #define MAX_WASTE_AT_FIRESTATION (20 * FIRESTATION_GOODS / 3)
@@ -16,9 +16,10 @@
 #define FIRESTATION_RUNNING_COST_MUL 6
 #define FIRESTATION_ANIMATION_SPEED 250
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class FireStationConstructionGroup: public ConstructionGroup {
 public:
@@ -34,9 +35,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_FIRESTATION;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_FIRESTATION;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_FIRESTATION;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -79,7 +80,7 @@ public:
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
 
-        commodityMaxCons[STUFF_JOBS] = 100 * FIRESTATION_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;
         commodityMaxProd[STUFF_WASTE] = 100 * (FIRESTATION_GOODS / 3);
 

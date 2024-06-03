@@ -76,7 +76,7 @@
 
         <cell row="5" col="1" halign="left">
           <Paragraph name="pbar_title5" style="ptitle" translatable="yes">
-          Jobs</Paragraph>
+          Labor</Paragraph>
         </cell>
         <cell row="5" col="2" halign="right">
           <BarView name="pbar_barview5a" width="16" height="16" dir="-1"/>

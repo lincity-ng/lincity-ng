@@ -22,11 +22,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include "TooltipManager.hpp"
-#include "XmlReader.hpp"
-#include "ComponentFactory.hpp"
-#include "Paragraph.hpp"
-#include "Document.hpp"
-#include "Event.hpp"
+
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <iostream>              // for operator<<, basic_ostream, cerr, bas...
+#include <map>                   // for map, _Rb_tree_iterator, operator==
+#include <memory>                // for unique_ptr
+#include <utility>               // for pair
+
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Document.hpp"          // for Document
+#include "Event.hpp"             // for Event
+#include "Paragraph.hpp"         // for Paragraph
+#include "Style.hpp"             // for Style, styleRegistry
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 TooltipManager* tooltipManager = 0;
 
@@ -74,6 +83,8 @@ TooltipManager::parse(XmlReader& reader)
 void
 TooltipManager::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 }
@@ -91,7 +102,7 @@ TooltipManager::event(const Event& event)
         if(comp_tooltip().getComponent() != 0) {
             comp_tooltip().setComponent(0);
         }
-    }    
+    }
 }
 
 void
@@ -130,4 +141,3 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 IMPLEMENT_COMPONENT_FACTORY(TooltipManager)
 
 /** @file gui/TooltipManager.cpp */
-

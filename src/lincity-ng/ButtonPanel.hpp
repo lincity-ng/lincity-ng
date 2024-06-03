@@ -18,13 +18,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __BUTTON_PANEL_HPP__
 #define __BUTTON_PANEL_HPP__
 
-#include "gui/Component.hpp"
-#include "lincity/UserOperation.h"
+#include <map>                      // for map
+#include <string>                   // for string, basic_string
+#include <vector>                   // for vector
 
-#include <map>
+#include "gui/Component.hpp"        // for Component
+#include "lincity/UserOperation.h"  // for UserOperation
 
-class XmlReader;
 class CheckButton;
+class Painter;
+class Vector2;
+class XmlReader;
 
 class ButtonPanel : public Component
 {

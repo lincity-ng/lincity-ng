@@ -15,35 +15,52 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
 #include "Dialog.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
-#include <physfs.h>
-#include <error.h>
+#include <assert.h>                        // for assert
+#include <config.h>                        // for PACKAGE_VERSION
+#include <errno.h>                         // for errno
+#include <physfs.h>                        // for PHYSFS_getDirSeparator
+#include <stdio.h>                         // for snprintf, sprintf
+#include <stdlib.h>                        // for free, malloc
+#include <string.h>                        // for strlen
+#include <algorithm>                       // for max
+#include <array>                           // for array
+#include <exception>                       // for exception
+#include <fstream>                         // for basic_ostream, operator<<
+#include <iostream>                        // for cerr
+#include <memory>                          // for unique_ptr
+#include <sstream>                         // for basic_stringstream
+#include <stdexcept>                       // for runtime_error
+#include <vector>                          // for vector
 
-#include "GameView.hpp"
-#include "Util.hpp"
-#include "MapEdit.hpp"
-#include "CheckButton.hpp"
-#include "lincity/engine.h"
-#include "lincity/simulate.h"
-#include "lincity/lclib.h"
-#include "lincity/loadsave.h"
-#include "lincity/lin-city.h"
-#include "lincity/modules/all_modules.h"
-#include "gui_interface/shared_globals.h"
-
-#include "gui/ComponentLoader.hpp"
-#include "gui/Button.hpp"
-#include "gui/callback/Callback.hpp"
-#include "gui/Paragraph.hpp"
-
-#include "tinygettext/gettext.hpp"
+#include "CheckButton.hpp"                 // for CheckButton
+#include "GameView.hpp"                    // for getGameView, GameView
+#include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
+#include "MapPoint.hpp"                    // for MapPoint
+#include "Util.hpp"                        // for getCheckButton, getButton
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Component.hpp"               // for Component
+#include "gui/ComponentLoader.hpp"         // for loadGUIFile
+#include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Window.hpp"                  // for Window
+#include "gui/WindowManager.hpp"           // for WindowManager
+#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
+#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui_interface/mps.h"             // for mps_refresh
+#include "gui_interface/shared_globals.h"  // for cheat_flag
+#include "lc_error.h"                      // for lc_error
+#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/engglobs.h"              // for world, people_pool, total_...
+#include "lincity/engine.h"                // for do_coal_survey
+#include "lincity/lclib.h"                 // for current_year, current_month
+#include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"              // for Counted, Construction, NUM...
+#include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
+#include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
+#include "lincity/world.h"                 // for MapTile, World
+#include "tinygettext/gettext.hpp"         // for _
 
 bool blockingDialogIsOpen = false;
 
@@ -116,7 +133,7 @@ Dialog::Dialog( int type, int x, int y ){
 
 void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
     Component* root = getGameView();
-    desktop = 0;
+    windowManager = 0;
     myDialogComponent = 0;
     pointX = x;
     pointY = y;
@@ -124,9 +141,10 @@ void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
     if( root ) {
         while( root->getParent() )
             root = root->getParent();
-        desktop = dynamic_cast<Desktop*> (root);
-        if(!desktop)
-            std::cerr << "Root not a desktop!?!\n";
+        windowManager = dynamic_cast<WindowManager*>(
+          root->findComponent("windowManager"));
+        if(!windowManager)
+            std::cerr << "Root not a window manager!?!\n";
     } else {
         std::cerr << "Dialog: Root not found.\n";
     }
@@ -137,7 +155,7 @@ Dialog::~Dialog(){
 
 void Dialog::registerDialog(){
     dialogVector.push_back( this );
-    desktop->addChildComponent( myDialogComponent );
+    windowManager->addWindow(static_cast<Window *>(myDialogComponent));
 }
 
 void Dialog::unRegisterDialog(){
@@ -154,12 +172,13 @@ void Dialog::unRegisterDialog(){
 }
 
 void Dialog::askRocket(){
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/launch_rocket_yn.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/launch_rocket_yn.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -184,8 +203,8 @@ void Dialog::askRocket(){
 
 //no Signals caught here, so ScreenInterface has to catch them.
 void Dialog::msgDialog( std::string message, std::string extraString){
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     //generate filename. foo.mes => gui/dialogs/foo.xml
@@ -195,7 +214,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     if( pos != std::string::npos ){
         filename.replace( pos, 4 ,".xml");
     }
-    std::unique_ptr<Component> myDialogComponent (loadGUIFile( filename ));
+    std::unique_ptr<Window> myDialogComponent (dynamic_cast<Window *>(
+      loadGUIFile( filename )));
 
     //set Extra-String
     getParagraph( *myDialogComponent, "ExtraText" )->setText( extraString );
@@ -209,12 +229,13 @@ void Dialog::msgDialog( std::string message, std::string extraString){
 }
 
 void Dialog::askBulldozeMonument() {
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_monument_yn.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/bulldoze_monument_yn.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -232,12 +253,13 @@ void Dialog::askBulldozeMonument() {
 }
 
 void Dialog::askBulldozeRiver() {
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_river_yn.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/bulldoze_river_yn.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -255,12 +277,13 @@ void Dialog::askBulldozeRiver() {
 }
 
 void Dialog::askBulldozeShanty() {
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/bulldoze_shanty_yn.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/bulldoze_shanty_yn.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -278,12 +301,13 @@ void Dialog::askBulldozeShanty() {
 }
 
 void Dialog::coalSurvey(){
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/coal_survey_yn.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/coal_survey_yn.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -342,15 +366,17 @@ void Dialog::setParagraph( const std::string paragraphName, const std::string te
  */
 void Dialog::gameStats(){
      saveGameStats();
-     if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+     if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     bool useExisting = false;
-    myDialogComponent = desktop->findComponent("GameStats");
+    myDialogComponent = dynamic_cast<Window *>(
+      windowManager->findComponent("GameStats"));
     if( myDialogComponent == 0){
         try {
-            myDialogComponent = loadGUIFile( "gui/dialogs/gamestats.xml" );
+            myDialogComponent = dynamic_cast<Window *>(
+              loadGUIFile( "gui/dialogs/gamestats.xml" ));
             assert( myDialogComponent != 0);
             registerDialog();
         } catch(std::exception& e) {
@@ -491,7 +517,7 @@ void Dialog::saveGameStats(){
     char *s = (char *)malloc(
         strlen(lc_save_dir) + strlen(RESULTS_FILENAME) + 2);
     if(!s)
-        error(-1, errno, "malloc");
+        lc_error(-1, errno, "malloc");
     sprintf(s, "%s%s%s",
         lc_save_dir, PHYSFS_getDirSeparator(), RESULTS_FILENAME);
 
@@ -606,12 +632,13 @@ void Dialog::saveGameStats(){
 }
 
 void Dialog::editMarket(){
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/tradedialog.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/tradedialog.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -628,10 +655,10 @@ void Dialog::editMarket(){
     p->setText( title.str() );
     Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
-    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
-    if( market->commodityRuleCount[STUFF_JOBS].take ) cb->check(); else cb->uncheck();
-    cb = getCheckButton( *myDialogComponent, "SellJobs" );
-    if( market->commodityRuleCount[STUFF_JOBS].give ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    if( market->commodityRuleCount[STUFF_LABOR].take ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    if( market->commodityRuleCount[STUFF_LABOR].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( market->commodityRuleCount[STUFF_FOOD].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
@@ -668,12 +695,13 @@ void Dialog::editMarket(){
 }
 
 void Dialog::editPort(){
-    if( !desktop ) {
-        std::cerr << "No desktop found.\n";
+    if( !windowManager ) {
+        std::cerr << "No window manager found.\n";
         return;
     }
     try {
-        myDialogComponent = loadGUIFile( "gui/dialogs/portdialog.xml" );
+        myDialogComponent = dynamic_cast<Window *>(
+          loadGUIFile( "gui/dialogs/portdialog.xml" ));
         assert( myDialogComponent != 0);
         registerDialog();
         blockingDialogIsOpen = true;
@@ -722,17 +750,17 @@ void Dialog::editPort(){
 void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
     Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
-    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[STUFF_JOBS].take = true;
+        market->commodityRuleCount[STUFF_LABOR].take = true;
     } else {
-        market->commodityRuleCount[STUFF_JOBS].take = false;
+        market->commodityRuleCount[STUFF_LABOR].take = false;
     }
-    cb = getCheckButton( *myDialogComponent, "SellJobs" );
+    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        market->commodityRuleCount[STUFF_JOBS].give = true;
+        market->commodityRuleCount[STUFF_LABOR].give = true;
     } else {
-        market->commodityRuleCount[STUFF_JOBS].give = false;
+        market->commodityRuleCount[STUFF_LABOR].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
@@ -819,7 +847,7 @@ void Dialog::applyMarketButtonClicked( Button* ){
         market->commodityRuleCount[STUFF_WATER].give = false;
     }
     mps_refresh();
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
@@ -923,7 +951,7 @@ void Dialog::applyPortButtonClicked( Button* ){
         port->commodityRuleCount[STUFF_STEEL].give = false;
     }
 
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
@@ -931,7 +959,7 @@ void Dialog::applyPortButtonClicked( Button* ){
 void Dialog::okayLaunchRocketButtonClicked( Button* )
 {
     static_cast<RocketPad*> (world(pointX, pointY)->reportingConstruction)-> launch_rocket();
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
@@ -939,14 +967,14 @@ void Dialog::okayLaunchRocketButtonClicked( Button* )
 
 void Dialog::okayCoalSurveyButtonClicked( Button* ){
     do_coal_survey();
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
 
 void Dialog::okayBulldozeRiverButtonClicked( Button* ){
     river_bul_flag = 1;
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
     unRegisterDialog();
@@ -954,7 +982,7 @@ void Dialog::okayBulldozeRiverButtonClicked( Button* ){
 
 void Dialog::okayBulldozeShantyButtonClicked( Button* ){
     shanty_bul_flag = 1;
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
     unRegisterDialog();
@@ -962,7 +990,7 @@ void Dialog::okayBulldozeShantyButtonClicked( Button* ){
 
 void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
     monument_bul_flag = 1;
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
     unRegisterDialog();
@@ -977,7 +1005,7 @@ void Dialog::closeDialogButtonClicked( Button* ){
 }
 
 void Dialog::closeDialog(){
-    desktop->remove( myDialogComponent );
+    windowManager->removeWindow( myDialogComponent );
     if( iAmBlocking ){
         blockingDialogIsOpen = false;
     }

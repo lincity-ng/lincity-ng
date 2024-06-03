@@ -17,11 +17,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PhysfsStream.hpp"
 
-#include <physfs.h>
-#include <stdexcept>
-#include <sstream>
+#include <physfs.h>         // for PHYSFS_close, PHYSFS_writeBytes, PHYSFS_eof
+#include <stdio.h>          // for size_t
+#include <sstream>          // for basic_stringstream
+#include <stdexcept>        // for runtime_error
 
-#include "PhysfsError.hpp"
+#include "PhysfsError.hpp"  // for getPhysfsLastError
 
 IFileStreambuf::IFileStreambuf(const std::string& filename)
 {
@@ -44,7 +45,7 @@ IFileStreambuf::underflow()
 {
     if(PHYSFS_eof(file))
         return traits_type::eof();
-    
+
     size_t bytesread = (size_t) PHYSFS_readBytes(file, buf, sizeof(buf));
     if(bytesread == 0)
         return traits_type::eof();
@@ -64,7 +65,7 @@ OFileStreambuf::OFileStreambuf(const std::string& filename)
             << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
-    
+
     setp(buf, buf+sizeof(buf));
 }
 
@@ -84,7 +85,7 @@ OFileStreambuf::overflow(int c)
     PHYSFS_sint64 res = PHYSFS_writeBytes(file, pbase(), size);
     if(res <= 0)
         return traits_type::eof();
-    
+
     if(c != traits_type::eof()) {
         PHYSFS_sint64 res = PHYSFS_writeBytes(file, &c, 1);
         if(res <= 0)

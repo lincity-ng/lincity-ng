@@ -8,9 +8,6 @@
 #define GROUP_PARKLAND_SIZE 1
 
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-
 
 class ParklandConstructionGroup: public ConstructionGroup {
 public:

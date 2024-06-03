@@ -6,24 +6,17 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "lintypes.h"
-#include "groups.h"
-#include "world.h"
-#include "ConstructionCount.h"
-#include "UserOperation.h"
+#include "ConstructionCount.h"  // for ConstructionCount
+#include "lin-city.h"           // for NUMOF_DISCOUNT_TRIGGERS
+#include "world.h"              // for World
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 
-class World;
-class ConstructionCount;
 class UserOperation;
 
 extern int pix_double;
 
 extern int use_waterwell, ldsv_version;
-
-extern struct GROUP main_groups[NUM_OF_GROUPS];
-extern struct TYPE main_types[NUM_OF_TYPES];
 
 extern ConstructionCount constructionCount;
 extern World world;

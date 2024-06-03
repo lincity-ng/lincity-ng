@@ -6,8 +6,13 @@
  * ---------------------------------------------------------------------- */
 
 #include "track_road_rail.h"
-#include "fire.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <stdlib.h>                 // for rand
+#include <vector>                   // for vector
+
+#include "fire.h"                   // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Sound.hpp"     // for getSound, Sound
+#include "modules.h"
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -139,13 +144,13 @@ void Transport::update()
             }
         break;
     }
-    if (commodityCount[STUFF_KWH] >= KWH_LOSS_ON_TRANSPORT)
+    if (commodityCount[STUFF_LOVOLT] >= LOVOLT_LOSS_ON_TRANSPORT)
     {
-        consumeStuff(STUFF_KWH, KWH_LOSS_ON_TRANSPORT);
+        consumeStuff(STUFF_LOVOLT, LOVOLT_LOSS_ON_TRANSPORT);
     }
-    else if (commodityCount[STUFF_KWH] > 0)
+    else if (commodityCount[STUFF_LOVOLT] > 0)
     {
-        consumeStuff(STUFF_KWH, 1);
+        consumeStuff(STUFF_LOVOLT, 1);
     }
 
     if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)

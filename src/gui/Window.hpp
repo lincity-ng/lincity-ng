@@ -18,10 +18,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __WINDOW_HPP__
 #define __WINDOW_HPP__
 
-#include "Component.hpp"
+#include <vector>         // for vector
 
-class XmlReader;
+#include "Child.hpp"      // for Child, Childs
+#include "Component.hpp"  // for Component
+#include "Event.hpp"      // for Event
+
 class Button;
+class Painter;
+class XmlReader;
 
 /**
  * @class Window
@@ -40,29 +45,29 @@ public:
 
     void draw(Painter& painter);
     void event(const Event& event);
+    void resize(float width, float height) override;
 
 private:
     void closeButtonClicked(Button* button);
 
     float border;
     float titlesize;
-    bool dragging;
-    Vector2 dragOffset;
 
     Child& background()
     { return childs[0]; }
     Child& title_background()
-    { return childs[1]; }        
+    { return childs[1]; }
     Child& title()
     { return childs[2]; }
     Child& closeButton()
     { return childs[3]; }
     Child& contents()
     { return childs[4]; }
+
+    friend class WindowManager;
 };
 
 #endif
 
 
 /** @file gui/Window.hpp */
-

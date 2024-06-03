@@ -18,12 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
-#include "main.hpp"
-#include <memory>
-#include "gui/Button.hpp"
+#include <SDL.h>  // for SDL_Window
+#include <memory>       // for unique_ptr
+#include <string>       // for string
 
-class Painter;
-class Sound;
+#include "main.hpp"     // for MainState
+
+class Button;
 class Component;
 class HelpWindow;
 
@@ -39,7 +40,7 @@ public:
 
 private:
     std::unique_ptr<Component> gui;
-    
+
     bool running;
     MainState quitState;
     void backToMainMenu();
@@ -56,4 +57,3 @@ Game* getGame();
 
 
 /** @file lincity-ng/Game.hpp */
-

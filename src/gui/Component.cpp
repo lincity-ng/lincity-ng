@@ -21,14 +21,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @author Matthias Braun
  */
 
-#include <typeinfo>
-#include <stdexcept>
-#include "Component.hpp"
-#include "Painter.hpp"
-#include "Event.hpp"
+#include <assert.h>     // for assert
+#include <string.h>     // for strcmp, strncmp
+#include <stdexcept>    // for runtime_error
+#include <vector>       // for vector
 
-Component::Component()
-    : parent(0), flags(0), width(0), height(0)
+#include "Component.hpp"
+#include "Event.hpp"    // for Event
+#include "Painter.hpp"  // for Painter
+
+Component::Component() :
+  parent(0), desktop(NULL), flags(0)
 {
 }
 
@@ -102,8 +105,7 @@ Component::eventChild(Child& child, const Event& event, bool visible)
 }
 
 void
-Component::event(const Event& event)
-{
+Component::event(const Event& event) {
     bool visible = event.inside;
     for(Childs::reverse_iterator i = childs.rbegin(); i != childs.rend(); ++i) {
         Child& child = *i;
@@ -158,6 +160,7 @@ Component::addChild(Component* component)
 
     childs.push_back(Child(component));
     component->parent = this;
+    component->desktop = this->desktop;
     component->setDirty();
     return childs.back();
 }
@@ -171,6 +174,7 @@ Component::resetChild(Child& child, Component* component)
     child.component = component;
     if(component != 0) {
         component->parent = this;
+        component->desktop = this->desktop;
         component->setDirty();
         child.enabled = true;
     }

@@ -6,17 +6,17 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include "lintypes.h"
-#include <list>
+#include <list>           // for list
+
+#include "resources.hpp"  // for ExtraFrame
+
+enum Commodity : int;
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22
 #define ROAD_BRIDGE_HEIGHT 44
 
 #define COMMUTER_TRAFFIC_RATE 1024
-
-
-class ExtraFrame;
 
 enum VehicleModel
 {
@@ -26,8 +26,8 @@ enum VehicleModel
 
 enum VehicleStrategy
 {
-    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_JOBS
-    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_JOBS
+    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_LABOR
+    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_LABOR
     VEHICLE_STRATEGY_RANDOM    //just do a random walk
 };
 

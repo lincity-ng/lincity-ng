@@ -7,6 +7,8 @@
 
 #include "school.h"
 
+#include "modules.h"
+
 
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(
@@ -29,11 +31,11 @@ Construction *SchoolConstructionGroup::createConstruction(int x, int y) {
 
 void School::update()
 {
-    if (commodityCount[STUFF_JOBS] >= JOBS_MAKE_TECH_SCHOOL
+    if (commodityCount[STUFF_LABOR] >= LABOR_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
     {
-        consumeStuff(STUFF_JOBS, JOBS_MAKE_TECH_SCHOOL);
+        consumeStuff(STUFF_LABOR, LABOR_MAKE_TECH_SCHOOL);
         consumeStuff(STUFF_GOODS, GOODS_MAKE_TECH_SCHOOL);
         produceStuff(STUFF_WASTE, GOODS_MAKE_TECH_SCHOOL / 3);
         ++working_days;

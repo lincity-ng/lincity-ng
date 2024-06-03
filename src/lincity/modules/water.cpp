@@ -5,8 +5,12 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "water.h"
+
+#include <string>                // for basic_string
+
+#include "modules.h"             // for N_, MapTile, TileConstructionGroup
+#include "modules_interfaces.h"  // for mps_water
 
 void mps_water(int x, int y)
 {
@@ -36,4 +40,3 @@ void mps_water(int x, int y)
 }
 
 /** @file lincity/modules/water.cpp */
-

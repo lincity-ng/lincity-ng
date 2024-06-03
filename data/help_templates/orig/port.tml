@@ -27,7 +27,7 @@ export: 50% of inventory =&gt; money
 
 import: money =&gt; 50% of remaining capacity
 
-For import or export to occur, 100 jobs must be consumed.
+For import or export to occur, 100 labor must be consumed.
 
 If there is both import and export, then .0002 tech is produced, which can sustain up to ~10 tech <100 or ~5 tech >100.
 

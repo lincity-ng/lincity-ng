@@ -2,7 +2,6 @@
 #define CONSTRUCTION_REQUEST_H__
 
 class Construction;
-class ConstructionManager;
 
 class ConstructionRequest {
 public:
@@ -53,4 +52,3 @@ public:
 
 
 #endif
-

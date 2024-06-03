@@ -12,6 +12,8 @@
 
 /* Daily accumulators */
 
+#include <deque>  // for deque
+
 /*
   Note on variables (GCS):
   --
@@ -27,8 +29,6 @@
   are yearly display variables.  They will be displayed in the mini-map
   when the user clicks on the pound sterling icon.
 */
-#include "lintypes.h"
-#include "engglobs.h"
 
 /*daily*/
 extern int ddeaths, dbirths;

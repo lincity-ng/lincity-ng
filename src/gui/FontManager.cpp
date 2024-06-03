@@ -23,12 +23,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "FontManager.hpp"
 
-#include <SDL_ttf.h>
-#include <stdexcept>
-#include <sstream>
+#include <SDL.h>                  // for SDL_GetError
+#include <SDL_ttf.h>                    // for TTF_OpenFontRW, _TTF_Font
+#include <exception>                    // for exception
+#include <sstream>                      // for char_traits, basic_ostream
+#include <stdexcept>                    // for runtime_error
+#include <utility>                      // for pair, make_pair
 
-#include "tinygettext/gettext.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"   // for getPhysfsSDLRWops
+#include "Style.hpp"                    // for Style
+#include "tinygettext/gettext.hpp"      // for dictionaryManager
+#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 FontManager* fontManager = 0;
 

@@ -18,12 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __HELPWINDOW_HPP__
 #define __HELPWINDOW_HPP__
 
-#include <string>
-#include <stack>
-#include "gui/Button.hpp"
+#include <stack>   // for stack
+#include <string>  // for string, basic_string
 
+class Button;
 class Desktop;
 class Paragraph;
+class WindowManager;
 
 class HelpWindow
 {
@@ -39,7 +40,7 @@ private:
     void historyBackClicked(Button*);
     std::string getHelpFile(const std::string& topic);
 
-    Desktop* desktop;
+    WindowManager* windowManager;
     std::string nextTopic;
     std::stack<std::string> topicHistory;
     Button* historyBackButton;
@@ -48,4 +49,3 @@ private:
 #endif
 
 /** @file lincity-ng/HelpWindow.hpp */
-

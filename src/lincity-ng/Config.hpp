@@ -18,9 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
-#include <string>
-#include <limits.h>
-#include <float.h>
+#include <limits.h>  // for INT_MAX, INT_MIN
+#include <string>    // for string, basic_string
 
 class Config
 {
@@ -62,4 +61,3 @@ Config* getConfig();
 #endif
 
 /** @file lincity-ng/Config.hpp */
-

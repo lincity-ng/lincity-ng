@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
-
-#include <iostream>
 
 #include "ErrorInterface.hpp"
+
+#include <iostream>  // for char_traits, basic_ostream, operator<<, basic_os...
+
 void do_error (const char *s)
 {
   std::cerr<<s<<std::endl;
@@ -31,4 +31,3 @@ void HandleError (const char *s, int i)
 }
 
 /** @file lincity-ng/ErrorInterface.cpp */
-

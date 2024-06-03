@@ -11,17 +11,17 @@
 #define ORE_PER_RESERVE   5000
 #define MAX_ORE_AT_MINE (20 * ORE_PER_RESERVE)
 #define MIN_ORE_RESERVE_FOR_MINE (ORE_RESERVE)
-#define JOBS_DIG_ORE  200
-#define OREMINE_JOBS (JOBS_DIG_ORE + JOBS_LOAD_ORE)
-#define MAX_JOBS_AT_OREMINE (20 * OREMINE_JOBS)
+#define LABOR_DIG_ORE  200
+#define OREMINE_LABOR (LABOR_DIG_ORE + LABOR_LOAD_ORE)
+#define MAX_LABOR_AT_OREMINE (20 * OREMINE_LABOR)
 
 #define ORE_LEVEL_TARGET 80 //mine will only supply so much
 #define OREMINE_ANIMATION_SPEED 200
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include <cstdlib>
 
 class OremineConstructionGroup: public ConstructionGroup {
 public:
@@ -35,9 +35,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_OREMINE;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_ORE].maxload = MAX_ORE_AT_MINE;
         commodityRuleCount[STUFF_ORE].take = true;
         commodityRuleCount[STUFF_ORE].give = true;
@@ -76,7 +76,7 @@ public:
 
         commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
         commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
-        commodityMaxCons[STUFF_JOBS] = 100 * OREMINE_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * OREMINE_LABOR;
     }
     virtual ~Oremine() {}
     virtual void update() override;

@@ -7,6 +7,11 @@
 
 #include "windpower.h"
 
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "modules.h"
+
 WindpowerConstructionGroup windpowerConstructionGroup(
     N_("Wind Power"),
      TRUE,                     /* need credit? */
@@ -32,16 +37,16 @@ void Windpower::update()
 {
     if (!(total_time%(WIND_POWER_RCOST)))
     {   windmill_cost++;}
-    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_WIND_POWER)?mwh_output:MAX_MWH_AT_WIND_POWER-commodityCount[STUFF_MWH];
-    int jobs_used = WIND_POWER_JOBS * mwh_made/mwh_output;
+    int hivolt_made = (commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_WIND_POWER)?hivolt_output:MAX_HIVOLT_AT_WIND_POWER-commodityCount[STUFF_HIVOLT];
+    int labor_used = WIND_POWER_LABOR * hivolt_made/hivolt_output;
 
-    if ((commodityCount[STUFF_JOBS] >= jobs_used)
-     && mwh_made > WIND_POWER_MWH)
+    if ((commodityCount[STUFF_LABOR] >= labor_used)
+     && hivolt_made > WIND_POWER_HIVOLT)
     {
-        consumeStuff(STUFF_JOBS, jobs_used);
-        produceStuff(STUFF_MWH, mwh_made);
+        consumeStuff(STUFF_LABOR, labor_used);
+        produceStuff(STUFF_HIVOLT, hivolt_made);
         animate_enable = true;
-        working_days += mwh_made;
+        working_days += hivolt_made;
     }
     else
     {   animate_enable = false;}
@@ -60,9 +65,9 @@ void Windpower::animate() {
     ++frameIt->frame %= 3;
   }
 
-  if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
+  if (commodityCount[STUFF_HIVOLT] > MAX_HIVOLT_AT_WIND_POWER/2)
     frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechG"];
-  else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
+  else if (commodityCount[STUFF_HIVOLT] > MAX_HIVOLT_AT_WIND_POWER/10)
     frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechRG"];
   else
     frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTech"];
@@ -74,9 +79,9 @@ void Windpower::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sfp(i++, N_("busy"), float(busy) / mwh_output);
+    mps_store_sfp(i++, N_("busy"), float(busy) / hivolt_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), mwh_output);
+    mps_store_sd(i++, N_("Output"), hivolt_output);
     // i++;
     list_commodities(&i);
 }

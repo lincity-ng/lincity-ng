@@ -1,7 +1,7 @@
 Fire stations
 
 Fire stations prevent the start and spread of fire within
-the range that they cover. They need to be supplied with goods and jobs
+the range that they cover. They need to be supplied with goods and labor
 to work. They also cost money to run.
 
 When you build a fire station, it does not start straight away.
@@ -22,6 +22,6 @@ IMG_3[and this its mapview overlay icon]: images/gui/mapview/roundbuttons/round_
 
 SUBH: Formulas
 
-6 jobs + 3 goods =&gt; 1 waste
+6 labor + 3 goods =&gt; 1 waste
 
-ALSO[See also:]: mini-screen, goods, market, jobs, msb-fire
+ALSO[See also:]: mini-screen, goods, market, labor, msb-fire

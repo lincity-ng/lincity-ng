@@ -7,6 +7,10 @@
 
 #include "tip.h"
 
+#include <list>                     // for _List_iterator
+
+#include "modules.h"
+
 // Tip:
 TipConstructionGroup tipConstructionGroup(
     N_("Land Fill"),

@@ -3,28 +3,33 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "lctypes.h"
-#include "lin-city.h"
+#include <stdlib.h>                        // for rand
+#include <algorithm>                       // for max
+#include <deque>                           // for deque
+#include <set>                             // for set, _Rb_tree_const_iterator
+
+#include "ConstructionManager.h"           // for ConstructionManager
+#include "ConstructionRequest.h"           // for BurnDownRequest, Construct...
+#include "UserOperation.h"                 // for UserOperation
+#include "all_buildings.h"                 // for POL_DIV
+#include "engglobs.h"                      // for world, userOperation, tota...
 #include "engine.h"
-#include "engglobs.h"
-#include "ConstructionManager.h"
-#include "simulate.h"
-#include "tinygettext/gettext.hpp"
-#include "gui_interface/pbar_interface.h"
-#include "stats.h"
-#include "gui_interface/dialbox_interface.h"
-#include "gui_interface/mps.h"
-#include "gui_interface/screen_interface.h"
-#include "gui_interface/shared_globals.h"
-#include "modules/modules_interfaces.h"
-#include "modules/all_modules.h"
-#include "transport.h"
-#include "all_buildings.h"
+#include "groups.h"                        // for GROUP_DESERT, GROUP_FIRE
+#include "gui_interface/mps.h"             // for mps_update
+#include "gui_interface/pbar_interface.h"  // for refresh_pbars, update_pbar
+#include "lctypes.h"                       // for CST_GREEN, CST_DESERT
+#include "lin-city.h"                      // for BAD, FLAG_FIRE_COVER, FLAG...
+#include "lintypes.h"                      // for MapTile, ConstructionGroup
+#include "modules/all_modules.h"           // for Residence, GROUP_SHANTY_BU...
+#include "stats.h"                         // for ddeaths, tunnat_deaths
+#include "tinygettext/gettext.hpp"         // for _
+#include "transport.h"                     // for connect_transport
+#include "world.h"                         // for World
 
-
+#ifdef DEBUG
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for fprintf, stderr
+#endif
 
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
@@ -578,4 +583,3 @@ int find_bare_area(int x, int y, int size)
 }
 
 /** @file lincity/engine.cpp */
-

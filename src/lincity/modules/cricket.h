@@ -12,17 +12,18 @@
 #define GROUP_CRICKET_RANGE 9
 #define GROUP_CRICKET_SIZE 2
 
-#define CRICKET_JOBS   8
-#define MAX_JOBS_AT_CRICKET (20 * CRICKET_JOBS)
+#define CRICKET_LABOR   8
+#define MAX_LABOR_AT_CRICKET (20 * CRICKET_LABOR)
 #define CRICKET_GOODS  3
 #define MAX_GOODS_AT_CRICKET (20 * CRICKET_GOODS)
 #define MAX_WASTE_AT_CRICKET (20 * CRICKET_GOODS / 3)
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class CricketConstructionGroup: public ConstructionGroup {
 public:
@@ -37,9 +38,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_CRICKET;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_CRICKET;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_CRICKET;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -82,7 +83,7 @@ public:
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
 
-        commodityMaxCons[STUFF_JOBS] = 100 * CRICKET_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * CRICKET_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * CRICKET_GOODS;
         commodityMaxProd[STUFF_WASTE] = 100 * (CRICKET_GOODS / 3);
     }

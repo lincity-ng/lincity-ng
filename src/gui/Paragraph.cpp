@@ -23,22 +23,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Paragraph.hpp"
 
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
-#include <ctype.h>
-#include <float.h>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
+#include <SDL.h>                 // for SDL_Surface, SDL_FreeSurface, Sint16
+#include <SDL_ttf.h>             // for TTF_FontHeight, TTF_FontAscent, TTF_...
+#include <ctype.h>               // for isspace
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
+#include <string.h>              // for strcmp, size_t, NULL
+#include <iostream>              // for basic_ostream, operator<<, cerr, str...
+#include <map>                   // for map, _Rb_tree_iterator, operator==
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <utility>               // for pair
 
-#include "Event.hpp"
-#include "FontManager.hpp"
-#include "TextureManager.hpp"
-#include "Painter.hpp"
-#include "XmlReader.hpp"
-#include "ComponentFactory.hpp"
-#include "Document.hpp"
-#include "tinygettext/tinygettext.hpp"
+#include "Color.hpp"             // for Color
+#include "ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONENT_F...
+#include "Event.hpp"             // for Event
+#include "FontManager.hpp"       // for FontManager, fontManager
+#include "Painter.hpp"           // for Painter
+#include "Texture.hpp"           // for Texture
+#include "TextureManager.hpp"    // for TextureManager, texture_manager
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 Paragraph::Paragraph()
     : texture(0)

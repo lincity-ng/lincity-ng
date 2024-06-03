@@ -10,11 +10,11 @@
 	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">und dies ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
-	
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="steel">Stahl</a></li>
-	<li><a href="jobs">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeitsplätze</a></li>
 </Document>

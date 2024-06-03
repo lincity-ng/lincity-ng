@@ -7,19 +7,20 @@
 #define GROUP_WINDMILL_RANGE  0
 #define GROUP_WINDMILL_SIZE  2
 
-#define WINDMILL_KWH        450
-#define WINDMILL_JOBS       10
-#define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)
-#define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH)
+#define WINDMILL_LOVOLT     450
+#define WINDMILL_LABOR       10
+#define MAX_LABOR_AT_WINDMILL 20*(WINDMILL_LABOR)
+#define MAX_LOVOLT_AT_WINDMILL 20*(WINDMILL_LOVOLT)
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      4
 #define ANTIQUE_WINDMILL_ANIM_SPEED 120
 
 #define MODERN_WINDMILL_TECH 450000
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class WindmillConstructionGroup: public ConstructionGroup {
 public:
@@ -34,12 +35,12 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_WINDMILL;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_KWH_AT_WINDMILL;
-        commodityRuleCount[STUFF_KWH].take = false;
-        commodityRuleCount[STUFF_KWH].give = true;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_WINDMILL;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_LOVOLT_AT_WINDMILL;
+        commodityRuleCount[STUFF_LOVOLT].take = false;
+        commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Windmill
     virtual Construction *createConstruction(int x, int y);
@@ -59,21 +60,21 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->kwh_output, "kwh_output"); // compatibility
+        // this->lovolt_output = (int)(WINDMILL_LOVOLT + (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->lovolt_output, "kwh_output"); // compatibility
         initialize_commodities();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * WINDMILL_JOBS;
-        // commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
+        commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
+        // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
     }
 
     virtual void initialize() override {
       RegisteredConstruction::initialize();
 
-      this->kwh_output = (int)(WINDMILL_KWH +
-        (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
+      this->lovolt_output = (int)(WINDMILL_LOVOLT +
+        (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
 
-      commodityMaxProd[STUFF_KWH] = 100 * kwh_output;
+      commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
     }
 
     virtual ~Windmill() { }
@@ -81,7 +82,7 @@ public:
     virtual void report() override;
     virtual void animate() override;
 
-    int  kwh_output;
+    int  lovolt_output;
     int  tech;
     int  anim;
     int  working_days, busy;

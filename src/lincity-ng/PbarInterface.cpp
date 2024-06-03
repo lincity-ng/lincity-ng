@@ -15,13 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include <config.h>
 
-//#include "ag_debug.h"
-#include "lincity/engglobs.h"
-#include "gui_interface/pbar_interface.h"
-#include "PBar.hpp"
-#include "lincity/stats.h"
+#include <map>                             // for map
+
+#include "PBar.hpp"                        // for LCPBar, LCPBarPage1, LCPBa...
+#include "gui_interface/pbar_interface.h"  // for pbar_st, PBAR_DATA_SIZE
+#include "lincity/commodities.hpp"         // for Commodity
+#include "lincity/engglobs.h"              // for housed_population, total_h...
+#include "lincity/lintypes.h"              // for tstat_capacities, tstat_ce...
 
 struct pbar_st pbars[NUM_PBARS];
 
@@ -82,15 +83,15 @@ void update_pbars_monthly()
     update_pbar (PTECH, tech_level, 1);
     update_pbar (PMONEY, total_money, 1);
     update_pbar (PFOOD, tstat_census[STUFF_FOOD] * 1000L / tstat_capacities[STUFF_FOOD], 1);
-    update_pbar (PJOBS, tstat_census[STUFF_JOBS] * 1000L / tstat_capacities[STUFF_JOBS], 1);
+    update_pbar (PLABOR, tstat_census[STUFF_LABOR] * 1000L / tstat_capacities[STUFF_LABOR], 1);
     update_pbar (PGOODS, tstat_census[STUFF_GOODS] * 1000L / tstat_capacities[STUFF_GOODS], 1);
     update_pbar (PCOAL, tstat_census[STUFF_COAL] * 1000L / tstat_capacities[STUFF_COAL], 1);
     update_pbar (PORE, tstat_census[STUFF_ORE] * 1000L / tstat_capacities[STUFF_ORE], 1);
     update_pbar (PSTEEL, tstat_census[STUFF_STEEL] * 1000L / tstat_capacities[STUFF_STEEL], 1);
 
     update_pbar (PPOL, total_pollution, 1);
-    update_pbar (PKWH, tstat_census[STUFF_KWH] * 1000L / tstat_capacities[STUFF_KWH], 1);
-    update_pbar (PMWH, tstat_census[STUFF_MWH] * 1000L / tstat_capacities[STUFF_MWH], 1);
+    update_pbar (PLOVOLT, tstat_census[STUFF_LOVOLT] * 1000L / tstat_capacities[STUFF_LOVOLT], 1);
+    update_pbar (PHIVOLT, tstat_census[STUFF_HIVOLT] * 1000L / tstat_capacities[STUFF_HIVOLT], 1);
     update_pbar (PWATER, tstat_census[STUFF_WATER] * 1000L / tstat_capacities[STUFF_WATER], 1);
     update_pbar (PWASTE, tstat_census[STUFF_WASTE] * 1000L / tstat_capacities[STUFF_WASTE], 1);
     if (total_housing)

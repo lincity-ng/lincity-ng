@@ -2,7 +2,7 @@ WARNING
 -------
 
         BACKUP YOUR SAVED GAMES BEFORE USE.
-        
+
         Data structure have changed and impact load/save.
 
         YOU HAVE BEEN WARNED, BACKUP YOUR DATA.
@@ -61,7 +61,7 @@ Won't do soon, maybe never:
 * transport capacity for water = water_on_road, water_on rail.... ?
   This mean quantity management of water. can be very tricky in addition to quality.
   rev 1170 uses range, so no need for transport.
-  ? market can buy/sell water ? or waterwell is a watermarket ? 
+  ? market can buy/sell water ? or waterwell is a watermarket ?
 
 * fire/health cover in dry area should cost more (need more equipment ...)
 
@@ -81,9 +81,9 @@ or go in the wiki.
 
 * Within market range, everything can already jump across rivers.
 
-* rivers are ready for transport: in lin-city.h  
+* rivers are ready for transport: in lin-city.h
   #define MAX_FOOD_ON_RIVER (MAX_FOOD_ON_TRACK*2)
-  #define MAX_JOBS_ON_RIVER (MAX_JOBS_ON_TRACK*2)
+  #define MAX_LABOR_ON_RIVER (MAX_LABOR_ON_TRACK*2)
   #define MAX_COAL_ON_RIVER (MAX_COAL_ON_TRACK*2)
   #define MAX_GOODS_ON_RIVER (MAX_GOODS_ON_TRACK*2)
   #define MAX_ORE_ON_RIVER (MAX_ORE_ON_TRACK*2)
@@ -96,7 +96,7 @@ or go in the wiki.
              (group == GROUP_RAIL) || \
              (group == GROUP_POWER_LINE))
   Beach scenario could cause trouble (stock many thing in the sea !).
-  FLAG_IS_RIVER (=navigable) should allow to control this: 
+  FLAG_IS_RIVER (=navigable) should allow to control this:
   	coast line = navigable = RIVER
 	off shore = not navigable = WATER
   In current version (1195), in Beach all the sea is navigable.
@@ -124,5 +124,3 @@ or go in the wiki.
         less than 1/1000 chance per year, inversely proportionnal to surface.
 
 * Minimap size is hardcoded 200 pixel = 2x WORLD_SIDE_LEN. Probably need to use pixel for sharp graphics.
-
-

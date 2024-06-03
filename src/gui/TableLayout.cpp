@@ -17,16 +17,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "TableLayout.hpp"
 
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <typeinfo>
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp, size_t
+#include <iostream>              // for operator<<, basic_ostream, char_traits
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for operator==, basic_string, operator<<
 
-#include "Painter.hpp"
-#include "Event.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "XmlReader.hpp"
+#include "Child.hpp"             // for Childs, Child
+#include "Color.hpp"             // for Color
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 TableLayout::TableLayout()
 {
@@ -42,7 +49,7 @@ TableLayout::parse(XmlReader& reader)
 {
     int rows = -1, cols = -1;
     border = false;
-    
+
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -78,11 +85,11 @@ TableLayout::parse(XmlReader& reader)
     if(rows <= 0 || cols <= 0) {
         throw std::runtime_error("Invalid values for rows/cols");
     }
-    
+
     rowproperties.assign(rows, RowColProperties());
     colproperties.assign(cols, RowColProperties());
     cells.assign(rows*cols, Cell());
-    
+
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
@@ -91,7 +98,7 @@ TableLayout::parse(XmlReader& reader)
                 RowColProperties props;
                 int num = parseProperties(reader, props) - 1;
                 if(num < 0 || num >= rows) {
-                    std::cerr 
+                    std::cerr
                         << "Invalid row specified in rowsize element.\n";
                     continue;
                 }
@@ -100,7 +107,7 @@ TableLayout::parse(XmlReader& reader)
                 RowColProperties props;
                 int num = parseProperties(reader, props) - 1;
                 if(num < 0 || num >= cols) {
-                    std::cerr 
+                    std::cerr
                         << "Invalid col specified in colsize element.\n";
                     continue;
                 }
@@ -165,7 +172,7 @@ TableLayout::parse(XmlReader& reader)
                 row--;
                 col--;
                 if(row < 0 || row >= rows) {
-                    std::cerr 
+                    std::cerr
                         << "Skipping cell because row value is invalid.\n";
                     continue;
                 }
@@ -197,12 +204,12 @@ TableLayout::parse(XmlReader& reader)
                 cell.colspan = colspan;
                 cells[row*cols + col] = cell;
             } else {
-                std::cerr << "Unknown element '" << element 
+                std::cerr << "Unknown element '" << element
                     << "' in TableLayout.\n";
                 reader.nextNode();
                 continue;
             }
-        }   
+        }
     }
 }
 
@@ -265,7 +272,7 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
                     << value << "' in row or col attribute.\n";
             }
         } else {
-            std::cerr << "Unknown attribute '" << name 
+            std::cerr << "Unknown attribute '" << name
                 << "' in colsize/rowsize element.\n";
         }
     }
@@ -276,6 +283,8 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
 void
 TableLayout::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 
@@ -305,7 +314,7 @@ TableLayout::resize(float width, float height)
     // Step2: distribute remaining space to remaining rows/cols
     float heightfact;
     if(remainingheight <= 0)
-        heightfact = 0;                                           
+        heightfact = 0;
     else
         heightfact = (height - fixedheight) / remainingheight;
 
@@ -315,7 +324,7 @@ TableLayout::resize(float width, float height)
             i->realval = heightfact * i->val;
         }
     }
-    
+
     float widthfact;
     if(remainingwidth <= 0)
         widthfact = 0;
@@ -348,7 +357,7 @@ TableLayout::resize(float width, float height)
             }
             Child& child = childs[childid];
             Component* component = child.getComponent();
-			
+
             if(!component) {
                 p.x += col->realval;
                 continue;
@@ -360,15 +369,16 @@ TableLayout::resize(float width, float height)
             float height = 0;
             for(int i = 0; i < cell.rowspan; ++i)
                 height += (row+i)->realval;
-			
+
             if(component->getFlags() & FLAG_RESIZABLE)
                 component->resize(width, height);
+                // TODO: honor minimum sizes of children
 #ifdef DEBUG
-            if(! (component->getFlags() & FLAG_RESIZABLE) 
-                    && (component->getWidth() <= 0 
+            if(! (component->getFlags() & FLAG_RESIZABLE)
+                    && (component->getWidth() <= 0
                         || component->getHeight() <= 0))
-                std::cerr << "Warning: component with name '"                                  
-                    << component->getName() 
+                std::cerr << "Warning: component with name '"
+                    << component->getName()
                     << "' has invalid width/height but is not resizable.\n";
 #endif
 
@@ -412,7 +422,7 @@ void
 TableLayout::draw(Painter& painter)
 {
     Component::draw(painter);
-    
+
     if(border) {
         float r = 0;
         float c = 0;
@@ -456,7 +466,7 @@ TableLayout::addComponent(size_t col, size_t row, Component* component)
 
     if(cells[row * colproperties.size() + col].childid >= 0)
         throw std::runtime_error("Already a component in this cell.");
-    
+
     addChild(component);
     cells[row * colproperties.size() + col] = Cell(childs.size()-1);
 }
@@ -465,4 +475,3 @@ IMPLEMENT_COMPONENT_FACTORY(TableLayout)
 
 
 /** @file gui/TableLayout.cpp */
-

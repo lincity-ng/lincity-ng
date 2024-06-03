@@ -7,17 +7,18 @@
 #define GROUP_HEALTH_RANGE 14
 #define GROUP_HEALTH_SIZE 2
 
-#define HEALTH_CENTRE_JOBS   6
-#define MAX_JOBS_AT_HEALTH_CENTRE (20 * HEALTH_CENTRE_JOBS)
+#define HEALTH_CENTRE_LABOR   6
+#define MAX_LABOR_AT_HEALTH_CENTRE (20 * HEALTH_CENTRE_LABOR)
 #define HEALTH_CENTRE_GOODS  40
 #define MAX_GOODS_AT_HEALTH_CENTRE (20 * HEALTH_CENTRE_GOODS)
 #define MAX_WASTE_AT_HEALTH_CENTRE (20 * HEALTH_CENTRE_GOODS / 3)
 #define HEALTH_RUNNING_COST  2
 #define HEALTH_RUNNING_COST_MUL 9
 
+#include <array>                    // for array
+#include <string>                   // for basic_string
+
 #include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
 
 class HealthCentreConstructionGroup: public ConstructionGroup {
 public:
@@ -32,9 +33,9 @@ public:
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
         cost, tech, range, 2/*mps_pages*/
     ) {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_HEALTH_CENTRE;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_HEALTH_CENTRE;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_GOODS].maxload = MAX_GOODS_AT_HEALTH_CENTRE;
         commodityRuleCount[STUFF_GOODS].take = true;
         commodityRuleCount[STUFF_GOODS].give = false;
@@ -75,7 +76,7 @@ public:
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
 
-        commodityMaxCons[STUFF_JOBS] = 100 * HEALTH_CENTRE_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * HEALTH_CENTRE_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * HEALTH_CENTRE_GOODS;
         commodityMaxProd[STUFF_WASTE] = 100 * (HEALTH_CENTRE_GOODS / 3);
     }

@@ -4,9 +4,9 @@ IMG_1[]: images/gui/mapview/roundbuttons/round_ub40.png
 
 The unemployment mini screen shows residential areas (red or green) and building (yellow or grey)
 
-Bright green means that there is no unemployment in that residential area. Darker green and bright red show increasingly severe unemployment in each residential area shown.(too many people here compared to the number of jobs)
+Bright green means that there is no unemployment in that residential area. Darker green and bright red show increasingly severe unemployment in each residential area shown.(too many people here compared to the number of labor)
 
-Bright yellow means that a building asked for jobs, but could not get them (too few people here). Buildings are displayed in grey in this minimap when they have no problem with jobs.
+Bright yellow means that a building asked for labor, but could not get them (too few people here). Buildings are displayed in grey in this minimap when they have no problem with labor.
 
 Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
 

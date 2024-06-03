@@ -24,11 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TEXTUREMANAGER_HPP__
 #define __TEXTUREMANAGER_HPP__
 
-#include <SDL.h>
-#include <map>
-#include <string>
+#include <SDL.h>  // for SDL_Surface
+#include <map>            // for map
+#include <string>         // for basic_string, operator<, operator==, operator>
 
-#include "Texture.hpp"
+#include "Texture.hpp"    // for Texture
 
 /**
  * @class TextureManager
@@ -99,4 +99,3 @@ extern TextureManager* texture_manager;
 #endif
 
 /** @file gui/TextureManager.hpp */
-

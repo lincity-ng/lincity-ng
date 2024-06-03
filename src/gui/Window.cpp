@@ -23,23 +23,32 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Window.hpp"
 
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
-#include <assert.h>
+#include <assert.h>               // for assert
+#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>                // for sscanf
+#include <string.h>               // for strcmp
+#include <iostream>               // for basic_ostream, operator<<, stringst...
+#include <memory>                 // for unique_ptr
+#include <sstream>                // for basic_stringstream
+#include <stdexcept>              // for runtime_error
+#include <string>                 // for char_traits, basic_string, operator==
 
-#include "callback/Callback.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "XmlReader.hpp"
-#include "Painter.hpp"
-#include "Button.hpp"
-#include "Event.hpp"
-#include "Desktop.hpp"
+#include "Button.hpp"             // for Button
+#include "Color.hpp"              // for Color
+#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"    // for parseEmbeddedComponent
+#include "Painter.hpp"            // for Painter
+#include "Rect2D.hpp"             // for Rect2D
+#include "Vector2.hpp"            // for Vector2
+#include "WindowManager.hpp"      // for WindowManager
+#include "XmlReader.hpp"          // for XmlReader
+#include "callback/Callback.hpp"  // for makeCallback, Callback
+#include "callback/Signal.hpp"    // for Signal
 
 Window::Window()
-    : border(1), titlesize(0), dragging(false)
+    : border(1), titlesize(0)
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 Window::~Window()
@@ -119,42 +128,7 @@ Window::parse(XmlReader& reader)
         }
     }
 
-    // layout
-    float closeButtonHeight = 0;
-    float closeButtonWidth = 0;
-    float closeButtonBorder = 0;
-    if(closeButton().getComponent() != 0) {
-        closeButtonHeight = closeButton().getComponent()->getHeight();
-        if(titlesize < closeButtonHeight) {
-            titlesize = closeButtonHeight;
-        }
-
-        closeButtonWidth = closeButton().getComponent()->getWidth();
-        closeButtonBorder = (titlesize - closeButtonHeight) / 2;
-        closeButtonWidth += 2*closeButtonBorder;
-        closeButtonHeight += 2*closeButtonBorder;
-    }
-
-    float compWidth = width - 2*border;
-    float compHeight = height - 2*border;
-    title().setPos(Vector2(border, border));
-    title().getComponent()->resize(compWidth - closeButtonWidth, titlesize);
-    if(title_background().getComponent() != 0) {
-        title_background().setPos(title().getPos());
-        title_background().getComponent()->resize(
-                compWidth - closeButtonWidth, titlesize);
-    }
-    if(closeButton().getComponent() != 0) {
-        closeButton().setPos(Vector2(
-                    border + compWidth - closeButtonWidth + closeButtonBorder,
-                    border + closeButtonBorder));
-    }
-    contents().setPos(Vector2(border, border + titlesize));
-    contents().getComponent()->resize(compWidth, compHeight - titlesize);
-    if(background().getComponent() != 0) {
-        background().setPos(Vector2(0, 0));
-        background().getComponent()->resize(width, height);
-    }
+    reLayout();
 
     // connect signals...
     if(closeButton().getComponent() != 0) {
@@ -181,56 +155,102 @@ Window::draw(Painter& painter)
 void
 Window::event(const Event& event)
 {
-    switch(event.type) {
-        case Event::MOUSEBUTTONDOWN:
-            if(event.inside && title().inside(event.mousepos)) {
-                dragging = true;
-                dragOffset = event.mousepos - title().getPos();
-            }
-            break;
-
-        case Event::MOUSEBUTTONUP:
-            if(dragging) {
-                dragging = false;
-            }
-            break;
-
-        case Event::MOUSEMOTION: {
-            if(!dragging)
-                break;
-
-            Desktop* desktop = dynamic_cast<Desktop*> (getParent());
-            assert(desktop != 0);                                               
-            if(!desktop)
-                return;
-
-            // try to move window...
-            Vector2 newpos = desktop->getPos(this) + 
-                event.mousepos - dragOffset;
-            desktop->move(this, newpos);
-            break;
-        }
-
-        default:
-            break;
-    }
-   
     // distribute event to child components...
     Component::event(event);
 }
 
 void
+Window::resize(float width, float height) {
+  size.x = width;
+  size.y = height;
+
+  retry:
+
+  if(size.x < 10) size.x = 10;
+  if(size.y < 10) size.y = 10;
+
+  // layout
+  float closeButtonHeight = 0;
+  float closeButtonWidth = 0;
+  float closeButtonBorder = 0;
+  if(closeButton().getComponent() != 0) {
+      closeButtonHeight = closeButton().getComponent()->getHeight();
+      if(titlesize < closeButtonHeight) {
+          titlesize = closeButtonHeight;
+      }
+
+      closeButtonWidth = closeButton().getComponent()->getWidth();
+      closeButtonBorder = (titlesize - closeButtonHeight) / 2;
+      closeButtonWidth += 2*closeButtonBorder;
+      closeButtonHeight += 2*closeButtonBorder;
+  }
+  Vector2 compSize = size - Vector2(border,border)*2;
+
+  Vector2 targetSize;
+  Vector2 actualSize;
+  title().setPos(Vector2(border, border));
+  targetSize = Vector2(compSize.x - closeButtonWidth, titlesize);
+  title().getComponent()->resize(targetSize);
+  actualSize = title().getComponent()->getSize();
+  if(actualSize.x != targetSize.x) {
+    size.x = actualSize.x + closeButtonWidth + 2*border;
+    goto retry;
+  }
+
+  if(title_background().getComponent() != 0) {
+    title_background().setPos(title().getPos());
+    targetSize = Vector2(compSize.x - closeButtonWidth, titlesize);
+    title_background().getComponent()->resize(targetSize);
+    actualSize = title_background().getComponent()->getSize();
+    if(actualSize.x != targetSize.x) {
+      size.x = actualSize.x + closeButtonWidth + 2*border;
+      goto retry;
+    }
+  }
+
+  if(closeButton().getComponent() != 0) {
+    closeButton().setPos(Vector2(
+      border + compSize.x - closeButtonWidth + closeButtonBorder,
+      border + closeButtonBorder));
+  }
+
+  contents().setPos(Vector2(border, border + titlesize));
+  targetSize = actualSize = Vector2(compSize.x, compSize.y - titlesize);
+  if(actualSize.x < 1) actualSize.x = 1;
+  if(actualSize.y < 1) actualSize.y = 1;
+  contents().getComponent()->resize(actualSize);
+  actualSize = contents().getComponent()->getSize();
+  if(actualSize != targetSize) {
+    size += actualSize - targetSize;
+    goto retry;
+  }
+  contents().setClipRect(
+    Rect2D(Vector2(),targetSize).move(contents().getPos()));
+
+  if(background().getComponent() != 0) {
+    background().setPos(Vector2(0, 0));
+    targetSize = size;
+    background().getComponent()->resize(targetSize);
+    actualSize = background().getComponent()->getSize();
+    if(actualSize != targetSize) {
+      size = actualSize;
+      goto retry;
+    }
+  }
+}
+
+void
 Window::closeButtonClicked(Button* )
 {
-    Desktop* desktop = dynamic_cast<Desktop*> (getParent());
-    assert(desktop != 0);                                               
-    if(!desktop)
+    WindowManager* windowManager = dynamic_cast<WindowManager *>(getParent());
+    assert(windowManager != 0);
+    if(!windowManager)
         return;
 
-    desktop->remove(this);    
+    windowManager->removeWindow(this);
 }
+
 
 IMPLEMENT_COMPONENT_FACTORY(Window)
 
 /** @file gui/Window.cpp */
-

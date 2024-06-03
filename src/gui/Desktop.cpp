@@ -23,21 +23,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Desktop.hpp"
 
-#include <iostream>
-#include <stdexcept>
+#include <SDL.h>                // for SDL_GetDefaultCursor, SDL_SystemCursor
+#include <libxml/xmlreader.h>   // for XML_READER_TYPE_ELEMENT
+#include <stddef.h>             // for NULL
+#include <iostream>             // for basic_ostream, operator<<, cerr
+#include <stdexcept>            // for runtime_error
+#include <string>               // for char_traits, basic_string, operator==
 
-#include "XmlReader.hpp"
-#include "ComponentFactory.hpp"
-#include "ComponentLoader.hpp"
-#include "Style.hpp"
+#include "Child.hpp"            // for Childs, Child
+#include "ComponentLoader.hpp"  // for createComponent
+#include "Style.hpp"            // for parseStyleDef
+#include "XmlReader.hpp"        // for XmlReader
+
+class Event;
+class Painter;
 
 Desktop::Desktop()
 {
     setFlags(FLAG_RESIZABLE);
+    desktop = this;
+    cursor = SDL_GetDefaultCursor();
+    cursorOwner = NULL;
 }
 
-Desktop::~Desktop()
-{
+Desktop::~Desktop() {
+    freeAllSystemCursors();
 }
 
 void
@@ -74,23 +84,6 @@ void
 Desktop::event(const Event& event)
 {
     Component::event(event);
-
-    // process pending remove events...
-    for(std::vector<Component*>::iterator i = removeQueue.begin();
-            i != removeQueue.end(); ++i) {
-        internal_remove(*i);
-    }
-    removeQueue.clear();
-
-    // process pending child adds...
-    for(std::vector<Component*>::iterator i = addQueue.begin();
-            i != addQueue.end(); ++i) {
-        Child& child = addChild(*i);
-        child.setPos(Vector2( 
-                    (getWidth() - child.getComponent()->getWidth()) / 2,
-                    (getHeight() - child.getComponent()->getHeight()) / 2));
-    }
-    addQueue.clear();
 }
 
 bool
@@ -102,8 +95,11 @@ Desktop::needsRedraw() const
 void
 Desktop::draw(Painter& painter)
 {
-    if(dirtyRectangles.size() > 0)
+    if(dirtyRectangles.size() > 0) {
         Component::draw(painter);
+        if(cursor != SDL_GetCursor())
+            SDL_SetCursor(cursor);
+    }
     dirtyRectangles.clear();
 }
 
@@ -112,10 +108,10 @@ Desktop::opaque(const Vector2& pos) const
 {
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
         const Child& child = *i;
-        if(child.getComponent() == 0)
+        if(!child.getComponent() || !child.isEnabled())
             continue;
-        
-        if(child.getComponent()->opaque(pos + child.getPos())) {
+
+        if(child.getComponent()->opaque(pos - child.getPos())) {
             return true;
         }
     }
@@ -131,10 +127,10 @@ Desktop::resize(float width, float height)
         if(component->getFlags() & FLAG_RESIZABLE)
             component->resize(width, height);
 #ifdef DEBUG
-        if(! (component->getFlags() & FLAG_RESIZABLE) 
+        if(! (component->getFlags() & FLAG_RESIZABLE)
                 && (component->getWidth() <= 0 || component->getHeight() <= 0))
-            std::cerr << "Warning: component with name '" 
-                << component->getName() 
+            std::cerr << "Warning: component with name '"
+                << component->getName()
                 << "' has invalid width/height but is not resizable.\n";
 #endif
     }
@@ -162,55 +158,43 @@ Desktop::getPos(Component* component)
 }
 
 void
-Desktop::move(Component* component, Vector2 newpos)
-{
-    if(component->getFlags() & FLAG_RESIZABLE)
-        throw std::runtime_error("Can't move resizable components around");
-
-    // find child
-    Child* child = 0;
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        if(i->getComponent() == component) {
-            child = &(*i);
-            break;
-        }
-    }
-    if(child == 0)
-        throw std::runtime_error(
-                "Trying to getPos a component that is not a direct child");
-    
-    // keep component in bounds...
-    if(newpos.x + component->getWidth() > width)
-        newpos.x = width - component->getWidth();
-    if(newpos.y + component->getHeight() > height)
-        newpos.y = height - component->getHeight();
-    if(newpos.x < 0)
-        newpos.x = 0;
-    if(newpos.y < 0)
-        newpos.y = 0;
-
-    child->setPos(newpos);
-    Component::setDirty();
+Desktop::setCursor(Component *owner, SDL_Cursor *cursor) {
+    if(cursor != this->cursor)
+        setDirty(Rect2D());
+    this->cursor = cursor;
+    cursorOwner = owner;
 }
 
 void
-Desktop::remove(Component* component)
-{
-    removeQueue.push_back(component);
+Desktop::setSystemCursor(Component *owner, SDL_SystemCursor id) {
+    setCursor(owner, getSystemCursor(id));
 }
 
 void
-Desktop::internal_remove(Component* component)
-{
-    // find child
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        if(i->getComponent() == component) {
-            childs.erase(i);
-            return;
-        }
+Desktop::tryClearCursor(Component *owner) {
+    if(owner == cursorOwner) {
+        setCursor(NULL, SDL_GetDefaultCursor());
     }
-    throw std::runtime_error(
-            "Trying to remove a component that is not a direct child");
+}
+
+SDL_Cursor *
+Desktop::getSystemCursor(SDL_SystemCursor id) {
+    SDL_Cursor *&cursor = systemCursors[id];
+    if(!cursor)
+        cursor = SDL_CreateSystemCursor(id);
+    return cursor;
+}
+
+void
+Desktop::freeSystemCursor(SDL_SystemCursor id) {
+    SDL_FreeCursor(systemCursors[id]);
+    systemCursors[id] = NULL;
+}
+
+void
+Desktop::freeAllSystemCursors() {
+    for(int id = 0; id < SDL_NUM_SYSTEM_CURSORS; id++)
+        freeSystemCursor((SDL_SystemCursor)id);
 }
 
 void
@@ -226,7 +210,7 @@ Desktop::setDirty(const Rect2D& rect)
     }
 
     // add a new dirty rectangle if no overlap occured
-    /*std::cout << "Adding new rectangle: " 
+    /*std::cout << "Adding new rectangle: "
         << rect.p1.x << "," << rect.p1.y << ","
         << rect.p2.x << "," << rect.p2.y << "\n"; */
     dirtyRectangles.push_back(rect);
@@ -234,13 +218,4 @@ Desktop::setDirty(const Rect2D& rect)
     Component::setDirty(rect);
 }
 
-void
-Desktop::addChildComponent(Component* component)
-{
-    assert( component != 0 );
-    assert( component->getParent() == 0 );
-    addQueue.push_back(component);
-}
-
 /** @file gui/Desktop.cpp */
-

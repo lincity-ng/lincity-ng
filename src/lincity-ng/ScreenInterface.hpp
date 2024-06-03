@@ -18,9 +18,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_screen_h__
 #define __lc_screen_h__
 
-#include "lincity/engglobs.h"
-#include "lincity/lctypes.h"
-
 //void screen_full_refresh ();
 void print_stats ();
 
@@ -28,7 +25,7 @@ void print_stats ();
 void updateDate();
 void updateMoney();
 
-void updateMessageText( const std::string text );
+// void updateMessageText( const std::string text );
 
 #endif
 

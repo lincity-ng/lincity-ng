@@ -7,6 +7,12 @@
 
 #include "mill.h"
 
+#include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
+#include <vector>                   // for vector
+
+#include "modules.h"
+
 
 MillConstructionGroup millConstructionGroup(
     N_("Textile Mill"),
@@ -28,19 +34,19 @@ Construction *MillConstructionGroup::createConstruction(int x, int y) {
 
 void Mill::update()
 {
-    bool use_coal = (commodityCount[STUFF_COAL]*MAX_KWH_AT_MILL > commodityCount[STUFF_KWH]*MAX_COAL_AT_MILL);
+    bool use_coal = (commodityCount[STUFF_COAL]*MAX_LOVOLT_AT_MILL > commodityCount[STUFF_LOVOLT]*MAX_COAL_AT_MILL);
     flags &= ~(FLAG_POWERED);
-    if ((use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_KWH]) >= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL)
+    if ((use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_LOVOLT]) >= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL)
     && (flags |= FLAG_POWERED, commodityCount[STUFF_FOOD] >= FOOD_USED_BY_MILL)
-    && (commodityCount[STUFF_JOBS] >= MILL_JOBS)
+    && (commodityCount[STUFF_LABOR] >= MILL_LABOR)
     && (commodityCount[STUFF_GOODS] <= MAX_GOODS_AT_MILL - GOODS_MADE_BY_MILL))
     {
         if(use_coal)
             consumeStuff(STUFF_COAL, COAL_USED_BY_MILL);
         else
-            consumeStuff(STUFF_KWH, COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
+            consumeStuff(STUFF_LOVOLT, COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
         consumeStuff(STUFF_FOOD, FOOD_USED_BY_MILL);
-        consumeStuff(STUFF_JOBS, MILL_JOBS);
+        consumeStuff(STUFF_LABOR, MILL_LABOR);
         produceStuff(STUFF_GOODS, GOODS_MADE_BY_MILL);
         ++working_days;
         animate_enable = true;

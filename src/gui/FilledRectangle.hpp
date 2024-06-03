@@ -24,9 +24,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __FILLEDRECTANGLE_HPP__
 #define __FILLEDRECTANGLE_HPP__
 
-#include "Component.hpp"
-#include "Color.hpp"
+#include "Color.hpp"      // for Color
+#include "Component.hpp"  // for Component
 
+class Painter;
 class XmlReader;
 
 /**

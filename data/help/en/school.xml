@@ -2,8 +2,8 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Schools</p>
-	<p style="hp">Schools use jobs and goods to produce technology in a similar way to universities. They use far fewer jobs and goods than universities, but produce far fewer tech points. Given the choice between putting four or five schools in a given area, or a single university, it is often (but not always) better to put a university in.</p>
-	<p style="hp">Schools do not need to connect to transport, but do need to be within range of a market than can supply the quantity of jobs and goods to make the school work.</p>
+	<p style="hp">Schools use labor and goods to produce technology in a similar way to universities. They use far fewer labor and goods than universities, but produce far fewer tech points. Given the choice between putting four or five schools in a given area, or a single university, it is often (but not always) better to put a university in.</p>
+	<p style="hp">Schools do not need to connect to transport, but do need to be within range of a market than can supply the quantity of labor and goods to make the school work.</p>
 	<p style="hp">Schools cost money to run. You can see the total cost for the last year by clicking on the money button.</p>
 	<p style="hp">You can see when a school is working in the usual way, by clicking on it.</p>
 
@@ -14,8 +14,8 @@
    <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">200 jobs + 75 goods =&gt; .0002 tech + 25 waste</p>
-	<p style="hp">A school can sustain up to ~10 tech <100 or ~5 tech >100</p>
+	<p style="hp">200 labor + 75 goods =&gt; .0002 tech + 25 waste</p>
+	<p style="hp">A school can sustain up to ~10 tech &lt;100 or ~5 tech &gt;100</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="tech-level">Tech Level</a></li>
@@ -23,5 +23,5 @@
 	<li><a href="university">University</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="goods">Goods</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="labor">Labor</a></li>
 </Document>

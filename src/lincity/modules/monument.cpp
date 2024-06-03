@@ -6,7 +6,11 @@
  * ---------------------------------------------------------------------- */
 
 #include "monument.h"
-#include "lincity-ng/Sound.hpp"
+
+#include <list>                     // for _List_iterator
+#include <map>                      // for map
+
+#include "modules.h"
 
 extern int mps_x, mps_y;
 
@@ -32,11 +36,11 @@ Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
 
 void Monument::update()
 {
-    if ((commodityCount[STUFF_JOBS] > MONUMENT_GET_JOBS) && (completion < 100))
+    if ((commodityCount[STUFF_LABOR] > MONUMENT_GET_LABOR) && (completion < 100))
     {
-        consumeStuff(STUFF_JOBS, MONUMENT_GET_JOBS);
-        jobs_consumed += MONUMENT_GET_JOBS;
-        completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
+        consumeStuff(STUFF_LABOR, MONUMENT_GET_LABOR);
+        labor_consumed += MONUMENT_GET_LABOR;
+        completion = labor_consumed * 100 / BUILD_MONUMENT_LABOR;
         ++working_days;
     }
     else if (completion >= 100)
@@ -69,7 +73,7 @@ void Monument::update()
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
-        if(commodityCount[STUFF_JOBS]==0 && completed)
+        if(commodityCount[STUFF_LABOR]==0 && completed)
         {   deneighborize();}
     }
 }

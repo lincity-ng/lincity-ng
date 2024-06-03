@@ -18,18 +18,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAMEVIEW_HPP__
 #define __GAMEVIEW_HPP__
 
-#include "gui/Component.hpp"
-#include "gui/XmlReader.hpp"
-#include "gui/Vector2.hpp"
-#include "gui/Texture.hpp"
-#include <time.h>
-#include <SDL.h>
-#include <SDL_thread.h>
-#include <SDL_image.h>
+#include <SDL.h>                  // for Uint32, SDL_Cursor, SDL_Surface
+#include <string>                 // for string, basic_string
 
-#include "lincity/engglobs.h"
-#include "MapPoint.hpp"
-#include "MiniMap.hpp"
+#include "MapPoint.hpp"           // for MapPoint
+#include "MiniMap.hpp"            // for MiniMap
+#include "gui/Component.hpp"      // for Component
+#include "gui/Event.hpp"          // for Event
+#include "gui/Vector2.hpp"        // for Vector2
+#include "lincity/resources.hpp"  // for GraphicsInfo
+
+class Button;
+class Painter;
+class Rect2D;
+class Texture;
+class XmlReader;
 
 class GameView : public Component
 {
@@ -182,7 +185,6 @@ private:
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
 
-    SDL_Cursor *panningCursor;
     void setPanningCursor();
     void setDefaultCursor();
 };

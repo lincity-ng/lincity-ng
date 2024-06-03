@@ -21,12 +21,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file FilledRectangle.cpp
  */
 
-#include <iostream>
+#include <string.h>              // for strcmp
+#include <iostream>              // for char_traits, operator<<, basic_ostream
 
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "FilledRectangle.hpp"
-#include "XmlReader.hpp"
-#include "Painter.hpp"
-#include "ComponentFactory.hpp"
+#include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
+#include "XmlReader.hpp"         // for XmlReader
 
 FilledRectangle::FilledRectangle()
 {}
@@ -56,8 +58,10 @@ FilledRectangle::parse(XmlReader& reader)
 }
 
 void
-FilledRectangle::resize(float width, float height) 
+FilledRectangle::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 }
@@ -72,4 +76,3 @@ FilledRectangle::draw(Painter& painter)
 IMPLEMENT_COMPONENT_FACTORY(FilledRectangle)
 
 /** @file gui/FilledRectangle.cpp */
-

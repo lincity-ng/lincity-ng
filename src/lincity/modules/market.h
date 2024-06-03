@@ -15,16 +15,18 @@
 
 //#define MARKET_ANIM_SPEED 750
 
-#define JOBS_MARKET_EMPTY   1
-#define JOBS_MARKET_LOW     5
-#define JOBS_MARKET_MED    12
-#define JOBS_MARKET_FULL   28
+#define LABOR_MARKET_EMPTY   1
+#define LABOR_MARKET_LOW     5
+#define LABOR_MARKET_MED    12
+#define LABOR_MARKET_FULL   28
 
-#include "modules.h"
-#include "../lintypes.h"
-#include "../lctypes.h"
-#include "../transport.h"
+#include <array>                // for array
+#include <list>                 // for _List_iterator, list
+#include <map>                  // for map
+#include <string>               // for basic_string, operator<
 
+#include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
+#include "modules.h"            // for CommodityRule, Commodity, Constructio...
 
 class MarketConstructionGroup: public ConstructionGroup {
 public:
@@ -42,9 +44,9 @@ public:
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
         commodityRuleCount[STUFF_FOOD].take = true;
         commodityRuleCount[STUFF_FOOD].give = true;
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_IN_MARKET;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = true;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_IN_MARKET;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = true;
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_IN_MARKET;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = true;
@@ -88,7 +90,7 @@ public:
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
-        this->jobs = JOBS_MARKET_EMPTY;
+        this->labor = LABOR_MARKET_EMPTY;
         this->anim = 0;
         this->busy = 0;
         this->working_days = 0;
@@ -108,7 +110,7 @@ public:
         this->ye = (tmp > lenm1)? lenm1 : tmp;
         this->cover();
 
-        commodityMaxCons[STUFF_JOBS] = 100 * JOBS_MARKET_FULL;
+        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
         commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
     }
     virtual ~Market() {
@@ -123,7 +125,7 @@ public:
 
     int xs, ys, xe, ye;
     int working_days, busy;
-    int jobs;
+    int labor;
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     int anim;
     int market_ratio;

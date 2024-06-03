@@ -18,17 +18,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __lc_pbar_h__
 #define __lc_pbar_h__
 
-#include <vector>
-#include <sstream>
-#include <iomanip>
-#include "gui_interface/pbar_interface.h"
-#include "gui/Component.hpp"
-
-#include <map>
+#include "gui/Component.hpp"  // for Component
 
 class LCPBar;
+class Painter;
 class XmlReader;
-class Component;
 
 //extern LCPBar *LCPBarInstance;
 extern LCPBar * LCPBarPage1;
@@ -53,7 +47,7 @@ class BarView : public Component
    ~BarView();
 
    void parse(XmlReader& reader);
-   
+
    void setValue(float v);
    virtual void draw(Painter &painter);
   private:
@@ -65,4 +59,3 @@ class BarView : public Component
 #endif
 
 /** @file lincity-ng/PBar.hpp */
-

@@ -18,8 +18,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __EVENT_HPP__
 #define __EVENT_HPP__
 
-#include <SDL_events.h>
-#include "Vector2.hpp"
+#include <SDL.h>        // for SDL_Event, SDL_Keysym
+
+#include "Vector2.hpp"  // for Vector2
 
 /**
  * @file Event.hpp
@@ -52,12 +53,10 @@ public:
         WINDOWENTER,
         /// window lost mouse focus
         WINDOWLEAVE,
-        /// other window event
-        WINDOWOTHER,
     };
     /// Create an update Event
     Event(float elapsedTime);
-    
+
     /// type of the event
     Type type;
     /// position of the mouse (relative to component origin)
@@ -68,9 +67,11 @@ public:
     int scrolly;
     /// number of the mousebutton that has been pressed
     int mousebutton;
+    /// mouse button state (can be decoded with SDL_BUTTON macros)
+    Uint32 mousebuttonstate;
     /// symbol of the key that has been pressed (see SDL_keysym)
     SDL_Keysym keysym;
-    /** set to true if the position where the mouse was clicked/released is 
+    /** set to true if the position where the mouse was clicked/released is
      * inside the component and the component is not occupied by another
      * component at this position
      */

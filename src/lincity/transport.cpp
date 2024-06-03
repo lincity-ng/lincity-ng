@@ -3,17 +3,21 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include "lin-city.h"
-#include "lctypes.h"
+
 #include "transport.h"
-#include "all_buildings.h"
-#include "modules/all_modules.h"
-#include "engglobs.h"
-#include "engine.h"
-#include <iostream>
+
+#include <stdio.h>                // for NULL
+#include <list>                   // for _List_iterator
+
+#include "commodities.hpp"        // for Commodity
+#include "engglobs.h"             // for world
+#include "engine.h"               // for check_group, check_topgroup
+#include "groups.h"               // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_...
+#include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
+#include "lintypes.h"             // for Construction
+#include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
+#include "resources.hpp"          // for ExtraFrame
+#include "world.h"                // for World, MapTile
 
 
 
@@ -58,17 +62,17 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
             case GROUP_POWER_LINE:
             {
                 bool far = false;
-                int mwh = -1;
+                int hivolt = -1;
                 world(x,y)->reportingConstruction->deneighborize();
                 /* up -- (ThMO) */
-                mwh = world(x, y-1)->reportingConstruction?
-                world(x, y-1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x, y-1)->reportingConstruction?
+                world(x, y-1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
                 {
-                    mwh = world(x, y-2)->reportingConstruction?
-                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x, y-2)->reportingConstruction?
+                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -90,14 +94,14 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 /* left -- (ThMO) */
-                mwh = world(x-1, y)->reportingConstruction?
-                world(x-1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x-1, y)->reportingConstruction?
+                world(x-1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
                 {
-                    mwh = world(x-2, y)->reportingConstruction?
-                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x-2, y)->reportingConstruction?
+                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -119,14 +123,14 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* right -- (ThMO) */
-                mwh = world(x+1, y)->reportingConstruction?
-                world(x+1, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x+1, y)->reportingConstruction?
+                world(x+1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
                 {
-                    mwh = world(x+2, y)->reportingConstruction?
-                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                    hivolt = world(x+2, y)->reportingConstruction?
+                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
-                if(mwh != -1)
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -148,13 +152,13 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 {   world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* down -- (ThMO) */
-                mwh = world(x, y+1)->reportingConstruction?
-                world(x, y+1)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;
+                hivolt = world(x, y+1)->reportingConstruction?
+                world(x, y+1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
                 {
-                    mwh = world(x, y+2)->reportingConstruction?
-                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_MWH, -2):-1;}
-                if(mwh != -1)
+                    hivolt = world(x, y+2)->reportingConstruction?
+                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;}
+                if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
@@ -576,4 +580,3 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
 }
 
 /** @file lincity/transport.cpp */
-

@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Denkmal</p>
 	<p style="hp">Denkmäler sind ein wichtiger Platz für die Inspiration und die Studien von Erfindern. Jedes Denkmal wird die Rate, mit der die Technologie wächst, steigern, jedoch wird sie ab 40% Technologieniveau auf 0 fallen. Ab diesem Punkt können nur noch Schulen und Universitäten das Technologieniveau steigern.</p>
-	<p style="hp">Um ein Denkmal zu bauen braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Jobs mehr benötigt werden.</p>
+	<p style="hp">Um ein Denkmal zu bauen braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Labor mehr benötigt werden.</p>
 	<p style="hp">Sie können sehen, wie weit der Bau vorangeschritten ist, indem Sie auf das Denkmal klicken und im Statusfenster nachsehen. Bis das Denkmal bei 100% ist, gibt es insgesamt 6 Grafiken.</p>
 	<p style="hp"><b>Tipp</b>: Um zu verhindern, dass der Bau eines Denkmals zuviele Arbeitskräfte in einer Region kostet, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden.</p>
 
@@ -10,11 +10,11 @@
 	<img src="images/tiles/monument5.png" halign="center"/>
 	<p style="hp">und das sein Symbol</p>
 	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
-	
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="steel">Stahl</a></li>
-	<li><a href="jobs">Arbeitskräfte</a></li>
+	<li><a href="labor">Arbeitskräfte</a></li>
 </Document>

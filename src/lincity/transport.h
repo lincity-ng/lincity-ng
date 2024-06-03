@@ -3,7 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include "lintypes.h"
+#include "all_buildings.h"  // for magenta, white, yellow
 
 #ifndef __TRANSPORT_H__
 #define __TRANSPORT_H__
@@ -57,7 +57,7 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_POWER_LINE_FIREC 0
 #define GROUP_POWER_LINE_RANGE 0
 #define GROUP_POWER_LINE_SIZE 1
-#define POWER_LINE_LOSS 1       /* one MWH */
+#define POWER_LINE_LOSS 1       /* one hi-volt */
 #define POWER_MODULUS 18        /* Controls how often we see a packet in anim */
 
 
@@ -69,10 +69,10 @@ void connect_transport(int originx, int originy, int w, int h);
 #define MAX_FOOD_ON_RAIL (MAX_FOOD_ON_TRACK*16)
 #define MAX_FOOD_IN_MARKET (MAX_FOOD_ON_RAIL*8)
 
-#define MAX_JOBS_ON_TRACK 1024
-#define MAX_JOBS_ON_ROAD (MAX_JOBS_ON_TRACK*5)
-#define MAX_JOBS_ON_RAIL (MAX_JOBS_ON_TRACK*25)
-#define MAX_JOBS_IN_MARKET (MAX_JOBS_ON_RAIL*3)
+#define MAX_LABOR_ON_TRACK 1024
+#define MAX_LABOR_ON_ROAD (MAX_LABOR_ON_TRACK*5)
+#define MAX_LABOR_ON_RAIL (MAX_LABOR_ON_TRACK*25)
+#define MAX_LABOR_IN_MARKET (MAX_LABOR_ON_RAIL*3)
 
 #define MAX_COAL_ON_TRACK 64
 #define MAX_COAL_ON_ROAD (MAX_COAL_ON_TRACK*8)
@@ -104,12 +104,12 @@ void connect_transport(int originx, int originy, int w, int h);
 #define WASTE_BURN_ON_TRANSPORT 100
 #define WASTE_BURN_ON_TRANSPORT_POLLUTE WASTE_BURN_ON_TRANSPORT/2
 
-#define MAX_KWH_ON_TRACK 2048
-#define MAX_KWH_ON_ROAD (MAX_KWH_ON_TRACK*4)
-#define MAX_KWH_ON_RAIL (MAX_KWH_ON_TRACK*16)
-#define KWH_LOSS_ON_TRANSPORT 3
+#define MAX_LOVOLT_ON_TRACK 2048
+#define MAX_LOVOLT_ON_ROAD (MAX_LOVOLT_ON_TRACK*4)
+#define MAX_LOVOLT_ON_RAIL (MAX_LOVOLT_ON_TRACK*16)
+#define LOVOLT_LOSS_ON_TRANSPORT 3
 
-#define MAX_MWH_ON_POWERLINE (MAX_KWH_ON_RAIL*8)
+#define MAX_HIVOLT_ON_POWERLINE (MAX_LOVOLT_ON_RAIL*8)
 
 #define MAX_WATER_ON_TRACK (2 * MAX_FOOD_ON_TRACK)
 #define MAX_WATER_ON_ROAD (MAX_WATER_ON_TRACK*4)
@@ -142,4 +142,3 @@ void connect_transport(int originx, int originy, int w, int h);
 
 
 /** @file lincity/transport.h */
-

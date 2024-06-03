@@ -24,13 +24,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DOCUMENT_HPP__
 #define __DOCUMENT_HPP__
 
-#include <vector>
-#include "Style.hpp"
-#include "Component.hpp"
-#include "callback/Signal.hpp"
+#include <string>               // for string
 
-class XmlReader;
+#include "Component.hpp"        // for Component
+#include "Style.hpp"            // for Style
+#include "callback/Signal.hpp"  // for Signal
+
+class Painter;
 class Paragraph;
+class XmlReader;
 
 /**
  * @class Document
@@ -58,4 +60,3 @@ private:
 
 
 /** @file gui/Document.hpp */
-

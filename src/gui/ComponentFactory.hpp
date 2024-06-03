@@ -24,9 +24,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COMPONENT_FACTORY_HPP__
 #define __COMPONENT_FACTORY_HPP__
 
-#include <map>
-#include <string>
-#include <memory>
+#include <map>                  // for map
+#include <memory>               // for unique_ptr
+#include <string>               // for basic_string, operator<, string
+#include <utility>              // for pair, make_pair
+
+// IWYU pragma: no_include "Button.hpp"
+// IWYU pragma: no_include "Desktop.hpp"
+// IWYU pragma: no_include "Document.hpp"
+// IWYU pragma: no_include "FilledRectangle.hpp"
+// IWYU pragma: no_include "Gradient.hpp"
+// IWYU pragma: no_include "Image.hpp"
+// IWYU pragma: no_include "Panel.hpp"
+// IWYU pragma: no_include "Paragraph.hpp"
+// IWYU pragma: no_include "ScrollBar.hpp"
+// IWYU pragma: no_include "ScrollView.hpp"
+// IWYU pragma: no_include "SwitchComponent.hpp"
+// IWYU pragma: no_include "TableLayout.hpp"
+// IWYU pragma: no_include "TooltipManager.hpp"
+// IWYU pragma: no_include "Window.hpp"
+// IWYU pragma: no_include "WindowManager.hpp"
 
 const char * GUI_TRANSLATE(const char * msgid);
 std::string  GUI_TRANSLATE(const std::string& msgid);
