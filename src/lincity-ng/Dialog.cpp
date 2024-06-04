@@ -733,11 +733,12 @@ void Dialog::editPort(){
             << " SwitchComponent" << std::endl;
           continue;
         }
-        sc->switchComponent((isGive ? ixRule[c].give : ixRule[c].take) ? "green" : "red");
+        const CommodityRule &rule = portConstructionGroup.tradeRule[c];
+        sc->switchComponent((isGive ? rule.give : rule.take) ? "green" : "red");
         CheckButton *cb = dynamic_cast<CheckButton *>(sc->getActiveComponent());
         if(!cb) {
           std::cerr << "error: could not get "
-            << ((isGive ? ixRule[c].give : ixRule[c].take) ? "green" : "red")
+            << ((isGive ? rule.give : rule.take) ? "green" : "red")
             << " CheckButton for "
             << (std::string(isGive?"Sell":"Buy")+commodityNames[c])
             << std::endl;
@@ -879,9 +880,7 @@ void Dialog::applyPortButtonClicked( Button* ){
         }
         CheckButton *cb = dynamic_cast<CheckButton *>(sc->getActiveComponent());
         if(!cb) {
-          std::cerr << "error: could not find "
-            << ((isGive ? ixRule[c].give : ixRule[c].take) ? "green" : "red")
-            << " CheckButton for "
+          std::cerr << "error: could not find CheckButton for "
             << (std::string(isGive?"Sell":"Buy")+commodityNames[c])
             << std::endl;
           continue;

@@ -282,14 +282,11 @@ static void end_of_year_update(void)
 
     // change import/export ability
     for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
-      ixRule[s].take ^= (rand() % IMPORT_EXPORT_NORM_PROB_LY) <
-        (ixRule[s].take ?
-          IMPORT_EXPORT_DISABLE_PROB_LY :
-          IMPORT_EXPORT_ENABLE_PROB_LY);
-      ixRule[s].give ^= (rand() % IMPORT_EXPORT_NORM_PROB_LY) <
-        (ixRule[s].give ?
-          IMPORT_EXPORT_DISABLE_PROB_LY :
-          IMPORT_EXPORT_ENABLE_PROB_LY);
+      CommodityRule &tradeRule = portConstructionGroup.tradeRule[s];
+      tradeRule.take ^= !(rand() % (tradeRule.take
+        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
+      tradeRule.give ^= !(rand() % (tradeRule.give
+        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
     }
 }
 

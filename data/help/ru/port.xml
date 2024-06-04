@@ -16,7 +16,6 @@
    <img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 
   <p style="hsubtitle">См. ещё:</p>
-	<li><a href="export">Импорт и экспорт</a></li>
 	<li><a href="river">Река/Озеро</a></li>
 	<li><a href="transport">Транспортная система</a></li>
 	<li><a href="market">Магазин</a></li>
