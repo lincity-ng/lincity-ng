@@ -46,7 +46,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 
 
-std::string lastDateText = "";
+int prevDate = 0;
 int lastMoney = -123456789;
 
 /* This is on in screen_full_refresh, used in *_refresh() */
@@ -180,34 +180,28 @@ void ok_dial_box (const char *fn, int good_bad, const char *xs)
 //     }
 // }
 
-void updateDate()
-{
-    std::ostringstream dateText;
+void updateDate() {
+  if(total_time == prevDate) return;
+  prevDate = total_time;
 
-    int day = total_time % NUMOF_DAYS_IN_MONTH +1; // 1..NUMOF_DAYS_IN_MONTH
-    day = 1 + ( 29 * day / NUMOF_DAYS_IN_MONTH ); // 1..30
-    dateText << day << ". ";
+  char dateText[20];
+  snprintf(dateText, 20, "%02d. %.3s %d",
+    total_time % NUMOF_DAYS_IN_MONTH * 30 / NUMOF_DAYS_IN_MONTH + 1,
+    current_month(total_time),
+    current_year(total_time)
+  );
 
-    dateText << current_month( total_time );
-    dateText << " "<< current_year( total_time );
+  Component* root = getGameView();
+  while(root->getParent())
+      root = root->getParent();
+  Paragraph *dateParagraph = dynamic_cast<Paragraph *>(
+    root->findComponent("dateParagraph"));
+  if(!dateParagraph) {
+    std::cerr << "error: could not find dateParagraph" << '\n';
+    return;
+  }
 
-    Component* root = getGameView();
-    if( !root ) return;
-    while( root->getParent() )
-        root = root->getParent();
-
-    if( dateText.str() == lastDateText ){
-        return;
-    }
-    Component* dateParagraphComponent = 0;
-    dateParagraphComponent = root->findComponent( "dateParagraph" );
-    if( dateParagraphComponent == 0 )
-    {   return;}
-    Paragraph* dateParagraph = getParagraph( *root, "dateParagraph");
-    if( !dateParagraph )
-    {   return;}
-    dateParagraph->setText( dateText.str() );
-    lastDateText = dateText.str();
+  dateParagraph->setText(dateText);
 }
 
 void string_begadd_number(std::string &str, int number, bool fill) {
