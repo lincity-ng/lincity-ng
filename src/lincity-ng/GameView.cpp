@@ -79,9 +79,9 @@ const float GameView::defaultZoom = 1.0;    // fastest drawing
 
 GameView* gameViewPtr = 0;
 
-GameView* getGameView()
-{
-    return gameViewPtr;
+GameView* getGameView() {
+  if(!gameViewPtr) throw std::runtime_error("gameViewPtr is not initialized");
+  return gameViewPtr;
 }
 
 

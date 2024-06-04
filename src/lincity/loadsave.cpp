@@ -582,7 +582,7 @@ void load_city_2(char *cname)
     if (tech_level > MODERN_WINDMILL_TECH)
     {   modern_windmill_flag = 1;}
 
-    print_total_money();
+    // print_total_money();
 
     //reset_animation_times
     //get alt_min, alt_max
