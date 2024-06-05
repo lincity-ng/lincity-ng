@@ -199,7 +199,7 @@ svn: r1797
 
 date: 2009-01-25 <br/>
 tag: lincity-ng-2.0.0 <br/>
-git: 20b7b5ba <br/>
+git: 52160033 <br/>
 svn: r1518
 
 - Updated translations (cs, de, nl, pt_BR, ru, sv)
