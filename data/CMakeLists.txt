@@ -90,7 +90,7 @@ set(infoFiles
   COPYING-data.txt
   COPYING-fonts.txt
   README.md
-  RELNOTES
+  CHANGELOG.md
 )
 if(WIN32)
   set(infoFiles ${infoFiles} COPYING-dll.txt)
