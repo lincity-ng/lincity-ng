@@ -1,18 +1,23 @@
 ## Unreleased
 
+###### Gameplay
+- Nerfed ports by randomly disabling import/export.
+- Reduced coal tax by 40%.
+
 ###### User Interface
 - Renamed MWh and kWh commodities to "high-voltage power" and
   "low-voltage power" respectively with short names "hi-volt" and "lo-volt".
 - Renamed "jobs" commodity to "labor".
 - Fixed failure to load sound effects.
 - Made in-game windows and dialogs resizable by dragging the edges/corners.
+- Changed date format in status bar.
 
 ###### Internal
 - Fixed portability for Windows.
 - Added support for cross-compiling from Linux to Windows with MinGW-w64. (Now
   Windows binaries can be included in releases.)
 - Fixed "Invalid ExtraFrames" warning caused by waste fires.
-- Fixed warning re. excessive goods production by mills.
+- Fixed some warnings re. excessive production/consumption.
 - Added error checking for loading sound effects.
 - Removed messages.pot generation from normal build. This removes the gettest
   build dependency except for translators. Translators must now generate the
@@ -24,6 +29,7 @@
 - Refactored lintypes.cpp/hpp and moved some symbols to other files.
 - Switched internal libraries from object to static type.
 - Cleaned up target link libraries.
+- Add fatal check for null in getGameView.
 - Fixed handling of window size in fullscreen mode.
 - Fixed some typos.
 
