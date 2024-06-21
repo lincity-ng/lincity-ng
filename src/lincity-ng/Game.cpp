@@ -309,6 +309,9 @@ Game::run()
                 default:
                     break;
             }
+
+            if(desktop->needsRedraw())
+              next_task = tick;
         }
 
         tick = SDL_GetTicks();

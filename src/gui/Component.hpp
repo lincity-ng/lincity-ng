@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Rect2D.hpp"   // for Rect2D
 #include "Vector2.hpp"  // for Vector2
 
+class Desktop;
 class Event;
 class Painter;
 
@@ -68,6 +69,7 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(const Event& event);
     virtual void resize(float width, float height);
+    void resize(Vector2 newSize) {resize(newSize.x, newSize.y);}
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();
@@ -77,7 +79,7 @@ public:
      */
     virtual bool opaque(const Vector2& pos) const
     {
-        if(pos.x >= 0 && pos.y >= 0 && pos.x <= width && pos.y <= height)
+        if(pos.x >= 0 && pos.y >= 0 && pos.x < width && pos.y < height)
             return true;
 
         return false;
@@ -91,6 +93,10 @@ public:
     float getHeight() const
     {
         return height;
+    }
+
+    Vector2 getSize() const {
+        return size;
     }
 
     const std::string& getName() const
@@ -117,6 +123,9 @@ public:
         return parent;
     }
     Component* findComponent(const std::string& name);
+    Desktop* getDesktop() const {
+        return desktop;
+    }
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -157,8 +166,11 @@ protected:
     }
 
     Component* parent;
+    Desktop *desktop;
     int flags;
-    float width, height;
+    Vector2 size;
+    float &width = size.x;
+    float &height = size.y;
     std::string name;
 
     friend class ButtonPanel;

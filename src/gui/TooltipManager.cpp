@@ -83,6 +83,8 @@ TooltipManager::parse(XmlReader& reader)
 void
 TooltipManager::resize(float width, float height)
 {
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     this->width = width;
     this->height = height;
 }
@@ -100,7 +102,7 @@ TooltipManager::event(const Event& event)
         if(comp_tooltip().getComponent() != 0) {
             comp_tooltip().setComponent(0);
         }
-    }    
+    }
 }
 
 void
@@ -139,4 +141,3 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 IMPLEMENT_COMPONENT_FACTORY(TooltipManager)
 
 /** @file gui/TooltipManager.cpp */
-

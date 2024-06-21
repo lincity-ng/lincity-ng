@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Child::Child(Component* _component)
     : useClipRect(false), component(_component)
-{ 
+{
     enabled = component != 0;
 }
 
@@ -41,7 +41,7 @@ Child::inside(const Vector2& pos) const
     if(!enabled)
         return false;
 
-    if(pos.x > position.x && pos.y > position.y
+    if(pos.x >= position.x && pos.y >= position.y
             && pos.x < position.x + component->getWidth()
             && pos.y < position.y + component->getHeight())
         return true;
@@ -86,4 +86,3 @@ Childs::clear()
 
 
 /** @file gui/Child.cpp */
-

@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DESKTOP_HPP__
 #define __DESKTOP_HPP__
 
+#include <SDL.h>
 #include <vector>         // for vector
 
 #include "Component.hpp"  // for Component
@@ -51,27 +52,29 @@ public:
     void draw(Painter& painter);
     bool opaque(const Vector2& pos) const;
 
-    void addChildComponent(Component* child);
-    void centerChildComponent(Component* child);
-
     Vector2 getPos(Component* component);
-    void move(Component* component, Vector2 pos);
-    void remove(Component* component);
+
+    void setCursor(Component *owner, SDL_Cursor *cursor);
+    void setSystemCursor(Component *owner, SDL_SystemCursor id);
+    void tryClearCursor(Component *owner);
+    SDL_Cursor *getSystemCursor(SDL_SystemCursor id);
+    void freeSystemCursor(SDL_SystemCursor id);
+    void freeAllSystemCursors();
 
 protected:
     void setDirty(const Rect2D& rect);
-    
+
 private:
-    void internal_remove(Component* component);
-    
-    std::vector<Component*> removeQueue;
-    std::vector<Component*> addQueue;
+
     typedef std::vector<Rect2D> DirtyRectangles;
     DirtyRectangles dirtyRectangles;
+
+    SDL_Cursor *cursor;
+    Component *cursorOwner;
+    SDL_Cursor *systemCursors[SDL_NUM_SYSTEM_CURSORS] = {0};
 };
 
 #endif
 
 
 /** @file gui/Desktop.hpp */
-

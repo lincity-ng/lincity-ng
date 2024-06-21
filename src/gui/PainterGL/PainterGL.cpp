@@ -200,6 +200,7 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
+    assert(rect.getWidth() > 0 && rect.getHeight() > 0);
     GLfloat matrix[16];
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
 

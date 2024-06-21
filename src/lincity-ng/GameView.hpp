@@ -185,7 +185,6 @@ private:
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
 
-    SDL_Cursor *panningCursor;
     void setPanningCursor();
     void setDefaultCursor();
 };

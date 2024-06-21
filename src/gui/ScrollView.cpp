@@ -104,9 +104,15 @@ ScrollView::parse(XmlReader& reader)
 void
 ScrollView::resize(float newwidth, float newheight)
 {
+    if(newwidth < 1) newwidth = 1;
+    if(newheight < 1) newheight = 1;
     float scrollBarWidth = scrollBar().getComponent()->getWidth();
     scrollBar().getComponent()->resize(scrollBarWidth, newheight);
     scrollBar().setPos(Vector2(newwidth - scrollBarWidth, 0));
+    if(newwidth < scrollBar().getComponent()->getWidth() + 1)
+        newwidth = scrollBar().getComponent()->getWidth() + 1;
+    if(newheight != scrollBar().getComponent()->getHeight())
+        newheight = scrollBar().getComponent()->getHeight();
 
     float scrollarea = 0;
     if(contents().getComponent() != 0) {

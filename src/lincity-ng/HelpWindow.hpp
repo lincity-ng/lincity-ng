@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class Button;
 class Desktop;
 class Paragraph;
+class WindowManager;
 
 class HelpWindow
 {
@@ -39,7 +40,7 @@ private:
     void historyBackClicked(Button*);
     std::string getHelpFile(const std::string& topic);
 
-    Desktop* desktop;
+    WindowManager* windowManager;
     std::string nextTopic;
     std::stack<std::string> topicHistory;
     Button* historyBackButton;

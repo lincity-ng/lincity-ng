@@ -94,7 +94,6 @@ GameView::GameView()
     mouseScrollState = SCROLL_NONE;
     remaining_images = 0;
     textures_ready = false;
-    panningCursor = NULL;
 }
 
 GameView::~GameView()
@@ -103,10 +102,6 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
-
-    if(panningCursor) {
-        SDL_FreeCursor(panningCursor);
-    }
 }
 
 //Static function to use with SDL_CreateThread
@@ -749,7 +744,6 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
-                setPanningCursor();
                 dragStartTime = SDL_GetTicks(); // Is this unused???
             }
             MapPoint tile = getTile(event.mousepos);
@@ -795,6 +789,7 @@ void GameView::event(const Event& event)
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
+                setPanningCursor();
                 break;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ) {
@@ -1124,14 +1119,11 @@ void GameView::event(const Event& event)
 }
 
 void GameView::setPanningCursor() {
-    if(!panningCursor) {
-        panningCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
-    }
-    SDL_SetCursor(panningCursor);
+    desktop->setSystemCursor(this, SDL_SYSTEM_CURSOR_SIZEALL);
 }
 
 void GameView::setDefaultCursor() {
-    SDL_SetCursor(SDL_GetDefaultCursor());
+    desktop->tryClearCursor(this);
 }
 
 /*
@@ -1141,6 +1133,8 @@ void GameView::resize(float newwidth , float newheight )
 {
     width = newwidth;
     height = newheight;
+    if(width < 0) width = 0;
+    if(height < 0) height = 0;
     requestRedraw();
 }
 
