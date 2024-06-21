@@ -20,7 +20,7 @@
 #define POL_DIV                 64      /* GCS -- from engine.c */
 
 #define INCOME_TAX_RATE 8
-#define COAL_TAX_RATE 25
+#define COAL_TAX_RATE 15
 #define GOODS_TAX_RATE 1
 #define DOLE_RATE 15
 #define TRANSPORT_COST_RATE 14

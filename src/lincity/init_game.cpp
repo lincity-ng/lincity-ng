@@ -155,6 +155,11 @@ void clear_game(void)
     sust_old_tech = tech_level;
     sust_fire_count = 0;
 
+    for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
+      portConstructionGroup.tradeRule[s].take = true;
+      portConstructionGroup.tradeRule[s].give = true;
+    }
+
     init_pbars();
     refresh_pbars();
 

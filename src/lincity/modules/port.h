@@ -39,6 +39,9 @@
 #define PORT_IMPORT_RATE  500
 #define PORT_TRIGGER_RATE  15
 
+#define IMPORT_EXPORT_ENABLE_PERIOD  100
+#define IMPORT_EXPORT_DISABLE_PERIOD 150
+
 #include <array>                    // for array
 #include <map>                      // for map
 #include <string>                   // for basic_string
@@ -83,9 +86,16 @@ public:
         commodityRates[STUFF_ORE] = PORT_ORE_RATE;
         commodityRates[STUFF_STEEL] = PORT_STEEL_RATE;
 
+        tradeRule = commodityRuleCount;
+        tradeRule[STUFF_LABOR] = (CommodityRule){
+          .maxload = 0,
+          .take = false,
+          .give = false
+        };
     };
     //map that holds the Rates for the commodities
     std::map<Commodity, int> commodityRates;
+    std::array<CommodityRule, STUFF_COUNT> tradeRule;
     // overriding method that creates a Port
     virtual Construction *createConstruction(int x, int y);
 };

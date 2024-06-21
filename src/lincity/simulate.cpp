@@ -279,6 +279,15 @@ static void end_of_year_update(void)
         total_money = -2000000000;
 
     print_total_money();
+
+    // change import/export ability
+    for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
+      CommodityRule &tradeRule = portConstructionGroup.tradeRule[s];
+      tradeRule.take ^= !(rand() % (tradeRule.take
+        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
+      tradeRule.give ^= !(rand() % (tradeRule.give
+        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
+    }
 }
 
 static void simulate_mappoints(void)

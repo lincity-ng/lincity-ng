@@ -462,22 +462,3 @@ void Vehicle::update()
     {   alive = false;}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

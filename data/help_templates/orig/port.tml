@@ -1,22 +1,32 @@
 Ports
 
-Ports let you import and export goods, steel, ore, coal and food.
-Importing costs you money and exporting makes you money.
+Ports let you import and export goods, steel, ore, coal, and food in exchange
+for money.
 
-You choose what to import by double clicking on the
-port. This brings up a menu with boxes to select what to import and what to export.
-If "buy" and "sell" are both checked or both unchecked for a commodity, then that commodity will not be imported or exported.
+You can choose what to trade by double clicking on the port. This brings up a
+dialog with boxes to select what to import and what to export. If "buy" and
+"sell" are both checked or both unchecked for a commodity, then that commodity
+will not be imported or exported. A port will not import or export anything
+until you check the appropriate box.
 
-They must be connected to rivers all along the right hand side.
+Due to fluctuation in international supply and demand and politics, sometimes
+trade of certain commodities can be randomly restricted for many years. When
+trade is restricted, the corresponding checkbox in the port dialog will appear
+red. If you have multiple ports in your city, the same trade restrictions apply
+to all ports.
 
-Nothing will be imported or exported until you have checked the appropriate box.
+Importing costs you money and exporting makes you money. The price of large
+exports are discounted, so you make less money per quantity if you export a lot
+of a particular commodity. Large imports are not discounted.
 
-The export area will take as much as it is given. If you need to export,
-but want to restrict the amount, you may want to use a type of transport with less capacity,
-use a long piece or pass the product through a market. You will need to experiment
-to get the right transport configuration.
+Ports must be connected to a river all along the east side.
 
 An active Port provides some technology. Note: Exporters discount large exports.
+
+Ports can import and export a lot of capacity. If you want to restrict the
+amount that is imported or exported, then consider connecting the port to the
+rest of your city using a type of transport with less capacity such as road or
+track or put it in range of a market.
 
 IMG_1[This is a port]: images/tiles/ex_port.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/port.png
@@ -29,9 +39,12 @@ import: money =&gt; 50% of remaining capacity
 
 For import or export to occur, 100 labor must be consumed.
 
-If there is both import and export, then .0002 tech is produced, which can sustain up to ~10 tech <100 or ~5 tech >100.
+If there is both import and export, then .0002 tech is produced, which can
+sustain up to ~10 tech &lt;100 or ~5 tech &gt;100.
 
-If there is less than 6.67% inventory of a commodity, then export does not occur.
-If there is more than 93.33% inventory of a commodity, then import does not occur.
+If there is less than 6.67% inventory of a commodity, then that commodity will
+not be exported.
+If there is more than 93.33% inventory of a commodity, then that commodity will
+not be imported.
 
-ALSO[See also:]: export, river, transport, market, food, coal, ore, goods, steel
+ALSO[See also:]: river, transport, market, food, coal, ore, goods, steel

@@ -26,80 +26,140 @@
 				Food</Paragraph>
 			</cell>
 			<cell row="2" col="2">
-				<CheckButton name="BuyFood">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="BuyFood">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="2" col="3">
-				<CheckButton name="SellFood">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="SellFood">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="3" col="1">
 				<Paragraph style="message" translatable="yes">
 				Coal</Paragraph>
 			</cell>
 			<cell row="3" col="2">
-				<CheckButton name="BuyCoal">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="BuyCoal">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="3" col="3">
-				<CheckButton name="SellCoal">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="SellCoal">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="4" col="1">
 				<Paragraph style="message" translatable="yes">
 				Ore</Paragraph>
 			</cell>
 			<cell row="4" col="2">
-				<CheckButton name="BuyOre">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="BuyOre">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="4" col="3">
-				<CheckButton name="SellOre">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="SellOre">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="5" col="1">
 				<Paragraph style="message" translatable="yes">
 				Goods</Paragraph>
 			</cell>
 			<cell row="5" col="2">
-				<CheckButton name="BuyGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="BuyGoods">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="5" col="3">
-				<CheckButton name="SellGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="SellGoods">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="6" col="1">
 				<Paragraph style="message" translatable="yes">
 				Steel</Paragraph>
 			</cell>
 			<cell row="6" col="2">
-				<CheckButton name="BuySteel">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="BuySteel">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 			<cell row="6" col="3">
-				<CheckButton name="SellSteel">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
+				<SwitchComponent name="SellSteel">
+					<CheckButton name="green">
+						<image src="images/gui/checkbox/checkbox.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					</CheckButton>
+					<CheckButton name="red">
+						<image src="images/gui/checkbox/checkbox_red.png"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+					</CheckButton>
+				</SwitchComponent>
 			</cell>
 		</TableLayout>
 	</contents>
@@ -118,4 +178,3 @@
 		</TableLayout>
 	</buttonbar>
 </Dialog>
-

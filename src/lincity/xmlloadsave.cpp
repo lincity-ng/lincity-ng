@@ -1,3 +1,5 @@
+#include "xmlloadsave.h"
+
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcpy
@@ -17,7 +19,7 @@
 #include "loadsave.h"                      // for given_scene
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
 #include "world.h"                         // for World
-#include "xmlloadsave.h"
+#include "modules/port.h"
 
 std::map <std::string, XMLTemplate*> xml_template_libary;
 std::map <unsigned short, XMLTemplate*> bin_template_libary;
@@ -669,6 +671,16 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<import_cost>"                << import_cost              << "</import_cost>" << std::endl;
     xml_file_out << "<import_cost_rate>"           << import_cost_rate         << "</import_cost_rate>" << std::endl;
 
+    for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
+      const char * const &cname = commodityNames[c];
+      xml_file_out << "<import_"<<cname<<"_enable>"
+        << portConstructionGroup.tradeRule[c].take
+        << "</import_"<<cname<<"_enable>" << std::endl;
+      xml_file_out << "<export_"<<cname<<"_enable>"
+        << portConstructionGroup.tradeRule[c].give
+        << "</export_"<<cname<<"_enable>" << std::endl;
+    }
+
     xml_file_out << "<ly_university_cost>"         << ly_university_cost       << "</ly_university_cost>" << std::endl;
     xml_file_out << "<university_cost>"            << university_cost          << "</university_cost>" << std::endl;
     xml_file_out << "<ly_recycle_cost>"            << ly_recycle_cost          << "</ly_recycle_cost>" << std::endl;
@@ -755,7 +767,7 @@ void XMLloadsave::saveGlobals()
 
 void XMLloadsave::loadGlobals()
 {
-    int r, monthgraph_size_in_file;
+    int r, monthgraph_size_in_file = monthgraph_size;
     int new_world_len;
     binary_mode = false; //set save default for old files
     seed_compression = false; //set save default for old files
@@ -826,8 +838,8 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "health_cost")                     {sscanf(xml_val.c_str(),"%d",&health_cost);}
             else if (xml_tag == "ly_deaths_cost")                  {sscanf(xml_val.c_str(),"%d",&ly_deaths_cost);}
             else if (xml_tag == "deaths_cost")                     {sscanf(xml_val.c_str(),"%d",&deaths_cost);}
-            else if (xml_tag == "ly_rocket_pad_cost")         {sscanf(xml_val.c_str(),"%d",&ly_rocket_pad_cost);}
-            else if (xml_tag == "rocket_pad_cost")            {sscanf(xml_val.c_str(),"%d",&rocket_pad_cost);}
+            else if (xml_tag == "ly_rocket_pad_cost")              {sscanf(xml_val.c_str(),"%d",&ly_rocket_pad_cost);}
+            else if (xml_tag == "rocket_pad_cost")                 {sscanf(xml_val.c_str(),"%d",&rocket_pad_cost);}
 
             else if (xml_tag == "ly_windmill_cost")                {sscanf(xml_val.c_str(),"%d",&ly_windmill_cost);}
             else if (xml_tag == "windmill_cost")                   {sscanf(xml_val.c_str(),"%d",&windmill_cost);}
@@ -860,7 +872,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "total_evacuated")                 {sscanf(xml_val.c_str(),"%d",&total_evacuated);}
             else if (xml_tag == "total_births")                    {sscanf(xml_val.c_str(),"%d",&total_births);}
 
-            else if (xml_tag == "sust_dig_ore_coal_tip_flag")         {sscanf(xml_val.c_str(),"%d",&sust_dig_ore_coal_tip_flag);}
+            else if (xml_tag == "sust_dig_ore_coal_tip_flag")      {sscanf(xml_val.c_str(),"%d",&sust_dig_ore_coal_tip_flag);}
             else if (xml_tag == "sust_dig_ore_coal_count")         {sscanf(xml_val.c_str(),"%d",&sust_dig_ore_coal_count);}
             else if (xml_tag == "sust_port_count")                 {sscanf(xml_val.c_str(),"%d",&sust_port_count);}
             else if (xml_tag == "sust_old_money_count")            {sscanf(xml_val.c_str(),"%d",&sust_old_money_count);}
@@ -872,17 +884,21 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "sust_old_population")             {sscanf(xml_val.c_str(),"%d",&sust_old_population);}
             else if (xml_tag == "sust_old_tech")                   {sscanf(xml_val.c_str(),"%d",&sust_old_tech);}
             else if (xml_tag == "sustain_flag")                    {sscanf(xml_val.c_str(),"%d",&sustain_flag);}
+            else if (xml_tag == "monthgraph_size")                  sscanf(xml_val.c_str(),"%d",&monthgraph_size_in_file);
+            else goto more_globals; goto found_global; more_globals:
 
-            else if (xml_tag == "monthgraph_size")
-            {
-                sscanf(xml_val.c_str(),"%d",&monthgraph_size_in_file);
+            for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
+              const char * const &cname = commodityNames[c];
+              if     (xml_tag == std::string("import_") + cname + "_enable") sscanf(xml_val.c_str(),"%d",&portConstructionGroup.tradeRule[c].take);
+              else if(xml_tag == std::string("export_") + cname + "_enable") sscanf(xml_val.c_str(),"%d",&portConstructionGroup.tradeRule[c].give);
+              else continue; goto found_global;
             }
 
-            else
-            {
-                std::cout<<"Unknown XML entry "<< line << " while reading <GlobalVariables>"<<std::endl;
-                globalCount--;
-            }
+            std::cout << "Unknown XML entry " << line
+              << " while reading <GlobalVariables>" << std::endl;
+            globalCount--;
+
+            found_global:
         }
         else if (r == 1) //an opening xml tag
         {
