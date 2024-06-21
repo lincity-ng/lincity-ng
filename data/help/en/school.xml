@@ -15,7 +15,7 @@
 
 	<p style="hsubtitle">Formulas</p>
 	<p style="hp">200 labor + 75 goods =&gt; .0002 tech + 25 waste</p>
-	<p style="hp">A school can sustain up to ~10 tech <100 or ~5 tech >100</p>
+	<p style="hp">A school can sustain up to ~10 tech &lt;100 or ~5 tech &gt;100</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="tech-level">Tech Level</a></li>
