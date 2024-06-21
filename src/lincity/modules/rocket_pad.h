@@ -85,10 +85,10 @@ public:
         setMemberSaved(&this->steel_stored, "steel_stored");
         initialize_commodities();
 
-        commodityMaxCons[STUFF_LABOR] = 100 * ROCKET_PAD_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * ROCKET_PAD_GOODS;
-        commodityMaxCons[STUFF_STEEL] = 100 * ROCKET_PAD_STEEL;
-        commodityMaxProd[STUFF_WASTE] = 100 * (ROCKET_PAD_GOODS/3);
+        commodityMaxCons[STUFF_LABOR] = 100 * ROCKET_PAD_LABOR_STORE;
+        commodityMaxCons[STUFF_GOODS] = 100 * ROCKET_PAD_GOODS_STORE;
+        commodityMaxCons[STUFF_STEEL] = 100 * ROCKET_PAD_STEEL_STORE;
+        commodityMaxProd[STUFF_WASTE] = 100 * (ROCKET_PAD_GOODS_STORE/3);
     }
 
     virtual ~RocketPad() { }

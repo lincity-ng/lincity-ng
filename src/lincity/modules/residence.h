@@ -207,7 +207,6 @@ public:
         }
 
         initialize_commodities();
-
         commodityMaxCons[STUFF_FOOD] = 100 * max_population;
         commodityMaxCons[STUFF_WATER] = 100 * max_population;
         commodityMaxCons[STUFF_LOVOLT] = 100 * (POWER_RES_OVERHEAD +

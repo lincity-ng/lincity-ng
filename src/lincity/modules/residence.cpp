@@ -157,13 +157,6 @@ void Residence::update()
             drm = 100; //starving is also unhealty
         }
     }
-    /* kick one out if overpopulated */
-    if (local_population > max_population)
-    {
-        --local_population;
-        ++people_pool;
-        extra_births = true;
-    }
 
      /* now get power for nothing */
     if (commodityCount[STUFF_LOVOLT] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
@@ -312,14 +305,14 @@ void Residence::update()
     good += people_pool / 27; //27
     desireability = good-bad;
     r = rand() % ((good + bad) * RESIDENCE_PPM);
-    if (r < bad)
+    if (r < bad || local_population > max_population)
     {
         if (local_population > MIN_RES_POPULATION)
         {
             --local_population;
             ++people_pool;
         }
-    } else if (people_pool > 0
+    } else if (people_pool > 0 && local_population < max_population
                && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad))  /* r > (rmax - good) */
     {
         ++local_population;
