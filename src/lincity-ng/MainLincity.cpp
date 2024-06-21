@@ -85,8 +85,8 @@ bool loadCityNG( std::string filename ){
         {
             load_city_2(const_cast<char*>(filename.c_str()));
             update_avail_modules(0);
-            GameView* gv = getGameView();
-            if( gv ){ gv->readOrigin(); }
+            // GameView* gv = getGameView();
+            // if( gv ){ gv->readOrigin(); }
             return true;
         }
         else
