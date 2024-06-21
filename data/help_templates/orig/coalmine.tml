@@ -4,7 +4,7 @@ Coal mines dig <a href="coal">coal</a> from under the ground. There must be a co
 
 The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.
 
-Coal mines need <a href="jobs">jobs</a> to mine coal.
+Coal mines need <a href="labor">labor</a> to mine coal.
 
 If your economy provides coal in excess your coal mines can put the coal in new underground seams.
 
@@ -19,12 +19,12 @@ Coal mines produce <a href="pollution">pollution</a>.
 
 SUBH: Formulas
 
-1: 918 jobs + 1 coal reserve =&gt; 1000 coal
+1: 918 labor + 1 coal reserve =&gt; 1000 coal
 
-2: 918 jobs + 1000 coal =&gt; 1 coal reserve
+2: 918 labor + 1000 coal =&gt; 1 coal reserve
 
 Coal mines target 80% coal inventory. If producing 1000 coal would not exceed 80% inventory, then formula 1 is applied. If consuming 1000 coal would not make the remaining inventory less than 80%, then formula 2 is applied.
 
 When a coal mine exhausts all underground reserves, then it evacuates. When all underground reserves are exhausted and there is no inventory, then the coal mine is removed from the map. Therefore, building a coal mine where there are no reserves will cause it to be immediately removed from the map.
 
-ALSO[See also:]: coal, powerscoal, transport, jobs, pollution
+ALSO[See also:]: coal, powerscoal, transport, labor, pollution

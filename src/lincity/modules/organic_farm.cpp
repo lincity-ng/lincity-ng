@@ -33,17 +33,17 @@ Construction *Organic_farmConstructionGroup::createConstruction(int x, int y) {
 
 void Organic_farm::update()
 {
-    int used_jobs = 0;
+    int used_labor = 0;
     int used_power = 0;
     int used_water = 0;
     int foodprod = 0;
 
     max_foodprod = 0;
-    /* check jobs */
-    used_jobs = (FARM_JOBS_USED<commodityCount[STUFF_JOBS]?FARM_JOBS_USED:commodityCount[STUFF_JOBS]);
+    /* check labor */
+    used_labor = (FARM_LABOR_USED<commodityCount[STUFF_LABOR]?FARM_LABOR_USED:commodityCount[STUFF_LABOR]);
     flags &= ~(FLAG_POWERED);
     /* check for power */
-    if (commodityCount[STUFF_KWH] >= ORG_FARM_POWER_REC)
+    if (commodityCount[STUFF_LOVOLT] >= ORG_FARM_POWER_REC)
     {
         used_power = ORG_FARM_POWER_REC;
         flags |= FLAG_POWERED;
@@ -53,12 +53,12 @@ void Organic_farm::update()
         if (used_water > (16 - ugwCount))
         {   used_water = (16 - ugwCount);}
 
-        foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water) * used_jobs / (16 * FARM_JOBS_USED);
+        foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water) * used_labor / (16 * FARM_LABOR_USED);
         max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water)  / (16);
     }
     else
     {
-        foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount * used_jobs / (4 * 16 * FARM_JOBS_USED);
+        foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount * used_labor / (4 * 16 * FARM_LABOR_USED);
         max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount / (4 * 16);
     }
     if (foodprod < 30)
@@ -67,8 +67,8 @@ void Organic_farm::update()
     {   max_foodprod = 30;}
 
     if (commodityCount[STUFF_FOOD] + foodprod > MAX_ORG_FARM_FOOD)
-    {   //we would produce too much so use less power, jobs and water
-        used_jobs = used_jobs * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
+    {   //we would produce too much so use less power, labor and water
+        used_labor = used_labor * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
         used_power = used_power * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
         if ((MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD])*16 < ugwCount * foodprod)
         {   used_water = 0;}
@@ -77,9 +77,9 @@ void Organic_farm::update()
     /* Now apply changes */
     if (foodprod >= 30)
     {
-        consumeStuff(STUFF_JOBS, used_jobs);
+        consumeStuff(STUFF_LABOR, used_labor);
         produceStuff(STUFF_FOOD, foodprod);
-        consumeStuff(STUFF_KWH, used_power);
+        consumeStuff(STUFF_LOVOLT, used_power);
         consumeStuff(STUFF_WATER, used_water * WATER_FARM);
         food_this_month += 100 * foodprod / max_foodprod;
     }

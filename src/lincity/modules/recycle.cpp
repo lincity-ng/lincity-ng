@@ -34,11 +34,11 @@ void Recycle::update()
 
     // always recycle waste and only make steel & ore if there are free capacities
     if (commodityCount[STUFF_WASTE] >= WASTE_RECYCLED
-        && commodityCount[STUFF_KWH] >= KWH_RECYCLE_WASTE
-        && commodityCount[STUFF_JOBS] >= RECYCLE_JOBS)
+        && commodityCount[STUFF_LOVOLT] >= LOVOLT_RECYCLE_WASTE
+        && commodityCount[STUFF_LABOR] >= RECYCLE_LABOR)
     {
-        consumeStuff(STUFF_JOBS, RECYCLE_JOBS);
-        consumeStuff(STUFF_KWH, KWH_RECYCLE_WASTE);
+        consumeStuff(STUFF_LABOR, RECYCLE_LABOR);
+        consumeStuff(STUFF_LOVOLT, LOVOLT_RECYCLE_WASTE);
         consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
         working_days++;
         // rather loose ore / steel than stop recycling the waste

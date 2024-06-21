@@ -2,7 +2,7 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Blacksmiths</p>
-	<p style="hp">Blacksmiths turn steel and coal into goods. You will use them mostly early on in the game. They also use jobs, of course.</p>
+	<p style="hp">Blacksmiths turn steel and coal into goods. You will use them mostly early on in the game. They also use labor, of course.</p>
 	<p style="hp">Before you have steel works, you must rely on the steel produced by communes. 5 or 6 communes per blacksmith is recommended.</p>
 	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 
@@ -13,7 +13,7 @@
    <img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">1 coal + 1 steel + 35 jobs =&gt; 50 goods</p>
+	<p style="hp">1 coal + 1 steel + 35 labor =&gt; 50 goods</p>
 	<p style="hp">Per 100 days of working, 1 <a href="pollution">pollution</a> is produced.</p>
 
   <p style="hsubtitle">See also:</p>
@@ -21,5 +21,5 @@
 	<li><a href="ore">Ore</a></li>
 	<li><a href="commune">Forests</a></li>
 	<li><a href="steel">Steel</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="labor">Labor</a></li>
 </Document>

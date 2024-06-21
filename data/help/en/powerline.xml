@@ -15,7 +15,7 @@
    <img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">1 MWh =&gt; 0</p>
+	<p style="hp">1 hi-volt =&gt; 0</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="power">Power</a></li>

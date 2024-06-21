@@ -10,7 +10,7 @@
 #define ORGANIC_FARM_FOOD_OUTPUT 550
 #define ORG_FARM_POWER_REC 50
 #define ORG_FARM_WASTE_GET 6
-#define FARM_JOBS_USED 13
+#define FARM_LABOR_USED 13
 #define WATER_FARM 50
 #define FARM_WATER_GET (16 * WATER_FARM)
 #define MAX_WATER_AT_FARM (20*FARM_WATER_GET)
@@ -18,7 +18,7 @@
 #define MAX_ORG_FARM_FOOD  (ORGANIC_FARM_FOOD_OUTPUT * 20)
 #define MAX_ORG_FARM_POWER (ORG_FARM_POWER_REC * 20)
 #define MAX_ORG_FARM_WASTE (ORG_FARM_WASTE_GET * 20)
-#define MAX_FARM_JOBS (FARM_JOBS_USED * 20)
+#define MAX_FARM_LABOR (FARM_LABOR_USED * 20)
 
 
 
@@ -51,12 +51,12 @@ public:
         commodityRuleCount[STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;
         commodityRuleCount[STUFF_FOOD].take = false;
         commodityRuleCount[STUFF_FOOD].give = true;
-        commodityRuleCount[STUFF_KWH].maxload = MAX_ORG_FARM_POWER;
-        commodityRuleCount[STUFF_KWH].take = true;
-        commodityRuleCount[STUFF_KWH].give = false;
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_FARM_JOBS;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LOVOLT].maxload = MAX_ORG_FARM_POWER;
+        commodityRuleCount[STUFF_LOVOLT].take = true;
+        commodityRuleCount[STUFF_LOVOLT].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_FARM_LABOR;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_WASTE].maxload = MAX_ORG_FARM_WASTE;
         commodityRuleCount[STUFF_WASTE].take = true;
         commodityRuleCount[STUFF_WASTE].give = false;
@@ -106,8 +106,8 @@ public:
         }
 
         commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
-        commodityMaxCons[STUFF_JOBS] = 100 * FARM_JOBS_USED;
-        commodityMaxCons[STUFF_KWH] = 100 * ORG_FARM_POWER_REC;
+        commodityMaxCons[STUFF_LABOR] = 100 * FARM_LABOR_USED;
+        commodityMaxCons[STUFF_LOVOLT] = 100 * ORG_FARM_POWER_REC;
         commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
         // commodityMaxProd[STUFF_FOOD] = 100 *
         //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);

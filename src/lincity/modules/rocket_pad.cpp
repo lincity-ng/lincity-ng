@@ -48,18 +48,18 @@ void RocketPad::update()
     // store as much as possible or needed
     while(
                (frameIt->frame < 4)
-            && (commodityCount[STUFF_JOBS] >= ROCKET_PAD_JOBS)
+            && (commodityCount[STUFF_LABOR] >= ROCKET_PAD_LABOR)
             && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
             && (commodityCount[STUFF_STEEL] >= ROCKET_PAD_STEEL)
             && (commodityCount[STUFF_WASTE] + (ROCKET_PAD_GOODS / 3) <= MAX_WASTE_AT_ROCKET_PAD)
-            && (jobs_stored < ROCKET_PAD_JOBS_STORE)
+            && (labor_stored < ROCKET_PAD_LABOR_STORE)
             && (goods_stored < ROCKET_PAD_GOODS_STORE)
             && (steel_stored < ROCKET_PAD_STEEL_STORE)
             && (completion < 100)
          )
     {
-        consumeStuff(STUFF_JOBS, ROCKET_PAD_JOBS);
-        jobs_stored += ROCKET_PAD_JOBS;
+        consumeStuff(STUFF_LABOR, ROCKET_PAD_LABOR);
+        labor_stored += ROCKET_PAD_LABOR;
         consumeStuff(STUFF_GOODS, ROCKET_PAD_GOODS);
         goods_stored += ROCKET_PAD_GOODS;
         consumeStuff(STUFF_STEEL, ROCKET_PAD_STEEL);
@@ -71,12 +71,12 @@ void RocketPad::update()
 
     // see if we can build another % of Rocket
     if(    (completion < 100)
-        && (jobs_stored >= ROCKET_PAD_JOBS_STORE)
+        && (labor_stored >= ROCKET_PAD_LABOR_STORE)
         && (goods_stored >= ROCKET_PAD_GOODS_STORE)
         && (steel_stored >= ROCKET_PAD_STEEL_STORE)
       )
     {
-        jobs_stored -= ROCKET_PAD_JOBS_STORE;
+        labor_stored -= ROCKET_PAD_LABOR_STORE;
         goods_stored -= ROCKET_PAD_GOODS_STORE;
         steel_stored -= ROCKET_PAD_STEEL_STORE;
         completion++;

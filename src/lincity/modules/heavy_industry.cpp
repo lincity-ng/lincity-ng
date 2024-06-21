@@ -40,27 +40,27 @@ Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
 void IndustryHeavy::update()
 {
     // can we produce steel?
-    int steel = ( commodityCount[STUFF_JOBS] >= MAX_ORE_USED / JOBS_MAKE_STEEL + JOBS_LOAD_ORE + JOBS_LOAD_COAL + JOBS_LOAD_STEEL
+    int steel = ( commodityCount[STUFF_LABOR] >= MAX_ORE_USED / LABOR_MAKE_STEEL + LABOR_LOAD_ORE + LABOR_LOAD_COAL + LABOR_LOAD_STEEL
     && commodityCount[STUFF_ORE] >= MAX_ORE_USED
     && commodityCount[STUFF_STEEL] + MAX_ORE_USED / ORE_MAKE_STEEL <= MAX_STEEL_AT_INDUSTRY_H) ? MAX_ORE_USED / ORE_MAKE_STEEL : 0;
 
     if (steel > 0)
     {
-        //Steel works may either use KWH, MWH or COAL to produce steel
-        int used_MWH = 0, used_KWH = 0, used_COAL = 0;
+        //Steel works may either use LO-VOLT, HI-VOLT or COAL to produce steel
+        int used_hivolt = 0, used_lovolt = 0, used_COAL = 0;
         int powered_steel = 0;
-        //First use up MWH
-        used_MWH = commodityCount[STUFF_MWH];
-        if (used_MWH > (steel - powered_steel) * POWER_MAKE_STEEL / 2)
-            used_MWH = (steel - powered_steel) * POWER_MAKE_STEEL / 2;
-        powered_steel += 2 * used_MWH / POWER_MAKE_STEEL;
-        //Second use up KWH
+        //First use up HI-VOLT
+        used_hivolt = commodityCount[STUFF_HIVOLT];
+        if (used_hivolt > (steel - powered_steel) * POWER_MAKE_STEEL / 2)
+            used_hivolt = (steel - powered_steel) * POWER_MAKE_STEEL / 2;
+        powered_steel += 2 * used_hivolt / POWER_MAKE_STEEL;
+        //Second use up LO-VOLT
         if (steel > powered_steel)
         {
-            used_KWH = commodityCount[STUFF_KWH];
-            if (used_KWH > (steel - powered_steel) * POWER_MAKE_STEEL)
-                used_KWH = (steel - powered_steel) * POWER_MAKE_STEEL;
-            powered_steel += used_KWH / POWER_MAKE_STEEL;
+            used_lovolt = commodityCount[STUFF_LOVOLT];
+            if (used_lovolt > (steel - powered_steel) * POWER_MAKE_STEEL)
+                used_lovolt = (steel - powered_steel) * POWER_MAKE_STEEL;
+            powered_steel += used_lovolt / POWER_MAKE_STEEL;
             //Third use up COAL
             if (steel > powered_steel)
             {
@@ -72,12 +72,12 @@ void IndustryHeavy::update()
         }//end Second
         if (powered_steel == steel)
         {
-            consumeStuff(STUFF_MWH, used_MWH);
-            consumeStuff(STUFF_KWH, used_KWH);
+            consumeStuff(STUFF_HIVOLT, used_hivolt);
+            consumeStuff(STUFF_LOVOLT, used_lovolt);
             if(used_COAL)// coal power is more laborous
             {
                 consumeStuff(STUFF_COAL, used_COAL);
-                consumeStuff(STUFF_JOBS, JOBS_LOAD_COAL);
+                consumeStuff(STUFF_LABOR, LABOR_LOAD_COAL);
             }
         }
         else
@@ -85,11 +85,11 @@ void IndustryHeavy::update()
 
         if (steel>0)
         {
-            consumeStuff(STUFF_JOBS, MAX_ORE_USED / JOBS_MAKE_STEEL);
-            //use jobs for loading the ore
-            consumeStuff(STUFF_JOBS, JOBS_LOAD_ORE);
-            //use jobs for loading the steel
-            consumeStuff(STUFF_JOBS, JOBS_LOAD_STEEL);
+            consumeStuff(STUFF_LABOR, MAX_ORE_USED / LABOR_MAKE_STEEL);
+            //use labor for loading the ore
+            consumeStuff(STUFF_LABOR, LABOR_LOAD_ORE);
+            //use labor for loading the steel
+            consumeStuff(STUFF_LABOR, LABOR_LOAD_STEEL);
             consumeStuff(STUFF_ORE, MAX_ORE_USED);
             produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;

@@ -34,10 +34,10 @@ Construction *PowerlineConstructionGroup::createConstruction(int x, int y)
 
 void Powerline::update()
 {
-    if (commodityCount[STUFF_MWH] > 0)
+    if (commodityCount[STUFF_HIVOLT] > 0)
     {
-        consumeStuff(STUFF_MWH, 1);// loss on powerline
-    } // endif MWH
+        consumeStuff(STUFF_HIVOLT, 1);// loss on powerline
+    }
 
     if(total_time % 100 == 99) {
         reset_prod_counters();
@@ -70,7 +70,7 @@ void Powerline::report()
     int i = 0;
 
     mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_MWH] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+    mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     // i++;
     list_commodities(&i);
 }

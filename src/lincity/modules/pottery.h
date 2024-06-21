@@ -9,13 +9,13 @@
 
 #define POTTERY_ORE_MAKE_GOODS    11
 #define POTTERY_COAL_MAKE_GOODS    2
-#define POTTERY_JOBS              35
+#define POTTERY_LABOR              35
 #define POTTERY_MADE_GOODS        35
 #define POTTERY_ANIM_SPEED        280
 #define POTTERY_CLOSE_TIME        25
 #define MAX_ORE_AT_POTTERY        (POTTERY_ORE_MAKE_GOODS*20)
 #define MAX_COAL_AT_POTTERY       (POTTERY_COAL_MAKE_GOODS*20)
-#define MAX_JOBS_AT_POTTERY       (POTTERY_JOBS*20)
+#define MAX_LABOR_AT_POTTERY       (POTTERY_LABOR*20)
 #define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20)
 
 #include <array>                    // for array
@@ -35,9 +35,9 @@ public:
         cost, tech, range, 2/*mps_pages*/
     )
     {
-        commodityRuleCount[STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;
-        commodityRuleCount[STUFF_JOBS].take = true;
-        commodityRuleCount[STUFF_JOBS].give = false;
+        commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_POTTERY;
+        commodityRuleCount[STUFF_LABOR].take = true;
+        commodityRuleCount[STUFF_LABOR].give = false;
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_POTTERY;
         commodityRuleCount[STUFF_COAL].take = true;
         commodityRuleCount[STUFF_COAL].give = false;
@@ -70,7 +70,7 @@ public:
         commodityMaxProd[STUFF_GOODS] = 100 * POTTERY_MADE_GOODS;
         commodityMaxCons[STUFF_ORE] = 100 * POTTERY_ORE_MAKE_GOODS;
         commodityMaxCons[STUFF_COAL] = 100 * POTTERY_COAL_MAKE_GOODS;
-        commodityMaxCons[STUFF_JOBS] = 100 * POTTERY_JOBS;
+        commodityMaxCons[STUFF_LABOR] = 100 * POTTERY_LABOR;
     }
     virtual ~Pottery() { }
     virtual void update() override;

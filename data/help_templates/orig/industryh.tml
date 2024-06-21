@@ -1,8 +1,8 @@
 Heavy industry (Steel Works)
 
-Steel works produce steel from ore, power and jobs. Ore and jobs is obtained from the connected transport or markets.
+Steel works produce steel from ore, power and labor. Ore and labor is obtained from the connected transport or markets.
 
-Power can be provided to the steel works in two ways. The first is burning coal. The second is from electricity, either inefficient kWh from connected transport or MWh directly from powerlines. Burning coal on site is more laborious. Windmills will barely provide enough power.
+Power can be provided to the steel works in two ways. The first is burning coal. The second is from electricity, either inefficient low-voltage power from connected transport or high-voltage power directly from powerlines. Burning coal on site is more laborious. Windmills will barely provide enough power.
 
 Steel works cause heavy pollution. You can see when Heavy Industry is working in the usual way, by clicking on it, and every so often the animation will come to life.
 
@@ -11,10 +11,10 @@ IMG_2[and this its icon]: images/gui/buttonpanel/industry/heavyindustry2.png
 
 SUBH: Formulas
 
-(3600 MWh or 7200 kWh) + 28 jobs + 612 ore =&gt; 36 steel
+(3600 hi-volt or 7200 lo-volt) + 28 labor + 612 ore =&gt; 36 steel
 
-(3600 MWh or 7200 kWh or 72 coal) + 46 jobs + 612 ore =&gt; 36 steel
+(3600 hi-volt or 7200 lo-volt or 72 coal) + 46 labor + 612 ore =&gt; 36 steel
 
-28 jobs + 612 ore =&gt; 7 steel
+28 labor + 612 ore =&gt; 7 steel
 
 ALSO[See also:]: pollution, transport, power, coal, ore

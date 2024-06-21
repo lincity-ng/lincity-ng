@@ -2,11 +2,11 @@
 
 import re
 
-  
+
 class HelpObject:
   def __init__(s,fname,langs):
-    s.parce_image=re.compile("IMG_([0-9]+)\[(.*?)\]:?(.*)")
-    s.parce_also =re.compile("ALSO\[(.*?)\]:?(.*)")
+    s.parce_image=re.compile("IMG_([0-9]+)\\[(.*?)\\]:?(.*)")
+    s.parce_also =re.compile("ALSO\\[(.*?)\\]:?(.*)")
     s.name={} # Name of file
     s.body={} # Array of paragraph
     s.images={}
@@ -72,7 +72,7 @@ class HelpObject:
     fd = open(typeof + "/" + fname + ".tml","r")
     s.name[typeof]=fd.readline().strip()
     empty=fd.readline().strip()
-    
+
     if empty != "":
       raise "Second line of file MUST be empty"
 
@@ -117,7 +117,7 @@ class HelpObject:
 
       #print("<%s>"%line)
 
-  
+
 def find_strname(s,fname,lang):
   res=""
   try:
@@ -140,7 +140,7 @@ def xml(base, fname, lang):
   string=""
   string+="<?xml version=\"1.0\"?>\n"
   string+="<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->\n"
-  string+="<Document style=\"helpdocument\">\n" 
+  string+="<Document style=\"helpdocument\">\n"
   string+="\t<p style=\"htitle\">%s</p>\n"%obj.name[lang]
   for i in obj.body[lang]:
     if i == "ALSO":
@@ -155,7 +155,7 @@ def xml(base, fname, lang):
 LANG=["ru"]
 #LANG=[]
 
-FILES=["blacksmith","bulldoze","button-index","coalmine","coal","commodities","commune","cricket","dialogs","economy","evacuate","export","farm","fast","finance","firestation","food","goods","health","help","housing","index","industryh","industryl","jobs","keys","market","medium","mill","mini-screen","monument","msb-coal","msb-cricket","msb-fire","msb-health","msb-normal","msb-pol","msb-power","msb-starve","msb-transport","msb-ub40","oremine","ore","other-costs","park","pause","pbar","pollution","port","pottery","powerline","powerscoal","powerssolar","power","query","rail","recycle","residential","river","road","rocket","school","slow","steel","substation","sustain","tech-level","tip","track","transport","tutorial-advanced","tutorial-aim","tutorial-basics","tutorial-overview","tutorial-scenario","tutorial","university","waste","water","waterwell","windmill"]
+FILES=["blacksmith","bulldoze","button-index","coalmine","coal","commodities","commune","cricket","dialogs","economy","evacuate","export","farm","fast","finance","firestation","food","goods","health","help","housing","index","industryh","industryl","labor","keys","market","medium","mill","mini-screen","monument","msb-coal","msb-cricket","msb-fire","msb-health","msb-normal","msb-pol","msb-power","msb-starve","msb-transport","msb-ub40","oremine","ore","other-costs","park","pause","pbar","pollution","port","pottery","powerline","powerscoal","powerssolar","power","query","rail","recycle","residential","river","road","rocket","school","slow","steel","substation","sustain","tech-level","tip","track","transport","tutorial-advanced","tutorial-aim","tutorial-basics","tutorial-overview","tutorial-scenario","tutorial","university","waste","water","waterwell","windmill"]
 
 #FILES=["tutorial-aim"]
 BASE={}

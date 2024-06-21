@@ -3,7 +3,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Solar power station</p>
 	<p style="hp">Solar power stations output their power to power lines in packets. The amount of power that it can produce increases with the tech-level when it was built.</p>
-	<p style="hp">Solar power stations need also manpower for producing power. If a solar power station has no jobs, it will produce no power.</p>
+	<p style="hp">Solar power stations need also manpower for producing power. If a solar power station has no labor, it will produce no power.</p>
 
   <p style="hp">This is a Solar power station</p>
    <img src="images/tiles/powerssolar.png" halign="center"/>
@@ -12,7 +12,7 @@
    <img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 
 	<p style="hsubtitle">Formulas</p>
-	<p style="hp">50 jobs =&gt; 900 MWh + 9 MWh * tech</p>
+	<p style="hp">50 labor =&gt; 900 hi-volt + 9 hi-volt * tech</p>
 
   <p style="hsubtitle">See also:</p>
 	<li><a href="substation">Substations</a></li>

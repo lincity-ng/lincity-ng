@@ -14,6 +14,7 @@
 #include <utility>                  // for pair
 #include <vector>                   // for vector
 
+#include "commodities.hpp"
 #include "ConstructionCount.h"      // for ConstructionCount
 #include "ConstructionManager.h"    // for ConstructionManager
 #include "ConstructionRequest.h"    // for ConstructionDeletionRequest, Powe...
@@ -978,7 +979,7 @@ void Construction::trade()
                 {   yield = (yield+1)/2;}
                 switch (stuff_ID)
                 {
-                    case STUFF_JOBS :
+                    case STUFF_LABOR :
                         if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2
                         && world(x,y)->framesptr //useful check in case the road is bulldozed
                         &&  world(x,y)->framesptr->size() < 2) //only generate cars on emtpy streets
@@ -1054,7 +1055,7 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
         {
             switch (stuff_ID)
             {
-                case (STUFF_JOBS) :
+                case (STUFF_LABOR) :
                     income_tax += flow;
                     break;
                 case (STUFF_GOODS) :
