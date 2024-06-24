@@ -1,4 +1,7 @@
-## Unreleased
+## LinCity NG 2.11.0
+
+date: 2024-06-24 <br/>
+tag: lincity-ng-2.11.0 <br/>
 
 ###### Gameplay
 - Nerfed ports by randomly disabling import/export.
@@ -43,7 +46,7 @@
 
 ## LinCity NG 2.10.2
 
-Released: 2024-04-19 <br/>
+date: 2024-04-19 <br/>
 tag: lincity-ng-2.10.2 <br/>
 git: a6101294
 
@@ -54,7 +57,7 @@ git: a6101294
 
 ## LinCity NG 2.10.1
 
-Released: 2024-03-16 <br/>
+date: 2024-03-16 <br/>
 tag: lincity-ng-2.10.1 <br/>
 git: 3b8c58bf
 
@@ -69,7 +72,7 @@ git: 3b8c58bf
 
 ## LinCity NG 2.10.0
 
-Released: 2024-03-08 <br/>
+date: 2024-03-08 <br/>
 tag: lincity-ng-2.10.0 <br/>
 git: f03cbe18
 
@@ -166,7 +169,7 @@ git: f03cbe18
 
 ## LinCity NG 2.9.0
 
-Released: 2023-12-18 <br/>
+date: 2023-12-18 <br/>
 tag: lincity-ng-2.9.0 <br/>
 git: ff3e337b
 
@@ -184,7 +187,7 @@ git: ff3e337b
 
 ## LinCity NG 2.9.0-beta
 
-Released: 2013-12-22 <br/>
+date: 2013-12-22 <br/>
 tag: lincity-ng-2.9.0-beta <br/>
 git: 803a97df <br/>
 svn: r1797
@@ -212,7 +215,7 @@ svn: r1518
 
 ## LinCity NG 1.97.0-beta
 
-Released: 2008-12-24 <br/>
+date: 2008-12-24 <br/>
 tag: lincity-ng-1.97.0-beta <br/>
 git: 0e21f221 <br/>
 svn: r1474
@@ -223,7 +226,7 @@ svn: r1474
 
 ## LinCity NG 1.92.0-beta
 
-Released: 2008-09-13 <br/>
+date: 2008-09-13 <br/>
 tag: lincity-ng-1.92.0-beta <br/>
 git: 66f7f4b1 <br/>
 svn: r1456
@@ -237,7 +240,7 @@ svn: r1456
 
 ## LinCity NG 1.1.2
 
-Released: 2007-11-04 <br/>
+date: 2007-11-04 <br/>
 tag: lincity-ng-1.1.2 <br/>
 git: 9cf5a31c <br/>
 svn: r1270
@@ -250,7 +253,7 @@ svn: r1270
 
 ## LinCity NG 1.1.1
 
-Released: 2007-08-19 <br/>
+date: 2007-08-19 <br/>
 tag: lincity-ng-1.1.1 <br/>
 git: 886ebe78 <br/>
 svn: r1263
@@ -269,7 +272,7 @@ svn: r1263
 
 ## LinCity NG 1.1.0
 
-Released: 2007-02-19 <br/>
+date: 2007-02-19 <br/>
 tag: lincity-ng-1.1.0 <br/>
 git: 43342ee0 <br/>
 svn: r1139
@@ -284,7 +287,7 @@ svn: r1139
 
 ## LinCity NG 1.0.3
 
-Released: 2006-04-14 <br/>
+date: 2006-04-14 <br/>
 tag: lincity-ng-1.0.3 <br/>
 git: 5b50f632 <br/>
 svn: r1089
@@ -298,7 +301,7 @@ svn: r1089
 
 ## LinCity NG 1.0.2
 
-Released: 2005-11-09 <br/>
+date: 2005-11-09 <br/>
 tag: lincity-ng-1.0.2 <br/>
 git: 035ca774 <br/>
 svn: r1063
@@ -312,7 +315,7 @@ svn: r1063
 
 ## LinCity NG 1.0.1
 
-Released: 2005-07-13 <br/>
+date: 2005-07-13 <br/>
 tag: lincity-ng-1.0.1 <br/>
 git: 9ce566c5 <br/>
 svn: r1038
@@ -328,7 +331,7 @@ svn: r1038
 
 ## LinCity NG 1.0.0
 
-Released: 2005-06-20 <br/>
+date: 2005-06-20 <br/>
 tag: lincity-ng-1.0.0 <br/>
 git: f12f7943 <br/>
 svn: r1026

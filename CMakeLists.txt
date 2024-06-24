@@ -4,7 +4,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 
 project(lincity-ng
-	VERSION 2.10.2
+	VERSION 2.11.0
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
@@ -37,7 +37,7 @@ find_package(LibXml2 REQUIRED)
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
 
-find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
+# find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
 # The libxslt find module is broken when cross compiling because it looks in the
 # target environment instead of the host. The workaround is to find only the
 # xsltproc program.
