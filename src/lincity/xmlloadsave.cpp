@@ -888,10 +888,16 @@ void XMLloadsave::loadGlobals()
             else goto more_globals; goto found_global; more_globals:
 
             for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
+              bool *ixenable = NULL;
               const char * const &cname = commodityNames[c];
-              if     (xml_tag == std::string("import_") + cname + "_enable") sscanf(xml_val.c_str(),"%d",&portConstructionGroup.tradeRule[c].take);
-              else if(xml_tag == std::string("export_") + cname + "_enable") sscanf(xml_val.c_str(),"%d",&portConstructionGroup.tradeRule[c].give);
-              else continue; goto found_global;
+              if     (xml_tag == std::string("import_") + cname + "_enable") ixenable = &portConstructionGroup.tradeRule[c].take;
+              else if(xml_tag == std::string("export_") + cname + "_enable") ixenable = &portConstructionGroup.tradeRule[c].give;
+              else continue;
+
+              int tmp;
+              sscanf(xml_val.c_str(),"%d",&tmp);
+              *ixenable = tmp;
+              goto found_global;
             }
 
             std::cout << "Unknown XML entry " << line
