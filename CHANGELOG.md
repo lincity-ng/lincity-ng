@@ -1,7 +1,18 @@
+## Unreleased
+
+###### Internal
+- Fixed a compile-time error in src/gui/event.cpp when building with
+  SDL <= 2.26.0.
+- Fixed a compile-time error in src/lincity/xmlloadsave.cpp when building with
+  older g++ version.
+- Fixed parsing boolean from XML save file.
+
+
 ## LinCity NG 2.11.0
 
 date: 2024-06-24 <br/>
 tag: lincity-ng-2.11.0 <br/>
+git: afaede3d
 
 ###### Gameplay
 - Nerfed ports by randomly disabling import/export.
@@ -42,6 +53,7 @@ tag: lincity-ng-2.11.0 <br/>
 ###### Known Issues
 - Some translations may be outdated since renaming commodities.
 - Production/Consumption formulas do not exist in translated help pages.
+- Requires SDL >= 2.26.0
 
 
 ## LinCity NG 2.10.2
