@@ -898,7 +898,7 @@ void XMLloadsave::loadGlobals()
               << " while reading <GlobalVariables>" << std::endl;
             globalCount--;
 
-            found_global:
+            found_global: ;
         }
         else if (r == 1) //an opening xml tag
         {

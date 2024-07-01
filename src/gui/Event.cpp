@@ -54,7 +54,9 @@ Event::Event(SDL_Event& event)
             #if SDL_VERSION_ATLEAST(2,26,0)
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             #else
-            SDL_GetMouseState(&mousepos.x, &mousepos.y);
+            int x, y;
+            SDL_GetMouseState(&x, &y);
+            mousepos = Vector2(x, y);
             #endif
             break;
         case SDL_WINDOWEVENT:
