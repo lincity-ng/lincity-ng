@@ -19,12 +19,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ScreenInterface.hpp"
 
 #include <errno.h>                           // for errno
+#include <stdio.h>                           // for snprintf
 #include <stdlib.h>                          // for abs, malloc
 #include <exception>                         // for exception
 #include <iomanip>                           // for operator<<, setfill, setw
 #include <iostream>                          // for basic_ostream, operator<<
 #include <sstream>                           // for basic_ostringstream
-#include <string>                            // for char_traits, basic_string
+#include <string>                            // for basic_string, char_traits
 
 #include "ButtonPanel.hpp"                   // for getButtonPanel, ButtonPanel
 #include "Config.hpp"                        // for getConfig, Config

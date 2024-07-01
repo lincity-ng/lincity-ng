@@ -4,7 +4,8 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <stdlib.h>                        // for abs, rand
+#include <stdlib.h>                        // for rand, abs
+#include <array>                           // for array
 #include <iterator>                        // for advance
 #include <list>                            // for list, _List_iterator, oper...
 //#include "common.h"
@@ -20,20 +21,21 @@
 #include "ConstructionManager.h"           // for ConstructionManager
 #include "Vehicles.h"                      // for Vehicle
 #include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
+#include "commodities.hpp"                 // for CommodityRule, Commodity
 #include "engglobs.h"                      // for tech_level, total_money
 #include "engine.h"                        // for do_random_fire, scan_pollu...
 #include "groups.h"                        // for GROUP_FIRE, GROUP_MONUMENT
 #include "gui_interface/pbar_interface.h"  // for update_pbars_monthly
 #include "lin-city.h"                      // for MAX_TECH_LEVEL, TECH_LEVEL...
 #include "lintypes.h"                      // for Construction, NUMOF_DAYS_I...
-#include "modules/all_modules.h"           // for DAYS_BETWEEN_FIRES, DAYS_B...
+#include "modules/all_modules.h"           // for IMPORT_EXPORT_DISABLE_PERIOD
 #include "modules/modules_interfaces.h"    // for update_shanty
 #include "simulate.h"
 //#include "power.h"
 #include "stats.h"                         // for export_tax, goods_tax, ly_...
 #include "sustainable.h"                   // for SUST_MIN_TECH_LEVEL, SUST_...
 #include "tinygettext/gettext.hpp"         // for _
-#include "world.h"                         // for World
+#include "world.h"                         // for World, MapTile
 
 
 /* extern resources */

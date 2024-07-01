@@ -16,6 +16,7 @@
 //#define DEBUG_EXPERIMENTAL
 
 #include <algorithm>                       // for max
+#include <array>                           // for array
 #include <cmath>                           // for pow, exp
 #include <cstdlib>                         // for rand, NULL, size_t, srand
 #include <deque>                           // for deque
@@ -27,6 +28,7 @@
 #include "ConstructionManager.h"           // for ConstructionManager
 #include "Vehicles.h"                      // for Vehicle
 #include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
+#include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, global_mountainity
 #include "engine.h"                        // for desert_water_frontiers
 #include "groups.h"                        // for GROUP_BARE, GROUP_TREE

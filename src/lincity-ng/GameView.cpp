@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "GameView.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_SetCu...
+#include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_BUTTO...
 #include <SDL_image.h>                     // for IMG_Load_RW
 #include <assert.h>                        // for assert
 #include <physfs.h>                        // for PHYSFS_exists
@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <list>                            // for _List_iterator, list, oper...
 #include <map>                             // for _Rb_tree_iterator, map
 #include <sstream>                         // for basic_stringstream, basic_...
+#include <stdexcept>                       // for runtime_error
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
