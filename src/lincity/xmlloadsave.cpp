@@ -4,22 +4,24 @@
 #include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for max
+#include <array>                           // for array
 #include <iostream>                        // for cout
 #include <set>                             // for set
 #include <utility>                         // for pair
 
 #include "ConstructionCount.h"             // for ConstructionCount
+#include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, binary_mode, constr...
 #include "groups.h"                        // for GROUP_DESERT
 #include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, PBAR_DATA_...
 #include "gui_interface/shared_globals.h"  // for monthgraph_size, cheat_flag
 #include "init_game.h"                     // for create_new_city
 #include "lin-city.h"                      // for VOLATILE_FLAGS, FLAG_ALTERED
-#include "lintypes.h"                      // for MapTile, Ground, Construction
+#include "lintypes.h"                      // for Construction, Construction...
 #include "loadsave.h"                      // for given_scene
+#include "modules/port.h"                  // for PortConstructionGroup, por...
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
-#include "world.h"                         // for World
-#include "modules/port.h"
+#include "world.h"                         // for MapTile, World, Ground
 
 std::map <std::string, XMLTemplate*> xml_template_libary;
 std::map <unsigned short, XMLTemplate*> bin_template_libary;
