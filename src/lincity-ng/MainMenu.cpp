@@ -34,7 +34,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "CheckButton.hpp"                 // for CheckButton
 #include "Config.hpp"                      // for getConfig, Config
 #include "Game.hpp"                        // for getGame
-#include "GameView.hpp"                    // for getGameView, GameView
 #include "MainLincity.hpp"                 // for loadCityNG, saveCityNG
 #include "Sound.hpp"                       // for getSound, Sound, MusicTran...
 #include "Util.hpp"                        // for getCheckButton, getButton
@@ -889,26 +888,18 @@ MainMenu::newGameStartButtonClicked(Button* )
 
     if( baseName == "RiverDelta" ){
         new_city( &main_screen_originx, &main_screen_originy, city);
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "DesertArea" ){
         new_desert_city( &main_screen_originx, &main_screen_originy, city);
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "TemperateArea" ){
         new_temperate_city( &main_screen_originx, &main_screen_originy, city);
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "SwampArea" ){
         new_swamp_city( &main_screen_originx, &main_screen_originy, city);
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else {

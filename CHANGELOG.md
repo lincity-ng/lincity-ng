@@ -1,6 +1,7 @@
 ## Unreleased
 
 ###### Internal
+- Fixed crash when loading randomized scenario.
 - Fixed a compile-time error in src/gui/event.cpp when building with
   SDL <= 2.26.0.
 - Fixed a compile-time error in src/lincity/xmlloadsave.cpp when building with
@@ -54,6 +55,7 @@ git: afaede3d
 - Some translations may be outdated since renaming commodities.
 - Production/Consumption formulas do not exist in translated help pages.
 - Requires SDL >= 2.26.0
+- Crashes when the first game loaded is a new randomized scenario.
 
 
 ## LinCity NG 2.10.2

@@ -31,7 +31,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <list>                            // for _List_iterator, list, oper...
 #include <map>                             // for _Rb_tree_iterator, map
 #include <sstream>                         // for basic_stringstream, basic_...
-#include <stdexcept>                       // for runtime_error
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
@@ -81,7 +80,7 @@ const float GameView::defaultZoom = 1.0;    // fastest drawing
 GameView* gameViewPtr = 0;
 
 GameView* getGameView() {
-  if(!gameViewPtr) throw std::runtime_error("gameViewPtr is not initialized");
+  assert(gameViewPtr);
   return gameViewPtr;
 }
 
