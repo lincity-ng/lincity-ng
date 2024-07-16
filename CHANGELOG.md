@@ -7,6 +7,8 @@
 - Fixed a compile-time error in src/lincity/xmlloadsave.cpp when building with
   older g++ version.
 - Fixed parsing boolean from XML save file.
+- Fixed blacksmiths sometimes skipping monthly update. This was causing
+  blacksmiths to display more than 100% busy.
 
 
 ## LinCity NG 2.11.0
@@ -56,6 +58,7 @@ git: afaede3d
 - Production/Consumption formulas do not exist in translated help pages.
 - Requires SDL >= 2.26.0
 - Crashes when the first game loaded is a new randomized scenario.
+- Blacksmiths may display more than 100% busy.
 
 
 ## LinCity NG 2.10.2
