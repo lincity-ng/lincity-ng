@@ -1,4 +1,7 @@
-## Unreleased
+## LinCity-NG 2.11.1
+
+date: 2024-07-19 <br/>
+tag: lincity-ng-2.11.1
 
 ###### Internal
 - Fixed crash when loading randomized scenario.
