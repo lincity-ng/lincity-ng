@@ -981,10 +981,13 @@ void Construction::trade()
                 {
                     case STUFF_LABOR :
                         if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2
-                        && world(x,y)->framesptr //useful check in case the road is bulldozed
-                        &&  world(x,y)->framesptr->size() < 2) //only generate cars on emtpy streets
-                        {   new Vehicle(x, y, VEHICLE_BLUECAR,
-                                        (flow > 0)? VEHICLE_STRATEGY_MAXIMIZE : VEHICLE_STRATEGY_MINIMIZE);}
+                          && transport->canPlaceVehicle()
+                        ) {
+                          new Vehicle(x, y, VEHICLE_BLUECAR, (flow > 0)
+                            ? VEHICLE_STRATEGY_MAXIMIZE
+                            : VEHICLE_STRATEGY_MINIMIZE
+                          );
+                        }
                         break;
                     default:
                         break;
