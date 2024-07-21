@@ -18,7 +18,7 @@ number of rockets waiting to launch.
 When a rocket is built, but waiting to be launched, it no longer uses steel,
 goods or labor, but still continues to cost a lot of money.
 
-Hint, use the evacuate tool to recover the unused resources before you demolish a used lunch pad.
+Hint, use the evacuate tool to recover the unused resources before you demolish a used launch pad.
 
 IMG_1[This is a Rocket Launch Pad]: images/tiles/rocket5.png
 IMG_2[and this its icon]: images/gui/buttonpanel/transport/rocket.png
