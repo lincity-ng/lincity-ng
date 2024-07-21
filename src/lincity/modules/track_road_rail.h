@@ -257,6 +257,7 @@ public:
     virtual void report() override;
     virtual void animate() override;
     virtual void playSound(); //override random sound
+    virtual bool canPlaceVehicle();
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic( int* i);
     int subgroupID;
