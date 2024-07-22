@@ -208,9 +208,11 @@ void editMap (MapPoint point, int button)
                 return;
             } else if(world(mod_x,mod_y)->getGroup() == GROUP_ROCKET)
             {
-                if (world(mod_x,mod_y)->getType() >= 4 &&
-                         world(mod_x,mod_y)->getType() < 7)
-                {
+                RocketPad *rocket = dynamic_cast<RocketPad *>(
+                  world(mod_x,mod_y)->reportingConstruction);
+                  if(dynamic_cast<RocketPad *>(world(mod_x,mod_y)
+                    ->reportingConstruction)->stage == RocketPad::AWAITING
+                  ) {
                     new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
                     return;
                 }
