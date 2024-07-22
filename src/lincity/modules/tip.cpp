@@ -41,11 +41,12 @@ void Tip::update()
 
     if ((commodityCount[STUFF_WASTE] >= WASTE_BURRIED)
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE > CRITICAL_WASTE_LEVEL)
-    && (total_waste + WASTE_BURRIED < MAX_WASTE_AT_TIP))
+    && (total_waste + WASTE_BURRIED <= MAX_WASTE_AT_TIP))
     {
         consumeStuff(STUFF_WASTE, WASTE_BURRIED);
         total_waste += WASTE_BURRIED;
         working_days++;
+        sust_dig_ore_coal_tip_flag = 0;
     }
     else if ((commodityCount[STUFF_WASTE] + WASTE_BURRIED <= TIP_TAKES_WASTE)
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE < CRITICAL_WASTE_LEVEL)
