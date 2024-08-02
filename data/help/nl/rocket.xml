@@ -8,7 +8,7 @@
 	<p style="hp">Lanceerplatforms hoeven niet verbonden te zijn met een (spoor)weg, ze moeten wel in de buurt liggen van een markt. Ze gebruiken veel staal, goederen,geld en werk om te bouwen. Wanneer de raket klaar is, krijgt u een bericht met de vraag of u de raket nu dan wel later wil lanceren. Wanneer u voor later kiest, kunt u de raket lanceren door op het lanceerplatform te klikken. U kunt zoveel raketten klaar voor lancering hebben staan als u wilt.</p>
 	<p style="hp">Wanneer een raket is eenmaal gebouwd, maar daarna blijft wachten totdat het wordt gelanceerd, gebruikt het niet langer staal, goederen of banen, maar blijft wel veel geld kosten (voor onderhoud).</p>
 	<p style="hp">Dit is een lanceerplatform</p>
-	<img src="images/tiles/rocket2.png" halign="center"/>
+	<img src="images/tiles/rocket5.png" halign="center"/>
 	<p style="hp">En dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
 	

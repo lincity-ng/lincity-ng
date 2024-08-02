@@ -9,7 +9,7 @@
 	<p style="hp">Detta är en soptipp</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">och detta är dess ikon</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 	
 	<p style="hsubtitle">Se också:</p>
 	<li><a href="market">Marknader</a></li>

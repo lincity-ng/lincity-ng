@@ -9,7 +9,7 @@
 	<p style="hp">Esto é un vertedoiro</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">e esto é a súa icona</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 	
 	<p style="hsubtitle">Ver tamén:</p>
 	<li><a href="market">Mercados</a></li>

@@ -9,7 +9,7 @@
 	<p style="hp">Dit is een vuilstort</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="market">Markt</a></li>
