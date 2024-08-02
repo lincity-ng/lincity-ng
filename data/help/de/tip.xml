@@ -13,7 +13,7 @@
 	<p style="hp">So sieht eine Müllkippe aus</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">und so das Symbol</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
