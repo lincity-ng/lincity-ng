@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
-   xmlns:xml="http://www.w3.org/XML/1998/namespace"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1024.0000px"
    height="768.00000px"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.41"
-   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/mainmenu"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="menu_back.svg"
    inkscape:export-filename="/home/egore/source/lincity-ng/data/images/mainmenu/menu_back.png"
    inkscape:export-xdpi="90.000000"
-   inkscape:export-ydpi="90.000000">
+   inkscape:export-ydpi="90.000000"
+   version="1.1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs3">
     <linearGradient
@@ -2397,28 +2397,29 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49218750"
-     inkscape:cx="512.00000"
-     inkscape:cy="384.00000"
+     inkscape:zoom="0.984375"
+     inkscape:cx="512"
+     inkscape:cy="347.93651"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="849"
-     inkscape:window-height="546"
+     inkscape:window-width="1920"
+     inkscape:window-height="990"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="28"
      showguides="true"
-     inkscape:guide-bbox="true" />
+     inkscape:guide-bbox="true"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata4">
-    <rdf:RDF
-       id="RDF5">
+    <rdf:RDF>
       <cc:Work
-         rdf:about=""
-         id="Work6">
-        <dc:format
-           id="format7">image/svg+xml</dc:format>
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
         <dc:type
-           id="type9"
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
@@ -2456,31 +2457,6 @@
        d="M 292.77455,651.57475 C 347.79379,645.06076 581.30110,596.50093 631.37486,603.83431 C 658.04163,555.71870 670.85886,529.72459 686.39653,492.98805 C 676.52569,483.15709 657.25639,462.38827 629.67454,437.21085 C 597.64174,436.76085 523.31118,419.92907 487.72381,423.88365 C 375.99612,487.18220 334.61794,495.95679 301.02889,530.20063 L 292.77455,651.57475 z "
        id="path3508"
        sodipodi:nodetypes="ccccccc" />
-    <g
-       id="Copyright">
-      <text
-         xml:space="preserve"
-         style="font-size:22.729446;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:0.55017298;stroke:none;stroke-width:0.50000000;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
-         x="12.294374"
-         y="757.70844"
-         id="text23841"
-         sodipodi:linespacing="100%"><tspan
-           sodipodi:role="line"
-           id="tspan23843"
-           x="12.294374"
-           y="757.70844">(c) 2004-2009 Lincity Dev Team, This is free software</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-size:22.729446;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:#ffffff;stroke-width:0.63137352;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
-         x="10.908332"
-         y="756.3562"
-         id="text1504"
-         sodipodi:linespacing="100%"><tspan
-           sodipodi:role="line"
-           id="tspan1506"
-           x="10.908332"
-           y="756.35620">(c) 2004-2009 Lincity Dev Team, This is free software</tspan></text>
-    </g>
     <g
        id="LinCity">
       <path
