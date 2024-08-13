@@ -239,5 +239,14 @@ void Transport::playSound()
     }
 }
 
+bool Transport::canPlaceVehicle() {
+  if(!world(x, y)->framesptr)
+    return false;
+  for(ExtraFrame& exfr : *world(x, y)->framesptr)
+    if(exfr.resourceGroup->is_vehicle)
+      return false;
+  return true;
+}
+
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */
