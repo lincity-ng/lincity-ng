@@ -9,7 +9,6 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   music/*
   opening/*.scn
   sounds/*
-  colour.pal
   lincityconfig.xml
   lincity-ng.desktop
   lincity-ng.png
@@ -86,11 +85,11 @@ add_custom_target(messages.pot DEPENDS messages-pot.target gui_messages-pot.targ
 
 
 set(infoFiles
+  CHANGELOG.md
   COPYING
   COPYING-data.txt
   COPYING-fonts.txt
   README.md
-  CHANGELOG.md
 )
 if(WIN32)
   set(infoFiles ${infoFiles} COPYING-dll.txt)
@@ -103,8 +102,7 @@ foreach(infoFile ${infoFiles})
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "copying ${infoFile} to build directory"
   )
-  cmake_path(GET infoFile PARENT_PATH infoFileDst)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${infoFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/${infoFileDst})
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${infoFile} DESTINATION ${CMAKE_INSTALL_DOCDIR})
 endforeach()
 add_custom_target(infoFiles.target DEPENDS ${infoFiles})
 add_dependencies(lincity-ng infoFiles.target)
