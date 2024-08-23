@@ -10,7 +10,7 @@
    <img src="images/tiles/tip0.png" halign="center"/>
 
   <p style="hp">а это иконка:</p>
-   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+   <img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 
   <p style="hsubtitle">См. ещё:</p>
 	<li><a href="waste">Мусор</a></li>
