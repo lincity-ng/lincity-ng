@@ -158,7 +158,7 @@ msgstr "Egyetem"
 
 #: src/lincity/lintypes.cpp:1747
 msgid "Commune"
-msgstr "Közösség"
+msgstr "Szénégető"
 
 #: src/lincity/lintypes.cpp:1758
 msgid "Ore mine"
