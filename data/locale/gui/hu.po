@@ -546,7 +546,7 @@ msgstr "Acél"
 
 #: data/gui/pbar2nd.xml data/gui/pbar.xml
 msgid "Tech Level"
-msgstr "Technikai szint"
+msgstr "Műszaki szint"
 
 #: data/gui/pbar2nd.xml
 msgid "Tenants"
@@ -666,83 +666,83 @@ msgstr "1000 embert evakuáltál. A gazdaság méretét a népességcsökkenésh
 
 #: data/gui/blacksmithup.xml
 msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy kovácsműhelyeket építs. A kovácsműhelyek munkaerőt és acélt használnak fel."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy kovácsműhelyeket építs. A kovácsműhelyek munkaerőt és acélt használnak fel."
 
 #: data/gui/coalpowerup.xml
 msgid "You have reached the tech level which enables you to build coal fired power stations."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy szénerőműveket építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy szénerőműveket építs."
 
 #: data/gui/firestationup.xml
 msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy tűzoltóságokat építs. A tűzoltóságok megakadályozzák a legtöbb tűz keletkezését."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy tűzoltóságokat építs. A tűzoltóságok megakadályozzák a legtöbb tűz keletkezését."
 
 #: data/gui/healthup.xml
 msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy egészségközpontokat építs. Az egészségközpontok ​​központok csökkentik a légszennyezettség miatt meghalt emberek számát és növelik az általános születésszámot."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy egészségközpontokat építs. Az egészségközpontok ​​központok csökkentik a légszennyezettség miatt meghalt emberek számát és növelik az általános születésszámot."
 
 #: data/gui/hvindustryup.xml
 msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy nehézipari létesíményeket építs. A nehézipar acélt termel."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy nehézipari létesíményeket építs. A nehézipar acélt termel."
 
 #: data/gui/ltindustryup.xml
 msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy könnyüipari létesíményeket építs. A könnyüipar árukat állít elő."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy könnyüipari létesíményeket építs. A könnyüipar árukat állít elő."
 
 #: data/gui/millup.xml
 msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy malmokat építs. A malmok munkaerőt és élelmiszereket használnak az áruk előállításához. Vigyázz, sok ételt használhatnak fel!"
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy malmokat építs. A malmok munkaerőt és élelmiszereket használnak az áruk előállításához. Vigyázz, sok ételt használhatnak fel!"
 
 #: data/gui/mod_wind_up.xml
 msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy modern hatékony szélmalmokat építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy modern hatékony szélmalmokat építs."
 
 #: data/gui/parkup.xml
 msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy parkokat építs. A parkokat a légszennyezettség csökkentésére használhatod."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy parkokat építs. A parkokat a légszennyezettség csökkentésére használhatod."
 
 #: data/gui/potteryup.xml
 msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy fazekasműhelyeket építs. A fazekasműhelyek munkaerőt és ércet használnak az áruk előállításához. Egy ércbányára is szükséged van, hogy építhess egyet."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy fazekasműhelyeket építs. A fazekasműhelyek munkaerőt és ércet használnak az áruk előállításához. Egy ércbányára is szükséged van, hogy építhess egyet."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy vasutat építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy vasutat építs."
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy csatornákat építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy csatornákat építs."
 
 #: data/gui/roadup.xml
 msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy közutakat építs. További információkért tekintsd meg a súgót."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy közutakat építs. További információkért tekintsd meg a súgót."
 
 #: data/gui/rocketup.xml
 msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy rakétabázisokat építs. A rakéták lehetővé teszik a lakosság evakuálását, és egy módja annak, hogy „megnyerjük” a játékot."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy rakétabázisokat építs. A rakéták lehetővé teszik a lakosság evakuálását, és egy módja annak, hogy „megnyerjük” a játékot."
 
 #: data/gui/schoolup.xml
 msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy iskolákat építs. Az iskolák munkaerőt és arukat használnak fel hogy növeljék a techikai szintet."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy iskolákat építs. Az iskolák munkaerőt és arukat használnak fel hogy növeljék a műszaki szintet."
 
 #: data/gui/solarpowerup.xml
 msgid "You have reached the tech level which enables you to build solar power stations. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy naperőműveket építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy naperőműveket építs."
 
 #: data/gui/universityup.xml
 msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy egyetemeket építs. Az egyetemek PhD végzettséget adnak, ami magasabb techikai szintet eredményez."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy egyetemeket építs. Az egyetemek PhD végzettséget adnak, ami magasabb műszaki szintet eredményez."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy szélmalmokat építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy szélmalmokat építs."
 
 #: data/gui/coalmineup.xml
 msgid "You have reached the tech level which enables you to dig deep coal mines."
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy mélyebb szénbányákat építs."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy mélyebb szénbányákat építs."
 
 #: data/gui/recycleup.xml
 msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
-msgstr "Elérted azt a technikai szintet, amely lehetővé teszi, hogy hulladék újrahasznosítókat építs. A hulladék újrahasznosítók a nem használt árukat érccé alakítják."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy hulladék újrahasznosítókat építs. A hulladék újrahasznosítók a nem használt árukat érccé alakítják."
 
 #: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."

@@ -993,7 +993,7 @@ msgstr "Pénz"
 
 #: src/lincity-ng/Dialog.cpp:391
 msgid "Tech-level"
-msgstr "Technikai szint"
+msgstr "Műszaki szint"
 
 #: src/lincity-ng/Dialog.cpp:396
 msgid "Deaths by starvation"
@@ -1279,7 +1279,7 @@ msgstr "A fogyasztási cikkek vámkezelése ingyenes"
 #: src/lincity-ng/ButtonPanel.cpp:363 src/lincity-ng/ButtonPanel.cpp:387
 #, fuzzy
 msgid "Techlevel"
-msgstr "Technikai szint"
+msgstr "Műszaki szint"
 
 #: src/lincity-ng/ButtonPanel.cpp:193 src/lincity-ng/ButtonPanel.cpp:231
 #: src/lincity-ng/ButtonPanel.cpp:364 src/lincity-ng/ButtonPanel.cpp:388
@@ -1554,7 +1554,7 @@ msgstr "üres"
 #~ msgstr "Maximum népesség: %d Kitelepített: %d Született: %d"
 
 #~ msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
-#~ msgstr "Dátum: %s %04d  Pénz: %8d   Technológiai szint: %5.1f (%5.1f)"
+#~ msgstr "Dátum: %s %04d  Pénz: %8d   Műszaki szint: %5.1f (%5.1f)"
 
 #~ msgid "Rockets launched %2d  Successful launches %2d"
 #~ msgstr "Rakétaindítás: %2d amelyből %2d volt sikeres"
