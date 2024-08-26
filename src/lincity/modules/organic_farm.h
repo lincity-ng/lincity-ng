@@ -116,7 +116,8 @@ public:
     virtual void initialize() override {
         RegisteredConstruction::initialize();
 
-        this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
+        this->tech_bonus = (int)((long long int)this->tech
+          * ORGANIC_FARM_FOOD_OUTPUT / MAX_TECH_LEVEL);
 
         commodityMaxProd[STUFF_FOOD] = 100 *
           (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
