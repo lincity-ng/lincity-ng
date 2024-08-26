@@ -282,7 +282,7 @@ msgstr "Fák"
 #: src/lincity/lintypes.cpp:2098 src/lincity/all_buildings.cpp:83
 #: src/lincity/modules/commune.cpp:11
 msgid "Forest"
-msgstr "Erdőgazdaság"
+msgstr "Szénégető"
 
 #: src/lincity/lintypes.cpp:2111 src/lincity/modules/track_road_rail.cpp:29
 msgid "Track Bridge"
@@ -1134,7 +1134,7 @@ msgstr "Ércbányák"
 
 #: src/lincity-ng/Dialog.cpp:472
 msgid "Forests"
-msgstr "Erdőgazdaságok"
+msgstr "Szénégetők"
 
 #: src/lincity-ng/ScreenInterface.cpp:239
 #, fuzzy
