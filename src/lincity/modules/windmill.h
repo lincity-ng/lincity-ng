@@ -72,7 +72,7 @@ public:
       RegisteredConstruction::initialize();
 
       this->lovolt_output = (int)(WINDMILL_LOVOLT +
-        (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
+        (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
 
       commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
     }

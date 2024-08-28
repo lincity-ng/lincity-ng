@@ -117,7 +117,7 @@ public:
         RegisteredConstruction::initialize();
 
         this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
-          (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
+          (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
         commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
