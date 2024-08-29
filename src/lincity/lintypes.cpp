@@ -527,8 +527,11 @@ void Construction::saveMembers(std::ostream *os)
     }
 }
 
-void Construction::place() {
+void Construction::place(int x, int y) {
   initialize();
+
+  this->x = x;
+  this->y = y;
 
 #ifdef DEBUG
    //default resources if no manual settings for construction
@@ -561,6 +564,7 @@ void Construction::place() {
   }// endfor i
   world(x, y)->construction = this;
   constructionCount.add_construction(this); //register for Simulation
+  constructionGroup->count++;
 
   //now look for neighbors
   neighborize();
@@ -571,10 +575,10 @@ void Construction::detach()
 {
     //std::cout << "detaching: " << constructionGroup->name << std::endl;
     ::constructionCount.remove_construction(this);
-    if(world(x,y)->construction == this)
-    {
+    if(world(x,y)->construction == this) {
         world(x,y)->construction = NULL;
         world(x,y)->killframe(frameIt);
+        constructionGroup->count--;
 /*
         world(x,y)->framesptr->erase(frameIt);
         if(world(x,y)->framesptr->empty())
@@ -1126,7 +1130,7 @@ int ConstructionGroup::placeItem(int x, int y)
     }
 
 
-    Construction *tmpConstr = createConstruction(x, y);
+    Construction *tmpConstr = createConstruction();
 #ifdef DEBUG
     if (tmpConstr == NULL)
     {
@@ -1135,7 +1139,7 @@ int ConstructionGroup::placeItem(int x, int y)
     }
 #endif
 
-    tmpConstr->place();
+    tmpConstr->place(x, y);
 
     return 0;
 }
@@ -1175,8 +1179,9 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
                 ok_dial_box("no-credit-university.mes", BAD, 0L);
             return false;
         }
-        else if ((Counted<School>::getInstanceCount()/4 - Counted<University>::getInstanceCount()) < 1)
-        {
+        else if(schoolConstructionGroup.count/4
+          - universityConstructionGroup.count < 1\
+        ) {
             if (msg)
                 ok_dial_box("warning.mes", BAD, _("Not enough students, build more schools."));
             return false;

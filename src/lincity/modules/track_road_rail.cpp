@@ -103,9 +103,8 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-Construction *TransportConstructionGroup::createConstruction(int x, int y)
-{
-    return new Transport(x, y, this);
+Construction *TransportConstructionGroup::createConstruction() {
+  return new Transport(this);
 }
 
 void Transport::update()
@@ -194,7 +193,7 @@ void Transport::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, subgroupID);
+    mps_store_title(i++, constructionGroup->name);
     i++;
     if(mps_map_page == 1)
     {

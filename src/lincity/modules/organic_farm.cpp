@@ -26,8 +26,8 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_RANGE
 );
 
-Construction *Organic_farmConstructionGroup::createConstruction(int x, int y) {
-    return new Organic_farm(x, y, this);
+Construction *Organic_farmConstructionGroup::createConstruction() {
+  return new Organic_farm(this);
 }
 
 
@@ -112,7 +112,7 @@ void Organic_farm::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
     mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);

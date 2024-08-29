@@ -26,8 +26,8 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction(int x, int y) {
-    return new SolarPower(x, y, this);
+Construction *SolarPowerConstructionGroup::createConstruction() {
+  return new SolarPower(this);
 }
 
 void SolarPower::update()
@@ -54,7 +54,7 @@ void SolarPower::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

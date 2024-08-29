@@ -34,16 +34,15 @@ public:
 
     };
     // overriding method that creates a Fire
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern FireConstructionGroup fireConstructionGroup;
 //extern FireConstructionGroup fireWasteLandConstructionGroup;
 
-class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
+class Fire: public Construction {
 public:
-    Fire(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y)
-    {
+    Fire(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->burning_days = 0;

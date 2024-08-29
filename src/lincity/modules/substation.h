@@ -39,17 +39,16 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Substation
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern SubstationConstructionGroup substationConstructionGroup;
 //extern SubstationConstructionGroup substation_RG_ConstructionGroup;
 //extern SubstationConstructionGroup substation_G_ConstructionGroup;
 
-class Substation: public RegisteredConstruction<Substation> { // Substation inherits from Construction
+class Substation: public Construction {
 public:
-    Substation(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Substation>(x, y)
-    {
+    Substation(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->working_days = 0;

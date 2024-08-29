@@ -38,16 +38,14 @@ public:
 
     }
     // overriding method that creates a monument
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern MonumentConstructionGroup monumentConstructionGroup;
-extern MonumentConstructionGroup monumentFinishedConstructionGroup;
 
-class Monument: public RegisteredConstruction<Monument> { // Monument inherits from is own RegisteredConstruction
+class Monument: public Construction {
 public:
-    Monument(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Monument>(x, y)
-    {
+    Monument(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->busy = 0;

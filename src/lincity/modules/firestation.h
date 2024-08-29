@@ -46,15 +46,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a firestation
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern FireStationConstructionGroup fireStationConstructionGroup;
 
-class FireStation: public RegisteredConstruction<FireStation> { // FireStation inherits from RegisteredConstruction
+class FireStation: public Construction {
 public:
-    FireStation(int x, int y, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y)
-    {
+    FireStation(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->anim = 0;

@@ -29,9 +29,9 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_RANGE
 );
 
-Construction *OremineConstructionGroup::createConstruction(int x, int y)
+Construction *OremineConstructionGroup::createConstruction()
 {
-    return new Oremine(x, y, this);
+  return new Oremine(this);
 }
 
 void Oremine::update()
@@ -128,7 +128,7 @@ void Oremine::animate() {
 void Oremine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     // i++;

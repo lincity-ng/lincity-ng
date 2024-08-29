@@ -170,16 +170,15 @@ public:
         commodityRuleCount[STUFF_WATER].give = false;
     }
     // overriding method that creates a residence
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern ResidenceConstructionGroup residenceLLConstructionGroup, residenceMLConstructionGroup, residenceHLConstructionGroup;
 extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConstructionGroup, residenceHHConstructionGroup;
 
-class Residence: public RegisteredConstruction<Residence> { // Residence inherits from its own RegisteredConstruction
+class Residence: public Construction {
 public:
-    Residence(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y)
-    {
+    Residence(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->local_population = 0;

@@ -40,15 +40,14 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     };
     // overriding method that creates a Solar Power Plant
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
-class SolarPower: public RegisteredConstruction<SolarPower> { // park inherits from RegisteredConstruction
+class SolarPower: public Construction {
 public:
-    SolarPower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y)
-    {
+    SolarPower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->tech = tech_level;
@@ -63,7 +62,7 @@ public:
     }
 
     virtual void initialize() override {
-        RegisteredConstruction::initialize();
+        Construction::initialize();
 
         this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
           (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));

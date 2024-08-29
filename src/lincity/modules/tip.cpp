@@ -26,8 +26,8 @@ TipConstructionGroup tipConstructionGroup(
      GROUP_TIP_RANGE
 );
 
-Construction *TipConstructionGroup::createConstruction(int x, int y ) {
-    return new Tip(x, y, this);
+Construction *TipConstructionGroup::createConstruction() {
+  return new Tip(this);
 }
 
 
@@ -76,7 +76,7 @@ void Tip::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++,N_("busy"), busy);
     mps_store_sd(i++, N_("Waste"), total_waste);

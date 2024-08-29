@@ -30,8 +30,8 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
 //Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
 //Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
-Construction *Coal_powerConstructionGroup::createConstruction(int x, int y) {
-    return new Coal_power(x, y, this);
+Construction *Coal_powerConstructionGroup::createConstruction() {
+  return new Coal_power(this);
 }
 
 void Coal_power::update()
@@ -93,7 +93,7 @@ void Coal_power::animate() {
 void Coal_power::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i++, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), hivolt_output);

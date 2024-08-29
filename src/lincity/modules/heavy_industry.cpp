@@ -33,8 +33,8 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
 //IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
-    return new IndustryHeavy(x, y, this);
+Construction *IndustryHeavyConstructionGroup::createConstruction() {
+  return new IndustryHeavy(this);
 }
 
 void IndustryHeavy::update()
@@ -137,7 +137,7 @@ void IndustryHeavy::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (output_level));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

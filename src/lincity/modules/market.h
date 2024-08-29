@@ -67,7 +67,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = true;
     };
     // overriding method that creates a Market
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
@@ -75,10 +75,9 @@ extern MarketConstructionGroup marketConstructionGroup;
 //extern MarketConstructionGroup market_med_ConstructionGroup;
 //extern MarketConstructionGroup market_full_ConstructionGroup;
 
-class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
+class Market: public Construction {
 public:
-    Market(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y)
-    {
+    Market(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         waste_fire_frit = world(x, y)->createframe();

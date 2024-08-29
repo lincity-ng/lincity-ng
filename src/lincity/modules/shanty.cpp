@@ -33,9 +33,8 @@ ShantyConstructionGroup shantyConstructionGroup(
      GROUP_SHANTY_RANGE
 );
 
-Construction *ShantyConstructionGroup::createConstruction(int x, int y)
-{
-    return new Shanty(x, y, this);
+Construction *ShantyConstructionGroup::createConstruction() {
+  return new Shanty(this);
 }
 
 //TODO remove_a_shanty() and update_shanty() should go to ConstructionRequest
@@ -43,7 +42,7 @@ Construction *ShantyConstructionGroup::createConstruction(int x, int y)
 void add_a_shanty(void)
 {
     int r, x, y;
-    int numof_shanties = Counted<Shanty>::getInstanceCount();
+    int numof_shanties = shantyConstructionGroup.count;
     const int len = world.len();
     x = rand() % len;
     y = rand() % len;
@@ -91,8 +90,8 @@ void add_a_shanty(void)
 
 void update_shanty(void)
 {
-    int numof_communes = Counted<Commune>::getInstanceCount();
-    int numof_shanties = Counted<Shanty>::getInstanceCount();
+    int numof_communes = communeConstructionGroup.count;
+    int numof_shanties = shantyConstructionGroup.count;
     const int len = world.len();
     //Foersts make new people? Why not
     //people_pool += .3 * numof_communes;
@@ -191,7 +190,7 @@ void Shanty::animate() {
 void Shanty::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
     // i++;
     list_commodities(&i);

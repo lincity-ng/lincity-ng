@@ -69,7 +69,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a HeavyIndustry
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
@@ -77,10 +77,9 @@ extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
 //extern IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup;
 //extern IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup;
 
-class IndustryHeavy: public RegisteredConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own RegisteredConstruction
+class IndustryHeavy: public Construction {
 public:
-    IndustryHeavy(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryHeavy>(x, y)
-    {
+    IndustryHeavy(ConstructionGroup *cstgrp) {
         constructionGroup = cstgrp;
         init_resources();
         this->tech = tech_level;
@@ -123,7 +122,7 @@ public:
     }
 
     virtual void initialize() override {
-        RegisteredConstruction::initialize();
+        Construction::initialize();
 
         if (tech > MAX_TECH_LEVEL)
         {

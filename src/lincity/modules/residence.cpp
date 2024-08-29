@@ -96,8 +96,8 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
 );
 
 
-Construction *ResidenceConstructionGroup::createConstruction(int x, int y) {
-    return new Residence(x, y, this);
+Construction *ResidenceConstructionGroup::createConstruction() {
+  return new Residence(this);
 }
 
 void Residence::update()
@@ -331,7 +331,7 @@ void Residence::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
     mps_store_sd(i++, N_("Desireability"), desireability);
     mps_store_sf(i++, N_("Births p.a."), (float)1200/births);

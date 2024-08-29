@@ -25,8 +25,8 @@ SchoolConstructionGroup schoolConstructionGroup(
      GROUP_SCHOOL_RANGE
 );
 
-Construction *SchoolConstructionGroup::createConstruction(int x, int y) {
-    return new School(x, y, this);
+Construction *SchoolConstructionGroup::createConstruction() {
+  return new School(this);
 }
 
 void School::update()
@@ -81,7 +81,7 @@ void School::animate() {
 void School::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (float)busy);
     mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);

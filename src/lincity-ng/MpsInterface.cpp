@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER
 #include "lincity/lintypes.h"                    // for ConstructionGroup
 #include "lincity/modules/modules_interfaces.h"  // for mps_water
+#include "lincity/modules/shanty.h"
 #include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
 #include "lincity/world.h"                       // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"               // for N_, _
@@ -558,7 +559,7 @@ void mps_global_housing()
     mps_store_sd(i++, N_("Total"), tp);
     mps_store_sd(i++, N_("Housed"), population);
     mps_store_sd(i++, N_("Homeless"), people_pool);
-    mps_store_sd(i++, N_("Shanties"), Counted<Shanty>::getInstanceCount());
+    mps_store_sd(i++, N_("Shanties"), shantyConstructionGroup.count);
 
     mps_store_sddp(i++, N_("Unemployment"), tunemployed_population/days, tp );
     mps_store_sddp(i++, N_("Starvation"), tstarving_population/days, tp );

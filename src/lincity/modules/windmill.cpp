@@ -26,8 +26,8 @@ WindmillConstructionGroup windmillConstructionGroup(
      GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction(int x, int y) {
-    return new Windmill(x, y, this);
+Construction *WindmillConstructionGroup::createConstruction() {
+  return new Windmill(this);
 }
 
 void Windmill::update()
@@ -66,7 +66,7 @@ void Windmill::animate() {
 void Windmill::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), float(busy) / lovolt_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), lovolt_output);

@@ -49,7 +49,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Coal_power
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
@@ -58,10 +58,9 @@ extern Coal_powerConstructionGroup coal_powerConstructionGroup;
 //extern Coal_powerConstructionGroup coal_power_full_ConstructionGroup;
 
 
-class Coal_power: public RegisteredConstruction<Coal_power> { // Coal_power inherits from its own RegisteredConstruction
+class Coal_power: public Construction {
 public:
-    Coal_power(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y)
-    {
+    Coal_power(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
@@ -114,7 +113,7 @@ public:
     }
 
     virtual void initialize() override {
-        RegisteredConstruction::initialize();
+        Construction::initialize();
 
         this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
           (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));

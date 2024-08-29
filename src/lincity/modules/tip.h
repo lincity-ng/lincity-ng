@@ -40,15 +40,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a tip
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern TipConstructionGroup tipConstructionGroup;
 
-class Tip: public RegisteredConstruction<Tip>{ // Tip inherits from its own RegisteredConstruction
+class Tip: public Construction{
 public:
-    Tip(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Tip>(x, y)
-    {
+    Tip(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;

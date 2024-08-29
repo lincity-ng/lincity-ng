@@ -46,15 +46,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a University
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern UniversityConstructionGroup universityConstructionGroup;
 
-class University: public RegisteredConstruction<University> { // university inherits from its own RegisteredConstruction
+class University: public Construction {
 public:
-    University(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<University>(x, y)
-    {
+    University(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->working_days = 0;

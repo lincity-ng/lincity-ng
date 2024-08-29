@@ -24,8 +24,8 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_RANGE
 );
 
-Construction *UniversityConstructionGroup::createConstruction(int x, int y) {
-    return new University(x, y, this);
+Construction *UniversityConstructionGroup::createConstruction() {
+  return new University(this);
 }
 
 void University::update()
@@ -55,7 +55,7 @@ void University::update()
 void University::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);

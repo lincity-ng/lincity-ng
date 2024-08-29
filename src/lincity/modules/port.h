@@ -97,15 +97,14 @@ public:
     std::map<Commodity, int> commodityRates;
     std::array<CommodityRule, STUFF_COUNT> tradeRule;
     // overriding method that creates a Port
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern PortConstructionGroup portConstructionGroup;
 
-class Port: public RegisteredConstruction<Port> { // park inherits from Construction
+class Port: public Construction {
 public:
-    Port(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y)
-    {
+    Port(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->daily_ic = 0; this->daily_et = 0;

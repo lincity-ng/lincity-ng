@@ -49,15 +49,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a Cricket
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern CricketConstructionGroup cricketConstructionGroup;
 
-class Cricket: public RegisteredConstruction<Cricket> { // cricket inherits from Construction
+class Cricket: public Construction {
 public:
-    Cricket(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Cricket>(x, y)
-    {
+    Cricket(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         // this->anim = 0;

@@ -43,15 +43,14 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Windmill
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern WindmillConstructionGroup windmillConstructionGroup;
 
-class Windmill: public RegisteredConstruction<Windmill> { // Windmill inherits from its own RegisteredConstruction
+class Windmill: public Construction {
 public:
-    Windmill(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y)
-    {
+    Windmill(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         // this->anim = 0;
@@ -69,7 +68,7 @@ public:
     }
 
     virtual void initialize() override {
-      RegisteredConstruction::initialize();
+      Construction::initialize();
 
       this->lovolt_output = (int)(WINDMILL_LOVOLT +
         (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));

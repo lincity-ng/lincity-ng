@@ -77,15 +77,14 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a Shanty
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern ShantyConstructionGroup shantyConstructionGroup;
 
-class Shanty: public RegisteredConstruction<Shanty> { // Shanty inherits from Construction
+class Shanty: public Construction {
 public:
-    Shanty(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Shanty>(x, y)
-    {
+    Shanty(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         waste_fire_frit = world(x, y)->createframe();

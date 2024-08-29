@@ -34,8 +34,8 @@ FireConstructionGroup fireConstructionGroup(
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 //FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
-Construction *FireConstructionGroup::createConstruction(int x, int y) {
-    return new Fire(x, y, this);
+Construction *FireConstructionGroup::createConstruction() {
+  return new Fire(this);
 }
 
 void Fire::update()
@@ -109,7 +109,7 @@ void Fire::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sd(i++,N_("Air Pollution"), world(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)

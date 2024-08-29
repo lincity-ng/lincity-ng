@@ -44,17 +44,14 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Windpower
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern WindpowerConstructionGroup windpowerConstructionGroup;
-extern WindpowerConstructionGroup windpower_RG_ConstructionGroup;
-extern WindpowerConstructionGroup windpower_G_ConstructionGroup;
 
-class Windpower: public RegisteredConstruction<Windpower> { // Windpower inherits from its own RegisteredConstruction
+class Windpower: public Construction {
 public:
-    Windpower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windpower>(x, y)
-    {
+    Windpower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         // this->anim = 0;
@@ -72,7 +69,7 @@ public:
     }
 
     virtual void initialize() override {
-        RegisteredConstruction::initialize();
+        Construction::initialize();
 
         this->hivolt_output = (int)(WIND_POWER_HIVOLT +
           (((double)tech_level * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));

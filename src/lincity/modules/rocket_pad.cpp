@@ -33,8 +33,8 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_RANGE
 );
 
-Construction *RocketPadConstructionGroup::createConstruction(int x, int y) {
-    return new RocketPad(x, y, this);
+Construction *RocketPadConstructionGroup::createConstruction() {
+  return new RocketPad(this);
 }
 
 extern void ok_dial_box(const char *, int, const char *);
@@ -217,7 +217,7 @@ void RocketPad::remove_people(int num)
 void RocketPad::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_title(i++, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sfp(i++, N_("Completion"), (double)steps / ROCKET_PAD_STEPS);

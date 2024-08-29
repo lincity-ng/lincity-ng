@@ -29,8 +29,8 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_RANGE
 );
 
-Construction *FireStationConstructionGroup::createConstruction(int x, int y ) {
-    return new FireStation(x, y, this);
+Construction *FireStationConstructionGroup::createConstruction() {
+  return new FireStation(this);
 }
 
 void FireStation::update()
@@ -94,7 +94,7 @@ void FireStation::report()
 {
     int i = 0;
     const char* p;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), (float) busy);
     // i++;
     list_commodities(&i);

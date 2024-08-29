@@ -37,8 +37,8 @@ WaterwellConstructionGroup waterwellConstructionGroup(
      GROUP_WATERWELL_RANGE
 );
 
-Construction *WaterwellConstructionGroup::createConstruction(int x, int y) {
-    return new Waterwell(x, y, this);
+Construction *WaterwellConstructionGroup::createConstruction() {
+  return new Waterwell(this);
 }
 
 void Waterwell::update()
@@ -63,7 +63,7 @@ void Waterwell::report()
 
     const char *p;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), busy);

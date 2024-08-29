@@ -73,7 +73,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a LightIndustry
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
@@ -83,10 +83,9 @@ extern IndustryLightConstructionGroup industryLightConstructionGroup;
 //extern IndustryLightConstructionGroup industryLight_H_ConstructionGroup;
 
 
-class IndustryLight: public RegisteredConstruction<IndustryLight> { // IndustryLight inherits from RegisteredConstruction
+class IndustryLight: public Construction {
 public:
-    IndustryLight(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryLight>(x, y)
-    {
+    IndustryLight(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
@@ -152,7 +151,7 @@ public:
     }
 
     virtual void initialize() override {
-        RegisteredConstruction::initialize();
+        Construction::initialize();
 
         if (tech > MAX_TECH_LEVEL)
         {

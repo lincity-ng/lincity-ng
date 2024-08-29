@@ -27,8 +27,8 @@ PotteryConstructionGroup potteryConstructionGroup(
     GROUP_POTTERY_RANGE
 );
 
-Construction *PotteryConstructionGroup::createConstruction(int x, int y) {
-    return new Pottery(x, y, this);
+Construction *PotteryConstructionGroup::createConstruction() {
+  return new Pottery(this);
 }
 
 void Pottery::update()
@@ -83,7 +83,7 @@ void Pottery::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
     // i++;

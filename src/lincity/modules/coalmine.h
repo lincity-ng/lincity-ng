@@ -44,18 +44,14 @@ public:
         commodityRuleCount[STUFF_COAL].give = true;
     }
     // overriding method that creates an Coalmine
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern CoalmineConstructionGroup coalmineConstructionGroup;
-//extern CoalmineConstructionGroup coalmine_L_ConstructionGroup;
-//extern CoalmineConstructionGroup coalmine_M_ConstructionGroup;
-//extern CoalmineConstructionGroup coalmine_H_ConstructionGroup;
 
-class Coalmine: public RegisteredConstruction<Coalmine> { // Coalmine inherits from its RegisteredConstruction
+class Coalmine: public Construction {
 public:
-    Coalmine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coalmine>(x, y)
-    {
+    Coalmine(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         this->working_days = 0;

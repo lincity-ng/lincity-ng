@@ -441,61 +441,74 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-        Counted<Residence>::getInstanceCount());
-    setTableRC("statistic", 1, 2, _("Markets"), Counted<Market>::getInstanceCount());
-    setTableRC("statistic", 1, 3, _("Farms"), Counted<Organic_farm>::getInstanceCount());
+      residenceLLConstructionGroup.count +
+      residenceMLConstructionGroup.count +
+      residenceHLConstructionGroup.count +
+      residenceLHConstructionGroup.count +
+      residenceMHConstructionGroup.count +
+      residenceHHConstructionGroup.count);
+    setTableRC("statistic", 1, 2, _("Markets"), marketConstructionGroup.count);
+    setTableRC("statistic", 1, 3, _("Farms"), organic_farmConstructionGroup.count);
 
-    setTableRC("statistic", 2, 1, _("Water wells"), Counted<Waterwell>::getInstanceCount());
-    setTableRC("statistic", 2, 2, _("Wind powers"), Counted<Windpower>::getInstanceCount());
+    setTableRC("statistic", 2, 1, _("Water wells"), waterwellConstructionGroup.count);
+    setTableRC("statistic", 2, 2, _("Windmills"), windmillConstructionGroup.count);
     setTableRC("statistic", 2, 3, "", "");
 
     setTableRC("statistic", 3, 1, "", "");
     setTableRC("statistic", 3, 2, "", "");
     setTableRC("statistic", 3, 3, "", "");
 
-    setTableRC("statistic", 4, 1, _("Monuments"), Counted<Monument>::getInstanceCount());
-    setTableRC("statistic", 4, 2, _("Schools"),  Counted<School>::getInstanceCount());
-    setTableRC("statistic", 4, 3, _("Universities"), Counted<University>::getInstanceCount());
+    setTableRC("statistic", 4, 1, _("Monuments"), monumentConstructionGroup.count);
+    setTableRC("statistic", 4, 2, _("Schools"), schoolConstructionGroup.count);
+    setTableRC("statistic", 4, 3, _("Universities"), universityConstructionGroup.count);
 
-    setTableRC("statistic", 5, 1, _("Fire stations"), Counted<FireStation>::getInstanceCount());
-    setTableRC("statistic", 5, 2, _("Parks"), Counted<Parkland>::getInstanceCount());
-    setTableRC("statistic", 5, 3, _("Sports fields"), Counted<Cricket>::getInstanceCount());
+    setTableRC("statistic", 5, 1, _("Fire stations"), fireStationConstructionGroup.count);
+    setTableRC("statistic", 5, 2, _("Parks"),
+      parklandConstructionGroup.count +
+      parkpondConstructionGroup.count);
+    setTableRC("statistic", 5, 3, _("Sports fields"), cricketConstructionGroup.count);
 
-    setTableRC("statistic", 6, 1, _("Health centres"), Counted<HealthCentre>::getInstanceCount());
-    setTableRC("statistic", 6, 2, _("Tips"), Counted<Tip>::getInstanceCount());
-    setTableRC("statistic", 6, 3, _("Shanties"), Counted<Shanty>::getInstanceCount());
+    setTableRC("statistic", 6, 1, _("Health centres"), healthCentreConstructionGroup.count);
+    setTableRC("statistic", 6, 2, _("Tips"), tipConstructionGroup.count);
+    setTableRC("statistic", 6, 3, _("Shanties"), shantyConstructionGroup.count);
 
     setTableRC("statistic", 7, 1, "", "");
     setTableRC("statistic", 7, 2, "", "");
     setTableRC("statistic", 7, 3, "", "");
 
-    setTableRC("statistic", 8, 1, _("Windmills"),  Counted<Windmill>::getInstanceCount());
-    setTableRC("statistic", 8, 2, _("Coal powers"), Counted<Coal_power>::getInstanceCount());
-    setTableRC("statistic", 8, 3, _("Solar powers"), Counted<SolarPower>::getInstanceCount());
+    setTableRC("statistic", 8, 1, _("Wind powers"), windpowerConstructionGroup.count);
+    setTableRC("statistic", 8, 2, _("Coal powers"), coal_powerConstructionGroup.count);
+    setTableRC("statistic", 8, 3, _("Solar powers"), solarPowerConstructionGroup.count);
 
-    setTableRC("statistic", 9, 1, _("Substations"), Counted<Substation>::getInstanceCount());
-    setTableRC("statistic", 9, 2, _("Power lines"), Counted<Powerline>::getInstanceCount());
-    setTableRC("statistic", 9, 3, _("Ports"), Counted<Port>::getInstanceCount());
+    setTableRC("statistic", 9, 1, _("Substations"), substationConstructionGroup.count);
+    setTableRC("statistic", 9, 2, _("Power lines"), powerlineConstructionGroup.count);
+    setTableRC("statistic", 9, 3, _("Ports"), portConstructionGroup.count);
 
-    setTableRC("statistic", 10, 1, _("Tracks"), Counted<Track>::getInstanceCount());
-    setTableRC("statistic", 10, 2, _("Roads"), Counted<Road>::getInstanceCount());
-    setTableRC("statistic", 10, 3, _("Rail"), Counted<Rail>::getInstanceCount());
+    setTableRC("statistic", 10, 1, _("Tracks"),
+      trackConstructionGroup.count +
+      trackbridgeConstructionGroup.count);
+    setTableRC("statistic", 10, 2, _("Roads"),
+      roadConstructionGroup.count +
+      roadbridgeConstructionGroup.count);
+    setTableRC("statistic", 10, 3, _("Rail"),
+      railConstructionGroup.count +
+      railbridgeConstructionGroup.count);
 
     setTableRC("statistic", 11, 1, "", "");
     setTableRC("statistic", 11, 2, "", "");
     setTableRC("statistic", 11, 3, "", "");
 
-    setTableRC("statistic", 12, 1, _("Potteries"), Counted<Pottery>::getInstanceCount());
-    setTableRC("statistic", 12, 2, _("Blacksmiths"), Counted<Blacksmith>::getInstanceCount());
-    setTableRC("statistic", 12, 3, _("Mills"), Counted<Mill>::getInstanceCount());
+    setTableRC("statistic", 12, 1, _("Potteries"), potteryConstructionGroup.count);
+    setTableRC("statistic", 12, 2, _("Blacksmiths"), blacksmithConstructionGroup.count);
+    setTableRC("statistic", 12, 3, _("Mills"), millConstructionGroup.count);
 
-    setTableRC("statistic", 13, 1, _("Light inds"), Counted<IndustryLight>::getInstanceCount());
-    setTableRC("statistic", 13, 2, _("Heavy inds"), Counted<IndustryHeavy>::getInstanceCount());
-    setTableRC("statistic", 13, 3, _("Recyclers"), Counted<Recycle>::getInstanceCount());
+    setTableRC("statistic", 13, 1, _("Light inds"), industryLightConstructionGroup.count);
+    setTableRC("statistic", 13, 2, _("Heavy inds"), industryHeavyConstructionGroup.count);
+    setTableRC("statistic", 13, 3, _("Recyclers"), recycleConstructionGroup.count);
 
-    setTableRC("statistic", 14, 1, _("Coal mines"), Counted<Coalmine>::getInstanceCount());
-    setTableRC("statistic", 14, 2, _("Ore mines"), Counted<Oremine>::getInstanceCount());
-    setTableRC("statistic", 14, 3, _("Forests"), Counted<Commune>::getInstanceCount());
+    setTableRC("statistic", 14, 1, _("Coal mines"), coalmineConstructionGroup.count);
+    setTableRC("statistic", 14, 2, _("Ore mines"), oremineConstructionGroup.count);
+    setTableRC("statistic", 14, 3, _("Forests"), communeConstructionGroup.count);
 
     setTableRC("statistic", 15, 1, "", "");
     setTableRC("statistic", 15, 2, "", "");
@@ -575,54 +588,68 @@ void Dialog::saveGameStats(){
     results << outf << std::endl;
     results << "" << std::endl;
 
-    snprintf (outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-         Counted<Residence>::getInstanceCount(),
-         Counted<Market>::getInstanceCount(),
-         Counted<Organic_farm>::getInstanceCount());
+    snprintf(outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
+      residenceLLConstructionGroup.count
+        + residenceMLConstructionGroup.count
+        + residenceHLConstructionGroup.count
+        + residenceLHConstructionGroup.count
+        + residenceMHConstructionGroup.count
+        + residenceHHConstructionGroup.count,
+      marketConstructionGroup.count,
+      organic_farmConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, "   Water wells %4d     Wind powers %4d",
-    Counted<Waterwell>::getInstanceCount(),Counted<Windpower>::getInstanceCount());
+    snprintf(outf, maxlength, "   Water wells %4d     Wind powers %4d",
+      waterwellConstructionGroup.count,
+      windpowerConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d"
-         ,Counted<Monument>::getInstanceCount(), Counted<School>::getInstanceCount()
-         ,Counted<University>::getInstanceCount());
+    snprintf(outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d",
+      monumentConstructionGroup.count,
+      schoolConstructionGroup.count,
+      universityConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, " Fire stations %4d           Parks %4d    Sports fields %4d"
-         ,Counted<FireStation>::getInstanceCount(), Counted<Parkland>::getInstanceCount()
-         ,Counted<Cricket>::getInstanceCount());
+    snprintf(outf, maxlength, " Fire stations %4d           Parks %4d    Sports fields %4d",
+      fireStationConstructionGroup.count,
+      parklandConstructionGroup.count + parkpondConstructionGroup.count,
+      cricketConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, "Health centres %4d            Tips %4d         Shanties %4d",
-         Counted<HealthCentre>::getInstanceCount(), Counted<Tip>::getInstanceCount(),
-         Counted<Shanty>::getInstanceCount());
-    results << outf << std::endl;
-    results << "" << std::endl;
-
-    snprintf (outf, maxlength, "     Windmills %4d     Coal powers %4d     Solar powers %4d",
-         Counted<Windmill>::getInstanceCount(),
-         Counted<Coal_power>::getInstanceCount(),
-         Counted<SolarPower>::getInstanceCount());
-    results << outf << std::endl;
-    snprintf (outf, maxlength, "   Substations %4d     Power lines %4d            Ports %4d"
-         ,Counted<Substation>::getInstanceCount(), Counted<Powerline>::getInstanceCount()
-         ,Counted<Port>::getInstanceCount());
-    results << outf << std::endl;
-    snprintf (outf, maxlength, "        Tracks %4d           Roads %4d             Rail %4d"
-         ,Counted<Track>::getInstanceCount(), Counted<Road>::getInstanceCount()
-         ,Counted<Road>::getInstanceCount());
+    snprintf(outf, maxlength, "Health centres %4d            Tips %4d         Shanties %4d",
+      healthCentreConstructionGroup.count,
+      tipConstructionGroup.count,
+      shantyConstructionGroup.count);
     results << outf << std::endl;
     results << "" << std::endl;
 
-    snprintf (outf, maxlength, "     Potteries %4d     Blacksmiths %4d            Mills %4d"
-         ,Counted<Pottery>::getInstanceCount(), Counted<Blacksmith>::getInstanceCount()
-         ,Counted<Mill>::getInstanceCount());
+    snprintf(outf, maxlength, "     Windmills %4d     Coal powers %4d     Solar powers %4d",
+      windmillConstructionGroup.count,
+      coal_powerConstructionGroup.count,
+      solarPowerConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, "    Light inds %4d      Heavy inds %4d        Recyclers %4d"
-         ,Counted<IndustryLight>::getInstanceCount(), Counted<IndustryHeavy>::getInstanceCount()
-         ,Counted<Recycle>::getInstanceCount());
+    snprintf(outf, maxlength, "   Substations %4d     Power lines %4d            Ports %4d",
+      substationConstructionGroup.count,
+      powerlineConstructionGroup.count,
+      portConstructionGroup.count);
     results << outf << std::endl;
-    snprintf (outf, maxlength, "    Coal mines %4d       Ore mines %4d         Communes %4d"
-         ,Counted<Coalmine>::getInstanceCount(), Counted<Oremine>::getInstanceCount()
-         ,Counted<Commune>::getInstanceCount());
+    snprintf(outf, maxlength, "        Tracks %4d           Roads %4d             Rail %4d",
+      trackConstructionGroup.count + trackbridgeConstructionGroup.count,
+      roadConstructionGroup.count + roadbridgeConstructionGroup.count,
+      railConstructionGroup.count + railbridgeConstructionGroup.count);
+    results << outf << std::endl;
+    results << "" << std::endl;
+
+    snprintf(outf, maxlength, "     Potteries %4d     Blacksmiths %4d            Mills %4d",
+      potteryConstructionGroup.count,
+      blacksmithConstructionGroup.count,
+      millConstructionGroup.count);
+    results << outf << std::endl;
+    snprintf(outf, maxlength, "    Light inds %4d      Heavy inds %4d        Recyclers %4d",
+      industryLightConstructionGroup.count,
+      industryHeavyConstructionGroup.count,
+      recycleConstructionGroup.count);
+    results << outf << std::endl;
+    snprintf(outf, maxlength, "    Coal mines %4d       Ore mines %4d         Communes %4d",
+      coalmineConstructionGroup.count,
+      oremineConstructionGroup.count,
+      communeConstructionGroup.count);
     results << outf << std::endl;
     results << "" << std::endl;
 

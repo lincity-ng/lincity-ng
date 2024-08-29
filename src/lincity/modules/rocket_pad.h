@@ -52,15 +52,14 @@ public:
     commodityRuleCount[STUFF_WASTE].give = true;
   }
   // overriding method that creates a RocketPad
-  virtual Construction *createConstruction(int x, int y) override;
+  virtual Construction *createConstruction() override;
 };
 
 extern RocketPadConstructionGroup rocketPadConstructionGroup;
 
-class RocketPad: public RegisteredConstruction<RocketPad> { // rocketPad inherits from its own RegisteredConstruction
+class RocketPad: public Construction {
 public:
-  RocketPad(int x, int y, ConstructionGroup* cstgrp): RegisteredConstruction<RocketPad>(x, y)
-  {
+  RocketPad(ConstructionGroup* cstgrp) {
     this->constructionGroup = cstgrp;
     init_resources();
     this->working_days = 0;

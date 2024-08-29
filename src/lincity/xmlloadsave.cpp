@@ -432,7 +432,6 @@ void XMLloadsave::loadTemplateValues()
 void XMLloadsave::saveConstructions()
 {
     xml_file_out<<"<ConstructionSection>"<<std::endl;
-    ::constructionCount.sort();
     for (int i = 0; i < ::constructionCount.size(); i++)
     {
         //use pos() here because we dont want them shuffeled
@@ -501,7 +500,7 @@ void XMLloadsave::loadConstructions()
                     //std::cout << "placing " << main_groups[group].name << " as " <<main_groups[get_group_of_type(type)].name << "...";
                     std::cout.flush();
                     cst = ConstructionGroup::getConstructionGroup(group)
-                      ->createConstruction(x, y);
+                      ->createConstruction();
                     //std::cout << "ok" <<std::endl;
                     rewind();
                     prescan = false;
@@ -513,7 +512,7 @@ void XMLloadsave::loadConstructions()
 #endif
             }
             else {
-                cst->place();
+                cst->place(x, y);
             }
             //world(x,y)->construction->saveMembers(&std::cout);
             interpreting_template = false;
@@ -603,8 +602,7 @@ XMLloadsave::loadConstructionTemplates()
     int x = idx % world.len();
     int y = idx / world.len();
     //std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
-    cst = ConstructionGroup::getConstructionGroup(head)
-      ->createConstruction(x, y);
+    cst = ConstructionGroup::getConstructionGroup(head)->createConstruction();
     if (!bin_template_libary.count(head))
     {
         cst->writeTemplate();
@@ -619,7 +617,7 @@ XMLloadsave::loadConstructionTemplates()
         cm += cst->readbinaryMember(cur_template->getTag(),gz_xml_file);
         cur_template->step();
     }
-    cst->place();
+    cst->place(x, y);
     //assert(cm = cur_template->len());
     //std::cout << "OK" <<std::endl;
 }

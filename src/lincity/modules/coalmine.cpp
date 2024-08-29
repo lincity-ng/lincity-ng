@@ -34,9 +34,8 @@ CoalmineConstructionGroup coalmineConstructionGroup(
 //CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
 //CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
-Construction *CoalmineConstructionGroup::createConstruction(int x, int y)
-{
-    return new Coalmine(x, y, this);
+Construction *CoalmineConstructionGroup::createConstruction() {
+  return new Coalmine(this);
 }
 
 void Coalmine::update()
@@ -128,7 +127,7 @@ void Coalmine::animate() {
 void Coalmine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
     // i++;

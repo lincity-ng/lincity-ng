@@ -56,15 +56,14 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a mill
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern MillConstructionGroup millConstructionGroup;
 
-class Mill: public RegisteredConstruction<Mill> { // Mill inherits from its own RegisteredConstruction
+class Mill: public Construction {
 public:
-    Mill(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Mill>(x, y)
-    {
+    Mill(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         // this->anim = 0;

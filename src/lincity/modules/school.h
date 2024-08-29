@@ -53,15 +53,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a School
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern SchoolConstructionGroup schoolConstructionGroup;
 
-class School: public RegisteredConstruction<School> { // School inherits from its own RegisteredConstruction
+class School: public Construction {
 public:
-    School(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<School>(x, y)
-    {
+    School(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
         init_resources();
         //std::list<ExtraFrame>::iterator frit = world(x,y)->createframe();

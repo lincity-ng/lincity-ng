@@ -30,8 +30,8 @@ MonumentConstructionGroup monumentConstructionGroup(
 
 //MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
-Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
-    return new Monument(x, y, this);
+Construction *MonumentConstructionGroup::createConstruction() {
+  return new Monument(this);
 }
 
 void Monument::update()
@@ -93,7 +93,7 @@ void Monument::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {

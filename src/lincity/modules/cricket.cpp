@@ -28,8 +28,8 @@ CricketConstructionGroup cricketConstructionGroup(
      GROUP_CRICKET_RANGE
 );
 
-Construction *CricketConstructionGroup::createConstruction(int x, int y) {
-    return new Cricket(x, y, this);
+Construction *CricketConstructionGroup::createConstruction() {
+  return new Cricket(this);
 }
 
 void Cricket::update()
@@ -93,7 +93,7 @@ void Cricket::report()
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     // i++;
     list_commodities(&i);

@@ -30,8 +30,8 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction(int x, int y) {
-    return new Commune(x, y, this);
+Construction *CommuneConstructionGroup::createConstruction() {
+  return new Commune(this);
 }
 
 void Commune::update()
@@ -136,7 +136,7 @@ void Commune::animate() {
 void Commune::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
     mps_store_sd(i++, N_("Pollution"), world(x,y)->pollution);

@@ -33,8 +33,8 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
 //IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
 //IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
-Construction *IndustryLightConstructionGroup::createConstruction(int x, int y ) {
-    return new IndustryLight(x, y, this);
+Construction *IndustryLightConstructionGroup::createConstruction() {
+  return new IndustryLight(this);
 }
 
 void IndustryLight::update()
@@ -158,7 +158,7 @@ void IndustryLight::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

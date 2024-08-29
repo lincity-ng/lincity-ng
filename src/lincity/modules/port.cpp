@@ -24,8 +24,8 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction(int x, int y) {
-    return new Port(x, y, this);
+Construction *PortConstructionGroup::createConstruction() {
+  return new Port(this);
 }
 
 int Port::buy_stuff(Commodity stuff)
@@ -114,7 +114,7 @@ void Port::update()
 void Port::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sd(i++, N_("Export"),lastm_et/100);
     mps_store_sd(i++, N_("Import"),lastm_ic/100);
