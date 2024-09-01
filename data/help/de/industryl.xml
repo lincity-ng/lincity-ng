@@ -7,7 +7,7 @@
 	<p style="hp">Diese Gebiete können <b>NUR</b> an der oberen linken Ecke mit dem Verkehr verbunden werden. Es gibt eine Abzweigung im Verkehrsweg, wenn das Gebäude angeschlossen ist.</p>
 	
 	<p style="hp">Dies ist die leichte Industrie</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	
