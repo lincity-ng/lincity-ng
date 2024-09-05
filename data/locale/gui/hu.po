@@ -212,7 +212,9 @@ msgstr "Nehézipari létesítmény elérhető"
 #: data/gui/helpwindow.xml
 msgid "Help"
 msgstr "Súgó"
-
+#: data/gui/pbar2nd.xml 
+msgid "High Voltage"
+msgstr ""
 #: data/gui/import-exportup.xml
 msgid "Import/Export available"
 msgstr "Import/Export elérhető"
@@ -254,8 +256,8 @@ msgid "Load Game"
 msgstr "Játék betöltése"
 
 #: data/gui/pbar2nd.xml
-msgid "MWh"
-msgstr "MWh"
+msgid "High Voltage"
+msgstr "Magasfeszültség"
 
 #: data/gui/minimap.xml
 msgid "Map"
@@ -271,7 +273,7 @@ msgstr "Malom elérhető"
 
 #: data/gui/mod_wind_up.xml
 msgid "Modern Windmills available"
-msgstr "Modern malom elérhető"
+msgstr "Modern szélmalom elérhető"
 
 #: data/gui/pbar2nd.xml data/gui/pbar.xml
 msgid "Money"
@@ -666,7 +668,7 @@ msgstr "1000 embert evakuáltál. A gazdaság méretét a népességcsökkenésh
 
 #: data/gui/blacksmithup.xml
 msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy kovácsműhelyeket építs. A kovácsműhelyek munkaerőt és acélt használnak fel."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy kovácsműhelyeket építs. A kovácsműhelyek munkaerőt és acélt használnak fel a termékek előállításához."
 
 #: data/gui/coalpowerup.xml
 msgid "You have reached the tech level which enables you to build coal fired power stations."
