@@ -704,7 +704,7 @@ msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy parkokat �
 
 #: data/gui/potteryup.xml
 msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
-msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy fazekasműhelyeket építs. A fazekasműhelyek munkaerőt és ércet használnak az áruk előállításához. Egy ércbányára is szükséged van, hogy építhess egyet."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy fazekasműhelyeket építs. A fazekasműhelyek munkaerőt és ércet használnak az áruk előállításához. Egy ércet előállító bányára, hulladékfeldolgozóra vagy szénégetőre is szükséged lesz."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
