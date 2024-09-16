@@ -1,5 +1,7 @@
-## Unreleased
+## Unreleased [SECURITY]
 
+###### Internal
+- [SECURITY] Fixed a heap overflow in game loading.
 
 ## LinCity-NG 2.11.1
 
