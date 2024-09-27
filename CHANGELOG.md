@@ -1,4 +1,7 @@
-## Unreleased [SECURITY]
+## LinCity-NG 2.11.2 [SECURITY]
+
+date: 2024-09-26 <br/>
+tag: lincity-ng-2.11.2
 
 ###### Gameplay
 - Fixed sustainability not resetting when dumping on a tip.
