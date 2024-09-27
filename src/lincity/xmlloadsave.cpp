@@ -1084,10 +1084,8 @@ void XMLloadsave::readArray(int ary[], int max_len, int len)
                 pos = xml_val.find("\t");
                 val = xml_val.substr(0, pos);
                 sscanf(val.c_str(),"%d",&ary[i++]);
-                if ((i > max_len) || (i > len))
-                {
-                    return;
-                }
+                if ((i >= max_len) || (i >= len))
+                    break;
                 xml_val.erase(0, pos);
                 xml_val.erase(0,1);
             }
