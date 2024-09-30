@@ -5,26 +5,46 @@
     translatable="yes">Credits</p>
 
     <p style="section" translatable="yes">Original Idea and Code</p>
-    <p style="person">Gregory Sharp
-    <span style="email">&lt;gregsharp@geocities.com&gt;</span></p>
-    <p style="person">Cory Keasling</p>
-    <p style="person">Ian J Peters</p>
+    <p style="person">
+      Gregory Sharp
+      <span style="email">&lt;gregsharp@geocities.com&gt;</span>
+    </p>
+    <p style="person">
+      Cory Keasling
+    </p>
+    <p style="person">
+      Ian J Peters
+    </p>
 
     <p style="section" translatable="yes">Code</p>
-    <p style="person">Alain Baeckeroot
-    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>
-    <p style="person">Wolfgang Becker
-    <span style="email">&lt;uafr@gmx.de&gt;</span></p>
-    <p style="person">Matthias Braun
-    <span style="email">&lt;matze@braunis.de&gt;</span></p>
-    <p style="person">Jaky
-    <span style="email">&lt;jaky_lincity@mail.ru&gt;</span></p>
-    <p style="person">David Kamphausen
-    <span style="email">&lt;david.kamphausen@web.de&gt;</span></p>
-    <p style="person">Heikki Ketoharju
-    <span style="email">&lt;heikki.ketoharju@gmail.com&gt;</span></p>
-    <p style="person">Khristian Cramberger
-    <span style="email">&lt;cman.lincity@gmail.com&gt;</span></p>
+    <p style="person">
+      Alain Baeckeroot
+      <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span>
+    </p>
+    <p style="person">
+      Wolfgang Becker
+      <span style="email">&lt;uafr@gmx.de&gt;</span>
+    </p>
+    <p style="person">
+      Matthias Braun
+      <span style="email">&lt;matze@braunis.de&gt;</span>
+    </p>
+    <p style="person">
+      Jaky
+      <span style="email">&lt;jaky_lincity@mail.ru&gt;</span>
+    </p>
+    <p style="person">
+      David Kamphausen
+      <span style="email">&lt;david.kamphausen@web.de&gt;</span>
+    </p>
+    <p style="person">
+      Heikki Ketoharju
+      <span style="email">&lt;heikki.ketoharju@gmail.com&gt;</span>
+    </p>
+    <p style="person">
+      Khristian Cramberger
+      <span style="email">&lt;cman.lincity@gmail.com&gt;</span>
+    </p>
 
     <p style="section" translatable="yes">Graphics</p>
     <p style="person">Ingo Ruhnke
@@ -38,10 +58,16 @@
     <span style="email">&lt;willydumaz@arcor.de&gt;</span></p>
 
     <p style="section" translatable="yes">Sound and Music</p>
-    <p style="person">Paulo Augusto</p>
-    <p style="person">Robert van Herk</p>
-    <p style="person">Pronobozo
-    <span style="email">&lt;pronobozo@pronobozo.com&gt;</span></p>
+    <p style="person">
+      Paulo Augusto
+    </p>
+    <p style="person">
+      Robert van Herk
+    </p>
+    <p style="person">
+      Pronobozo
+      <span style="email">&lt;pronobozo@pronobozo.com&gt;</span>
+    </p>
 
     <p style="section" translatable="yes">Translation</p>
     <p style="person">ca – Joan Padró</p>
@@ -57,10 +83,14 @@
     <p style="person">es – Jorge González González</p>
     <p style="person">fr – Arnaud Quette</p>
     <p style="person">fr – Laurent Rocher</p>
-    <p style="person">fr – Alain Baeckeroot
-    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>
-    <p style="person">gd –
-    <span style="email">&lt;fios@foramnagaidhlig.net&gt;</span></p>
+    <p style="person">
+      fr – Alain Baeckeroot
+      <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span>
+    </p>
+    <p style="person">
+      gd –
+      <span style="email">&lt;fios@foramnagaidhlig.net&gt;</span>
+    </p>
     <p style="person">gl – Xabier Cancela</p>
     <p style="person">ja – MH35</p>
     <p style="person">nl – Nathan Samson</p>
@@ -70,16 +100,26 @@
     <p style="person">pl – Piotr Pacholak</p>
     <p style="person">pt_BR – Jose Carlos Medeiros</p>
     <p style="person">pt_BR – Nilo Menezes</p>
-    <p style="person">ru – Leonid Myravyev
-    <span style="email">&lt;asm@asm.pp.ru&gt;</span></p>
+    <p style="person">
+      ru – Leonid Myravyev
+      <span style="email">&lt;asm@asm.pp.ru&gt;</span>
+    </p>
     <p style="person">sv – Daniel Nylander</p>
     <p style="person">tr – Uyg Y.</p>
-    <p style="person">zh_CN – Chang (Karen) Long
-    <span style="email">&lt;karenlong0123@gmail.com&gt;</span></p>
-    <p style="person">zh_CN – Xu Zhang
-    <span style="email">&lt;mirandazhang2010@gmail.com&gt;</span></p>
-    <p style="person">zh_CN – Ying Zhou
-    <span style="email">&lt;yzhou@miis.edu&gt;</span></p>
-    <p style="person">zh_CN – Ana Zaytseva
-    <span style="email">&lt;ana0119@gmail.com&gt;</span></p>
+    <p style="person">
+      zh_CN – Chang (Karen) Long
+      <span style="email">&lt;karenlong0123@gmail.com&gt;</span>
+    </p>
+    <p style="person">
+      zh_CN – Xu Zhang
+      <span style="email">&lt;mirandazhang2010@gmail.com&gt;</span>
+    </p>
+    <p style="person">
+      zh_CN – Ying Zhou
+      <span style="email">&lt;yzhou@miis.edu&gt;</span>
+    </p>
+    <p style="person">
+      zh_CN – Ana Zaytseva
+      <span style="email">&lt;ana0119@gmail.com&gt;</span>
+    </p>
 </Document>
