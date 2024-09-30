@@ -27,6 +27,11 @@
       <span style="year">2007 - 2011</span>
     </p>
     <p style="person">
+      David Bears
+      <span style="email">&lt;dbear4q@gmail.com&gt;</span>
+      <span style="year">2022 - 2024</span>
+    </p>
+    <p style="person">
       Wolfgang Becker
       <span style="email">&lt;uafr@gmx.de&gt;</span>
       <span style="year">2005 - 2019</span>
@@ -35,6 +40,10 @@
       Matthias Braun
       <span style="email">&lt;matze@braunis.de&gt;</span>
       <span style="year">2005 - 2007</span>
+    </p>
+    <p style="person">
+      Edu Garcia
+      <span style="year">2023</span>
     </p>
     <p style="person">
       Jaky
@@ -52,9 +61,15 @@
       <span style="year">2012</span>
     </p>
     <p style="person">
-      Khristian Cramberger
-      <span style="email">&lt;cman.lincity@gmail.com&gt;</span>
-      <span style="year">2013</span>
+      Christian Kramberger
+      <span style="email">
+        &lt;Christian.Kramberger-Kaplan@univie.ac.at&gt;
+      </span>
+      <span style="year">2013, 2017, 2021</span>
+    </p>
+    <p style="person">
+      Taj Morton
+      <span style="year">2004</span>
     </p>
     <p style="person">
       Leonid Myravyev
@@ -62,24 +77,16 @@
       <span style="year">2014</span>
     </p>
     <p style="person">
-      Taj Morton
-      <span style="year">2004</span>
+      Fabio Pedretti
+      <span style="email">&lt;pedretti.fabio@gmail.com&gt;</span>
+      <span style="year">2024</span>
     </p>
 
 
     <p style="section" translatable="yes">Graphics</p>
     <p style="person">
-      Ingo Ruhnke
-      <span style="email">&lt;grumbel@gmx.de&gt;</span>
-      <span style="year">2005</span>
-    </p>
-    <p style="person">
       Christoph Brill
       <span style="email">&lt;egore@gmx.de&gt;</span>
-      <span style="year">2005</span>
-    </p>
-    <p style="person">
-      Ken Hirsch
       <span style="year">2005</span>
     </p>
     <p style="person">
@@ -91,6 +98,15 @@
       Willy Dumaz
       <span style="email">&lt;willydumaz@arcor.de&gt;</span>
       <span style="year">2009</span>
+    </p>
+    <p style="person">
+      Ken Hirsch
+      <span style="year">2005</span>
+    </p>
+    <p style="person">
+      Ingo Ruhnke
+      <span style="email">&lt;grumbel@gmx.de&gt;</span>
+      <span style="year">2005</span>
     </p>
 
     <p style="section" translatable="yes">Sound and Music</p>
