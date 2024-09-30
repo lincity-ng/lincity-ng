@@ -6,120 +6,237 @@
 
     <p style="section" translatable="yes">Original Idea and Code</p>
     <p style="person">
+      Ian J. Peters
+      <span style="year">1995 - 1997</span>
+    </p>
+    <p style="person">
       Gregory Sharp
       <span style="email">&lt;gregsharp@geocities.com&gt;</span>
+      <span style="year">1997 - 2005</span>
     </p>
     <p style="person">
       Cory Keasling
+      <span style="year">2000 - 2004</span>
     </p>
-    <p style="person">
-      Ian J Peters
-    </p>
+
 
     <p style="section" translatable="yes">Code</p>
     <p style="person">
       Alain Baeckeroot
       <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span>
+      <span style="year">2007 - 2011</span>
     </p>
     <p style="person">
       Wolfgang Becker
       <span style="email">&lt;uafr@gmx.de&gt;</span>
+      <span style="year">2005 - 2019</span>
     </p>
     <p style="person">
       Matthias Braun
       <span style="email">&lt;matze@braunis.de&gt;</span>
+      <span style="year">2005 - 2007</span>
     </p>
     <p style="person">
       Jaky
       <span style="email">&lt;jaky_lincity@mail.ru&gt;</span>
+      <span style="year">2009</span>
     </p>
     <p style="person">
       David Kamphausen
       <span style="email">&lt;david.kamphausen@web.de&gt;</span>
+      <span style="year">2005</span>
     </p>
     <p style="person">
       Heikki Ketoharju
       <span style="email">&lt;heikki.ketoharju@gmail.com&gt;</span>
+      <span style="year">2012</span>
     </p>
     <p style="person">
       Khristian Cramberger
       <span style="email">&lt;cman.lincity@gmail.com&gt;</span>
+      <span style="year">2013</span>
+    </p>
+    <p style="person">
+      Leonid Myravyev
+      <span style="email">&lt;asm@asm.pp.ru&gt;</span>
+      <span style="year">2014</span>
+    </p>
+    <p style="person">
+      Taj Morton
+      <span style="year">2004</span>
     </p>
 
+
     <p style="section" translatable="yes">Graphics</p>
-    <p style="person">Ingo Ruhnke
-    <span style="email">&lt;grumbel@gmx.de&gt;</span></p>
-    <p style="person">Christoph Brill
-    <span style="email">&lt;egore@gmx.de&gt;</span></p>
-    <p style="person">Ken Hirsch</p>
-    <p style="person">Ivar ten Cate
-    <span style="email">&lt;varivar@gmail.com&gt;</span></p>
-    <p style="person">Willy Dumaz
-    <span style="email">&lt;willydumaz@arcor.de&gt;</span></p>
+    <p style="person">
+      Ingo Ruhnke
+      <span style="email">&lt;grumbel@gmx.de&gt;</span>
+      <span style="year">2005</span>
+    </p>
+    <p style="person">
+      Christoph Brill
+      <span style="email">&lt;egore@gmx.de&gt;</span>
+      <span style="year">2005</span>
+    </p>
+    <p style="person">
+      Ken Hirsch
+      <span style="year">2005</span>
+    </p>
+    <p style="person">
+      Ivar ten Cate
+      <span style="email">&lt;varivar@gmail.com&gt;</span>
+      <span style="year">2008 - 2014</span>
+    </p>
+    <p style="person">
+      Willy Dumaz
+      <span style="email">&lt;willydumaz@arcor.de&gt;</span>
+      <span style="year">2009</span>
+    </p>
 
     <p style="section" translatable="yes">Sound and Music</p>
     <p style="person">
       Paulo Augusto
+      <span style="year">2005</span>
     </p>
     <p style="person">
       Robert van Herk
+      <span style="year">2005 - 2006</span>
     </p>
     <p style="person">
       Pronobozo
       <span style="email">&lt;pronobozo@pronobozo.com&gt;</span>
+      <span style="year">2005</span>
     </p>
 
+
     <p style="section" translatable="yes">Translation</p>
-    <p style="person">ca – Joan Padró</p>
-    <p style="person">ca – Alfred Galitó Trilla</p>
-    <p style="person">cs – Ondrej Novy</p>
-    <p style="person">cs – Jan Kalab</p>
-    <p style="person">cs – Tomáš Velecký</p>
-    <p style="person">de – Wolfgang Becker
-    <span style="email">&lt;uafr@gmx.de&gt;</span></p>
-    <p style="person">de – Michael Skiba</p>
-    <p style="person">el – Yannis Kaskamanidis</p>
-    <p style="person">el – Students from 5th grade of 2nd Experimental Primary School of Florina</p>
-    <p style="person">es – Jorge González González</p>
-    <p style="person">fr – Arnaud Quette</p>
-    <p style="person">fr – Laurent Rocher</p>
-    <p style="person">
-      fr – Alain Baeckeroot
+    <p style="person">ca –
+      Joan Padró
+      <span style="year">2005</span>
+    </p>
+    <p style="person">ca –
+      Alfred Galitó Trilla
+      <span style="year">2008</span>
+    </p>
+    <p style="person">cs –
+      Ondrej Novy
+      <span style="year">2006</span>
+    </p>
+    <p style="person">cs –
+      Jan Kalab
+      <span style="year">2006</span>
+    </p>
+    <p style="person">cs –
+      Tomáš Velecký
+      <span style="year">2010</span>
+    </p>
+    <p style="person">de –
+      Michael Skiba
+      <span style="year">2007</span>
+    </p>
+    <p style="person">de –
+      Tobias L.
+      <span style="year">2011</span>
+    </p>
+    <p style="person">de –
+      Wolfgang Becker
+      <span style="email">&lt;uafr@gmx.de&gt;</span>
+      <span style="year">2007 - 2009</span>
+    </p>
+    <p style="person">el –
+      Yannis Kaskamanidis and
+      students from 5th grade of 2nd Experimental Primary School of Florina
+      <span style="year">2009</span>
+    </p>
+    <p style="person">es –
+      Jorge González González
+      <span style="year">2005</span>
+    </p>
+    <p style="person">fr –
+      Arnaud Quette
+      <span style="year">2005</span>
+    </p>
+    <p style="person">fr –
+      Laurent Rocher
+      <span style="year">2006</span>
+    </p>
+    <p style="person">fr –
+      Alain Baeckeroot
       <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span>
+      <span style="year">2007 - 2011</span>
     </p>
-    <p style="person">
-      gd –
+    <p style="person">gd –
       <span style="email">&lt;fios@foramnagaidhlig.net&gt;</span>
+      <span style="year">2013 - 2014</span>
     </p>
-    <p style="person">gl – Xabier Cancela</p>
-    <p style="person">ja – MH35</p>
-    <p style="person">nl – Nathan Samson</p>
-    <p style="person">nl – Ronald Stroethoff</p>
-    <p style="person">nl – Ivar ten Cate</p>
-    <p style="person">pl – Michał Drzał</p>
-    <p style="person">pl – Piotr Pacholak</p>
-    <p style="person">pt_BR – Jose Carlos Medeiros</p>
-    <p style="person">pt_BR – Nilo Menezes</p>
-    <p style="person">
-      ru – Leonid Myravyev
+    <p style="person">gl –
+      Xabier Cancela
+      <span style="year">2008</span>
+    </p>
+    <p style="person">ja –1f5f88eef97a2a3bcbe6d5cd7f0cfb27dc882b28
+      MH35
+      <span style="year">2008</span>
+    </p>
+    <p style="person">nl –
+      Nathan Samson
+      <span style="year">2005</span>
+    </p>
+    <p style="person">nl –
+      Ronald Stroethoff
+      <span style="year">2006</span>
+    </p>
+    <p style="person">nl –
+      Ivar ten Cate
+      <span style="email">&lt;varivar@gmail.com&gt;</span>
+      <span style="year">2009</span>
+    </p>
+    <p style="person">pl –
+      Michał Drzał
+      <span style="year">2006</span>
+    </p>
+    <p style="person">pl –
+      Piotr Pacholak
+      <span style="year">2006</span>
+    </p>
+    <p style="person">pt_BR –
+      Jose Carlos Medeiros
+      <span style="year">2007</span>
+    </p>
+    <p style="person">pt_BR –
+      Nilo Menezes
+      <span style="year">2007</span>
+    </p>
+    <p style="person">ru –
+      Leonid Myravyev
       <span style="email">&lt;asm@asm.pp.ru&gt;</span>
+      <span style="year">2007 - 2014</span>
     </p>
-    <p style="person">sv – Daniel Nylander</p>
-    <p style="person">tr – Uyg Y.</p>
-    <p style="person">
-      zh_CN – Chang (Karen) Long
+    <p style="person">sv –
+      Daniel Nylander
+      <span style="year">2005 - 2009</span>
+    </p>
+    <p style="person">tr –
+      Uyg Y.
+      <span style="year">2008</span>
+    </p>
+    <p style="person">zh_CN –
+      Chang (Karen) Long
       <span style="email">&lt;karenlong0123@gmail.com&gt;</span>
+      <span style="year">2013</span>
     </p>
-    <p style="person">
-      zh_CN – Xu Zhang
+    <p style="person">zh_CN –
+      Xu Zhang
       <span style="email">&lt;mirandazhang2010@gmail.com&gt;</span>
+      <span style="year">2013</span>
     </p>
-    <p style="person">
-      zh_CN – Ying Zhou
+    <p style="person">zh_CN –
+      Ying Zhou
       <span style="email">&lt;yzhou@miis.edu&gt;</span>
+      <span style="year">2013</span>
     </p>
-    <p style="person">
-      zh_CN – Ana Zaytseva
+    <p style="person">zh_CN –
+      Ana Zaytseva
       <span style="email">&lt;ana0119@gmail.com&gt;</span>
+      <span style="year">2013</span>
     </p>
 </Document>
