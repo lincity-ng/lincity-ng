@@ -141,15 +141,15 @@ void MainMenu::fillNewGameMenu()
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
     while(*fptr)
     {
-      if(std::string(*fptr).find(".scn")!=std::string::npos)
+      if(std::string(*fptr).find(".scn.gz")!=std::string::npos)
         break;
       fptr++;
     }
     if(*fptr)
     {
       std::string f=*fptr;
-      if(f.length()>5){
-        f=f.substr(0,f.length()-4); // truncate .scn
+      if(f.length()>7){
+        f=f.substr(0,f.length()-7); // truncate .scn.gz
       }
       // save real name
       fileMap.insert(std::pair<std::string, std::string>(buttonNames[i], f ));
@@ -483,7 +483,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 
     baseName = fc;
     if(newGameMenu.get()==currentMenu ) {
-        file=std::string("opening/")+fc+".scn";
+        file=std::string("opening/")+fc+".scn.gz";
     } else {
         file=fc;
     }
