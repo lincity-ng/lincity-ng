@@ -67,4 +67,5 @@
    <img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
 	<p style="hp"><a href="cricket">Баскетбольная площадка</a></p>
    <img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	<p style="hp"><a href="port">Порт</a></p>
 </Document>
