@@ -186,7 +186,7 @@ Game::run()
     gui->resize(getConfig()->videoX, getConfig()->videoY);
     int frame = 0;
 
-    Uint32 next_execute = 0, next_animate = 0, next_gui = 0, next_fps = 0;
+    Uint32 next_execute = ~0, next_animate = ~0, next_gui = 0, next_fps = 0;
     __attribute__((unused))
     Uint32 prev_execute = 0, prev_animate = 0, prev_gui = 0, prev_fps = 0;
     Uint32 next_task;

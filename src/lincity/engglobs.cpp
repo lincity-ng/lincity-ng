@@ -30,7 +30,7 @@ const int dy[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
 const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
 const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
 
-bool binary_mode = true;
+bool binary_mode = false;
 bool seed_compression = true;
 //You may want to set these to false for easier debugging
 

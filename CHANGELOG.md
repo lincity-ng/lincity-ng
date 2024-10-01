@@ -1,3 +1,12 @@
+## Unreleased
+
+###### Internal
+- Deprecated binary save format.
+- Deprecated old save format.
+- Converted starting scenarios to new save format.
+- Fixed simulation tick on load when paused.
+
+
 ## LinCity-NG 2.11.2 [SECURITY]
 
 date: 2024-09-26 <br/>
