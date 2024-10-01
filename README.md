@@ -10,6 +10,8 @@ to build and maintain a city. You can win the game either by
 building a sustainable economy or by evacuating all citizens with
 spaceships.
 
+See the in-game help [F1] for how to play.
+
 ## Building and Installation
 
 **Note:**
@@ -119,95 +121,10 @@ When the game is installed, you may run it with:
 lincity-ng
 ```
 
-From the main menu, you can quit the program by pressing ESC or ^C. This can be
-useful to terminate the program even if the selected video mode is not working
-properly.
-
-## Gameplay
-
-See the ingame help [F1] for more details.
-
-### Objective
-
-You can win Lincity-NG either by building a sustainable economy or
-by evacuating all citizens with spaceships.
-
-### Controls
-
-#### Mouse
-
-any click:
- * Click on Minimap shows the selected Area on mainscreen.
-
-right click:
- * right click on mainscreen to show info on building under cursor.
-<!-- * select tool from menu root -->
- * show help on tool
-
-middle click:
- * pan map on mainscreen.
-
-left click:
- * Perform action depending on selected tool. Bulldoze, show Information, construct building.
- * open Tool-Selection-Menus
- * select tool from menus
-
-scroll wheel:
- * up: zoom in
- * down: zoom out
-
-motion:
- * move cursor near the screen edge to scroll main screen
-
-
-#### Keyboard
-
- * KP_PLUS: zoom in
- * KP_MINUS: zoom out
- * KP_ENTER: zoom 100%
-
- * KP5: center screen on map
-
- * KP9: scroll main screen north
- * KP1: scroll main screen south
- * KP7: scroll main screen west
- * KP3: scroll main screen east
-
- * KP2: scroll main screen SE
- * KP4: scroll main screen SW
- * KP6: scroll main screen NE
- * KP8: scroll main screen NW
-
- * arrow keys and WASD: more ways to scroll the main screen
-
- * SHIFT: scroll main screen faster
-
-
- * ESCAPE: switch to query tool
- * h: hide high buildings. Press h again to show them.
- * v: cycle through MiniMap-overlay modes
- * b: toggle between current tool and bulldoze mode
- * g: toggle between right click showing building or tile info
- * F1: Help
-
- * F12: quick save
- * F9:  quick load
-
- * \` (backtick): minimap outline
- * 1: minimap nourishments
- * 2: minimap unemployment
- * 3: minimap power
- * 4: minimap fire cover
- * 5: mimimap cricket cover
- * 6: minimap health cover
- * 7: minimap traffic
- * 8: minimap pollution
- * 9: minimap coal
- * 0: minimap commodity inventory
 
 ## Contact
 
-Please report bugs and suggest features to
-    https://github.com/lincity-ng/lincity-ng/issues.
+View the project on GitHub: https://github.com/lincity-ng/lincity-ng.
 
-Visit our homepage: https://github.com/lincity-ng/lincity-ng.
+Report bugs and suggest features:
+  https://github.com/lincity-ng/lincity-ng/issues.

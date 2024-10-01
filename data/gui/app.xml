@@ -13,8 +13,9 @@
 	<!-- Help styles -->
 	<DefineStyle name="helpdocument" font-family="sans" background="#ffffff22" font-size="16" color="black"/>
 	<DefineStyle name="htitle" style="helpdocument" font-size="20" margin-top="5" halign="center" margin-bottom="10"/>
-	<DefineStyle name="hsubtitle" style="helpdocument" font-size="18"  margin-bottom="5"/>
-	<DefineStyle name="hp" style="helpdocument" margin-left="15" margin-right="10" margin-bottom="10"/>
+	<DefineStyle name="hsubtitle" style="helpdocument" font-size="18"
+			margin-bottom="5" margin-top="10"/>
+	<DefineStyle name="hp" style="helpdocument" margin-left="15" margin-right="10" margin-bottom="5"/>
 	<DefineStyle name="list" style="helpdocument" margin-left="10"/>
 
 	<GameView/>
