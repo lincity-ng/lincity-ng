@@ -1,3 +1,9 @@
+## Unreleased
+
+###### User Interface
+- Changed rocket icon.
+
+
 ## LinCity-NG 2.11.2 [SECURITY]
 
 date: 2024-09-26 <br/>

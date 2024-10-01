@@ -1,6 +1,11 @@
 /* ---------------------------------------------------------------------- *
- * waterwell.c
- * Copyright (C) 2007 Alain Baeckeroot (alain.baeckeroot@laposte.net)
+ * src/lincity/modules/waterwell.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 1995-1997 I J Peters
+ * Copyright (C) 1997-2005 Greg Sharp
+ * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,10 +17,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "waterwell.h"
 
