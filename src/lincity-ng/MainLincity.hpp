@@ -20,11 +20,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>
 
-extern int lincitySpeed;
+extern int simDelay;
 
 void initLincity();
 void doLincityStep();
-void setLincitySpeed( int speed );
+
+/**
+ * Sets the number of milliseconds to wait between simulation steps.
+**/
+void setSimulationDelay( int speed );
 
 //get Data form Lincity NG and Save City
 void saveCityNG( std::string newFilename );
