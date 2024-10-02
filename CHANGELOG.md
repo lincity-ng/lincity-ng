@@ -1,5 +1,8 @@
 ## Unreleased
 
+###### Internal
+- Removed many unused files from install.
+
 
 ## LinCity-NG 2.11.1
 
