@@ -40,7 +40,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Rect2D.hpp"             // for Rect2D
 #include "Vector2.hpp"            // for Vector2
 #include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
+
+using namespace std::placeholders;
 
 Document::Document()
 {
@@ -85,7 +86,7 @@ Document::parse(XmlReader& reader)
                     paragraph->parseList(reader, style);
                 }
                 paragraph->linkClicked.connect(
-                    makeCallback(*this, &Document::paragraphLinkClicked));
+                  std::bind(&Document::paragraphLinkClicked, this, _1, _2));
                 addChild(paragraph.release());
             } else if(node == "img") {
                 std::unique_ptr<DocumentImage> image (new DocumentImage());
@@ -151,7 +152,7 @@ void
 Document::addParagraph(Paragraph* paragraph)
 {
     paragraph->linkClicked.connect(
-            makeCallback(*this, &Document::paragraphLinkClicked));
+      std::bind(&Document::paragraphLinkClicked, this, _1, _2));
     addChild(paragraph);
     resize(width, height);
 }

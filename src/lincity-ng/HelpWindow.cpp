@@ -34,10 +34,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ScrollView.hpp"           // for ScrollView
 #include "gui/Window.hpp"               // for Window
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "gui/callback/Callback.hpp"    // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"      // for Signal
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
+
+using namespace std::placeholders;
 
 HelpWindow::HelpWindow(Desktop* desktop)
 {
@@ -70,7 +71,7 @@ HelpWindow::showTopic(const std::string& topic)
             // connect history back button
             historyBackButton = getButton(*helpWindow, "HistoryBack");
             historyBackButton->clicked.connect(
-                makeCallback(*this, &HelpWindow::historyBackClicked));
+              std::bind(&HelpWindow::historyBackClicked, this, _1));
         }
         // load new contents
         std::string filename = getHelpFile(topic);
@@ -79,7 +80,7 @@ HelpWindow::showTopic(const std::string& topic)
         if(document == 0)
             throw std::runtime_error("Help Contents is not a Document");
         document->linkClicked.connect(
-            makeCallback(*this, &HelpWindow::linkClicked));
+          std::bind(&HelpWindow::linkClicked, this, _1, _2));
 
         // attach to help window
         Component* helpScrollView

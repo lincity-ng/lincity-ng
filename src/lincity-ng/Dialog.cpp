@@ -47,7 +47,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/SwitchComponent.hpp"
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
@@ -62,6 +61,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
 #include "lincity/world.h"                 // for MapTile, World
 #include "tinygettext/gettext.hpp"         // for _
+
+using namespace std::placeholders;
 
 bool blockingDialogIsOpen = false;
 
@@ -195,11 +196,14 @@ void Dialog::askRocket(){
     p->setText( title.str() );
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayLaunchRocketButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayLaunchRocketButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 //no Signals caught here, so ScreenInterface has to catch them.
@@ -223,7 +227,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
 
     // connect signals
     Button* noButton = getButton( *myDialogComponent, "Ok" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 
     this->myDialogComponent = myDialogComponent.release();
     registerDialog();
@@ -248,9 +253,11 @@ void Dialog::askBulldozeMonument() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeMonumentButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeMonumentButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::askBulldozeRiver() {
@@ -272,9 +279,11 @@ void Dialog::askBulldozeRiver() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeRiverButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeRiverButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::askBulldozeShanty() {
@@ -296,9 +305,11 @@ void Dialog::askBulldozeShanty() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeShantyButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeShantyButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::coalSurvey(){
@@ -320,9 +331,11 @@ void Dialog::coalSurvey(){
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayCoalSurveyButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::setParagraphN( const std::string basename, const int number, const std::string text ){
@@ -504,7 +517,8 @@ void Dialog::gameStats(){
     if( !useExisting ){
         // connect signals
         Button* noButton = getButton( *myDialogComponent, "Okay" );
-        noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+        noButton->clicked.connect(
+          std::bind(&Dialog::closeDialogButtonClicked, this, _1));
     }
 }
 
@@ -690,9 +704,11 @@ void Dialog::editMarket(){
     if( market->commodityRuleCount[STUFF_WATER].give ) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
-    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
+    applyButton->clicked.connect(
+      std::bind(&Dialog::applyMarketButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 void Dialog::editPort(){
@@ -752,9 +768,11 @@ void Dialog::editPort(){
 
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
-    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
+    applyButton->clicked.connect(
+      std::bind(&Dialog::applyPortButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 void Dialog::applyMarketButtonClicked( Button* ){

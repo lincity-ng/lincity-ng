@@ -36,12 +36,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ScrollBar.hpp"          // for ScrollBar
 #include "Vector2.hpp"            // for Vector2
 #include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
 #include "callback/Signal.hpp"    // for Signal
 
 #ifdef DEBUG
 #include <assert.h>
 #endif
+
+using namespace std::placeholders;
 
 static const float MOUSEWHEELSCROLL = 90;
 
@@ -96,7 +97,7 @@ ScrollView::parse(XmlReader& reader)
     }
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
     scrollBarComponent->valueChanged.connect(
-            makeCallback(*this, &ScrollView::scrollBarChanged));
+      std::bind(&ScrollView::scrollBarChanged, this, _1, _2));
 
     setFlags(FLAG_RESIZABLE);
 }

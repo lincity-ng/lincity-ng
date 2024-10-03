@@ -66,8 +66,6 @@ add_library(lincity_gui  STATIC
 		WindowManager.hpp
 		XmlReader.hpp
 
-		callback/Callback.hpp
-		callback/CallbackBase.hpp
 		callback/Signal.hpp
 
 		PainterGL/PainterGL.cpp

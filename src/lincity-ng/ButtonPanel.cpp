@@ -37,7 +37,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
 #include "gui/Image.hpp"                   // for Image
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
@@ -55,6 +54,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class Painter;
 class Vector2;
+
+using namespace std::placeholders;
 
 extern void ok_dial_box(const char *, int, const char *);
 
@@ -361,7 +362,8 @@ void ButtonPanel::attachButtons()
             CheckButton* b = dynamic_cast<CheckButton*>(c);
             if(b)
             {
-                b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
+                b->clicked.connect(
+                  std::bind(&ButtonPanel::chooseButtonClicked, this, _1, _2));
                 doButton( mButtons[i] );
                 usrOp = &(ButtonOperations[mButtons[i]]);
                 if( b->isEnabled() )
@@ -387,7 +389,8 @@ void ButtonPanel::attachButtons()
             CheckButton* b = dynamic_cast<CheckButton*>(c);
             if(b)
             {
-                b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
+                b->clicked.connect(
+                  std::bind(&ButtonPanel::menuButtonClicked, this, _1, _2));
                 if( b->isEnabled() )
                 {   b->setTooltip( usrOp->createTooltip( ) );}
                 else

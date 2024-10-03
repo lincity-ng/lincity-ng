@@ -42,8 +42,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Vector2.hpp"            // for Vector2
 #include "WindowManager.hpp"      // for WindowManager
 #include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
 #include "callback/Signal.hpp"    // for Signal
+
+using namespace std::placeholders;
 
 Window::Window()
     : border(1), titlesize(0)
@@ -132,9 +133,8 @@ Window::parse(XmlReader& reader)
 
     // connect signals...
     if(closeButton().getComponent() != 0) {
-        Button* button = (Button*) closeButton().getComponent();
-        button->clicked.connect(
-                makeCallback(*this, &Window::closeButtonClicked));
+      Button* button = (Button*) closeButton().getComponent();
+      button->clicked.connect(std::bind(&Window::closeButtonClicked, this, _1));
     }
 }
 

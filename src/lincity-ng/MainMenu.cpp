@@ -44,7 +44,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/engglobs.h"              // for world, binary_mode, seed_c...
@@ -53,6 +52,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for DictionaryManager
+
+using namespace std::placeholders;
 
 extern std::string autoLanguage;
 
@@ -80,26 +81,19 @@ MainMenu::loadMainMenu()
         mainMenu.reset(loadGUIFile("gui/mainmenu.xml"));
         // connect signals
         Button* quitButton = getButton(*mainMenu, "QuitButton");
-        quitButton->clicked.connect(
-                makeCallback(*this, &MainMenu::quitButtonClicked));
+        quitButton->clicked.connect(std::bind(&MainMenu::quitButtonClicked, this, _1));
         Button* continueButton = getButton(*mainMenu, "ContinueButton");
-        continueButton->clicked.connect(
-                makeCallback(*this, &MainMenu::continueButtonClicked));
+        continueButton->clicked.connect(std::bind(&MainMenu::continueButtonClicked, this, _1));
         Button* newGameButton = getButton(*mainMenu, "NewGameButton");
-        newGameButton->clicked.connect(
-                makeCallback(*this, &MainMenu::newGameButtonClicked));
+        newGameButton->clicked.connect(std::bind(&MainMenu::newGameButtonClicked, this, _1));
         Button* loadGameButton = getButton(*mainMenu, "LoadButton");
-        loadGameButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameButtonClicked));
+        loadGameButton->clicked.connect(std::bind(&MainMenu::loadGameButtonClicked, this, _1));
         Button* saveGameButton = getButton(*mainMenu, "SaveButton");
-        saveGameButton->clicked.connect(
-                makeCallback(*this, &MainMenu::saveGameButtonClicked));
+        saveGameButton->clicked.connect(std::bind(&MainMenu::saveGameButtonClicked, this, _1));
         Button* creditsButton = getButton(*mainMenu, "CreditsButton");
-        creditsButton->clicked.connect(
-                makeCallback(*this, &MainMenu::creditsButtonClicked));
+        creditsButton->clicked.connect(std::bind(&MainMenu::creditsButtonClicked, this, _1));
         Button* optionsButton = getButton(*mainMenu, "OptionsButton");
-        optionsButton->clicked.connect(
-                makeCallback(*this, &MainMenu::optionsButtonClicked));
+        optionsButton->clicked.connect(std::bind(&MainMenu::optionsButtonClicked, this, _1));
 
     }
 
@@ -138,7 +132,7 @@ void MainMenu::fillNewGameMenu()
   {
     button=getCheckButton(*newGameMenu.get(),buttonNames[i]);
 
-    button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+    button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
     while(*fptr)
     {
       if(std::string(*fptr).find(".scn")!=std::string::npos)
@@ -165,23 +159,23 @@ void MainMenu::fillNewGameMenu()
   button=getCheckButton(*newGameMenu.get(),"WithVillage");
   button->check();
   //button->setCaptionText(_("random empty board"));
-  //button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  //button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
   button=getCheckButton(*newGameMenu.get(),"RiverDelta");
   button->setCaptionText(_("river delta"));
-  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
   button=getCheckButton(*newGameMenu.get(),"DesertArea");
   button->setCaptionText(_("semi desert"));
-  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
   button=getCheckButton(*newGameMenu.get(),"TemperateArea");
   button->setCaptionText(_("temperate"));
-  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
   button=getCheckButton(*newGameMenu.get(),"SwampArea");
   button->setCaptionText(_("swamp"));
-  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
   return;
 }
@@ -209,9 +203,9 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
         //make sure Button is connected only once
         button->clicked.clear();
         if( save )
-            button->clicked.connect(makeCallback(*this,&MainMenu::selectSaveGameButtonClicked));
+            button->clicked.connect(std::bind(&MainMenu::selectSaveGameButtonClicked, this, _1, _2));
         else {
-            button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+            button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
         }
         for(char** i = rc; *i != 0; i++){
             curfile = *i;
@@ -254,10 +248,10 @@ MainMenu::loadNewGameMenu()
 
         // connect signals
         Button* startButton = getButton(*newGameMenu, "StartButton");
-        startButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartButtonClicked));
+        startButton->clicked.connect(std::bind(&MainMenu::newGameStartButtonClicked, this, _1));
 
         Button* backButton = getButton(*newGameMenu, "BackButton");
-        backButton->clicked.connect(makeCallback(*this, &MainMenu::newGameBackButtonClicked));
+        backButton->clicked.connect(std::bind(&MainMenu::newGameBackButtonClicked, this, _1));
 
 
         fillNewGameMenu();
@@ -274,8 +268,7 @@ MainMenu::loadCreditsMenu()
     {
         creditsMenu.reset(loadGUIFile("gui/credits.xml"));
         Button* backButton = getButton(*creditsMenu, "BackButton");
-        backButton->clicked.connect(
-                makeCallback(*this, &MainMenu::creditsBackButtonClicked));
+        backButton->clicked.connect(std::bind(&MainMenu::creditsBackButtonClicked, this, _1));
     }
     int width = 0, height = 0;
     SDL_GetWindowSize(window, &width, &height);
@@ -288,42 +281,42 @@ MainMenu::loadOptionsMenu()
     if(optionsMenu.get() == 0) {
         optionsMenu.reset(loadGUIFile("gui/options.xml"));
         CheckButton* currentCheckButton = getCheckButton(*optionsMenu, "BackgroundMusic");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "SoundFX");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "Fullscreen");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumePlus");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumeMinus");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "FXVolumePlus");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "FXVolumeMinus");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "TrackPrev");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "TrackNext");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "ResolutionPrev");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "WorldLenPrev");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsBackButtonClicked));
+        currentButton->clicked.connect(std::bind(&MainMenu::optionsBackButtonClicked, this, _1));
     }
     //adjust checkbutton-states
     if( getConfig()->musicEnabled ){
@@ -384,11 +377,9 @@ MainMenu::loadLoadGameMenu()
 
         // connect signals
         Button* loadButton = getButton(*loadGameMenu, "LoadButton");
-        loadButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameLoadButtonClicked));
+        loadButton->clicked.connect(std::bind(&MainMenu::loadGameLoadButtonClicked, this, _1));
         Button* backButton = getButton(*loadGameMenu, "BackButton");
-        backButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
+        backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
     }
 
     // fill in file-names into slots
@@ -404,11 +395,9 @@ MainMenu::loadSaveGameMenu()
 
         // connect signals
         Button* saveButton = getButton(*saveGameMenu, "SaveButton");
-        saveButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameSaveButtonClicked));
+        saveButton->clicked.connect(std::bind(&MainMenu::loadGameSaveButtonClicked, this, _1));
         Button* backButton = getButton(*saveGameMenu, "BackButton");
-        backButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
+        backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
         // fill in file-names into slots
         fillLoadMenu( true );
     }

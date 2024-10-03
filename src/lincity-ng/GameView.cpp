@@ -52,7 +52,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
 #include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
@@ -69,6 +68,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/world.h"                 // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"         // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
+
+using namespace std::placeholders;
 
 
 const int scale3d = 128; // guestimate value for good looking 3d view;
@@ -184,13 +185,13 @@ void GameView::connectButtons(){
         root = root->getParent();
     }
     Button* button = getButton( *root, "hideHighBuildings" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 
     button = getButton( *root, "showTerrainHeight" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 
     button = getButton( *root, "mapOverlay" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 }
 
 /*
