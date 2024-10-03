@@ -26,12 +26,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                         // for basic_ostringstream, basic...
 #include <stdexcept>                       // for runtime_error
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "Debug.hpp"                       // for checked_cast
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MapEdit.hpp"                     // for monument_bul_flag, river_b...
 #include "Util.hpp"                        // for getCheckButton
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/Child.hpp"                   // for Childs, Child
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent

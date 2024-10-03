@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "Dialog.hpp"                      // for ASK_COAL_SURVEY, Dialog
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
@@ -37,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PBar.hpp"                        // for pbarGlobalStyle, PBAR_GLOB...
 #include "Util.hpp"                        // for getCheckButton, getSwitchC...
 #include "gui/Button.hpp"                  // for Button
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter

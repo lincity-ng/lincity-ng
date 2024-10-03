@@ -52,7 +52,7 @@ public:
 
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
-    
+
     void setTooltip(const std::string &pText);
 
     Component *getCaption();
@@ -65,7 +65,7 @@ public:
      */
     void enable(bool enabled = true);
     bool isEnabled() const;
-    
+
     enum State {
         STATE_NORMAL,
         STATE_HOVER,
@@ -73,7 +73,7 @@ public:
         STATE_CHECKED,
         STATE_DISABLED
     };
-    
+
     State state;
 
 private:
@@ -92,11 +92,11 @@ private:
     { return childs[4]; }
     Child& comp_caption()
     { return childs[5]; }
-    
+
     std::string mmain;
-    
+
     bool lowerOnClick;
-    bool checked;    
+    bool checked;
     bool mclicked;
     std::string tooltip;
     Uint32 mouseholdTicks;
@@ -105,5 +105,4 @@ private:
 
 #endif
 
-/** @file lincity-ng/CheckButton.hpp */
-
+/** @file gui/CheckButton.hpp */

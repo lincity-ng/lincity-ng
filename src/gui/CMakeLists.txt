@@ -2,6 +2,7 @@ find_package(OpenGL REQUIRED)
 
 add_library(lincity_gui  STATIC
 		Button.cpp
+		CheckButton.cpp
 		Child.cpp
 		Color.cpp
 		Component.cpp
@@ -32,6 +33,7 @@ add_library(lincity_gui  STATIC
 		XmlReader.cpp
 
 		Button.hpp
+		CheckButton.hpp
 		Child.hpp
 		Color.hpp
 		Component.hpp

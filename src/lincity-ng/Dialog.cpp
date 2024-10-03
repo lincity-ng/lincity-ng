@@ -35,12 +35,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>                       // for runtime_error
 #include <vector>                          // for vector
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
 #include "MapPoint.hpp"                    // for MapPoint
 #include "Util.hpp"                        // for getCheckButton, getButton
 #include "gui/Button.hpp"                  // for Button
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Paragraph.hpp"               // for Paragraph

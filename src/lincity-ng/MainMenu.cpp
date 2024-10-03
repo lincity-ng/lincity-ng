@@ -31,13 +31,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "Config.hpp"                      // for getConfig, Config
 #include "Game.hpp"                        // for getGame
 #include "MainLincity.hpp"                 // for loadCityNG, saveCityNG
 #include "Sound.hpp"                       // for getSound, Sound, MusicTran...
 #include "Util.hpp"                        // for getCheckButton, getButton
 #include "gui/Button.hpp"                  // for Button
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Desktop.hpp"                 // for Desktop
