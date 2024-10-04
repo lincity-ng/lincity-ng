@@ -236,7 +236,6 @@ void ButtonPanel::examineMenuButtons(){
         if ( usrOp->enoughTech() )
         {
             if( !b->isEnabled() ){
-                b->setTooltip( usrOp->createTooltip( ) );
                 b->enable();
             }
         }
@@ -245,11 +244,6 @@ void ButtonPanel::examineMenuButtons(){
             if( b->isEnabled() )
             {
                 b->enable( false );
-                std::ostringstream os;
-                os << usrOp->createTooltip( false ).c_str() << " ("
-                    << _("Techlevel") << " " << usrOp->requiredTech()
-                    << " " << _("required") << ")";
-                b->setTooltip(os.str().c_str());
             }
         }
     }
@@ -400,16 +394,6 @@ void ButtonPanel::attachButtons()
             {
                 b->clicked.connect(
                   std::bind(&ButtonPanel::menuButtonClicked, this, _1, _2));
-                if( b->isEnabled() )
-                {   b->setTooltip( usrOp->createTooltip( ) );}
-                else
-                {
-                    std::ostringstream os;
-                    os << usrOp->createTooltip( false ) << " ("
-                        << _("Techlevel") << " " << usrOp->requiredTech()
-                        << _("required") << ")";
-                    b->setTooltip(os.str());
-                }
                 if(b->getName() == "BPPointerButton") {
                   b->check();
                   activeMenuButton = b;
@@ -541,8 +525,6 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     activeButton = button;
     userOperation = &(ButtonOperations[previousName]);
 
-    if(cb != 0)
-    {   cb->setTooltip( userOperation->createTooltip() );}
     examineMenuButtons();
     getGameView()->setCursorSize(   userOperation->cursorSize() );
     updateToolInfo();
