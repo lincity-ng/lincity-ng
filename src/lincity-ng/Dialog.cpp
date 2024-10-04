@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/SwitchComponent.hpp"
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error

@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
 #include "gui/Image.hpp"                   // for Image
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity/all_buildings.h"         // for GROUP_WATER_COST, GROUP_WA...

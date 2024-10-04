@@ -55,6 +55,7 @@ add_library(lincity_gui  STATIC
 		Rect2D.hpp
 		ScrollBar.hpp
 		ScrollView.hpp
+		Signal.hpp
 		Style.hpp
 		SwitchComponent.hpp
 		TableLayout.hpp
@@ -65,8 +66,6 @@ add_library(lincity_gui  STATIC
 		Window.hpp
 		WindowManager.hpp
 		XmlReader.hpp
-
-		callback/Signal.hpp
 
 		PainterGL/PainterGL.cpp
 		PainterGL/PainterGL.hpp

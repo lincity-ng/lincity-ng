@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ScrollView.hpp"           // for ScrollView
 #include "gui/Window.hpp"               // for Window
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "gui/callback/Signal.hpp"      // for Signal
+#include "gui/Signal.hpp"      // for Signal
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 

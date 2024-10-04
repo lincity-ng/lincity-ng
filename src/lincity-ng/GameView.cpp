@@ -52,7 +52,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT

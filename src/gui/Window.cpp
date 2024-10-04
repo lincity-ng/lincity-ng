@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Vector2.hpp"            // for Vector2
 #include "WindowManager.hpp"      // for WindowManager
 #include "XmlReader.hpp"          // for XmlReader
-#include "callback/Signal.hpp"    // for Signal
+#include "Signal.hpp"    // for Signal
 
 using namespace std::placeholders;
 

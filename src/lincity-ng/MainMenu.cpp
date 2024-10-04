@@ -44,7 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/engglobs.h"              // for world, binary_mode, seed_c...
 #include "lincity/init_game.h"             // for new_city, city_settings

@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"        // for Component
 #include "gui/Event.hpp"            // for Event
 #include "gui/Vector2.hpp"          // for Vector2
-#include "gui/callback/Signal.hpp"  // for Signal
+#include "gui/Signal.hpp"  // for Signal
 
 class Painter;
 class XmlReader;

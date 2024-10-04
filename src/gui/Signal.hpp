@@ -56,4 +56,4 @@ private:
 #endif
 
 
-/** @file gui/callback/Signal.hpp */
+/** @file gui/Signal.hpp */
