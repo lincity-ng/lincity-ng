@@ -19,6 +19,7 @@ add_library(lincity_gui  STATIC
 		Image.cpp
 		Panel.cpp
 		Paragraph.cpp
+		RadioButtonGroup.cpp
 		Rect2D.cpp
 		ScrollBar.cpp
 		ScrollView.cpp
@@ -52,6 +53,7 @@ add_library(lincity_gui  STATIC
 		Painter.hpp
 		Panel.hpp
 		Paragraph.hpp
+		RadioButtonGroup.hpp
 		Rect2D.hpp
 		ScrollBar.hpp
 		ScrollView.hpp
