@@ -99,27 +99,30 @@ ButtonPanel::parse(XmlReader& reader)
     }
 
     // read buttons/menus,etc.
+    std::map<std::string, int> strContainingMenu;
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             const std::string& element = (const char*) reader.getName();
-            if(element == "menu")
-            {
+            if(element == "menu") {
                 std::string menuName=getAttribute(reader,"name");
                 std::string defName=getAttribute(reader,"default");
                 mMenus.push_back(menuName);
                 activeButtons.push_back(defName);
             }
-            else if(element == "button")
-            {   mButtons.push_back(getAttribute(reader,"name"));}
-            else if(element == "menubutton")
-            {   mMenuButtons.push_back(getAttribute(reader,"name"));}
-            else
-            {
+            else if(element == "button") {
+                std::string buttonName = getAttribute(reader,"name");
+                mButtons.push_back(buttonName);
+                strContainingMenu[buttonName] = mMenus.size() - 1;
+            }
+            else if(element == "menubutton") {
+                mMenuButtons.push_back(getAttribute(reader,"name"));
+            }
+            else {
                 Component* component = parseEmbeddedComponent(reader);
                 addChild(component);
                 if(component->getFlags() & FLAG_RESIZABLE)
-                {   component->resize(width, height);}
+                    component->resize(width, height);
             }
         }
     }
@@ -129,6 +132,12 @@ ButtonPanel::parse(XmlReader& reader)
     ButtonPanelInstance = this;
     previousName = "BPMPointerButton";
     alreadyAttached=false;
+
+    for(auto cm : strContainingMenu) {
+      CheckButton *b = dynamic_cast<CheckButton *>(findComponent(cm.first));
+      assert(b); if(!b) continue;
+      containingMenu[b] = cm.second;
+    }
 
     userOperation->action = UserOperation::ACTION_QUERY;
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
@@ -401,6 +410,10 @@ void ButtonPanel::attachButtons()
                         << _("required") << ")";
                     b->setTooltip(os.str());
                 }
+                if(b->getName() == "BPPointerButton") {
+                  b->check();
+                  activeMenuButton = b;
+                }
             }
         }
     }
@@ -411,22 +424,13 @@ void ButtonPanel::attachButtons()
     {
         // get Component
         Component *c=findComponent(mMenus[i]);
-        if(c)
-        {
-            // try en-/disabling compoent
-            // first get parent
-            Component *p=c->getParent();
-            if(p)
-            {
-                Childs::iterator i=p->childs.begin();
-                for(;i!=p->childs.end();i++)
-                {
-                    if(i->getComponent()==c)
-                    {    i->enable(false);}
-                }
-            }
-        }
+        if(!c) continue;
+        Child *pc = c->getParentChild();
+        assert(pc); if(!pc) continue;
+        pc->enable(false);
     }
+    mOpenMenu = NULL;
+    activeButton = dynamic_cast<CheckButton *>(findComponent(previousName));
 }
 
 /*
@@ -488,7 +492,8 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     //CK could return here to simply ignore clicks on inactive buttons
     Image *img = dynamic_cast<Image*>(button->getCaption());
     CheckButton *cb = 0;
-    std::string mmain = button->getMain();
+    int i = containingMenu[button];
+    std::string mmain = mMenuButtons[i];
     if(img)
     {
         std::string filename = img->getFilename();
@@ -504,43 +509,27 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
                 {
                     cb->enable();
                     cb->check();
-                    // simply simulate button press
-                    menuButtonClicked(cb,SDL_BUTTON_RIGHT);
                     dynamic_cast<Image*>(cb->getCaption())->setFile(filename);
-                }
-            }
-        }
-    }
 
-    //now hide the menu
-    for(size_t i=0;i<mMenuButtons.size();i++)
-    {
-        if(mmain==mMenuButtons[i])
-        {
-            if(btnOp->enoughTech())
-            {   activeButtons[i] = button->getName();}
-            // get Component
-            Component *c=findComponent(mMenus[i]);
-            if(c)
-            {
-                // try en-/disabling compoent
-                // first get parent
-                Component *p=c->getParent();
-                if(p)
-                {
-                    Childs::iterator itr=p->childs.begin();
-                    for(;itr!=p->childs.end();++itr)
-                    {
-                        if(itr->getComponent()==c)
-                        {   itr->enable(false);}
+                    activeButtons[i] = button->getName();
+                    if(activeButton && activeButton != button)
+                      activeButton->uncheck();
+                    activeButton = button;
+                    button->check();
+
+                    if(activeMenuButton != cb) {
+                      activeMenuButton->uncheck();
+                      activeMenuButton = cb;
                     }
                 }
             }
         }
     }
 
-    if(!btnOp->enoughTech())
-    {
+    //now hide the menu
+    openMenu(NULL);
+
+    if(!btnOp->enoughTech()) {
 #ifdef DEBUG
         ConstructionGroup *constructionGroup = btnOp->constructionGroup;
         std::cout <<"chooseButton not enough tech for: " << (constructionGroup?constructionGroup->name:"unknown") << std::endl;
@@ -549,6 +538,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     }
 
     previousName = button->getName();
+    activeButton = button;
     userOperation = &(ButtonOperations[previousName]);
 
     if(cb != 0)
@@ -558,93 +548,66 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     updateToolInfo();
 }
 
-void ButtonPanel::toggleMenu(std::string pName,bool enable)
-{
-    Component *c=findComponent(pName);
-    if(c)
-    {
-        // try en-/disabling compoent
-        // first get parent
-        Component *p=c->getParent();
-        if(p)
-        {
-            Childs::iterator itr=p->childs.begin();
-            for(;itr!=p->childs.end();++itr)
-            {
-                if(itr->getComponent()==c)
-                {
-                    itr->enable(enable);
-                }
-            }
-        }
-    }
+void ButtonPanel::openMenu(Component *menu) {
+  if(menu == mOpenMenu) return;
+
+  if(menu && mOpenMenu)
+    // close the previous menu before opening a new one
+    openMenu(NULL);
+
+  Child *pc = (menu ? menu : mOpenMenu)->getParentChild();
+  assert(pc); if(!pc) return;
+  pc->enable(!!menu);
+  mOpenMenu = menu;
 }
 
-
-void ButtonPanel::menuButtonClicked(CheckButton* button, int b)
-{
-    for(size_t i=0;i<mMenuButtons.size();i++)
-    {
-        if(button->getName()==mMenuButtons[i])
-        {
-            // get Component
-            Component* c=findComponent(mMenus[i]);
-            //Check if Techlevel is sufficient.
-            if(  ButtonOperations[mMenuButtons[i]].enoughTech() && ( b != SDL_BUTTON_RIGHT ) )
-            {
-                button->check();
-                Image *img = dynamic_cast<Image*>(button->getCaption());
-                if (img)
-                {
-                    //select tool from menubutton and set cursor in GameView
-                    UserOperation *usrOp = &(ButtonOperations[activeButtons[i]]);
-                    if(usrOp->enoughTech())
-                    {
-                        previousName = activeButtons[i];
-                        userOperation = usrOp;
-                        getGameView()->setCursorSize(   userOperation->cursorSize() );
-                    }
-                    menuButtonClicked(button,SDL_BUTTON_RIGHT); //simulate right click
-                }
-            }
-
-            if(c)
-            {
-                // try en-/disabling component
-                // first get parent
-                Component *p=c->getParent();
-                if(p)
-                {
-                    Childs::iterator i=p->childs.begin();
-                    for(;i!=p->childs.end();i++)
-                    {
-                        if(i->getComponent()==c)
-                        {
-                            if(i->isEnabled())
-                            {   i->enable(false);}
-                            else if(b!=SDL_BUTTON_RIGHT)
-                            {   i->enable(true);}
-                        }
-                    }
-                }
-            }
-        }
-        else if(b==SDL_BUTTON_RIGHT)
-        {
-            toggleMenu(mMenus[i],false);
-            try
-            {
-                CheckButton *b=checked_cast<CheckButton>(findComponent(mMenuButtons[i]));
-                // uncheck button, ignore disabled buttons
-                if( b->isEnabled() )
-                {   b->uncheck();}
-            }
-            catch(...)//(std::exception &e)
-            {   }
-        }
-        else
-        {   toggleMenu(mMenus[i],false);}
+void ButtonPanel::menuButtonClicked(CheckButton* button, int b) {
+  // find the menu associated with this button
+  // TODO: store the associations somewhere to make this a direct lookup
+  Component *menu;
+  std::string aButtonName;
+  for(size_t i=0;i<mMenuButtons.size();i++)
+    if(button->getName() == mMenuButtons[i]) {
+      menu = findComponent(mMenus[i]);
+      aButtonName = activeButtons[i];
+      break;
     }
+  assert(menu); if(!menu) return;
+
+  switch(b) {
+  case SDL_BUTTON_LEFT:
+    // undo the default checking/unchecking
+    if(activeMenuButton == button)
+      button->check();
+    else
+      button->uncheck();
+    openMenu(menu == mOpenMenu ? NULL : menu);
+    break;
+  case SDL_BUTTON_RIGHT:
+    UserOperation& uop = ButtonOperations[aButtonName];
+    if(uop.enoughTech()) {
+      CheckButton *aButton = dynamic_cast<CheckButton *>(
+        findComponent(aButtonName));
+      assert(activeButton); if(!activeButton) return;
+
+      if(activeMenuButton != button) {
+        activeMenuButton->uncheck();
+        button->check();
+        activeMenuButton = button;
+      }
+      if(activeButton != aButton) {
+        activeButton->uncheck();
+        aButton->check();
+        activeButton = aButton;
+      }
+      openMenu(NULL);
+
+      previousName = aButtonName;
+      userOperation = &uop;
+      getGameView()->setCursorSize(uop.cursorSize());
+    }
+    break;
+  }
 }
 
 bool ButtonPanel::opaque(const Vector2& pos) const

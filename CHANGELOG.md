@@ -1,3 +1,13 @@
+## Unreleased
+
+###### User Interface
+- Made the button panel UI a bit nicer. Right-click now selects a tool without
+  opening the menu.
+
+###### Internal
+- Changed GUI callbacks to use C++ std::function.
+
+
 ## LinCity-NG 2.11.2 [SECURITY]
 
 date: 2024-09-26 <br/>

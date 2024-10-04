@@ -340,9 +340,6 @@ CheckButton::event(const Event& event)
             nochange=true;
             break;
     }
-    if(mmain.length()){
-      checked=false; // these buttons have no state
-    }
     if(!nochange && state != STATE_DISABLED) {
         if(mclicked) {
             state=STATE_CLICKED;

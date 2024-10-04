@@ -143,6 +143,17 @@ Component::findComponent(const std::string& name)
     return 0;
 }
 
+Child *
+Component::getParentChild() const {
+  Component *p = getParent();
+  if(!p) return NULL;
+  for(Child& pc : p->childs)
+    if(pc.getComponent() == this)
+      return &pc;
+  assert(false); // we must be a child of our parent
+  return NULL;
+}
+
 Vector2
 Component::relative2Global(const Vector2& pos)
 {

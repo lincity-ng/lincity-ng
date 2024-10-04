@@ -50,7 +50,7 @@ class ButtonPanel : public Component
   void attachButtons();
   std::string getAttribute(XmlReader &reader,const std::string &pName) const;
   void doButton(const std::string &button);
-  void toggleMenu(std::string pName,bool enable);
+  void openMenu(Component * menu);
   void updateToolInfo();
 
   bool alreadyAttached;
@@ -65,6 +65,10 @@ class ButtonPanel : public Component
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
   std::vector<std::string> activeButtons;
+  Component *mOpenMenu;
+  CheckButton *activeMenuButton;
+  CheckButton *activeButton;
+  std::map<CheckButton *, int> containingMenu;
 
   std::map<std::string, UserOperation> ButtonOperations;
 };
@@ -74,4 +78,3 @@ ButtonPanel *getButtonPanel();
 #endif
 
 /** @file lincity-ng/ButtonPanel.hpp */
-
