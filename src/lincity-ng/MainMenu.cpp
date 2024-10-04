@@ -872,8 +872,8 @@ MainMenu::newGameStartButtonClicked(Button* )
     city_settings  city_obj;
     city_settings *city=&city_obj;
 
-    city->with_village  = (getCheckButton(*currentMenu,"WithVillage" )->state == CheckButton::STATE_CHECKED);
-    city->without_trees = (getCheckButton(*currentMenu,"WithoutTrees")->state == CheckButton::STATE_CHECKED);
+    city->with_village  = getCheckButton(*currentMenu,"WithVillage" )->isChecked();
+    city->without_trees = getCheckButton(*currentMenu,"WithoutTrees")->isChecked();
 
     if( baseName == "RiverDelta" ){
         new_city( &main_screen_originx, &main_screen_originy, city);

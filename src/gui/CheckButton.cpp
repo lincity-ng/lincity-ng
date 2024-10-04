@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (c) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -38,10 +39,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "libxml/xmlreader.h"        // for XML_READER_TYPE_ELEMENT, XML_REA...
 
 CheckButton::CheckButton() :
-  state(STATE_NORMAL), lowerOnClick(true), checked(false), mclicked(false),
-  mouseholdTicks(0) {}
+  autoCheck(true),
+  autoUncheck(true),
+  lowerOnClick(true)
+{}
 
-CheckButton::~CheckButton() { }
+CheckButton::~CheckButton() {}
+
+static void
+setBoolAttribute(const char *attr, const char *value, bool *dest) {
+  if(strcmp(value, "true") == 0) {
+    *dest = true;
+  } else if(strcmp(value, "false") == 0) {
+    *dest = false;
+  } else {
+    std::cerr << "Unknown value '" << value
+      << "' for attribute '" << attr
+      << "'. Should be 'true' or 'false'.\n";
+  }
+}
 
 void
 CheckButton::parse(XmlReader& reader)
@@ -68,20 +84,16 @@ CheckButton::parse(XmlReader& reader)
                 msg << "Couldn't parse height '" << value << "'.";
                 throw std::runtime_error(msg.str());
             }
+        } else if(strcmp(attribute, "auto-check") == 0) {
+          setBoolAttribute(attribute, value, &autoCheck);
+        } else if(strcmp(attribute, "auto-uncheck") == 0) {
+          setBoolAttribute(attribute, value, &autoUncheck);
         } else if(strcmp(attribute, "lower") == 0) {
-            lowerOnClick=true;
+          setBoolAttribute(attribute, value, &lowerOnClick);
         } else if(strcmp(attribute, "direction") == 0) {
             // skip
         } else if(strcmp(attribute, "checked") == 0) {
-            if(strcmp(value, "true") == 0) {
-                check();
-            } else if(strcmp(value, "false") == 0) {
-                uncheck();
-            } else {
-                std::cerr << "Unknown value '" << value
-                          << "' in check attribute."
-                          << " Should be 'true' or 'false'.\n";
-            }
+          setBoolAttribute(attribute, value, &mchecked);
         } else {
             std::cerr << "Skipping unknown attribute '"
                 << attribute << "'.\n";
@@ -230,168 +242,140 @@ CheckButton::setChildText(Child& child, XmlReader& reader)
 }
 
 void
-CheckButton::uncheck()
-{
-  checked=false;
-  state=STATE_NORMAL;
+CheckButton::uncheck() {
+  if(!mchecked)
+    return;
+  mchecked=false;
+  unchecked(this);
 }
 
 void
-CheckButton::check()
-{
-  checked=true;
-  state=STATE_CHECKED;
-}
-
-void
-CheckButton::enable(bool enabled)
-{
-    if(!enabled) {
-        state = STATE_DISABLED;
-    } else if(enabled && state == STATE_DISABLED) {
-        state = STATE_NORMAL;
-    }
+CheckButton::check() {
+  if(mchecked)
+    return;
+  mchecked=true;
+  checked(this);
 }
 
 bool
-CheckButton::isEnabled() const
-{
-    return state != STATE_DISABLED;
+CheckButton::isChecked() const {
+  return mchecked;
 }
 
 void
-CheckButton::event(const Event& event)
-{
-    bool nochange=false;
-
-    State oldstate=state;
-    switch(event.type) {
-        case Event::MOUSEMOTION:
-            if(event.inside) {
-                if(state == STATE_NORMAL) {
-                    state = STATE_HOVER;
-                }
-                mouseholdTicks = SDL_GetTicks();
-                mouseholdPos = event.mousepos;
-            } else {
-                mouseholdTicks = 0;
-                if(state == STATE_HOVER) {
-                    state = STATE_NORMAL;
-                }
-            }
-            break;
-        case Event::MOUSEBUTTONDOWN:
-            if(!event.inside) {
-              nochange=true;
-              break;
-            }
-            pressed(this, event.mousebutton);
-            mclicked=true;
-            break;
-        case Event::MOUSEBUTTONUP:
-            if(event.inside && mclicked) {
-                if(event.mousebutton == SDL_BUTTON_LEFT &&
-                   state != STATE_DISABLED)
-                  checked = !checked;
-                released(this, event.mousebutton);
-                clicked(this, event.mousebutton);
-            }
-            mclicked=false;
-            break;
-        case Event::UPDATE: {
-             Uint32 ticks = SDL_GetTicks();
-             if(mouseholdTicks != 0 && ticks - mouseholdTicks > TOOLTIP_TIME) {
-                 if(tooltipManager && tooltip != "") {
-                     tooltipManager->showTooltip(tooltip,
-                             relative2Global(mouseholdPos));
-                 }
-                 mouseholdTicks = 0;
-             }
-             nochange=true;
-             break;
-        }
-        default:
-            nochange=true;
-            break;
-    }
-    if(!nochange && state != STATE_DISABLED) {
-        if(mclicked) {
-            state=STATE_CLICKED;
-        } else if(checked) {
-            state=STATE_CHECKED;
-        } else if(event.inside) {
-            state=STATE_HOVER;
-        } else {
-            state=STATE_NORMAL;
-        }
-    }
-    if(oldstate != state){
-        setDirty();
-    }
-    Component::event(event);
+CheckButton::setAutoCheck(bool check, bool uncheck) {
+  autoCheck = check;
+  autoUncheck = uncheck;
 }
 
 void
-CheckButton::draw(Painter& painter)
-{
-    switch(state) {
-        case STATE_CLICKED:
-            if(comp_clicked().isEnabled()) {
-                drawChild(comp_clicked(), painter);
-                break;
-            }
-            // fallthrough
-        case STATE_HOVER:
-            if(comp_hover().isEnabled()) {
-                drawChild(comp_hover(), painter);
-                break;
-            } else {
-                drawChild(comp_normal(), painter);
-                break;
-            }
-        case STATE_CHECKED:
-            if(comp_checked().isEnabled()) {
-                drawChild(comp_checked(), painter);
-            } else {
-                drawChild(comp_normal(), painter);
-            }
-            break;
-        case STATE_DISABLED:
-#if 0
-            if(comp_disabled().isEnabled()) {
-                drawChild(comp_disabled(), painter);
-                break;
-            }
-#endif
-            // fallthrough
-        case STATE_NORMAL:
-            drawChild(comp_normal(), painter);
-            break;
+CheckButton::enable(bool enabled) {
+  mdisabled = !enabled;
+}
 
-        default:
-            assert(false);
+bool
+CheckButton::isEnabled() const {
+  return !mdisabled;
+}
+
+void
+CheckButton::event(const Event& event) {
+  switch(event.type) {
+  case Event::MOUSEMOTION:
+    if(mhovered = event.inside) {
+      mouseholdTicks = SDL_GetTicks();
+      mouseholdPos = event.mousepos;
+    } else {
+      mouseholdTicks = 0;
     }
-    if(lowerOnClick)
-    {
-        if(state == STATE_CLICKED)
-        {
-            painter.pushTransform();
-            painter.translate(Vector2(3,3));
+    break;
+  case Event::MOUSEBUTTONDOWN:
+    if(event.inside)
+      break;
+    mpressed = true;
+    pressed(this, event.mousebutton);
+    break;
+  case Event::MOUSEBUTTONUP:
+    if(!mpressed)
+      break;
+    mpressed = false;
+    if(event.inside) {
+      if(event.mousebutton == SDL_BUTTON_LEFT && !mdisabled) {
+        if(mchecked && autoUncheck) {
+          mchecked = false;
+          unchecked(this);
         }
-        else if(state == STATE_HOVER)
-        {
-            painter.pushTransform();
-            painter.translate(Vector2(1,1));
+        else if(!mchecked && autoCheck) {
+          mchecked = true;
+          checked(this);
         }
+      }
+      clicked(this, event.mousebutton);
     }
-    if(comp_caption().isEnabled()) {
-        if(state == STATE_DISABLED && comp_disabled().isEnabled())
-        {   drawChild(comp_disabled(), painter);}
-        else
-        {   drawChild(comp_caption(), painter);}
+    released(this, event.mousebutton);
+    break;
+  case Event::UPDATE: {
+    Uint32 ticks = SDL_GetTicks();
+    if(mouseholdTicks && ticks - mouseholdTicks > TOOLTIP_TIME) {
+      if(tooltipManager && tooltip != "") {
+        tooltipManager->showTooltip(tooltip,
+          relative2Global(mouseholdPos));
+      }
+      mouseholdTicks = 0;
     }
-    if(lowerOnClick && (state==STATE_CLICKED || state == STATE_HOVER))
-    {   painter.popTransform();}
+    break;
+  }
+  default:
+    break;
+  }
+  Component::event(event);
+}
+
+void
+CheckButton::draw(Painter& painter) {
+  // how to do if statements with fallthrough
+  if(mdisabled)     goto draw_normal;
+  else if(mpressed) goto draw_pressed;
+  else if(mchecked) goto draw_checked;
+  else if(mhovered) goto draw_hovered;
+  else              goto draw_normal;
+  draw_checked:
+    if(comp_checked().isEnabled()) {
+      drawChild(comp_checked(), painter);
+      goto end_draw_child;
+    }
+  draw_pressed:
+    if(comp_clicked().isEnabled()) {
+        drawChild(comp_clicked(), painter);
+        goto end_draw_child;
+    }
+  draw_hovered:
+    if(comp_hover().isEnabled()) {
+      drawChild(comp_hover(), painter);
+      goto end_draw_child;
+    }
+  draw_normal:
+    drawChild(comp_normal(), painter);
+  end_draw_child:
+
+  if(lowerOnClick)   {
+    if(mpressed) {
+      painter.pushTransform();
+      painter.translate(Vector2(3,3));
+    }
+    else if(mhovered) {
+      painter.pushTransform();
+      painter.translate(Vector2(1,1));
+    }
+  }
+  if(comp_caption().isEnabled()) {
+    if(mdisabled && comp_disabled().isEnabled())
+      drawChild(comp_disabled(), painter);
+    else
+      drawChild(comp_caption(), painter);
+  }
+  if(lowerOnClick && (mpressed || mhovered))
+    painter.popTransform();
 }
 
 Component *CheckButton::getCaption()
