@@ -37,35 +37,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/XmlReader.hpp"         // for XmlReader
 #include "libxml/xmlreader.h"        // for XML_READER_TYPE_ELEMENT, XML_REA...
 
-CheckButton::CheckButton()
-    : state(STATE_NORMAL), lowerOnClick(true), checked(false),
-     mclicked(false), mouseholdTicks(0)
-{
-    /* // FIXME no utput at crash
-    std::cout << "constructing: " << this << ": ";
-    std::cout.flush();
-    state = STATE_NORMAL;
-    std::cout << ".";
-    std::cout.flush();
-    lowerOnClick = false;
-    std::cout << ".";
-    std::cout.flush();
-    checked = false;
-    std::cout << ".";
-    std::cout.flush();
-    mclicked = false;
-    std::cout << ".";
-    std::cout.flush();
-    mouseholdTicks = 0;
-    std::cout << ".";
-    std::cout.flush();
-    std::cout << " done" << std::endl;
-    */
-}
+CheckButton::CheckButton() :
+  state(STATE_NORMAL), lowerOnClick(true), checked(false), mclicked(false),
+  mouseholdTicks(0) {}
 
-CheckButton::~CheckButton()
-{
-}
+CheckButton::~CheckButton() { }
 
 void
 CheckButton::parse(XmlReader& reader)
@@ -80,8 +56,6 @@ CheckButton::parse(XmlReader& reader)
 
         if(parseAttribute(attribute, value)) {
             continue;
-        } else if(strcmp(attribute,"main")==0) {
-            mmain=value;
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
@@ -425,10 +399,6 @@ Component *CheckButton::getCaption()
   return comp_caption().getComponent();
 }
 
-std::string CheckButton::getMain() const
-{
-  return mmain;
-}
 void CheckButton::setCaptionText(const std::string &pText)
 {
   Child &c=comp_caption();

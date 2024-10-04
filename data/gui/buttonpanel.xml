@@ -24,7 +24,7 @@
 	<button name="BPMWaterwellButton"/>
 	<button name="BPMFarmButton"/>
 	<button name="BPMParkButton"/>
-	
+
 	<menubutton name="BPSchoolButton"/>
 	<menu name="BPSchoolMenu" default="BPMMonumentButton"/>
 	<button name="BPMMonumentButton"/>
@@ -80,12 +80,12 @@
 					<image-disabled src="images/gui/buttonpanel/base/pointer.png" filter="grey"/>
 					<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
 				</CheckButton>
-			</cell>						
+			</cell>
 			<cell row="1" col="2" halign="left">
 				<Panel name="BPPointerMenu" width="200" height="50" background="images/gui/buttons/button-border-4.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPointerButton" main="BPPointerButton">
+						<CheckButton name="BPMPointerButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -95,7 +95,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMBullDozeButton" main="BPPointerButton">
+						<CheckButton name="BPMBullDozeButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -105,7 +105,7 @@
 						</CheckButton>
 					</cell>
 	       				<cell row="1" col="3">
-						<CheckButton name="BPMWaterButton" main="BPPointerButton">
+						<CheckButton name="BPMWaterButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -115,7 +115,7 @@
 						</CheckButton>
 					</cell>
 						<cell row="1" col="4">
-						<CheckButton name="BPMEvacuateButton" main="BPPointerButton">
+						<CheckButton name="BPMEvacuateButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -144,7 +144,7 @@
 				<Panel name="BPResidenceMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="6">
 					<cell row="1" col="1">
-						<CheckButton name="BPMResidence1Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence1Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -154,7 +154,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMResidence2Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence2Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -164,7 +164,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMResidence3Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence3Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -174,7 +174,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMResidence4Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence4Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -184,7 +184,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMResidence5Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence5Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -194,7 +194,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="6">
-						<CheckButton name="BPMResidence6Button" main="BPResidenceButton">
+						<CheckButton name="BPMResidence6Button">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -222,7 +222,7 @@
 				<Panel name="BPFarmMenu"  width="200" height="50" background="images/gui/buttons/button-border-4.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
-						<CheckButton name="BPMMarketButton" main="BPFarmButton">
+						<CheckButton name="BPMMarketButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -232,7 +232,7 @@
 						</CheckButton>
 					</cell>
 	        			<cell row="1" col="2">
-						<CheckButton name="BPMWaterwellButton" main="BPFarmButton">
+						<CheckButton name="BPMWaterwellButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -242,7 +242,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMFarmButton" main="BPFarmButton">
+						<CheckButton name="BPMFarmButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -252,7 +252,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMParkButton" main="BPFarmButton">
+						<CheckButton name="BPMParkButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -280,7 +280,7 @@
 				<Panel name="BPSchoolMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="6">
 						<cell row="1" col="1">
-						<CheckButton name="BPMMonumentButton" main="BPSchoolButton">
+						<CheckButton name="BPMMonumentButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -290,7 +290,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMSchoolButton" main="BPSchoolButton">
+						<CheckButton name="BPMSchoolButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -300,7 +300,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMUniversityButton" main="BPSchoolButton">
+						<CheckButton name="BPMUniversityButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -310,7 +310,7 @@
 						</CheckButton>
 					</cell>
 	        			<cell row="1" col="4">
-						<CheckButton name="BPMHealthButton" main="BPSchoolButton">
+						<CheckButton name="BPMHealthButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -320,7 +320,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMSportsButton" main="BPSchoolButton">
+						<CheckButton name="BPMSportsButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -330,7 +330,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="6">
-						<CheckButton name="BPMFireButton" main="BPSchoolButton">
+						<CheckButton name="BPMFireButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -358,7 +358,7 @@
 				<Panel name="BPTransportMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMTrackButton" main="BPTransportButton">
+						<CheckButton name="BPMTrackButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -368,7 +368,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMStreetButton" main="BPTransportButton">
+						<CheckButton name="BPMStreetButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -378,7 +378,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMRailButton" main="BPTransportButton">
+						<CheckButton name="BPMRailButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -388,7 +388,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMPortButton" main="BPTransportButton">
+						<CheckButton name="BPMPortButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -398,7 +398,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMRocketButton" main="BPTransportButton">
+						<CheckButton name="BPMRocketButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -426,7 +426,7 @@
 				<Panel name="BPPowerMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPowerLineButton" main="BPPowerButton">
+						<CheckButton name="BPMPowerLineButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -436,7 +436,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMCoalPSButton" main="BPPowerButton">
+						<CheckButton name="BPMCoalPSButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -446,7 +446,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMSolarPSButton" main="BPPowerButton">
+						<CheckButton name="BPMSolarPSButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -456,7 +456,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMSubstationButton" main="BPPowerButton">
+						<CheckButton name="BPMSubstationButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -466,7 +466,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMWindmillButton" main="BPPowerButton">
+						<CheckButton name="BPMWindmillButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -494,7 +494,7 @@
 				<Panel name="BPMiningMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMCommuneButton" main="BPMiningButton">
+						<CheckButton name="BPMCommuneButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -504,7 +504,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMCoalButton" main="BPMiningButton">
+						<CheckButton name="BPMCoalButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -514,7 +514,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMOreButton" main="BPMiningButton">
+						<CheckButton name="BPMOreButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -524,7 +524,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMTipButton" main="BPMiningButton">
+						<CheckButton name="BPMTipButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -534,7 +534,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMRecycleButton" main="BPMiningButton">
+						<CheckButton name="BPMRecycleButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -562,7 +562,7 @@
 				<Panel name="BPIndustryMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPotteryButton" main="BPIndustryButton">
+						<CheckButton name="BPMPotteryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -572,7 +572,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMBlacksmithButton" main="BPIndustryButton">
+						<CheckButton name="BPMBlacksmithButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -582,7 +582,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMMillButton" main="BPIndustryButton">
+						<CheckButton name="BPMMillButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -592,7 +592,7 @@
 						</CheckButton>
 					</cell>
                 			<cell row="1" col="4">
-						<CheckButton name="BPMLIndustryButton" main="BPIndustryButton">
+						<CheckButton name="BPMLIndustryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -602,7 +602,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMHIndustryButton" main="BPIndustryButton">
+						<CheckButton name="BPMHIndustryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -618,4 +618,3 @@
 		</TableLayout>
 	</content>
 </ButtonPanel>
-

@@ -56,7 +56,6 @@ public:
     void setTooltip(const std::string &pText);
 
     Component *getCaption();
-    std::string getMain() const;
     void uncheck();
     void check();
 
@@ -92,8 +91,6 @@ private:
     { return childs[4]; }
     Child& comp_caption()
     { return childs[5]; }
-
-    std::string mmain;
 
     bool lowerOnClick;
     bool checked;
