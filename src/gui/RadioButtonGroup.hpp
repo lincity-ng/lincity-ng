@@ -32,6 +32,7 @@ public:
   Signal<RadioButtonGroup *, CheckButton *> selected;
 
   void select(CheckButton *button);
+  void trySelect(CheckButton *button);
   CheckButton *getSelection() const { return selection; }
 
   void registerButton(CheckButton *button);

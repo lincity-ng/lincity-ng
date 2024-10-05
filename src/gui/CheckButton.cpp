@@ -247,6 +247,7 @@ CheckButton::uncheck() {
     return;
   mchecked=false;
   unchecked(this);
+  setDirty();
 }
 
 void
@@ -255,6 +256,21 @@ CheckButton::check() {
     return;
   mchecked=true;
   checked(this);
+  setDirty();
+}
+
+void
+CheckButton::tryUncheck() {
+  if(mdisabled)
+    return;
+  uncheck();
+}
+
+void
+CheckButton::tryCheck() {
+  if(mdisabled)
+    return;
+  check();
 }
 
 bool
@@ -271,6 +287,7 @@ CheckButton::setAutoCheck(bool check, bool uncheck) {
 void
 CheckButton::enable(bool enabled) {
   mdisabled = !enabled;
+  setDirty();
 }
 
 bool
@@ -290,10 +307,11 @@ CheckButton::event(const Event& event) {
     }
     break;
   case Event::MOUSEBUTTONDOWN:
-    if(event.inside)
+    if(!event.inside)
       break;
     mpressed = true;
     pressed(this, event.mousebutton);
+    setDirty();
     break;
   case Event::MOUSEBUTTONUP:
     if(!mpressed)
@@ -313,6 +331,7 @@ CheckButton::event(const Event& event) {
       clicked(this, event.mousebutton);
     }
     released(this, event.mousebutton);
+    setDirty();
     break;
   case Event::UPDATE: {
     Uint32 ticks = SDL_GetTicks();

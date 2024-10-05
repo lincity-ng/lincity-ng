@@ -2,69 +2,98 @@
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <ButtonPanel width="348" height="376">
 	<!-- Tooltips for the Button Pannel are created in ButtonPanel.cpp -->
-	<menubutton name="BPPointerButton"/>
-	<menu name="BPPointerMenu" default="BPMPointerButton"/>
-	<button name="BPMPointerButton"/>
-	<button name="BPMBullDozeButton"/>
-	<button name="BPMWaterButton"/>
-	<button name="BPMEvacuateButton"/>
+	<menu button-name="BPPointerButton" drawer-name="BPPointerMenu"
+			default="BPMPointerButton">
+		<tool name="BPMPointerButton"    action="QUERY"    help="query"/>
+		<tool name="BPMBullDozeButton"   action="BULLDOZE" help="bulldoze"/>
+		<tool name="BPMWaterButton"      action="FLOOD"    help="river"
+			upmes="riverup.mes"/>
+		<tool name="BPMEvacuateButton"   action="EVACUATE" help="evacuate"/>
+	</menu>
 
-	<menubutton name="BPResidenceButton"/>
-	<menu name="BPResidenceMenu" default="BPMResidence2Button"/>
-	<button name="BPMResidence1Button"/>
-	<button name="BPMResidence2Button"/>
-	<button name="BPMResidence3Button"/>
-	<button name="BPMResidence4Button"/>
-	<button name="BPMResidence5Button"/>
-	<button name="BPMResidence6Button"/>
+	<menu button-name="BPResidenceButton" drawer-name="BPResidenceMenu"
+			default="BPMResidence2Button">
+		<tool name="BPMResidence1Button" grpid="04" help="residential"/>
+		<tool name="BPMResidence2Button" grpid="36" help="residential"/>
+		<tool name="BPMResidence3Button" grpid="37" help="residential"/>
+		<tool name="BPMResidence4Button" grpid="38" help="residential"/>
+		<tool name="BPMResidence5Button" grpid="39" help="residential"/>
+		<tool name="BPMResidence6Button" grpid="40" help="residential"/>
+	</menu>
 
-	<menubutton name="BPFarmButton"/>
-	<menu name="BPFarmMenu" default="BPMFarmButton"/>
-	<button name="BPMMarketButton"/>
-	<button name="BPMWaterwellButton"/>
-	<button name="BPMFarmButton"/>
-	<button name="BPMParkButton"/>
+	<menu button-name="BPFarmButton" drawer-name="BPFarmMenu"
+			default="BPMFarmButton">
+		<tool name="BPMMarketButton"     grpid="06" help="market"/>
+		<tool name="BPMWaterwellButton"  grpid="41" help="waterwell"/>
+		<tool name="BPMFarmButton"       grpid="05" help="farm"/>
+		<tool name="BPMParkButton"       grpid="19" help="park"
+			upmes="parkup.mes"/>
+	</menu>
 
-	<menubutton name="BPSchoolButton"/>
-	<menu name="BPSchoolMenu" default="BPMMonumentButton"/>
-	<button name="BPMMonumentButton"/>
-	<button name="BPMSchoolButton"/>
-	<button name="BPMUniversityButton"/>
-	<button name="BPMFireButton"/>
-	<button name="BPMHealthButton"/>
-	<button name="BPMSportsButton"/>
+	<menu button-name="BPSchoolButton" drawer-name="BPSchoolMenu"
+		 	default="BPMMonumentButton">
+		<tool name="BPMMonumentButton"   grpid="25" help="monument"/>
+		<tool name="BPMSchoolButton"     grpid="26" help="school"
+			upmes="schoolup.mes"/>
+		<tool name="BPMUniversityButton" grpid="13" help="university" upmes="universityup.mes"/>
+		<tool name="BPMFireButton"       grpid="30" help="firestation"
+			upmes="firestationup.mes"/>
+		<tool name="BPMHealthButton"     grpid="22" help="health"
+			upmes="healthup.mes"/>
+		<tool name="BPMSportsButton"     grpid="31" help="cricket"
+			upmes="cricketup.mes"/>
+	</menu>
 
-	<menubutton name="BPTransportButton"/>
-	<menu name="BPTransportMenu" default="BPMTrackButton"/>
-	<button name="BPMTrackButton"/>
-	<button name="BPMStreetButton"/>
-	<button name="BPMRailButton"/>
-	<button name="BPMPortButton"/>
-	<button name="BPMRocketButton"/>
+	<menu button-name="BPTransportButton" drawer-name="BPTransportMenu"
+			default="BPMTrackButton">
+		<tool name="BPMTrackButton"      grpid="07" help="track"/>
+		<tool name="BPMStreetButton"     grpid="11" help="road"
+			upmes="roadup.mes"/>
+		<tool name="BPMRailButton"       grpid="09" help="rail"
+			upmes="railwayup.mes"/>
+		<tool name="BPMPortButton"       grpid="17" help="port"
+			upmes="import-exportup.mes"/>
+		<tool name="BPMRocketButton"     grpid="23" help="rocket"
+			upmes="rocketup.mes"/>
+	</menu>
 
-	<menubutton name="BPPowerButton"/>
-	<menu name="BPPowerMenu" default="BPMWindmillButton"/>
-	<button name="BPMPowerLineButton"/>
-	<button name="BPMCoalPSButton"/>
-	<button name="BPMSolarPSButton"/>
-	<button name="BPMSubstationButton"/>
-	<button name="BPMWindmillButton"/>
+	<menu button-name="BPPowerButton" drawer-name="BPPowerMenu"
+			default="BPMWindmillButton">
+		<tool name="BPMPowerLineButton"  grpid="01" help="powerline"/>
+		<tool name="BPMCoalPSButton"     grpid="10" help="powerscoal"
+			upmes="coalpowerup.mes"/>
+		<tool name="BPMSolarPSButton"    grpid="02" help="powerssolar"
+			upmes="solarpowerup.mes"/>
+		<tool name="BPMSubstationButton" grpid="03" help="substation"/>
+		<tool name="BPMWindmillButton"   grpid="49" help="windmill"
+			upmes="windmillup.mes"/>
+	</menu>
 
-	<menubutton name="BPMiningButton"/>
-	<menu name="BPMiningMenu" default="BPMCommuneButton"/>
-	<button name="BPMCommuneButton"/>
-	<button name="BPMCoalButton"/>
-	<button name="BPMOreButton"/>
-	<button name="BPMTipButton"/>
-	<button name="BPMRecycleButton"/>
+	<menu button-name="BPMiningButton" drawer-name="BPMiningMenu"
+			default="BPMCommuneButton">
+		<tool name="BPMCommuneButton"    grpid="14" help="commune"/>
+		<tool name="BPMCoalButton"       grpid="08" help="coalmine"
+			upmes="coalmineup.mes"/>
+		<tool name="BPMOreButton"        grpid="15" help="oremine"
+			upmes="oremineup.mes"/>
+		<tool name="BPMTipButton"        grpid="16" help="tip"/>
+		<tool name="BPMRecycleButton"    grpid="20" help="recycle"
+			upmes="recycleup.mes"/>
+	</menu>
 
-	<menubutton name="BPIndustryButton"/>
-	<menu name="BPIndustryMenu" default="BPMPotteryButton"/>
-	<button name="BPMPotteryButton"/>
-	<button name="BPMBlacksmithButton"/>
-	<button name="BPMMillButton"/>
-	<button name="BPMLIndustryButton"/>
-	<button name="BPMHIndustryButton"/>
+	<menu button-name="BPIndustryButton" drawer-name="BPIndustryMenu"
+			default="BPMPotteryButton">
+		<tool name="BPMPotteryButton"    grpid="29" help="pottery"
+			upmes="potteryup.mes"/>
+		<tool name="BPMBlacksmithButton" grpid="27" help="blacksmith"
+			upmes="blacksmithup.mes"/>
+		<tool name="BPMMillButton"       grpid="28" help="mill"
+			upmes="millup.mes"/>
+		<tool name="BPMLIndustryButton"  grpid="12" help="industryl"
+			upmes="ltindustryup.mes"/>
+		<tool name="BPMHIndustryButton"  grpid="18" help="industryh"
+			upmes="hvindustryup.mes"/>
+	</menu>
 
 	<content>
 		<TableLayout rows="8" cols="2">
@@ -72,7 +101,7 @@
 
 			<!-- base -->
 			<cell row="1" col="1" halign="left">
-				<CheckButton name="BPPointerButton" lower="true">
+				<CheckButton name="BPPointerButton" lower="true" auto-check="false" auto-uncheck="false">
 					<image src="images/gui/buttons/menu-button.png"/>
 					<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 					<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -85,7 +114,7 @@
 				<Panel name="BPPointerMenu" width="200" height="50" background="images/gui/buttons/button-border-4.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPointerButton">
+						<CheckButton name="BPMPointerButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -95,7 +124,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMBullDozeButton">
+						<CheckButton name="BPMBullDozeButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -105,7 +134,7 @@
 						</CheckButton>
 					</cell>
 	       				<cell row="1" col="3">
-						<CheckButton name="BPMWaterButton">
+						<CheckButton name="BPMWaterButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -115,7 +144,7 @@
 						</CheckButton>
 					</cell>
 						<cell row="1" col="4">
-						<CheckButton name="BPMEvacuateButton">
+						<CheckButton name="BPMEvacuateButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -131,7 +160,7 @@
 
 			<!-- residents and so -->
 			<cell row="2" col="1" halign="left">
-				<CheckButton name="BPResidenceButton" lower="true">
+				<CheckButton name="BPResidenceButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -144,7 +173,7 @@
 				<Panel name="BPResidenceMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="6">
 					<cell row="1" col="1">
-						<CheckButton name="BPMResidence1Button">
+						<CheckButton name="BPMResidence1Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -154,7 +183,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMResidence2Button">
+						<CheckButton name="BPMResidence2Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -164,7 +193,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMResidence3Button">
+						<CheckButton name="BPMResidence3Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -174,7 +203,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMResidence4Button">
+						<CheckButton name="BPMResidence4Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -184,7 +213,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMResidence5Button">
+						<CheckButton name="BPMResidence5Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -194,7 +223,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="6">
-						<CheckButton name="BPMResidence6Button">
+						<CheckButton name="BPMResidence6Button" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -209,7 +238,7 @@
 
 			<!-- Farms -->
 			<cell row="3" col="1" halign="left">
-				<CheckButton name="BPFarmButton" lower="true">
+				<CheckButton name="BPFarmButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -222,7 +251,7 @@
 				<Panel name="BPFarmMenu"  width="200" height="50" background="images/gui/buttons/button-border-4.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
-						<CheckButton name="BPMMarketButton">
+						<CheckButton name="BPMMarketButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -232,7 +261,7 @@
 						</CheckButton>
 					</cell>
 	        			<cell row="1" col="2">
-						<CheckButton name="BPMWaterwellButton">
+						<CheckButton name="BPMWaterwellButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -242,7 +271,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMFarmButton">
+						<CheckButton name="BPMFarmButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -252,7 +281,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMParkButton">
+						<CheckButton name="BPMParkButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -267,7 +296,7 @@
 
 			<!-- fire health e.g. -->
 			<cell row="4" col="1" halign="left">
-				<CheckButton name="BPSchoolButton" lower="true">
+				<CheckButton name="BPSchoolButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -280,7 +309,7 @@
 				<Panel name="BPSchoolMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="6">
 						<cell row="1" col="1">
-						<CheckButton name="BPMMonumentButton">
+						<CheckButton name="BPMMonumentButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -290,7 +319,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMSchoolButton">
+						<CheckButton name="BPMSchoolButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -300,7 +329,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMUniversityButton">
+						<CheckButton name="BPMUniversityButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -310,7 +339,7 @@
 						</CheckButton>
 					</cell>
 	        			<cell row="1" col="4">
-						<CheckButton name="BPMHealthButton">
+						<CheckButton name="BPMHealthButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -320,7 +349,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMSportsButton">
+						<CheckButton name="BPMSportsButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -330,7 +359,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="6">
-						<CheckButton name="BPMFireButton">
+						<CheckButton name="BPMFireButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -345,7 +374,7 @@
 
 			<!-- transport -->
 			<cell row="5" col="1" halign="left">
-				<CheckButton name="BPTransportButton" lower="true">
+				<CheckButton name="BPTransportButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -358,7 +387,7 @@
 				<Panel name="BPTransportMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMTrackButton">
+						<CheckButton name="BPMTrackButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -368,7 +397,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMStreetButton">
+						<CheckButton name="BPMStreetButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -378,7 +407,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMRailButton">
+						<CheckButton name="BPMRailButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -388,7 +417,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMPortButton">
+						<CheckButton name="BPMPortButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -398,7 +427,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMRocketButton">
+						<CheckButton name="BPMRocketButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -413,7 +442,7 @@
 
 			<!-- power -->
 			<cell row="6" col="1" halign="left">
-				<CheckButton name="BPPowerButton" lower="true">
+				<CheckButton name="BPPowerButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -426,7 +455,7 @@
 				<Panel name="BPPowerMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPowerLineButton">
+						<CheckButton name="BPMPowerLineButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -436,7 +465,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMCoalPSButton">
+						<CheckButton name="BPMCoalPSButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -446,7 +475,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMSolarPSButton">
+						<CheckButton name="BPMSolarPSButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -456,7 +485,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMSubstationButton">
+						<CheckButton name="BPMSubstationButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -466,7 +495,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMWindmillButton">
+						<CheckButton name="BPMWindmillButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -481,7 +510,7 @@
 
 			<!-- mining -->
 			<cell row="7" col="1" halign="left">
-				<CheckButton name="BPMiningButton" lower="true">
+				<CheckButton name="BPMiningButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -494,7 +523,7 @@
 				<Panel name="BPMiningMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMCommuneButton">
+						<CheckButton name="BPMCommuneButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -504,7 +533,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMCoalButton">
+						<CheckButton name="BPMCoalButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -514,7 +543,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMOreButton">
+						<CheckButton name="BPMOreButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -524,7 +553,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMTipButton">
+						<CheckButton name="BPMTipButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -534,7 +563,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMRecycleButton">
+						<CheckButton name="BPMRecycleButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -549,7 +578,7 @@
 
 			<!-- industry -->
 			<cell row="8" col="1" halign="left">
-				<CheckButton name="BPIndustryButton" lower="true">
+				<CheckButton name="BPIndustryButton" lower="true" auto-check="false" auto-uncheck="false">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
@@ -562,7 +591,7 @@
 				<Panel name="BPIndustryMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMPotteryButton">
+						<CheckButton name="BPMPotteryButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -572,7 +601,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
-						<CheckButton name="BPMBlacksmithButton">
+						<CheckButton name="BPMBlacksmithButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -582,7 +611,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMMillButton">
+						<CheckButton name="BPMMillButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -592,7 +621,7 @@
 						</CheckButton>
 					</cell>
                 			<cell row="1" col="4">
-						<CheckButton name="BPMLIndustryButton">
+						<CheckButton name="BPMLIndustryButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -602,7 +631,7 @@
 						</CheckButton>
 					</cell>
 					<cell row="1" col="5">
-						<CheckButton name="BPMHIndustryButton">
+						<CheckButton name="BPMHIndustryButton" auto-uncheck="false">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>

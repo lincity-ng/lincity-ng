@@ -61,6 +61,8 @@ public:
 
     void check();
     void uncheck();
+    void tryCheck();
+    void tryUncheck();
     bool isChecked() const;
     void setAutoCheck(bool check, bool uncheck);
 

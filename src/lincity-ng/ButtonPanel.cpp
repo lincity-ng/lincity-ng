@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (c) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ButtonPanel.hpp"
 
-#include <SDL.h>                     // for SDL_BUTTON_RIGHT, SDL_BUTT...
+#include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_BUTT...
 #include <stdio.h>                         // for size_t, NULL, sscanf
 #include <string.h>                        // for strcmp
 #include <algorithm>                       // for max
@@ -37,7 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
 #include "gui/Image.hpp"                   // for Image
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity/all_buildings.h"         // for GROUP_WATER_COST, GROUP_WA...
@@ -59,537 +60,409 @@ using namespace std::placeholders;
 
 extern void ok_dial_box(const char *, int, const char *);
 
-ButtonPanel *ButtonPanelInstance=0;
+ButtonPanel *buttonPanelInstance = NULL;
 
-ButtonPanel *getButtonPanel()
-{
-    return ButtonPanelInstance;
+ButtonPanel *getButtonPanel() {
+    return buttonPanelInstance;
 }
 
-ButtonPanel::ButtonPanel()
+ButtonPanel::ButtonPanel() :
+  lastShownTechGroup(0)
 {
-    userOperation = new UserOperation();
+  assert(!buttonPanelInstance);
+  buttonPanelInstance = this;
+}
+
+ButtonPanel::~ButtonPanel() {
+  for(auto menu : menus) {
+    delete menu.second;
+  }
+  for(auto tool : tools) {
+    delete tool.second;
+  }
 }
 
 void
-ButtonPanel::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+ButtonPanel::parse(XmlReader& reader) {
+  // parse top-level attributes
+  XmlReader::AttributeIterator iter(reader);
+  while(iter.next()) {
+    const char* attribute = (const char*) iter.getName();
+    const char* value = (const char*) iter.getValue();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Parse error when parsing width (" << value << ")";
-                throw std::runtime_error(msg.str());
-           }
-        } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Parse error when parsing height (" << value << ")";
-                throw std::runtime_error(msg.str());
-            }
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
+    if(parseAttribute(attribute, value)) {
+      continue;
+    } else if(strcmp(attribute, "width") == 0) {
+      if(sscanf(value, "%f", &width) != 1) {
+        std::stringstream msg;
+        msg << "Parse error when parsing width (" << value << ")";
+        throw std::runtime_error(msg.str());
+      }
+    } else if(strcmp(attribute, "height") == 0) {
+      if(sscanf(value, "%f", &height) != 1) {
+        std::stringstream msg;
+        msg << "Parse error when parsing height (" << value << ")";
+        throw std::runtime_error(msg.str());
+      }
+    } else {
+      std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
     }
+  }
 
-    // read buttons/menus,etc.
-    std::map<std::string, int> strContainingMenu;
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+  // parse child elements
+  std::list<Menu *> menusTmp;
+  int depth = reader.getDepth();
+  while(reader.read() && reader.getDepth() > depth) {
+    if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+      const std::string& element = (const char*) reader.getName();
+      if(element == "menu") {
+        Menu *menu = new Menu();
+        menusTmp.push_back(menu);
+
+        // parse menu attributes
+        XmlReader::AttributeIterator iter(reader);
+        while(iter.next()) {
+          std::string attribute = (const char *)iter.getName();
+          std::string value = (const char *)iter.getValue();
+          if(attribute == "button-name") {
+            menu->button = reinterpret_cast<CheckButton *>(
+              new std::string(value));
+          }
+          else if(attribute == "drawer-name") {
+            menu->drawer = reinterpret_cast<CheckButton *>(
+              new std::string(value));
+          }
+          else if(attribute == "default") {
+            menu->activeTool = reinterpret_cast<Tool *>(
+              new std::string(value));
+          }
+          else {
+            std::cerr << "Skipping unknown attribute '"
+              << attribute << "'.\n";
+          }
+        }
+
+        // parse menu elements
+        int depth = reader.getDepth();
+        while(reader.read() && reader.getDepth() > depth) {
+          if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             const std::string& element = (const char*) reader.getName();
-            if(element == "menu") {
-                std::string menuName=getAttribute(reader,"name");
-                std::string defName=getAttribute(reader,"default");
-                mMenus.push_back(menuName);
-                activeButtons.push_back(defName);
-            }
-            else if(element == "button") {
-                std::string buttonName = getAttribute(reader,"name");
-                mButtons.push_back(buttonName);
-                strContainingMenu[buttonName] = mMenus.size() - 1;
-            }
-            else if(element == "menubutton") {
-                mMenuButtons.push_back(getAttribute(reader,"name"));
+            if(element == "tool") {
+              Tool *tool = new Tool();
+              tool->menu = menu;
+              menu->tools.push_back(tool);
+              tool->operation.action = UserOperation::ACTION_BUILD;
+
+              // parse tool attributes
+              XmlReader::AttributeIterator iter(reader);
+              while(iter.next()) {
+                std::string attribute = (const char *)iter.getName();
+                std::string value = (const char *)iter.getValue();
+                if(attribute == "name") {
+                  tool->button = reinterpret_cast<CheckButton *>(
+                    new std::string(value));
+                }
+                else if(attribute == "action") {
+                  if(value == "QUERY")
+                    tool->operation.action = UserOperation::ACTION_QUERY;
+                  else if(value == "EVACUATE")
+                    tool->operation.action = UserOperation::ACTION_EVACUATE;
+                  else if(value == "BULLDOZE")
+                    tool->operation.action = UserOperation::ACTION_BULLDOZE;
+                  else if(value == "FLOOD")
+                    tool->operation.action = UserOperation::ACTION_FLOOD;
+                  else if(value == "BUILD")
+                    tool->operation.action = UserOperation::ACTION_BUILD;
+                  else
+                    tool->operation.action = UserOperation::ACTION_UNKNOWN;
+                }
+                else if(attribute == "grpid") {
+                  tool->operation.constructionGroup =
+                    ConstructionGroup::getConstructionGroup(std::stoi(value));
+                }
+                else if(attribute == "help") {
+                  tool->operation.helpName = value;
+                }
+                else if(attribute == "upmes") {
+                  tool->upMessage = value;
+                }
+                else {
+                  std::cerr << "Skipping unknown attribute '"
+                    << attribute << "'.\n";
+                }
+              }
+
+              // parse tool elements (tools don't have nested elements (yet))
+              int depth = reader.getDepth();
+              while(reader.read() && reader.getDepth() > depth) {
+                const std::string& element = (const char*) reader.getName();
+                std::cerr << "Skipping unknown element '"
+                  << element << "'.\n";
+              }
             }
             else {
-                Component* component = parseEmbeddedComponent(reader);
-                addChild(component);
-                if(component->getFlags() & FLAG_RESIZABLE)
-                    component->resize(width, height);
+              std::cerr << "Skipping unknown element '"
+                << element << "'.\n";
             }
+          }
         }
+      }
+      else {
+          Component* component = parseEmbeddedComponent(reader);
+          addChild(component);
+          if(component->getFlags() & FLAG_RESIZABLE)
+              component->resize(width, height);
+      }
     }
-#ifdef DEBUG
-    assert(!ButtonPanelInstance);
-#endif
-    ButtonPanelInstance = this;
-    previousName = "BPMPointerButton";
-    alreadyAttached=false;
+  }
 
-    for(auto cm : strContainingMenu) {
-      CheckButton *b = dynamic_cast<CheckButton *>(findComponent(cm.first));
-      assert(b); if(!b) continue;
-      containingMenu[b] = cm.second;
+  // resolve component names
+  for(Menu *menu : menusTmp) {
+    std::string *buttonName = reinterpret_cast<std::string *>(menu->button);
+    std::string *drawerName = reinterpret_cast<std::string *>(menu->drawer);
+    std::string *activeName = reinterpret_cast<std::string *>(menu->activeTool);
+
+    if(buttonName) {
+      menu->button = dynamic_cast<CheckButton *>(findComponent(*buttonName));
+
+      if(menu->button)
+        menus[menu->button] = menu;
+      else
+        std::cerr << "error: could not find menu button '"
+          << *buttonName << "'\n";
+    }
+    else {
+      std::cerr << "error: no button-name provided for this menu\n";
     }
 
-    userOperation->action = UserOperation::ACTION_QUERY;
-    checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
-    lastShownTechGroup = 0;
-    ButtonOperations.clear();//discard initial default names, attachbuttons() will create proper map
+    if(menu->drawer) {
+      menu->drawer = findComponent(*drawerName);
+
+      if(!menu->drawer)
+        std::cerr << "error: could not find menu drawer '"
+          << *drawerName << "'\n";
+    }
+    else {
+      std::cerr << "error: no drawer-name provided for this menu\n";
+    }
+
+    menu->activeTool = NULL;
+
+    for(Tool *tool : menu->tools) {
+      std::string *buttonName = reinterpret_cast<std::string *>(tool->button);
+
+      if(buttonName) {
+        tool->button = dynamic_cast<CheckButton *>(findComponent(*buttonName));
+
+        if(tool->button && activeName && *buttonName == *activeName)
+          menu->setActiveTool(tool);
+
+        if(tool->button) {
+          tools[tool->button] = tool;
+        }
+        else
+          std::cerr << "error: could not find tool button '"
+            << *buttonName << "'\n";
+      }
+      else {
+        std::cerr << "error: no name provided for this tool\n";
+      }
+
+      delete buttonName;
+    }
+
+    if(!menu->activeTool) {
+      if(activeName)
+        std::cerr << "error: could not find default tool '"
+          << *buttonName << "'\n";
+      else
+        std::cerr << "error: no default tool provided for this menu\n";
+    }
+
+    delete buttonName;
+    delete drawerName;
+    delete activeName;
+  }
+
+  initComponents();
 }
 
-std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName) const
-{
-    std::string rname;
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-        if(pName == name)
-        {   return value;}
-    }
+void ButtonPanel::initComponents() {
 
-    return rname;
+  for(auto t : tools) {
+    t.first->clicked.connect(
+      std::bind(&ButtonPanel::toolButtonClicked, this, _1, _2));
+    activeTool.registerButton(t.first);
+  }
+
+  for(auto m : menus) {
+    m.first->clicked.connect(
+      std::bind(&ButtonPanel::menuButtonClicked, this, _1, _2));
+    activeMenu.registerButton(m.first);
+
+    // close the menu
+    mOpenMenu = m.second; // need this to close a menu for the first time
+    openMenu(NULL);
+  }
+
+  activeTool.selected.connect(
+    std::bind(&ButtonPanel::toolSelected, this,
+      std::bind(&ButtonPanel::getTool, this, _2)));
+  activeMenu.selected.connect(
+    std::bind(&ButtonPanel::menuSelected, this,
+      std::bind(&ButtonPanel::getMenu, this, _2)));
+
+  // init enable/disable buttons based on tech
+  checkTech(false);
+
+  selectQueryTool();
 }
 
 /*
  * enable/disable buttons according to tech.
- */
-void ButtonPanel::checkTech( int showInfo ){
-    std::string name;
-    //Buttons in SubMenus
-    for( size_t i=0; i<mButtons.size(); i++ ){
-        examineButton( mButtons[i], showInfo );
-    }
-    //Buttons in MainMenu
-    examineMenuButtons();
+**/
+void ButtonPanel::checkTech(bool showInfo) {
+  for(auto t : tools){
+    Tool *tool = t.second;
+    UserOperation& op = tool->operation;
 
-    if (tech_level > MODERN_WINDMILL_TECH && modern_windmill_flag == 0 && showInfo != 0){
-        ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
-        modern_windmill_flag = 1;
+    if(op.constructionGroup == &windmillConstructionGroup) {
+      if(tech_level >= MODERN_WINDMILL_TECH) {
+        op.constructionGroup = &windpowerConstructionGroup;
+
+        if(!modern_windmill_flag && showInfo) {
+          ok_dial_box("mod_wind_up.mes", GOOD, NULL);
+          modern_windmill_flag = 1;
+        }
+      }
     }
+    else if(op.constructionGroup == &windpowerConstructionGroup) {
+      if(tech_level < MODERN_WINDMILL_TECH) {
+        op.constructionGroup = &windmillConstructionGroup;
+      }
+    }
+
+    if(op.enoughTech()) {
+      if(!tool->button->isEnabled()) {
+        tool->button->setTooltip(op.createTooltip(false));
+        tool->button->enable();
+
+        if(tool == tool->menu->activeTool) {
+          tool->menu->button->enable();
+        }
+
+        if(showInfo && lastShownTechGroup != op.constructionGroup->group) {
+          ok_dial_box(tool->upMessage.c_str(), GOOD, 0L);
+          lastShownTechGroup = op.constructionGroup->group;
+        }
+      }
+    }
+    else {
+      if(tool->button->isEnabled()) {
+        std::ostringstream os;
+        os << op.createTooltip(false).c_str() << " ("
+          << _("Techlevel") << " " << op.requiredTech()
+          << " " << _("required") << ")";
+        tool->button->setTooltip(os.str().c_str());
+        tool->button->enable(false);
+
+        if(tool == tool->menu->activeTool) {
+          tool->menu->button->enable(false);
+        }
+      }
+    }
+  }
 }
 
-
-void ButtonPanel::examineButton(const std::string &name, int showInfo )
-{
-    UserOperation *usrOp = &(ButtonOperations[name]);
-    Component *c = findComponent( name );
-    if( !c ) {
-        std::cerr << "examineButton# Component "<< name << " not found!?\n";
-        return;
-    }
-
-    CheckButton* b = dynamic_cast<CheckButton*>(c);
-    if( !b ){
-        std::cerr << "examineButton# Component "<< name << " is not a Button???\n";
-        return;
-    }
-
-    if ( usrOp->enoughTech() )
-    {
-        if( !b->isEnabled() )
-        {
-            newTechMessage( usrOp->constructionGroup->group, showInfo );
-            b->setTooltip( usrOp->createTooltip( false ) );
-            b->enable();
-        }
-    }
-    else
-    {
-        if( b->isEnabled() )
-        {
-            b->enable( false );
-            std::ostringstream os;
-            os << usrOp->createTooltip( false ).c_str() << " ("
-                << _("Techlevel") << " " << usrOp->requiredTech()
-                << " " << _("required") << ")";
-            b->setTooltip(os.str().c_str());
-        }
-    }
-}
-
-void ButtonPanel::examineMenuButtons(){
-    std::string name;
-    Component *c;
-    for( size_t number=0; number < mMenuButtons.size(); number++ ){
-        name =  mMenuButtons[ number ];
-        UserOperation *usrOp = &(ButtonOperations[activeButtons[number]]);
-        c=findComponent( name );
-
-        if( !c ) {
-            std::cerr << "examineMenuButton# Component" << name << "not found!?\n";
-            return;
-        }
-        CheckButton* b = dynamic_cast<CheckButton*>(c);
-        if( !b ){
-            std::cerr << "examineMenuButton# Component "<< name << " is not a Button???\n";
-            return;
-        }
-        if ( usrOp->enoughTech() )
-        {
-            if( !b->isEnabled() ){
-                b->enable();
-            }
-        }
-        else
-        {
-            if( b->isEnabled() )
-            {
-                b->enable( false );
-            }
-        }
-    }
-}
-
-/* Display message for module when it is activated (see above) */
-// see oldgui/module_buttons.cpp activate_module
-void ButtonPanel::newTechMessage( unsigned short group, int showInfo )
-{
-    if( showInfo == 0)
-    {   return;}
-
-    if( lastShownTechGroup == group )
-    {
-        //std::cout << "suppressing Tech Msg: " << module << "\n";
-        return;
-    }
-    switch( group ){
-        case GROUP_WINDMILL:
-            ok_dial_box ("windmillup.mes", GOOD, 0L);
-            break;
-        case GROUP_COAL_POWER:
-            ok_dial_box ("coalpowerup.mes", GOOD, 0L);
-            break;
-        case GROUP_SOLAR_POWER:
-            ok_dial_box ("solarpowerup.mes", GOOD, 0L);
-            break;
-        case GROUP_COALMINE:
-            ok_dial_box ("coalmineup.mes", GOOD, 0L);
-            break;
-        case GROUP_RAIL:
-            ok_dial_box ("railwayup.mes", GOOD, 0L);
-            break;
-        case GROUP_ROAD:
-            ok_dial_box ("roadup.mes", GOOD, 0L);
-            break;
-        case GROUP_INDUSTRY_L:
-            ok_dial_box ("ltindustryup.mes", GOOD, 0L);
-            break;
-        case GROUP_UNIVERSITY:
-            ok_dial_box ("universityup.mes", GOOD, 0L);
-            break;
-        case GROUP_OREMINE:
-            if (GROUP_OREMINE_TECH > 0){
-                ok_dial_box ("oremineup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_PORT:    /* exports are the same */
-            ok_dial_box ("import-exportup.mes", GOOD, 0L);
-            break;
-        case GROUP_INDUSTRY_H:
-            ok_dial_box ("hvindustryup.mes", GOOD, 0L);
-            break;
-        case GROUP_PARKLAND:
-            if (GROUP_PARKLAND_TECH > 0){
-                ok_dial_box ("parkup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_RECYCLE:
-            ok_dial_box ("recycleup.mes", GOOD, 0L);
-            break;
-        case GROUP_RIVER:
-            if (GROUP_WATER_TECH > 0){
-                ok_dial_box ("riverup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_HEALTH:
-            ok_dial_box ("healthup.mes", GOOD, 0L);
-            break;
-        case GROUP_ROCKET:
-            ok_dial_box ("rocketup.mes", GOOD, 0L);
-            break;
-        case GROUP_SCHOOL:
-            if (GROUP_SCHOOL_TECH > 0){
-                ok_dial_box ("schoolup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_BLACKSMITH:
-            if (GROUP_BLACKSMITH_TECH > 0){
-                ok_dial_box ("blacksmithup.mes", GOOD, 0L);
-            }
-        break;
-        case GROUP_MILL:
-            if (GROUP_MILL_TECH > 0){
-                ok_dial_box ("millup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_POTTERY:
-            if (GROUP_POTTERY_TECH > 0){
-                ok_dial_box ("potteryup.mes", GOOD, 0L);
-            }
-            break;
-        case GROUP_FIRESTATION:
-            ok_dial_box ("firestationup.mes", GOOD, 0L);
-            break;
-        case GROUP_CRICKET:
-            ok_dial_box ("cricketup.mes", GOOD, 0L);
-            break;
-        default:
-            return;
-    }
-    lastShownTechGroup = group;
-    //remember last Type so we don't show the message twice if we lose just a little tech.
-}
-
-
-void ButtonPanel::attachButtons()
-{
-    if(alreadyAttached)
-    {  return;}
-    alreadyAttached = true;
-    UserOperation *usrOp = 0;
-
-    for(size_t i=0;i<mButtons.size();i++)
-    {
-        Component *c=findComponent(mButtons[i]);
-        if(c)
-        {
-            CheckButton* b = dynamic_cast<CheckButton*>(c);
-            if(b)
-            {
-                b->clicked.connect(
-                  std::bind(&ButtonPanel::chooseButtonClicked, this, _1, _2));
-                doButton( mButtons[i] );
-                usrOp = &(ButtonOperations[mButtons[i]]);
-                if( b->isEnabled() )
-                {   b->setTooltip( usrOp->createTooltip( false ) );}
-                else
-                {
-                    std::ostringstream os;
-                    os << usrOp->createTooltip( false ) << " ("
-                        << _("Techlevel") << " " << usrOp->requiredTech()
-                        << " " << _("required") << ")";
-                    b->setTooltip(os.str());
-                }
-            }
-        }
-    }
-
-    for(size_t i=0;i<mMenuButtons.size();i++)
-    {
-        usrOp = &(ButtonOperations[activeButtons[i]]);
-        Component *c=findComponent(mMenuButtons[i]);
-        if(c)
-        {
-            CheckButton* b = dynamic_cast<CheckButton*>(c);
-            if(b)
-            {
-                b->clicked.connect(
-                  std::bind(&ButtonPanel::menuButtonClicked, this, _1, _2));
-                if(b->getName() == "BPPointerButton") {
-                  b->check();
-                  activeMenuButton = b;
-                }
-            }
-        }
-    }
-
-    checkTech(0);
-    // now hide menu
-    for(size_t i=0;i<mMenuButtons.size();i++)
-    {
-        // get Component
-        Component *c=findComponent(mMenus[i]);
-        if(!c) continue;
-        Child *pc = c->getParentChild();
-        assert(pc); if(!pc) continue;
-        pc->enable(false);
-    }
-    mOpenMenu = NULL;
-    activeButton = dynamic_cast<CheckButton *>(findComponent(previousName));
-}
-
-/*
- * Show Information about selected Tool
- */
-void ButtonPanel::updateToolInfo()
-{
-    //Tool was changed, so reset the bulldozeflags to enable
-    //the warnings again.
-    monument_bul_flag = 0;
-    river_bul_flag = 0;
-    shanty_bul_flag = 0;
-    updateSelectedCost();
-    getGameView()->showToolInfo(); //display new values
-}
-
-void ButtonPanel::draw(Painter &painter)
-{
-  attachButtons();
+void ButtonPanel::draw(Painter &painter) {
   Component::draw(painter);
 }
 
-void ButtonPanel::selectQueryTool(){
-    CheckButton* queryButton = getCheckButton( *this, "BPMPointerButton");
-    chooseButtonClicked( queryButton, SDL_BUTTON_LEFT );
+void ButtonPanel::selectQueryTool() {
+  CheckButton* queryButton = getCheckButton(*this, "BPMPointerButton");
+  queryButton->tryCheck();
 }
 
-bool ButtonPanel::selectedQueryTool(){
-    if (previousName == "BPMPointerButton")
-      return true;
-    return false;
+void ButtonPanel::toggleBulldozeTool() {
+  static CheckButton *previousTool = NULL;
+
+  if(!bulldozeToggled) {
+    previousTool = activeTool.getSelection();
+    CheckButton *bulldozeButton = getCheckButton(*this, "BPMBullDozeButton");
+    bulldozeButton->tryCheck();
+    bulldozeToggled = bulldozeButton->isEnabled();
+  }
+  else {
+    assert(previousTool);
+    previousTool->tryCheck();
+    bulldozeToggled = !previousTool->isEnabled();
+  }
 }
 
-void ButtonPanel::toggleBulldozeTool()
-{
-    if( userOperation == &ButtonOperations["BPMBullDozeButton"] )
-    {
-        CheckButton* newButton = getCheckButton( *this, previousName );
-        chooseButtonClicked( newButton, SDL_BUTTON_LEFT );
-    }
-    else
-    {
-        std::string lastpreviousName = previousName;
-        CheckButton* bulldozeButton = getCheckButton( *this, "BPMBullDozeButton");
-        chooseButtonClicked( bulldozeButton, SDL_BUTTON_LEFT );
-        previousName = lastpreviousName; //revert previous tool
-    }
+void ButtonPanel::toolButtonClicked(CheckButton* button, int mouseBtnNum) {
+  Tool *tool = tools[button];
+  if(mouseBtnNum == SDL_BUTTON_RIGHT) {
+    getGame()->showHelpWindow(tool->operation.helpName);
+    return;
+  }
+
+  openMenu(NULL);
 }
 
-void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
-{
-    if( mousebutton == SDL_BUTTON_RIGHT )
-    {
-        getGame()->showHelpWindow( ButtonOperations[button->getName()].helpName );
-        return;
-    }
-
-    UserOperation *btnOp = &(ButtonOperations[button->getName()]);
-    //CK could return here to simply ignore clicks on inactive buttons
-    Image *img = dynamic_cast<Image*>(button->getCaption());
-    CheckButton *cb = 0;
-    int i = containingMenu[button];
-    std::string mmain = mMenuButtons[i];
-    if(img)
-    {
-        std::string filename = img->getFilename();
-        // set menu-caption
-        if(mmain.length())
-        {
-            Component *c=findComponent(mmain);
-            //update choice if enough tech
-            if(c && btnOp->enoughTech())
-            {
-                cb=dynamic_cast<CheckButton*>(c);
-                if(cb)
-                {
-                    cb->enable();
-                    cb->check();
-                    dynamic_cast<Image*>(cb->getCaption())->setFile(filename);
-
-                    activeButtons[i] = button->getName();
-                    if(activeButton && activeButton != button)
-                      activeButton->uncheck();
-                    activeButton = button;
-                    button->check();
-
-                    if(activeMenuButton != cb) {
-                      activeMenuButton->uncheck();
-                      activeMenuButton = cb;
-                    }
-                }
-            }
-        }
-    }
-
-    //now hide the menu
+void ButtonPanel::menuButtonClicked(CheckButton* button, int mouseBtnNum) {
+  Menu *menu = menus[button];
+  switch(mouseBtnNum) {
+  case SDL_BUTTON_LEFT:
+    openMenu(menu == mOpenMenu ? NULL : menu);
+    break;
+  case SDL_BUTTON_RIGHT:
+    button->tryCheck();
     openMenu(NULL);
-
-    if(!btnOp->enoughTech()) {
-#ifdef DEBUG
-        ConstructionGroup *constructionGroup = btnOp->constructionGroup;
-        std::cout <<"chooseButton not enough tech for: " << (constructionGroup?constructionGroup->name:"unknown") << std::endl;
-#endif
-        return; //Nothing more to do
-    }
-
-    previousName = button->getName();
-    activeButton = button;
-    userOperation = &(ButtonOperations[previousName]);
-
-    examineMenuButtons();
-    getGameView()->setCursorSize(   userOperation->cursorSize() );
-    updateToolInfo();
+    break;
+  }
 }
 
-void ButtonPanel::openMenu(Component *menu) {
+void ButtonPanel::openMenu(Menu *menu) {
   if(menu == mOpenMenu) return;
 
   if(menu && mOpenMenu)
     // close the previous menu before opening a new one
     openMenu(NULL);
 
-  Child *pc = (menu ? menu : mOpenMenu)->getParentChild();
-  assert(pc); if(!pc) return;
+  Child *pc = (menu ? menu : mOpenMenu)->drawer->getParentChild();
+  assert(pc);
   pc->enable(!!menu);
   mOpenMenu = menu;
 }
 
-void ButtonPanel::menuButtonClicked(CheckButton* button, int b) {
-  // find the menu associated with this button
-  // TODO: store the associations somewhere to make this a direct lookup
-  Component *menu;
-  std::string aButtonName;
-  for(size_t i=0;i<mMenuButtons.size();i++)
-    if(button->getName() == mMenuButtons[i]) {
-      menu = findComponent(mMenus[i]);
-      aButtonName = activeButtons[i];
-      break;
-    }
-  assert(menu); if(!menu) return;
+void ButtonPanel::toolSelected(Tool *tool) {
+  Menu *menu = tool->menu;
+  menu->setActiveTool(tool);
+  activeMenu.select(menu->button);
 
-  switch(b) {
-  case SDL_BUTTON_LEFT:
-    // undo the default checking/unchecking
-    if(activeMenuButton == button)
-      button->check();
-    else
-      button->uncheck();
-    openMenu(menu == mOpenMenu ? NULL : menu);
-    break;
-  case SDL_BUTTON_RIGHT:
-    UserOperation& uop = ButtonOperations[aButtonName];
-    if(uop.enoughTech()) {
-      CheckButton *aButton = dynamic_cast<CheckButton *>(
-        findComponent(aButtonName));
-      assert(activeButton); if(!activeButton) return;
+  userOperation = &tool->operation;
 
-      if(activeMenuButton != button) {
-        activeMenuButton->uncheck();
-        button->check();
-        activeMenuButton = button;
-      }
-      if(activeButton != aButton) {
-        activeButton->uncheck();
-        aButton->check();
-        activeButton = aButton;
-      }
-      openMenu(NULL);
+  bulldozeToggled = false;
 
-      previousName = aButtonName;
-      userOperation = &uop;
-      getGameView()->setCursorSize(uop.cursorSize());
-    }
-    break;
-  }
+  // TODO: move this to a function GameView::updateTool(...)
+  getGameView()->setCursorSize(tool->operation.cursorSize());
+  getGameView()->showToolInfo();
+
+  // TODO: move this to MapEdit.cpp
+  monument_bul_flag = river_bul_flag = shanty_bul_flag = 0;
+}
+
+void ButtonPanel::menuSelected(Menu *menu) {
+  activeTool.select(menu->activeTool->button);
+}
+
+void ButtonPanel::Menu::setActiveTool(Tool *tool) {
+  if(activeTool == tool)
+    return;
+  activeTool = tool;
+  dynamic_cast<Image *>(button->getCaption())->setFile(
+    dynamic_cast<Image *>(tool->button->getCaption())->getFilename());
+  button->enable(tool->button->isEnabled());
 }
 
 bool ButtonPanel::opaque(const Vector2& pos) const
@@ -599,271 +472,6 @@ bool ButtonPanel::opaque(const Vector2& pos) const
             return true;
     }
     return false;
-}
-
-void ButtonPanel::doButton(const std::string &button)
-{
-    UserOperation *buttonOperation = &(ButtonOperations[button]);
-    if(button=="BPMPointerButton")
-    {
-        buttonOperation->constructionGroup = NULL;
-        buttonOperation->action = UserOperation::ACTION_QUERY;
-        buttonOperation->helpName = "query";
-    }
-    else if(button=="BPMBullDozeButton")
-    {
-        buttonOperation->constructionGroup = NULL;
-        buttonOperation->action = UserOperation::ACTION_BULLDOZE;
-        buttonOperation->helpName = "bulldoze";
-    }
-    else if(button=="BPMEvacuateButton")
-    {
-        buttonOperation->constructionGroup = NULL;
-        buttonOperation->action = UserOperation::ACTION_EVACUATE;
-        buttonOperation->helpName = "evacuate";
-    }
-    else if(button=="BPMResidence1Button")
-    {
-        buttonOperation->constructionGroup = &residenceLLConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMResidence2Button")
-    {
-        buttonOperation->constructionGroup = &residenceMLConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMResidence3Button")
-    {
-        buttonOperation->constructionGroup = &residenceHLConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMResidence4Button")
-    {
-        buttonOperation->constructionGroup = &residenceLHConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMResidence5Button")
-    {
-        buttonOperation->constructionGroup = &residenceMHConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMResidence6Button")
-    {
-        buttonOperation->constructionGroup = &residenceHHConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "residential";
-    }
-    else if(button=="BPMFarmButton")
-    {
-        buttonOperation->constructionGroup = &organic_farmConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "farm";
-    }
-    else if(button=="BPMMillButton")
-    {
-        buttonOperation->constructionGroup = &millConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "mill";
-    }
-    else if(button=="BPMHealthButton")
-    {
-        buttonOperation->constructionGroup = &healthCentreConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "health";
-    }
-    else if(button=="BPMSportsButton")
-    {
-        buttonOperation->constructionGroup = &cricketConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "cricket";
-    }
-    else if(button=="BPMFireButton")
-    {
-        buttonOperation->constructionGroup = &fireStationConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "firestation";
-    }
-    else if(button=="BPMSchoolButton")
-    {
-        buttonOperation->constructionGroup = &schoolConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "school";
-    }
-    else if(button=="BPMUniversityButton")
-    {
-        buttonOperation->constructionGroup = &universityConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "university";
-    }
-    else if(button=="BPMTrackButton")
-    {
-        buttonOperation->constructionGroup = &trackConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "track";
-    }
-    else if(button=="BPMStreetButton")
-    {
-        buttonOperation->constructionGroup = &roadConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "road";
-    }
-    else if(button=="BPMRailButton")
-    {
-        buttonOperation->constructionGroup = &railConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "rail";
-    }
-    else if(button=="BPMPortButton")
-    {
-        buttonOperation->constructionGroup = &portConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "port";
-    }
-    else if(button=="BPMRocketButton")
-    {
-        buttonOperation->constructionGroup = &rocketPadConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "rocket";
-    }
-
-    else if(button=="BPMPowerLineButton")
-    {
-        buttonOperation->constructionGroup = &powerlineConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "powerline";
-    }
-    else if(button=="BPMCoalPSButton")
-    {
-        buttonOperation->constructionGroup = &coal_powerConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "powerscoal";
-    }
-    else if(button=="BPMSolarPSButton")
-    {
-        buttonOperation->constructionGroup = &solarPowerConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "powerssolar";
-    }
-    else if(button=="BPMSubstationButton")
-    {
-        buttonOperation->constructionGroup = &substationConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "substation";
-    }
-    else if(button=="BPMWindmillButton")
-    {
-        if (tech_level < WIND_POWER_TECH)
-        {   buttonOperation->constructionGroup = &windmillConstructionGroup;}
-        else
-        {   buttonOperation->constructionGroup = &windpowerConstructionGroup;}
-        buttonOperation->helpName = "windmill";
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-    }
-
-    else if(button=="BPMCommuneButton")
-    {
-        buttonOperation->constructionGroup = &communeConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "commune";
-    }
-    else if(button=="BPMCoalButton")
-    {
-        buttonOperation->constructionGroup = &coalmineConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "coalmine";
-    }
-    else if(button=="BPMOreButton")
-    {
-        buttonOperation->constructionGroup = &oremineConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "oremine";
-    }
-    else if(button=="BPMTipButton")
-    {
-        buttonOperation->constructionGroup = &tipConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "tip";
-    }
-    else if(button=="BPMRecycleButton")
-    {
-        buttonOperation->constructionGroup = &recycleConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "recycle";
-    }
-
-    else if(button=="BPMLIndustryButton")
-    {
-        buttonOperation->constructionGroup = &industryLightConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "industryl";
-    }
-    else if(button=="BPMHIndustryButton")
-    {
-        buttonOperation->constructionGroup = &industryHeavyConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "industryh";
-    }
-    else if(button=="BPMMarketButton")
-    {
-        buttonOperation->constructionGroup = &marketConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "market";
-    }
-    else if(button=="BPMPotteryButton")
-    {
-        buttonOperation->constructionGroup = &potteryConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "pottery";
-    }
-    else if(button=="BPMBlacksmithButton")
-    {
-        buttonOperation->constructionGroup = &blacksmithConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "blacksmith";
-    }
-
-    else if(button=="BPMMonumentButton")
-    {
-        buttonOperation->constructionGroup = &monumentConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "monument";
-    }
-    else if(button=="BPMParkButton")
-    {
-        buttonOperation->constructionGroup = &parklandConstructionGroup;
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-        buttonOperation->helpName = "park";
-    }
-    else if(button=="BPMWaterButton")
-    {
-        buttonOperation->constructionGroup = NULL;
-        buttonOperation->action = UserOperation::ACTION_FLOOD;
-        buttonOperation->helpName = "river";
-    }
-    else if(button=="BPMWaterwellButton")
-    {
-        buttonOperation->constructionGroup = &waterwellConstructionGroup;
-        buttonOperation->helpName = "waterwell";
-        buttonOperation->action = UserOperation::ACTION_BUILD;
-    }
-    else
-    {   std::cout << "Unknown Button: " << button << std::endl;}
-
-}
-
-void ButtonPanel::updateSelectedCost()
-{
-    if (userOperation->action == UserOperation::ACTION_BUILD)
-    {   selected_module_cost = userOperation->constructionGroup->getCosts();}
-    else if (userOperation->action == UserOperation::ACTION_FLOOD)
-    {   selected_module_cost = GROUP_WATER_COST;}
-    else
-    {   selected_module_cost = 0;}
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)

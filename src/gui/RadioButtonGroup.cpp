@@ -39,6 +39,13 @@ void RadioButtonGroup::registerButton(CheckButton *btn) {
     std::bind(&RadioButtonGroup::buttonChecked, this, _1));
   btn->unchecked.connect(
     std::bind(&RadioButtonGroup::buttonUnchecked, this, _1));
+
+  if(btn->isChecked() && selection != btn) {
+    if(selection)
+      btn->uncheck();
+    else
+      buttonChecked(btn);
+  }
 }
 
 void RadioButtonGroup::buttonChecked(CheckButton *btn) {
@@ -59,4 +66,8 @@ void RadioButtonGroup::buttonUnchecked(CheckButton *btn) {
 
 void RadioButtonGroup::select(CheckButton *button) {
   button->check();
+}
+
+void RadioButtonGroup::trySelect(CheckButton *button) {
+  button->tryCheck();
 }

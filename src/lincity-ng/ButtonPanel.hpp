@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (c) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,9 +21,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <map>                      // for map
 #include <string>                   // for string, basic_string
-#include <vector>                   // for vector
+#include <unordered_map>                   // for vector
 
 #include "gui/Component.hpp"        // for Component
+#include "gui/RadioButtonGroup.hpp"
 #include "lincity/UserOperation.h"  // for UserOperation
 
 class CheckButton;
@@ -30,47 +32,56 @@ class Painter;
 class Vector2;
 class XmlReader;
 
-class ButtonPanel : public Component
-{
- public:
+class ButtonPanel : public Component {
+public:
   ButtonPanel();
+  virtual ~ButtonPanel();
 
   void parse(XmlReader& reader);
 
   virtual void draw(Painter &painter);
-  void chooseButtonClicked(CheckButton* button,int);
-  void menuButtonClicked(CheckButton* button,int);
   virtual bool opaque(const Vector2& pos) const;
-  void checkTech( int showInfo );
+
+  void checkTech(bool showInfo);
   void selectQueryTool();
-  bool selectedQueryTool();
   void toggleBulldozeTool();
 
- private:
-  void attachButtons();
-  std::string getAttribute(XmlReader &reader,const std::string &pName) const;
-  void doButton(const std::string &button);
-  void openMenu(Component * menu);
-  void updateToolInfo();
+  RadioButtonGroup activeTool;
 
-  bool alreadyAttached;
-  void examineButton(const std::string &name, int showInfo );
-  void examineMenuButtons();
-  void newTechMessage( unsigned short group, int showInfo );
-  void updateSelectedCost();
-  std::string previousName;
+private:
+  struct Tool;
+  typedef struct Menu {
+    CheckButton *button;
+    Component *drawer;
+    std::vector<struct Tool *> tools;
+    Tool *activeTool;
+    void setActiveTool(Tool *tool);
+  } Menu;
+  typedef struct Tool {
+    CheckButton *button;
+    Menu *menu;
+    UserOperation operation;
+    std::string upMessage;
+  } Tool;
+  std::unordered_map<CheckButton *, Menu *> menus;
+  std::unordered_map<CheckButton *, Tool *> tools;
+
+  Menu *mOpenMenu;
+  RadioButtonGroup activeMenu;
+
+  Menu *getMenu(CheckButton *button) { return menus[button]; }
+  Tool *getTool(CheckButton *button) { return tools[button]; }
+
+  void initComponents();
+  void openMenu(Menu* menu);
+  void toolButtonClicked(CheckButton* button, int);
+  void menuButtonClicked(CheckButton* button, int);
+  void toolSelected(Tool *tool);
+  void menuSelected(Menu *menu);
+
+  bool bulldozeToggled;
+
   int lastShownTechGroup;
-
-  std::vector<std::string> mMenuButtons;
-  std::vector<std::string> mMenus;
-  std::vector<std::string> mButtons;
-  std::vector<std::string> activeButtons;
-  Component *mOpenMenu;
-  CheckButton *activeMenuButton;
-  CheckButton *activeButton;
-  std::map<CheckButton *, int> containingMenu;
-
-  std::map<std::string, UserOperation> ButtonOperations;
 };
 
 ButtonPanel *getButtonPanel();
