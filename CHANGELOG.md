@@ -1,6 +1,10 @@
 ## Unreleased
 
+###### Gameplay
+- Fixed tech requirement enforcement after tech decrease.
+
 ###### User Interface
+- Fixed duplicate/erroneous invention messages.
 - Changed the left- and right- click actions for button panel menus. Now,
   left-click toggles the drawer, and right-click activates the shown tool.
 - Fixed button-panel buttons displaying incorrect checked/unchecked/hovered

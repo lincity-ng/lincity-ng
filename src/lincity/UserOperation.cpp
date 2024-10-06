@@ -53,10 +53,12 @@ UserOperation::is_allowed_here(int x, int y, bool warning)
             return world.is_visible(x,y);
         case ACTION_BUILD:
         {
-            if(!(world.is_visible(x,y) &&
-            world.is_visible(x + constructionGroup->size - 1, y + constructionGroup->size - 1)) ||
-            (constructionGroup->tech > tech_level))
-            {   return false;}
+            if(!world.is_visible(x,y)
+              || !world.is_visible(x + constructionGroup->size - 1, y + constructionGroup->size - 1)
+              || !enoughTech()
+            ) {
+              return false;
+            }
 
             bool msg = (warning && (last_warning_message_group != constructionGroup->group));
 
