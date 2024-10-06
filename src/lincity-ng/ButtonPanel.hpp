@@ -81,8 +81,6 @@ private:
   void menuSelected(Menu *menu);
 
   bool bulldozeToggled;
-
-  int lastShownTechGroup;
 };
 
 ButtonPanel *getButtonPanel();

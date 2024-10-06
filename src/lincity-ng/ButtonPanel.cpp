@@ -66,9 +66,7 @@ ButtonPanel *getButtonPanel() {
     return buttonPanelInstance;
 }
 
-ButtonPanel::ButtonPanel() :
-  lastShownTechGroup(0)
-{
+ButtonPanel::ButtonPanel() {
   assert(!buttonPanelInstance);
   buttonPanelInstance = this;
 }
@@ -327,8 +325,8 @@ void ButtonPanel::checkTech(bool showInfo) {
 
         if(!modern_windmill_flag && showInfo) {
           ok_dial_box("mod_wind_up.mes", GOOD, NULL);
-          modern_windmill_flag = 1;
         }
+        modern_windmill_flag = 1;
       }
     }
     else if(op.constructionGroup == &windpowerConstructionGroup) {
@@ -346,11 +344,11 @@ void ButtonPanel::checkTech(bool showInfo) {
           tool->menu->button->enable();
         }
 
-        if(showInfo && lastShownTechGroup != op.constructionGroup->group) {
+        if(!tool->upShown && showInfo && tool->upMessage.length()) {
           ok_dial_box(tool->upMessage.c_str(), GOOD, 0L);
-          lastShownTechGroup = op.constructionGroup->group;
         }
       }
+      tool->upShown = true;
     }
     else {
       if(tool->button->isEnabled()) {
@@ -364,6 +362,12 @@ void ButtonPanel::checkTech(bool showInfo) {
         if(tool == tool->menu->activeTool) {
           tool->menu->button->enable(false);
         }
+      }
+
+      if(!showInfo) {
+        // a new game was loaded, so reset the upShown
+        // TODO: make this less hacky
+        tool->upShown = false;
       }
     }
   }
