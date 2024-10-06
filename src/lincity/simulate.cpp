@@ -191,7 +191,6 @@ static void end_of_month_update(void)
     }
     if (highest_tech_level < tech_level)
     {   highest_tech_level = tech_level;}
-    getButtonPanel()->checkTech(true);
 
     deaths_cost += tunnat_deaths * UNNAT_DEATHS_COST;
 
