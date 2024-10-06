@@ -80,6 +80,8 @@ Game::Game(SDL_Window* _window)
     if(desktop == 0)
         throw std::runtime_error("Game UI is not a Desktop Component");
     helpWindow.reset(new HelpWindow(desktop));
+
+    getButtonPanel()->selectQueryTool();
     gameptr = this;
 }
 

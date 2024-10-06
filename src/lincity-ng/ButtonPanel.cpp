@@ -284,10 +284,10 @@ ButtonPanel::parse(XmlReader& reader) {
     delete activeName;
   }
 
-  initComponents();
+  connectButtons();
 }
 
-void ButtonPanel::initComponents() {
+void ButtonPanel::connectButtons() {
 
   for(auto t : tools) {
     t.first->clicked.connect(
@@ -311,11 +311,6 @@ void ButtonPanel::initComponents() {
   activeMenu.selected.connect(
     std::bind(&ButtonPanel::menuSelected, this,
       std::bind(&ButtonPanel::getMenu, this, _2)));
-
-  // init enable/disable buttons based on tech
-  checkTech(false);
-
-  selectQueryTool();
 }
 
 /*
@@ -392,8 +387,7 @@ void ButtonPanel::toggleBulldozeTool() {
     bulldozeButton->tryCheck();
     bulldozeToggled = bulldozeButton->isEnabled();
   }
-  else {
-    assert(previousTool);
+  else if(previousTool) {
     previousTool->tryCheck();
     bulldozeToggled = !previousTool->isEnabled();
   }
@@ -433,6 +427,7 @@ void ButtonPanel::openMenu(Menu *menu) {
   assert(pc);
   pc->enable(!!menu);
   mOpenMenu = menu;
+  setDirty();
 }
 
 void ButtonPanel::toolSelected(Tool *tool) {

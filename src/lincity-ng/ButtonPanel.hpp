@@ -51,28 +51,29 @@ public:
 private:
   struct Tool;
   typedef struct Menu {
-    CheckButton *button;
-    Component *drawer;
+    CheckButton *button = NULL;
+    Component *drawer = NULL;
     std::vector<struct Tool *> tools;
-    Tool *activeTool;
+    Tool *activeTool = NULL;
     void setActiveTool(Tool *tool);
   } Menu;
   typedef struct Tool {
-    CheckButton *button;
-    Menu *menu;
+    CheckButton *button = NULL;
+    Menu *menu = NULL;
     UserOperation operation;
     std::string upMessage;
+    bool upShown = NULL;
   } Tool;
   std::unordered_map<CheckButton *, Menu *> menus;
   std::unordered_map<CheckButton *, Tool *> tools;
 
-  Menu *mOpenMenu;
+  Menu *mOpenMenu = NULL;
   RadioButtonGroup activeMenu;
 
   Menu *getMenu(CheckButton *button) { return menus[button]; }
   Tool *getTool(CheckButton *button) { return tools[button]; }
 
-  void initComponents();
+  void connectButtons();
   void openMenu(Menu* menu);
   void toolButtonClicked(CheckButton* button, int);
   void menuButtonClicked(CheckButton* button, int);
