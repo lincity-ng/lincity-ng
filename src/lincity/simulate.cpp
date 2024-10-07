@@ -126,7 +126,7 @@ void do_animate() {
       (*it)->update();
   }
 
-  getGameView()->requestRedraw();
+  getGameView()->setDirty();
 }
 
 /* ---------------------------------------------------------------------- *

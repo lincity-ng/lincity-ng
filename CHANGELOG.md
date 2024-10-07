@@ -1,6 +1,7 @@
 ## Unreleased
 
 ###### Internal
+- Fixed segfault while bulldozing.
 - Removed many unused files from install.
 
 

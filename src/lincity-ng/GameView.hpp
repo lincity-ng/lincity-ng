@@ -45,8 +45,7 @@ public:
     void draw(Painter& painter);
     void resize(float width, float height );
     void event(const Event& event);
-
-    void requestRedraw();
+    void setDirty() { Component::setDirty(); }
 
     //Show City Tile(x/y) by centering the screen
     void show(MapPoint point, bool redraw = true );
@@ -84,7 +83,6 @@ public:
     //check if tile is in city
     bool inCity( MapPoint tile );
 
-    int gameAreaMax();
     bool textures_ready;
     //bool economyGraph_open;
     int remaining_images;
@@ -92,7 +90,6 @@ public:
 private:
     void connectButtons();
     void buttonClicked( Button* button );
-    void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);
     MapPoint getTile(const Vector2& point);
     void drawTile(Painter& painter, const MapPoint &point);
@@ -101,6 +98,7 @@ private:
     void fillDiamond( Painter& painter, const Rect2D& rect );
     void drawDiamond( Painter& painter, const Rect2D& rect );
     static int gameViewThread(void* data);
+    void viewportUpdated();
     void setZoom(float newzoom);
     void zoomMouse(float factor, Vector2 mousepos);
     bool constrainViewportPosition(bool useScrollCorrection);
@@ -174,8 +172,6 @@ private:
     static const int overlayOn = 1;
     static const int overlayOnly = 2;
     static const int overlayMAX = 2;
-
-    static const int gameAreaMin = 1;
 
     void markTile( Painter& painter, const MapPoint &tile );
 
