@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>                    // for runtime_error
 #include <utility>                      // for pair, make_pair
 
-#include "PhysfsStream/PhysfsSDL.hpp"   // for getPhysfsSDLRWops
+#include "physfsrwops.h"
 #include "Style.hpp"                    // for Style
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
@@ -62,14 +62,15 @@ FontManager::getFont(Style style)
     Fonts::iterator i = fonts.find(info);
     if(i != fonts.end())
         return i->second;
-    
+
     TTF_Font* font = 0;
 
     // If there a special font for the current language use it.
     std::string language = dictionaryManager->get_language();
     std::string fontfile = "fonts/" + info.name + "-" + language + ".ttf";
     try{
-        font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+        font = TTF_OpenFontRW(
+          PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
     } catch(std::exception& ){
         font = 0;
     }
@@ -80,7 +81,8 @@ FontManager::getFont(Style style)
             language = std::string(language, 0, pos);
             fontfile = "fonts/" + info.name + "-" + language + ".ttf";
             try{
-                font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+                font = TTF_OpenFontRW(
+                  PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
             } catch(std::exception& ){
                 font = 0;
             }
@@ -90,7 +92,8 @@ FontManager::getFont(Style style)
         // No special font found? Use default font then.
         fontfile = "fonts/" + info.name + ".ttf";
         try{
-            font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+            font = TTF_OpenFontRW(
+              PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
         } catch(std::exception& ){
             font = 0;
         }
@@ -98,7 +101,7 @@ FontManager::getFont(Style style)
     if(!font) {
         // give up.
         std::stringstream msg;
-        msg << "Error opening font '" << fontfile 
+        msg << "Error opening font '" << fontfile
             << "': " << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
@@ -111,4 +114,3 @@ FontManager::getFont(Style style)
 
 
 /** @file gui/FontManager.cpp */
-
