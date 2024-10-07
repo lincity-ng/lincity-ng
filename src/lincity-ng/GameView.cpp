@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Config.hpp"                      // for getConfig, Config
 #include "Dialog.hpp"                      // for blockingDialogIsOpen
-#include "MapEdit.hpp"                     // for check_bulldoze_area, editMap
+#include "MapEdit.hpp"                     // for editMap
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "Mps.hpp"                         // for mps_x, mps_y
 #include "PhysfsStream/PhysfsSDL.hpp"      // for getPhysfsSDLRWops
@@ -767,7 +767,7 @@ void GameView::event(const Event& event)
             if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             && !areaBulldoze){
                 if( tile != startRoad ) {
-                    check_bulldoze_area (startRoad.x, startRoad.y);
+                    editMap(startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;
                 }
             }
@@ -850,8 +850,9 @@ void GameView::event(const Event& event)
                         {
                             for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy)
                             {
-                                if( !blockingDialogIsOpen )
-                                {   check_bulldoze_area(currentTile.x, currentTile.y);}
+                                if(!blockingDialogIsOpen) {
+                                  editMap(currentTile, SDL_BUTTON_LEFT);
+                                }
                             }
                         }
                     }
