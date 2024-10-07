@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_exists
 #include <stdio.h>                         // for size_t, sscanf, NULL
 #include <string.h>                        // for strcmp
-#include <cmath>                           // for sqrt, fabs, floor, fabsf
+#include <cmath>                           // for sqrt, fabs, fabsf
 #include <exception>                       // for exception
 #include <iostream>                        // for basic_ostream, operator<<
 #include <iterator>                        // for advance
@@ -200,7 +200,7 @@ void GameView::buttonClicked( Button* button ){
     std::string name = button->getName();
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
-        requestRedraw();
+        setDirty();
         return;
     }
     if( name == "showTerrainHeight" ){
@@ -209,19 +209,15 @@ void GameView::buttonClicked( Button* button ){
         } else { // map is completely flat
             showTerrainHeight = false;
         }
-        requestRedraw();
+        setDirty();
         return;
     }
     if( name == "mapOverlay" ){
         mapOverlay = (mapOverlay + 1) % (overlayMAX + 1);
-        requestRedraw();
+        setDirty();
         return;
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
-}
-int GameView::gameAreaMax()
-{
-    return world.len() -2;
 }
 
 /*
@@ -306,7 +302,7 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
     }
     mapMode = mMode;
     if( mapOverlay != overlayNone ){
-        requestRedraw();
+        setDirty();
     }
 }
 
@@ -374,7 +370,8 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     viewport = (viewport + mousepos) * factor - mousepos;
     constrainViewportPosition(true);
 
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 /* set Zoomlevel to 100% */
@@ -404,7 +401,8 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
     if( redraw ){
         viewport.x = center.x - ( getWidth() / 2 );
         viewport.y = center.y - ( getHeight() / 2 );
-        requestRedraw();
+        viewportUpdated();
+        setDirty();
     } else { //on startup getWidth is 0.
         viewport.x = center.x - ( getConfig()->videoX / 2 );
         viewport.y = center.y - ( getConfig()->videoY / 2 );
@@ -638,7 +636,8 @@ void GameView::scroll(float elapsedTime)
     viewport += dir * amt / norm;
     constrainViewportPosition(false);
 
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 bool GameView::constrainViewportPosition(bool useScrollCorrection) {
@@ -652,20 +651,20 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
     center.y / tileHeight - center.x / tileWidth
   );
   bool outside = false;
-  if(centerTile.x < gameAreaMin) {
-      centerTile.x = gameAreaMin;
+  if(centerTile.x < 1) {
+      centerTile.x = 1;
       outside = true;
   }
-  else if(centerTile.x > gameAreaMax() + 1) {
-      centerTile.x = gameAreaMax() + 1;
+  else if(centerTile.x > world.len() - 1) {
+      centerTile.x = world.len() - 1;
       outside = true;
   }
-  if(centerTile.y < gameAreaMin) {
-      centerTile.y = gameAreaMin;
+  if(centerTile.y < 1) {
+      centerTile.y = 1;
       outside = true;
   }
-  else if(centerTile.y > gameAreaMax() + 1) {
-      centerTile.y = gameAreaMax() + 1;
+  else if(centerTile.y > world.len() - 1) {
+      centerTile.y = world.len() - 1;
       outside = true;
   }
 
@@ -678,7 +677,8 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
         scrollCorrection = (vpOld - viewport) / zoom;
       else
         scrollCorrection = Vector2(0,0);
-      requestRedraw();
+      viewportUpdated();
+      setDirty();
       return true;
   }
   else {
@@ -725,6 +725,7 @@ void GameView::event(const Event& event)
                     break;
                 viewport -= event.mousemove;
                 constrainViewportPosition(true);
+                viewportUpdated();
                 setDirty();
                 break;
             }
@@ -1025,13 +1026,13 @@ void GameView::event(const Event& event)
                 } else {
                     hideHigh = true;
                 }
-                requestRedraw();
+                setDirty();
                 break;
             }
             //overlay MiniMap Information
             if( event.keysym.scancode == SDL_SCANCODE_V ){
                 mapOverlay = (mapOverlay+1)%(overlayMAX+1);
-                requestRedraw();
+                setDirty();
                 break;
             }
             //Zoom
@@ -1135,13 +1136,14 @@ void GameView::resize(float newwidth , float newheight )
     height = newheight;
     if(width < 0) width = 0;
     if(height < 0) height = 0;
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 /*
  *  We should draw the whole City again.
  */
-void GameView::requestRedraw()
+void GameView::viewportUpdated()
 {
     if( !getMiniMap() ){ //initialization not completed
         return;
@@ -1163,22 +1165,6 @@ void GameView::requestRedraw()
         oldZoom = zoom;
 
     }
-
-    //request redraw
-    setDirty();
-}
-
-/*
- * Pos is new Center of the Screen
- */
-void GameView::recenter(const Vector2& pos)
-{
-    Vector2 position = pos + viewport;
-    viewport.x = floor( position.x - ( getWidth() / 2 ) );
-    viewport.y = floor( position.y - ( getHeight() / 2 ) );
-
-    //request redraw
-    requestRedraw();
 }
 
 /*
