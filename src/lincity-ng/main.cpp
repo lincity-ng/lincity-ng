@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "main.hpp"
 
-#include <SDL.h>                                 // for SDL_Init, SDL_Quit
+#include <SDL.h>                                 // for SDL_GL_SetAttribute
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
@@ -26,10 +26,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
 #include <physfs.h>                              // for PHYSFS_mount, PHYSFS...
-#include <stdio.h>                               // for fprintf, printf, spr...
+#include <stdio.h>                               // for NULL, printf, sprintf
 #include <stdlib.h>                              // for exit, malloc, free
 #include <string.h>                              // for strlen, strncmp, strdup
-#include <unistd.h>                              // for NULL, execlp
+#include <unistd.h>                              // for execlp
 #include <iostream>                              // for operator<<, basic_os...
 #include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_ostringstream
@@ -51,9 +51,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "lc_error.h"                            // for HANDLE_ERRNO
-#include "lincity/engglobs.h"
 #include "lincity/init_game.h"                   // for destroy_game
-#include "lincity/lin-city.h"                    // for SIM_DELAY_FAST
 #include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
