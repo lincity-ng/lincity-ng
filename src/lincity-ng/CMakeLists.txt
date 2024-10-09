@@ -1,9 +1,6 @@
 add_executable(lincity-ng
-		ButtonInterface.cpp
 		ButtonPanel.cpp
 		ButtonPanel.hpp
-		CheckButton.cpp
-		CheckButton.hpp
 		Config.cpp
 		Config.hpp
 		Dialog.cpp

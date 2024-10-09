@@ -29,10 +29,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "Config.hpp"                      // for getConfig, Config
 #include "Dialog.hpp"                      // for Dialog, MSG_DIALOG
 #include "Util.hpp"                        // for getCheckButton
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/Color.hpp"                   // for Color
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/FontManager.hpp"             // for FontManager, fontManager

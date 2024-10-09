@@ -4,7 +4,6 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#include <algorithm>                  // for max
 #include <map>                        // for map, operator!=, _Rb_tree_iterator
 #include <utility>                    // for pair
 

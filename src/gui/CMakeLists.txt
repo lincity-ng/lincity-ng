@@ -2,6 +2,7 @@ find_package(OpenGL REQUIRED)
 
 add_library(lincity_gui  STATIC
 		Button.cpp
+		CheckButton.cpp
 		Child.cpp
 		Color.cpp
 		Component.cpp
@@ -18,6 +19,7 @@ add_library(lincity_gui  STATIC
 		Image.cpp
 		Panel.cpp
 		Paragraph.cpp
+		RadioButtonGroup.cpp
 		Rect2D.cpp
 		ScrollBar.cpp
 		ScrollView.cpp
@@ -32,6 +34,7 @@ add_library(lincity_gui  STATIC
 		XmlReader.cpp
 
 		Button.hpp
+		CheckButton.hpp
 		Child.hpp
 		Color.hpp
 		Component.hpp
@@ -50,9 +53,11 @@ add_library(lincity_gui  STATIC
 		Painter.hpp
 		Panel.hpp
 		Paragraph.hpp
+		RadioButtonGroup.hpp
 		Rect2D.hpp
 		ScrollBar.hpp
 		ScrollView.hpp
+		Signal.hpp
 		Style.hpp
 		SwitchComponent.hpp
 		TableLayout.hpp
@@ -63,10 +68,6 @@ add_library(lincity_gui  STATIC
 		Window.hpp
 		WindowManager.hpp
 		XmlReader.hpp
-
-		callback/Callback.hpp
-		callback/CallbackBase.hpp
-		callback/Signal.hpp
 
 		PainterGL/PainterGL.cpp
 		PainterGL/PainterGL.hpp

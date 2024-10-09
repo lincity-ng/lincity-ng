@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"          // for createComponent
 #include "XmlReader.hpp"                // for XmlReader
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager, Dictionary
-//#include "../lincity-ng/CheckButton.hpp" //FIXME will that help?
 
 #include <iostream>                     // for operator<<, basic_ostream, cerr
 #include <stdexcept>                    // for runtime_error
@@ -102,6 +101,7 @@ ImportFactory::createComponent(XmlReader& reader)
 **/
 
 #include "Button.hpp"                   // for Button
+#include "CheckButton.hpp"              // for Checkbutton
 #include "Desktop.hpp"                  // for Desktop
 #include "Document.hpp"                 // for Document
 #include "FilledRectangle.hpp"          // for FilledRectangle
@@ -117,8 +117,8 @@ ImportFactory::createComponent(XmlReader& reader)
 #include "Window.hpp"                   // for Window
 #include "WindowManager.hpp"            // for WindowManager
 
-//DECLARE_COMPONENT_FACTORY(CheckButton); //FIXME will this help?
 DECLARE_COMPONENT_FACTORY(Button)
+DECLARE_COMPONENT_FACTORY(CheckButton);
 DECLARE_COMPONENT_FACTORY(Desktop)
 DECLARE_COMPONENT_FACTORY(Document)
 DECLARE_COMPONENT_FACTORY(FilledRectangle)
@@ -141,8 +141,8 @@ void initFactories()
     if(!initialized)
     {
 #endif
-        //new INTERN_CheckButtonFactory(); //FIXME will this help?
         new INTERN_ButtonFactory();
+        new INTERN_CheckButtonFactory();
         new INTERN_DesktopFactory();
         new INTERN_DocumentFactory();
         new INTERN_FilledRectangleFactory();

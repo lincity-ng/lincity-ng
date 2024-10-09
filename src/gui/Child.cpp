@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Child.hpp"
 
 #include "Component.hpp"
+#include "Event.hpp"
 
 Child::Child(Component* _component)
     : useClipRect(false), component(_component)
@@ -47,6 +48,28 @@ Child::inside(const Vector2& pos) const
         return true;
 
     return false;
+}
+
+void
+Child::enable(bool enabled) {
+  if(!component) {
+    this->enabled = false;
+    return;
+  }
+  if(enabled == this->enabled)
+    return;
+
+  // Somewhat hacky way to tell the component that they definitely lost mouse
+  // focus. This is necessary because, once disabled, they cannot receive
+  // MOUSEMOTION events which could be necessary to tell a component they are no
+  // longer hovered.
+  if(!enabled) {
+    Event event(Event::MOUSEMOTION);
+    event.inside = false;
+    component->event(event);
+  }
+
+  this->enabled = enabled;
 }
 
 void

@@ -8,17 +8,16 @@
 
 #include <assert.h>                 // for assert
 #include <stdlib.h>                 // for rand
-#include <algorithm>                // for copy, max
 #include <iostream>                 // for basic_ostream, operator<<, basic_...
 #include <sstream>                  // for basic_istringstream
 #include <utility>                  // for pair
 #include <vector>                   // for vector
 
-#include "commodities.hpp"
 #include "ConstructionCount.h"      // for ConstructionCount
 #include "ConstructionManager.h"    // for ConstructionManager
 #include "ConstructionRequest.h"    // for ConstructionDeletionRequest, Powe...
-#include "Vehicles.h"               // for VehicleStrategy, COMMUTER_TRAFFIC...
+#include "Vehicles.h"               // for Vehicle, VehicleStrategy, COMMUTE...
+#include "commodities.hpp"          // for CommodityRule, Commodity, operator++
 #include "engglobs.h"               // for world, binary_mode, total_money
 #include "groups.h"                 // for GROUP_POWER_LINE, GROUP_FIRE, GRO...
 #include "gui_interface/mps.h"      // for mps_store_ssddp, mps_store_title

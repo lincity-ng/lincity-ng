@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (c) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,8 +26,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Child.hpp"            // for Child, Childs
 #include "gui/Component.hpp"        // for Component
 #include "gui/Event.hpp"            // for Event
+#include "gui/Signal.hpp"  // for Signal
 #include "gui/Vector2.hpp"          // for Vector2
-#include "gui/callback/Signal.hpp"  // for Signal
 
 class Painter;
 class XmlReader;
@@ -49,32 +50,25 @@ public:
     Signal<CheckButton*, int> clicked;
     Signal<CheckButton*, int> pressed;
     Signal<CheckButton*, int> released;
+    Signal<CheckButton *> checked;
+    Signal<CheckButton *> unchecked;
 
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
-    
+    Component *getCaption();
+
     void setTooltip(const std::string &pText);
 
-    Component *getCaption();
-    std::string getMain() const;
-    void uncheck();
     void check();
+    void uncheck();
+    void tryCheck();
+    void tryUncheck();
+    bool isChecked() const;
+    void setAutoCheck(bool check, bool uncheck);
 
-    /** enable/disable a button. A disabled button doesn't react to left-mouse
-     * clicks anymore.
-     */
     void enable(bool enabled = true);
+    void disable() { enable(false); }
     bool isEnabled() const;
-    
-    enum State {
-        STATE_NORMAL,
-        STATE_HOVER,
-        STATE_CLICKED,
-        STATE_CHECKED,
-        STATE_DISABLED
-    };
-    
-    State state;
 
 private:
     void setChildImage(Child& child, XmlReader& reader);
@@ -92,18 +86,20 @@ private:
     { return childs[4]; }
     Child& comp_caption()
     { return childs[5]; }
-    
-    std::string mmain;
-    
+
+    bool mdisabled = false;
+    bool mpressed = false;
+    bool mchecked = false;
+    bool mhovered = false;
+
+    bool autoCheck;
+    bool autoUncheck;
     bool lowerOnClick;
-    bool checked;    
-    bool mclicked;
     std::string tooltip;
-    Uint32 mouseholdTicks;
+    Uint32 mouseholdTicks = 0;
     Vector2 mouseholdPos;
 };
 
 #endif
 
-/** @file lincity-ng/CheckButton.hpp */
-
+/** @file gui/CheckButton.hpp */
