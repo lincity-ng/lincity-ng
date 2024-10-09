@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "MapEdit.hpp"                     // for check_bulldoze_area, editMap
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "Mps.hpp"                         // for mps_x, mps_y
-#include "PhysfsStream/PhysfsSDL.hpp"      // for getPhysfsSDLRWops
+#include "physfsrwops.h"
 #include "Util.hpp"                        // for getButton, getParagraph
 #include "gui/Button.hpp"                  // for Button
 #include "gui/Color.hpp"                   // for Color
@@ -451,7 +451,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
         std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
         return 0;
     }
-    currentImage = IMG_Load_RW(getPhysfsSDLRWops( nfilename ), 1);
+    currentImage = IMG_Load_RW(PHYSFSRWOPS_openRead(nfilename.c_str()), 1);
     if( !currentImage ) {
         std::cerr << "GameView::readImage# Could not load image "<< nfilename << "\n";
     }

@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <utility>                     // for pair, make_pair
 
 #include "Filter.hpp"                  // for color2Grey
-#include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
+#include "physfsrwops.h"
 #ifdef DEBUG
 #include <cassert>
 #endif
@@ -55,8 +55,8 @@ TextureManager::load(const std::string& filename, Filter filter)
     if(i != textures.end()) {
         return i->second;
     }
-    
-    SDL_Surface* image = IMG_Load_RW(getPhysfsSDLRWops(filename), 1);
+
+    SDL_Surface* image = IMG_Load_RW(PHYSFSRWOPS_openRead(filename.c_str()), 1);
     if(!image) {
         std::stringstream msg;
         msg << "Couldn't load image '" << filename
@@ -80,10 +80,9 @@ TextureManager::load(const std::string& filename, Filter filter)
 
     Texture* result = create(image);
     textures.insert(std::make_pair(info, result));
-    
+
     return result;
 }
 
 
 /** @file gui/TextureManager.cpp */
-
