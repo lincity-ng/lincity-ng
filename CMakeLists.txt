@@ -83,7 +83,7 @@ endif()
 
 if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE)
 	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
-		"${INCLUDE_WHAT_YOU_USE};-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu-mapping")
+	"${INCLUDE_WHAT_YOU_USE};-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu.map")
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 
