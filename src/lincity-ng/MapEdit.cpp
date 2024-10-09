@@ -18,27 +18,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MapEdit.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_GetK...
-#include <stddef.h>                        // for NULL
-#include <iostream>                        // for basic_ostream, operator<<
-#include <string>                          // for char_traits, basic_string
+#include <SDL.h>                          // for SDL_BUTTON_RIGHT, SDL_GetKe...
+#include <stddef.h>                       // for NULL
+#include <iostream>                       // for basic_ostream, operator<<
+#include <string>                         // for char_traits, basic_string
 
-#include "Dialog.hpp"                      // for Dialog, ASK_LAUNCH_ROCKET
-#include "GameView.hpp"                    // for getGameView, GameView
-#include "MapPoint.hpp"                    // for MapPoint
-#include "Mps.hpp"                         // for Mps, mapMPS
-#include "Sound.hpp"                       // for getSound, Sound
-#include "gui_interface/mps.h"             // for mps_set, MPS_MAP
-#include "gui_interface/shared_globals.h"  // for selected_module_cost
-#include "lincity/UserOperation.h"         // for UserOperation
-#include "lincity/engglobs.h"              // for world, userOperation, tech...
-#include "lincity/engine.h"                // for adjust_money, bulldoze_item
-#include "lincity/groups.h"                // for GROUP_MONUMENT, GROUP_RIVER
-#include "lincity/lin-city.h"              // for FLAG_EVACUATE, BAD, FLAG_A...
-#include "lincity/lintypes.h"              // for Construction, Construction...
-#include "lincity/modules/all_modules.h"   // for ParklandConstructionGroup
-#include "lincity/transport.h"             // for connect_transport
-#include "lincity/world.h"                 // for MapTile, World
+#include "Dialog.hpp"                     // for Dialog, ASK_LAUNCH_ROCKET
+#include "GameView.hpp"                   // for getGameView, GameView
+#include "MapPoint.hpp"                   // for MapPoint
+#include "Mps.hpp"                        // for Mps, mapMPS
+#include "Sound.hpp"                      // for getSound, Sound
+#include "gui_interface/mps.h"            // for mps_set, MPS_MAP
+#include "lincity/UserOperation.h"        // for UserOperation
+#include "lincity/all_buildings.h"        // for GROUP_WATER_COST
+#include "lincity/engglobs.h"             // for world, userOperation, tech_...
+#include "lincity/engine.h"               // for adjust_money, bulldoze_item
+#include "lincity/groups.h"               // for GROUP_MONUMENT, GROUP_RIVER
+#include "lincity/lin-city.h"             // for FLAG_EVACUATE, BAD, FLAG_AL...
+#include "lincity/lintypes.h"             // for Construction, ConstructionG...
+#include "lincity/modules/all_modules.h"  // for ParklandConstructionGroup
+#include "lincity/transport.h"            // for connect_transport
+#include "lincity/world.h"                // for MapTile, World
 
 extern void ok_dial_box(const char *, int, const char *);
 

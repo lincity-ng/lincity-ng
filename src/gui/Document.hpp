@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>               // for string
 
 #include "Component.hpp"        // for Component
-#include "Style.hpp"            // for Style
 #include "Signal.hpp"  // for Signal
+#include "Style.hpp"            // for Style
 
 class Painter;
 class Paragraph;

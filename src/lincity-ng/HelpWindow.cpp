@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <physfs.h>                     // for PHYSFS_exists
 #include <exception>                    // for exception
+#include <functional>                   // for bind, function, _1, _2
 #include <iostream>                     // for basic_ostream, operator<<, cerr
 #include <memory>                       // for unique_ptr
 #include <sstream>                      // for basic_ostringstream
@@ -32,9 +33,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"              // for Desktop
 #include "gui/Document.hpp"             // for Document
 #include "gui/ScrollView.hpp"           // for ScrollView
+#include "gui/Signal.hpp"               // for Signal
 #include "gui/Window.hpp"               // for Window
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "gui/Signal.hpp"      // for Signal
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 

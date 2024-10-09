@@ -23,21 +23,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollBar.hpp"
 
-#include <assert.h>               // for assert
-#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>                // for sscanf
-#include <string.h>               // for strcmp
-#include <iostream>               // for char_traits, basic_ostream, operator<<
-#include <memory>                 // for allocator, unique_ptr
-#include <sstream>                // for basic_stringstream
-#include <stdexcept>              // for runtime_error
-#include <string>                 // for basic_string, operator==, operator<<
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <functional>            // for bind, function, _1
+#include <iostream>              // for basic_ostream, operator<<, cerr, str...
+#include <memory>                // for unique_ptr
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for char_traits, basic_string, operator==
 
-#include "Button.hpp"             // for Button
-#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
-#include "Event.hpp"              // for Event
-#include "Vector2.hpp"            // for Vector2
-#include "XmlReader.hpp"          // for XmlReader
+#include "Button.hpp"            // for Button
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Event.hpp"             // for Event
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 class Painter;
 

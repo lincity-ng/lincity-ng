@@ -19,13 +19,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __BUTTON_PANEL_HPP__
 #define __BUTTON_PANEL_HPP__
 
-#include <map>                      // for map
-#include <string>                   // for string, basic_string
-#include <unordered_map>                   // for vector
+#include <stddef.h>                  // for NULL
+#include <string>                    // for basic_string, string
+#include <unordered_map>             // for unordered_map
+#include <vector>                    // for vector
 
-#include "gui/Component.hpp"        // for Component
-#include "gui/RadioButtonGroup.hpp"
-#include "lincity/UserOperation.h"  // for UserOperation
+#include "gui/Component.hpp"         // for Component
+#include "gui/RadioButtonGroup.hpp"  // for RadioButtonGroup
+#include "lincity/UserOperation.h"   // for UserOperation
 
 class CheckButton;
 class Painter;
@@ -50,6 +51,7 @@ public:
 
 private:
   struct Tool;
+
   typedef struct Menu {
     CheckButton *button = NULL;
     Component *drawer = NULL;

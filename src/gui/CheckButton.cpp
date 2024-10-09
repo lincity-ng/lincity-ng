@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "CheckButton.hpp"
 
 #include <SDL.h>                     // for SDL_GetTicks, SDL_BUTTON_LEFT
-#include <assert.h>                  // for assert
 #include <ctype.h>                   // for isspace
 #include <stdio.h>                   // for sscanf
 #include <string.h>                  // for strcmp
@@ -29,6 +28,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                   // for basic_stringstream
 #include <stdexcept>                 // for runtime_error
 
+#include "Child.hpp"                 // for Child, Childs
+#include "Component.hpp"             // for Component, Component::FLAG_RESIZ...
+#include "Signal.hpp"                // for Signal
+#include "Vector2.hpp"               // for Vector2
 #include "gui/ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONE...
 #include "gui/Event.hpp"             // for Event
 #include "gui/Image.hpp"             // for Image

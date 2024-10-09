@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <array>                           // for array
 #include <exception>                       // for exception
 #include <fstream>                         // for basic_ostream, operator<<
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for cerr
 #include <memory>                          // for unique_ptr
 #include <sstream>                         // for basic_stringstream
@@ -43,10 +44,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Paragraph.hpp"               // for Paragraph
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error

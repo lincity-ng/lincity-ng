@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string.h>                        // for strcmp
 #include <cmath>                           // for sqrt, fabs, floor, fabsf
 #include <exception>                       // for exception
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for basic_ostream, operator<<
 #include <iterator>                        // for advance
 #include <list>                            // for _List_iterator, list, oper...
@@ -49,10 +50,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT

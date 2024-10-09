@@ -22,12 +22,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stddef.h>                        // for NULL, size_t
 #include <algorithm>                       // for min
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for basic_ostream, operator<<
 #include <stdexcept>                       // for runtime_error
 
 #include "ButtonPanel.hpp"                 // for getButtonPanel, ButtonPanel
 #include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for closeAllDialogs, blockingD...
+#include "Dialog.hpp"                      // for closeAllDialogs, Dialog
 #include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "HelpWindow.hpp"                  // for HelpWindow
@@ -42,7 +43,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"                 // for Desktop
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
-#include "gui/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount

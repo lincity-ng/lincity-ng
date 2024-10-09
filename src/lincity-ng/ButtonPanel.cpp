@@ -20,13 +20,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ButtonPanel.hpp"
 
 #include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_BUTT...
-#include <stdio.h>                         // for size_t, NULL, sscanf
+#include <assert.h>                        // for assert
+#include <stdio.h>                         // for NULL, sscanf
 #include <string.h>                        // for strcmp
+#include <functional>                      // for bind, _Bind, function, _2, _1
 #include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_ostringstream, basic...
+#include <list>                            // for list, _List_iterator
+#include <sstream>                         // for basic_stringstream, basic_...
 #include <stdexcept>                       // for runtime_error
+#include <utility>                         // for pair
 
-#include "Debug.hpp"                       // for checked_cast
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MapEdit.hpp"                     // for monument_bul_flag, river_b...
@@ -36,16 +39,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
 #include "gui/Image.hpp"                   // for Image
-#include "gui/XmlReader.hpp"               // for XmlReader
 #include "gui/Signal.hpp"                  // for Signal
-#include "gui_interface/shared_globals.h"  // for selected_module_cost, mode...
+#include "gui/XmlReader.hpp"               // for XmlReader
+#include "gui_interface/shared_globals.h"  // for modern_windmill_flag
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
-#include "lincity/all_buildings.h"         // for GROUP_WATER_COST, GROUP_WA...
-#include "lincity/engglobs.h"              // for userOperation, tech_level
-#include "lincity/groups.h"                // for GROUP_BLACKSMITH, GROUP_CO...
+#include "lincity/engglobs.h"              // for tech_level, userOperation
 #include "lincity/lin-city.h"              // for GOOD
 #include "lincity/lintypes.h"              // for ConstructionGroup
-#include "lincity/modules/all_modules.h"   // for ResidenceConstructionGroup
+#include "lincity/modules/all_modules.h"   // for MODERN_WINDMILL_TECH, Wind...
 #include "tinygettext/gettext.hpp"         // for _
 
 #ifdef DEBUG

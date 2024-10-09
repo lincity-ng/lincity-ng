@@ -21,13 +21,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf, size_t
-#include <string.h>                        // for strlen, strcmp
+#include <string.h>                        // for strcmp, strlen
 #include <array>                           // for array
+#include <functional>                      // for bind, function, _1, _2
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
-#include "Dialog.hpp"                      // for ASK_COAL_SURVEY, Dialog
+#include "Dialog.hpp"                      // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MainLincity.hpp"                 // for setLincitySpeed
@@ -40,11 +41,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, mps_global_style
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
