@@ -30,14 +30,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
 #include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale
-#include "lincity/lin-city.h"                // for SIM_DELAY_MED
+#include "lincity/lin-city.h"                // for SIM_DELAY_SLOW
 #include "lincity/loadsave.h"                // for load_city_2, save_city
 #include "lincity/modules/all_modules.h"     // for initializeModules
 
 extern void init_types(void);
 extern void initFactories(void);
 
-int simDelay = SIM_DELAY_MED;
+int simDelay = SIM_DELAY_SLOW;
 /******************************************/
 
 void setSimulationDelay( int speed )

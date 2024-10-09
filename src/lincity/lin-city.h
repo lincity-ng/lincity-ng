@@ -106,8 +106,8 @@
 // TODO: move SIM_DELAY_* to lincity-ng directory
 #define SIM_DELAY_PAUSE -1
 #define SIM_DELAY_FAST 0
-#define SIM_DELAY_FAST  20
-#define SIM_DELAY_FAST 60
+#define SIM_DELAY_MED  20
+#define SIM_DELAY_SLOW 60
 
 #define ANIMATE_DELAY 100
 
