@@ -2,6 +2,7 @@
 
 ###### Internal
 - Removed many unused files from install.
+- Changed PhysFS-SDL2 glue layer from custom implementation to physfswrops.
 
 
 ## LinCity-NG 2.11.2 [SECURITY]
