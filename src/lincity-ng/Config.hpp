@@ -42,8 +42,6 @@ public:
     bool carsEnabled;
     //std::string lincityHome;
     int skipMonthsFast;
-    // how fast is fast_time_for_year
-    int quickness;
 
     std::string language;
     std::string musicTheme;

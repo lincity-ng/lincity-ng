@@ -104,6 +104,4 @@ int  global_mountainity;
 //TODO These and their updating should go to class World
 int alt_min, alt_max, alt_step;
 
-int fast_time_for_year;
-
 /** @file lincity/engglobs.cpp */

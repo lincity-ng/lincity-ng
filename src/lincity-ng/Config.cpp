@@ -62,7 +62,6 @@ Config::Config()
     monthgraphW = 190;
     monthgraphH = 64;
     skipMonthsFast = 1;
-    quickness = 10;
 
     //TODO ensure that this is right, because it's
     //critical for backwards compatibility...
@@ -182,8 +181,6 @@ void Config::load( const std::string& filename ){
                        monthgraphW  = parseInt(value, 120, 0);
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
                        monthgraphH  = parseInt(value, 64, 0);
-                    } else if( strcmp(name, "quickness" ) == 0 ){
-                        quickness = parseInt(value, 2, 1, 100);
                     } else if( strcmp(name, "language" ) == 0 ){
                         language = value;
                     } else if(strcmp(name, "WorldSideLen") == 0) {
@@ -241,7 +238,7 @@ Config::save(){
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")
         << "\" musicVolume=\"" << musicVolume << "\"\n";
     userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
-    userconfig << "    <game quickness=\""<< quickness <<"\" "
+    userconfig << "    <game "
         << "language=\"" << language //
         << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
         << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")

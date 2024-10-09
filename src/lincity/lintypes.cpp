@@ -8,17 +8,16 @@
 
 #include <assert.h>                 // for assert
 #include <stdlib.h>                 // for rand
-#include <algorithm>                // for copy, max
 #include <iostream>                 // for basic_ostream, operator<<, basic_...
 #include <sstream>                  // for basic_istringstream
 #include <utility>                  // for pair
 #include <vector>                   // for vector
 
-#include "commodities.hpp"
 #include "ConstructionCount.h"      // for ConstructionCount
 #include "ConstructionManager.h"    // for ConstructionManager
 #include "ConstructionRequest.h"    // for ConstructionDeletionRequest, Powe...
-#include "Vehicles.h"               // for VehicleStrategy, COMMUTER_TRAFFIC...
+#include "Vehicles.h"               // for Vehicle, VehicleStrategy, COMMUTE...
+#include "commodities.hpp"          // for CommodityRule, Commodity, operator++
 #include "engglobs.h"               // for world, binary_mode, total_money
 #include "groups.h"                 // for GROUP_POWER_LINE, GROUP_FIRE, GRO...
 #include "gui_interface/mps.h"      // for mps_store_ssddp, mps_store_title
@@ -33,7 +32,7 @@
 #include "world.h"                  // for World, MapTile
 #include "xmlloadsave.h"            // for XMLTemplate, bin_template_libary
 
-extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp
+extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
 
 //Construction Declarations
@@ -969,13 +968,13 @@ void Construction::trade()
         if(transport) //Special for transport
         {
             transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;
-            if(lincitySpeed != fast_time_for_year
+            if(simDelay != SIM_DELAY_FAST
             && getConfig()->carsEnabled
             && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
             && world(x,y)->getTransportGroup() == GROUP_ROAD)
             {
                 int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
-                if(lincitySpeed == MED_TIME_FOR_YEAR) // compensate for overall animation
+                if(simDelay == SIM_DELAY_MED) // compensate for overall animation
                 {   yield = (yield+1)/2;}
                 switch (stuff_ID)
                 {

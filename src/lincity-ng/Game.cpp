@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "HelpWindow.hpp"                  // for HelpWindow
-#include "MainLincity.hpp"                 // for saveCityNG, lincitySpeed
+#include "MainLincity.hpp"                 // for saveCityNG, simDelay
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "ScreenInterface.hpp"             // for print_stats, updateDate
 #include "TimerInterface.hpp"              // for get_real_time_with
@@ -340,10 +340,7 @@ Game::run()
             do_time_step();
 
             // reschedule
-            if(lincitySpeed == fast_time_for_year)
-              next_execute = tick;
-            else
-              next_execute = tick + lincitySpeed;
+            next_execute = tick + simDelay;
             prev_execute = tick;
         }
         if(tick >= next_animate) { // game animation
@@ -372,7 +369,7 @@ Game::run()
         }
 
         // this is kind of janky, but it works for now
-        if( lincitySpeed == 0 || blockingDialogIsOpen ) {
+        if( simDelay == SIM_DELAY_PAUSE || blockingDialogIsOpen ) {
             // deschedule execute and animate
             next_execute = ~0;
             next_animate = ~0;

@@ -30,19 +30,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
 #include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale
-#include "lincity/lin-city.h"                // for MED_TIME_FOR_YEAR
+#include "lincity/lin-city.h"                // for SIM_DELAY_SLOW
 #include "lincity/loadsave.h"                // for load_city_2, save_city
 #include "lincity/modules/all_modules.h"     // for initializeModules
 
 extern void init_types(void);
 extern void initFactories(void);
 
-int lincitySpeed = MED_TIME_FOR_YEAR;
+int simDelay = SIM_DELAY_SLOW;
 /******************************************/
 
-void setLincitySpeed( int speed )
+void setSimulationDelay( int speed )
 {
-    lincitySpeed = speed;
+    simDelay = speed;
 }
 
 /*

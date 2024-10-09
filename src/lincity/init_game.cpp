@@ -15,10 +15,9 @@
 
 //#define DEBUG_EXPERIMENTAL
 
-#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <cmath>                           // for pow, exp
-#include <cstdlib>                         // for rand, NULL, size_t, srand
+#include <cstdlib>                         // for rand, NULL, srand, RAND_MAX
 #include <deque>                           // for deque
 #include <iostream>                        // for basic_ostream, operator<<
 #include <list>                            // for list
@@ -48,7 +47,7 @@
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert
-#include <stdio.h>                         // for fprintf, stderr
+#include <stdio.h>                         // for fprintf, stderr, size_t
 #endif
 
 

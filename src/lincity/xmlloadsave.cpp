@@ -3,7 +3,6 @@
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcpy
-#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <iostream>                        // for cout
 #include <set>                             // for set

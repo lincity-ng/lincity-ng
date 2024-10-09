@@ -6,9 +6,10 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "ConstructionCount.h"  // for ConstructionCount
-#include "lin-city.h"           // for NUMOF_DISCOUNT_TRIGGERS
-#include "world.h"              // for World
+#include "lin-city.h"  // for NUMOF_DISCOUNT_TRIGGERS
+
+class ConstructionCount;
+class World;
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 
@@ -72,8 +73,6 @@ extern int coal_survey_done;
 extern int selected_type_cost;
 
 extern int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS];
-
-extern int fast_time_for_year;
 
 #endif /* __engglobs_h__ */
 
