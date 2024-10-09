@@ -28,7 +28,7 @@ foreach(guiSourceFile ${guiSourceFiles})
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Convert XML GUI ${guiSourceFile}"
+    COMMENT "Converting ${guiSourceFile}"
   )
 
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)
