@@ -4,7 +4,6 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2002.
  * Portions copyright (c) Corey Keasling, 2000-2002.
  * ---------------------------------------------------------------------- */
-#include <algorithm>        // for copy, max
 #include <map>              // for map
 
 #include "commodities.hpp"  // for Commodity

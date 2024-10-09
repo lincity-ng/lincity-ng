@@ -7,7 +7,7 @@
 	<p style="hp">De façon approximative, la production d'une industrie légère dépend principalement de la quantité de matériaux/emplois qu'elle peut recevoir, et également de la quantité de biens qui peuvent être <b> emportés </b> vers leurs lieux de vente.</p>
 	
 	<p style="hp">Ceci est une industrie légère</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

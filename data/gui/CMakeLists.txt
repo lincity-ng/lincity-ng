@@ -16,7 +16,6 @@ set(guiSourceFiles
   options.xml
   pbar2nd.xml
   pbar.xml
-  piemenu.xml
   savegame.xml
   speedpanel.xml
   too-old.xml
