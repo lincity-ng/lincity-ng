@@ -11,6 +11,7 @@
   state.
 
 ###### Internal
+- Removed many unused files from install.
 - Changed GUI callbacks to use C++ std::function.
 - Added a class to manage radio buttons.
 - Cleaned up (fully rewrote) the button-panel internals.

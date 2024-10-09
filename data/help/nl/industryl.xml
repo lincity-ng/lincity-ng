@@ -6,7 +6,7 @@
 	<p style="hp">Deze gebieden moeten verbonden met verkeer om ijzererts, staal en goederen te verhandelen. De werkers kunnen ze van een markt halen.</p>
 	
 	<p style="hp">Dit is lichte industrie</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">En dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

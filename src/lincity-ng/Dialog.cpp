@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for snprintf, sprintf
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strlen
-#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <exception>                       // for exception
 #include <fstream>                         // for basic_ostream, operator<<
@@ -44,21 +43,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/SwitchComponent.hpp"
+#include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error
-#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/commodities.hpp"         // for CommodityRule, Commodity
 #include "lincity/engglobs.h"              // for world, people_pool, total_...
 #include "lincity/engine.h"                // for do_coal_survey
 #include "lincity/lclib.h"                 // for current_year, current_month
 #include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
 #include "lincity/lintypes.h"              // for Counted, Construction, NUM...
 #include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
-#include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
+#include "lincity/modules/all_modules.h"   // for Market, Port, RocketPad
 #include "lincity/world.h"                 // for MapTile, World
 #include "tinygettext/gettext.hpp"         // for _
 

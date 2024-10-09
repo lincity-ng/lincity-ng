@@ -21,8 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf, size_t
-#include <string.h>                        // for strcmp, strlen
-#include <algorithm>                       // for max
+#include <string.h>                        // for strlen, strcmp
 #include <array>                           // for array
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream

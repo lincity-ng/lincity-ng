@@ -37,8 +37,6 @@ set(guiDialogSourceFiles
   roadup.xml
   rocketup.xml
   schoolup.xml
-  shfire-oc.xml
-  shfire-uc.xml
   solarpowerup.xml
   sustain.xml
   tradedialog.xml
