@@ -1,3 +1,9 @@
+## Unreleased
+
+###### Documentation
+- Updated the controls help page.
+
+
 ## LinCity-NG 2.11.2 [SECURITY]
 
 date: 2024-09-26 <br/>
