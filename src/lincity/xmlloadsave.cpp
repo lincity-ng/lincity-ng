@@ -221,6 +221,7 @@ int XMLloadsave::saveXMLfile(std::string xml_file_name)
     }
     std::cout << "gz saving " << xml_file_name << " ... ";
     std::cout.flush();
+    binary_mode = false; // just to make sure
     clearXMLlibary();
     xml_file_out.str("");
     ldsv_version = XML_LOADSAVE_VERSION;
@@ -1081,10 +1082,8 @@ void XMLloadsave::readArray(int ary[], int max_len, int len)
                 pos = xml_val.find("\t");
                 val = xml_val.substr(0, pos);
                 sscanf(val.c_str(),"%d",&ary[i++]);
-                if ((i > max_len) || (i > len))
-                {
-                    return;
-                }
+                if ((i >= max_len) || (i >= len))
+                    break;
                 xml_val.erase(0, pos);
                 xml_val.erase(0,1);
             }

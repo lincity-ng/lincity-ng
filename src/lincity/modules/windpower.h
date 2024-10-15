@@ -72,7 +72,7 @@ public:
         Construction::initialize();
 
         this->hivolt_output = (int)(WIND_POWER_HIVOLT +
-          (((double)tech_level * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
+          (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
 
         commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }

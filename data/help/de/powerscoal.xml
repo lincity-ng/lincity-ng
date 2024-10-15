@@ -9,16 +9,6 @@
 	<p style="hp">und das sein Symbol</p>
 
 	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
-	<p style="hp">Stromleitungen werden an der Nordwestecke des Kraftwerks
-    angeschlossen, Transportwege auf den beiden Feldern daneben.</p>
-    
-    <img src="images/help/powerscoal-example.png" halign="center"/>
-
-    <p style="hp">Obiges Beispiel zeigt ein Kohlekraftwerk, bei dem
-     alle Anschlussstellen verwendet werden. Links ist eine Straße,
-     darüber zwei Stromleitungen. Rechts davon ist eine Eisenbahnlinie
-     mit dem anderen Transportwegeanschluss verbunden. Im Spiel können
-     hohe Gebäude durch Drücken von <b>h</b> ein- und ausgeblendet werden.</p>
 
 	<p style="hp">Der Wirkungsgrad der Kraftwerke steigt mit dem
     Technologieniveau. Das Kraftwerk behält immer den Technologiestand

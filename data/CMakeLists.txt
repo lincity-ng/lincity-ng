@@ -4,10 +4,11 @@ add_subdirectory(gui)
 file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
   fonts/*
   help/*
-  images/*
+  images/*.png
+  images/*.xml
   locale/*
   music/*
-  opening/*.scn
+  opening/*.scn.gz
   sounds/*
   colour.pal
   lincityconfig.xml
