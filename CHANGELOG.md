@@ -10,8 +10,9 @@
 - Fixed simulation tick on load when paused.
 - Removed many unused files from install.
 
-###### Documentation
+###### Documentation / Translation
 - Updated the controls help page.
+- Added Hungarian translation for GUI and source strings.
 
 
 ## LinCity-NG 2.11.2 [SECURITY]
@@ -31,7 +32,7 @@ tag: lincity-ng-2.11.2
 - Fixed an error raised by CPack for missing README.md file.
 - Removed unneeded image source files from install.
 
-###### Documentation
+###### Documentation / Translation
 - Fixed the tip icon in help pages.
 - Added Italian translation for .desktop file.
 - Fixed several inconsistencies in translated help pages.
