@@ -1,5 +1,8 @@
 ## Unreleased
 
+###### User Interface
+- Changed rocket icon.
+
 ###### Internal
 - Deprecated binary save format.
 - Deprecated old save format.
