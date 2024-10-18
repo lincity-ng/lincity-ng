@@ -10,6 +10,9 @@
 - Fixed simulation tick on load when paused.
 - Removed many unused files from install.
 
+###### Documentation
+- Updated the controls help page.
+
 
 ## LinCity-NG 2.11.2 [SECURITY]
 
