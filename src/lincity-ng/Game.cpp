@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -186,7 +187,7 @@ Game::run()
     gui->resize(getConfig()->videoX, getConfig()->videoY);
     int frame = 0;
 
-    Uint32 next_execute = 0, next_animate = 0, next_gui = 0, next_fps = 0;
+    Uint32 next_execute = ~0, next_animate = ~0, next_gui = 0, next_fps = 0;
     __attribute__((unused))
     Uint32 prev_execute = 0, prev_animate = 0, prev_gui = 0, prev_fps = 0;
     Uint32 next_task;

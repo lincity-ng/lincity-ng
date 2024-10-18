@@ -7,7 +7,7 @@
 	<p style="hp">Estas áreas conectanse ó transporte <b>só</b> pola esquina superior esquerda, tal coma se mostra. O transporte curvarase na industria cando esta sexa conectada.</p>
 	
 	<p style="hp">Esto é unha industria lixeira</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">e esta é a súa icona</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

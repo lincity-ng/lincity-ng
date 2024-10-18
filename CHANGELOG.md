@@ -1,5 +1,43 @@
 ## Unreleased
 
+###### User Interface
+- Changed rocket icon.
+
+###### Internal
+- Deprecated binary save format.
+- Deprecated old save format.
+- Converted starting scenarios to new save format.
+- Fixed simulation tick on load when paused.
+- Removed many unused files from install.
+
+###### Documentation
+- Updated the controls help page.
+
+
+## LinCity-NG 2.11.2 [SECURITY]
+
+date: 2024-09-26 <br/>
+tag: lincity-ng-2.11.2
+
+###### Gameplay
+- Fixed sustainability not resetting when dumping on a tip.
+- Fixed tech-based output for farms and power stations.
+
+###### User Interface
+- Fixed cars not spawning on track/road/rail.
+
+###### Internal
+- [SECURITY] Fixed a heap overflow in game loading.
+- Fixed an error raised by CPack for missing README.md file.
+- Removed unneeded image source files from install.
+
+###### Documentation
+- Fixed the tip icon in help pages.
+- Added Italian translation for .desktop file.
+- Fixed several inconsistencies in translated help pages.
+- Added a script for detecting inconsistencies in translated help pages.
+- Fixed a typo in the rocket help page.
+
 
 ## LinCity-NG 2.11.1
 

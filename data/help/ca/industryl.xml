@@ -7,7 +7,7 @@
 	<p style="hp">Aquestes àrees es connecten al transport <b>només</b> al racó superior dret. Les vies de transport faran una corba quan s'hi connectin.</p>
 
 	<p style="hp">Això és una indústria lleugera</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">i aquesta n'és la seva icona</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 

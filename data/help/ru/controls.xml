@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Клавиатура</p>
+	<p style="hp">ESCAPE: возвращает курсор</p>
+	<p style="hp">b переключает бульдозер и курсор</p>
+	<p style="hp">h прячет высокие постройки. Повторное нажатие h снова покажет их</p>
+	<p style="hp">v переключает зоны миникарты</p>
+	<p style="hp">m,n переключают отображение информации о транспортной системе</p>
+	<p style="hp">g отображает информацию о типе земли и всех её параметрах</p>
+	<p style="hp">KP_PLUS: приближение</p>
+	<p style="hp">KP_MINUS отдаление</p>
+	<p style="hp">KP_ENTER масштаб 100%</p>
+	<p style="hp">KP5 переместить обзор на середину карты</p>
+	<p style="hp">KP9 переместиться севернее</p>
+	<p style="hp">KP1 переместиться южнее</p>
+	<p style="hp">KP7 переместиться западнее</p>
+	<p style="hp">KP3 переместиться восточнее</p>
+	<p style="hp">KP2 переместиться юв</p>
+	<p style="hp">KP4 переместиться юз</p>
+	<p style="hp">KP6 переместиться cв</p>
+	<p style="hp">KP8 переместиться сз</p>
+	<p style="hp">используйте shift + направление для более быстрого перемещения</p>
+	<p style="hp">F12 быстрое сохранение</p>
+	<p style="hp">F9  быстрая загрузка</p>
+
+	<p style="hsubtitle">Мышка</p>
+	<p style="hp">правая кнопка:</p>
+	<p style="hp">нажатие правой кнопки позволит перемещаться по карте</p>
+	<p style="hp">средняя кнопка:</p>
+	<p style="hp">нажатие средней кнопки отобразит информацию об участке земли под курсором</p>
+	<p style="hp">левая кнопка:</p>
+	<p style="hp">нажатие на миникарте переместит в указанную зону основную карту</p>
+	<p style="hp">колёсико:</p>
+	<p style="hp">вверх: приближение</p>
+	<p style="hp">вниз: удаление</p>
+</Document>

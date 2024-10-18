@@ -141,15 +141,15 @@ void MainMenu::fillNewGameMenu()
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
     while(*fptr)
     {
-      if(std::string(*fptr).find(".scn")!=std::string::npos)
+      if(std::string(*fptr).find(".scn.gz")!=std::string::npos)
         break;
       fptr++;
     }
     if(*fptr)
     {
       std::string f=*fptr;
-      if(f.length()>5){
-        f=f.substr(0,f.length()-4); // truncate .scn
+      if(f.length()>7){
+        f=f.substr(0,f.length()-7); // truncate .scn.gz
       }
       // save real name
       fileMap.insert(std::pair<std::string, std::string>(buttonNames[i], f ));
@@ -317,8 +317,8 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
+        // currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
 
@@ -341,10 +341,10 @@ MainMenu::loadOptionsMenu()
     } else {
         getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
-    if (binary_mode)
-    {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
-    else
-    {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
+    // if (binary_mode)
+    // {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
+    // else
+    // {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
     if (seed_compression)
     {   getCheckButton(*optionsMenu, "SeedMode")->check();}
     else
@@ -483,7 +483,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 
     baseName = fc;
     if(newGameMenu.get()==currentMenu ) {
-        file=std::string("opening/")+fc+".scn";
+        file=std::string("opening/")+fc+".scn.gz";
     } else {
         file=fc;
     }
@@ -600,8 +600,8 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
         changeTrack(true);
-    } else if( buttonName == "BinaryMode"){
-        binary_mode = !binary_mode;
+    // } else if( buttonName == "BinaryMode"){
+    //     binary_mode = !binary_mode;
     } else if( buttonName == "SeedMode"){
         seed_compression = !seed_compression;
     } else {
