@@ -71,7 +71,7 @@ Config::Config()
     language = "autodetect";
 
     world.len(WORLD_SIDE_LEN);
-    binary_mode=true;
+    binary_mode=false;
     seed_compression=true;
     carsEnabled=true;
 
@@ -189,7 +189,7 @@ void Config::load( const std::string& filename ){
                     } else if(strcmp(name, "WorldSideLen") == 0) {
                         world.len(parseInt(value, WORLD_SIDE_LEN, 50, 10000));
                     } else if(strcmp(name, "binarySaveGames") == 0) {
-                        binary_mode = parseBool(value, true);
+                        // binary_mode = parseBool(value, true);
                     } else if(strcmp(name, "seed_compression") == 0) {
                         seed_compression = parseBool(value, true);
                     } else if(strcmp(name, "carsEnabled") == 0) {
@@ -244,7 +244,7 @@ Config::save(){
     userconfig << "    <game quickness=\""<< quickness <<"\" "
         << "language=\"" << language //
         << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
-        << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
+        // << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
         << "\" seed_compression=\"" << (seed_compression?"yes":"no")
         << "\" carsEnabled=\"" << (carsEnabled?"yes":"no")
         << "\" />\n";

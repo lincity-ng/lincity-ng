@@ -8,7 +8,7 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   images/*.xml
   locale/*
   music/*
-  opening/*.scn
+  opening/*.scn.gz
   sounds/*
   colour.pal
   lincityconfig.xml
