@@ -178,7 +178,7 @@
         </cell> -->
 
          <!-- Use Binary Saveganes -->
-        <cell row="9" col="2" valign="center" halign="left">
+        <!-- <cell row="9" col="2" valign="center" halign="left">
             <Paragraph style="listtitle" translatable="yes">Seed Saving</Paragraph>
         </cell>
         <cell row="9" col="3">
@@ -186,7 +186,7 @@
                 <image src="images/gui/checkbox/checkbox.png"/>
                 <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
             </CheckButton>
-        </cell>
+        </cell> -->
 
         <!-- BackButton -->
         <cell row="10" col="2" colspan="2" halign="right">

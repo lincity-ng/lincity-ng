@@ -319,8 +319,8 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
         // currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
-        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
+        // currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsBackButtonClicked));
@@ -345,10 +345,10 @@ MainMenu::loadOptionsMenu()
     // {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
     // else
     // {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
-    if (seed_compression)
-    {   getCheckButton(*optionsMenu, "SeedMode")->check();}
-    else
-    {   getCheckButton(*optionsMenu, "SeedMode")->uncheck();}
+    // if (seed_compression)
+    // {   getCheckButton(*optionsMenu, "SeedMode")->check();}
+    // else
+    // {   getCheckButton(*optionsMenu, "SeedMode")->uncheck();}
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
@@ -602,8 +602,8 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(true);
     // } else if( buttonName == "BinaryMode"){
     //     binary_mode = !binary_mode;
-    } else if( buttonName == "SeedMode"){
-        seed_compression = !seed_compression;
+    // } else if( buttonName == "SeedMode"){
+    //     seed_compression = !seed_compression;
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }
