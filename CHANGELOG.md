@@ -17,6 +17,7 @@
 - Deprecated old save format.
 - Converted starting scenarios to new save format.
 - Fixed simulation tick on load when paused.
+- Fixed segfault while bulldozing.
 - Removed many unused files from install.
 - Changed GUI callbacks to use C++ std::function.
 - Added a class to manage radio buttons.
