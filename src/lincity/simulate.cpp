@@ -58,7 +58,7 @@
 
 /* extern resources */
 extern void print_total_money(void);
-void setLincitySpeed( int speed );
+void setSimulationDelay( int speed );
 extern void ok_dial_box(const char *, int, const char *);
 extern GameView* GetGameView(void);
 
@@ -92,7 +92,7 @@ void do_time_step(void)
     if (flag_warning) {
         flag_warning = false;
         /* FIXME use blocking_dialog_open instead */
-        setLincitySpeed(0);
+        setSimulationDelay(SIM_DELAY_PAUSE);
         ok_dial_box("warning.mes", GOOD, \
                 _("Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!\
   You should check starvation minimap, and read waterwell help page :-)") );

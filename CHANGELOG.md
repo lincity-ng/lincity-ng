@@ -2,6 +2,7 @@
 
 ###### User Interface
 - Changed rocket icon.
+- Removed 'quickness' parameter from command-line options and config file.
 
 ###### Internal
 - Deprecated binary save format.

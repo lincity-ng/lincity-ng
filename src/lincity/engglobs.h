@@ -92,8 +92,6 @@ extern int selected_type_cost;
 
 extern int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS];
 
-extern int fast_time_for_year;
-
 #endif /* __engglobs_h__ */
 
 /** @file lincity/engglobs.h */

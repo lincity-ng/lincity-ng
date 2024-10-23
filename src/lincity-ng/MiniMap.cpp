@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"                      // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
-#include "MainLincity.hpp"                 // for setLincitySpeed
+#include "MainLincity.hpp"                 // for setSimulationDelay
 #include "Mps.hpp"                         // for mps_x, mps_y, mps_style
 #include "PBar.hpp"                        // for pbarGlobalStyle, PBAR_GLOB...
 #include "Util.hpp"                        // for getCheckButton, getSwitchC...
@@ -253,9 +253,9 @@ void MiniMap::attachButtons()
         }
     }
 
+    // TODO: move these non-minimap components out of here
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
-    setLincitySpeed(SLOW_TIME_FOR_YEAR);
         if(i == 1)
         {   b->check();}
         b->clicked.connect(makeCallback(*this, &MiniMap::speedButtonClicked));
@@ -589,16 +589,16 @@ MiniMap::speedButtonClicked(CheckButton* button, int)
     switch(i)
     {
         case 0:
-            setLincitySpeed(0);
+            setSimulationDelay(SIM_DELAY_PAUSE);
             break;
         case 1:
-            setLincitySpeed(SLOW_TIME_FOR_YEAR);
+            setSimulationDelay(SIM_DELAY_SLOW);
             break;
         case 2:
-            setLincitySpeed(MED_TIME_FOR_YEAR);
+            setSimulationDelay(SIM_DELAY_MED);
             break;
         case 3:
-            setLincitySpeed(fast_time_for_year);
+            setSimulationDelay(SIM_DELAY_FAST);
             break;
         default:
             assert(false);

@@ -50,7 +50,7 @@
 #include "world.h"                  // for World, MapTile
 #include "xmlloadsave.h"            // for XMLTemplate, bin_template_libary
 
-extern int lincitySpeed; // is defined in lincity-ng/MainLincity.cpp
+extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
 
 //Construction Declarations
@@ -986,13 +986,13 @@ void Construction::trade()
         if(transport) //Special for transport
         {
             transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;
-            if(lincitySpeed != fast_time_for_year
+            if(simDelay != SIM_DELAY_FAST
             && getConfig()->carsEnabled
             && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
             && world(x,y)->getTransportGroup() == GROUP_ROAD)
             {
                 int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
-                if(lincitySpeed == MED_TIME_FOR_YEAR) // compensate for overall animation
+                if(simDelay == SIM_DELAY_MED) // compensate for overall animation
                 {   yield = (yield+1)/2;}
                 switch (stuff_ID)
                 {
