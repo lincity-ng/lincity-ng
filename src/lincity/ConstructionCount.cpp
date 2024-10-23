@@ -21,7 +21,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <algorithm>                  // for max
 #include <map>                        // for map, operator!=, _Rb_tree_iterator
 #include <utility>                    // for pair
 

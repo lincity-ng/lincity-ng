@@ -21,13 +21,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <algorithm>        // for copy, max
+#include "stats.h"
+
 #include <map>              // for map
 
 #include "commodities.hpp"  // for Commodity
 #include "engglobs.h"       // for housing, population, starving_population
 #include "lintypes.h"       // for tstat_capacities, tstat_census
-#include "stats.h"
 
 /* ---------------------------------------------------------------------- *
  * Public Global Variables

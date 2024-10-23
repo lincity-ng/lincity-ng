@@ -24,9 +24,10 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "ConstructionCount.h"  // for ConstructionCount
-#include "lin-city.h"           // for NUMOF_DISCOUNT_TRIGGERS
-#include "world.h"              // for World
+#include "lin-city.h"  // for NUMOF_DISCOUNT_TRIGGERS
+
+class ConstructionCount;
+class World;
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 

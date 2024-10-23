@@ -22,15 +22,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf, size_t
-#include <string.h>                        // for strcmp, strlen
-#include <algorithm>                       // for max
+#include <string.h>                        // for strlen, strcmp
 #include <array>                           // for array
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
 #include "CheckButton.hpp"                 // for CheckButton
-#include "Dialog.hpp"                      // for ASK_COAL_SURVEY, Dialog
+#include "Dialog.hpp"                      // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MainLincity.hpp"                 // for setLincitySpeed
