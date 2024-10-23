@@ -94,7 +94,7 @@ target_link_libraries(lincity_gui
 		OpenGL::GL
 		PRIVATE
 		tinygettext
-		LinCity::physfsstream
+		physfsrwops
 		SDL2::SDL2_gfx
 		${PHYSFS_LIBRARY}
 )

@@ -23,6 +23,7 @@
 - Added a class to manage radio buttons.
 - Cleaned up (fully rewrote) the button-panel internals.
 - Moved button-panel tool definitions from the source code to the GUI XML.
+- Changed PhysFS-SDL2 glue layer from custom implementation to physfswrops.
 
 ###### Documentation
 - Updated the controls help page.
