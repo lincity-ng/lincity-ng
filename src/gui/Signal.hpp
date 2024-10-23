@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (c) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,32 +16,44 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#ifndef __CALLBACKBASE_HPP__
-#define __CALLBACKBASE_HPP__
 
-template<typename Arg1T, typename Arg2T = void>
-class CallbackBase
-{
-public:
-    virtual ~CallbackBase()
-    { }
-    
-    virtual void operator()(Arg1T arg1, Arg2T arg2) const = 0;
-};
+#ifndef __SIGNAL_HPP__
+#define __SIGNAL_HPP__
 
-/** Base class for callbacks */
-template<typename Arg1T>
-class CallbackBase<Arg1T>
-{
+#include <assert.h>
+#include <functional>
+#include <list>
+
+template<typename... Args>
+class Signal {
 public:
-    virtual ~CallbackBase()
-    { }
-    
-    virtual void operator()(Arg1T arg) const = 0;
+  Signal() {}
+  ~Signal() {}
+
+  void operator()(Args... args) const {
+    for(auto cb : callbacks) {
+      cb(args...);
+    }
+  }
+
+  void connect(std::function<void(Args...)> callback) {
+      callbacks.push_back(callback);
+  }
+
+  void clear() {
+      callbacks.clear();
+  }
+
+private:
+    Signal(const Signal& other)
+    { assert(false); }
+    void operator=(const Signal& other)
+    { assert(false); }
+
+    std::list<std::function<void(Args...)>> callbacks;
 };
 
 #endif
 
 
-/** @file gui/callback/CallbackBase.hpp */
-
+/** @file gui/Signal.hpp */

@@ -1,7 +1,15 @@
 ## Unreleased
 
+###### Gameplay
+- Fixed tech requirement enforcement after tech decrease.
+
 ###### User Interface
 - Changed rocket icon.
+- Fixed duplicate/erroneous invention messages.
+- Changed the left- and right- click actions for button panel menus. Now,
+  left-click toggles the drawer, and right-click activates the shown tool.
+- Fixed button-panel buttons displaying incorrect checked/unchecked/hovered
+  state.
 - Removed 'quickness' parameter from command-line options and config file.
 
 ###### Internal
@@ -10,6 +18,10 @@
 - Converted starting scenarios to new save format.
 - Fixed simulation tick on load when paused.
 - Removed many unused files from install.
+- Changed GUI callbacks to use C++ std::function.
+- Added a class to manage radio buttons.
+- Cleaned up (fully rewrote) the button-panel internals.
+- Moved button-panel tool definitions from the source code to the GUI XML.
 
 ###### Documentation
 - Updated the controls help page.

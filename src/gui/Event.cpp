@@ -79,7 +79,10 @@ Event::Event(SDL_Event& event)
 
 Event::Event(float _elapsedTime)
     : type(UPDATE), inside(false), elapsedTime(_elapsedTime)
-{
-}
+{}
+
+Event::Event(Type type)
+    : type(type)
+{}
 
 /** @file gui/Event.cpp */

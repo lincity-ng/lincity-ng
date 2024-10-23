@@ -127,6 +127,7 @@ public:
     Desktop* getDesktop() const {
         return desktop;
     }
+    Child *getParentChild() const;
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -173,8 +174,6 @@ protected:
     float &width = size.x;
     float &height = size.y;
     std::string name;
-
-    friend class ButtonPanel;
 };
 
 #endif

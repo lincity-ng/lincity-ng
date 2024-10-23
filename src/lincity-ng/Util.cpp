@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Util.hpp"
 
-#include "CheckButton.hpp"          // for CheckButton
+#include "gui/CheckButton.hpp"      // for CheckButton
 #include "gui/Button.hpp"           // for Button
 #include "gui/Component.hpp"        // for Component
 #include "gui/Paragraph.hpp"        // for Paragraph

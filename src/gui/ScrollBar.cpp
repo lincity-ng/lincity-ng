@@ -23,24 +23,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollBar.hpp"
 
-#include <assert.h>               // for assert
-#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>                // for sscanf
-#include <string.h>               // for strcmp
-#include <iostream>               // for char_traits, basic_ostream, operator<<
-#include <memory>                 // for allocator, unique_ptr
-#include <sstream>                // for basic_stringstream
-#include <stdexcept>              // for runtime_error
-#include <string>                 // for basic_string, operator==, operator<<
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <functional>            // for bind, function, _1
+#include <iostream>              // for basic_ostream, operator<<, cerr, str...
+#include <memory>                // for unique_ptr
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for char_traits, basic_string, operator==
 
-#include "Button.hpp"             // for Button
-#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
-#include "Event.hpp"              // for Event
-#include "Vector2.hpp"            // for Vector2
-#include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
+#include "Button.hpp"            // for Button
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "Event.hpp"             // for Event
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 class Painter;
+
+using namespace std::placeholders;
 
 static const float SCROLLSPEED = 200;
 
@@ -62,7 +64,7 @@ ScrollBar::parse(XmlReader& reader)
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
-        
+
         if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "width") == 0) {
@@ -96,8 +98,8 @@ ScrollBar::parse(XmlReader& reader)
                 resetChild(button2(), button.release());
             } else if(element == "scroller") {
                 std::unique_ptr<Button> button(new Button());
-                button->parse(reader);                                     
-                resetChild(scroller(), button.release());                   
+                button->parse(reader);
+                resetChild(scroller(), button.release());
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
@@ -113,13 +115,13 @@ ScrollBar::parse(XmlReader& reader)
     Button* b1 = dynamic_cast<Button*> (button1().getComponent());
     if(!b1)
         throw std::runtime_error("Button1 of ScrollBar not a button.");
-    b1->pressed.connect( makeCallback(*this, &ScrollBar::buttonPressed) );
-    b1->released.connect( makeCallback(*this, &ScrollBar::buttonReleased) );
+    b1->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
+    b1->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
     Button* b2 = dynamic_cast<Button*> (button2().getComponent());
     if(!b2)
         throw std::runtime_error("Button2 of ScrollBar not a button.");
-    b2->pressed.connect( makeCallback(*this, &ScrollBar::buttonPressed) );
-    b2->released.connect( makeCallback(*this, &ScrollBar::buttonReleased) );
+    b2->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
+    b2->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
 }
 
 void
@@ -133,7 +135,7 @@ ScrollBar::resize(float newwidth, float newheight)
         + button2().getComponent()->getHeight()
         + 32;
     if(newheight < minHeight)
-        newheight = minHeight; 
+        newheight = minHeight;
     this->height = newheight;
 
     button1().setPos(Vector2(0, 0));
@@ -160,7 +162,7 @@ ScrollBar::event(const Event& event)
                 scrollOffset = event.mousepos.y - scroller().getPos().y;
             }
             break;
-            
+
         case Event::MOUSEBUTTONUP:
             scrolling = false;
             break;
@@ -168,25 +170,25 @@ ScrollBar::event(const Event& event)
         case Event::MOUSEMOTION: {
             if(!scrolling)
                 break;
-            
+
             float val = event.mousepos.y - scrollOffset;
             if(val < button1().getComponent()->getHeight())
                 val = button1().getComponent()->getHeight();
-            if(val > button2().getPos().y 
+            if(val > button2().getPos().y
                     - scroller().getComponent()->getHeight())
-                val = button2().getPos().y 
+                val = button2().getPos().y
                     - scroller().getComponent()->getHeight();
             scroller().setPos(Vector2(0, val));
 
             // map val to scrollrange...
-            float scrollScreenRange = height 
+            float scrollScreenRange = height
                 - button1().getComponent()->getHeight()
                 - button2().getComponent()->getHeight()
                 - scroller().getComponent()->getHeight();
-            float scrollScreenRatio 
+            float scrollScreenRatio
                 = (val - button1().getComponent()->getHeight()) /
                         scrollScreenRange;
-            float newScrollVal = minVal + 
+            float newScrollVal = minVal +
                 ((maxVal - minVal) * scrollScreenRatio);
             assert(newScrollVal >= minVal && newScrollVal <= maxVal);
             currentVal = newScrollVal;
@@ -197,7 +199,7 @@ ScrollBar::event(const Event& event)
         case Event::UPDATE: {
             if(scrollspeed == 0)
                 break;
-            
+
             float newVal = currentVal + scrollspeed * event.elapsedTime;
             if(newVal < minVal)
                 newVal = minVal;
@@ -224,7 +226,7 @@ ScrollBar::setRange(float min, float max)
     }
     minVal = min;
     maxVal = max;
-    
+
     if(currentVal < minVal)
         currentVal = minVal;
     else if(currentVal > maxVal)
@@ -238,8 +240,8 @@ ScrollBar::setValue(float value)
         value = minVal;
     else if(value > maxVal)
         value = maxVal;
-    
-    float scrollScreenRange = height 
+
+    float scrollScreenRange = height
         - button1().getComponent()->getHeight()
         - button2().getComponent()->getHeight()
         - scroller().getComponent()->getHeight();

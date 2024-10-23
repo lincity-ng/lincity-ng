@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @brief This class contains informations about events (such as keypresses or
  * mouseclicks)
  * @author Matthias Braun.
- */
+**/
 
 class Event
 {
@@ -57,6 +57,8 @@ public:
     };
     /// Create an update Event
     Event(float elapsedTime);
+    /// Create an arbitrary event
+    Event(Type type);
 
     /// type of the event
     Type type;
@@ -81,6 +83,15 @@ public:
      */
     float elapsedTime;
 };
+
+// TODO: Some day, I want to implement a decent mouse-/keyboard-focus system.
+// This would change the WINDOWLEAVE event type into a MOUSELEAVE type and void
+// the need for the 'inside' member. Such a system would direct events only
+// where they need to go based on which components have focus, and unrelated
+// components would not be bothered with the event. This would help solve issues
+// where otherwise a component does not realize that it lost focus e.g. for
+// ButtonPanel where hacky methods are used to inform buttons that they lose
+// focus when a menu is hidden.
 
 #endif
 

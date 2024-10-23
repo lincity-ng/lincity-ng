@@ -23,12 +23,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stddef.h>                        // for NULL, size_t
 #include <algorithm>                       // for min
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for basic_ostream, operator<<
 #include <stdexcept>                       // for runtime_error
 
 #include "ButtonPanel.hpp"                 // for getButtonPanel, ButtonPanel
 #include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for closeAllDialogs, blockingD...
+#include "Dialog.hpp"                      // for closeAllDialogs, Dialog
 #include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "HelpWindow.hpp"                  // for HelpWindow
@@ -43,8 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"                 // for Desktop
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
-#include "gui/callback/Signal.hpp"         // for Signal
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
@@ -52,6 +52,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"              // for ANIMATE_DELAY
 #include "lincity/lintypes.h"              // for Construction
 #include "lincity/simulate.h"              // for do_animate, do_time_step
+
+using namespace std::placeholders;
 
 Game* gameptr = 0;
 
@@ -68,18 +70,20 @@ Game::Game(SDL_Window* _window)
     gui->resize(width, height);
 
     Button* gameMenu = getButton( *gui, "GameMenuButton" );
-    gameMenu->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
+    gameMenu->clicked.connect(std::bind(&Game::gameButtonClicked, this, _1));
 
     Button* helpButton = getButton( *gui, "HelpButton" );
-    helpButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
+    helpButton->clicked.connect(std::bind(&Game::gameButtonClicked, this, _1));
 
     Button* statButton = getButton( *gui, "StatButton" );
-    statButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
+    statButton->clicked.connect(std::bind(&Game::gameButtonClicked, this, _1));
 
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(desktop == 0)
         throw std::runtime_error("Game UI is not a Desktop Component");
     helpWindow.reset(new HelpWindow(desktop));
+
+    getButtonPanel()->selectQueryTool();
     gameptr = this;
 }
 

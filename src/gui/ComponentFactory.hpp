@@ -30,6 +30,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <utility>              // for pair, make_pair
 
 // IWYU pragma: no_include "Button.hpp"
+// IWYU pragma: no_include "CheckButton.hpp"
 // IWYU pragma: no_include "Desktop.hpp"
 // IWYU pragma: no_include "Document.hpp"
 // IWYU pragma: no_include "FilledRectangle.hpp"
