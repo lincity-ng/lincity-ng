@@ -1,4 +1,5 @@
 #!/usr/bin/env amm
+// This script requires Ammonite, running Scala 2.13 and Java 11+
 
 import $ivy.`info.picocli:picocli:4.7+`
 
@@ -59,6 +60,7 @@ object ApplyChangelog extends java.util.concurrent.Callable[Int] {
     val clDir = Path.of("CHANGELOG.d")
     val changeFiles = Files.list(clDir).toScala(LazyList)
       .filter(_ != clDir.resolve("apply-changelog.sc")) // skip this script
+      .filter(_ != clDir.resolve("template.md")) // skip the template
     val entries = changeFiles
       .flatMap(p =>
         Source.fromFile(p.toFile).getLines
@@ -99,6 +101,10 @@ object ApplyChangelog extends java.util.concurrent.Callable[Int] {
     // only support adding to the 'Unreleased' version for now
     entries.map(_.version).find(_ != "Unreleased").foreach(v =>
       throw new RuntimeException(s"only 'Unreleased' version supported: '$v'"))
+
+    entries.map(_.version).find(_ == "Change or delete me.").foreach{t =>
+      throw new RuntimeException(s"encountered placeholder entry: '$t'")
+    }
 
     val groupedEntries = entries.groupBy(_.subheader)
     val targetSubheaders = Subheader.list
