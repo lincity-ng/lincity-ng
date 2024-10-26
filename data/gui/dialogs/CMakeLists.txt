@@ -51,7 +51,7 @@ foreach(guiDialogSourceFile ${guiDialogSourceFiles})
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} ${guiDialogSourceFile}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiDialogSourceFile}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Convert XML GUI dialogs/${guiDialogSourceFile}"
+    COMMENT "Converting dialogs/${guiDialogSourceFile}"
   )
 
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/dialogs/)
