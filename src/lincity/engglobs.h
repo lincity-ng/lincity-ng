@@ -10,7 +10,6 @@
 #include "lin-city.h"           // for NUMOF_DISCOUNT_TRIGGERS
 #include "world.h"              // for World
 // Use permutator to shuffle the simulation order
-//#include "lincity-ng/Permutator.hpp"
 
 class UserOperation;
 

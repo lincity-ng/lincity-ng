@@ -59,7 +59,6 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
-        setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * UNIVERSITY_LABOR;
@@ -69,6 +68,9 @@ public:
     virtual ~University() { }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_tech_made;
     int working_days, busy;

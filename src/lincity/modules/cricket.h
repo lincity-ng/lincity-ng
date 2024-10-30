@@ -62,13 +62,10 @@ public:
         // this->anim = 0;
         this->animate_enable = false;
         this->active = false;
-        setMemberSaved(&(this->active),"active");
         this->busy = 0;
         this->daycount = 0;
         this->working_days = 0;
-        setMemberSaved(&(this->daycount),"daycount");
         this->covercount = 0;
-        setMemberSaved(&(this->covercount),"covercount");
         initialize_commodities();
 
         int tmp;
@@ -92,6 +89,9 @@ public:
     virtual void report() override;
     virtual void animate() override;
     void cover();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int daycount, covercount;

@@ -83,7 +83,6 @@ public:
     std::array<int, STUFF_COUNT> commodityProdPrev; // production last month
     std::array<int, STUFF_COUNT> commodityMaxProd;  // max production
     std::array<int, STUFF_COUNT> commodityMaxCons;  // max consumption
-    std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
     std::list<ExtraFrame>::iterator frameIt;
@@ -99,18 +98,10 @@ public:
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
     void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
-    int loadMember(std::string const &xml_tag, std::string const &xml_val);
-    int readbinaryMember(std::string const &xml_tag, gzFile fp);
-    template <typename MemberType>
-    void setMemberSaved(MemberType *ptr, std::string const &xml_tag)
-    {
-        memberRuleCount[xml_tag].memberType = MemberTraits<MemberType>::TYPE_ID;
-        memberRuleCount[xml_tag].ptr = static_cast<void *>(ptr);
-    }
 
-    void setCommodityRulesSaved(std::array<CommodityRule,STUFF_COUNT> * stuffRuleCount);
-    void writeTemplate();      //create xml template for savegame
-    void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
+    virtual bool loadMember(xmlpp::TextReader& xmlReader);
+    virtual void save(xmlTextWriterPtr xmlWriter);
+
     virtual void place(int x, int y);
     void detach();      //removes all references from world, ::constructionCount
     void deneighborize(); //cancells all neighbors and partners mutually
@@ -183,6 +174,8 @@ public:
 
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction() = 0;
+
+    virtual Construction *loadConstruction(xmlpp::TextReader& xmlReader);
 
     std::string getName(void);
 

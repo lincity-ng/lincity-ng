@@ -225,4 +225,35 @@ void RocketPad::report()
     list_commodities(&i);
 }
 
+void RocketPad::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, "steps", "%d", steps);
+  std:string stStr;
+  switch(stage) {
+  case BUILDING: stStr = "building"; break;
+  case AWAITING:
+  case LAUNCHING:
+  case LAUNCH:   stStr = "awaiting"; break;
+  case AWAITING: stStr = "done";     break;
+  default:
+    throw runtime_error("unknown rocket stage");
+  }
+  xmlTextWriterWriteFormatElement(xmlWriter, "stage", "%d", stStr);
+}
+
+bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  if     (tag == "tech")  tech  = std::stoi(xmlReader.get_inner_xml());
+  else if(tag == "steps") steps = std::stoi(xmlReader.get_inner_xml());
+  else if(tag == "stage") {
+    std::string stStr = xmlReader.get_inner_xml();
+    if     (stStr == "building") stage = BUILDING;
+    else if(stStr == "awaiting") stage = AWAITING;
+    else if(stStr == "done")     stage = DONE;
+    else throw runtime_error("unknown rocket stage");
+  }
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/rocket_pad.cpp */

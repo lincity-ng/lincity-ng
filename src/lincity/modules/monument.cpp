@@ -110,5 +110,22 @@ void Monument::report()
     }
 }
 
+void Monument::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech_made", "%d", tech_made);
+  xmlTextWriterWriteFormatElement(xmlWriter, "tail_off", "%d", tail_off);
+  xmlTextWriterWriteFormatElement(xmlWriter, "completion", "%d", completion);
+  xmlTextWriterWriteFormatElement(xmlWriter, "labor_consumed", "%d", labor_consumed);
+}
+
+bool Monument::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "tech_made")  tech_made      = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "tail_off")   tail_off       = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "completion") completion     = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "labor_consumed" || name == "jobs_consumed")
+                                labor_consumed = std::stoi(xmlReader.get_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
 
 /** @file lincity/modules/monument.cpp */

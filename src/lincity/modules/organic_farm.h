@@ -76,9 +76,6 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
-        // this->tech_bonus = int( ((long long int)tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL );
-        setMemberSaved(&this->tech_bonus, "tech_bonus"); // compatibility
         this->crop_rotation_key = (rand() % 4) + 1;
         this->month_stagger = rand() % 100;
         this->food_this_month = 0;
@@ -126,6 +123,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  ugwCount;
     int  max_foodprod;

@@ -182,7 +182,6 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->local_population = 0;
-        setMemberSaved(&(this->local_population),"local_population");
         this->desireability = 0;
         this->births = 120000;
         this->deaths = 120000;
@@ -225,6 +224,9 @@ public:
     }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int local_population;
     int max_population;

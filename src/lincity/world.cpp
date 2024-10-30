@@ -585,17 +585,6 @@ bool World::checkEdgeMin(int x , int y)
         return false;
 }
 
-int World::count_altered(void)
-{
-    int count = 0;
-    for (size_t i = 0; i < maptile.size(); ++i)
-    {
-        if(maptile[i].flags & FLAG_ALTERED)
-        {   ++count;}
-    }
-    return count;
-}
-
 
 
 /** @file lincity/world.cpp */

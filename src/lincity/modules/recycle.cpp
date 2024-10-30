@@ -76,4 +76,17 @@ void Recycle::report()
     list_commodities(&i);
 }
 
+void Recycle::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+}
+
+bool Recycle::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "make_ore");
+  else if(name == "make_steel");
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/recycle.cpp */

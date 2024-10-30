@@ -66,10 +66,8 @@ public:
     this->busy = 0;
     this->anim = 0;
     this->steps = 0;
-    // FIXME: this is not compatible for loading old savegames
-    setMemberSaved(&this->steps, "steps");
+    this->stage = BUILDING;
     this->tech = tech_level;
-    setMemberSaved(&this->tech, "tech");
     initialize_commodities();
 
     commodityMaxCons[STUFF_LABOR] = 100 * MAX_LABOR_AT_ROCKET_PAD;
@@ -82,9 +80,14 @@ public:
   virtual void update() override;
   virtual void animate() override;
   virtual void report() override;
+
+  virtual void save(xmlTextWriterPtr xmlWriter) override;
+  virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+
   void launch_rocket();
   void compute_launch_result();
   void remove_people(int num);
+
   int working_days, busy;
   int tech;
   int anim;

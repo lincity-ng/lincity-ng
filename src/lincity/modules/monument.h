@@ -51,14 +51,10 @@ public:
         this->busy = 0;
         this->working_days = 0;
         this->tech_made = 0;
-        setMemberSaved(&this->tech_made, "tech_made");
         this->tail_off = 0;
-        setMemberSaved(&this->tail_off, "tail_off");
         this->completion = 0;
-        setMemberSaved(&this->completion, "completion");
         this->completed = false; //don't save this one
         this->labor_consumed = 0;
-        setMemberSaved(&this->labor_consumed, "jobs_consumed");
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * MONUMENT_GET_LABOR;
@@ -68,6 +64,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  working_days, busy;
     int  tech_made;

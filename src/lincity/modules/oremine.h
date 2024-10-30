@@ -71,7 +71,6 @@ public:
         if (ore < 1)
         { ore = 1;}
         this->total_ore_reserve = ore;
-        setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
 
         commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
         commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
@@ -82,6 +81,8 @@ public:
     virtual void report() override;
     virtual void animate() override;
 
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_ore_reserve;
     int anim;

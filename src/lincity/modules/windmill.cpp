@@ -74,4 +74,16 @@ void Windmill::report()
     list_commodities(&i);
 }
 
+void Coal_power::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+}
+
+bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "kwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/windmill.cpp */

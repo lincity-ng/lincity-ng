@@ -76,7 +76,6 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
-        setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MAKE_TECH_SCHOOL;
@@ -99,6 +98,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator frit;
     int anim;

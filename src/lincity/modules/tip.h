@@ -52,11 +52,9 @@ public:
         init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
-        setMemberSaved(&this->total_waste,"total_waste");
         this->working_days = 0;
         this->busy = 0;
         this->degration_days = 0;
-        setMemberSaved(&this->degration_days,"degration_days");
         initialize_commodities();
 
         commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURRIED;
@@ -66,6 +64,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  working_days, busy;
     int  total_waste;

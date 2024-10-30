@@ -250,4 +250,32 @@ void Market::toggleEvacuation()
     {   flags |= FLAG_EVACUATE;}
 }
 
+void Market::save(xmlTextWriterPtr xmlWriter) {
+  const std::string givePfx("give_");
+  const std::string takePfx("take_");
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    CommodityRule& rule = commodityRuleCount[stuff];
+    if(!rule.maxload) continue;
+    const char *name = getCommodityStandardName(stuff);
+    xmlTextWriterWriteFormatElement(xmlWriter, givePfx + name, "%d", rule.give);
+    xmlTextWriterWriteFormatElement(xmlWriter, takePfx + name, "%d", rule.take);
+  }
+}
+
+bool Market::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  bool give;
+  if((give = tag.starts_with("give_")) || tag.starts_with("take_")) {
+    CommodityRule& rule =
+      commodityRuleCount[commodityFromStandardName(tag.substr(5).c_str())];
+    give ? rule.give : rule.take = std::stoi(xmlReader.get_inner_xml());
+  }
+  else return Construction::loadMember(xmlReader);
+  return true;
+  }
+
+  others:
+  return Construction::loadMember(xmlReader);
+}
+
 /** @file lincity/modules/market.cpp */

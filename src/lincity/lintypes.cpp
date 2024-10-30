@@ -227,8 +227,6 @@ void Construction::initialize_commodities(void)
     for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++)
     {
         commodityCount[stuff] = 0;
-        if(constructionGroup->commodityRuleCount[stuff].maxload)
-          setMemberSaved(&commodityCount[stuff], commodityNames[stuff]);
         commodityProd[stuff] = 0;
         commodityProdPrev[stuff] = 0;
         commodityMaxProd[stuff] = 0;
@@ -276,258 +274,26 @@ void Construction::report_commodities(void)
 
 }
 
-void Construction::setCommodityRulesSaved(std::array<CommodityRule, STUFF_COUNT> *stuffRuleCount)
-{
-    std::string giveStr = "give_";
-    std::string takeStr = "take_";
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        CommodityRule& rule = (*stuffRuleCount)[stuff];
-        if(!rule.maxload) continue;
-        setMemberSaved(&(rule.give), giveStr + commodityNames[stuff]);
-        setMemberSaved(&(rule.take), takeStr + commodityNames[stuff]);
-    }
+void Construction::save(xmlTextWriterPtr xmlWriter) {
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
+    const char *name = getCommodityStandardName(stuff);
+    xmlTextWriterWriteFormatElement(xmlWriter,
+      name, "%d", commodityCount[stuff]);
+  }
 }
 
-int Construction::loadMember(std::string const &xml_tag, std::string const &xml_val)
-{
-    std::istringstream iss;
-    iss.str(xml_val);
-    if(memberRuleCount.count(xml_tag))
-    {
-        switch (memberRuleCount[xml_tag].memberType)
-        {
-            case TYPE_BOOL:
-                iss>>*static_cast<bool *>(memberRuleCount[xml_tag].ptr);
-                break;
-            case TYPE_INT:
-                iss>>*static_cast<int *>(memberRuleCount[xml_tag].ptr);
-                break;
-            case TYPE_USHORT:
-                iss>>*static_cast<unsigned short *>(memberRuleCount[xml_tag].ptr);
-                break;
-             case TYPE_DOUBLE:
-                iss>>*static_cast<double *>(memberRuleCount[xml_tag].ptr);
-                break;
-            case TYPE_FLOAT:
-                iss>>*static_cast<float *>(memberRuleCount[xml_tag].ptr);
-                break;
-        }
-        return 1;
-    }
-    else
-    {
-        //return silently in case of non optional xml tags
-        return 0;
-    }
-}
-
-int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
-{
-    size_t s_t = 0;
-//    if(memberRuleCount.count(xml_tag))
-//    {
-        switch (memberRuleCount[xml_tag].memberType)
-        {
-            case TYPE_BOOL:
-                s_t = sizeof(bool);
-                break;
-            case TYPE_INT:
-                s_t = sizeof(int);
-                break;
-            case TYPE_USHORT:
-                 s_t = sizeof(short);
-                break;
-             case TYPE_DOUBLE:
-                 s_t = sizeof(double);
-                break;
-            case TYPE_FLOAT:
-                 s_t = sizeof(float);
-                break;
-        }
-        gzread(fp,(char*)(memberRuleCount[xml_tag].ptr),s_t);
-        return s_t;
-/*    }
-    else
-    {
-        assert(false);
-        return 0;
-    }
-*/
-}
-
-void Construction::writeTemplate()
-{
-
-    std::string name;
-    XMLTemplate * xml_tmp;
-    unsigned short head = constructionGroup->group;
-    if ((flags&FLAG_IS_TRANSPORT) && !binary_mode)
-    {   name = "Transport";}
-    else
-    {   name = constructionGroup->name;}
-
-    if ((!binary_mode && xml_template_libary.count(name) == 0)||
-        (binary_mode && bin_template_libary.count(head) == 0))
-    {
-        xml_tmp = new XMLTemplate(name);
-        if (!binary_mode)
-        {
-            xml_tmp->putTag("Group");
-            //xml_tmp->putTag("type");
-            xml_tmp->putTag("map_x");
-            xml_tmp->putTag("map_y");
-        }
-        std::map<std::string, MemberRule>::iterator member_it;
-        for(member_it = memberRuleCount.begin() ; member_it != memberRuleCount.end() ; member_it++)
-        {
-            xml_tmp->putTag(member_it->first);
-            size_t s_t = 4;
-            switch (member_it->second.memberType)
-            {
-                case TYPE_BOOL:
-                    s_t = sizeof(bool);
-                    break;
-                case TYPE_INT:
-                    s_t = sizeof(int);
-                    break;
-                case TYPE_USHORT:
-                    s_t = sizeof(unsigned short);
-                    break;
-                case TYPE_DOUBLE:
-                    s_t = sizeof(double);
-                    break;
-                case TYPE_FLOAT:
-                    s_t = sizeof(float);
-                    break;
-            }
-            xml_tmp->add_len(s_t);
-        }
-        xml_tmp->rewind();
-        if (binary_mode)
-        {   xml_tmp->set_group(head);}
-    }
-}
-
-void Construction::saveMembers(std::ostream *os)
-{
-    //make sure all frames are actually valid
-    if (frameIt->resourceGroup->images_loaded && frameIt->resourceGroup->graphicsInfoVector.size())
-    {   frameIt->frame = frameIt->frame % frameIt->resourceGroup->graphicsInfoVector.size();}
-    std::string name;
-    unsigned short head = constructionGroup->group;
-    if (flags&FLAG_IS_TRANSPORT && !binary_mode)
-    {   name = "Transport";}
-    else
-    {   name = constructionGroup->name;}
-    if ((!binary_mode && xml_template_libary.count(name) == 0)||
-        (binary_mode && bin_template_libary.count(head) == 0))
-    {   writeTemplate();}
-    XMLTemplate * xml_tmp;
-
-    if (binary_mode)
-    {   xml_tmp = bin_template_libary[head];}
-    else
-    {
-        xml_tmp = xml_template_libary[name];
-        if (os == &std::cout)
-        {   xml_tmp->report(os);}
-    }
-    xml_tmp->rewind();
-    size_t checksum = 0;
-    std::map<std::string, MemberRule>::iterator member_it;
-    if (binary_mode)
-    {   //Mandatory header for binary files (before actual template)
-        int idx = x + y * world.len();
-        os->write( (char*) &head, sizeof(head));
-        os->write( (char*) &constructionGroup->group, sizeof(constructionGroup->group));
-        //compability hack for type based bin games
-        if(XML_LOADSAVE_VERSION < 1328)
-        {   os->write( (char*) &constructionGroup->group, sizeof(constructionGroup->group));}
-        os->write( (char*) &idx, sizeof(idx));
-    }
-    else
-    {   // Header for txt mode (part of template)
-        *os <<"<" << name << ">" << constructionGroup->group << "\t";
-        xml_tmp->step();
-        //*os << type << "\t";
-        //xml_tmp->step();
-        *os << x << "\t";
-        xml_tmp->step();
-        *os << y << "\t";
-        xml_tmp->step();
-        os->flush();
-    }
-    while (!xml_tmp->reached_end())
-    {
-        member_it = memberRuleCount.find(xml_tmp->getTag());
-        if (member_it != memberRuleCount.end())
-        {
-
-            if (!binary_mode)
-            {
-                switch (member_it->second.memberType)
-                {
-                    case TYPE_BOOL:
-                        *os << *static_cast<bool *>(member_it->second.ptr);
-                        break;
-                    case TYPE_INT:
-                        *os << *static_cast<int *>(member_it->second.ptr);
-                        break;
-                    case TYPE_USHORT:
-                        *os << *static_cast<unsigned short *>(member_it->second.ptr);
-                        break;
-                    case TYPE_DOUBLE:
-                        *os << *static_cast<double *>(member_it->second.ptr);
-                        break;
-                    case TYPE_FLOAT:
-                        *os << *static_cast<float *>(member_it->second.ptr);
-                        break;
-                }
-                *os << '\t';
-            }
-            else //binary mode
-            {
-                size_t s_t = 4;
-                switch (member_it->second.memberType)
-                {
-                    case TYPE_BOOL:
-                        s_t = sizeof(bool);
-                        break;
-                    case TYPE_INT:
-                        s_t = sizeof(int);
-                        break;
-                    case TYPE_USHORT:
-                        s_t = sizeof(unsigned short);
-                        break;
-                    case TYPE_DOUBLE:
-                        s_t = sizeof(double);
-                        break;
-                    case TYPE_FLOAT:
-                        s_t = sizeof(float);
-                        break;
-                }
-                os->write( (char*) member_it->second.ptr,s_t);
-                checksum += s_t;
-            }
-        }
-        else
-        {   std::cout << "ignored " << xml_tmp->getTag() << " in " << name << " template." <<std::endl;}
-        xml_tmp->step();
-    }
-    if (!binary_mode)
-    {   *os << "</" << name << ">" << std::endl;}
-    else
-    {
-        if (xml_tmp->len() != checksum)
-        {
-            std::cout << xml_tmp->len() << " != " << checksum << std::endl;
-            assert(checksum == xml_tmp->len());
-        }
-    }
+bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
+  Commodity stuff = commodityFromStandardName(xmlReader.get_name());
+  assert(constructionGroup->commodityRuleCount[stuff].maxload > 0);
+  commodityCount[stuff] = std::stoi(xmlReader.get_inner_xml());
 }
 
 void Construction::place(int x, int y) {
+  if(!world.is_inside(x, y) || !world.is_inside(x + size, y + size))
+    throw runtime_error("error: cannot place a Construction outside the map: " +
+      "(" + x + ", " + y + ")");
+
   initialize();
 
   this->x = x;
@@ -1109,6 +875,33 @@ void Construction::playSound()
 int ConstructionGroup::getCosts() {
     return static_cast<int>
         (cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL)));
+}
+
+Construction *
+ConstructionGroup::loadConstruction(xmlpp::TextReader& xmlReader) {
+  Construction *cst = createConstruction();
+
+  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
+  assert(xmlReader.get_name() == "Construction");
+  int depth = xmlReader.get_depth();
+  xmlReader.read();
+  while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    assert(xmlReader.get_depth() == depth + 1);
+    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      xmlReader.next();
+      continue;
+    }
+
+    if(!cst->loadMember(xmlReader)) {
+      std::cerr << "warning: skipping unexpected element: '"
+        << xmlReader.get_name() << "'\n";
+    }
+
+    xmlReader.next();
+  }
+  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
+  assert(xmlReader.get_name() == "Construction");
+  assert(xmlReader.get_depth() == depth);
 }
 
 int ConstructionGroup::placeItem(int x, int y)

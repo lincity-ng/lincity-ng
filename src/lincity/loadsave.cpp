@@ -8,7 +8,6 @@
 
 #include <stdio.h>                         // for sscanf, fprintf, printf
 #include <zlib.h>                          // for gzgets, gzclose, gzopen
-//#include <zlib.h> //moved to lintypes.h
 #include <iostream>                        // for basic_ostream, operator<<
 
 #include "../lincity-ng/Config.hpp"        // for getConfig, Config

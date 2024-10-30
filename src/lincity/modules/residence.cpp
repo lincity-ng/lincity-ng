@@ -341,4 +341,15 @@ void Residence::report()
     list_commodities(&i);
 }
 
+void Residence::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "local_population", "%d", local_population);
+}
+
+bool Residence::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "local_population") local_population = std::stoi(xmlReader.get_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/residence.cpp */

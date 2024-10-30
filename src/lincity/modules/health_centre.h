@@ -55,13 +55,10 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->active = false;
-        setMemberSaved(&(this->active),"active");
         this->busy = 0;
         this->daycount = 0;
         this->working_days = 0;
-        setMemberSaved(&(this->daycount),"daycount");
         this->covercount = 0;
-        setMemberSaved(&(this->covercount),"covercount");
         initialize_commodities();
 
         int tmp;
@@ -83,6 +80,9 @@ public:
     virtual void update();
     virtual void report();
     void cover();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int daycount, covercount;

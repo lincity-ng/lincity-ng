@@ -63,4 +63,16 @@ void SolarPower::report()
     list_commodities(&i);
 }
 
+void SolarPower::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+}
+
+bool SolarPower::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(name == "mwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/solar_power.cpp */

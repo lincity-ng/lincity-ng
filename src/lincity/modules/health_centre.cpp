@@ -84,4 +84,19 @@ void HealthCentre::report() {
     mps_store_ss(i++, N_("Health Care"), p);
 }
 
+void HealthCentre::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "active",     "%d", active);
+  xmlTextWriterWriteFormatElement(xmlWriter, "daycount",   "%d", daycount);
+  xmlTextWriterWriteFormatElement(xmlWriter, "covercount", "%d", covercount);
+}
+
+bool HealthCentre::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "active")     active     = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "daycount")   daycount   = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "covercount") covercount = std::stoi(xmlReader.get_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/health_centre.cpp */

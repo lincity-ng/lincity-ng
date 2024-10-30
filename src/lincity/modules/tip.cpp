@@ -85,4 +85,17 @@ void Tip::report()
     list_commodities(&i);
 }
 
+void Tip::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "total_waste",    "%d", total_waste);
+  xmlTextWriterWriteFormatElement(xmlWriter, "degration_days", "%d", degration_days);
+}
+
+bool Tip::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "total_waste")    total_waste    = std::stoi(xmlReader.get_inner_xml());
+  else if(name == "degration_days") degration_days = std::stoi(xmlReader.get_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/tip.cpp */

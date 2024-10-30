@@ -18,7 +18,15 @@ enum Commodity : int {
 Commodity& operator++(Commodity& stuff);
 Commodity operator++(Commodity& stuff, int);
 
-extern const char *commodityNames[];
+extern const char *commodityNames[]; // deprecated: use commodityName
+
+extern const char *commodityName(Commodity stuff); // localized for UI
+extern const char *commodityStandardName(Commodity stuff); // standardized for load/save
+/**
+ * Used in load/save logic to get the commodity from the standard name or a past
+ * standard name. Returns `STUFF_COUNT` if the name is not recognized.
+**/
+extern Commodity commodityFromStandardName(const char *name);
 
 struct CommodityRule {
   int maxload;

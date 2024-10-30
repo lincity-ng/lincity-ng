@@ -84,7 +84,6 @@ public:
             coal = 20;
         }
         this->initial_coal_reserve = coal;
-        setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
         this->current_coal_reserve = coal;
 
         commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
@@ -95,6 +94,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int initial_coal_reserve;

@@ -87,7 +87,6 @@ public:
         waste_fire_frit->frame = -1;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
-        setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
         this->labor = LABOR_MARKET_EMPTY;
         this->anim = 0;
@@ -121,6 +120,9 @@ public:
     virtual void animate() override;
     void cover();
     void toggleEvacuation();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int working_days, busy;

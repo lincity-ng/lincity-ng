@@ -134,4 +134,15 @@ void Coalmine::report()
     list_commodities(&i);
 }
 
+void Coal_power::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "initial_coal_reserve", "%d", initial_coal_reserve);
+}
+
+bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.get_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/coalmine.cpp */

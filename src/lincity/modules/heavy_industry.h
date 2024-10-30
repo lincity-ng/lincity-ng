@@ -83,31 +83,13 @@ public:
         constructionGroup = cstgrp;
         init_resources();
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->output_level = 0;
         this->steel_this_month = 0;
         // this->anim = 0;
         initialize_commodities();
          //check for pollution bonus
         this->bonus = 0;
-        setMemberSaved(&this->bonus, "bonus"); // compatibility
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus"); // compatibility
-        // if (tech > MAX_TECH_LEVEL)
-        // {
-        //     bonus = (tech - MAX_TECH_LEVEL);
-        //     if (bonus > MAX_TECH_LEVEL)
-        //         bonus = MAX_TECH_LEVEL;
-        //     bonus /= MAX_TECH_LEVEL;
-        //     // check for filter technology bonus
-        //     if (tech > 2 * MAX_TECH_LEVEL)
-        //     {
-        //         extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-        //         if (extra_bonus > MAX_TECH_LEVEL)
-        //             extra_bonus = MAX_TECH_LEVEL;
-        //         extra_bonus /= MAX_TECH_LEVEL;
-        //     }
-        // }
 
         int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
         commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
@@ -148,6 +130,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;
     double bonus, extra_bonus;

@@ -114,7 +114,6 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->tech_made = 0;
-        setMemberSaved(&this->tech_made, "tech_made");
         initialize_commodities();
         //local copy of commodityRuleCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
@@ -135,7 +134,6 @@ public:
         commodityRuleCount[STUFF_ORE].give = false;
         commodityRuleCount[STUFF_STEEL].take = false;
         commodityRuleCount[STUFF_STEEL].give = false;
-        setCommodityRulesSaved(&commodityRuleCount);
 
         commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
         for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
@@ -151,9 +149,14 @@ public:
     virtual ~Port() { }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+
     int buy_stuff(Commodity stuff_ID);
     int sell_stuff(Commodity stuff_ID);
     void trade_connection();
+
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     int daily_ic, monthly_ic, lastm_ic; //import cost
     int daily_et, monthly_et, lastm_et; //export tax

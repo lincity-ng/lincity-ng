@@ -71,16 +71,7 @@ public:
         this->busy = 0;
         this->working_days = 0;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         initialize_commodities();
-        // int efficiency;
-        // efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
-        // if (efficiency > (WASTE_RECYCLED * 8) / 10)
-        // {   efficiency = (WASTE_RECYCLED * 8) / 10;}
-        // this->make_ore = efficiency;
-        setMemberSaved(&this->make_ore, "make_ore"); // compatibility
-        // this->make_steel = efficiency / 50;
-        setMemberSaved(&this->make_steel, "make_steel"); // compatibility
 
         commodityMaxCons[STUFF_LABOR] = 100 * RECYCLE_LABOR;
         commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
@@ -108,6 +99,9 @@ public:
     virtual ~Recycle() { }
     virtual void update() override;
     virtual void report() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;
     int  make_ore;

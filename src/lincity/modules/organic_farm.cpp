@@ -122,4 +122,16 @@ void Organic_farm::report()
     list_commodities(&i);
 }
 
+void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+}
+
+bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  if(tag == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  else if(tag == "tech_bonus");
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
+
 /** @file lincity/modules/organic_farm.cpp */

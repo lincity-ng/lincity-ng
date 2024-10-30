@@ -51,11 +51,8 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
@@ -72,6 +69,10 @@ public:
 
     virtual void update() override;
     virtual void report() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+
     int  hivolt_output;
     int  tech;
     int  working_days, busy;

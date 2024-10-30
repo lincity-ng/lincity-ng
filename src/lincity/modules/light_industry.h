@@ -110,16 +110,13 @@ public:
 
 
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
         this->goods_this_month = 0;
         this->anim = 0;
         initialize_commodities();
         this->bonus = 0;
-        setMemberSaved(&this->bonus, "bonus"); // compatibility
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus"); // compatibility
         // if (tech > MAX_TECH_LEVEL)
         // {
         //     bonus = (tech - MAX_TECH_LEVEL);
@@ -189,6 +186,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int  tech;

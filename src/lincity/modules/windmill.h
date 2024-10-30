@@ -56,11 +56,8 @@ public:
         // this->anim = 0;
         this->animate_enable = false;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->lovolt_output = (int)(WINDMILL_LOVOLT + (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->lovolt_output, "kwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
@@ -80,6 +77,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  lovolt_output;
     int  tech;
