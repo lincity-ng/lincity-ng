@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -141,6 +142,17 @@ Component::findComponent(const std::string& name)
     }
 
     return 0;
+}
+
+Child *
+Component::getParentChild() const {
+  Component *p = getParent();
+  if(!p) return NULL;
+  for(Child& pc : p->childs)
+    if(pc.getComponent() == this)
+      return &pc;
+  assert(false); // we must be a child of our parent
+  return NULL;
 }
 
 Vector2

@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,25 +24,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollView.hpp"
 
-#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
-#include <iostream>               // for basic_ostream, operator<<, basic_ios
-#include <memory>                 // for allocator, unique_ptr
-#include <stdexcept>              // for runtime_error
-#include <string>                 // for char_traits, basic_string, operator==
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <functional>            // for bind, function, _1, _2
+#include <iostream>              // for basic_ostream, operator<<, cerr
+#include <memory>                // for unique_ptr
+#include <stdexcept>             // for runtime_error
+#include <string>                // for char_traits, basic_string, operator==
 
-#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"    // for parseEmbeddedComponent
-#include "Event.hpp"              // for Event
-#include "Rect2D.hpp"             // for Rect2D
-#include "ScrollBar.hpp"          // for ScrollBar
-#include "Vector2.hpp"            // for Vector2
-#include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
-#include "callback/Signal.hpp"    // for Signal
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "Event.hpp"             // for Event
+#include "Rect2D.hpp"            // for Rect2D
+#include "ScrollBar.hpp"         // for ScrollBar
+#include "Signal.hpp"            // for Signal
+#include "Vector2.hpp"           // for Vector2
+#include "XmlReader.hpp"         // for XmlReader
 
 #ifdef DEBUG
 #include <assert.h>
 #endif
+
+using namespace std::placeholders;
 
 static const float MOUSEWHEELSCROLL = 90;
 
@@ -96,7 +99,7 @@ ScrollView::parse(XmlReader& reader)
     }
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
     scrollBarComponent->valueChanged.connect(
-            makeCallback(*this, &ScrollView::scrollBarChanged));
+      std::bind(&ScrollView::scrollBarChanged, this, _1, _2));
 
     setFlags(FLAG_RESIZABLE);
 }

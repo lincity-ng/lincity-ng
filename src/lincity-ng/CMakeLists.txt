@@ -1,9 +1,6 @@
 add_executable(lincity-ng
-		ButtonInterface.cpp
 		ButtonPanel.cpp
 		ButtonPanel.hpp
-		CheckButton.cpp
-		CheckButton.hpp
 		Config.cpp
 		Config.hpp
 		Dialog.cpp
@@ -65,6 +62,7 @@ target_link_libraries(lincity-ng
 	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
 	PRIVATE
 	tinygettext
+	physfsrwops
 	LinCity::physfsstream
 	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>

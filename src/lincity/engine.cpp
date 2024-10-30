@@ -1,10 +1,27 @@
 /* ---------------------------------------------------------------------- *
- * engine.c
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * ---------------------------------------------------------------------- */
+ * src/lincity/engine.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 1995-1997 I J Peters
+ * Copyright (C) 1997-2005 Greg Sharp
+ * Copyright (C) 2000-2004 Corey Keasling
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
+
 #include <stdlib.h>                        // for rand
-#include <algorithm>                       // for max
 #include <deque>                           // for deque
 #include <set>                             // for set, _Rb_tree_const_iterator
 
@@ -19,12 +36,12 @@
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars, update_pbar
 #include "lctypes.h"                       // for CST_GREEN, CST_DESERT
 #include "lin-city.h"                      // for BAD, FLAG_FIRE_COVER, FLAG...
-#include "lintypes.h"                      // for MapTile, ConstructionGroup
+#include "lintypes.h"                      // for ConstructionGroup, Constru...
 #include "modules/all_modules.h"           // for Residence, GROUP_SHANTY_BU...
 #include "stats.h"                         // for ddeaths, tunnat_deaths
 #include "tinygettext/gettext.hpp"         // for _
 #include "transport.h"                     // for connect_transport
-#include "world.h"                         // for World
+#include "world.h"                         // for World, MapTile
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert

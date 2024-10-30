@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Child.hpp"            // for Child, Childs
 #include "Component.hpp"        // for Component
 #include "Event.hpp"            // for Event
-#include "callback/Signal.hpp"  // for Signal
+#include "Signal.hpp"  // for Signal
 
 class Button;
 class Painter;

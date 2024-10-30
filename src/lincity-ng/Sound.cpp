@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Config.hpp"                  // for getConfig, Config
 #include "Game.hpp"                    // for getGame
-#include "PhysfsStream/PhysfsSDL.hpp"  // for getPhysfsSDLRWops
+#include "physfsrwops.h"
 #include "gui/XmlReader.hpp"           // for XmlReader
 #include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
 #include "lincity/engglobs.h"          // for tech_level
@@ -121,7 +122,7 @@ Sound::loadWaves() {
                     {   std::cout << "unknown attribute " << name << " in sounds.xml" << std::endl;}
                 }
                 fullname = directory + key;
-                file = getPhysfsSDLRWops( fullname.c_str() );
+                file = PHYSFSRWOPS_openRead(fullname.c_str());
                 chunk = Mix_LoadWAV_RW( file, 1);
                 if(!chunk) {
                     std::cerr << "warning: failed to load sound '" << key

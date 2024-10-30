@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,31 +23,30 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <assert.h>                        // for assert
 #include <stdio.h>                         // for sscanf, size_t
 #include <string.h>                        // for strcmp, strlen
-#include <algorithm>                       // for max
 #include <array>                           // for array
+#include <functional>                      // for bind, function, _1, _2
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 
-#include "CheckButton.hpp"                 // for CheckButton
-#include "Dialog.hpp"                      // for ASK_COAL_SURVEY, Dialog
+#include "Dialog.hpp"                      // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                        // for getGame, Game
 #include "GameView.hpp"                    // for getGameView, GameView
-#include "MainLincity.hpp"                 // for setLincitySpeed
+#include "MainLincity.hpp"                 // for setSimulationDelay
 #include "Mps.hpp"                         // for mps_x, mps_y, mps_style
 #include "PBar.hpp"                        // for pbarGlobalStyle, PBAR_GLOB...
 #include "Util.hpp"                        // for getCheckButton, getSwitchC...
 #include "gui/Button.hpp"                  // for Button
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
-#include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, mps_global_style
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
@@ -59,6 +59,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
 #include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
 #include "lincity/world.h"                 // for World, MapTile
+
+using namespace std::placeholders;
 
 
 /** List of mapview buttons. The "" entries separate mapview buttons that are
@@ -249,47 +251,43 @@ void MiniMap::attachButtons()
             CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
             if(i == 0)
             {   b->check();}
-            b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
+            b->clicked.connect(std::bind(&MiniMap::mapViewButtonClicked, this, _1, _2));
         }
     }
 
+    // TODO: move these non-minimap components out of here
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
-    setLincitySpeed(SLOW_TIME_FOR_YEAR);
         if(i == 1)
         {   b->check();}
-        b->clicked.connect(makeCallback(*this, &MiniMap::speedButtonClicked));
+        b->clicked.connect(std::bind(&MiniMap::speedButtonClicked, this, _1, _2));
     }
 
     Button* zoomInButton = getButton(*root, "ZoomInButton");
-    zoomInButton->clicked.connect(makeCallback(*this, &MiniMap::zoomInButtonClicked));
+    zoomInButton->clicked.connect(std::bind(&MiniMap::zoomInButtonClicked, this, _1));
     Button* zoomOutButton = getButton(*root, "ZoomOutButton");
-    zoomOutButton->clicked.connect(makeCallback(*this, &MiniMap::zoomOutButtonClicked));
+    zoomOutButton->clicked.connect(std::bind(&MiniMap::zoomOutButtonClicked, this, _1));
 
     CheckButton* switchMinimapButton = getCheckButton(*root, "SwitchMiniMap");
-    switchMinimapButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
+    switchMinimapButton->clicked.connect(std::bind(&MiniMap::switchButton, this, _1, _2));
     switchButtons.push_back(switchMinimapButton);
 
     CheckButton* switchPBarButton = getCheckButton(*root, "SwitchPBar");
-    switchPBarButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
+    switchPBarButton->clicked.connect(std::bind(&MiniMap::switchButton, this, _1, _2));
     switchButtons.push_back(switchPBarButton);
 
     CheckButton* switchButton = getCheckButton(*root, "SwitchGlobalMPS");
-    switchButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
+    switchButton->clicked.connect(std::bind(&MiniMap::switchButton, this, _1, _2));
     switchButtons.push_back(switchButton);
 
     switchButton = getCheckButton(*root, "SwitchEconomyGraph");
-    switchButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
+    switchButton->clicked.connect(std::bind(&MiniMap::switchButton, this, _1, _2));
     switchButtons.push_back(switchButton);
 
     Button* scrollPageDown = getButton(*root, "ScrollPageDown");
-    scrollPageDown->clicked.connect(makeCallback(*this, &MiniMap::scrollPageDownButtonClicked));
+    scrollPageDown->clicked.connect(std::bind(&MiniMap::scrollPageDownButtonClicked, this, _1));
     Button* scrollPageUp = getButton(*root, "ScrollPageUp");
-    scrollPageUp->clicked.connect(makeCallback(*this, &MiniMap::scrollPageUpButtonClicked));
+    scrollPageUp->clicked.connect(std::bind(&MiniMap::scrollPageUpButtonClicked, this, _1));
 
 }
 
@@ -589,16 +587,16 @@ MiniMap::speedButtonClicked(CheckButton* button, int)
     switch(i)
     {
         case 0:
-            setLincitySpeed(0);
+            setSimulationDelay(SIM_DELAY_PAUSE);
             break;
         case 1:
-            setLincitySpeed(SLOW_TIME_FOR_YEAR);
+            setSimulationDelay(SIM_DELAY_SLOW);
             break;
         case 2:
-            setLincitySpeed(MED_TIME_FOR_YEAR);
+            setSimulationDelay(SIM_DELAY_MED);
             break;
         case 3:
-            setLincitySpeed(fast_time_for_year);
+            setSimulationDelay(SIM_DELAY_FAST);
             break;
         default:
             assert(false);

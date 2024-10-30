@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -126,6 +127,7 @@ public:
     Desktop* getDesktop() const {
         return desktop;
     }
+    Child *getParentChild() const;
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -172,8 +174,6 @@ protected:
     float &width = size.x;
     float &height = size.y;
     std::string name;
-
-    friend class ButtonPanel;
 };
 
 #endif

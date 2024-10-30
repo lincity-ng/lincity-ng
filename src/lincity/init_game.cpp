@@ -1,9 +1,25 @@
-/* ----------------------------------------------------------------------
- * init_game.cpp
- * This file is part of lincity-ng
- * see COPYING for license, and CREDITS for authors
- * ----------------------------------------------------------------------
- */
+/* ---------------------------------------------------------------------- *
+ * src/lincity/init_game.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 1995-1997 I J Peters
+ * Copyright (C) 1997-2005 Greg Sharp
+ * Copyright (C) 2000-2004 Corey Keasling
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 // This was part of simulate.cpp.
 // Moved in new file for clarification
@@ -15,10 +31,9 @@
 
 //#define DEBUG_EXPERIMENTAL
 
-#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <cmath>                           // for pow, exp
-#include <cstdlib>                         // for rand, NULL, size_t, srand
+#include <cstdlib>                         // for rand, NULL, srand, RAND_MAX
 #include <deque>                           // for deque
 #include <iostream>                        // for basic_ostream, operator<<
 #include <list>                            // for list
@@ -48,7 +63,7 @@
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert
-#include <stdio.h>                         // for fprintf, stderr
+#include <stdio.h>                         // for fprintf, stderr, size_t
 #endif
 
 

@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,43 +26,44 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for snprintf, sprintf
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strlen
-#include <algorithm>                       // for max
 #include <array>                           // for array
 #include <exception>                       // for exception
 #include <fstream>                         // for basic_ostream, operator<<
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for cerr
 #include <memory>                          // for unique_ptr
 #include <sstream>                         // for basic_stringstream
 #include <stdexcept>                       // for runtime_error
 #include <vector>                          // for vector
 
-#include "CheckButton.hpp"                 // for CheckButton
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
 #include "MapPoint.hpp"                    // for MapPoint
 #include "Util.hpp"                        // for getCheckButton, getButton
 #include "gui/Button.hpp"                  // for Button
+#include "gui/CheckButton.hpp"             // for CheckButton
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/SwitchComponent.hpp"
+#include "gui/Signal.hpp"                  // for Signal
+#include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
-#include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error
-#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
+#include "lincity/commodities.hpp"         // for CommodityRule, Commodity
 #include "lincity/engglobs.h"              // for world, people_pool, total_...
 #include "lincity/engine.h"                // for do_coal_survey
 #include "lincity/lclib.h"                 // for current_year, current_month
 #include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
 #include "lincity/lintypes.h"              // for Counted, Construction, NUM...
 #include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
-#include "lincity/modules/all_modules.h"   // for Port, Market, RocketPad
+#include "lincity/modules/all_modules.h"   // for Market, Port, RocketPad
 #include "lincity/world.h"                 // for MapTile, World
 #include "tinygettext/gettext.hpp"         // for _
+
+using namespace std::placeholders;
 
 bool blockingDialogIsOpen = false;
 
@@ -195,11 +197,14 @@ void Dialog::askRocket(){
     p->setText( title.str() );
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayLaunchRocketButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayLaunchRocketButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 //no Signals caught here, so ScreenInterface has to catch them.
@@ -223,7 +228,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
 
     // connect signals
     Button* noButton = getButton( *myDialogComponent, "Ok" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 
     this->myDialogComponent = myDialogComponent.release();
     registerDialog();
@@ -248,9 +254,11 @@ void Dialog::askBulldozeMonument() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeMonumentButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeMonumentButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::askBulldozeRiver() {
@@ -272,9 +280,11 @@ void Dialog::askBulldozeRiver() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeRiverButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeRiverButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::askBulldozeShanty() {
@@ -296,9 +306,11 @@ void Dialog::askBulldozeShanty() {
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeShantyButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayBulldozeShantyButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::coalSurvey(){
@@ -320,9 +332,11 @@ void Dialog::coalSurvey(){
     }
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
+    yesButton->clicked.connect(
+      std::bind(&Dialog::okayCoalSurveyButtonClicked, this, _1));
     Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    noButton->clicked.connect(
+      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::setParagraphN( const std::string basename, const int number, const std::string text ){
@@ -517,7 +531,8 @@ void Dialog::gameStats(){
     if( !useExisting ){
         // connect signals
         Button* noButton = getButton( *myDialogComponent, "Okay" );
-        noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+        noButton->clicked.connect(
+          std::bind(&Dialog::closeDialogButtonClicked, this, _1));
     }
 }
 
@@ -717,9 +732,11 @@ void Dialog::editMarket(){
     if( market->commodityRuleCount[STUFF_WATER].give ) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
-    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
+    applyButton->clicked.connect(
+      std::bind(&Dialog::applyMarketButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 void Dialog::editPort(){
@@ -779,106 +796,108 @@ void Dialog::editPort(){
 
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
-    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
+    applyButton->clicked.connect(
+      std::bind(&Dialog::applyPortButtonClicked, this, _1));
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
-    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+    gotoButton->clicked.connect(
+      std::bind(&Dialog::gotoButtonClicked, this, _1));
 }
 
 void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
     Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_LABOR].take = true;
     } else {
         market->commodityRuleCount[STUFF_LABOR].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_LABOR].give = true;
     } else {
         market->commodityRuleCount[STUFF_LABOR].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_FOOD].take = true;
     } else {
         market->commodityRuleCount[STUFF_FOOD].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_FOOD].give = true;
     } else {
         market->commodityRuleCount[STUFF_FOOD].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_COAL].take = true;
     } else {
         market->commodityRuleCount[STUFF_COAL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_COAL].give = true;
     } else {
         market->commodityRuleCount[STUFF_COAL].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_ORE].take = true;
     } else {
         market->commodityRuleCount[STUFF_ORE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_ORE].give = true;
     } else {
         market->commodityRuleCount[STUFF_ORE].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_GOODS].take = true;
     } else {
         market->commodityRuleCount[STUFF_GOODS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_GOODS].give = true;
     } else {
         market->commodityRuleCount[STUFF_GOODS].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_STEEL].take = true;
     } else {
         market->commodityRuleCount[STUFF_STEEL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_STEEL].give = true;
     } else {
         market->commodityRuleCount[STUFF_STEEL].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_WASTE].take = true;
     } else {
         market->commodityRuleCount[STUFF_WASTE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_WASTE].give = true;
     } else {
         market->commodityRuleCount[STUFF_WASTE].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyWater" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_WATER].take = true;
     } else {
         market->commodityRuleCount[STUFF_WATER].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellWater" );
-    if( cb->state == CheckButton::STATE_CHECKED ){
+    if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_WATER].give = true;
     } else {
         market->commodityRuleCount[STUFF_WATER].give = false;
@@ -914,8 +933,7 @@ void Dialog::applyPortButtonClicked( Button* ){
         }
 
         CommodityRule& crc = port->commodityRuleCount[c];
-        (isGive ? crc.give : crc.take) =
-          cb->state == CheckButton::STATE_CHECKED;
+        (isGive ? crc.give : crc.take) = cb->isChecked();
       }
 
       if(port->commodityRuleCount[c].take && port->commodityRuleCount[c].give) {

@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,27 +24,29 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Window.hpp"
 
-#include <assert.h>               // for assert
-#include <libxml/xmlreader.h>     // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>                // for sscanf
-#include <string.h>               // for strcmp
-#include <iostream>               // for basic_ostream, operator<<, stringst...
-#include <memory>                 // for unique_ptr
-#include <sstream>                // for basic_stringstream
-#include <stdexcept>              // for runtime_error
-#include <string>                 // for char_traits, basic_string, operator==
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
+#include <stdio.h>               // for sscanf
+#include <string.h>              // for strcmp
+#include <functional>            // for bind, function, _1
+#include <iostream>              // for basic_ostream, operator<<, stringstream
+#include <memory>                // for unique_ptr
+#include <sstream>               // for basic_stringstream
+#include <stdexcept>             // for runtime_error
+#include <string>                // for char_traits, basic_string, operator==
 
-#include "Button.hpp"             // for Button
-#include "Color.hpp"              // for Color
-#include "ComponentFactory.hpp"   // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"    // for parseEmbeddedComponent
-#include "Painter.hpp"            // for Painter
-#include "Rect2D.hpp"             // for Rect2D
-#include "Vector2.hpp"            // for Vector2
-#include "WindowManager.hpp"      // for WindowManager
-#include "XmlReader.hpp"          // for XmlReader
-#include "callback/Callback.hpp"  // for makeCallback, Callback
-#include "callback/Signal.hpp"    // for Signal
+#include "Button.hpp"            // for Button
+#include "Color.hpp"             // for Color
+#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
+#include "Signal.hpp"            // for Signal
+#include "Vector2.hpp"           // for Vector2
+#include "WindowManager.hpp"     // for WindowManager
+#include "XmlReader.hpp"         // for XmlReader
+
+using namespace std::placeholders;
 
 Window::Window()
     : border(1), titlesize(0)
@@ -132,9 +135,8 @@ Window::parse(XmlReader& reader)
 
     // connect signals...
     if(closeButton().getComponent() != 0) {
-        Button* button = (Button*) closeButton().getComponent();
-        button->clicked.connect(
-                makeCallback(*this, &Window::closeButtonClicked));
+      Button* button = (Button*) closeButton().getComponent();
+      button->clicked.connect(std::bind(&Window::closeButtonClicked, this, _1));
     }
 }
 

@@ -8,7 +8,7 @@
 	<p style="hp">Hafif sanayiler <a href="pollution">kirliliğe </a> yol açar.</p>
 	
 	<p style="hp">Bu bir Hafif Sanayi</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,8 +25,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>                        // for PHYSFS_exists
 #include <stdio.h>                         // for size_t, sscanf, NULL
 #include <string.h>                        // for strcmp
-#include <cmath>                           // for sqrt, fabs, floor, fabsf
+#include <cmath>                           // for sqrt, fabs, fabsf
 #include <exception>                       // for exception
+#include <functional>                      // for bind, function, _1
 #include <iostream>                        // for basic_ostream, operator<<
 #include <iterator>                        // for advance
 #include <list>                            // for _List_iterator, list, oper...
@@ -36,10 +38,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Config.hpp"                      // for getConfig, Config
 #include "Dialog.hpp"                      // for blockingDialogIsOpen
-#include "MapEdit.hpp"                     // for check_bulldoze_area, editMap
+#include "MapEdit.hpp"                     // for editMap
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "Mps.hpp"                         // for mps_x, mps_y
-#include "PhysfsStream/PhysfsSDL.hpp"      // for getPhysfsSDLRWops
+#include "physfsrwops.h"
 #include "Util.hpp"                        // for getButton, getParagraph
 #include "gui/Button.hpp"                  // for Button
 #include "gui/Color.hpp"                   // for Color
@@ -49,11 +51,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Rect2D.hpp"                  // for Rect2D
+#include "gui/Signal.hpp"                  // for Signal
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui/callback/Callback.hpp"       // for makeCallback, Callback
-#include "gui/callback/Signal.hpp"         // for Signal
 #include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
@@ -69,6 +70,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/world.h"                 // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"         // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
+
+using namespace std::placeholders;
 
 
 const int scale3d = 128; // guestimate value for good looking 3d view;
@@ -184,13 +187,13 @@ void GameView::connectButtons(){
         root = root->getParent();
     }
     Button* button = getButton( *root, "hideHighBuildings" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 
     button = getButton( *root, "showTerrainHeight" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 
     button = getButton( *root, "mapOverlay" );
-    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    button->clicked.connect(std::bind(&GameView::buttonClicked, this, _1));
 }
 
 /*
@@ -200,7 +203,7 @@ void GameView::buttonClicked( Button* button ){
     std::string name = button->getName();
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
-        requestRedraw();
+        setDirty();
         return;
     }
     if( name == "showTerrainHeight" ){
@@ -209,19 +212,15 @@ void GameView::buttonClicked( Button* button ){
         } else { // map is completely flat
             showTerrainHeight = false;
         }
-        requestRedraw();
+        setDirty();
         return;
     }
     if( name == "mapOverlay" ){
         mapOverlay = (mapOverlay + 1) % (overlayMAX + 1);
-        requestRedraw();
+        setDirty();
         return;
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
-}
-int GameView::gameAreaMax()
-{
-    return world.len() -2;
 }
 
 /*
@@ -306,7 +305,7 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
     }
     mapMode = mMode;
     if( mapOverlay != overlayNone ){
-        requestRedraw();
+        setDirty();
     }
 }
 
@@ -374,7 +373,8 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
     viewport = (viewport + mousepos) * factor - mousepos;
     constrainViewportPosition(true);
 
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 /* set Zoomlevel to 100% */
@@ -404,7 +404,8 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
     if( redraw ){
         viewport.x = center.x - ( getWidth() / 2 );
         viewport.y = center.y - ( getHeight() / 2 );
-        requestRedraw();
+        viewportUpdated();
+        setDirty();
     } else { //on startup getWidth is 0.
         viewport.x = center.x - ( getConfig()->videoX / 2 );
         viewport.y = center.y - ( getConfig()->videoY / 2 );
@@ -451,7 +452,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
         std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
         return 0;
     }
-    currentImage = IMG_Load_RW(getPhysfsSDLRWops( nfilename ), 1);
+    currentImage = IMG_Load_RW(PHYSFSRWOPS_openRead(nfilename.c_str()), 1);
     if( !currentImage ) {
         std::cerr << "GameView::readImage# Could not load image "<< nfilename << "\n";
     }
@@ -638,7 +639,8 @@ void GameView::scroll(float elapsedTime)
     viewport += dir * amt / norm;
     constrainViewportPosition(false);
 
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 bool GameView::constrainViewportPosition(bool useScrollCorrection) {
@@ -652,20 +654,20 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
     center.y / tileHeight - center.x / tileWidth
   );
   bool outside = false;
-  if(centerTile.x < gameAreaMin) {
-      centerTile.x = gameAreaMin;
+  if(centerTile.x < 1) {
+      centerTile.x = 1;
       outside = true;
   }
-  else if(centerTile.x > gameAreaMax() + 1) {
-      centerTile.x = gameAreaMax() + 1;
+  else if(centerTile.x > world.len() - 1) {
+      centerTile.x = world.len() - 1;
       outside = true;
   }
-  if(centerTile.y < gameAreaMin) {
-      centerTile.y = gameAreaMin;
+  if(centerTile.y < 1) {
+      centerTile.y = 1;
       outside = true;
   }
-  else if(centerTile.y > gameAreaMax() + 1) {
-      centerTile.y = gameAreaMax() + 1;
+  else if(centerTile.y > world.len() - 1) {
+      centerTile.y = world.len() - 1;
       outside = true;
   }
 
@@ -678,7 +680,8 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
         scrollCorrection = (vpOld - viewport) / zoom;
       else
         scrollCorrection = Vector2(0,0);
-      requestRedraw();
+      viewportUpdated();
+      setDirty();
       return true;
   }
   else {
@@ -725,6 +728,7 @@ void GameView::event(const Event& event)
                     break;
                 viewport -= event.mousemove;
                 constrainViewportPosition(true);
+                viewportUpdated();
                 setDirty();
                 break;
             }
@@ -766,7 +770,7 @@ void GameView::event(const Event& event)
             if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             && !areaBulldoze){
                 if( tile != startRoad ) {
-                    check_bulldoze_area (startRoad.x, startRoad.y);
+                    editMap(startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;
                 }
             }
@@ -849,8 +853,9 @@ void GameView::event(const Event& event)
                         {
                             for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy)
                             {
-                                if( !blockingDialogIsOpen )
-                                {   check_bulldoze_area(currentTile.x, currentTile.y);}
+                                if(!blockingDialogIsOpen) {
+                                  editMap(currentTile, SDL_BUTTON_LEFT);
+                                }
                             }
                         }
                     }
@@ -1025,13 +1030,13 @@ void GameView::event(const Event& event)
                 } else {
                     hideHigh = true;
                 }
-                requestRedraw();
+                setDirty();
                 break;
             }
             //overlay MiniMap Information
             if( event.keysym.scancode == SDL_SCANCODE_V ){
                 mapOverlay = (mapOverlay+1)%(overlayMAX+1);
-                requestRedraw();
+                setDirty();
                 break;
             }
             //Zoom
@@ -1135,13 +1140,14 @@ void GameView::resize(float newwidth , float newheight )
     height = newheight;
     if(width < 0) width = 0;
     if(height < 0) height = 0;
-    requestRedraw();
+    viewportUpdated();
+    setDirty();
 }
 
 /*
  *  We should draw the whole City again.
  */
-void GameView::requestRedraw()
+void GameView::viewportUpdated()
 {
     if( !getMiniMap() ){ //initialization not completed
         return;
@@ -1163,22 +1169,6 @@ void GameView::requestRedraw()
         oldZoom = zoom;
 
     }
-
-    //request redraw
-    setDirty();
-}
-
-/*
- * Pos is new Center of the Screen
- */
-void GameView::recenter(const Vector2& pos)
-{
-    Vector2 position = pos + viewport;
-    viewport.x = floor( position.x - ( getWidth() / 2 ) );
-    viewport.y = floor( position.y - ( getHeight() / 2 ) );
-
-    //request redraw
-    requestRedraw();
 }
 
 /*

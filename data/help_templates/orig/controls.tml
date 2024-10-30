@@ -1,0 +1,80 @@
+Controls
+
+
+Press 'F1' to open the help window.
+
+
+SUBH: Map Navigation
+
+Move around the map with the arrow keys,
+the keypad ('1', '2', '3', '4', '6', '7', '8', '9'), or WASD.
+Hold SHIFT to move faster.
+
+Pan by dragging with the middle mouse button.
+
+Move the mouse to the edge of the screen to move in that direction.
+
+Move to the center of the map by pressing '5' on the keypad.
+
+Click on the minimap to move to the selected area of the map.
+
+Press 'P' to center the screen on a construction.
+(Can be useful for finding a small village in a large map.)
+Press 'P' again to cycle through which construction to center the screen on.
+
+Zoom in and out by scrolling or pressing '+' or '-' on the keypad.
+Press ENTER on the keypad to reset zoom to 100%.
+
+
+SUBH: Building
+
+Use the mouse (left button) to select a module from the menu on the left side.
+Once a module is selected, left-click on the map to build it.
+
+Press 'B' to switch to the bulldoze tool. With the bulldoze tool activated,
+left-click on a construction to bulldoze it.
+Press 'B' again to switch back.
+
+
+SUBH: Query Tool
+
+Press ESC to activate the query tool. Use the query tool by left-clicking on a
+construction to show information about it. Clicking the same construction again
+will toggle the kind of information shown. You can use the query tool without
+activating it by using the right mouse button instead of the left.
+
+Note: On markets and ports, clicking a second time will bring up the trade
+dialog.
+
+Press 'G' to toggle showing information about the tile underneath a
+construction, e.g. pollution information.
+
+
+SUBH: Mini-Map and Overlay
+
+Press '1' through '9' or backtick('`') to select the mini-map mode.
+Pressing '7' will toggle between the traffic and commodity modes.
+You can also change the mode by clicking on the buttons below the mini-map.
+
+While in the traffic or commodity mini-map mode, cycle through commodities by
+hovering over the mini-map and scrolling.
+You can also cycle commodities by clicking the up/down arrow buttons by the
+upper-right corner on the mini-map or by pressing 'M'/'N'.
+
+Press 'H' to show/hide tall buildings.
+
+Press 'V' to cycle overlay modes (off -&gt; transparent -&gt; opaque -&gt; off).
+
+
+SUBH: Simulation
+
+Press the buttons in the lower-left corner of the screen to change the
+simulation speed or exit to the main menu.
+From the main menu, you can save your progress.
+
+Press 'F12' to quick-save.
+
+Press 'F9' to quick-load.
+
+
+ALSO[See also:] button-index, bulldoze, query, mini-screen

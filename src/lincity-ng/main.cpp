@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "main.hpp"
 
-#include <SDL.h>                                 // for SDL_Init, SDL_Quit
+#include <SDL.h>                                 // for SDL_GL_SetAttribute
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
@@ -26,10 +27,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
 #include <physfs.h>                              // for PHYSFS_mount, PHYSFS...
-#include <stdio.h>                               // for fprintf, printf, spr...
+#include <stdio.h>                               // for NULL, printf, sprintf
 #include <stdlib.h>                              // for exit, malloc, free
 #include <string.h>                              // for strlen, strncmp, strdup
-#include <unistd.h>                              // for NULL, execlp
+#include <unistd.h>                              // for execlp
 #include <iostream>                              // for operator<<, basic_os...
 #include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_ostringstream
@@ -51,9 +52,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "lc_error.h"                            // for HANDLE_ERRNO
-#include "lincity/engglobs.h"                    // for fast_time_for_year
 #include "lincity/init_game.h"                   // for destroy_game
-#include "lincity/lin-city.h"                    // for FAST_TIME_FOR_YEAR
 #include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
@@ -482,9 +481,6 @@ void parseCommandLine(int argc, char** argv)
             std::cout << "-w           --window          run in window\n";
             std::cout << "-f           --fullscreen      run fullscreen\n";
             std::cout << "-m           --mute            mute audio\n";
-            std::cout << "-q [delay]   --quick [delay]   Setting for fast speed (current " \
-                                                                << getConfig()->quickness \
-                                                                << ")\n";
             std::cout << "                               -q 9 skips animation steps for speed.\n";
             std::cout << "                               -q 8 is the slowest speed with full animation.\n";
             std::cout << "                               -q 1 is fastest. It may heat your hardware!\n";
@@ -519,23 +515,6 @@ void parseCommandLine(int argc, char** argv)
         } else if(argStr == "-m" || argStr == "--mute") {
             getConfig()->soundEnabled = false;
             getConfig()->musicEnabled = false;
-        } else if (argStr == "-q" || argStr == "--quick") {
-            currentArgument++;
-            if(currentArgument >= argc) {
-                std::cerr << "Error: --quick needs a parameter.\n";
-                exit(1);
-            }
-            //fast_time_for_year
-            argStr = argv[currentArgument];
-            int newSpeed;
-            sscanf( argStr.c_str(), "%i", &newSpeed );
-            if ( newSpeed < 1 || newSpeed > 9 ) {
-                fprintf(stderr, " --quick = %i out of range (1..9). Will use default value %i\n", \
-                                newSpeed, FAST_TIME_FOR_YEAR);
-                newSpeed = FAST_TIME_FOR_YEAR;
-            }
-            getConfig()->quickness = newSpeed;
-
         } else {
             std::cerr << "Unknown command line argument: " << argStr << "\n";
             exit(1);
@@ -590,9 +569,6 @@ int main(int argc, char** argv)
     }
 #endif
     parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine for anything command line might change.
-
-    fast_time_for_year = getConfig()->quickness;
-    fprintf(stderr," fast = %i\n", fast_time_for_year);
 
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG

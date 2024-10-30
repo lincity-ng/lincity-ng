@@ -1,3 +1,26 @@
+/* ---------------------------------------------------------------------- *
+ * src/lincity/UserOperation.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 1995-1997 I J Peters
+ * Copyright (C) 1997-2005 Greg Sharp
+ * Copyright (C) 2000-2004 Corey Keasling
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
+
 #include "UserOperation.h"
 
 #include <stddef.h>                 // for NULL
@@ -33,10 +56,12 @@ UserOperation::is_allowed_here(int x, int y, bool warning)
             return world.is_visible(x,y);
         case ACTION_BUILD:
         {
-            if(!(world.is_visible(x,y) &&
-            world.is_visible(x + constructionGroup->size - 1, y + constructionGroup->size - 1)) ||
-            (constructionGroup->tech > tech_level))
-            {   return false;}
+            if(!world.is_visible(x,y)
+              || !world.is_visible(x + constructionGroup->size - 1, y + constructionGroup->size - 1)
+              || !enoughTech()
+            ) {
+              return false;
+            }
 
             bool msg = (warning && (last_warning_message_group != constructionGroup->group));
 
@@ -122,12 +147,3 @@ unsigned short UserOperation::cursorSize(void)
     else
     {   return 1;}
 }
-
-
-
-
-
-
-
-
-

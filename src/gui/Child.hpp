@@ -46,14 +46,7 @@ public:
     }
     void setComponent(Component* component);
 
-    void enable(bool enabled)
-    {
-        if(!component) {
-            this->enabled = false;
-            return;
-        }
-        this->enabled = enabled;
-    }
+    void enable(bool enabled);
 
     bool isEnabled() const
     {
@@ -109,4 +102,3 @@ public:
 #endif
 
 /** @file gui/Child.hpp */
-

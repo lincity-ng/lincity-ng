@@ -7,7 +7,7 @@
 	<p style="hp">Dessa områden ansluts till transporter <b>bara</b> på övre vänstra hörnet, som visad. Transporter kommer att börja in när de är anslutna.</p>
 	
 	<p style="hp">Detta är en industri</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
+	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">och detta är dess ikon</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

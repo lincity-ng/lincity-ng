@@ -1,8 +1,26 @@
 /* ---------------------------------------------------------------------- *
- * simulate.c
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * ---------------------------------------------------------------------- */
+ * src/lincity/simulate.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 1995-1997 I J Peters
+ * Copyright (C) 1997-2005 Greg Sharp
+ * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include <stdlib.h>                        // for rand, abs
 #include <array>                           // for array
@@ -40,7 +58,7 @@
 
 /* extern resources */
 extern void print_total_money(void);
-void setLincitySpeed( int speed );
+void setSimulationDelay( int speed );
 extern void ok_dial_box(const char *, int, const char *);
 extern GameView* GetGameView(void);
 
@@ -74,7 +92,7 @@ void do_time_step(void)
     if (flag_warning) {
         flag_warning = false;
         /* FIXME use blocking_dialog_open instead */
-        setLincitySpeed(0);
+        setSimulationDelay(SIM_DELAY_PAUSE);
         ok_dial_box("warning.mes", GOOD, \
                 _("Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!\
   You should check starvation minimap, and read waterwell help page :-)") );
@@ -126,7 +144,7 @@ void do_animate() {
       (*it)->update();
   }
 
-  getGameView()->requestRedraw();
+  getGameView()->setDirty();
 }
 
 /* ---------------------------------------------------------------------- *
