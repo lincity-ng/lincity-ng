@@ -93,6 +93,7 @@ void Windmill::report()
 
 void Windmill::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool Windmill::loadMember(xmlpp::TextReader& xmlReader) {

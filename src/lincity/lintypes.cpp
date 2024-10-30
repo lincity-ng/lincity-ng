@@ -294,6 +294,8 @@ void Construction::report_commodities(void)
 }
 
 void Construction::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter,
+    (xmlStr)"flags", "0x%x", flags & ~VOLATILE_FLAGS);
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
     xmlStr name = (xmlStr)commodityStandardName(stuff);
@@ -303,11 +305,13 @@ void Construction::save(xmlTextWriterPtr xmlWriter) {
 }
 
 bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
-  Commodity stuff = commodityFromStandardName(xmlReader.get_name().c_str());
+  std::string name = xmlReader.get_name();
+  Commodity stuff = commodityFromStandardName(name.c_str());
   if(stuff != STUFF_COUNT) {
-    assert(constructionGroup->commodityRuleCount[stuff].maxload > 0);
     commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
   }
+  else if(name == "flags")
+    flags = std::stoul(xmlReader.read_inner_xml(), NULL, 0) & ~VOLATILE_FLAGS;
   else return false;
   return true;
 }
@@ -898,7 +902,7 @@ ConstructionGroup::loadConstruction(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "Construction");
   int depth = xmlReader.get_depth();
-  xmlReader.read();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -907,13 +911,11 @@ ConstructionGroup::loadConstruction(xmlpp::TextReader& xmlReader) {
     }
 
     if(!cst->loadMember(xmlReader)) {
-      std::cerr << "warning: skipping unexpected element: '"
-        << xmlReader.get_name() << "'\n";
+      unexpectedXmlElement(xmlReader);
     }
 
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "Construction");
   assert(xmlReader.get_depth() == depth);
 

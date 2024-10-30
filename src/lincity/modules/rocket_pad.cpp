@@ -244,7 +244,7 @@ void RocketPad::report()
 }
 
 void RocketPad::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech",  "%d", tech);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"steps", "%d", steps);
   const char *stStr;
   switch(stage) {
@@ -257,6 +257,7 @@ void RocketPad::save(xmlTextWriterPtr xmlWriter) {
     throw std::runtime_error("unknown rocket stage");
   }
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"stage", "%s", stStr);
+  Construction::save(xmlWriter);
 }
 
 bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {

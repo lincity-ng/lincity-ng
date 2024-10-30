@@ -161,6 +161,7 @@ void Coal_power::init_resources() {
 
 void Coal_power::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {

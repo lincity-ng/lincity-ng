@@ -69,7 +69,8 @@ public:
         this->working_days = 0;
         initialize_commodities();
 
-        commodityMaxProd[STUFF_WATER] = 100 * water_output;
+        int area = cstgrp->size * cstgrp->size;
+        commodityMaxProd[STUFF_WATER] = 100 * WATER_PER_UGW * area;
     }
 
     virtual ~Waterwell() { }

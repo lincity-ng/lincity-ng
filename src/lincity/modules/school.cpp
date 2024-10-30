@@ -118,6 +118,7 @@ void School::init_resources() {
 
 void School::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  Construction::save(xmlWriter);
 }
 
 bool School::loadMember(xmlpp::TextReader& xmlReader) {

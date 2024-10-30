@@ -132,6 +132,7 @@ void Monument::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"completion", "%d", completion);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"labor_consumed", "%d", labor_consumed);
+  Construction::save(xmlWriter);
 }
 
 bool Monument::loadMember(xmlpp::TextReader& xmlReader) {

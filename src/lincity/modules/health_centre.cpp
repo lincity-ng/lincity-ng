@@ -108,6 +108,7 @@ void HealthCentre::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
+  Construction::save(xmlWriter);
 }
 
 bool HealthCentre::loadMember(xmlpp::TextReader& xmlReader) {

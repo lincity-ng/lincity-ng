@@ -210,6 +210,7 @@ void IndustryLight::init_resources() {
 
 void IndustryLight::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool IndustryLight::loadMember(xmlpp::TextReader& xmlReader) {

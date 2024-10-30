@@ -138,6 +138,7 @@ void Fire::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"burning_days",       "%d", burning_days);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"smoking_days",       "%d", smoking_days);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"days_before_spread", "%d", days_before_spread);
+  Construction::save(xmlWriter);
 }
 
 bool Fire::loadMember(xmlpp::TextReader& xmlReader) {

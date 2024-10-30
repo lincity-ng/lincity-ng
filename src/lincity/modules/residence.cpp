@@ -360,6 +360,7 @@ void Residence::report()
 
 void Residence::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"local_population", "%d", local_population);
+  Construction::save(xmlWriter);
 }
 
 bool Residence::loadMember(xmlpp::TextReader& xmlReader) {

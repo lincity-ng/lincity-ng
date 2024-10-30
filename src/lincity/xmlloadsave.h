@@ -23,6 +23,7 @@
 #define __xmlloadsave_h__
 
 #include <string>    // for string, basic_string
+#include <libxml++/parsers/textreader.h>   // for TextReader
 
 #define LOADSAVE_VERSION_CURRENT 2130
 
@@ -31,6 +32,8 @@ typedef unsigned char *xmlMStr;
 
 extern void saveGame(std::string xml_file_name);
 extern void loadGame(std::string xml_file_name);
+
+extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
 
 #endif /* __xmlloadsave_h__ */
 

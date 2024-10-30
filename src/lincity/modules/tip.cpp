@@ -105,6 +105,7 @@ void Tip::report()
 void Tip::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_waste",    "%d", total_waste);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"degration_days", "%d", degration_days);
+  Construction::save(xmlWriter);
 }
 
 bool Tip::loadMember(xmlpp::TextReader& xmlReader) {

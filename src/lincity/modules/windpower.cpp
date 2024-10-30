@@ -105,12 +105,13 @@ void Windpower::report()
 
 void Windpower::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool Windpower::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
-  if(name == "mwh_output");
+  else if(name == "mwh_output");
   else return Construction::loadMember(xmlReader);
   return true;
 }

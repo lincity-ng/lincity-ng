@@ -51,8 +51,9 @@
         </xsl:variable>
         <xsl:variable name="resolved-one" select="exsl:node-set($resolved)/*[1]"/>
         <xsl:element name="{name($resolved-one)}">
+          <xsl:variable name="group" select="($resolved-one/group | $resolved-one/Group)[1]"/>
           <xsl:attribute name="group">
-            <xsl:value-of select="($resolved-one/group | $resolved-one/Group)[1]"/>
+            <xsl:value-of select="$group"/>
           </xsl:attribute>
           <xsl:attribute name="map-x">
             <xsl:value-of select="$resolved-one/map_x"/>
@@ -60,6 +61,11 @@
           <xsl:attribute name="map-y">
             <xsl:value-of select="$resolved-one/map_y"/>
           </xsl:attribute>
+          <xsl:if test="$group = 23"> <!-- rocket pad -->
+            <xsl:element name="steps">
+              <xsl:value-of select="$resolved-one/completion * 50 + $resolved-one/step div 2"/>
+            </xsl:element>
+          </xsl:if>
           <xsl:apply-templates select="$resolved-one/*[name() != 'group' and name() != 'Group' and name() != 'map_x' and name() != 'map_y']" mode="copying"/>
         </xsl:element>
       </xsl:for-each>
@@ -83,21 +89,33 @@
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="//GlobalVariables/pbar/array" mode="copying">
-  <xsl:element name="data">
-    <xsl:apply-templates select="node()|@*" mode="copying"/>
-  </xsl:element>
+<xsl:template match="//GlobalVariables/pbar" mode="copying">
+  <xsl:copy>
+    <xsl:attribute name="id">
+      <xsl:value-of select="ID"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="diff" mode="copying"/>
+    <xsl:element name="data">
+      <xsl:apply-templates select="array/*|array/@*" mode="copying"/>
+    </xsl:element>
+  </xsl:copy>
 </xsl:template>
 
 <xsl:template match="//int" mode="copying">
   <xsl:value-of select="."/>
 </xsl:template>
 
+<!-- delete elements -->
 <xsl:template match="//GlobalVariables/binary_mode" mode="copying"/>
 <xsl:template match="//GlobalVariables/seed_compression" mode="copying"/>
 <xsl:template match="//GlobalVariables/altered_tiles" mode="copying"/>
 <xsl:template match="//GlobalVariables/constructions" mode="copying"/>
 <xsl:template match="//GlobalVariables/monthgraph_size" mode="copying"/>
+<xsl:template match="//Construction[Group = 23]/completion" mode="copying"/>
+<xsl:template match="//Construction[Group = 23]/step" mode="copying"/>
+<xsl:template match="//Construction[Group = 23]/goods_stored" mode="copying"/>
+<xsl:template match="//Construction[Group = 23]/jobs_stored" mode="copying"/>
+<xsl:template match="//Construction[Group = 23]/steel_stored" mode="copying"/>
 
 <xsl:template match="node()|@*" mode="copying">
   <xsl:copy>
@@ -105,6 +123,7 @@
   </xsl:copy>
 </xsl:template>
 
+<!-- use the standard name for commodities -->
 <xsl:template match="//Construction/Food" mode="copying">
   <xsl:element name="food"><xsl:apply-templates select="node()|@*" mode="copying"/></xsl:element>
 </xsl:template>

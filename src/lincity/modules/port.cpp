@@ -154,6 +154,8 @@ void Port::save(xmlTextWriterPtr xmlWriter) {
     xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
     xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
   }
+
+  Construction::save(xmlWriter);
 }
 
 bool Port::loadMember(xmlpp::TextReader& xmlReader) {

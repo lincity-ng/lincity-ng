@@ -79,7 +79,7 @@ void Waterwell::report()
 void Waterwell::place(int x, int y) {
   Construction::place(x, y);
 
-  int ore = 0;
+  this->ugwCount = 0;
   for(int yy = y; yy < y + constructionGroup->size; yy++)
   for(int xx = x; xx < x + constructionGroup->size; xx++)
     if(world(xx, yy)->flags & FLAG_HAS_UNDERGROUND_WATER)

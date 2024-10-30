@@ -125,6 +125,7 @@ void FireStation::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
+  Construction::save(xmlWriter);
 }
 
 bool FireStation::loadMember(xmlpp::TextReader& xmlReader) {

@@ -82,6 +82,7 @@ void University::report()
 
 void University::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  Construction::save(xmlWriter);
 }
 
 bool University::loadMember(xmlpp::TextReader& xmlReader) {

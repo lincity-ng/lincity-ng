@@ -183,6 +183,7 @@ void Coalmine::place(int x, int y) {
 
 void Coalmine::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
+  Construction::save(xmlWriter);
 }
 
 bool Coalmine::loadMember(xmlpp::TextReader& xmlReader) {

@@ -296,6 +296,8 @@ void Market::save(xmlTextWriterPtr xmlWriter) {
     xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
     xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
   }
+
+  Construction::save(xmlWriter);
 }
 
 bool Market::loadMember(xmlpp::TextReader& xmlReader) {

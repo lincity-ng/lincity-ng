@@ -59,8 +59,8 @@ static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile);
 static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile);
 static void writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len);
 static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len);
-static void writePbar(xmlTextWriterPtr xmlWriter, int pbarId);
-static void readPbar(xmlpp::TextReader& xmlReader);
+static void writePbar(xmlTextWriterPtr xmlWriter, struct pbar_st& pbar);
+static void readPbar(xmlpp::TextReader& xmlReader, struct pbar_st& pbar);
 
 void saveGame(std::string filename) {
   std::string gz_name;
@@ -83,7 +83,12 @@ void saveGame(std::string filename) {
     xmlOutputBufferClose(xmlWriterBuffer);
     throw std::runtime_error("failed to create XML text writer");
   }
-  std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter, xmlTextWriterClose);
+  std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter,
+    [](xmlTextWriterPtr xmlWriter) {
+      xmlTextWriterClose(xmlWriter);
+      xmlFreeTextWriter(xmlWriter);
+    }
+  );
 
 #ifdef DEBUG
   xmlTextWriterSetIndent(xmlWriter, true);
@@ -105,10 +110,6 @@ void saveGame(std::string filename) {
     xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndDocument(xmlWriter);
-  const xmlError *xmlerr = xmlCtxtGetLastError(xmlWriter);
-  if(xmlerr)
-    throw std::runtime_error(
-      std::string("failed writing save game: ") + xmlerr->message);
 }
 
 void loadGame(std::string filename) {
@@ -144,8 +145,7 @@ void loadGame(std::string filename) {
     else if(xmlReader.get_name() == "lc-game")
       break;
     else
-      std::cerr << "warning: skipping unexpected element '"
-        << xmlReader.get_name() << "'\n";
+      unexpectedXmlElement(xmlReader);
     xmlReader.next();
   }
 
@@ -158,9 +158,13 @@ void loadGame(std::string filename) {
     throw std::runtime_error("load/save version too high");
 
   // parse sections
-  xmlReader.read();
+  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
+  assert(xmlReader.get_name() == "lc-game");
+  int depth = xmlReader.get_depth();
+  assert(depth == 0);
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
-    assert(xmlReader.get_depth() == 1);
+    assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
       xmlReader.next();
       continue;
@@ -173,29 +177,28 @@ void loadGame(std::string filename) {
       loadMap(xmlReader);
     }
     else {
-      std::cerr << "warning: skipping unexpected element '"
-        << xmlReader.get_name() << "'\n";
+      unexpectedXmlElement(xmlReader);
     }
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "lc-game");
-  assert(xmlReader.get_depth() == 0);
+  assert(xmlReader.get_depth() == depth);
 
   // warn about other elements in the file
   while(xmlReader.next()) {
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element)
       continue;
-    std::cerr << "warning: skipping unexpected element '"
-      << xmlReader.get_name() << "'\n";
+    unexpectedXmlElement(xmlReader);
   }
+}
 
-  std::cout << "done" << std::endl;
+void unexpectedXmlElement(xmlpp::TextReader& xmlReader) {
+  std::cerr << "warning: skipping unexpected element '"
+    << xmlReader.get_name() << "'" << std::endl;
 }
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter) {
 
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"constructions",               "%d", ::constructionCount.count());
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"given_scene",                 "%s", given_scene);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"world_id",                    "%d", world_id);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"climate",                     "%d", world.climate);
@@ -239,10 +242,10 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter) {
   for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
     const char * const &cname = commodityNames[c];
     xmlTextWriterWriteFormatElement(xmlWriter,
-      (xmlStr)(std::string("<import_")+cname+"_enable>").c_str(), "%d",
+      (xmlStr)(std::string("import_")+cname+"_enable").c_str(), "%d",
       portConstructionGroup.tradeRule[c].take);
     xmlTextWriterWriteFormatElement(xmlWriter,
-      (xmlStr)(std::string("<export_")+cname+"_enable>").c_str(), "%d",
+      (xmlStr)(std::string("export_")+cname+"_enable").c_str(), "%d",
       portConstructionGroup.tradeRule[c].give);
   }
 
@@ -317,15 +320,19 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter) {
     writeArray(xmlWriter, monthgraph_ppool, monthgraph_size);
   xmlTextWriterEndElement(xmlWriter);
 
-  for(int pbarId = 0; pbarId < NUM_PBARS; pbarId++)
-    writePbar(xmlWriter, pbarId);
+  for(int pbarId = 0; pbarId < NUM_PBARS; pbarId++) {
+    xmlTextWriterStartElement(xmlWriter, (xmlStr)"pbar");
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"id", "%d", pbarId);
+      writePbar(xmlWriter, pbars[pbarId]);
+    xmlTextWriterEndElement(xmlWriter);
+  }
 }
 
 static void loadGlobals(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "globals");
   int depth = xmlReader.get_depth();
-  xmlReader.read();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -438,8 +445,18 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
     else if(xml_tag == "monthgraph_starve")           readArray(xmlReader, monthgraph_starve, monthgraph_size);
     else if(xml_tag == "monthgraph_nojobs")           readArray(xmlReader, monthgraph_nojobs, monthgraph_size);
     else if(xml_tag == "monthgraph_ppool")            readArray(xmlReader, monthgraph_ppool, monthgraph_size);
-    else if(xml_tag == "pbar")                        readPbar(xmlReader);
-
+    else if(xml_tag == "pbar") {
+      int id = std::stoi(xmlReader.get_attribute("id"));
+      if(id >= 0 && id < NUM_PBARS) {
+        readPbar(xmlReader, pbars[id]);
+      }
+      else {
+        std::cerr << "warning: skipping invalid pbar id: " << id << "\n"
+          << "  Someone may be trying something nasty."
+          << " See https://github.com/lincity-ng/lincity-ng/issues/205"
+          << " for more information.\n";
+      }
+    }
     else goto more_globals; goto found_global; more_globals:
 
     for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
@@ -455,12 +472,11 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
       goto found_global;
     }
 
-    std::cout << "warning: skipping unexpected element: '" << xml_tag << "'\n";
+    unexpectedXmlElement(xmlReader);
 
     found_global: ;
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "globals");
   assert(xmlReader.get_depth() == depth);
 
@@ -472,17 +488,24 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
 static void saveMap(xmlTextWriterPtr xmlWriter) {
   for(int y = 0; y < world.len(); y++)
   for(int x = 0; x < world.len(); x++) {
+    MapTile& tile = *world(x, y);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"MapTile");
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", tile.group);
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", x);
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", y);
-      saveMapTile(xmlWriter, *world(x, y));
+      saveMapTile(xmlWriter, tile);
     xmlTextWriterEndElement(xmlWriter);
   }
 
   for(int i = 0; i < ::constructionCount.size(); i++) {
     Construction *cst = ::constructionCount.pos(i);
     if(!cst) continue;
-    cst->save(xmlWriter);
+    xmlTextWriterStartElement(xmlWriter, (xmlStr)"Construction");
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", cst->constructionGroup->group);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->x);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", cst->y);
+      cst->save(xmlWriter);
+    xmlTextWriterEndElement(xmlWriter);
   }
 }
 
@@ -493,7 +516,7 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "map");
   int depth = xmlReader.get_depth();
-  xmlReader.read();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -502,11 +525,14 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
     }
 
     if(xmlReader.get_name() == "MapTile") {
+      unsigned short group = std::stoi(xmlReader.get_attribute("group"));
       int x = std::stoi(xmlReader.get_attribute("map-x"));
       int y = std::stoi(xmlReader.get_attribute("map-y"));
       if(!world.is_inside(x, y))
         throw std::runtime_error("a MapTile seems to be outside the map");
-      loadMapTile(xmlReader, *world(x, y));
+      MapTile& tile = *world(x, y);
+      tile.group = group;
+      loadMapTile(xmlReader, tile);
     }
     else if(xmlReader.get_name() == "Construction") {
       int group = std::stoi(xmlReader.get_attribute("group"));
@@ -520,12 +546,10 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
       constructions.emplace_back(cst, std::pair(x, y));
     }
     else
-      std::cerr << "warning: skipping unexpected element: '"
-        << xmlReader.get_name() << "'\n";
+      unexpectedXmlElement(xmlReader);
 
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "map");
   assert(xmlReader.get_depth() == depth);
 
@@ -535,9 +559,7 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
 }
 
 static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile) {
-  xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group",    "%d", tile.group);
-
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"flags",      "%d", tile.flags);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"flags",    "0x%x", tile.flags & ~VOLATILE_FLAGS);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"type",       "%d", tile.type);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"air_pol",    "%d", tile.pollution);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ore",        "%d", tile.ore_reserve);
@@ -560,11 +582,8 @@ static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile) {
 static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "MapTile");
-
-  tile.group = std::stoi(xmlReader.get_attribute("group"));
-
   int depth = xmlReader.get_depth();
-  xmlReader.read();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -574,31 +593,28 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
 
     std::string xml_tag = xmlReader.get_name();
     std::string xml_val = xmlReader.read_inner_xml();
-    if     (xml_tag == "flags")      tile.flags = std::stoi(xml_val);
-    else if(xml_tag == "type")       tile.type = std::stoi(xml_val);
-    else if(xml_tag == "air_pol")    tile.pollution = std::stoi(xml_val);
-    else if(xml_tag == "ore")        tile.ore_reserve = std::stoi(xml_val);
-    else if(xml_tag == "coal")       tile.coal_reserve = std::stoi(xml_val);
-    //ground
-    else if(xml_tag == "altitude")   tile.ground.altitude = std::stoi(xml_val);
-    else if(xml_tag == "ecotable")   tile.ground.ecotable = std::stoi(xml_val);
-    else if(xml_tag == "wastes")     tile.ground.wastes = std::stoi(xml_val);
-    else if(xml_tag == "grd_pol")    tile.ground.pollution = std::stoi(xml_val);
-    else if(xml_tag == "water_alt")  tile.ground.water_alt = std::stoi(xml_val);
-    else if(xml_tag == "water_pol")  tile.ground.water_pol = std::stoi(xml_val);
+    if     (xml_tag == "flags")      tile.flags             = std::stoul(xml_val, NULL, 0) & ~VOLATILE_FLAGS;
+    else if(xml_tag == "type")       tile.type              = std::stoi(xml_val);
+    else if(xml_tag == "air_pol")    tile.pollution         = std::stoi(xml_val);
+    else if(xml_tag == "ore")        tile.ore_reserve       = std::stoi(xml_val);
+    else if(xml_tag == "coal")       tile.coal_reserve      = std::stoi(xml_val);
+
+    else if(xml_tag == "altitude")   tile.ground.altitude   = std::stoi(xml_val);
+    else if(xml_tag == "ecotable")   tile.ground.ecotable   = std::stoi(xml_val);
+    else if(xml_tag == "wastes")     tile.ground.wastes     = std::stoi(xml_val);
+    else if(xml_tag == "grd_pol")    tile.ground.pollution  = std::stoi(xml_val);
+    else if(xml_tag == "water_alt")  tile.ground.water_alt  = std::stoi(xml_val);
+    else if(xml_tag == "water_pol")  tile.ground.water_pol  = std::stoi(xml_val);
     else if(xml_tag == "water_wast") tile.ground.water_wast = std::stoi(xml_val);
     else if(xml_tag == "water_next") tile.ground.water_next = std::stoi(xml_val);
-    else if(xml_tag == "int1")       tile.ground.int1 = std::stoi(xml_val);
-    else if(xml_tag == "int2")       tile.ground.int2 = std::stoi(xml_val);
-    else if(xml_tag == "int3")       tile.ground.int3 = std::stoi(xml_val);
-    else if(xml_tag == "int4")       tile.ground.int4 = std::stoi(xml_val);
-    else
-      std::cerr << "warning: skipping unexpected element: '"
-        << xmlReader.get_name() << "'\n";
+    else if(xml_tag == "int1")       tile.ground.int1       = std::stoi(xml_val);
+    else if(xml_tag == "int2")       tile.ground.int2       = std::stoi(xml_val);
+    else if(xml_tag == "int3")       tile.ground.int3       = std::stoi(xml_val);
+    else if(xml_tag == "int4")       tile.ground.int4       = std::stoi(xml_val);
+    else unexpectedXmlElement(xmlReader);
 
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "MapTile");
   assert(xmlReader.get_depth() == depth);
 
@@ -631,24 +647,18 @@ static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len) {
   }
 }
 
-static void writePbar(xmlTextWriterPtr xmlWriter, int pbarId) {
-  struct pbar_st& pbar = pbars[pbarId];
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ID", "%d", pbarId);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"oldtot", "%d", pbar.oldtot);
+static void writePbar(xmlTextWriterPtr xmlWriter, struct pbar_st& pbar) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"diff", "%d", pbar.diff);
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"data");
     writeArray(xmlWriter, pbar.data, PBAR_DATA_SIZE);
   xmlTextWriterEndElement(xmlWriter);
 }
 
-static void readPbar(xmlpp::TextReader& xmlReader) {
-  int pbarId = -1;
-  struct pbar_st pbar;
-
+static void readPbar(xmlpp::TextReader& xmlReader, struct pbar_st& pbar) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "pbar");
   int depth = xmlReader.get_depth();
-  xmlReader.read();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -656,31 +666,15 @@ static void readPbar(xmlpp::TextReader& xmlReader) {
       continue;
     }
 
-    if(xmlReader.get_name() == "ID")
-      pbarId = std::stoi(xmlReader.read_inner_xml());
-    else if(xmlReader.get_name() == "oldtot")
-      pbar.oldtot = std::stoi(xmlReader.read_inner_xml());
-    else if(xmlReader.get_name() == "diff")
+    if(xmlReader.get_name() == "diff")
       pbar.diff = std::stoi(xmlReader.read_inner_xml());
     else if(xmlReader.get_name() == "data")
       readArray(xmlReader, pbar.data, PBAR_DATA_SIZE);
     else
-      std::cerr << "warning: skipping unexpected element: '"
-        << xmlReader.get_name() << "'\n";
+      unexpectedXmlElement(xmlReader);
 
     xmlReader.next();
   }
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "pbar");
   assert(xmlReader.get_depth() == depth);
-
-  if(pbarId >= 0 && pbarId < NUM_PBARS) {
-    pbars[pbarId] = pbar;
-  }
-  else {
-    std::cerr << "warning: skipping invalid pbar id: " << pbarId << "\n"
-      << "  Someone may be trying something nasty."
-      << " See https://github.com/lincity-ng/lincity-ng/issues/205"
-      << " for more information.\n";
-  }
 }

@@ -152,6 +152,7 @@ void Organic_farm::place(int x, int y) {
 
 void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {

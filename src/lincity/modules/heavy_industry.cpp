@@ -164,6 +164,7 @@ void IndustryHeavy::report()
 
 void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool IndustryHeavy::loadMember(xmlpp::TextReader& xmlReader) {

@@ -94,6 +94,7 @@ void Recycle::report()
 
 void Recycle::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
 }
 
 bool Recycle::loadMember(xmlpp::TextReader& xmlReader) {

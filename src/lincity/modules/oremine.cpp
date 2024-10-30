@@ -165,6 +165,7 @@ void Oremine::place(int x, int y) {
 
 void Oremine::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
+  Construction::save(xmlWriter);
 }
 
 bool Oremine::loadMember(xmlpp::TextReader& xmlReader) {
