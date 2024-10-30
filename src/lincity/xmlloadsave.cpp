@@ -21,28 +21,35 @@
 
 #include "xmlloadsave.h"
 
+#include <libxml++/parsers/textreader.h>   // for TextReader
+#include <libxml/parser.h>                 // for XML_PARSE_NONET, xmlOutput...
+#include <libxml/xmlIO.h>                  // for xmlOutputBufferClose, xmlO...
+#include <libxml/xmlerror.h>               // for xmlCtxtGetLastError, xmlError
+#include <libxml/xmlreader.h>              // for xmlReaderForIO, xmlTextRea...
+#include <libxml/xmlwriter.h>              // for xmlTextWriterWriteFormatEl...
+#include <zlib.h>                          // for gzclose, gzFile, gzopen
+#include <array>                           // for array
 #include <cassert>                         // for assert
-#include <string>                          // for string
-#include <iostream>                        // for cout
+#include <cstring>                         // for NULL, strcpy
+#include <iostream>                        // for basic_ostream, operator<<
+#include <list>                            // for list, _List_iterator
+#include <memory>                          // for shared_ptr
+#include <sstream>                         // for basic_ostringstream
+#include <stdexcept>                       // for runtime_error
+#include <string>                          // for basic_string, char_traits
 #include <utility>                         // for pair
-#include <list>
-#include <libxml++/parsers/textreader.h>
-#include <libxml/xmlreader.h>
-#include <libxml/xmlwriter.h>
-#include <memory>
-#include <sstream>
 
+#include "ConstructionCount.h"             // for ConstructionCount
 #include "commodities.hpp"                 // for Commodity, CommodityRule
-#include "engglobs.h"                      // for world, constr...
-#include "groups.h"                        // for GROUP_DESERT
-#include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, PBAR_DATA_...
+#include "engglobs.h"                      // for world, coal_survey_done
+#include "gui_interface/pbar_interface.h"  // for pbar_st, NUM_PBARS, PBAR_D...
 #include "gui_interface/shared_globals.h"  // for monthgraph_size, cheat_flag
-#include "lin-city.h"                      // for VOLATILE_FLAGS, FLAG_ALTERED
+#include "lin-city.h"                      // for VOLATILE_FLAGS
 #include "lintypes.h"                      // for Construction, Construction...
 #include "loadsave.h"                      // for given_scene
 #include "modules/port.h"                  // for PortConstructionGroup, por...
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
-#include "world.h"                         // for MapTile, World, Ground
+#include "world.h"                         // for MapTile, Ground, World
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter);
 static void loadGlobals(xmlpp::TextReader& xmlReader);

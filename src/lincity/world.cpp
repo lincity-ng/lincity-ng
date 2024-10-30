@@ -24,22 +24,23 @@
 
 #include "world.h"
 
-#include <assert.h>         // for assert
-#include <stdlib.h>         // for NULL, size_t
-#include <iostream>         // for char_traits, basic_ostream, basic_ostream...
+#include <stdlib.h>         // for NULL
+#include <iostream>         // for basic_ostream, char_traits, operator<<
 #include <iterator>         // for advance
 #include <map>              // for map
-#include <string>           // for basic_string, operator==, operator<, oper...
+#include <string>           // for basic_string, operator<
 
 #include "all_buildings.h"  // for TileConstructionGroup, desertConstruction...
-#include "engglobs.h"       // for world, binary_mode, dxo, dyo, world_id
-#include "groups.h"         // for GROUP_WATER, GROUP_DESERT, GROUP_BARE
+#include "engglobs.h"       // for world, dxo, dyo, world_id
+#include "groups.h"         // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
 #include "init_game.h"      // for clear_game
-#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_ALT...
+#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_HAS...
 #include "lintypes.h"       // for Construction, ConstructionGroup
-#include "resources.hpp"    // for ExtraFrame, ResourceGroup, GraphicsInfo
-#include "xmlloadsave.h"    // for XMLTemplate, bin_template_libary, xml_tem...
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup
 
+#ifdef DEBUG
+#include <cassert>          // for assert
+#endif
 
 Ground::Ground() {
   altitude = 0;

@@ -24,11 +24,10 @@
 #ifndef __Vehicles_h__
 #define __Vehicles_h__
 
-#include <list>           // for list
-
-#include "resources.hpp"  // for ExtraFrame
+#include <list>  // for list
 
 enum Commodity : int;
+struct ExtraFrame;
 
 #define BLUE_CAR_SPEED 1500
 #define TRACK_BRIDGE_HEIGHT 22

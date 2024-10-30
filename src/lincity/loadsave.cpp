@@ -23,22 +23,22 @@
 
 /* this is for saving */
 
-#include <stdio.h>                         // for sscanf, fprintf, printf
-#include <zlib.h>                          // for gzgets, gzclose, gzopen
+#include <stdio.h>                         // for sscanf, printf, fprintf
+#include <zlib.h>                          // for gzprintf, gzgets, gzclose
 #include <iostream>                        // for basic_ostream, operator<<
 
 #include "../lincity-ng/Config.hpp"        // for getConfig, Config
-#include "engglobs.h"                      // for world, alt_min, alt_max
+#include "engglobs.h"                      // for world, alt_min, ldsv_version
 #include "groups.h"                        // for GROUP_RAIL_BRIDGE, GROUP_R...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "init_game.h"                     // for clear_game
-#include "lintypes.h"                      // for MapTile, Ground, Construct...
+#include "lintypes.h"                      // for ConstructionGroup, Constru...
 #include "modules/all_modules.h"           // for Residence, MODERN_WINDMILL...
-#include "stats.h"                         // for init_inventory, tpopulation
+#include "stats.h"                         // for tpopulation, export_tax
 #include "tinygettext/gettext.hpp"         // for _
 #include "transport.h"                     // for connect_transport
-#include "world.h"                         // for World
-#include "xmlloadsave.h"
+#include "world.h"                         // for World, MapTile, Ground
+#include "xmlloadsave.h"                   // for loadGame, saveGame
 
 #if defined (TIME_WITH_SYS_TIME)
 #include <sys/time.h>
@@ -50,7 +50,7 @@
 #endif
 #endif
 
-#include <string.h>                        // for strncmp, strlen
+#include <string.h>                        // for strlen, strncmp
 #include <cstdlib>                         // for NULL
 /*
 #if defined (WIN32)
@@ -84,18 +84,17 @@
 
 #include <physfs.h>                        // for PHYSFS_getDirSeparator
 
-#include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, init_pbars
+#include "gui_interface/pbar_interface.h"  // for pbar_st, pbars, NUM_PBARS
 //#include "common.h"
 /*
 #ifdef LC_X11
 #include <X11/cursorfont.h>
 #endif
 */
-#include "lctypes.h"                       // for CST_DESERT, CST_USED, CST_...
+#include "lctypes.h"                       // for CST_USED, CST_DESERT, CST_...
 #include "lin-city.h"                      // for FLAG_IS_RIVER, VOLATILE_FLAGS
 #include "lincity-ng/ErrorInterface.hpp"   // for do_error
 #include "loadsave.h"
-#include "xmlloadsave.h"                   // for XMLloadsave, xml_loadsave
 
 
 #if defined (WIN32) && !defined (NDEBUG)

@@ -25,22 +25,23 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#include <zlib.h>           // for gzFile
 #include <array>            // for array
 #include <cstring>          // for NULL
 #include <iostream>         // for basic_ostream, operator<<, cout, endl
 #include <list>             // for list
 #include <map>              // for map
-#include <string>           // for char_traits, basic_string, string, operator<
+#include <string>           // for char_traits, string, basic_string, operat...
 #include <vector>           // for vector
-#include <libxml++/parsers/textreader.h>
-#include <libxml/xmlwriter.h>
 
 #include "commodities.hpp"  // for Commodity, CommodityRule, operator++
-#include "resources.hpp"    // for ExtraFrame, ResourceGroup
+#include "resources.hpp"    // for ResourceGroup, ExtraFrame (ptr only)
 
 class ConstructionGroup;
-template <typename MemberType> class MemberTraits;
+
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
+typedef struct _xmlTextWriter *xmlTextWriterPtr;
 
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
@@ -88,15 +89,6 @@ public:
     int x, y;
     int flags;              //flags are defined in lin-city.h
 
-    enum MemberTypes
-    {
-        TYPE_BOOL,
-        TYPE_INT,
-        TYPE_USHORT,
-        TYPE_DOUBLE,
-        TYPE_FLOAT
-    };
-
     // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
     std::array<int, STUFF_COUNT> commodityCount;    // inventory
     std::array<int, STUFF_COUNT> commodityProd;     // production month-to-date
@@ -138,19 +130,6 @@ public:
 //global Vars for statistics on commodities
 extern std::map<Commodity, int> tstat_capacities;
 extern std::map<Commodity, int> tstat_census;
-
-#define MEMBER_TYPE_TRAITS(MemberType, TypeId) \
-template <> \
-class MemberTraits<MemberType> { \
-public: \
-    enum { TYPE_ID = TypeId }; \
-};
-
-MEMBER_TYPE_TRAITS(int, Construction::TYPE_INT)
-MEMBER_TYPE_TRAITS(bool, Construction::TYPE_BOOL)
-MEMBER_TYPE_TRAITS(unsigned short, Construction::TYPE_USHORT)
-MEMBER_TYPE_TRAITS(double, Construction::TYPE_DOUBLE)
-MEMBER_TYPE_TRAITS(float, Construction::TYPE_FLOAT)
 
 class ConstructionGroup {
 public:

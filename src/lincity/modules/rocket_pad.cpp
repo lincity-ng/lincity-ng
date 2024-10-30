@@ -24,17 +24,17 @@
 
 #include "rocket_pad.h"
 
-#include <assert.h>
+#include <assert.h>                        // for assert
 #include <stdlib.h>                        // for rand
+#include <iostream>                        // for operator<<, basic_ostream
 #include <list>                            // for _List_iterator
-#include <vector>                          // for vector
-#include <string>
+#include <stdexcept>                       // for runtime_error
 
-#include "modules.h"
 #include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
-#include "lincity-ng/Dialog.hpp"           // for ASK_LAUNCH_ROCKET, Dialog
+#include "lincity-ng/Dialog.hpp"           // for Dialog, ASK_LAUNCH_ROCKET
 #include "lincity-ng/Sound.hpp"            // for getSound, Sound
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
+#include "modules.h"                       // for basic_string, char_traits
 #include "residence.h"                     // for Residence
 
 RocketPadConstructionGroup rocketPadConstructionGroup(

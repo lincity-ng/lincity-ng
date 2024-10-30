@@ -17,12 +17,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#include <SDL.h>                                 // for SDL_GetKeyboardState
 #include <assert.h>                              // for assert
-#include <stdio.h>                               // for printf, NULL
+#include <stdio.h>                               // for printf
 #include <iomanip>                               // for operator<<, setpreci...
-#include <iostream>                              // for basic_ostream, opera...
-#include <sstream>                               // for basic_ostringstream
+#include <sstream>                               // for basic_ostream, opera...
 #include <string>                                // for basic_string, char_t...
 
 #include "Game.hpp"                              // for getGame
@@ -36,12 +34,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER
 #include "lincity/lintypes.h"                    // for ConstructionGroup
 #include "lincity/modules/modules_interfaces.h"  // for mps_water
-#include "lincity/modules/shanty.h"
+#include "lincity/modules/shanty.h"              // for ShantyConstructionGroup
 #include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
 #include "lincity/world.h"                       // for World, MapTile, Ground
 #include "tinygettext/gettext.hpp"               // for N_, _
-
-class Shanty;
 
 // implement everything here
 

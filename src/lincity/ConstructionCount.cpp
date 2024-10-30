@@ -21,13 +21,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <map>                        // for map, operator!=, _Rb_tree_iterator
-#include <utility>                    // for pair
-
 #include "ConstructionCount.h"
 #include "engglobs.h"                 // for world
 #include "lincity-ng/Permutator.hpp"  // for Permutator
-#include "lintypes.h"                 // for Construction, ConstructionGroup
+#include "lintypes.h"                 // for Construction
 #include "world.h"                    // for World
 
 ConstructionCount::ConstructionCount()

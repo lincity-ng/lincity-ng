@@ -22,14 +22,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <assert.h>             // for assert
 #include <array>                // for array
-#include <iostream>             // for basic_ostream, operator<<, basic_ostr...
 #include <list>                 // for _List_iterator, list
 #include <map>                  // for map
 
 #include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
-#include "modules.h"            // for CommodityRule, Commodity, Counted
+#include "modules.h"            // for CommodityRule, Commodity, basic_string
 
 #ifdef DEBUG
 #include <SDL.h>                // for SDL_GetKeyboardState, SDL_SCANCODE_LS...
