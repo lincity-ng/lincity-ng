@@ -72,7 +72,6 @@ class SolarPower: public Construction {
 public:
     SolarPower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->tech = tech_level;
         this->working_days = 0;
         this->busy = 0;

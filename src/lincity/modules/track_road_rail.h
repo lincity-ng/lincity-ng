@@ -133,47 +133,6 @@ public:
         //transparency is set and updated in connect_transport
         this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
 
-#ifdef DEBUG
-        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-        if (world(x,y)->is_water() || keystate[SDL_SCANCODE_LSHIFT] || keystate[SDL_SCANCODE_RSHIFT] )
-#else
-        // set the constructionGroup to build bridges iff over water
-        if (world(x,y)->is_water())
-#endif
-        {
-          switch (constructionGroup->group) {
-            case GROUP_TRACK:
-              constructionGroup = &trackbridgeConstructionGroup;
-            break;
-            case GROUP_ROAD:
-              constructionGroup = &roadbridgeConstructionGroup;
-            break;
-            case GROUP_RAIL:
-              constructionGroup = &railbridgeConstructionGroup;
-            break;
-          }
-        }
-        else {
-          switch (constructionGroup->group) {
-            case GROUP_TRACK_BRIDGE:
-              constructionGroup = &trackConstructionGroup;
-            break;
-            case GROUP_ROAD_BRIDGE:
-              constructionGroup = &roadConstructionGroup;
-            break;
-            case GROUP_RAIL_BRIDGE:
-              constructionGroup = &railConstructionGroup;
-            break;
-          }
-        }
-
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
-
         initialize_commodities();
         this->trafficCount = this->commodityCount;
 
@@ -207,6 +166,8 @@ public:
     virtual void animate() override;
     virtual void playSound(); //override random sound
     virtual bool canPlaceVehicle();
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic( int* i);
     int anim;

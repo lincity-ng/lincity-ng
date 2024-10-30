@@ -150,6 +150,37 @@ void Coalmine::report()
     list_commodities(&i);
 }
 
+void Coalmine::place(int x, int y) {
+  Construction::place(x, y);
+
+  int coal = 0;
+  int lenm1 = world.len()-1;
+  int tmp;
+  tmp = x - constructionGroup->range;
+  this->xs = (tmp < 1) ? 1 : tmp;
+  tmp = y - constructionGroup->range;
+  this->ys = (tmp < 1) ? 1 : tmp;
+  tmp = x + constructionGroup->range + constructionGroup->size;
+  this->xe = (tmp > lenm1) ? lenm1 : tmp;
+  tmp = y + constructionGroup->range + constructionGroup->size;
+  this->ye = (tmp > lenm1) ? lenm1 : tmp;
+
+  for(int yy = ys; yy < ye ; yy++)
+  for (int xx = xs; xx < xe ; xx++)
+    coal += world(xx,yy)->coal_reserve;
+
+  //always provide some coal so player can
+  //store sustainable coal before the mine is deleted
+  if (coal < 20)
+  {
+      world(x,y)->coal_reserve += 20-coal;
+      coal = 20;
+  }
+
+  this->initial_coal_reserve = coal;
+  this->current_coal_reserve = coal;
+}
+
 void Coalmine::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
 }

@@ -59,7 +59,6 @@ class Parkland: public Construction {
 public:
     Parkland(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();

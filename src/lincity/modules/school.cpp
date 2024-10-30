@@ -106,6 +106,16 @@ void School::report()
     list_commodities(&i);
 }
 
+void School::init_resources() {
+  Construction::init_resources();
+
+  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
+  frit = frameIt;
+  std::advance(frit, 1);
+  frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
+  frit->frame = -1; //hide the swing
+}
+
 void School::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
 }

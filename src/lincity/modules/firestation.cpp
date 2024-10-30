@@ -86,11 +86,14 @@ void FireStation::cover()
     covercount -= daycount;
     daycount = 0;
     animate_enable = true;
+
+    int xs = std::max(x - constructionGroup->range, 1);
+    int xe = std::min(x + constructionGroup->range, world.len() - 1);
+    int ys = std::max(y - constructionGroup->range, 1);
+    int ye = std::min(y + constructionGroup->range, world.len() - 1);
     for(int yy = ys; yy < ye; ++yy)
-    {
-        for(int xx = xs; xx < xe; ++xx)
-        {   world(xx,yy)->flags |= FLAG_FIRE_COVER;}
-    }
+    for(int xx = xs; xx < xe; ++xx)
+      world(xx,yy)->flags |= FLAG_FIRE_COVER;
 }
 
 void FireStation::animate() {

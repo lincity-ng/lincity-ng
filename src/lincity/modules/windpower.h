@@ -75,8 +75,7 @@ class Windpower: public Construction {
 public:
     Windpower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        // this->anim = 0;
+        this->anim = 0;
         this->animate_enable = false;
         this->tech = tech_level;
         this->working_days = 0;

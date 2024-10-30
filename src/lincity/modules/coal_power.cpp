@@ -118,6 +118,47 @@ void Coal_power::report()
     list_commodities(&i);
 }
 
+void Coal_power::init_resources() {
+  Construction::init_resources();
+
+  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
+  std::list<ExtraFrame>::iterator frit = frameIt;
+  std::advance(frit, 1);
+  fr_begin = frit;
+  frit->move_x = 5;
+  frit->move_y = -378;
+  std::advance(frit, 1);
+  frit->move_x = 29;
+  frit->move_y = -390;
+  std::advance(frit, 1);
+  frit->move_x = 52;
+  frit->move_y = -397;
+  std::advance(frit, 1);
+  frit->move_x = 76;
+  frit->move_y = -409;
+  std::advance(frit, 1);
+  frit->move_x = 65;
+  frit->move_y = -348;
+  std::advance(frit, 1);
+  frit->move_x = 89;
+  frit->move_y = -360;
+  std::advance(frit, 1);
+  frit->move_x = 112;
+  frit->move_y = -371;
+  std::advance(frit, 1);
+  frit->move_x = 136;
+  frit->move_y = -383;
+  std::advance(frit, 1);
+  fr_end = frit;
+  for(frit = fr_begin;
+    frit != world(x,y)->framesptr->end() && frit != fr_end;
+    std::advance(frit, 1)
+  ) {
+    frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
+    frit->frame = -1; // hide smoke
+  }
+}
+
 void Coal_power::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }

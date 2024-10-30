@@ -76,24 +76,12 @@ class HealthCentre: public Construction {
 public:
     HealthCentre(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->active = false;
         this->busy = 0;
         this->daycount = 0;
         this->working_days = 0;
         this->covercount = 0;
         initialize_commodities();
-
-        int tmp;
-        int lenm1 = world.len()-1;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
 
         commodityMaxCons[STUFF_LABOR] = 100 * HEALTH_CENTRE_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * HEALTH_CENTRE_GOODS;

@@ -92,7 +92,6 @@ class Blacksmith: public Construction {
 public:
     Blacksmith(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->anim = 0;
         this->pauseCounter = 0;
         this->busy = 0;

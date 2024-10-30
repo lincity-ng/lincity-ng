@@ -139,6 +139,17 @@ void Organic_farm::report()
     list_commodities(&i);
 }
 
+void Organic_farm::place(int x, int y) {
+  Construction::place(x, y);
+
+  // Check underground water, and reduce food production accordingly
+  this->ugwCount = 0;
+  for(int i = 0; i < constructionGroup->size; i++)
+  for (int j = 0; j < constructionGroup->size; j++)
+    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+}
+
 void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }

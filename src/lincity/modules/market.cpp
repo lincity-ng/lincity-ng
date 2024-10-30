@@ -170,13 +170,14 @@ void Market::update()
     {   cover();}
 }
 
-void Market::cover()
-{
-    for(int yy = ys; yy < ye; yy++)
-    {
-        for(int xx = xs; xx < xe; xx++)
-        {   world(xx,yy)->flags |= FLAG_MARKET_COVER;}
-    }
+void Market::cover() {
+  int xs = std::max(x - constructionGroup->range, 1);
+  int xe = std::min(x + constructionGroup->range, world.len() - 1);
+  int ys = std::max(y - constructionGroup->range, 1);
+  int ye = std::min(y + constructionGroup->range, world.len() - 1);
+  for(int yy = ys; yy < ye; yy++)
+  for(int xx = xs; xx < xe; xx++)
+    world(xx,yy)->flags |= FLAG_MARKET_COVER;
 }
 
 void Market::animate() {
@@ -242,6 +243,21 @@ void Market::report()
             mps_store_ssddp(i++, arrows, getStuffName(stuff), commodityCount[stuff], rule.maxload);
         }//endif
     } //endfor
+}
+
+void Market::init_resources() {
+  Construction::init_resources();
+
+  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+  waste_fire_frit->move_x = 0;
+  waste_fire_frit->move_y = 0;
+  waste_fire_frit->frame = -1;
+}
+
+void Market::place(int x, int y) {
+  Construction::place(x, y);
+  cover();
 }
 
 void Market::toggleEvacuation()

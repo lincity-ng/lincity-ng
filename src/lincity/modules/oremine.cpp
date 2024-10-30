@@ -151,6 +151,18 @@ void Oremine::report()
     list_commodities(&i);
 }
 
+void Oremine::place(int x, int y) {
+  Construction::place(x, y);
+
+  int ore = 0;
+  for(int yy = y; yy < y + constructionGroup->size; yy++)
+  for(int xx = x; xx < x + constructionGroup->size; xx++)
+    ore += world(xx,yy)->ore_reserve;
+  if(ore < 1)
+    ore = 1;
+  this->total_ore_reserve = ore;
+}
+
 void Oremine::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
 }

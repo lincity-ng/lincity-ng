@@ -78,7 +78,6 @@ class University: public Construction {
 public:
     University(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;

@@ -104,7 +104,6 @@ class IndustryHeavy: public Construction {
 public:
     IndustryHeavy(ConstructionGroup *cstgrp) {
         constructionGroup = cstgrp;
-        init_resources();
         this->tech = tech_level;
         this->output_level = 0;
         this->steel_this_month = 0;

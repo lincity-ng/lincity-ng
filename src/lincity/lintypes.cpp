@@ -322,15 +322,7 @@ void Construction::place(int x, int y) {
   this->x = x;
   this->y = y;
 
-#ifdef DEBUG
-   //default resources if no manual settings for construction
-  if (!soundGroup) {
-    std::cout << "Warning no explicit sound, graphics resources specified for "
-      << constructionGroup->name << " at " << "(" << x << ", " << y << ")"
-      << std::endl;
-    init_resources();
-  }
-#endif
+  init_resources();
 
   for (unsigned short i = 0; i < size; i++) {
     for (unsigned short j = 0; j < size; j++) {

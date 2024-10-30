@@ -82,7 +82,6 @@ class Pottery: public Construction {
 public:
     Pottery(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         // this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

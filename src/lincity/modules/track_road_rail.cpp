@@ -264,5 +264,46 @@ bool Transport::canPlaceVehicle() {
   return true;
 }
 
+void Transport::init_resources() {
+  Construction::init_resources();
+
+  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+  waste_fire_frit->move_x = 0;
+  waste_fire_frit->move_y = 0;
+  waste_fire_frit->frame = -1;
+}
+
+void Transport::place(int x, int y) {
+  Construction::place(x, y);
+
+  // set the constructionGroup to build bridges iff over water
+  if(world(x,y)->is_water()) {
+    switch (constructionGroup->group) {
+      case GROUP_TRACK:
+        constructionGroup = &trackbridgeConstructionGroup;
+      break;
+      case GROUP_ROAD:
+        constructionGroup = &roadbridgeConstructionGroup;
+      break;
+      case GROUP_RAIL:
+        constructionGroup = &railbridgeConstructionGroup;
+      break;
+    }
+  }
+  else {
+    switch (constructionGroup->group) {
+      case GROUP_TRACK_BRIDGE:
+        constructionGroup = &trackConstructionGroup;
+      break;
+      case GROUP_ROAD_BRIDGE:
+        constructionGroup = &roadConstructionGroup;
+      break;
+      case GROUP_RAIL_BRIDGE:
+        constructionGroup = &railConstructionGroup;
+      break;
+    }
+  }
+}
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

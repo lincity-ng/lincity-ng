@@ -163,4 +163,21 @@ void Commune::report()
     list_commodities(&i);
 }
 
+void Commune::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->ugwCount = 0;
+  for(int i = 0; i < constructionGroup->size; i++)
+  for (int j = 0; j < constructionGroup->size; j++)
+    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+
+  if (this->ugwCount < 16 / 3)
+  {   this->coalprod = COMMUNE_COAL_MADE/3;}
+  else if (this->ugwCount < (2 * 16) / 3)
+  {   this->coalprod = COMMUNE_COAL_MADE/2;}
+  else
+  {   this->coalprod = COMMUNE_COAL_MADE;}
+}
+
 /** @file lincity/modules/commune.cpp */

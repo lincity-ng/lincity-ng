@@ -57,7 +57,6 @@ class Powerline: public Construction {
 public:
     Powerline(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
         this->anim = 0;

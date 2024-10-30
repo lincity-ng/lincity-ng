@@ -67,7 +67,6 @@ class Fire: public Construction {
 public:
     Fire(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->burning_days = 0;
         this->smoking_days = 0;
         this->anim = 0;

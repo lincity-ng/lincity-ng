@@ -84,7 +84,6 @@ class RocketPad: public Construction {
 public:
   RocketPad(ConstructionGroup* cstgrp) {
     this->constructionGroup = cstgrp;
-    init_resources();
     this->working_days = 0;
     this->busy = 0;
     this->anim = 0;

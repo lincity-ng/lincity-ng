@@ -71,7 +71,6 @@ class Tip: public Construction{
 public:
     Tip(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
         this->working_days = 0;

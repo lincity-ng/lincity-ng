@@ -76,4 +76,15 @@ void Waterwell::report()
     list_commodities(&i);
 }
 
+void Waterwell::place(int x, int y) {
+  Construction::place(x, y);
+
+  int ore = 0;
+  for(int yy = y; yy < y + constructionGroup->size; yy++)
+  for(int xx = x; xx < x + constructionGroup->size; xx++)
+    if(world(xx, yy)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+  this->water_output = this->ugwCount * WATER_PER_UGW;
+}
+
 /** @file lincity/modules/waterwell.cpp */

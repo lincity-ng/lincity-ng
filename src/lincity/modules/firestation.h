@@ -78,7 +78,6 @@ class FireStation: public Construction {
 public:
     FireStation(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->anim = 0;
         this->animate_enable = false;
         this->active = false;
@@ -87,17 +86,6 @@ public:
         this->daycount = 0;
         this->covercount = 0;
         initialize_commodities();
-
-        int tmp;
-        int lenm1 = world.len()-1;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
 
         commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;

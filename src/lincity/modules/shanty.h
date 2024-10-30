@@ -109,12 +109,6 @@ class Shanty: public Construction {
 public:
     Shanty(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
@@ -139,6 +133,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
 
     int anim;
     bool start_burning_waste;

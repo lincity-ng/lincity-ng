@@ -213,4 +213,14 @@ void Shanty::report()
     list_commodities(&i);
 }
 
+void Shanty::init_resources() {
+  Construction::init_resources();
+
+  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+  waste_fire_frit->move_x = 0;
+  waste_fire_frit->move_y = 0;
+  waste_fire_frit->frame = -1;
+}
+
 /** @file lincity/modules/shanty.cpp */

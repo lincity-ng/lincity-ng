@@ -97,7 +97,6 @@ class Organic_farm: public Construction {
 public:
     Organic_farm(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->tech = tech_level;
         this->crop_rotation_key = (rand() % 4) + 1;
         this->month_stagger = rand() % 100;
@@ -105,24 +104,6 @@ public:
         this->food_last_month = 0;
         //this->max_foodprod = 0;
         initialize_commodities();
-        // Check underground water, and reduce food production accordingly
-        int w = 0;
-        if (use_waterwell)
-        {
-            for (int i = 0; i < constructionGroup->size; i++)
-            {
-                for (int j = 0; j < constructionGroup->size; j++)
-                {
-                    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                        w++;
-                }// end j
-            }//end i
-            this->ugwCount = w;
-        }
-        else //no waterwell
-        {
-            this->ugwCount = 16;
-        }
 
         commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
         commodityMaxCons[STUFF_LABOR] = 100 * FARM_LABOR_USED;
@@ -146,6 +127,7 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

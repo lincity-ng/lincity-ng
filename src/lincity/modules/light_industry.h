@@ -110,28 +110,6 @@ class IndustryLight: public Construction {
 public:
     IndustryLight(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
-        std::list<ExtraFrame>::iterator frit = frameIt;
-        std::advance(frit, 1);
-        fr_begin = frit;
-
-        frit = frameIt;
-        std::advance(frit, 1);
-        frit->move_x = -113;
-        frit->move_y = -210;
-        std::advance(frit, 1);
-        frit->move_x = -84;
-        frit->move_y = -198;
-        std::advance(frit, 1);
-        fr_end = frit;
-        for (frit = fr_begin; frit != world(x,y)->framesptr->end() && frit != fr_end; std::advance(frit, 1))
-        {
-            frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
-            frit->frame = -1; // hide smoke
-        }
-
-
         this->tech = tech_level;
         this->working_days = 0;
         this->busy = 0;
@@ -209,6 +187,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

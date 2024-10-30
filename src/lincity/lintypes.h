@@ -99,7 +99,7 @@ public:
     std::vector<Construction*> partners;        //remotely for markets
     std::list<ExtraFrame>::iterator frameIt;
     static std::string getStuffName(Commodity stuff_id); //translated name of a commodity
-    void init_resources(void);                      //sets sounds and graphics according to constructionGroup
+    virtual void init_resources(void);              //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void list_inventory(int *);                     // prints list of commodity inventory in report()
     void list_production(int *);                    // prints list of commodity production in report()

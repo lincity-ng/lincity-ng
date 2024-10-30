@@ -74,7 +74,6 @@ class Substation: public Construction {
 public:
     Substation(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->working_days = 0;
         this->busy = 0;
         initialize_commodities();

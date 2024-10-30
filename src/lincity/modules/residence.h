@@ -197,7 +197,6 @@ class Residence: public Construction {
 public:
     Residence(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->local_population = 0;
         this->desireability = 0;
         this->births = 120000;

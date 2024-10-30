@@ -76,38 +76,10 @@ class Coalmine: public Construction {
 public:
     Coalmine(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete
         initialize_commodities();
-
-        int coal = 0;
-        int lenm1 = world.len()-1;
-        int tmp;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
-
-        for (int yy = ys; yy < ye ; yy++)
-        {
-            for (int xx = xs; xx < xe ; xx++)
-            {   coal += world(xx,yy)->coal_reserve;}
-        }
-        //always provide some coal so player can
-        //store sustainable coal
-        if (coal < 20)
-        {
-            world(x,y)->coal_reserve += 20-coal;
-            coal = 20;
-        }
-        this->initial_coal_reserve = coal;
-        this->current_coal_reserve = coal;
 
         commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
         commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
@@ -117,6 +89,7 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

@@ -70,7 +70,6 @@ class Monument: public Construction {
 public:
     Monument(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->busy = 0;
         this->working_days = 0;
         this->tech_made = 0;

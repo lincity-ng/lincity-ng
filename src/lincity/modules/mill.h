@@ -89,8 +89,7 @@ class Mill: public Construction {
 public:
     Mill(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        // this->anim = 0;
+        this->anim = 0;
         this->busy = 0;
         this->working_days = 0;
         this->animate_enable = false;

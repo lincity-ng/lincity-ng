@@ -92,7 +92,6 @@ class Commune: public Construction {
 public:
     Commune(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->anim = 0; // or real_time?
         this->animate_enable = false;
         this->steel_made = false;
@@ -130,6 +129,7 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     int  anim;
     int  ugwCount;

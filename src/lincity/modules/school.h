@@ -85,14 +85,6 @@ class School: public Construction {
 public:
     School(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        //std::list<ExtraFrame>::iterator frit = world(x,y)->createframe();
-        //CK ?? Why the hell is the variant above unsafe?
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
-        frit = frameIt;
-        std::advance(frit, 1);
-        frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
-        frit->frame = -1; //hide the swing
         // this->animate_enable = false;
         this->anim = 0;
         this->anim2 = 0;
@@ -121,6 +113,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

@@ -96,12 +96,6 @@ class Market: public Construction {
 public:
     Market(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         initialize_commodities();
@@ -112,18 +106,6 @@ public:
         this->market_ratio = 0;
         this->start_burning_waste = false;
         this->waste_fire_anim = 0;
-        //set the Searchrange of this Market
-        int tmp;
-        int lenm1 = world.len()-1;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
-        this->cover();
 
         commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
         commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
@@ -135,6 +117,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
     void cover();
     void toggleEvacuation();
 

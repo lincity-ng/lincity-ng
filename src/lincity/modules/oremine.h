@@ -76,7 +76,6 @@ class Oremine: public Construction {
 public:
     Oremine(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         // this->anim = 0;
         this->animate_enable = false;
         this->working_days = 0;
@@ -84,16 +83,6 @@ public:
         this->anim_count = 0;
         // this->days_offset = 0;
         initialize_commodities();
-
-        int ore = 0;
-        for (int yy = y; (yy < y + constructionGroup->size) ; yy++)
-        {
-            for (int xx = x; (xx < x + constructionGroup->size); xx++)
-            {   ore += world(xx,yy)->ore_reserve;}
-        }
-        if (ore < 1)
-        { ore = 1;}
-        this->total_ore_reserve = ore;
 
         commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
         commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
@@ -103,6 +92,7 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
