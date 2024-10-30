@@ -39,8 +39,7 @@
 #define LABOR_MARKET_FULL   28
 
 #include <array>                // for array
-#include <list>                 // for _List_iterator, list
-#include <map>                  // for map
+#include <list>                 // for list
 
 #include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
 #include "modules.h"            // for CommodityRule, Commodity, Constructio...

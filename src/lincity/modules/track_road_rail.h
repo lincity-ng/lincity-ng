@@ -23,16 +23,10 @@
 ** ---------------------------------------------------------------------- */
 
 #include <array>                // for array
-#include <list>                 // for _List_iterator, list
-#include <map>                  // for map
+#include <list>                 // for list
 
 #include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
-#include "modules.h"            // for CommodityRule, Commodity, basic_string
-
-#ifdef DEBUG
-#include <SDL.h>                // for SDL_GetKeyboardState, SDL_SCANCODE_LS...
-#include <stddef.h>             // for NULL
-#endif
+#include "modules.h"            // for CommodityRule, Commodity, Constructio...
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:

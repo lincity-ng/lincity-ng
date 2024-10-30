@@ -24,7 +24,9 @@
 
 #include "health_centre.h"
 
-#include "modules.h"
+#include <algorithm>  // for max, min
+
+#include "modules.h"  // for basic_string, allocator, char_traits, Commodity
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(

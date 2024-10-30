@@ -24,9 +24,11 @@
 
 #include "coal_power.h"
 
-#include <vector>                   // for vector
+#include <iterator>   // for advance
+#include <map>        // for map
+#include <vector>     // for vector
 
-#include "modules.h"
+#include "modules.h"  // for ExtraFrame, basic_string, allocator, Commodity
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),

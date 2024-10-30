@@ -22,13 +22,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stddef.h>                 // for NULL
-#include <array>                    // for array
-#include <iterator>                 // for advance
-#include <list>                     // for list, _List_iterator, operator!=
-#include <map>                      // for map
+#include <stddef.h>   // for NULL
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, MAX_TECH_LEVEL, Extra...
 
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000

@@ -24,10 +24,12 @@
 
 #include "light_industry.h"
 
-#include <stdlib.h>                 // for rand
-#include <vector>                   // for vector
+#include <stdlib.h>   // for rand
+#include <iterator>   // for advance
+#include <map>        // for map
+#include <vector>     // for vector
 
-#include "modules.h"
+#include "modules.h"  // for Commodity, basic_string, ExtraFrame, allocator
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(

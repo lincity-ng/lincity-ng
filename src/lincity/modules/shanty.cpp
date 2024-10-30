@@ -24,15 +24,16 @@
 
 #include "shanty.h"
 
-#include <stdio.h>                        // for fprintf, printf, stderr
+#include <stdio.h>                        // for fprintf, stderr, printf
 #include <stdlib.h>                       // for rand
+#include <map>                            // for map
 #include <vector>                         // for vector
 
-#include "commune.h"                      // for COMMUNE_POP, Commune (ptr o...
+#include "commune.h"                      // for CommuneConstructionGroup
 #include "fire.h"                         // for FIRE_ANIMATION_SPEED
 #include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for BurnDownRequest
-#include "modules.h"                      // for Commodity, ExtraFrame, find...
+#include "modules.h"                      // for Commodity, ExtraFrame, basi...
 #include "modules_interfaces.h"           // for add_a_shanty, update_shanty
 
 // Shanty:

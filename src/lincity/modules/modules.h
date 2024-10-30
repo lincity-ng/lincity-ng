@@ -25,6 +25,7 @@
 #ifndef __modules_h__
 #define __modules_h__
 
+// IWYU pragma: always_keep
 // IWYU pragma: begin_exports
 #include <libxml/xmlwriter.h>
 #include <libxml++/parsers/textreader.h>

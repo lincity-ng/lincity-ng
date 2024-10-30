@@ -24,12 +24,13 @@
 
 #include "track_road_rail.h"
 
-#include <stdlib.h>                 // for rand
-#include <vector>                   // for vector
+#include <stdlib.h>              // for rand
+#include <map>                   // for map
+#include <vector>                // for vector
 
-#include "fire.h"                   // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Sound.hpp"     // for getSound, Sound
-#include "modules.h"
+#include "fire.h"                // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Sound.hpp"  // for getSound, Sound
+#include "modules.h"             // for Commodity, basic_string, ExtraFrame
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(

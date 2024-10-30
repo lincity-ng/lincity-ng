@@ -43,13 +43,11 @@
 #define SCHOOL_ANIMATION_BREAK 9500
 
 
-#include <stddef.h>                 // for NULL
-#include <array>                    // for array
-#include <iterator>                 // for advance
-#include <list>                     // for list, _List_iterator
-#include <map>                      // for map
+#include <stddef.h>   // for NULL
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
 
 
 class SchoolConstructionGroup: public ConstructionGroup {

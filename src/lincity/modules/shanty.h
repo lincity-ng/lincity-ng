@@ -55,11 +55,10 @@
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
 #define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
 
-#include <array>                    // for array
-#include <list>                     // for _List_iterator, list
-#include <map>                      // for map
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ConstructionGroup
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:

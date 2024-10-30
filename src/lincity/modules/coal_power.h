@@ -40,13 +40,11 @@
 #define MAX_LABOR_AT_COALPS (20 * LABOR_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
-#include <cstdlib>             // for NULL
-#include <array>               // for array
-#include <iterator>            // for advance
-#include <list>                // for _List_iterator, list, operator!=
-#include <map>                 // for map
+#include <array>      // for array
+#include <cstdlib>    // for NULL
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
 
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:

@@ -22,8 +22,11 @@
 #ifndef __xmlloadsave_h__
 #define __xmlloadsave_h__
 
-#include <string>    // for string, basic_string
-#include <libxml++/parsers/textreader.h>   // for TextReader
+#include <string>  // for string
+
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 #define LOADSAVE_VERSION_CURRENT 2130
 

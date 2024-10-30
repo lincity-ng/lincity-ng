@@ -24,7 +24,10 @@
 
 #include "school.h"
 
-#include "modules.h"
+#include <iterator>   // for advance
+#include <map>        // for map
+
+#include "modules.h"  // for basic_string, ExtraFrame, allocator, Commodity
 
 
 // school place:
