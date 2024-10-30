@@ -179,7 +179,7 @@ void loadGame(std::string filename) {
     xmlReader.next();
   }
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
-  assert(xmlReader.get_name() == "SaveGame");
+  assert(xmlReader.get_name() == "lc-game");
   assert(xmlReader.get_depth() == 0);
 
   // warn about other elements in the file
@@ -323,7 +323,7 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter) {
 
 static void loadGlobals(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
-  assert(xmlReader.get_name() == "GlobalVariables");
+  assert(xmlReader.get_name() == "globals");
   int depth = xmlReader.get_depth();
   xmlReader.read();
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
