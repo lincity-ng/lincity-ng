@@ -141,28 +141,30 @@ void Port::report()
 }
 
 void Port::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech_made", "%d", tech_made);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
 
   const std::string givePfx("give_");
   const std::string takePfx("take_");
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
-    const char *name = getCommodityStandardName(stuff);
-    xmlTextWriterWriteFormatElement(xmlWriter, givePfx + name, "%d", rule.give);
-    xmlTextWriterWriteFormatElement(xmlWriter, takePfx + name, "%d", rule.take);
+    const char *name = commodityStandardName(stuff);
+    xmlStr giveName = (xmlStr)(givePfx + name).c_str();
+    xmlStr takeName = (xmlStr)(takePfx + name).c_str();
+    xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
+    xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
   }
 }
 
 bool Port::loadMember(xmlpp::TextReader& xmlReader) {
   std::string tag = xmlReader.get_name();
   bool give;
-  if((give = tag.starts_with("give_")) || tag.starts_with("take_")) {
+  if((give = tag.find("give_")) == 0 || tag.find("take_") == 0) {
     CommodityRule& rule =
       commodityRuleCount[commodityFromStandardName(tag.substr(5).c_str())];
-    give ? rule.give : rule.take = std::stoi(xmlReader.get_inner_xml());
+    give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
-  else if(tag == "tech_made") tech_made = std::stoi(xmlReader.get_inner_xml());
+  else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

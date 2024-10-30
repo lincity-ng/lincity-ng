@@ -140,12 +140,12 @@ void Organic_farm::report()
 }
 
 void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }
 
 bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {
   std::string tag = xmlReader.get_name();
-  if(tag == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(tag == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(tag == "tech_bonus");
   else return Construction::loadMember(xmlReader);
   return true;

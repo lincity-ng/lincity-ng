@@ -135,16 +135,16 @@ void Fire::report()
 }
 
 void Fire::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "burning_days",       "%d", burning_days);
-  xmlTextWriterWriteFormatElement(xmlWriter, "smoking_days",       "%d", smoking_days);
-  xmlTextWriterWriteFormatElement(xmlWriter, "days_before_spread", "%d", days_before_spread);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"burning_days",       "%d", burning_days);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"smoking_days",       "%d", smoking_days);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"days_before_spread", "%d", days_before_spread);
 }
 
 bool Fire::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if     (name == "burning_days")       burning_days       = std::stoi(xmlReader.get_inner_xml());
-  else if(name == "smoking_days")       smoking_days       = std::stoi(xmlReader.get_inner_xml());
-  else if(name == "days_before_spread") days_before_spread = std::stoi(xmlReader.get_inner_xml());
+  if     (name == "burning_days")       burning_days       = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "smoking_days")       smoking_days       = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "days_before_spread") days_before_spread = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

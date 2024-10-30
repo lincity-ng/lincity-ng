@@ -42,7 +42,6 @@
 #define WIND_POWER_TECH 450000
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

@@ -25,7 +25,6 @@
 #include "pottery.h"
 
 #include <list>                     // for _List_iterator
-#include <string>                   // for basic_string
 #include <vector>                   // for vector
 
 #include "modules.h"

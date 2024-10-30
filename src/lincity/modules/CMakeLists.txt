@@ -77,7 +77,6 @@ target_link_libraries(lincity_lib_modules
 		PUBLIC
 		tinygettext
 		LinCity::lib
-		PRIVATE
 		PkgConfig::libXMLPlusPlus
 )
 

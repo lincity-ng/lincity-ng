@@ -105,7 +105,6 @@
 
 #include <array>                    // for array
 #include <iostream>                 // for basic_ostream, operator<<, basic_...
-#include <string>                   // for char_traits, basic_string
 
 #include "modules.h"
 

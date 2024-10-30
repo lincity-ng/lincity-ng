@@ -81,12 +81,12 @@ void University::report()
 }
 
 void University::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_tech_made", "%d", total_tech_made);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
 }
 
 bool University::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.get_inner_xml());
+  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

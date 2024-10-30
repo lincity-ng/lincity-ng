@@ -39,7 +39,6 @@
 #define TIP_TAKES_WASTE (20 * WASTE_BURRIED)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

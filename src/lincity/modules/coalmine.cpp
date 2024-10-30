@@ -151,12 +151,12 @@ void Coalmine::report()
 }
 
 void Coalmine::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "initial_coal_reserve", "%d", initial_coal_reserve);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
 }
 
 bool Coalmine::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.get_inner_xml());
+  if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

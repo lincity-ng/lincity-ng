@@ -26,8 +26,11 @@
 
 #define LOADSAVE_VERSION_CURRENT 2130
 
-extern void saveXMLfile(std::string xml_file_name);
-extern void loadXMLfile(std::string xml_file_name);
+typedef const unsigned char *xmlStr;
+typedef unsigned char *xmlMStr;
+
+extern void saveGame(std::string xml_file_name);
+extern void loadGame(std::string xml_file_name);
 
 #endif /* __xmlloadsave_h__ */
 

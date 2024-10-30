@@ -39,7 +39,6 @@
 //#define MONUMENT_ANIM_SPEED     300 //actually used?
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

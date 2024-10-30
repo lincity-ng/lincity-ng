@@ -30,6 +30,7 @@
 #include <libxml/xmlreader.h>
 #include <libxml/xmlwriter.h>
 #include <memory>
+#include <sstream>
 
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, constr...
@@ -43,15 +44,29 @@
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
 #include "world.h"                         // for MapTile, World, Ground
 
+static void saveGlobals(xmlTextWriterPtr xmlWriter);
+static void loadGlobals(xmlpp::TextReader& xmlReader);
+static void saveMap(xmlTextWriterPtr xmlWriter);
+static void loadMap(xmlpp::TextReader& xmlReader);
+static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile);
+static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile);
+static void writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len);
+static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len);
+static void writePbar(xmlTextWriterPtr xmlWriter, int pbarId);
+static void readPbar(xmlpp::TextReader& xmlReader);
+
 void saveGame(std::string filename) {
   std::string gz_name;
   gzFile gz_file = gzopen(filename.c_str(), "wb");
   if(!gz_file)
     throw std::runtime_error(
-      std::string("failed to open file: ") + xml_file_name);
+      std::string("failed to open file: ") + filename);
 
   xmlOutputBufferPtr xmlWriterBuffer = xmlOutputBufferCreateIO(
-    gzwrite, gzclose, gz_file, NULL));
+    [](void *ctx, const char *buf, int len){
+      return gzwrite((gzFile)ctx, buf, len);},
+    [](void *ctx){return gzclose((gzFile)ctx);},
+    gz_file, NULL);
   if(!xmlWriterBuffer) {
     gzclose(gz_file);
     throw std::runtime_error("failed to create XML output buffer");
@@ -61,29 +76,29 @@ void saveGame(std::string filename) {
     xmlOutputBufferClose(xmlWriterBuffer);
     throw std::runtime_error("failed to create XML text writer");
   }
-  shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter, xmlTextWriterClose);
+  std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter, xmlTextWriterClose);
 
 #ifdef DEBUG
   xmlTextWriterSetIndent(xmlWriter, true);
-  xmlTextWriterSetIndentString(xmlWriter, "  ");
+  xmlTextWriterSetIndentString(xmlWriter, (xmlStr)"  ");
 #else
   xmlTextWriterSetIndent(xmlWriter, false);
 #endif
 
   xmlTextWriterStartDocument(xmlWriter, NULL, NULL, NULL);
-  xmlTextWriterWriteComment(xmlWriter, "This file is a lincity savegame.");
-  xmlTextWriterStartElement(xmlWriter, "lc-game");
-    xmlTextWriterWriteFormatAttribute(xmlWriter, "ldsv-version", "%u",
-      XML_LOADSAVE_VERSION);
-    xmlTextWriterStartElement(xmlWriter, "globals");
+  xmlTextWriterWriteComment(xmlWriter, (xmlStr)"This file is a lincity savegame.");
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"lc-game");
+    xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"ldsv-version", "%u",
+      LOADSAVE_VERSION_CURRENT);
+    xmlTextWriterStartElement(xmlWriter, (xmlStr)"globals");
       saveGlobals(xmlWriter);
     xmlTextWriterEndElement(xmlWriter);
-    xmlTextWriterStartElement(xmlWriter, "map");
+    xmlTextWriterStartElement(xmlWriter, (xmlStr)"map");
       saveMap(xmlWriter);
     xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndDocument(xmlWriter);
-  xmlError *xmlerr = xmlCtxtGetLastError(xmlWriter);
+  const xmlError *xmlerr = xmlCtxtGetLastError(xmlWriter);
   if(xmlerr)
     throw std::runtime_error(
       std::string("failed writing save game: ") + xmlerr->message);
@@ -93,11 +108,12 @@ void loadGame(std::string filename) {
   gzFile gz_file = gzopen(filename.c_str(), "rb");
   if(!gz_file)
     throw std::runtime_error(
-      std::string("failed to open file: ") + xml_file_name);
+      std::string("failed to open file: ") + filename);
 
   xmlTextReaderPtr xmlCReader = xmlReaderForIO(
-    gzread,
-    gzclose,
+    [](void *ctx, char *buf, int len){
+      return gzread((gzFile)ctx, buf, len);},
+    [](void *ctx){return gzclose((gzFile)ctx);},
     gz_file,
     NULL,
     NULL,
@@ -111,25 +127,25 @@ void loadGame(std::string filename) {
   xmlpp::TextReader xmlReader(xmlCReader);
 
   // initialize the reader and seek to the first node
-  xmlReader.read()
+  xmlReader.read();
 
   // find the SaveGame node
   while(true) {
     if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
       throw std::runtime_error("failed to find SaveGame element");
     else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
-    else if(xmlReader.getName() == "lc-game")
+    else if(xmlReader.get_name() == "lc-game")
       break;
     else
       std::cerr << "warning: skipping unexpected element '"
-        << xmlReader.getName() << "'\n";
+        << xmlReader.get_name() << "'\n";
     xmlReader.next();
   }
 
   // parse load/save version
-  std::string versionStr = xmlReader.get_attribute("ldsv-version")
+  std::string versionStr = xmlReader.get_attribute("ldsv-version");
   if(versionStr.empty())
-    throw runtime_error("failed to parse load/save version");
+    throw std::runtime_error("failed to parse load/save version");
   ldsv_version = std::stoi(versionStr);
   if(ldsv_version > LOADSAVE_VERSION_CURRENT)
     throw std::runtime_error("load/save version too high");
@@ -153,7 +169,7 @@ void loadGame(std::string filename) {
       std::cerr << "warning: skipping unexpected element '"
         << xmlReader.get_name() << "'\n";
     }
-    xmlReader.next()
+    xmlReader.next();
   }
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
   assert(xmlReader.get_name() == "SaveGame");
@@ -172,126 +188,125 @@ void loadGame(std::string filename) {
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter) {
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "constructions",               "%d", ::constructionCount.count());
-  xmlTextWriterWriteFormatElement(xmlWriter, "given_scene",                 "%s", given_scene);
-  xmlTextWriterWriteFormatElement(xmlWriter, "world_id",                    "%d", world_id);
-  xmlTextWriterWriteFormatElement(xmlWriter, "climate",                     "%d", world.climate);
-  xmlTextWriterWriteFormatElement(xmlWriter, "old_setup_ground",            "%d", world.old_setup_ground);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"constructions",               "%d", ::constructionCount.count());
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"given_scene",                 "%s", given_scene);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"world_id",                    "%d", world_id);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"climate",                     "%d", world.climate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"old_setup_ground",            "%d", world.old_setup_ground);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "global_aridity",              "%d", global_aridity);
-  xmlTextWriterWriteFormatElement(xmlWriter, "global_mountainity",          "%d", global_mountainity);
-  xmlTextWriterWriteFormatElement(xmlWriter, "world_side_len",              "%d", world.len());
-  xmlTextWriterWriteFormatElement(xmlWriter, "main_screen_originx",         "%d", main_screen_originx);
-  xmlTextWriterWriteFormatElement(xmlWriter, "main_screen_originy",         "%d", main_screen_originy);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_time",                  "%d", total_time);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"global_aridity",              "%d", global_aridity);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"global_mountainity",          "%d", global_mountainity);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"world_side_len",              "%d", world.len());
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"main_screen_originx",         "%d", main_screen_originx);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"main_screen_originy",         "%d", main_screen_originy);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_time",                  "%d", total_time);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "people_pool",                 "%d", people_pool);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_money",                 "%d", total_money);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_income_tax",               "%d", ly_income_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "income_tax",                  "%d", income_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "income_tax_rate",             "%d", income_tax_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"people_pool",                 "%d", people_pool);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_money",                 "%d", total_money);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_income_tax",               "%d", ly_income_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax",                  "%d", income_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_rate",             "%d", income_tax_rate);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_interest",                 "%d", ly_interest);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_coal_tax",                 "%d", ly_coal_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "coal_tax",                    "%d", coal_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "coal_tax_rate",               "%d", coal_tax_rate);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_unemployment_cost",        "%d", ly_unemployment_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "unemployment_cost",           "%d", unemployment_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "dole_rate",                   "%d", dole_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_interest",                 "%d", ly_interest);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_coal_tax",                 "%d", ly_coal_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax",                    "%d", coal_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax_rate",               "%d", coal_tax_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_unemployment_cost",        "%d", ly_unemployment_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployment_cost",           "%d", unemployment_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"dole_rate",                   "%d", dole_rate);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_transport_cost",           "%d", ly_transport_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "transport_cost",              "%d", transport_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "transport_cost_rate",         "%d", transport_cost_rate);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_goods_tax",                "%d", ly_goods_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "goods_tax",                   "%d", goods_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "goods_tax_rate",              "%d", goods_tax_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_transport_cost",           "%d", ly_transport_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_cost",              "%d", transport_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_cost_rate",         "%d", transport_cost_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_goods_tax",                "%d", ly_goods_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax",                   "%d", goods_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax_rate",              "%d", goods_tax_rate);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_export_tax",               "%d", ly_export_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "export_tax",                  "%d", export_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, "export_tax_rate",             "%d", export_tax_rate);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_import_cost",              "%d", ly_import_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "import_cost",                 "%d", import_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "import_cost_rate",            "%d", import_cost_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_export_tax",               "%d", ly_export_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax",                  "%d", export_tax);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax_rate",             "%d", export_tax_rate);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_import_cost",              "%d", ly_import_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_cost",                 "%d", import_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_cost_rate",            "%d", import_cost_rate);
 
   for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
     const char * const &cname = commodityNames[c];
     xmlTextWriterWriteFormatElement(xmlWriter,
-      std::string("<import_")+cname+"_enable>", "%d",
+      (xmlStr)(std::string("<import_")+cname+"_enable>").c_str(), "%d",
       portConstructionGroup.tradeRule[c].take);
     xmlTextWriterWriteFormatElement(xmlWriter,
-      std::string("<export_")+cname+"_enable>", "%d",
+      (xmlStr)(std::string("<export_")+cname+"_enable>").c_str(), "%d",
       portConstructionGroup.tradeRule[c].give);
   }
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_university_cost",          "%d", ly_university_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "university_cost",             "%d", university_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_recycle_cost",             "%d", ly_recycle_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "recycle_cost",                "%d", recycle_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_school_cost",              "%d", ly_school_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "school_cost",                 "%d", school_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_university_cost",          "%d", ly_university_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"university_cost",             "%d", university_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_recycle_cost",             "%d", ly_recycle_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"recycle_cost",                "%d", recycle_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_school_cost",              "%d", ly_school_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"school_cost",                 "%d", school_cost);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_health_cost",              "%d", ly_health_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "health_cost",                 "%d", health_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_deaths_cost",              "%d", ly_deaths_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "deaths_cost",                 "%d", deaths_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_rocket_pad_cost",          "%d", ly_rocket_pad_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "rocket_pad_cost",             "%d", rocket_pad_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_health_cost",              "%d", ly_health_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"health_cost",                 "%d", health_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_deaths_cost",              "%d", ly_deaths_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"deaths_cost",                 "%d", deaths_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_rocket_pad_cost",          "%d", ly_rocket_pad_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rocket_pad_cost",             "%d", rocket_pad_cost);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_windmill_cost",            "%d", ly_windmill_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "windmill_cost",               "%d", windmill_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_fire_cost",                "%d", ly_fire_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "fire_cost",                   "%d", fire_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ly_cricket_cost",             "%d", ly_cricket_cost);
-  xmlTextWriterWriteFormatElement(xmlWriter, "cricket_cost",                "%d", cricket_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_windmill_cost",            "%d", ly_windmill_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"windmill_cost",               "%d", windmill_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_fire_cost",                "%d", ly_fire_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"fire_cost",                   "%d", fire_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_cricket_cost",             "%d", ly_cricket_cost);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"cricket_cost",                "%d", cricket_cost);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech_level",                  "%d", tech_level);
-  xmlTextWriterWriteFormatElement(xmlWriter, "highest_tech_level",          "%d", highest_tech_level);
-  xmlTextWriterWriteFormatElement(xmlWriter, "tpopulation",                 "%d", tpopulation);
-  xmlTextWriterWriteFormatElement(xmlWriter, "thousing",                    "%d", thousing);
-  xmlTextWriterWriteFormatElement(xmlWriter, "tstarving_population",        "%d", tstarving_population);
-  xmlTextWriterWriteFormatElement(xmlWriter, "tunemployed_population",      "%d", tunemployed_population);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_level",                  "%d", tech_level);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"highest_tech_level",          "%d", highest_tech_level);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tpopulation",                 "%d", tpopulation);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"thousing",                    "%d", thousing);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tstarving_population",        "%d", tstarving_population);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tunemployed_population",      "%d", tunemployed_population);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_pollution",             "%d", total_pollution);
-  xmlTextWriterWriteFormatElement(xmlWriter, "rockets_launched",            "%d", rockets_launched);
-  xmlTextWriterWriteFormatElement(xmlWriter, "rockets_launched_success",    "%d", rockets_launched_success);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_pollution",             "%d", total_pollution);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched",            "%d", rockets_launched);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched_success",    "%d", rockets_launched_success);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "coal_survey_done",            "%d", coal_survey_done);
-  xmlTextWriterWriteFormatElement(xmlWriter, "cheat_flag",                  "%d", cheat_flag);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_pollution_deaths",      "%d", total_pollution_deaths);
-  xmlTextWriterWriteFormatElement(xmlWriter, "pollution_deaths_history",    "%f", pollution_deaths_history);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_starve_deaths",         "%d", total_starve_deaths);
-  xmlTextWriterWriteFormatElement(xmlWriter, "starve_deaths_history",       "%f", starve_deaths_history);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_survey_done",            "%d", coal_survey_done);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"cheat_flag",                  "%d", cheat_flag);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_pollution_deaths",      "%d", total_pollution_deaths);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"pollution_deaths_history",    "%f", pollution_deaths_history);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_starve_deaths",         "%d", total_starve_deaths);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"starve_deaths_history",       "%f", starve_deaths_history);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_unemployed_years",      "%d", coal_survey_done);
-  xmlTextWriterWriteFormatElement(xmlWriter, "unemployed_history",          "%f", unemployed_history);
-  xmlTextWriterWriteFormatElement(xmlWriter, "max_pop_ever",                "%d", max_pop_ever);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_evacuated",             "%d", total_evacuated);
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_births",                "%d", total_births);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_unemployed_years",      "%d", coal_survey_done);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployed_history",          "%f", unemployed_history);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"max_pop_ever",                "%d", max_pop_ever);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_evacuated",             "%d", total_evacuated);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_births",                "%d", total_births);
 
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_dig_ore_coal_tip_flag",  "%d", sust_dig_ore_coal_tip_flag);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_dig_ore_coal_count",     "%d", sust_dig_ore_coal_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_port_count",             "%d", sust_port_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_money_count",        "%d", sust_old_money_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_population_count",   "%d", sust_old_population_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_tech_count",         "%d", sust_old_tech_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_fire_count",             "%d", sust_fire_count);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_money",              "%d", sust_old_money);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_port_flag",              "%d", sust_port_flag);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_population",         "%d", sust_old_population);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sust_old_tech",               "%d", sust_old_tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sustain_flag",                "%d", sustain_flag);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_dig_ore_coal_tip_flag",  "%d", sust_dig_ore_coal_tip_flag);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_dig_ore_coal_count",     "%d", sust_dig_ore_coal_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_port_count",             "%d", sust_port_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_money_count",        "%d", sust_old_money_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_population_count",   "%d", sust_old_population_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_tech_count",         "%d", sust_old_tech_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_fire_count",             "%d", sust_fire_count);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_money",              "%d", sust_old_money);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_port_flag",              "%d", sust_port_flag);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_population",         "%d", sust_old_population);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sust_old_tech",               "%d", sust_old_tech);
-  xmlTextWriterWriteFormatElement(xmlWriter, "sustain_flag",                "%d", sustain_flag);
-
-  xmlTextWriterStartElement(xmlWriter, "monthgraph_pop");
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"monthgraph_pop");
     writeArray(xmlWriter, monthgraph_pop, monthgraph_size);
   xmlTextWriterEndElement(xmlWriter);
-  xmlTextWriterStartElement(xmlWriter, "monthgraph_starve");
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"monthgraph_starve");
     writeArray(xmlWriter, monthgraph_starve, monthgraph_size);
   xmlTextWriterEndElement(xmlWriter);
-  xmlTextWriterStartElement(xmlWriter, "monthgraph_nojobs");
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"monthgraph_nojobs");
     writeArray(xmlWriter, monthgraph_nojobs, monthgraph_size);
   xmlTextWriterEndElement(xmlWriter);
-  xmlTextWriterStartElement(xmlWriter, "monthgraph_ppool");
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"monthgraph_ppool");
     writeArray(xmlWriter, monthgraph_ppool, monthgraph_size);
   xmlTextWriterEndElement(xmlWriter);
 
@@ -312,9 +327,8 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
     }
 
     std::string xml_tag = xmlReader.get_name();
-    std::string xml_val = xmlReader.get_inner_xml();
-    if(xml_tag == "constructions")                    totalConstructions = std::stoi(xml_val);
-    else if(xml_tag == "given_scene")                 given_scene = xml_val.c_str();
+    std::string xml_val = xmlReader.read_inner_xml();
+    if(xml_tag == "given_scene")                      std::strcpy(given_scene, xml_val.c_str());
     else if(xml_tag == "global_aridity")              global_aridity = std::stoi(xml_val);
     else if(xml_tag == "global_mountainity")          global_mountainity = std::stoi(xml_val);
     else if(xml_tag == "world_side_len")              world.len(std::stoi(xml_val));
@@ -418,7 +432,6 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
     else if(xml_tag == "monthgraph_nojobs")           readArray(xmlReader, monthgraph_nojobs, monthgraph_size);
     else if(xml_tag == "monthgraph_ppool")            readArray(xmlReader, monthgraph_ppool, monthgraph_size);
     else if(xml_tag == "pbar")                        readPbar(xmlReader);
-    else if(xml_tag == "Pollution")                   readPollution(xmlReader);
 
     else goto more_globals; goto found_global; more_globals:
 
@@ -428,21 +441,20 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
       if(xml_tag == std::string("import_") + cname + "_enable")
         ixenable = &portConstructionGroup.tradeRule[c].take;
       else if(xml_tag == std::string("export_") + cname + "_enable")
-        xenable = &portConstructionGroup.tradeRule[c].give;
+        ixenable = &portConstructionGroup.tradeRule[c].give;
       else continue;
 
       *ixenable = std::stoi(xml_val);
       goto found_global;
     }
 
-    std::cout << "Unknown XML entry " << line
-      << " while reading <GlobalVariables>" << std::endl;
+    std::cout << "warning: skipping unexpected element: '" << xml_tag << "'\n";
 
     found_global: ;
     xmlReader.next();
   }
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::EndElement);
-  assert(xmlReader.get_name() == "GlobalVariables");
+  assert(xmlReader.get_name() == "globals");
   assert(xmlReader.get_depth() == depth);
 
   ly_other_cost = ly_university_cost + ly_recycle_cost + ly_deaths_cost
@@ -453,10 +465,9 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
 static void saveMap(xmlTextWriterPtr xmlWriter) {
   for(int y = 0; y < world.len(); y++)
   for(int x = 0; x < world.len(); x++) {
-    xmlTextWriterStartElement(xmlWriter, "MapTile");
-      xmlTextWriterWriteFormatAttribute(xmlWriter, "group", );
-      xmlTextWriterWriteFormatAttribute(xmlWriter, "map-x", x);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, "map-y", y);
+    xmlTextWriterStartElement(xmlWriter, (xmlStr)"MapTile");
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", x);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", y);
       saveMapTile(xmlWriter, *world(x, y));
     xmlTextWriterEndElement(xmlWriter);
   }
@@ -469,7 +480,8 @@ static void saveMap(xmlTextWriterPtr xmlWriter) {
 }
 
 static void loadMap(xmlpp::TextReader& xmlReader) {
-  std::list<std::pair<Construction *, std::pair<int, int>>> constructions();
+  std::list<std::pair<Construction *, std::pair<int, int>>> constructions =
+    std::list<std::pair<Construction *, std::pair<int, int>>>();
 
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "map");
@@ -483,20 +495,20 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
     }
 
     if(xmlReader.get_name() == "MapTile") {
-      int x = xmlReader.get_attribute("map-x");
-      int y = xmlReader.get_attribute("map-y");
+      int x = std::stoi(xmlReader.get_attribute("map-x"));
+      int y = std::stoi(xmlReader.get_attribute("map-y"));
       if(!world.is_inside(x, y))
-        throw runtime_error("error: a MapTile seems to be outside the map: " +
-          "(" + x + ", " + y + ")");
-      readMapTile(xmlReader, *world(x, y));
+        throw std::runtime_error("a MapTile seems to be outside the map");
+      loadMapTile(xmlReader, *world(x, y));
     }
     else if(xmlReader.get_name() == "Construction") {
-      int group = xmlReader.get_attribute("group");
-      int x = xmlReader.get_attribute("map-x");
-      int y = xmlReader.get_attribute("map-y");
-      ConstructionGroup cstgrp = ConstructionGroup::getConstructionGroup(group);
+      int group = std::stoi(xmlReader.get_attribute("group"));
+      int x = std::stoi(xmlReader.get_attribute("map-x"));
+      int y = std::stoi(xmlReader.get_attribute("map-y"));
+      ConstructionGroup *cstgrp =
+        ConstructionGroup::getConstructionGroup(group);
       if(!cstgrp)
-        throw runtime_error("invalid group");
+        throw std::runtime_error("invalid group");
       Construction *cst = cstgrp->loadConstruction(xmlReader);
       constructions.emplace_back(cst, std::pair(x, y));
     }
@@ -510,60 +522,39 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_name() == "map");
   assert(xmlReader.get_depth() == depth);
 
-  for(auto cst : constructions) {
+  for(auto& cst : constructions) {
     cst.first->place(cst.second.first, cst.second.second);
   }
 }
 
-static void saveMapTile(xmlTextWriterPtr xmlWriter, Maptile& tile) {
-  xmlTextWriterWriteFormatAttribute(xmlWriter, "group",    "%d", tile.group);
+static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile) {
+  xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group",    "%d", tile.group);
 
-  xmlTextWriterWriteFormatElement(xmlWriter, "flags",      "%d", tile.flags);
-  xmlTextWriterWriteFormatElement(xmlWriter, "type",       "%d", tile.type);
-  xmlTextWriterWriteFormatElement(xmlWriter, "air_pol",    "%d", tile.pollution);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ore",        "%d", tile.ore_reserve);
-  xmlTextWriterWriteFormatElement(xmlWriter, "coal",       "%d", tile.coal_reserve);
-  //ground
-  xmlTextWriterWriteFormatElement(xmlWriter, "altitude",   "%d", tile.ground.altitude);
-  xmlTextWriterWriteFormatElement(xmlWriter, "ecotable",   "%d", tile.ground.ecotable);
-  xmlTextWriterWriteFormatElement(xmlWriter, "wastes",     "%d", tile.ground.wastes);
-  xmlTextWriterWriteFormatElement(xmlWriter, "grd_pol",    "%d", tile.ground.pollution);
-  xmlTextWriterWriteFormatElement(xmlWriter, "water_alt",  "%d", tile.ground.water_alt);
-  xmlTextWriterWriteFormatElement(xmlWriter, "water_pol",  "%d", tile.ground.water_pol);
-  xmlTextWriterWriteFormatElement(xmlWriter, "water_wast", "%d", tile.ground.water_wast);
-  xmlTextWriterWriteFormatElement(xmlWriter, "water_next", "%d", tile.ground.water_next);
-  xmlTextWriterWriteFormatElement(xmlWriter, "int1",       "%d", tile.ground.int1);
-  xmlTextWriterWriteFormatElement(xmlWriter, "int2",       "%d", tile.ground.int2);
-  xmlTextWriterWriteFormatElement(xmlWriter, "int3",       "%d", tile.ground.int3);
-  xmlTextWriterWriteFormatElement(xmlWriter, "int4",       "%d", tile.ground.int4);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"flags",      "%d", tile.flags);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"type",       "%d", tile.type);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"air_pol",    "%d", tile.pollution);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ore",        "%d", tile.ore_reserve);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal",       "%d", tile.coal_reserve);
+
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"altitude",   "%d", tile.ground.altitude);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ecotable",   "%d", tile.ground.ecotable);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"wastes",     "%d", tile.ground.wastes);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"grd_pol",    "%d", tile.ground.pollution);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_alt",  "%d", tile.ground.water_alt);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_pol",  "%d", tile.ground.water_pol);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_wast", "%d", tile.ground.water_wast);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_next", "%d", tile.ground.water_next);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int1",       "%d", tile.ground.int1);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int2",       "%d", tile.ground.int2);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int3",       "%d", tile.ground.int3);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int4",       "%d", tile.ground.int4);
 }
 
-static void saveConstructions()
-{
-    xml_file_out<<"<ConstructionSection>"<<std::endl;
-    for (int i = 0; i < ::constructionCount.size(); i++)
-    {
-        //use pos() here because we dont want them shuffeled
-        if (::constructionCount.pos(i))
-        {
-            //we dont save ghosts like temporary fires on transport
-            if(::constructionCount.pos(i)->flags & FLAG_IS_GHOST)
-            {   continue;}
-            ::constructionCount.pos(i)->saveMembers(&xml_file_out);
-            flush_gz_output();
-        }
-    }
-    if (binary_mode)
-    {   xml_file_out << std::endl;}
-    xml_file_out<<"</ConstructionSection>"<<std::endl;
-    flush_gz_output();
-}
-
-static void readMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
+static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "MapTile");
 
-  tile.group = xmlReader.get_attribute("group");
+  tile.group = std::stoi(xmlReader.get_attribute("group"));
 
   int depth = xmlReader.get_depth();
   xmlReader.read();
@@ -575,7 +566,7 @@ static void readMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
     }
 
     std::string xml_tag = xmlReader.get_name();
-    std::string xml_val = xmlReader.get_inner_xml();
+    std::string xml_val = xmlReader.read_inner_xml();
     if     (xml_tag == "flags")      tile.flags = std::stoi(xml_val);
     else if(xml_tag == "type")       tile.type = std::stoi(xml_val);
     else if(xml_tag == "air_pol")    tile.pollution = std::stoi(xml_val);
@@ -611,7 +602,7 @@ static void writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len) {
   std::ostringstream str;
   while(len-- > 0)
     str << *(ary++) << "\t";
-  xmlTextWriterWriteString(xmlWriter, str.str().c_str());
+  xmlTextWriterWriteString(xmlWriter, (xmlStr)str.str().c_str());
 }
 
 static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len) {
@@ -634,11 +625,11 @@ static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len) {
 }
 
 static void writePbar(xmlTextWriterPtr xmlWriter, int pbarId) {
-  struct pbar_st& pbar = pbars[p];
-  xmlTextWriterWriteFormatElement(xmlWriter, "ID", "%d", pbarId);
-  xmlTextWriterWriteFormatElement(xmlWriter, "oldtot", "%d", pbar.oldtot);
-  xmlTextWriterWriteFormatElement(xmlWriter, "diff", "%d", pbar.diff);
-  xmlTextWriterStartElement(xmlWriter, "data");
+  struct pbar_st& pbar = pbars[pbarId];
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ID", "%d", pbarId);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"oldtot", "%d", pbar.oldtot);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"diff", "%d", pbar.diff);
+  xmlTextWriterStartElement(xmlWriter, (xmlStr)"data");
     writeArray(xmlWriter, pbar.data, PBAR_DATA_SIZE);
   xmlTextWriterEndElement(xmlWriter);
 }

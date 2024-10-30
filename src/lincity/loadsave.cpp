@@ -38,6 +38,7 @@
 #include "tinygettext/gettext.hpp"         // for _
 #include "transport.h"                     // for connect_transport
 #include "world.h"                         // for World
+#include "xmlloadsave.h"
 
 #if defined (TIME_WITH_SYS_TIME)
 #include <sys/time.h>
@@ -146,7 +147,7 @@ void save_city_2(std::string xml_file_name)
 
     if (found > xml_file_name.length()-3)
     {   xml_file_name += ".gz";}
-    saveXMLfile(xml_file_name);
+    saveGame(xml_file_name);
 #ifdef DEBUG
     //TODO abandon support for writing old style savegame
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
@@ -332,8 +333,8 @@ void load_city_2(char *cname)
     num_pbars = OLD_NUM_PBARS;
     pbar_data_size = PBAR_DATA_SIZE;
     init_inventory();
-    r = loadGame(xml_file_name);
-    if (r == -1)
+    loadGame(xml_file_name);
+    if (false)
     {
         std::cout << "importing: "<< cname << std::endl;
         //old savegames are always WORLD_SIDE_LEN == 100

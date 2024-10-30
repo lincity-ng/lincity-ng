@@ -43,7 +43,6 @@
 #define TARGET_COAL_LEVEL 80
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

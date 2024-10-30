@@ -359,12 +359,12 @@ void Residence::report()
 }
 
 void Residence::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "local_population", "%d", local_population);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"local_population", "%d", local_population);
 }
 
 bool Residence::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "local_population") local_population = std::stoi(xmlReader.get_inner_xml());
+  if(name == "local_population") local_population = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

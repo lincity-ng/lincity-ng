@@ -41,7 +41,6 @@
 #define MAX_WASTE_AT_UNIVERSITY (20 * UNIVERSITY_GOODS / 3)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

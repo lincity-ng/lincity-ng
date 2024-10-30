@@ -28,6 +28,7 @@
 #include <stdlib.h>                        // for rand
 #include <list>                            // for _List_iterator
 #include <vector>                          // for vector
+#include <string>
 
 #include "modules.h"
 #include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
@@ -243,31 +244,31 @@ void RocketPad::report()
 }
 
 void RocketPad::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
-  xmlTextWriterWriteFormatElement(xmlWriter, "steps", "%d", steps);
-  std:string stStr;
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"steps", "%d", steps);
+  const char *stStr;
   switch(stage) {
   case BUILDING: stStr = "building"; break;
   case AWAITING:
   case LAUNCHING:
   case LAUNCH:   stStr = "awaiting"; break;
-  case AWAITING: stStr = "done";     break;
+  case DONE:     stStr = "done";     break;
   default:
-    throw runtime_error("unknown rocket stage");
+    throw std::runtime_error("unknown rocket stage");
   }
-  xmlTextWriterWriteFormatElement(xmlWriter, "stage", "%d", stStr);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"stage", "%s", stStr);
 }
 
 bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {
   std::string tag = xmlReader.get_name();
-  if     (tag == "tech")  tech  = std::stoi(xmlReader.get_inner_xml());
-  else if(tag == "steps") steps = std::stoi(xmlReader.get_inner_xml());
+  if     (tag == "tech")  tech  = std::stoi(xmlReader.read_inner_xml());
+  else if(tag == "steps") steps = std::stoi(xmlReader.read_inner_xml());
   else if(tag == "stage") {
-    std::string stStr = xmlReader.get_inner_xml();
+    std::string stStr = xmlReader.read_inner_xml();
     if     (stStr == "building") stage = BUILDING;
     else if(stStr == "awaiting") stage = AWAITING;
     else if(stStr == "done")     stage = DONE;
-    else throw runtime_error("unknown rocket stage");
+    else throw std::runtime_error("unknown rocket stage");
   }
   else return Construction::loadMember(xmlReader);
   return true;

@@ -96,6 +96,7 @@
 <xsl:template match="//GlobalVariables/binary_mode" mode="copying"/>
 <xsl:template match="//GlobalVariables/seed_compression" mode="copying"/>
 <xsl:template match="//GlobalVariables/altered_tiles" mode="copying"/>
+<xsl:template match="//GlobalVariables/constructions" mode="copying"/>
 <xsl:template match="//GlobalVariables/monthgraph_size" mode="copying"/>
 
 <xsl:template match="node()|@*" mode="copying">

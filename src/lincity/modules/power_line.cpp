@@ -25,7 +25,6 @@
 #include "power_line.h"
 
 #include <list>                     // for _List_iterator
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

@@ -119,12 +119,12 @@ void Coal_power::report()
 }
 
 void Coal_power::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }
 
 bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "mwh_output");
   else return Construction::loadMember(xmlReader);
   return true;

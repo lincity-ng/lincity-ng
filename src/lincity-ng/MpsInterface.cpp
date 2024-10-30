@@ -364,9 +364,6 @@ void mps_right (int x, int y)
     int pol = world(x,y)->pollution;
     currentMPS = envMPS;
 
-    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-    if (!binary_mode && keystate[SDL_SCANCODE_D])
-    {   world(x,y)->saveMembers(&std::cout);}
     mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 
     p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? N_("Yes") : N_("No");

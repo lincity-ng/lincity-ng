@@ -294,22 +294,22 @@ void Construction::report_commodities(void)
 void Construction::save(xmlTextWriterPtr xmlWriter) {
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
-    const char *name = getCommodityStandardName(stuff);
+    xmlStr name = (xmlStr)commodityStandardName(stuff);
     xmlTextWriterWriteFormatElement(xmlWriter,
       name, "%d", commodityCount[stuff]);
   }
 }
 
 bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
-  Commodity stuff = commodityFromStandardName(xmlReader.get_name());
+  Commodity stuff = commodityFromStandardName(xmlReader.get_name().c_str());
   assert(constructionGroup->commodityRuleCount[stuff].maxload > 0);
-  commodityCount[stuff] = std::stoi(xmlReader.get_inner_xml());
+  commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
 }
 
 void Construction::place(int x, int y) {
+  unsigned short size = constructionGroup->size;
   if(!world.is_inside(x, y) || !world.is_inside(x + size, y + size))
-    throw runtime_error("error: cannot place a Construction outside the map: " +
-      "(" + x + ", " + y + ")");
+    throw std::runtime_error("cannot place a Construction outside the map");
 
   initialize();
 
@@ -326,7 +326,6 @@ void Construction::place(int x, int y) {
   }
 #endif
 
-  unsigned short size = constructionGroup->size;
   for (unsigned short i = 0; i < size; i++) {
     for (unsigned short j = 0; j < size; j++) {
       //never change water upon building something

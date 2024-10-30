@@ -37,7 +37,6 @@
 #define MAX_HIVOLT_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

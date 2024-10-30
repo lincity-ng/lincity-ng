@@ -47,7 +47,6 @@
 
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

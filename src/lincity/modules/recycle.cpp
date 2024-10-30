@@ -93,12 +93,12 @@ void Recycle::report()
 }
 
 void Recycle::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }
 
 bool Recycle::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "make_ore");
   else if(name == "make_steel");
   else return Construction::loadMember(xmlReader);

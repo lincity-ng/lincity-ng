@@ -41,7 +41,6 @@
 #include <array>                // for array
 #include <list>                 // for _List_iterator, list
 #include <map>                  // for map
-#include <string>               // for basic_string, operator<
 
 #include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
 #include "modules.h"            // for CommodityRule, Commodity, Constructio...

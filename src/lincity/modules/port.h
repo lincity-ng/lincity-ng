@@ -68,7 +68,6 @@
 
 #include <array>                    // for array
 #include <map>                      // for map
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

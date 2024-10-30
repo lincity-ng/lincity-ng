@@ -119,16 +119,16 @@ void FireStation::report()
 }
 
 void FireStation::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "active",     "%d", active);
-  xmlTextWriterWriteFormatElement(xmlWriter, "daycount",   "%d", daycount);
-  xmlTextWriterWriteFormatElement(xmlWriter, "covercount", "%d", covercount);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
 }
 
 bool FireStation::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if     (name == "active")     active     = std::stoi(xmlReader.get_inner_xml());
-  else if(name == "daycount")   daycount   = std::stoi(xmlReader.get_inner_xml());
-  else if(name == "covercount") covercount = std::stoi(xmlReader.get_inner_xml());
+  if     (name == "active")     active     = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "daycount")   daycount   = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }

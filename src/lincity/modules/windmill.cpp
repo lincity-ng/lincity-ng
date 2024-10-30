@@ -91,13 +91,13 @@ void Windmill::report()
     list_commodities(&i);
 }
 
-void Coal_power::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+void Windmill::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }
 
-bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
+bool Windmill::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "kwh_output");
   else return Construction::loadMember(xmlReader);
   return true;

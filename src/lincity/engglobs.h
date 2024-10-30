@@ -25,6 +25,8 @@
 #define __engglobs_h__
 
 #include "lin-city.h"  // for NUMOF_DISCOUNT_TRIGGERS
+#include "ConstructionCount.h"
+#include "world.h"
 
 class ConstructionCount;
 class World;

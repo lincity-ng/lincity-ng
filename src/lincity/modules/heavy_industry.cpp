@@ -163,12 +163,12 @@ void IndustryHeavy::report()
 }
 
 void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "tech", "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
 }
 
 bool IndustryHeavy::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.get_inner_xml());
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "bonus");
   else if(name == "extra_bonus");
   else return Construction::loadMember(xmlReader);

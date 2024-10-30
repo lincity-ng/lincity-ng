@@ -44,7 +44,6 @@
 #define ROCKET_ANIMATION_SPEED  800
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 

@@ -26,6 +26,10 @@
 #define __modules_h__
 
 // IWYU pragma: begin_exports
+#include <libxml/xmlwriter.h>
+#include <libxml++/parsers/textreader.h>
+#include <string>
+
 #include "gui_interface/mps.h"            // tally: 111111111111111111111111111111111
 #include "lincity/all_buildings.h"        // tally: 1111111111111111111111111111111
 #include "lincity/commodities.hpp"
@@ -37,8 +41,8 @@
 #include "lincity/resources.hpp"
 #include "lincity/stats.h"                // tally: 11111111111111
 #include "lincity/world.h"                // tally: 111111111111111111111111
+#include "lincity/xmlloadsave.h"
 #include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111
-#include <libxml++/parsers/textreader.h>
 // IWYU pragma: end_exports
 
 #endif /* __modules_h__ */

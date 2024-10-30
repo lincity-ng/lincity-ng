@@ -184,13 +184,6 @@ void editMap (MapPoint point, int button)
     // Hold d pressed to send load/save info details to console
     if(userOperation->action == UserOperation::ACTION_QUERY)
     {
-#ifdef DEBUG
-        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-        if ( !binary_mode && keystate[SDL_SCANCODE_D] && world(mod_x,mod_y)->reportingConstruction)
-        {
-            world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
-        }
-#endif
         mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         mapMPS->playBuildingSound( mod_x, mod_y );
 

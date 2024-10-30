@@ -58,7 +58,6 @@
 #include <array>                    // for array
 #include <list>                     // for _List_iterator, list
 #include <map>                      // for map
-#include <string>                   // for basic_string, operator<
 
 #include "modules.h"
 

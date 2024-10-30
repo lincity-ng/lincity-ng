@@ -45,7 +45,6 @@
 #include <iterator>            // for advance
 #include <list>                // for _List_iterator, list, operator!=
 #include <map>                 // for map
-#include <string>              // for basic_string, operator<
 
 #include "modules.h"
 

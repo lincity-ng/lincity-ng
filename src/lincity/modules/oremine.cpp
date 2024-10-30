@@ -152,12 +152,12 @@ void Oremine::report()
 }
 
 void Oremine::save(xmlTextWriterPtr xmlWriter) {
-  xmlTextWriterWriteFormatElement(xmlWriter, "total_ore_reserve", "%d", total_ore_reserve);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
 }
 
 bool Oremine::loadMember(xmlpp::TextReader& xmlReader) {
   std::string tag = xmlReader.get_name();
-  if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.get_inner_xml());
+  if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader);
   return true;
 }
