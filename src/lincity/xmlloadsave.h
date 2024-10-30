@@ -24,17 +24,10 @@
 
 #include <string>    // for string, basic_string
 
-#define XML_LOADSAVE_VERSION 1328
-
-namespace xml_loadsave {
+#define LOADSAVE_VERSION_CURRENT 2130
 
 extern void saveXMLfile(std::string xml_file_name);
 extern void loadXMLfile(std::string xml_file_name);
-
-extern void writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len);
-extern void readArray(xmlpp::TextReader& xmlReader, int *ary, int len);
-
-}; /* namespace xml_loadsave */
 
 #endif /* __xmlloadsave_h__ */
 

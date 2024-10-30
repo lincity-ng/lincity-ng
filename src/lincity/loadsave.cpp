@@ -146,7 +146,7 @@ void save_city_2(std::string xml_file_name)
 
     if (found > xml_file_name.length()-3)
     {   xml_file_name += ".gz";}
-    xml_loadsave.saveXMLfile(xml_file_name);
+    saveXMLfile(xml_file_name);
 #ifdef DEBUG
     //TODO abandon support for writing old style savegame
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
@@ -332,7 +332,7 @@ void load_city_2(char *cname)
     num_pbars = OLD_NUM_PBARS;
     pbar_data_size = PBAR_DATA_SIZE;
     init_inventory();
-    r = xml_loadsave.loadXMLfile(xml_file_name);
+    r = loadGame(xml_file_name);
     if (r == -1)
     {
         std::cout << "importing: "<< cname << std::endl;

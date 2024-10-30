@@ -43,9 +43,9 @@
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
 #include "world.h"                         // for MapTile, World, Ground
 
-void XMLloadsave::saveXMLfile(std::string xml_file_name) {
+void saveGame(std::string filename) {
   std::string gz_name;
-  gzFile gz_file = gzopen(xml_file_name.c_str(), "wb");
+  gzFile gz_file = gzopen(filename.c_str(), "wb");
   if(!gz_file)
     throw std::runtime_error(
       std::string("failed to open file: ") + xml_file_name);
@@ -89,8 +89,8 @@ void XMLloadsave::saveXMLfile(std::string xml_file_name) {
       std::string("failed writing save game: ") + xmlerr->message);
 }
 
-void XMLloadsave::loadXMLfile(std::string xml_file_name) {
-  gzFile gz_file = gzopen(xml_file_name.c_str(), "rb");
+void loadGame(std::string filename) {
+  gzFile gz_file = gzopen(filename.c_str(), "rb");
   if(!gz_file)
     throw std::runtime_error(
       std::string("failed to open file: ") + xml_file_name);
@@ -131,7 +131,7 @@ void XMLloadsave::loadXMLfile(std::string xml_file_name) {
   if(versionStr.empty())
     throw runtime_error("failed to parse load/save version");
   ldsv_version = std::stoi(versionStr);
-  if(ldsv_version > XML_LOADSAVE_VERSION)
+  if(ldsv_version > LOADSAVE_VERSION_CURRENT)
     throw std::runtime_error("load/save version too high");
 
   // parse sections
@@ -607,14 +607,14 @@ static void readMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
   tile.flags &= ~VOLATILE_FLAGS;
 }
 
-void XMLloadsave::writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len) {
+static void writeArray(xmlTextWriterPtr xmlWriter, int *ary, int len) {
   std::ostringstream str;
   while(len-- > 0)
     str << *(ary++) << "\t";
   xmlTextWriterWriteString(xmlWriter, str.str().c_str());
 }
 
-void XMLloadsave::readArray(xmlpp::TextReader& xmlReader, int *ary, int len) {
+static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len) {
   std::string str = xmlReader.read_inner_xml();
 #if 0 // deprecated
   if(str.find("<int>") != str.npos) {
