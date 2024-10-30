@@ -77,6 +77,8 @@ target_link_libraries(lincity_lib_modules
 		PUBLIC
 		tinygettext
 		LinCity::lib
+		PRIVATE
+		PkgConfig::libXMLPlusPlus
 )
 
 target_include_directories(lincity_lib_modules PRIVATE ${PHYSFS_INCLUDE_DIR})

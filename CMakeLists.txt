@@ -19,7 +19,7 @@ include(CheckIncludeFiles)
 include(GNUInstallDirs)
 include(GetGitRevisionDescription)
 
-set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -36,6 +36,10 @@ find_package(LibXml2 REQUIRED)
 # Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
+
+# seems libxml++ doesn't have a find module, but it provides a pkg-config
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(libXMLPlusPlus REQUIRED IMPORTED_TARGET libxml++-5.0)
 
 # find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
 # The libxslt find module is broken when cross compiling because it looks in the

@@ -38,6 +38,7 @@
 #include "lincity/stats.h"                // tally: 11111111111111
 #include "lincity/world.h"                // tally: 111111111111111111111111
 #include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111
+#include <libxml++/parsers/textreader.h>
 // IWYU pragma: end_exports
 
 #endif /* __modules_h__ */

@@ -33,6 +33,8 @@
 #include <map>              // for map
 #include <string>           // for char_traits, basic_string, string, operator<
 #include <vector>           // for vector
+#include <libxml++/parsers/textreader.h>
+#include <libxml/xmlwriter.h>
 
 #include "commodities.hpp"  // for Commodity, CommodityRule, operator++
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
