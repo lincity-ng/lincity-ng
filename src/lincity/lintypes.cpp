@@ -302,8 +302,12 @@ void Construction::save(xmlTextWriterPtr xmlWriter) {
 
 bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
   Commodity stuff = commodityFromStandardName(xmlReader.get_name().c_str());
-  assert(constructionGroup->commodityRuleCount[stuff].maxload > 0);
-  commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
+  if(stuff != STUFF_COUNT) {
+    assert(constructionGroup->commodityRuleCount[stuff].maxload > 0);
+    commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
+  }
+  else return false;
+  return true;
 }
 
 void Construction::place(int x, int y) {

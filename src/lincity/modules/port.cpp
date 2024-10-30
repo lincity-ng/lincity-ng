@@ -159,9 +159,12 @@ void Port::save(xmlTextWriterPtr xmlWriter) {
 bool Port::loadMember(xmlpp::TextReader& xmlReader) {
   std::string tag = xmlReader.get_name();
   bool give;
-  if((give = tag.find("give_")) == 0 || tag.find("take_") == 0) {
-    CommodityRule& rule =
-      commodityRuleCount[commodityFromStandardName(tag.substr(5).c_str())];
+  Commodity stuff;
+  if(((give = tag.find("give_")) == 0 || tag.find("take_") == 0) &&
+    (stuff = commodityFromStandardName(tag.substr(5).c_str())) != STUFF_COUNT &&
+    commodityRuleCount[stuff].maxload
+  ) {
+    CommodityRule& rule = commodityRuleCount[stuff];
     give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
   else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
