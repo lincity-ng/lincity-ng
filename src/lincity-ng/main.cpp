@@ -216,29 +216,6 @@ void initPhysfs(const char* argv0)
         throw std::runtime_error(msg.str());
     }
 
-    // include old configuration directories to avoid data loss
-    // TODO: Move old data to new configuration directory.
-    const char* userdir = PHYSFS_getUserDir();
-    // TODO: Replace with fmt
-    char oldWritedir[1024];
-    if(snprintf(oldWritedir, 1024, "%s.lincity-ng", userdir) < 1024) {
-      PHYSFS_mount(oldWritedir, nullptr, 1);
-    }
-    else {
-      fprintf(stderr, "warning: %s, %s",
-        "home directory path name too long",
-        "cannot load legacy configuration directory: ~/.lincity-ng");
-    }
-    if(snprintf(oldWritedir, 1024, "%s.lincity", userdir) < 1024) {
-      PHYSFS_mount(oldWritedir, nullptr, 1);
-    }
-    else {
-      fprintf(stderr, "warning: %s, %s",
-        "home directory path name too long",
-        "cannot load legacy configuration directory: ~/.lincity");
-    }
-
-
     // compute install prefix from PHYSFS_getBaseDir()
     const char* dirsep = PHYSFS_getDirSeparator();
     char *installPrefix = NULL;
