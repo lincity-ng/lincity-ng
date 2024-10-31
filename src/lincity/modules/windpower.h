@@ -85,20 +85,12 @@ public:
         commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
-
-    virtual void initialize() override {
-        Construction::initialize();
-
-        this->hivolt_output = (int)(WIND_POWER_HIVOLT +
-          (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
-
-        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
     virtual ~Windpower() { }
+
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

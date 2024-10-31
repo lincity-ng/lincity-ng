@@ -210,6 +210,28 @@ void IndustryLight::init_resources() {
   }
 }
 
+void IndustryLight::place(int x, int y) {
+  Construction::place(x, y);
+
+  if (tech > MAX_TECH_LEVEL) {
+    bonus = (tech - MAX_TECH_LEVEL);
+    if (bonus > MAX_TECH_LEVEL)
+      bonus = MAX_TECH_LEVEL;
+    bonus /= MAX_TECH_LEVEL;
+    // check for filter technology bonus
+    if (tech > 2 * MAX_TECH_LEVEL) {
+      extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+      if (extra_bonus > MAX_TECH_LEVEL)
+        extra_bonus = 1;
+      else
+        extra_bonus /= MAX_TECH_LEVEL;
+    }
+  }
+
+  commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+    INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
+}
+
 void IndustryLight::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

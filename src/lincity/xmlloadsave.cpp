@@ -541,7 +541,8 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
         ConstructionGroup::getConstructionGroup(group);
       if(!cstgrp)
         throw std::runtime_error("invalid group");
-      Construction *cst = cstgrp->loadConstruction(xmlReader);
+      Construction *cst = cstgrp->createConstruction();
+      cst->load(xmlReader);
       constructions.emplace_back(cst, std::pair(x, y));
     }
     else

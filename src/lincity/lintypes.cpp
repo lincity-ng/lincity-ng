@@ -57,6 +57,15 @@ extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
 //Construction Declarations
 
+Construction::Construction() {
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    commodityCount[stuff] = 0;
+    commodityProd[stuff] = 0;
+    commodityProdPrev[stuff] = 0;
+    commodityMaxProd[stuff] = 0;
+    commodityMaxCons[stuff] = 0;
+  }
+}
 
 std::string Construction::getStuffName(Commodity stuff_id)
 {
@@ -304,6 +313,28 @@ void Construction::save(xmlTextWriterPtr xmlWriter) {
   }
 }
 
+void Construction::load(xmlpp::TextReader& xmlReader) {
+  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
+  assert(xmlReader.get_name() == "Construction");
+  int depth = xmlReader.get_depth();
+  if(!xmlReader.is_empty_element() && xmlReader.read())
+  while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    assert(xmlReader.get_depth() == depth + 1);
+    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      xmlReader.next();
+      continue;
+    }
+
+    if(!loadMember(xmlReader)) {
+      unexpectedXmlElement(xmlReader);
+    }
+
+    xmlReader.next();
+  }
+  assert(xmlReader.get_name() == "Construction");
+  assert(xmlReader.get_depth() == depth);
+}
+
 bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
   std::string name = xmlReader.get_name();
   Commodity stuff = commodityFromStandardName(name.c_str());
@@ -320,8 +351,6 @@ void Construction::place(int x, int y) {
   unsigned short size = constructionGroup->size;
   if(!world.is_inside(x, y) || !world.is_inside(x + size, y + size))
     throw std::runtime_error("cannot place a Construction outside the map");
-
-  initialize();
 
   this->x = x;
   this->y = y;
@@ -893,33 +922,6 @@ void Construction::playSound()
 int ConstructionGroup::getCosts() {
     return static_cast<int>
         (cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL)));
-}
-
-Construction *
-ConstructionGroup::loadConstruction(xmlpp::TextReader& xmlReader) {
-  Construction *cst = createConstruction();
-
-  assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
-  assert(xmlReader.get_name() == "Construction");
-  int depth = xmlReader.get_depth();
-  if(!xmlReader.is_empty_element() && xmlReader.read())
-  while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
-    assert(xmlReader.get_depth() == depth + 1);
-    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
-      xmlReader.next();
-      continue;
-    }
-
-    if(!cst->loadMember(xmlReader)) {
-      unexpectedXmlElement(xmlReader);
-    }
-
-    xmlReader.next();
-  }
-  assert(xmlReader.get_name() == "Construction");
-  assert(xmlReader.get_depth() == depth);
-
-  return cst;
 }
 
 int ConstructionGroup::placeItem(int x, int y)

@@ -79,6 +79,15 @@ void SolarPower::report()
     list_commodities(&i);
 }
 
+void SolarPower::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
+    (((double)tech * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
 void SolarPower::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

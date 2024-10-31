@@ -95,14 +95,6 @@ public:
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
-    virtual void initialize() override {
-        Construction::initialize();
-
-        this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
-          (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
-        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
     virtual ~Coal_power() //remove 2 or more extraframes
     {
         if(world(x,y)->framesptr)
@@ -119,9 +111,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
-
     virtual void init_resources() override;
-
+    virtual void place(int x, int y) override;
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 

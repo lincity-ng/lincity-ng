@@ -148,6 +148,12 @@ void Organic_farm::place(int x, int y) {
   for (int j = 0; j < constructionGroup->size; j++)
     if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
+
+  this->tech_bonus = (int)((long long int)this->tech
+    * ORGANIC_FARM_FOOD_OUTPUT / MAX_TECH_LEVEL);
+
+  commodityMaxProd[STUFF_FOOD] = 100 *
+    (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
 }
 
 void Organic_farm::save(xmlTextWriterPtr xmlWriter) {

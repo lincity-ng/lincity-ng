@@ -27,7 +27,7 @@
 
 // IWYU pragma: always_keep
 // IWYU pragma: begin_exports
-#include <libxml/xmlwriter.h>
+#include <libxml/xmlwriter.h> // TODO: do not include this in headers
 #include <libxml++/parsers/textreader.h>
 #include <string>
 

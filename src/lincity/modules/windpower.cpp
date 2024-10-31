@@ -103,6 +103,15 @@ void Windpower::report()
     list_commodities(&i);
 }
 
+void Windpower::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(WIND_POWER_HIVOLT +
+    (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
 void Windpower::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

@@ -162,6 +162,29 @@ void IndustryHeavy::report()
     list_commodities(&i);
 }
 
+void IndustryHeavy::place(int x, int y) {
+  Construction::place(x, y);
+
+  if (tech > MAX_TECH_LEVEL) {
+    bonus = (tech - MAX_TECH_LEVEL);
+    if (bonus > MAX_TECH_LEVEL)
+      bonus = MAX_TECH_LEVEL;
+    bonus /= MAX_TECH_LEVEL;
+    // check for filter technology bonus
+    if (tech > 2 * MAX_TECH_LEVEL) {
+      extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+      if (extra_bonus > MAX_TECH_LEVEL)
+        extra_bonus = 1;
+      else
+        extra_bonus /= MAX_TECH_LEVEL;
+    }
+  }
+
+  int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
+  commodityMaxProd[STUFF_WASTE] = 100 * (int)(
+    ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
+}
+
 void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

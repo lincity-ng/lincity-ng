@@ -113,16 +113,6 @@ public:
         //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
     }
 
-    virtual void initialize() override {
-        Construction::initialize();
-
-        this->tech_bonus = (int)((long long int)this->tech
-          * ORGANIC_FARM_FOOD_OUTPUT / MAX_TECH_LEVEL);
-
-        commodityMaxProd[STUFF_FOOD] = 100 *
-          (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
-    }
-
     virtual ~Organic_farm() { }
     virtual void update() override;
     virtual void report() override;

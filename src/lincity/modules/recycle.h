@@ -103,24 +103,11 @@ public:
         // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
     }
 
-    virtual void initialize() override {
-        Construction::initialize();
-
-
-        int efficiency =
-          (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
-        if (efficiency > (WASTE_RECYCLED * 8) / 10)
-        {   efficiency = (WASTE_RECYCLED * 8) / 10;}
-        this->make_ore = efficiency;
-        this->make_steel = efficiency / 50;
-
-        commodityMaxProd[STUFF_ORE] = 100 * make_ore;
-        commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
-    }
 
     virtual ~Recycle() { }
     virtual void update() override;
     virtual void report() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

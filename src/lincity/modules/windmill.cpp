@@ -91,6 +91,15 @@ void Windmill::report()
     list_commodities(&i);
 }
 
+void Windmill::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->lovolt_output = (int)(WINDMILL_LOVOLT +
+    (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
+}
+
 void Windmill::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

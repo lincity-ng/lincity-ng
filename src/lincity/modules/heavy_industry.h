@@ -125,33 +125,10 @@ public:
         //   ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
     }
 
-    virtual void initialize() override {
-        Construction::initialize();
-
-        if (tech > MAX_TECH_LEVEL)
-        {
-            bonus = (tech - MAX_TECH_LEVEL);
-            if (bonus > MAX_TECH_LEVEL)
-                bonus = MAX_TECH_LEVEL;
-            bonus /= MAX_TECH_LEVEL;
-            // check for filter technology bonus
-            if (tech > 2 * MAX_TECH_LEVEL)
-            {
-                extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-                if (extra_bonus > MAX_TECH_LEVEL)
-                    extra_bonus = MAX_TECH_LEVEL;
-                extra_bonus /= MAX_TECH_LEVEL;
-            }
-        }
-
-        int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
-        commodityMaxProd[STUFF_WASTE] = 100 * (int)(
-          ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
-    }
-
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

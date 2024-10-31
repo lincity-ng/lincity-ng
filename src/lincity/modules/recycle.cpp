@@ -92,6 +92,20 @@ void Recycle::report()
     list_commodities(&i);
 }
 
+void Recycle::place(int x, int y) {
+  Construction::place(x, y);
+
+  int efficiency =
+    (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
+  if (efficiency > (WASTE_RECYCLED * 8) / 10)
+    efficiency = (WASTE_RECYCLED * 8) / 10;
+  this->make_ore = efficiency;
+  this->make_steel = efficiency / 50;
+
+  commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+  commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
+}
+
 void Recycle::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);

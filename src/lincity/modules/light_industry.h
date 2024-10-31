@@ -146,29 +146,6 @@ public:
         //   INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
     }
 
-    virtual void initialize() override {
-        Construction::initialize();
-
-        if (tech > MAX_TECH_LEVEL)
-        {
-            bonus = (tech - MAX_TECH_LEVEL);
-            if (bonus > MAX_TECH_LEVEL)
-                bonus = MAX_TECH_LEVEL;
-            bonus /= MAX_TECH_LEVEL;
-            // check for filter technology bonus
-            if (tech > 2 * MAX_TECH_LEVEL)
-            {
-                extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-                if (extra_bonus > MAX_TECH_LEVEL)
-                    extra_bonus = MAX_TECH_LEVEL;
-                extra_bonus /= MAX_TECH_LEVEL;
-            }
-        }
-
-        commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
-          INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
-    }
-
     virtual ~IndustryLight() //remove 2 or more extraframes
     {
         if(world(x,y)->framesptr)
@@ -187,6 +164,7 @@ public:
     virtual void animate() override;
 
     virtual void init_resources() override;
+    virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;

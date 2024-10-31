@@ -161,6 +161,14 @@ void Coal_power::init_resources() {
   }
 }
 
+void Coal_power::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
+    (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
 void Coal_power::save(xmlTextWriterPtr xmlWriter) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
