@@ -36,6 +36,8 @@ extern int pix_double;
 
 extern int use_waterwell, ldsv_version;
 
+extern char given_scene[1024];
+
 extern ConstructionCount constructionCount;
 extern World world;
 extern int world_id;

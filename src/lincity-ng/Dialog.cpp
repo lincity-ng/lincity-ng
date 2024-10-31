@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <array>                           // for array
 #include <exception>                       // for exception
 #include <fstream>                         // for basic_ostream, operator<<
-#include <functional>                      // for bind, function, _1
+#include <functional>                      // for bind, _1, function
 #include <iostream>                        // for cerr
 #include <memory>                          // for unique_ptr
 #include <sstream>                         // for basic_stringstream
@@ -53,13 +53,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lc_error.h"                      // for lc_error
 #include "lincity/commodities.hpp"         // for CommodityRule, Commodity
-#include "lincity/engglobs.h"              // for world, people_pool, total_...
+#include "lincity/engglobs.h"              // for world, given_scene, people...
 #include "lincity/engine.h"                // for do_coal_survey
 #include "lincity/lclib.h"                 // for current_year, current_month
-#include "lincity/lin-city.h"              // for MAX_TECH_LEVEL
-#include "lincity/lintypes.h"              // for Counted, Construction, NUM...
-#include "lincity/loadsave.h"              // for given_scene, RESULTS_FILENAME
-#include "lincity/modules/all_modules.h"   // for Market, Port, RocketPad
+#include "lincity/lin-city.h"              // for MAX_TECH_LEVEL, RESULTS_FI...
+#include "lincity/lintypes.h"              // for Construction, NUMOF_DAYS_I...
+#include "lincity/modules/all_modules.h"   // for Market, ResidenceConstruct...
 #include "lincity/world.h"                 // for MapTile, World
 #include "tinygettext/gettext.hpp"         // for _
 

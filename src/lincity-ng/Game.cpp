@@ -126,8 +126,7 @@ void Game::quickLoad(){
 
     //load file
     getGameView()->printStatusMessage( "quick load...");
-    std::string filename;
-    filename.append( "quicksave.scn" );
+    std::string filename("quicksave.scn.gz");
     if( loadCityNG( filename ) ){
           getGameView()->printStatusMessage( "quick load successful.");
     } else {
@@ -138,7 +137,7 @@ void Game::quickLoad(){
 void Game::quickSave(){
     //save file
     getGameView()->printStatusMessage( "quick save...");
-    saveCityNG( "quicksave.scn" );
+    saveCityNG("quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){

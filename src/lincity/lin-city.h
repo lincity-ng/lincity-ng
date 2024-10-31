@@ -27,6 +27,8 @@
 
 #include <stdio.h>
 
+#define RESULTS_FILENAME "results.txt"
+
 #define LC_X11
 
 /*

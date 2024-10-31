@@ -27,9 +27,10 @@
 #include <libxml/xmlreader.h>              // for xmlReaderForIO, xmlTextRea...
 #include <libxml/xmlwriter.h>              // for xmlTextWriterWriteFormatEl...
 #include <zlib.h>                          // for gzclose, gzFile, gzopen
+#include <algorithm>                       // for max, min
 #include <array>                           // for array
 #include <cassert>                         // for assert
-#include <cstring>                         // for NULL, strcpy
+#include <cstring>                         // for NULL, strncpy
 #include <iostream>                        // for basic_ostream, operator<<
 #include <list>                            // for list, _List_iterator
 #include <memory>                          // for shared_ptr
@@ -40,14 +41,16 @@
 
 #include "ConstructionCount.h"             // for ConstructionCount
 #include "commodities.hpp"                 // for Commodity, CommodityRule
-#include "engglobs.h"                      // for world, coal_survey_done
+#include "engglobs.h"                      // for world, alt_min, alt_max
+#include "engine.h"                        // for desert_water_frontiers
 #include "gui_interface/pbar_interface.h"  // for pbar_st, NUM_PBARS, PBAR_D...
-#include "gui_interface/shared_globals.h"  // for monthgraph_size, cheat_flag
+#include "gui_interface/shared_globals.h"  // for monthgraph_size, main_scre...
 #include "lin-city.h"                      // for VOLATILE_FLAGS
 #include "lintypes.h"                      // for xmlTextWriterPtr, Construc...
-#include "loadsave.h"                      // for given_scene
 #include "modules/port.h"                  // for PortConstructionGroup, por...
+#include "modules/windmill.h"              // for MODERN_WINDMILL_TECH
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
+#include "transport.h"                     // for connect_transport
 #include "world.h"                         // for MapTile, Ground, World
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter);
@@ -341,7 +344,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
 
     std::string xml_tag = xmlReader.get_name();
     std::string xml_val = xmlReader.read_inner_xml();
-    if(xml_tag == "given_scene")                      std::strcpy(given_scene, xml_val.c_str());
+    if(xml_tag == "given_scene")                      std::strncpy(given_scene, xml_val.c_str(), 1024);
     else if(xml_tag == "global_aridity")              global_aridity = std::stoi(xml_val);
     else if(xml_tag == "global_mountainity")          global_mountainity = std::stoi(xml_val);
     else if(xml_tag == "world_side_len")              world.len(std::stoi(xml_val));
@@ -480,8 +483,13 @@ static void loadGlobals(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_depth() == depth);
 
   ly_other_cost = ly_university_cost + ly_recycle_cost + ly_deaths_cost
-    + ly_health_cost + ly_rocket_pad_cost + ly_school_cost
-    + ly_interest + ly_windmill_cost + ly_fire_cost + ly_cricket_cost;
+    + ly_health_cost + ly_rocket_pad_cost + ly_school_cost + ly_interest
+    + ly_windmill_cost + ly_fire_cost + ly_cricket_cost;
+  housed_population = tpopulation / ((total_time % NUMOF_DAYS_IN_MONTH) + 1);
+  modern_windmill_flag = tech_level > MODERN_WINDMILL_TECH;
+
+  assert(main_screen_originx >= 0 && main_screen_originx < world.len());
+  assert(main_screen_originy >= 0 && main_screen_originy < world.len());
 }
 
 static void saveMap(xmlTextWriterPtr xmlWriter) {
@@ -556,6 +564,16 @@ static void loadMap(xmlpp::TextReader& xmlReader) {
   for(auto& cst : constructions) {
     cst.first->place(cst.second.first, cst.second.second);
   }
+
+  alt_min = alt_max = world(0)->ground.altitude;
+  for (int i = 0; i < world.len() * world.len(); i++) {
+    alt_min = std::min(alt_min, world(i)->ground.altitude);
+    alt_max = std::max(alt_min, world(i)->ground.altitude);
+  }
+  alt_step = (alt_max - alt_min) / 10;
+
+  connect_transport(1, 1, world.len() - 2, world.len() - 2);
+  desert_water_frontiers(0, 0, world.len(), world.len());
 }
 
 static void saveMapTile(xmlTextWriterPtr xmlWriter, MapTile& tile) {

@@ -20,11 +20,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>                           // for SDL_GetWindowSize, SDL_Get...
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
-#include <stdio.h>                         // for fprintf, remove, size_t, NULL
+#include <stdio.h>                         // for fprintf, remove, size_t
 #include <stdlib.h>                        // for abs, atoi, unsetenv
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for sort
-#include <functional>                      // for bind, function, _1, _2
+#include <functional>                      // for bind, _1, function, _2
 #include <iomanip>                         // for operator<<, setfill, setw
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream, basic_...
@@ -47,9 +47,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Signal.hpp"                  // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-#include "lincity/engglobs.h"              // for world, binary_mode, seed_c...
+#include "lincity/engglobs.h"              // for world, seed_compression
 #include "lincity/init_game.h"             // for new_city, city_settings
-#include "lincity/loadsave.h"              // for given_scene
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for DictionaryManager
@@ -775,9 +774,7 @@ MainMenu::continueButtonClicked(Button* )
     if (!world.dirty)
     {
         //load current game if it exists
-        if( ! loadCityNG( std::string("9_currentGameNG.scn.gz") )  &&
-            ! loadCityNG( std::string("9_currentGameNG.scn") ) )
-        {
+        if(!loadCityNG("9_currentGameNG.scn.gz")) {
             city_settings  city;
             city.with_village  = true;
             city.without_trees = false;
@@ -970,7 +967,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
     newStart << housed_population + people_pool;
-    std::string newFilename( newStart.str() );
+    std::string newFilename( newStart.str() + ".gz" );
     saveCityNG( newFilename );
     fillLoadMenu( true );
     gotoMainMenu();

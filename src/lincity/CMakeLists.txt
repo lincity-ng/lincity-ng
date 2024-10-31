@@ -26,10 +26,6 @@ add_library(lincity_lib  STATIC
 		lin-city.h
 		lintypes.cpp
 		lintypes.h
-		loadsave.cpp
-		loadsave.h
-		old_ldsvguts.cpp
-		old_ldsvguts.h
 		resources.cpp
 		resources.hpp
 		simulate.cpp

@@ -41,6 +41,8 @@ enum Commodity : int;
 int ldsv_version;
 int use_waterwell = true;
 
+char given_scene[1024];
+
 ConstructionCount constructionCount = ConstructionCount();
 World world = World(WORLD_SIDE_LEN);
 int world_id = 0;

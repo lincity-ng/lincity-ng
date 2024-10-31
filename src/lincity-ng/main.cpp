@@ -53,7 +53,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "lc_error.h"                            // for HANDLE_ERRNO
 #include "lincity/init_game.h"                   // for destroy_game
-#include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DEBUG
@@ -191,7 +190,7 @@ void initPhysfs(const char* argv0)
 
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* writedir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
+    const char* writedir = PHYSFS_getPrefDir("lincity-ng", "lincity-ng");
     if(!writedir) {
       std::ostringstream msg;
       // Unfortunately, PHYSFS_getPrefDir does not expose the path name if

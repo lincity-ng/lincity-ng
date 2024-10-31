@@ -31,8 +31,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale
 #include "lincity/lin-city.h"                // for SIM_DELAY_SLOW
-#include "lincity/loadsave.h"                // for load_city_2, save_city
 #include "lincity/modules/all_modules.h"     // for initializeModules
+#include "lincity/xmlloadsave.h"             // for loadGame, saveGame
 
 extern void init_types(void);
 extern void initFactories(void);
@@ -53,7 +53,10 @@ void saveCityNG( std::string newFilename ){
     {
         GameView* gv = getGameView();
         if( gv ){ gv->writeOrigin(); }
-        save_city(const_cast<char*>( newFilename.c_str() ) );
+        std::string fullname = PHYSFS_getWriteDir();
+        fullname += PHYSFS_getDirSeparator();
+        fullname += newFilename;
+        saveGame(newFilename);
     }
 }
 
@@ -83,7 +86,7 @@ bool loadCityNG( std::string filename ){
         fclose(fp = fopen(filename.c_str(), "r"));
         if( fp )
         {
-            load_city_2(const_cast<char*>(filename.c_str()));
+            loadGame(filename);
             update_avail_modules(0);
             // GameView* gv = getGameView();
             // if( gv ){ gv->readOrigin(); }
