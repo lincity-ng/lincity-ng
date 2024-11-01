@@ -312,8 +312,8 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
         // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
         // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+        // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
+        // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect(std::bind(&MainMenu::optionsBackButtonClicked, this, _1));
@@ -338,10 +338,10 @@ MainMenu::loadOptionsMenu()
     // {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
     // else
     // {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
-    if (seed_compression)
-    {   getCheckButton(*optionsMenu, "SeedMode")->check();}
-    else
-    {   getCheckButton(*optionsMenu, "SeedMode")->uncheck();}
+    // if (seed_compression)
+    // {   getCheckButton(*optionsMenu, "SeedMode")->check();}
+    // else
+    // {   getCheckButton(*optionsMenu, "SeedMode")->uncheck();}
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
@@ -591,8 +591,8 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(true);
     // } else if( buttonName == "BinaryMode"){
     //     binary_mode = !binary_mode;
-    } else if( buttonName == "SeedMode"){
-        seed_compression = !seed_compression;
+    // } else if( buttonName == "SeedMode"){
+    //     seed_compression = !seed_compression;
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }

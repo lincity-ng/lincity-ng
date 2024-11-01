@@ -56,7 +56,7 @@ const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
 const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
 
 bool binary_mode = false;
-bool seed_compression = true;
+bool seed_compression = false;
 //You may want to set these to false for easier debugging
 
 //These have to be decalred as extern in lintypes.h after class Construction
