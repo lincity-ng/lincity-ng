@@ -24,6 +24,7 @@
 #include <libxml++/parsers/textreader.h>   // for TextReader
 #include <libxml/parser.h>                 // for XML_PARSE_NONET, xmlOutput...
 #include <libxml/xmlIO.h>                  // for xmlOutputBufferClose, xmlO...
+#include <libxml/xmlerror.h>               // for XML_ERR_OK
 #include <libxml/xmlreader.h>              // for xmlReaderForIO, xmlTextRea...
 #include <libxml/xmlwriter.h>              // for xmlTextWriterWriteFormatEl...
 #include <zlib.h>                          // for gzclose, gzFile, gzopen
@@ -71,6 +72,8 @@ void saveGame(std::string filename) {
     throw std::runtime_error(
       std::string("failed to open file: ") + filename);
 
+  int xmlStatus = XML_ERR_OK;
+  {
   xmlOutputBufferPtr xmlWriterBuffer = xmlOutputBufferCreateIO(
     [](void *ctx, const char *buf, int len){
       return gzwrite((gzFile)ctx, buf, len);},
@@ -86,8 +89,8 @@ void saveGame(std::string filename) {
     throw std::runtime_error("failed to create XML text writer");
   }
   std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter,
-    [](xmlTextWriterPtr xmlWriter) {
-      xmlTextWriterClose(xmlWriter);
+    [&xmlStatus](xmlTextWriterPtr xmlWriter) {
+      xmlStatus = xmlTextWriterClose(xmlWriter);
       xmlFreeTextWriter(xmlWriter);
     }
   );
@@ -100,7 +103,8 @@ void saveGame(std::string filename) {
 #endif
 
   xmlTextWriterStartDocument(xmlWriter, NULL, NULL, NULL);
-  xmlTextWriterWriteComment(xmlWriter, (xmlStr)"This file is a lincity savegame.");
+  xmlTextWriterWriteComment(xmlWriter,
+    (xmlStr)"This file is a lincity savegame.");
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"lc-game");
     xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"ldsv-version", "%u",
       LOADSAVE_VERSION_CURRENT);
@@ -112,6 +116,11 @@ void saveGame(std::string filename) {
     xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndDocument(xmlWriter);
+  } // end scope closed xmlWriter and sets xmlStatus
+  if(xmlStatus) {
+    throw std::runtime_error(
+      std::string("XML parser error: ") + std::to_string(xmlStatus));
+  }
 }
 
 void loadGame(std::string filename) {

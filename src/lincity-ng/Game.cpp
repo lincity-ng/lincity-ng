@@ -101,7 +101,7 @@ void Game::showHelpWindow( std::string topic ){
 void Game::backToMainMenu(){
     closeAllDialogs();
     getButtonPanel()->selectQueryTool();
-    saveCityNG( "9_currentGameNG.scn" );
+    saveCityNG( "9_currentGameNG.scn.gz" );
     running = false;
     quitState = MAINMENU;
 }
@@ -306,7 +306,7 @@ Game::run()
                     break;
                 }
                 case SDL_QUIT:
-                    saveCityNG( "9_currentGameNG.scn" );
+                    saveCityNG( "9_currentGameNG.scn.gz" );
                     running = false;
                     quitState = QUIT;
                     break;

@@ -18,11 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainLincity.hpp"
 
+#include <cassert>
 #include <physfs.h>                          // for PHYSFS_getDirSeparator
 #include <stdio.h>                           // for fclose, fopen, FILE
 #include <stdlib.h>                          // for srand
 #include <time.h>                            // for time
 #include <iostream>                          // for basic_ostream, operator<<
+#include <stdexcept>                         // for runtime_error
 
 #include "Game.hpp"                          // for getGame
 #include "GameView.hpp"                      // for getGameView, GameView
@@ -56,7 +58,14 @@ void saveCityNG( std::string newFilename ){
         std::string fullname = PHYSFS_getWriteDir();
         fullname += PHYSFS_getDirSeparator();
         fullname += newFilename;
-        saveGame(newFilename);
+        try {
+          saveGame(fullname);
+          std::cout << "saved game to '" << fullname << "'" << std::endl;
+        } catch(std::runtime_error err) {
+          std::cerr << "error: failed to save game to '" << fullname << "': "
+            << err.what() << std::endl;
+          assert(false);
+        }
     }
 }
 
@@ -86,7 +95,14 @@ bool loadCityNG( std::string filename ){
         fclose(fp = fopen(filename.c_str(), "r"));
         if( fp )
         {
-            loadGame(filename);
+            try {
+              loadGame(filename);
+              std::cout << "loaded game from '" << filename << "'" << std::endl;
+            } catch(std::runtime_error& err) {
+              std::cerr << "error: failed to load game from '" << filename
+                << "': " << err.what() << std::endl;
+              assert(false);
+            }
             update_avail_modules(0);
             // GameView* gv = getGameView();
             // if( gv ){ gv->readOrigin(); }
