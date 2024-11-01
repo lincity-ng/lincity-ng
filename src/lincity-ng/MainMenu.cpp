@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Signal.hpp"                  // for Signal
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-#include "lincity/engglobs.h"              // for world, seed_compression
+#include "lincity/engglobs.h"              // for world
 #include "lincity/init_game.h"             // for new_city, city_settings
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
@@ -334,14 +334,6 @@ MainMenu::loadOptionsMenu()
     } else {
         getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
-    // if (binary_mode)
-    // {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
-    // else
-    // {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
-    // if (seed_compression)
-    // {   getCheckButton(*optionsMenu, "SeedMode")->check();}
-    // else
-    // {   getCheckButton(*optionsMenu, "SeedMode")->uncheck();}
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
@@ -589,10 +581,6 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
         changeTrack(true);
-    // } else if( buttonName == "BinaryMode"){
-    //     binary_mode = !binary_mode;
-    // } else if( buttonName == "SeedMode"){
-    //     seed_compression = !seed_compression;
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }

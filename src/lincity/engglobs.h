@@ -50,8 +50,6 @@ extern const int dy[8];
 extern const int dxo[8];
 extern const int dyo[8];
 
-extern bool binary_mode;
-extern bool seed_compression;
 extern bool refresh_cover;
 
 extern int global_aridity, global_mountainity;

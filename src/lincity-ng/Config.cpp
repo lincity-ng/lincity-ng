@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PhysfsStream/PhysfsStream.hpp"  // for OFileStream
 #include "gui/XmlReader.hpp"              // for XmlReader
 #include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
-#include "lincity/engglobs.h"             // for world, binary_mode, seed_co...
+#include "lincity/engglobs.h"             // for world, seed_co...
 #include "lincity/world.h"                // for World, WORLD_SIDE_LEN
 
 Config* configPtr = 0;
@@ -70,8 +70,6 @@ Config::Config()
     language = "autodetect";
 
     world.len(WORLD_SIDE_LEN);
-    binary_mode=false;
-    seed_compression=false;
     carsEnabled=true;
 
     //First we load the global File which should contain
@@ -185,10 +183,6 @@ void Config::load( const std::string& filename ){
                         language = value;
                     } else if(strcmp(name, "WorldSideLen") == 0) {
                         world.len(parseInt(value, WORLD_SIDE_LEN, 50, 10000));
-                    } else if(strcmp(name, "binarySaveGames") == 0) {
-                        // binary_mode = parseBool(value, true);
-                    } else if(strcmp(name, "seed_compression") == 0) {
-                        // seed_compression = parseBool(value, true);
                     } else if(strcmp(name, "carsEnabled") == 0) {
                         carsEnabled = parseBool(value, true);
                     }else {
@@ -241,8 +235,6 @@ Config::save(){
     userconfig << "    <game "
         << "language=\"" << language //
         << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
-        // << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
-        // << "\" seed_compression=\"" << (seed_compression?"yes":"no")
         << "\" carsEnabled=\"" << (carsEnabled?"yes":"no")
         << "\" />\n";
     userconfig << "</configuration>\n";
