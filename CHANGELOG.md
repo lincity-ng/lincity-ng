@@ -13,9 +13,10 @@
 - Removed 'quickness' parameter from command-line options and config file.
 
 ###### Internal
-- Deprecated binary save format.
-- Deprecated old save format.
-- Converted starting scenarios to new save format.
+- Deprecated binary load/save format.
+- Deprecated old load/save format.
+- Deprecated seed-compression load/save mode.
+- Converted starting scenarios to current save format.
 - Fixed simulation tick on load when paused.
 - Fixed segfault while bulldozing.
 - Removed many unused files from install.

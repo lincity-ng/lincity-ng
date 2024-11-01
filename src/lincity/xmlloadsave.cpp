@@ -245,6 +245,7 @@ int XMLloadsave::saveXMLfile(std::string xml_file_name)
     std::cout << "gz saving " << xml_file_name << " ... ";
     std::cout.flush();
     binary_mode = false; // just to make sure
+    seed_compression = false; // just to make sure
     clearXMLlibary();
     xml_file_out.str("");
     ldsv_version = XML_LOADSAVE_VERSION;
