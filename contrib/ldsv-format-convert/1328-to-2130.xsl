@@ -4,7 +4,7 @@
   xmlns:exsl="http://exslt.org/common"
   extension-element-prefixes="exsl"
 >
-<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 
 <xsl:variable name="ldsv-version-old" select="1328"/>
 <xsl:variable name="ldsv-version-new" select="2130"/>
