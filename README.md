@@ -53,14 +53,13 @@ for a different version than what you are building can cause build failures.
 
   http://xmlsoft.org/
 
-On Ubuntu, install all these by running
-```
-apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixer-2.0-0 libsdl2-ttf-2.0-0 libphysfs1 zlib1g libxml++2.6-2v5
-```
+* libxml++ 5.0
+
+  https://libxmlplusplus.github.io/libxmlplusplus/
 
 ### Build Dependencies
 
-* A C++ compiler supporting C++11 (such as gcc)
+* A C++ compiler supporting C++17 (such as gcc)
 
   https://gcc.gnu.org/
 
@@ -76,7 +75,7 @@ apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixe
 
   https://gitlab.gnome.org/GNOME/libxslt
 
-* gettext
+* gettext (optional)
 
   https://www.gnu.org/software/gettext/
 
@@ -84,11 +83,6 @@ apt-get install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixe
 
   If you use packages from your distribution, header files are often in separate
   `*-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
-
-On Ubuntu, install all build dependencies by running
-```
-apt-get install build-essential cmake libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libphysfs-dev zlib1g-dev libxml++2.6-dev libxslt1.1 libxslt1-dev xsltproc gettext git
-```
 
 ### Building
 
@@ -107,13 +101,11 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel --target package
 ```
 
-Run `cmake --help` to see all the available options.
-
 ### Running
 
 To run the game from the source directory without installing:
 ```
-build/bin/lincity-ng
+./build/bin/lincity-ng
 ```
 
 When the game is installed, you may run it with:
@@ -121,6 +113,44 @@ When the game is installed, you may run it with:
 lincity-ng
 ```
 
+## Loading games from versions prior to 2.13.0
+
+LinCity-NG 2.13.0 comes with a completely new load/save system that is,
+unfortunately, not backward compatible. (Some old code just needed to go.) The
+good news is all your hard work toward your super-city-utopia is not lost.
+
+You can use the script at `contrib/ldsv-format-convert/1328-to-2130.sh` to
+convert your game to the new format. The script converts games saved with
+Lincity-NG 2.12.x. And the script is likely to also work with games created with
+earlier versions if you had "binary saving" and "seed saving" options disabled.
+
+Before using the script, first make a backup of the games you want to convert:
+```
+mv ~/.local/share/lincity-ng/<my-lincity-ng-game>.gz{,.orig}
+```
+
+Then use use the script by passing the old game as standard input, and saving
+the new game to standard output:
+```
+./contrib/ldsv-format-convert/1328-to-2130.sh \
+  < ~/.local/share/lincity-ng/<my-lincity-ng-game>.gz.orig \
+  > ~/.local/share/lincity-ng/<my-lincity-ng-game>.gz
+```
+
+If your game is _very_ old, you may find it in the `~/.lincity-ng` directory
+instead.
+
+If the script gives an error, then most likely the game was saved in a format
+that is incompatible with the script. To fix this, fire up a compatible version
+of LinCity-NG (2.12.x recommended, but prior versions may work if
+"binary saving" and "seed saving" are disabled), and load then save your game.
+Once you do this, then the recently-saved game should work with the script.
+
+After using the script to convert your game, upon loading it with version
+2.13.x, you should not see any warnings in the console -- particularly warnings
+about unexpected elements. If you see any warnings, then please [report the
+issue](https://github.com/lincity-ng/lincity-ng/issues/new) and include the file
+you were trying to load.
 
 ## Contact
 
