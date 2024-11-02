@@ -128,7 +128,7 @@ msgstr "Sikeres az evakuálás megkezdése"
 
 #: data/gui/dialogs/shfire-oc.xml data/gui/dialogs/shfire-uc.xml
 msgid "Fire"
-msgstr "Tűz"messages.pot
+msgstr "Tűz"
 
 #: data/gui/dialogs/firestationup.xml
 msgid "Fire Stations available"
@@ -156,7 +156,7 @@ msgstr "Vissza a főmenübe"
 
 #: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
 msgid "Goods"
-msgstr "Áruk
+msgstr "Áruk"
 
 #: data/gui/creditslist.xml
 msgid "Graphics"
@@ -280,7 +280,7 @@ msgstr "Opciók"
 
 #: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
 msgid "Ore"
-msgstr "Opciók"
+msgstr "Érc"
 
 #: data/gui/creditslist.xml
 msgid "Original Idea and Code"
@@ -361,7 +361,7 @@ msgstr "Nagyon gyors sebességű szimuláció"
 #: data/gui/mainmenu.xml data/gui/savegame.xml
 msgid "Save"
 msgstr "Mentés"
-messages.pot
+
 #: data/gui/savegame.xml
 msgid "Save Game"
 msgstr "Játék mentése"
@@ -376,12 +376,12 @@ msgstr "A szénbányákról és kutatókról további információkért tekintsd
 
 #: data/gui/dialogs/blacksmithup.xml data/gui/dialogs/coalpowerup.xml data/gui/dialogs/cricketup.xml data/gui/dialogs/firestationup.xml data/gui/dialogs/healthup.xml data/gui/dialogs/hvindustryup.xml data/gui/dialogs/ltindustryup.xml data/gui/dialogs/millup.xml data/gui/dialogs/mod_wind_up.xml data/gui/dialogs/parkup.xml data/gui/dialogs/potteryup.xml data/gui/dialogs/railwayup.xml data/gui/dialogs/recycleup.xml data/gui/dialogs/riverup.xml data/gui/dialogs/rocketup.xml data/gui/dialogs/schoolup.xml data/gui/dialogs/solarpowerup.xml data/gui/dialogs/universityup.xml data/gui/dialogs/windmillup.xml
 msgid "See the help screen for more information."
-msgstr "A szénbányákról és kutatókról további információkért tekintsd meg a súgót."
+msgstr "További információért tekintsd meg a súgót."
 
 #: data/gui/options.xml
 msgid "Seed Saving"
 msgstr "Vetőmag megtakarítás"
-messages.pot
+
 #: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml
 msgid "Sell"
 msgstr "Eladás"
