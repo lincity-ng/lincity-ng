@@ -1,9 +1,9 @@
 # Contributing to LinCity-NG
 
-My hope in developing LinCity-NG is that it may be a pleasure and a good
-experience for others. If LinCity-NG has blessed you in any way, I encourage you
-to give back. There are many ways you can do so even if you do not know how to
-code, and no way is lesser or greater than another.
+In developing LinCity-NG, I hope that it may be a pleasure and a good
+experience for others. If You have enjoyed LinCity-NG , I encourage you to give
+back. There are many ways you can give back to Open Source even if you do not
+know how to program, and no way is lesser or greater than another.
 
 - You can [contribute code](#contributing-code) if you know how to program C++.
   You can add features, fix bugs, or just generally improve the code base.
