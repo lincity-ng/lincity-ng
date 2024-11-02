@@ -42,6 +42,7 @@ endforeach()
 
 set(infoFiles
   CHANGELOG.md
+  CONTRIBUTING.md
   COPYING
   COPYING-data.txt
   COPYING-fonts.txt
