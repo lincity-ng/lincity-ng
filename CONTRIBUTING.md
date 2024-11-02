@@ -37,8 +37,14 @@ know how to program, and no way is lesser or greater than another.
 
 The format of the LinCity-NG changelog is inspired by [keepachangelog.com](
 https://keepachangelog.com). Whenever you contribute meaningfully to the
-project, write a short summary of what you changed in `CHANGELOG.md` under the
-"Unreleased" version header.
+project, write changelog entry with a short summary of what you changed.
+
+To avoid git merge conflicts from everyone modifying the same `CHANGELOG.md`
+file. Instead of directly adding to the changelog, you will write your entry in
+a new file in the `CHANGELOG.d` directory. See [template.md](
+CHANGELOG.d/template.md) for an example changelog entry file. After your PR is
+merged, as part of routine maintenance, I will compile all the entries from the
+`CHANGELOG.d` directory and add them to the main changelog.
 
 Changelog entries should be categorized into one of four sections:
 - **Gameplay** for changes affecting the game rules
@@ -46,26 +52,25 @@ Changelog entries should be categorized into one of four sections:
 - **Internal** for implementation changes that may be invisible to the user
 - **Documentation / Translation** for updates to documentation or translation
 
-Each entry should be written in past tense and preferably start with one of five
-keywords:
+Each entry should be written in past tense and preferably start with one of the
+following five keywords:
 - **Fixed** for changes that fix previously broken behavior
 - **Added** for new features
 - **Removed** for now-removed features
 - **Changed** for modifications to existing functionality
 - **Deprecated** for features now planned to be removed
-- Additionally, add a **[SECURITY]** tag to the beginning of the entry if it
-  addresses a security vulnerability.
 
-Entries should be ordered based on their relevance, especially to the end user.
-More relevant entries should appear toward the top of the section.
+Additionally, add a **[SECURITY]** tag to the beginning of your entry if it
+  addresses a security vulnerability.
 
 ### Credits list
 
 If this is your first time contributing to LinCity-NG, please add your name to
 the [credits list](data/gui/creditslist.xml). Add your name, the current year,
-and (optionally), following the format of other entries. Note, the entries are
-ordered by last name. If you already have an entry in the credits list, take a
-moment to update the year and/or email address of your entry.
+and (optionally) your email, following the same format of other entries. Note,
+the entries are ordered by last name. If you already have an entry in the
+credits list, take a moment to update the year and/or email address of your
+entry.
 
 
 ## Contributing Code
