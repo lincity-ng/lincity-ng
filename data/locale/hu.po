@@ -387,7 +387,7 @@ msgstr "építése "
 
 #: src/lincity-ng/GameView.cpp:1779
 msgid " of them "
-msgstr "amiből " 
+msgstr "amiből "
 
 #: src/lincity-ng/GameView.cpp:1780
 msgid "will cost about "
@@ -1239,4 +1239,3 @@ msgid ""
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
 msgstr "Frissítés egy régebbi játékról. 10 éved van hogy kutakat építsél, ahol szükséges. Ezt követően éhezés tör ki. Ellenőrizheted az éhezést a térképen és olvasd el a kutakra vontkozó súgót."
-
