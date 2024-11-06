@@ -90,6 +90,7 @@ endif()
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
 add_subdirectory(doc)
+add_subdirectory(external)
 
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_BINDIR})
 install(TARGETS lincity-ng
