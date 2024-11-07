@@ -49,7 +49,7 @@ for a different version than what you are building can cause build failures.
 
   http://www.gzip.org/zlib/
 
-* libxml 2.6.11 or later
+* libxml 2.6.11 or later (recommended 2.13.0 or later)
 
   http://xmlsoft.org/
 

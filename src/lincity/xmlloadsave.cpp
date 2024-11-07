@@ -26,6 +26,7 @@
 #include <libxml/xmlIO.h>                  // for xmlOutputBufferClose, xmlO...
 #include <libxml/xmlerror.h>               // for XML_ERR_OK
 #include <libxml/xmlreader.h>              // for xmlReaderForIO, xmlTextRea...
+#include <libxml/xmlversion.h>             // for LIBXML_VERSION
 #include <libxml/xmlwriter.h>              // for xmlTextWriterWriteFormatEl...
 #include <zlib.h>                          // for gzclose, gzFile, gzopen
 #include <algorithm>                       // for max, min
@@ -89,10 +90,19 @@ void saveGame(std::string filename) {
     throw std::runtime_error("failed to create XML text writer");
   }
   std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter,
+#if LIBXML_VERSION >= 21300
     [&xmlStatus](xmlTextWriterPtr xmlWriter) {
       xmlStatus = xmlTextWriterClose(xmlWriter);
       xmlFreeTextWriter(xmlWriter);
     }
+#else
+    [&xmlStatus, &xmlWriterBuffer](xmlTextWriterPtr xmlWriter) {
+      xmlStatus = xmlOutputBufferClose(xmlWriterBuffer);
+      if(xmlStatus < 0) xmlStatus = -xmlStatus;
+      else xmlStatus = XML_ERR_OK;
+      xmlFreeTextWriter(xmlWriter);
+    }
+#endif
   );
 
 #ifdef DEBUG
