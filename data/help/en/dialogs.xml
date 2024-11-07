@@ -2,15 +2,19 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Information Tabs Help</p>
-	<p style="hp">Map-Tab</p>
+
+	<p style="hsubtitle">Map-Tab</p>
 	<li><a href="mini-screen">Minimap</a></li>
-	<p style="hp">Markets-Tab</p>
+
+	<p style="hsubtitle">Markets-Tab</p>
 	<li><a href="pbar">Ressources Status Bar</a></li>
-	<p style="hp">$-Tab</p>
+
+	<p style="hsubtitle">$-Tab</p>
 	<li><a href="finance">Finance</a></li>
 	<li><a href="other-costs">Other costs</a></li>
 	<li><a href="housing">Population</a></li>
-	<p style="hp">Eco-Tab</p>
+
+	<p style="hsubtitle">Eco-Tab</p>
 	<li><a href="economy">Economy Graph</a></li>
 	<li><a href="sustain">Sustainability progress window</a></li>
 </Document>
