@@ -10,7 +10,7 @@ RUN apt-get install -y \
   libsdl2-ttf-2.0-0 \
   libphysfs1 \
   zlib1g \
-  libxml++2.6-2v5
+  libxml2
 RUN apt-get install -y \
   build-essential \
   cmake \
@@ -21,15 +21,25 @@ RUN apt-get install -y \
   libsdl2-ttf-dev \
   libphysfs-dev \
   zlib1g-dev \
-  libxml++2.6-dev \
+  libxml2-dev \
   libxslt1.1 \
   libxslt1-dev \
   xsltproc \
-  git
+  git \
+  meson \
+  curl
   # gettext \
 
-RUN mkdir -p /home/lincity-ng
-# COPY . /home/lincity-ng/
-WORKDIR /home/lincity-ng
+# install libxml++ 5.0
+WORKDIR /home/ubuntu
+RUN curl -L https://github.com/libxmlplusplus/libxmlplusplus/releases/download/5.4.0/libxml++-5.4.0.tar.xz --output libxml++-5.4.0.tar.xz
+RUN tar -xJf /home/ubuntu/libxml++-5.4.0.tar.xz
+WORKDIR /home/ubuntu/libxml++-5.4.0
+RUN meson setup --default-library static . build-ubuntu
+RUN ninja -C build-ubuntu install
 
-CMD bash -c "cmake -B build/ubuntu && cmake --build build/ubuntu --parallel -t package"
+RUN mkdir -p /home/ubuntu/lincity-ng
+# COPY . /home/ubuntu/lincity-ng/
+WORKDIR /home/ubuntu/lincity-ng
+
+CMD bash -c "cmake -B build/ubuntu -DCMAKE_BUILD_TYPE=Release && cmake --build build/ubuntu --parallel -t package"
