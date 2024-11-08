@@ -985,7 +985,6 @@ MainMenu::run()
     quitState = QUIT;
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
-    Uint32 lastRedrawTicks = fpsTicks;
     int frame = 0;
     while(running)
     {
@@ -1052,7 +1051,6 @@ MainMenu::run()
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             painter->updateScreen();
-            lastRedrawTicks = ticks;
         }
 
         frame++;
