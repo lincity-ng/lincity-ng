@@ -1049,14 +1049,6 @@ MainMenu::run()
         currentMenu->event(Event(elapsedTime));
         lastticks = ticks;
 
-        /* We unconditionally redraw every ~100 ms as workaround for an SDL bug
-         * under Wayland, in which window resizing is not communicated to the
-         * program until it redraws the window. When this bug is no longer
-         * present, this behavior should be safe to remove */
-        if (ticks - lastRedrawTicks > 90) {
-             currentMenu->reLayout();
-        }
-
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             painter->updateScreen();
