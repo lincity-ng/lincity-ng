@@ -46,7 +46,7 @@
     <group>
     <resourceID name="Water" />
     <sound file="Water1.wav" />
-    <sound file="Water2.wav" />
+    <sound file="Seagulls.wav" />
     <sound file="Water3.wav" />
     <sound file="Water4.wav" />
     <sound file="Water5.wav" />
@@ -66,7 +66,7 @@
     <resourceID name="CoalMineMed" />
     <resourceID name="CoalMineFull" />
     <sound file="CoalMine1.wav" />
-    <sound file="CoalMine2.wav" />
+    <sound file="TruckEngine.wav" />
     <sound file="CoalMine3.wav" />
     </group>
 
@@ -118,7 +118,7 @@
     <resourceID name="Harbor" />
     <sound file="Harbor1.wav" />
     <sound file="Harbor2.wav" />
-    <sound file="Harbor3.wav" />
+    <sound file="Seagulls.wav" />
     </group>
 
     <group>
@@ -239,7 +239,7 @@
 
     <group>
     <resourceID name="PowerSolar" />
-    <sound file="PowerSolar1.wav" />
+    <sound file="ElectricityNoise.wav" />
     <sound file="PowerSolar2.wav" />
     <sound file="PowerSolar3.wav" />
     </group>
@@ -349,7 +349,7 @@ used for high traffic, the second half as low traffic
     <group>
     <resourceID name="Tip" />
     <sound file="Tip1.wav" />
-    <sound file="Tip2.wav" />
+    <sound file="TruckEngine.wav" />
     <sound file="Tip3.wav" />
     </group>
 
@@ -376,7 +376,7 @@ used for high traffic, the second half as low traffic
     <resourceID name="WindMillHTechRG" />
     <resourceID name="WindMillHTechG" />
 
-    <sound file="WindMillHTech1.wav" />
+    <sound file="ElectricityNoise.wav" />
     <sound file="WindMillHTech2.wav" />
     </group>
 
