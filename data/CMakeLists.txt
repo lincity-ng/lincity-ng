@@ -30,7 +30,7 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   help/*
   images/*.png
   images/*.xml
-  locale/*
+  locale/*.po
   music/*
   opening/*.scn.gz
   sounds/*
@@ -51,7 +51,7 @@ if(WIN32)
   set(infoFiles ${infoFiles} COPYING-dll.txt)
 endif()
 foreach(infoFile ${infoFiles})
-  copy_data_file(${infoFile} ${CMAKE_SOURCE_DIR} ${CMAKE_INSTALL_APPDATADIR} data_files_out)
+  copy_data_file(${infoFile} ${CMAKE_SOURCE_DIR} ${CMAKE_INSTALL_DOCDIR} data_files_out)
 endforeach()
 
 copy_data_file(lincity-ng.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
