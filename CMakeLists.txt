@@ -4,7 +4,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 
 project(lincity-ng
-	VERSION 2.11.2
+	VERSION 2.12.0
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"

@@ -1,4 +1,6 @@
-## Unreleased
+## LinCity-NG 2.12.0
+
+date: 2024-11-13
 
 ###### Gameplay
 - Fixed tech requirement enforcement after tech decrease.
@@ -25,6 +27,7 @@
 - Cleaned up (fully rewrote) the button-panel internals.
 - Moved button-panel tool definitions from the source code to the GUI XML.
 - Changed PhysFS-SDL2 glue layer from custom implementation to physfswrops.
+- Fixed repeated git merge conflicts in CHANGELOG.md.
 
 ###### Documentation
 - Updated the controls help page.
