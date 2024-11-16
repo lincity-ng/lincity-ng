@@ -121,7 +121,7 @@ endif()
 # endif()
 
 
-set(CPACK_GENERATOR TGZ)
+set(CPACK_GENERATOR TXZ)
 if(WIN32)
 	set(CPACK_GENERATOR ZIP)
 endif()
