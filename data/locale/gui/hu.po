@@ -1,0 +1,723 @@
+# Hungarian translations for lincity-ng package
+# Hungarian messages for lincity-ng.
+# This file is distributed under the same license as the lincity-ng package.
+# Copyright (C) 2024 Captain Picard <pikarkapitany@gmail.com>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: LinCity NG\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Sep  5 19:46:32 2024\n"
+"PO-Revision-Date: Thu Sep  5 19:46:32 2024\n"
+"Last-Translator: Captain Picard <pikarkapitany@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "€"
+
+#: data/gui/dialogs/fire.xml data/gui/dialogs/fire.xml
+msgid "A Fire has started"
+msgstr "Tűz ütött ki."
+
+#: data/gui/dialogs/shfire-uc.xml
+msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
+msgstr "Tűz ütött ki egy nyomortelepen. A tűzoltóság lefedettségi területén van, és úgy tűnik, hogy ellenőrzés alatt áll."
+
+#: data/gui/dialogs/shfire-oc.xml
+msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
+msgstr "Tűz ütött ki egy nyomortelepen. A tűz NEM ÁLL ELLENŐRZÉS ALATT, és más területekre is átterjedhet."
+
+#: data/gui/pbar2nd.xml
+msgid "Air Pollution"
+msgstr "Légszennyezettség"
+
+#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml data/gui/savegame.xml
+msgid "Back"
+msgstr "Vissza"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Háttérzene"
+
+#: data/gui/dialogs/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Kosárlabdapálya elérhető"
+
+#: data/gui/options.xml
+msgid "Binary Saving"
+msgstr "Bináris mentés"
+
+#: data/gui/dialogs/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Kovácsműhely elérhető"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Egy emlékmű lebontása sok pénzbe kerülhet."
+
+#: data/gui/dialogs/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "A folyó terület egyengetése sok pénzbe kerülhet."
+
+
+#: data/gui/dialogs/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "A nyomortelep lebontása sok pézbe kerülhet és tüzet is okozhat."
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml
+msgid "Buy"
+msgstr "Vásárlás"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Helyszín választás"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Coal"
+msgstr "Szén"
+
+#: data/gui/dialogs/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Szénerőmű elérhető"
+
+#: data/gui/dialogs/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Szénbánya elérhető"
+
+#: data/gui/dialogs/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Szén keresése"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Program"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Folytatás"
+
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Közreműködők"
+
+#: data/gui/dialogs/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Végezzünk szén keresést?"
+
+#: data/gui/dialogs/launch-good.xml
+msgid "Doing well."
+msgstr "Jól megy."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Gazd"
+
+#: data/gui/dialogs/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Fenntartható gazdaság"
+
+#: data/gui/dialogs/launch-evac.xml data/gui/dialogs/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Sikeres az evakuálás megkezdése"
+
+#: data/gui/dialogs/shfire-oc.xml data/gui/dialogs/shfire-uc.xml
+msgid "Fire"
+msgstr "Tűz"
+
+#: data/gui/dialogs/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Tűzoltóság elérhető"
+
+#: data/gui/dialogs/shfire-oc.xml data/gui/dialogs/shfire-uc.xml
+msgid "Fire!"
+msgstr "Tűz!"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Food"
+msgstr "Élelmiszer"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Teljes képernyő"
+
+#: data/gui/dialogs/gamestats.xml
+msgid "Gamestats"
+msgstr "Játék statisztika"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Vissza a főmenübe"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Goods"
+msgstr "Áruk"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Grafika"
+
+#: data/gui/dialogs/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Kikötői kereskedés beállítása"
+
+#: data/gui/dialogs/healthup.xml
+msgid "Health Centres available"
+msgstr "Egészségközpont elérhető"
+
+#: data/gui/dialogs/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Nehézipari létesítmény elérhető"
+
+#: data/gui/helpwindow.xml
+msgid "Help"
+msgstr "Súgó"
+
+#: data/gui/pbar2nd.xml
+msgid "High Voltage"
+msgstr "Magasfeszültség"
+
+#: data/gui/dialogs/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Import/Export elérhető"
+
+#: data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Labor"
+msgstr "Munkahelyek"
+
+#: data/gui/options.xml
+msgid "Language"
+msgstr "Nyelv"
+
+#: data/gui/dialogs/launch-fail.xml data/gui/dialogs/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Sikertelen indítás"
+
+#: data/gui/dialogs/launch-good.xml data/gui/dialogs/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Sikeres indítás"
+
+#: data/gui/dialogs/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Indítsuk?"
+
+#: data/gui/dialogs/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Könnyüipari létesítmény elérhető"
+
+#: data/gui/dialogs/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "A LinCity megállapította, hogy gazdaság fenntartható."
+
+#: data/gui/loadgame.xml data/gui/mainmenu.xml
+msgid "Load"
+msgstr "Betöltés"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Játék betöltése"
+
+#: data/gui/pbar2nd.xml
+msgid "Low Voltage"
+msgstr "Alacsony feszültség"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Tér"
+
+#: data/gui/options.xml
+msgid "Map Size"
+msgstr "Térkép méret"
+
+#: data/gui/dialogs/millup.xml
+msgid "Mills available"
+msgstr "Malom elérhető"
+
+#: data/gui/dialogs/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Modern szélmalom elérhető"
+
+#: data/gui/pbar.xml data/gui/pbar2nd.xml
+msgid "Money"
+msgstr "Pénz"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Új játék"
+
+#: data/gui/dialogs/blacksmithup.xml data/gui/dialogs/coalmineup.xml data/gui/dialogs/coalpowerup.xml data/gui/dialogs/cricketup.xml data/gui/dialogs/firestationup.xml data/gui/dialogs/healthup.xml data/gui/dialogs/hvindustryup.xml data/gui/dialogs/import-exportup.xml data/gui/dialogs/ltindustryup.xml data/gui/dialogs/millup.xml data/gui/dialogs/mod_wind_up.xml data/gui/dialogs/parkup.xml data/gui/dialogs/potteryup.xml data/gui/dialogs/railwayup.xml data/gui/dialogs/recycleup.xml data/gui/dialogs/riverup.xml data/gui/dialogs/roadup.xml data/gui/dialogs/rocketup.xml data/gui/dialogs/schoolup.xml data/gui/dialogs/solarpowerup.xml data/gui/dialogs/universityup.xml data/gui/dialogs/windmillup.xml
+msgid "New Invention"
+msgstr "Új találmány"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml data/gui/dialogs/bulldoze_river_yn.xml data/gui/dialogs/bulldoze_shanty_yn.xml data/gui/dialogs/coal_survey_yn.xml data/gui/dialogs/launch_rocket_yn.xml
+msgid "No"
+msgstr "Nem"
+
+#: data/gui/dialogs/no-credit-parkland.xml data/gui/dialogs/no-credit-parklamessages.pot
+msgid "Nobody Home"
+msgstr "Senki nincs otthon"
+
+#: data/gui/dialogs/nobull-tip.xml data/gui/dialogs/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Nem megengedett"
+
+#: data/gui/dialogs/allgone.xml data/gui/dialogs/blacksmithup.xml data/gui/dialogs/coalmineup.xml data/gui/dialogs/coalpowerup.xml data/gui/dialogs/cricketup.xml data/gui/dialogs/fire.xml data/gui/dialogs/firestationup.xml data/gui/dialogs/healthup.xml data/gui/dialogs/hvindustryup.xml data/gui/dialogs/import-exportup.xml data/gui/dialogs/launch-evac.xml data/gui/dialogs/launch-fail.xml data/gui/dialogs/launch-gone.xml data/gui/dialogs/launch-good.xml data/gui/dialogs/ltindustryup.xml data/gui/dialogs/millup.xml data/gui/dialogs/mod_wind_up.xml data/gui/dialogs/no-credit-parkland.xml data/gui/dialogs/no-credit-recycle.xml data/gui/dialogs/no-credit-rocket.xml data/gui/dialogs/no-credit-solar-power.xml data/gui/dialogs/no-credit-university.xml data/gui/dialogs/nobull-tip.xml data/gui/dialogs/parkup.xml data/gui/dialogs/potteryup.xml data/gui/dialogs/railwayup.xml data/gui/dialogs/recycleup.xml data/gui/dialogs/riverup.xml data/gui/dialogs/roadup.xml data/gui/dialogs/rocketup.xml data/gui/dialogs/schoolup.xml data/gui/dialogs/shfire-oc.xml data/gui/dialogs/shfire-uc.xml data/gui/dialogs/solarpowerup.xml data/gui/dialogs/sustain.xml data/gui/dialogs/universityup.xml data/gui/dialogs/warning.xml data/gui/dialogs/windmillup.xml data/gui/options.xml data/gui/too-old.xml
+msgid "Ok"
+msgstr "OK"
+
+#: data/gui/dialogs/gamestats.xml
+msgid "Okay"
+msgstr "OK"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Opciók"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Ore"
+msgstr "Érc"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Eredeti ötlet és program"
+
+#: data/gui/dialogs/parkup.xml
+msgid "Parks available"
+msgstr "Park elérhető"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Szünet"
+
+#: data/gui/pbar.xml data/gui/pbar2nd.xml
+msgid "Population"
+msgstr "Népesség"
+
+#: data/gui/dialogs/potteryup.xml
+msgid "Potteries available"
+msgstr "Fazekasműhely elérhető"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Nyomd meg ezt a gombot a statisztikák megtekintéséhez"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml
+msgid "Product"
+msgstr "Termék"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Kilépés"
+
+#: data/gui/dialogs/railwayup.xml
+msgid "Railways available"
+msgstr "Vasút elérhető"
+
+#: data/gui/dialogs/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Hulladék újrahasznosító elérhető"
+
+#: data/gui/options.xml
+msgid "Resolution"
+msgstr "Felbontás"
+
+#: data/gui/dialogs/riverup.xml
+msgid "Rivers available"
+msgstr "Csatorna elérhető"
+
+#: data/gui/dialogs/roadup.xml
+msgid "Roads available"
+msgstr "Közút elérhető"
+
+#: data/gui/dialogs/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Rakétabázis elérhető"
+
+#: data/gui/dialogs/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Rakéta kész"
+
+#: data/gui/dialogs/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Rakéta indításra kész"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Nagy sebességű szimuláció"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Normál sebességű szimuláció"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Nagyon gyors sebességű szimuláció"
+
+#: data/gui/mainmenu.xml data/gui/savegame.xml
+msgid "Save"
+msgstr "Mentés"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Játék mentése"
+
+#: data/gui/dialogs/schoolup.xml
+msgid "Schools available"
+msgstr "Iskola elérhető"
+
+#: data/gui/dialogs/coalmineup.xml
+msgid "See the help screen for more information on coal mines and coal surveys."
+msgstr "A szénbányákról és kutatókról további információkért tekintsd meg a súgót."
+
+#: data/gui/dialogs/blacksmithup.xml data/gui/dialogs/coalpowerup.xml data/gui/dialogs/cricketup.xml data/gui/dialogs/firestationup.xml data/gui/dialogs/healthup.xml data/gui/dialogs/hvindustryup.xml data/gui/dialogs/ltindustryup.xml data/gui/dialogs/millup.xml data/gui/dialogs/mod_wind_up.xml data/gui/dialogs/parkup.xml data/gui/dialogs/potteryup.xml data/gui/dialogs/railwayup.xml data/gui/dialogs/recycleup.xml data/gui/dialogs/riverup.xml data/gui/dialogs/rocketup.xml data/gui/dialogs/schoolup.xml data/gui/dialogs/solarpowerup.xml data/gui/dialogs/universityup.xml data/gui/dialogs/windmillup.xml
+msgid "See the help screen for more information."
+msgstr "További információért tekintsd meg a súgót."
+
+#: data/gui/options.xml
+msgid "Seed Saving"
+msgstr "Vetőmag megtakarítás"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml
+msgid "Sell"
+msgstr "Eladás"
+
+#: data/gui/dialogs/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Szeretnél kutatókat küldeni?"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Use scroll buttons to cylce through views."
+msgstr "Bevételek és kiadások megjelenítése. Kattints ide ismét a különböző nézetek közötti váltáshoz."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Szén lerakatok megjelenítése"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Gazdasági adatok megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Tűzoltóság lefedettségének megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Áttekintő térkép megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Egészségügyi adatok megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Élelmiszer adatok megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Légszennyezettségi adatok megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Villamos hálózati adatok megjelenítése"
+
+#: data/gui/minimap.xml
+msgid "Show resources. Use scroll buttons to cycle through views."
+msgstr "Bevételek és kiadások megjelenítése. Kattints ide ismét a különböző nézetek közötti váltáshoz."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Sport adatok megjelenítése"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Mini térkép megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Forgalmi adatok megjelenítése"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Munkanélküliség megjelenítése"
+
+#: data/gui/dialogs/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Naperőmű elérhető"
+
+#: data/gui/dialogs/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "A szeméttelepeket sajnos nem lehet lebontani."
+
+#: data/gui/too-old.xml
+msgid "Sorry, the game you wanted is too old. Cannot load it. Still play with previous game."
+msgstr "Sajnálom, a kért mentés túl régi, és nem tudom betölteni. Az előző játék folytatódik."
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Hangeffektusok"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Hang és zene"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Start"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Stat"
+
+#: data/gui/dialogs/portdialog.xml data/gui/dialogs/tradedialog.xml data/gui/pbar.xml
+msgid "Steel"
+msgstr "Acél"
+
+#: data/gui/pbar.xml data/gui/pbar2nd.xml
+msgid "Tech Level"
+msgstr "Műszaki szint"
+
+#: data/gui/pbar2nd.xml
+msgid "Tenants"
+msgstr "Bérlő"
+
+#: data/gui/dialogs/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Nincsenek emberek ebben a városban."
+
+#: data/gui/dialogs/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr "Ennek egyszeri egymilliós költsége van. A további hívások ingyenesek."
+
+#: data/gui/dialogs/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "A teljes evakuálás befejeződött."
+
+#: data/gui/dialogs/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Kereskedési beállítások"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Fordítás"
+
+#: data/gui/dialogs/universityup.xml
+msgid "University available"
+msgstr "Egyetem elérhető"
+
+#: data/gui/newgame.xml
+msgid "Village"
+msgstr "Falu"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml data/gui/dialogs/bulldoze_river_yn.xml data/gui/dialogs/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Szeretnéd lebontani?"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml data/gui/dialogs/bulldoze_river_yn.xml data/gui/dialogs/bulldoze_shanty_yn.xml data/gui/dialogs/warning.xml data/gui/dialogs/warning.xml data/gui/too-old.xml
+msgid "Warning"
+msgstr "Figyelem"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Figyelmeztetés: az emlékművek lebontása költséges."
+
+#: data/gui/dialogs/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Figyelmeztetés, a nyomortelep lebontása veszélyes."
+
+#: data/gui/dialogs/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Figyelmeztetés: vízterület egyengetése költséges."
+
+#: data/gui/dialogs/tradedialog.xml data/gui/pbar2nd.xml
+msgid "Waste"
+msgstr "Szemét"
+
+#: data/gui/dialogs/tradedialog.xml data/gui/pbar2nd.xml
+msgid "Water"
+msgstr "Víz"
+
+#: data/gui/dialogs/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Szép munka, minden ember evakuálva."
+
+#: data/gui/dialogs/windmillup.xml
+msgid "Windmills available"
+msgstr "Szélmalom elérhető"
+
+#: data/gui/newgame.xml
+msgid "Without trees"
+msgstr "Fák nélkül"
+
+#: data/gui/dialogs/bulldoze_monument_yn.xml data/gui/dialogs/bulldoze_river_yn.xml data/gui/dialogs/bulldoze_shanty_yn.xml data/gui/dialogs/coal_survey_yn.xml data/gui/dialogs/launch_rocket_yn.xml
+msgid "Yes"
+msgstr "Igen"
+
+#: data/gui/dialogs/fire.xml
+msgid "You better go and look for it"
+msgstr "Jobb ha utánanézel"
+
+#: data/gui/dialogs/launch_rocket_yn.xml
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "Most elindíthatod a rakétát, vagy várhatsz. Ha vársz, továbbra is pénzbe fog kerülni, hogy a rakétát indulásra készen tartsák. Kattints a rakétára a párbeszédpanel későbbi ismételt megnyitásához."
+
+#: data/gui/dialogs/import-exportup.xml
+msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
+msgstr "Mostantól szenet, árukat, ércet és acélt importálhatsz és exportálhatsz. Olvasd el a súgót, hogy többet megtudj."
+
+#: data/gui/dialogs/no-credit-parkland.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
+msgstr "Költségvetési hiányod van. A törvényhozó tanács nem engedi, hogy hitelből parkokat építs."
+
+#: data/gui/dialogs/no-credit-recycle.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
+msgstr "Költségvetési hiányod van. A törvényhozó tanács nem engedi, hogy hitelből újrahasznosító központokat építs."
+
+#: data/gui/dialogs/no-credit-rocket.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
+msgstr "Költségvetési hiányod van. A törvényhozó tanács nem engedi, hogy hitelből rakétabázist építs."
+
+#: data/gui/dialogs/no-credit-solar-power.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
+msgstr "Költségvetési hiányod van. A törvényhozó tanács nem engedi, hogy hitelből naperőműveket építs."
+
+#: data/gui/dialogs/no-credit-university.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
+msgstr "Költségvetési hiányod van. A törvényhozó tanács nem engedi, hogy hitelből egyetemeket építs."
+
+#: data/gui/dialogs/launch-evac.xml
+msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
+msgstr "1000 embert evakuáltál. A gazdaság méretét a népességcsökkenéshez kell igazítanod."
+
+#: data/gui/dialogs/blacksmithup.xml
+msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use labor and steel to make goods."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy kovácsműhelyeket építs. A kovácsműhelyek munkaerőt és acélt használnak fel a termékek előállításához."
+
+#: data/gui/dialogs/coalpowerup.xml
+msgid "You have reached the tech level which enables you to build coal fired power stations."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy szénerőműveket építs."
+
+#: data/gui/dialogs/firestationup.xml
+msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy tűzoltóságokat építs. A tűzoltóságok megakadályozzák a legtöbb tűz keletkezését."
+
+#: data/gui/dialogs/healthup.xml
+msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy egészségközpontokat építs. Az egészségközpontok ​​központok csökkentik a légszennyezettség miatt meghalt emberek számát és növelik az általános születésszámot."
+
+#: data/gui/dialogs/hvindustryup.xml
+msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy nehézipari létesíményeket építs. A nehézipar acélt termel."
+
+#: data/gui/dialogs/ltindustryup.xml
+msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy könnyüipari létesíményeket építs. A könnyüipar árukat állít elő."
+
+#: data/gui/dialogs/millup.xml
+msgid "You have reached the tech level which enables you to build mills. Mills use labor and food to make goods. Watch out, they can use a lot of food! "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy malmokat építs. A malmok munkaerőt és élelmiszereket használnak az áruk előállításához. Vigyázz, sok ételt használhatnak fel!"
+
+#: data/gui/dialogs/mod_wind_up.xml
+msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy modern hatékony szélmalmokat építs."
+
+#: data/gui/dialogs/parkup.xml
+msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy parkokat építs. A parkokat a légszennyezettség csökkentésére használhatod."
+
+#: data/gui/dialogs/potteryup.xml
+msgid "You have reached the tech level which enables you to build potteries. Potteries use labor and ore to make goods. (You need ore mines to get ore) "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy fazekasműhelyeket építs. A fazekasműhelyek munkaerőt és ércet használnak az áruk előállításához. Egy ércet előállító bányára, hulladékfeldolgozóra vagy szénégetőre is szükséged lesz."
+
+#: data/gui/dialogs/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy vasutat építs."
+
+#: data/gui/dialogs/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy csatornákat építs."
+
+#: data/gui/dialogs/roadup.xml
+msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy közutakat építs. További információkért tekintsd meg a súgót."
+
+#: data/gui/dialogs/rocketup.xml
+msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy rakétabázisokat építs. A rakéták lehetővé teszik a lakosság evakuálását, és egy módja annak, hogy „megnyerjük” a játékot."
+
+#: data/gui/dialogs/schoolup.xml
+msgid "You have reached the tech level which enables you to build schools. Schools use labor and goods to increase tech level. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy iskolákat építs. Az iskolák munkaerőt és arukat használnak fel hogy növeljék a műszaki szintet."
+
+#: data/gui/dialogs/solarpowerup.xml
+msgid "You have reached the tech level which enables you to build solar power stations. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy naperőműveket építs."
+
+#: data/gui/dialogs/universityup.xml
+msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy egyetemeket építs. Az egyetemek PhD végzettséget adnak, ami magasabb műszaki szintet eredményez."
+
+#: data/gui/dialogs/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy szélmalmokat építs."
+
+#: data/gui/dialogs/coalmineup.xml
+msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy mélyebb szénbányákat építs."
+
+#: data/gui/dialogs/recycleup.xml
+msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
+msgstr "Elérted azt a műszaki szintet, amely lehetővé teszi, hogy hulladék újrahasznosítókat építs. A hulladék újrahasznosítók a nem használt árukat érccé alakítják."
+
+#: data/gui/dialogs/launch-gone.xml data/gui/dialogs/sustain.xml
+msgid "You have won the game."
+msgstr "Megnyerted a játékot."
+
+#: data/gui/dialogs/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Elölről kellene kezdened egy másik városban."
+
+#: data/gui/dialogs/cricketup.xml
+msgid "Your people have invented basketball. Basketball Courts use a some labor and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgstr "Az emberek feltalálták a kosárlabdát. A kosárlabdapályák némi munkaerőt és árukat használnak fel és körülbelül 10 egységnyi körzetben boldogabb embereket eredményeznek."
+
+#: data/gui/dialogs/launch-fail.xml
+msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
+msgstr "A rakéta nem sokkal az indítás után lezuhant. Az emberek már nem bíznak az evakuálás technológiában. A bizalom helyreállításához további öt pilóta nélküli rakétát kell elindítani."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] Nagyíts rá, hogy kevesebb épület, de több részlet legyen látható"
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Kicsinyít"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "Nyomd meg az [F1] gombot a súgó eléréséhez."
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] A magas épületek elrejtése."
+
+#: data/gui/minimap.xml
+msgid "[m] Scroll up."
+msgstr "[m] felfelé görgetés."
+
+#: data/gui/minimap.xml
+msgid "[n] Scroll down."
+msgstr "[n] lefelé görgetés."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] A mini térkép megjelenítése a fő térkép fölött."
+
+#: data/gui/minimap.xml
+msgid "toggle terrain height rendering"
+msgstr "domborzati magasság megjelenítésének váltása"
