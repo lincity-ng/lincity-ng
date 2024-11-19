@@ -46,14 +46,14 @@ void addTranslatableText(const std::string& text, const std::string& place)
 void parseFile(const std::string& filename)
 {
     XmlReader reader(filename);
-    
+
     bool translatable = false;
     std::string place;
     std::string text;
     while(reader.read()) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             if(translatable) {
-                std::cerr 
+                std::cerr
                     << "Elements inside translatable element not supported!\n";
             }
             translatable = false;
@@ -61,7 +61,7 @@ void parseFile(const std::string& filename)
             while(iter.next()) {
                 const char* attribute = (const char*) iter.getName();
                 const char* value = (const char*) iter.getValue();
-                
+
                 if(strcmp(attribute, "translatable") == 0) {
                     if(strcmp(value, "yes") == 0) {
                         translatable = true;
@@ -144,19 +144,16 @@ int main(int argc, char** argv)
 "\"Content-Transfer-Encoding: 8bit\\n\"\n";
 
     for(Texts::iterator i = texts.begin(); i != texts.end(); ++i) {
-    	if(!i->first.empty()){ //no need to translate empty Strings
-            out << "\n";
-            out << "#: ";
-            for(std::vector<std::string>::iterator p = i->second.begin();
-                p != i->second.end(); ++p) {
-                out << *p << " ";
-            }
-            out << "\n";
-            out << "msgid \"" << i->first << "\"\n";
-            out << "msgstr \"\"\n";
-        }
+      if(i->first.empty()) continue; //no need to translate empty Strings
+      out << "\n";
+      for(std::vector<std::string>::iterator p = i->second.begin();
+        p != i->second.end(); ++p
+      ) {
+        out << "#: " << *p << "\n";
+      }
+      out << "msgid \"" << i->first << "\"\n";
+      out << "msgstr \"\"\n";
     }
 }
 
 /** @file tools/xmlgettext/main.cpp */
-
