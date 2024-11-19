@@ -1,3 +1,10 @@
+## Unreleased
+
+###### Documentation / Translation
+- Added a contributing guide.
+- Added Hungarian translation for GUI and source strings.
+
+
 ## LinCity-NG 2.12.0
 
 date: 2024-11-13
@@ -31,7 +38,6 @@ date: 2024-11-13
 
 ###### Documentation / Translation
 - Updated the controls help page.
-- Added Hungarian translation for GUI and source strings.
 
 
 ## LinCity-NG 2.11.2 [SECURITY]
