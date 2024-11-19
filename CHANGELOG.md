@@ -1,5 +1,14 @@
 ## Unreleased
 
+###### Documentation / Translation
+- Added a contributing guide.
+- Added Hungarian translation for GUI and source strings.
+
+
+## LinCity-NG 2.12.0
+
+date: 2024-11-13
+
 ###### Gameplay
 - Fixed tech requirement enforcement after tech decrease.
 
@@ -25,8 +34,9 @@
 - Cleaned up (fully rewrote) the button-panel internals.
 - Moved button-panel tool definitions from the source code to the GUI XML.
 - Changed PhysFS-SDL2 glue layer from custom implementation to physfswrops.
+- Fixed repeated git merge conflicts in CHANGELOG.md.
 
-###### Documentation
+###### Documentation / Translation
 - Updated the controls help page.
 
 
@@ -47,7 +57,7 @@ tag: lincity-ng-2.11.2
 - Fixed an error raised by CPack for missing README.md file.
 - Removed unneeded image source files from install.
 
-###### Documentation
+###### Documentation / Translation
 - Fixed the tip icon in help pages.
 - Added Italian translation for .desktop file.
 - Fixed several inconsistencies in translated help pages.

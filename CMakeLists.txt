@@ -4,7 +4,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 
 project(lincity-ng
-	VERSION 2.11.2
+	VERSION 2.12.0
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
@@ -128,6 +128,7 @@ endif()
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
 add_subdirectory(doc)
+add_subdirectory(external)
 
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_BINDIR})
 install(TARGETS lincity-ng
