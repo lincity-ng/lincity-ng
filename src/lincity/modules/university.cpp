@@ -41,8 +41,8 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_RANGE
 );
 
-Construction *UniversityConstructionGroup::createConstruction(int x, int y) {
-    return new University(x, y, this);
+Construction *UniversityConstructionGroup::createConstruction() {
+  return new University(this);
 }
 
 void University::update()
@@ -72,7 +72,7 @@ void University::update()
 void University::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
@@ -80,5 +80,16 @@ void University::report()
     list_commodities(&i);
 }
 
+void University::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  Construction::save(xmlWriter);
+}
+
+bool University::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
 
 /** @file lincity/modules/university.cpp */

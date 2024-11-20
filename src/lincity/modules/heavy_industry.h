@@ -23,7 +23,6 @@
 ** ---------------------------------------------------------------------- */
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -93,7 +92,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a HeavyIndustry
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
@@ -101,38 +100,18 @@ extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
 //extern IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup;
 //extern IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup;
 
-class IndustryHeavy: public RegisteredConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own RegisteredConstruction
+class IndustryHeavy: public Construction {
 public:
-    IndustryHeavy(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryHeavy>(x, y)
-    {
+    IndustryHeavy(ConstructionGroup *cstgrp) {
         constructionGroup = cstgrp;
-        init_resources();
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->output_level = 0;
         this->steel_this_month = 0;
         // this->anim = 0;
         initialize_commodities();
          //check for pollution bonus
         this->bonus = 0;
-        setMemberSaved(&this->bonus, "bonus"); // compatibility
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus"); // compatibility
-        // if (tech > MAX_TECH_LEVEL)
-        // {
-        //     bonus = (tech - MAX_TECH_LEVEL);
-        //     if (bonus > MAX_TECH_LEVEL)
-        //         bonus = MAX_TECH_LEVEL;
-        //     bonus /= MAX_TECH_LEVEL;
-        //     // check for filter technology bonus
-        //     if (tech > 2 * MAX_TECH_LEVEL)
-        //     {
-        //         extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-        //         if (extra_bonus > MAX_TECH_LEVEL)
-        //             extra_bonus = MAX_TECH_LEVEL;
-        //         extra_bonus /= MAX_TECH_LEVEL;
-        //     }
-        // }
 
         int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
         commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
@@ -146,33 +125,13 @@ public:
         //   ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
     }
 
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-        if (tech > MAX_TECH_LEVEL)
-        {
-            bonus = (tech - MAX_TECH_LEVEL);
-            if (bonus > MAX_TECH_LEVEL)
-                bonus = MAX_TECH_LEVEL;
-            bonus /= MAX_TECH_LEVEL;
-            // check for filter technology bonus
-            if (tech > 2 * MAX_TECH_LEVEL)
-            {
-                extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-                if (extra_bonus > MAX_TECH_LEVEL)
-                    extra_bonus = MAX_TECH_LEVEL;
-                extra_bonus /= MAX_TECH_LEVEL;
-            }
-        }
-
-        int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
-        commodityMaxProd[STUFF_WASTE] = 100 * (int)(
-          ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
-    }
-
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;
     double bonus, extra_bonus;

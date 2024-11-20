@@ -184,13 +184,6 @@ void editMap (MapPoint point, int button)
     // Hold d pressed to send load/save info details to console
     if(userOperation->action == UserOperation::ACTION_QUERY)
     {
-#ifdef DEBUG
-        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-        if ( !binary_mode && keystate[SDL_SCANCODE_D] && world(mod_x,mod_y)->reportingConstruction)
-        {
-            world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
-        }
-#endif
         mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         mapMPS->playBuildingSound( mod_x, mod_y );
 
@@ -208,9 +201,11 @@ void editMap (MapPoint point, int button)
                 return;
             } else if(world(mod_x,mod_y)->getGroup() == GROUP_ROCKET)
             {
-                if (world(mod_x,mod_y)->getType() >= 4 &&
-                         world(mod_x,mod_y)->getType() < 7)
-                {
+                RocketPad *rocket = dynamic_cast<RocketPad *>(
+                  world(mod_x,mod_y)->reportingConstruction);
+                  if(dynamic_cast<RocketPad *>(world(mod_x,mod_y)
+                    ->reportingConstruction)->stage == RocketPad::AWAITING
+                  ) {
                     new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
                     return;
                 }

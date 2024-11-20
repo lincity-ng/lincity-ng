@@ -42,7 +42,6 @@
 #define WIND_POWER_TECH 450000
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -67,46 +66,34 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Windpower
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern WindpowerConstructionGroup windpowerConstructionGroup;
-extern WindpowerConstructionGroup windpower_RG_ConstructionGroup;
-extern WindpowerConstructionGroup windpower_G_ConstructionGroup;
 
-class Windpower: public RegisteredConstruction<Windpower> { // Windpower inherits from its own RegisteredConstruction
+class Windpower: public Construction {
 public:
-    Windpower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windpower>(x, y)
-    {
+    Windpower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        // this->anim = 0;
+        this->anim = 0;
         this->animate_enable = false;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->hivolt_output = (int)(WIND_POWER_HIVOLT + (((double)tech_level * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
-
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-        this->hivolt_output = (int)(WIND_POWER_HIVOLT +
-          (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
-
-        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
     virtual ~Windpower() { }
+
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  hivolt_output;
     int  tech;

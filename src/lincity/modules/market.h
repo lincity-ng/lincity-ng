@@ -39,9 +39,7 @@
 #define LABOR_MARKET_FULL   28
 
 #include <array>                // for array
-#include <list>                 // for _List_iterator, list
-#include <map>                  // for map
-#include <string>               // for basic_string, operator<
+#include <list>                 // for list
 
 #include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
 #include "modules.h"            // for CommodityRule, Commodity, Constructio...
@@ -85,7 +83,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = true;
     };
     // overriding method that creates a Market
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
@@ -93,20 +91,12 @@ extern MarketConstructionGroup marketConstructionGroup;
 //extern MarketConstructionGroup market_med_ConstructionGroup;
 //extern MarketConstructionGroup market_full_ConstructionGroup;
 
-class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
+class Market: public Construction {
 public:
-    Market(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y)
-    {
+    Market(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
-        setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
         this->labor = LABOR_MARKET_EMPTY;
         this->anim = 0;
@@ -115,18 +105,6 @@ public:
         this->market_ratio = 0;
         this->start_burning_waste = false;
         this->waste_fire_anim = 0;
-        //set the Searchrange of this Market
-        int tmp;
-        int lenm1 = world.len()-1;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
-        this->cover();
 
         commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
         commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
@@ -138,8 +116,13 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
     void cover();
     void toggleEvacuation();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int working_days, busy;

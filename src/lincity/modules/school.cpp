@@ -24,7 +24,10 @@
 
 #include "school.h"
 
-#include "modules.h"
+#include <iterator>   // for advance
+#include <map>        // for map
+
+#include "modules.h"  // for basic_string, ExtraFrame, allocator, Commodity
 
 
 // school place:
@@ -42,8 +45,8 @@ SchoolConstructionGroup schoolConstructionGroup(
      GROUP_SCHOOL_RANGE
 );
 
-Construction *SchoolConstructionGroup::createConstruction(int x, int y) {
-    return new School(x, y, this);
+Construction *SchoolConstructionGroup::createConstruction() {
+  return new School(this);
 }
 
 void School::update()
@@ -98,12 +101,34 @@ void School::animate() {
 void School::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (float)busy);
     mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     // i++;
     list_commodities(&i);
+}
+
+void School::init_resources() {
+  Construction::init_resources();
+
+  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
+  frit = frameIt;
+  std::advance(frit, 1);
+  frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
+  frit->frame = -1; //hide the swing
+}
+
+void School::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  Construction::save(xmlWriter);
+}
+
+bool School::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/school.cpp */

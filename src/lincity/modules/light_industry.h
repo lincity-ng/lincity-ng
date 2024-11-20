@@ -22,14 +22,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stddef.h>                 // for NULL
-#include <array>                    // for array
-#include <iterator>                 // for advance
-#include <list>                     // for list, _List_iterator, operator!=
-#include <map>                      // for map
-#include <string>                   // for basic_string, operator<
+#include <stddef.h>   // for NULL
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, MAX_TECH_LEVEL, Extra...
 
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000
@@ -97,7 +94,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a LightIndustry
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
@@ -107,44 +104,18 @@ extern IndustryLightConstructionGroup industryLightConstructionGroup;
 //extern IndustryLightConstructionGroup industryLight_H_ConstructionGroup;
 
 
-class IndustryLight: public RegisteredConstruction<IndustryLight> { // IndustryLight inherits from RegisteredConstruction
+class IndustryLight: public Construction {
 public:
-    IndustryLight(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryLight>(x, y)
-    {
+    IndustryLight(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
-        std::list<ExtraFrame>::iterator frit = frameIt;
-        std::advance(frit, 1);
-        fr_begin = frit;
-
-        frit = frameIt;
-        std::advance(frit, 1);
-        frit->move_x = -113;
-        frit->move_y = -210;
-        std::advance(frit, 1);
-        frit->move_x = -84;
-        frit->move_y = -198;
-        std::advance(frit, 1);
-        fr_end = frit;
-        for (frit = fr_begin; frit != world(x,y)->framesptr->end() && frit != fr_end; std::advance(frit, 1))
-        {
-            frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
-            frit->frame = -1; // hide smoke
-        }
-
-
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
         this->goods_this_month = 0;
         this->anim = 0;
         initialize_commodities();
         this->bonus = 0;
-        setMemberSaved(&this->bonus, "bonus"); // compatibility
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus"); // compatibility
         // if (tech > MAX_TECH_LEVEL)
         // {
         //     bonus = (tech - MAX_TECH_LEVEL);
@@ -175,29 +146,6 @@ public:
         //   INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
     }
 
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-        if (tech > MAX_TECH_LEVEL)
-        {
-            bonus = (tech - MAX_TECH_LEVEL);
-            if (bonus > MAX_TECH_LEVEL)
-                bonus = MAX_TECH_LEVEL;
-            bonus /= MAX_TECH_LEVEL;
-            // check for filter technology bonus
-            if (tech > 2 * MAX_TECH_LEVEL)
-            {
-                extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-                if (extra_bonus > MAX_TECH_LEVEL)
-                    extra_bonus = MAX_TECH_LEVEL;
-                extra_bonus /= MAX_TECH_LEVEL;
-            }
-        }
-
-        commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
-          INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
-    }
-
     virtual ~IndustryLight() //remove 2 or more extraframes
     {
         if(world(x,y)->framesptr)
@@ -214,6 +162,12 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int  tech;

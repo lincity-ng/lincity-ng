@@ -43,7 +43,6 @@
 #define OREMINE_ANIMATION_SPEED 200
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -68,17 +67,15 @@ public:
 
     }
     // overriding method that creates an Oremine
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern OremineConstructionGroup oremineConstructionGroup;
 
-class Oremine: public RegisteredConstruction<Oremine> { // Oremine inherits from its own RegisteredConstruction
+class Oremine: public Construction {
 public:
-    Oremine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Oremine>(x, y)
-    {
+    Oremine(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         // this->anim = 0;
         this->animate_enable = false;
         this->working_days = 0;
@@ -86,17 +83,6 @@ public:
         this->anim_count = 0;
         // this->days_offset = 0;
         initialize_commodities();
-
-        int ore = 0;
-        for (int yy = y; (yy < y + constructionGroup->size) ; yy++)
-        {
-            for (int xx = x; (xx < x + constructionGroup->size); xx++)
-            {   ore += world(xx,yy)->ore_reserve;}
-        }
-        if (ore < 1)
-        { ore = 1;}
-        this->total_ore_reserve = ore;
-        setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
 
         commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
         commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
@@ -106,7 +92,10 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
 
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_ore_reserve;
     int anim;

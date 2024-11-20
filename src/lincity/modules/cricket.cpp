@@ -24,10 +24,11 @@
 
 #include "cricket.h"
 
-#include <list>                     // for _List_iterator
-#include <vector>                   // for vector
+#include <algorithm>  // for max, min
+#include <list>       // for _List_iterator
+#include <vector>     // for vector
 
-#include "modules.h"
+#include "modules.h"  // for basic_string, allocator, char_traits, Commodity
 
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
@@ -44,8 +45,8 @@ CricketConstructionGroup cricketConstructionGroup(
      GROUP_CRICKET_RANGE
 );
 
-Construction *CricketConstructionGroup::createConstruction(int x, int y) {
-    return new Cricket(x, y, this);
+Construction *CricketConstructionGroup::createConstruction() {
+  return new Cricket(this);
 }
 
 void Cricket::update()
@@ -85,11 +86,17 @@ void Cricket::cover()
     covercount -= daycount;
     daycount = 0;
     animate_enable = true;
+
+    int tmp;
+    int lenm1 = world.len()-1;
+
+    int xs = std::max(x - constructionGroup->range, 1);
+    int xe = std::min(x + constructionGroup->range, world.len() - 1);
+    int ys = std::max(y - constructionGroup->range, 1);
+    int ye = std::min(y + constructionGroup->range, world.len() - 1);
     for(int yy = ys; yy < ye; ++yy)
-    {
-        for(int xx = xs; xx < xe; ++xx)
-        {   world(xx,yy)->flags |= FLAG_CRICKET_COVER;}
-    }
+      for(int xx = xs; xx < xe; ++xx)
+        world(xx,yy)->flags |= FLAG_CRICKET_COVER;
 }
 
 void Cricket::animate() {
@@ -109,12 +116,28 @@ void Cricket::report()
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     // i++;
     list_commodities(&i);
     p = active?N_("Yes"):N_("No");
     mps_store_ss(i++, N_("Public sports"), p);
+}
+
+void Cricket::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
+  Construction::save(xmlWriter);
+}
+
+bool Cricket::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "active") active = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "daycount") daycount = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/cricket.cpp */

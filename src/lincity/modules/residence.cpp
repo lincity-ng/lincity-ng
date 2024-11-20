@@ -113,8 +113,8 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
 );
 
 
-Construction *ResidenceConstructionGroup::createConstruction(int x, int y) {
-    return new Residence(x, y, this);
+Construction *ResidenceConstructionGroup::createConstruction() {
+  return new Residence(this);
 }
 
 void Residence::update()
@@ -348,7 +348,7 @@ void Residence::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
     mps_store_sd(i++, N_("Desireability"), desireability);
     mps_store_sf(i++, N_("Births p.a."), (float)1200/births);
@@ -356,6 +356,18 @@ void Residence::report()
     mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
     // i++;
     list_commodities(&i);
+}
+
+void Residence::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"local_population", "%d", local_population);
+  Construction::save(xmlWriter);
+}
+
+bool Residence::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "local_population") local_population = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/residence.cpp */

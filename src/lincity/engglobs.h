@@ -29,13 +29,14 @@
 class ConstructionCount;
 class World;
 // Use permutator to shuffle the simulation order
-//#include "lincity-ng/Permutator.hpp"
 
 class UserOperation;
 
 extern int pix_double;
 
 extern int use_waterwell, ldsv_version;
+
+extern char given_scene[1024];
 
 extern ConstructionCount constructionCount;
 extern World world;
@@ -49,8 +50,6 @@ extern const int dy[8];
 extern const int dxo[8];
 extern const int dyo[8];
 
-extern bool binary_mode;
-extern bool seed_compression;
 extern bool refresh_cover;
 
 extern int global_aridity, global_mountainity;

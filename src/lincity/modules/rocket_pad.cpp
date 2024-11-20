@@ -24,15 +24,17 @@
 
 #include "rocket_pad.h"
 
+#include <assert.h>                        // for assert
 #include <stdlib.h>                        // for rand
+#include <iostream>                        // for operator<<, basic_ostream
 #include <list>                            // for _List_iterator
-#include <vector>                          // for vector
+#include <stdexcept>                       // for runtime_error
 
-#include "modules.h"
 #include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
-#include "lincity-ng/Dialog.hpp"           // for ASK_LAUNCH_ROCKET, Dialog
+#include "lincity-ng/Dialog.hpp"           // for Dialog, ASK_LAUNCH_ROCKET
 #include "lincity-ng/Sound.hpp"            // for getSound, Sound
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
+#include "modules.h"                       // for basic_string, char_traits
 #include "residence.h"                     // for Residence
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
@@ -49,105 +51,90 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_RANGE
 );
 
-Construction *RocketPadConstructionGroup::createConstruction(int x, int y) {
-    return new RocketPad(x, y, this);
+Construction *RocketPadConstructionGroup::createConstruction() {
+  return new RocketPad(this);
 }
 
 extern void ok_dial_box(const char *, int, const char *);
 
-void RocketPad::update()
-{
-    int last_frame = (int)frameIt->resourceGroup->graphicsInfoVector.size() - 1;
-    // ok the party is over
-    if (frameIt->frame == last_frame)
-    {   return;}
+void RocketPad::update() {
+  if(stage != DONE)
     rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
-    // store as much as possible or needed
-    while(
-               (frameIt->frame < 4)
-            && (commodityCount[STUFF_LABOR] >= ROCKET_PAD_LABOR)
-            && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
-            && (commodityCount[STUFF_STEEL] >= ROCKET_PAD_STEEL)
-            && (commodityCount[STUFF_WASTE] + (ROCKET_PAD_GOODS / 3) <= MAX_WASTE_AT_ROCKET_PAD)
-            && (labor_stored < ROCKET_PAD_LABOR_STORE)
-            && (goods_stored < ROCKET_PAD_GOODS_STORE)
-            && (steel_stored < ROCKET_PAD_STEEL_STORE)
-            && (completion < 100)
-         )
-    {
-        consumeStuff(STUFF_LABOR, ROCKET_PAD_LABOR);
-        labor_stored += ROCKET_PAD_LABOR;
-        consumeStuff(STUFF_GOODS, ROCKET_PAD_GOODS);
-        goods_stored += ROCKET_PAD_GOODS;
-        consumeStuff(STUFF_STEEL, ROCKET_PAD_STEEL);
-        steel_stored += ROCKET_PAD_STEEL;
-        produceStuff(STUFF_WASTE, ROCKET_PAD_GOODS/3);
-        step += 2;
-        working_days++;
-    }
 
-    // see if we can build another % of Rocket
-    if(    (completion < 100)
-        && (labor_stored >= ROCKET_PAD_LABOR_STORE)
-        && (goods_stored >= ROCKET_PAD_GOODS_STORE)
-        && (steel_stored >= ROCKET_PAD_STEEL_STORE)
-      )
-    {
-        labor_stored -= ROCKET_PAD_LABOR_STORE;
-        goods_stored -= ROCKET_PAD_GOODS_STORE;
-        steel_stored -= ROCKET_PAD_STEEL_STORE;
-        completion++;
-        step = 0;
-    }
-    //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  if(stage == BUILDING) {
+    int stepsToday;
+    int stepsRemaining = ROCKET_PAD_STEPS - steps;
+    int stepsLabor = commodityCount[STUFF_LABOR] / ROCKET_PAD_LABOR;
+    int stepsGoods = commodityCount[STUFF_GOODS] / ROCKET_PAD_GOODS;
+    int stepsSteel = commodityCount[STUFF_STEEL] / ROCKET_PAD_STEEL;
+    int stepsWaste = commodityCount[STUFF_WASTE] / ROCKET_PAD_GOODS;
+    stepsToday = stepsRemaining;
+    if(stepsLabor < stepsToday) stepsToday = stepsLabor;
+    if(stepsGoods < stepsToday) stepsToday = stepsGoods;
+    if(stepsSteel < stepsToday) stepsToday = stepsSteel;
+    if(stepsWaste < stepsToday) stepsToday = stepsWaste;
+    assert(stepsToday >= 0);
 
-    /* animate and return */
-    if (frameIt->frame >= 5 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
-    {
-        if (real_time >= anim)
-        {
-            anim = real_time + ROCKET_ANIMATION_SPEED;
-            frameIt->frame++;
-            if(frameIt->frame > last_frame)
-            {
-                frameIt->frame = 5;
-            } else if (frameIt->frame == last_frame)
-            {
-                compute_launch_result();
-            }
-        }
-        return;
-    }
+    consumeStuff(STUFF_LABOR, stepsToday * ROCKET_PAD_LABOR);
+    consumeStuff(STUFF_GOODS, stepsToday * ROCKET_PAD_GOODS);
+    consumeStuff(STUFF_STEEL, stepsToday * ROCKET_PAD_STEEL);
+    consumeStuff(STUFF_WASTE, stepsToday * ROCKET_PAD_WASTE);
+    steps += stepsToday;
+    if(stepsToday)
+      working_days++;
 
-    //Choose a Graphic and invoke Lauch Dialogue depening on completion
-    if (completion < (25 * ROCKET_PAD_LAUNCH) / 100)
-    {   frameIt->frame = 0;}
-    else if (completion < (60 * ROCKET_PAD_LAUNCH) / 100)
-    {   frameIt->frame = 1;}
-    else if (completion < (90 * ROCKET_PAD_LAUNCH) / 100)
-    {   frameIt->frame = 2;}
-    else if (completion < (100 * ROCKET_PAD_LAUNCH) / 100)
-    {   frameIt->frame = 3;}
-    else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
-    {
-        frameIt->frame = 4;
-        //OK Button will launch rocket remotely
-        if(!(flags & FLAG_ROCKET_READY))
-        {   new Dialog( ASK_LAUNCH_ROCKET, x, y );}
-        flags |= FLAG_ROCKET_READY;
+    if(steps >= ROCKET_PAD_STEPS) {
+      stage = AWAITING;
+      new Dialog( ASK_LAUNCH_ROCKET, x, y );
     }
+  }
+  else if(stage == LAUNCH) {
+    compute_launch_result();
+    stage = DONE;
+  }
+
+  //monthly update
+  if (total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
-void RocketPad::launch_rocket()
-{
-    frameIt->frame = 5;
-    busy = 0;
+void RocketPad::animate() {
+  if(stage == BUILDING) {
+    if(steps < (25 * ROCKET_PAD_STEPS) / 100)
+      frameIt->frame = 0;
+    else if(steps < (60 * ROCKET_PAD_STEPS) / 100)
+      frameIt->frame = 1;
+    else if(steps < (90 * ROCKET_PAD_STEPS) / 100)
+      frameIt->frame = 2;
+    else if(steps < (100 * ROCKET_PAD_STEPS) / 100)
+      frameIt->frame = 3;
+    else
+      frameIt->frame = 4;
+  }
+  else if(stage == LAUNCHING) {
+    if (real_time >= anim) {
+      anim = real_time + ANIM_THRESHOLD(ROCKET_ANIMATION_SPEED);
+      if(++frameIt->frame >= 6) {
+        stage = LAUNCH;
+      }
+      assert(frameIt->frame <= 6);
+    }
+  }
+  else if(stage == DONE) {
+    frameIt->frame = 7;
+  }
+}
+
+void RocketPad::launch_rocket() {
+  if(stage != AWAITING) {
+    std::cerr << "oopsie: It looks like you tried to launch a rocket that is"
+      << " not awaiting launch.\n";
+    return;
+  }
+  stage = LAUNCHING;
 }
 
 void RocketPad::compute_launch_result() {
@@ -157,7 +144,7 @@ void RocketPad::compute_launch_result() {
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */
     r = rand() % MAX_TECH_LEVEL;
-    if (r > tech_level || rand() % 100 > (rockets_launched * 15 + 25))
+    if (r > tech_level || r < tech || rand() % 100 > (rockets_launched * 15 + 25))
     {
         /* the launch failed */
         //display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
@@ -248,13 +235,44 @@ void RocketPad::remove_people(int num)
 void RocketPad::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_title(i++, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, N_("Overall Progress"), completion);
-    mps_store_sfp(i++, N_("Next Step"), step);
+    mps_store_sfp(i++, N_("Completion"), (double)steps / ROCKET_PAD_STEPS);
     // i++;
     list_commodities(&i);
+}
+
+void RocketPad::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech",  "%d", tech);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"steps", "%d", steps);
+  const char *stStr;
+  switch(stage) {
+  case BUILDING: stStr = "building"; break;
+  case AWAITING:
+  case LAUNCHING:
+  case LAUNCH:   stStr = "awaiting"; break;
+  case DONE:     stStr = "done";     break;
+  default:
+    throw std::runtime_error("unknown rocket stage");
+  }
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"stage", "%s", stStr);
+  Construction::save(xmlWriter);
+}
+
+bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  if     (tag == "tech")  tech  = std::stoi(xmlReader.read_inner_xml());
+  else if(tag == "steps") steps = std::stoi(xmlReader.read_inner_xml());
+  else if(tag == "stage") {
+    std::string stStr = xmlReader.read_inner_xml();
+    if     (stStr == "building") stage = BUILDING;
+    else if(stStr == "awaiting") stage = AWAITING;
+    else if(stStr == "done")     stage = DONE;
+    else throw std::runtime_error("unknown rocket stage");
+  }
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/rocket_pad.cpp */

@@ -43,8 +43,8 @@ WindmillConstructionGroup windmillConstructionGroup(
      GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction(int x, int y) {
-    return new Windmill(x, y, this);
+Construction *WindmillConstructionGroup::createConstruction() {
+  return new Windmill(this);
 }
 
 void Windmill::update()
@@ -83,12 +83,34 @@ void Windmill::animate() {
 void Windmill::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), float(busy) / lovolt_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), lovolt_output);
     // i++;
     list_commodities(&i);
+}
+
+void Windmill::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->lovolt_output = (int)(WINDMILL_LOVOLT +
+    (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
+}
+
+void Windmill::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool Windmill::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "kwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/windmill.cpp */

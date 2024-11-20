@@ -41,7 +41,6 @@
 #define FIRESTATION_ANIMATION_SPEED 250
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -70,39 +69,23 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a firestation
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern FireStationConstructionGroup fireStationConstructionGroup;
 
-class FireStation: public RegisteredConstruction<FireStation> { // FireStation inherits from RegisteredConstruction
+class FireStation: public Construction {
 public:
-    FireStation(int x, int y, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y)
-    {
+    FireStation(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->anim = 0;
         this->animate_enable = false;
         this->active = false;
-        setMemberSaved(&(this->active),"active");
         this->busy = 0;
         this->working_days = 0;
         this->daycount = 0;
-        setMemberSaved(&(this->daycount),"daycount");
         this->covercount = 0;
-        setMemberSaved(&(this->covercount),"covercount");
         initialize_commodities();
-
-        int tmp;
-        int lenm1 = world.len()-1;
-        tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;
-        tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp;
-        tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;
-        tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp;
 
         commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
         commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;
@@ -114,6 +97,9 @@ public:
     virtual void report() override;
     virtual void animate() override;
     void cover();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;
     int daycount, covercount;

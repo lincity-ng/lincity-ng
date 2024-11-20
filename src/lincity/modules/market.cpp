@@ -24,11 +24,13 @@
 
 #include "market.h"
 
-#include <cstdlib>                  // for size_t
-#include <vector>                   // for vector
+#include <algorithm>  // for max, min
+#include <cstdlib>    // for size_t
+#include <map>        // for map
+#include <vector>     // for vector
 
-#include "fire.h"                   // for FIRE_ANIMATION_SPEED
-#include "modules.h"
+#include "fire.h"     // for FIRE_ANIMATION_SPEED
+#include "modules.h"  // for CommodityRule, basic_string, Commodity, ExtraFrame
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -50,8 +52,8 @@ MarketConstructionGroup marketConstructionGroup(
 //MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
 
 
-Construction *MarketConstructionGroup::createConstruction(int x, int y) {
-    return new Market(x, y, this);
+Construction *MarketConstructionGroup::createConstruction() {
+  return new Market(this);
 }
 
 
@@ -170,13 +172,14 @@ void Market::update()
     {   cover();}
 }
 
-void Market::cover()
-{
-    for(int yy = ys; yy < ye; yy++)
-    {
-        for(int xx = xs; xx < xe; xx++)
-        {   world(xx,yy)->flags |= FLAG_MARKET_COVER;}
-    }
+void Market::cover() {
+  int xs = std::max(x - constructionGroup->range, 1);
+  int xe = std::min(x + constructionGroup->range, world.len() - 1);
+  int ys = std::max(y - constructionGroup->range, 1);
+  int ye = std::min(y + constructionGroup->range, world.len() - 1);
+  for(int yy = ys; yy < ye; yy++)
+  for(int xx = xs; xx < xe; xx++)
+    world(xx,yy)->flags |= FLAG_MARKET_COVER;
 }
 
 void Market::animate() {
@@ -213,7 +216,7 @@ void Market::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
@@ -244,6 +247,21 @@ void Market::report()
     } //endfor
 }
 
+void Market::init_resources() {
+  Construction::init_resources();
+
+  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+  waste_fire_frit->move_x = 0;
+  waste_fire_frit->move_y = 0;
+  waste_fire_frit->frame = -1;
+}
+
+void Market::place(int x, int y) {
+  Construction::place(x, y);
+  cover();
+}
+
 void Market::toggleEvacuation()
 {
     bool evacuate = flags & FLAG_EVACUATE; //actually the previous state
@@ -266,6 +284,37 @@ void Market::toggleEvacuation()
     flags &= ~FLAG_EVACUATE;
     if(!evacuate)
     {   flags |= FLAG_EVACUATE;}
+}
+
+void Market::save(xmlTextWriterPtr xmlWriter) {
+  const std::string givePfx("give_");
+  const std::string takePfx("take_");
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    CommodityRule& rule = commodityRuleCount[stuff];
+    if(!rule.maxload) continue;
+    const char *name = commodityStandardName(stuff);
+    xmlStr giveName = (xmlStr)(givePfx + name).c_str();
+    xmlStr takeName = (xmlStr)(takePfx + name).c_str();
+    xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
+    xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
+  }
+
+  Construction::save(xmlWriter);
+}
+
+bool Market::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  bool give;
+  Commodity stuff;
+  if(((give = tag.find("give_")) == 0 || tag.find("take_") == 0) &&
+    (stuff = commodityFromStandardName(tag.substr(5).c_str())) != STUFF_COUNT &&
+    commodityRuleCount[stuff].maxload
+  ) {
+    CommodityRule& rule = commodityRuleCount[stuff];
+    give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
+  }
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/market.cpp */

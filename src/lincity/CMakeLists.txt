@@ -26,10 +26,6 @@ add_library(lincity_lib  STATIC
 		lin-city.h
 		lintypes.cpp
 		lintypes.h
-		loadsave.cpp
-		loadsave.h
-		old_ldsvguts.cpp
-		old_ldsvguts.h
 		resources.cpp
 		resources.hpp
 		simulate.cpp
@@ -56,6 +52,7 @@ target_link_libraries(lincity_lib
 		LinCity::lib_modules
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		ZLIB::ZLIB
+		PkgConfig::libXMLPlusPlus
 		PRIVATE
 		tinygettext
 		LinCity::physfsstream

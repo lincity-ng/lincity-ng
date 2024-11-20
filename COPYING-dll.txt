@@ -33,6 +33,10 @@ falls under the custom license that covers that project.
 `libxml2-2.dll` is provided by Libxml2 (http://www.xmlsoft.org/) which is part
 of the GNOME project and falls under the MIT License.
 
+`libxml++-5.0-1.dll` is provided by libxml++
+(https://libxmlplusplus.github.io/libxmlplusplus/) and falls under the LGPL
+version 2 or above.
+
 `SDL2.dll` is provided by SDL (http://libsdl.org) and falls under the MIT
 License.
 

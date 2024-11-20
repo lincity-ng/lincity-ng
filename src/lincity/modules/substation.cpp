@@ -26,7 +26,6 @@
 
 #include <list>                     // for _List_iterator
 #include <map>                      // for map
-#include <string>                   // for basic_string, operator<
 
 #include "modules.h"
 
@@ -49,8 +48,8 @@ SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstruc
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 
 
-Construction *SubstationConstructionGroup::createConstruction(int x, int y) {
-    return new Substation(x, y, this);
+Construction *SubstationConstructionGroup::createConstruction() {
+  return new Substation(this);
 }
 
 void Substation::update()
@@ -84,7 +83,7 @@ void Substation::animate() {
 void Substation::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     // i++;
