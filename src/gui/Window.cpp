@@ -98,6 +98,16 @@ Window::parse(XmlReader& reader)
                 msg << "Couldn't parse titlesize attribute (" << value << ").";
                 throw std::runtime_error(msg.str());
             }
+        } else if(!strcmp(name, "resizable")) {
+          if(!strcmp(value, "yes"))
+            setFlags(FLAG_RESIZABLE);
+          else if(!strcmp(value, "no")) {
+            clearFlags(FLAG_RESIZABLE);
+          }
+          else {
+            std::cerr << "warning: unknown value '" << value
+              << "' for attribute '" << name << "'\n";
+          }
         } else {
             std::cerr << "Unknown attribute '" << name << "' skipped.\n";
         }
@@ -131,7 +141,7 @@ Window::parse(XmlReader& reader)
         }
     }
 
-    reLayout();
+    Component::resize(getSize());
 
     // connect signals...
     if(closeButton().getComponent() != 0) {

@@ -45,11 +45,13 @@ set(guiDialogSourceFiles
   windmillup.xml
 )
 
+set(xslFiles dialogs.xsl)
+
 foreach(guiDialogSourceFile ${guiDialogSourceFiles})
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiDialogSourceFile} ${guiDialogSourceFile}
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiDialogSourceFile}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiDialogSourceFile} ${xslFiles}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Converting dialogs/${guiDialogSourceFile}"
   )

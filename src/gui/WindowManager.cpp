@@ -180,7 +180,9 @@ WindowManager::event(const Event& event) {
           dragEdge = Edge::NONE;
           desktop->tryClearCursor(this);
         }
-        else if(edge && (edge != dragEdge || window != dragWindow)) {
+        else if(edge && (edge != dragEdge || window != dragWindow) &&
+          (window->getFlags() & FLAG_RESIZABLE || edge == Edge::NSWE)
+        ) {
           dragWindow = window;
           dragEdge = edge;
           int cursorId = SDL_SYSTEM_CURSOR_SIZENWSE;

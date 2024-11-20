@@ -21,11 +21,13 @@ set(guiSourceFiles
   too-old.xml
 )
 
+set(xslFiles identity.xsl)
+
 foreach(guiSourceFile ${guiSourceFiles})
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile} ${xslFiles}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Converting ${guiSourceFile}"
   )
