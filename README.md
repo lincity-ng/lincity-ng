@@ -119,10 +119,12 @@ LinCity-NG 2.13.0 comes with a completely new load/save system that is,
 unfortunately, not backward compatible. (Some old code just needed to go.) The
 good news is all your hard work toward your super-city-utopia is not lost.
 
-You can use the script at `contrib/ldsv-format-convert/1328-to-2130.sh` to
-convert your game to the new format. The script converts games saved with
-Lincity-NG 2.12.x. And the script is likely to also work with games created with
-earlier versions if you had "binary saving" and "seed saving" options disabled.
+You can use the script located at `contrib/ldsv-format-convert/1328-to-2130.sh`
+in the source code (or `/usr/share/lincity-ng/1328-to-2130.sh` on GNU/Linux
+systems) to convert your game to the new format. The script converts games saved
+with Lincity-NG 2.12.x. And the script is likely to also work with games created
+with earlier versions if you had "binary saving" and "seed saving" options
+disabled.
 
 Before using the script, first make a backup of the games you want to convert:
 ```
@@ -144,13 +146,14 @@ If the script gives an error, then most likely the game was saved in a format
 that is incompatible with the script. To fix this, fire up a compatible version
 of LinCity-NG (2.12.x recommended, but prior versions may work if
 "binary saving" and "seed saving" are disabled), and load then save your game.
-Once you do this, then the recently-saved game should work with the script.
+Once you do this, the recently-saved game should work with the script.
 
 After using the script to convert your game, upon loading it with version
 2.13.x, you should not see any warnings in the console -- particularly warnings
 about unexpected elements. If you see any warnings, then please [report the
 issue](https://github.com/lincity-ng/lincity-ng/issues/new) and include the file
-you were trying to load.
+you were trying to load. Such warnings could be indicative of critical errors in
+the conversion script.
 
 ## Contact
 
