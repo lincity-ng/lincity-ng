@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "ComponentLoader.hpp"   // for parseEmbeddedComponent
 #include "Painter.hpp"           // for Painter
+#include "Style.hpp"
 #include "TextureManager.hpp"    // for TextureManager, texture_manager
 #include "Vector2.hpp"           // for Vector2
 #include "XmlReader.hpp"         // for XmlReader
@@ -43,7 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * Class constructor.
  */
 Panel::Panel()
-	: background(0)
+  : background(0)
 {
 }
 
@@ -84,19 +85,40 @@ Panel::parse(XmlReader& reader)
                 msg << "Parse error when parsing height (" << value << ")";
                 throw std::runtime_error(msg.str());
             }
+        } else if(!strcmp(attribute, "resizable")) {
+          if(!strcmp(value, "yes") || !strcmp(value, "true")) {
+            setFlags(FLAG_RESIZABLE);
+          }
+          else if(!strcmp(value, "no") || !strcmp(value, "false")) {
+            clearFlags(FLAG_RESIZABLE);
+          }
+          else {
+            throw std::runtime_error(std::string() +
+              "invalid value for attribute resizable: '" + value + "'");
+          }
         } else {
             std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
         }
     }
 
-    if(width <= 0 || height <= 0) {
-        throw std::runtime_error("invalid width/height");
+    int depth = reader.getDepth();
+    while(reader.read() && reader.getDepth() > depth) {
+      if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+        std::string element = (const char*) reader.getName();
+        if(element == "DefineStyle") {
+          parseStyleDef(reader);
+        } else {
+          Component* component = createComponent(element, reader);
+          addChild(component);
+        }
+      }
     }
 
-    Component* component = parseEmbeddedComponent(reader);
-    addChild(component);
-    if(component->getFlags() & FLAG_RESIZABLE) {
-        component->resize(width, height);
+    if(width > 0 && height > 0) {
+      resize(width, height);
+    }
+    else if(!(getFlags() & FLAG_RESIZABLE)) {
+      throw std::runtime_error("invalid width/height");
     }
 }
 
@@ -134,6 +156,24 @@ Panel::opaque(const Vector2& pos) const
     }
 
     return false;
+}
+
+void
+Panel::resize(float width, float height) {
+  if(!(getFlags() && FLAG_RESIZABLE)) return;
+
+  for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+    Component* component = i->getComponent();
+    if(component->getFlags() & FLAG_RESIZABLE) {
+      component->resize(width, height);
+    }
+    else {
+      assert(false);
+    }
+  }
+  this->width = width;
+  this->height = height;
+  Component::setDirty();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Panel)
