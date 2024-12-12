@@ -114,4 +114,5 @@
     <Import src="gui/credits.xml"/>
     <Import src="gui/options.xml"/>
   </SwitchComponent>
+  <WindowManager name="windowManager"/>
 </gui>
