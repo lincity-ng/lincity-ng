@@ -79,7 +79,7 @@ void render()
 int main(void)
 {
     char *fname;
-    fname = (char *) "random_land.scn";
+		fname = (char *) "random_land.scn.gz";
 
 #ifdef DEBUG
 	// Fix random seed for easier debug
@@ -157,7 +157,7 @@ int main(void)
 					break;
 				case SDLK_f:
 					// 5 : file (save)
-                    			save_city_2(fname);
+													saveGame(fname);
 					redraw = false;
 					break;
 				}

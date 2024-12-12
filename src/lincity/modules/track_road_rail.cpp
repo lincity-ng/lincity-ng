@@ -24,12 +24,13 @@
 
 #include "track_road_rail.h"
 
-#include <stdlib.h>                 // for rand
-#include <vector>                   // for vector
+#include <stdlib.h>              // for rand
+#include <map>                   // for map
+#include <vector>                // for vector
 
-#include "fire.h"                   // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Sound.hpp"     // for getSound, Sound
-#include "modules.h"
+#include "fire.h"                // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Sound.hpp"  // for getSound, Sound
+#include "modules.h"             // for Commodity, basic_string, ExtraFrame
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -120,9 +121,8 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-Construction *TransportConstructionGroup::createConstruction(int x, int y)
-{
-    return new Transport(x, y, this);
+Construction *TransportConstructionGroup::createConstruction() {
+  return new Transport(this);
 }
 
 void Transport::update()
@@ -211,7 +211,7 @@ void Transport::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, subgroupID);
+    mps_store_title(i++, constructionGroup->name);
     i++;
     if(mps_map_page == 1)
     {
@@ -265,5 +265,46 @@ bool Transport::canPlaceVehicle() {
   return true;
 }
 
+void Transport::init_resources() {
+  Construction::init_resources();
+
+  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
+  waste_fire_frit->move_x = 0;
+  waste_fire_frit->move_y = 0;
+  waste_fire_frit->frame = -1;
+}
+
+void Transport::place(int x, int y) {
+  Construction::place(x, y);
+
+  // set the constructionGroup to build bridges iff over water
+  if(world(x,y)->is_water()) {
+    switch (constructionGroup->group) {
+      case GROUP_TRACK:
+        constructionGroup = &trackbridgeConstructionGroup;
+      break;
+      case GROUP_ROAD:
+        constructionGroup = &roadbridgeConstructionGroup;
+      break;
+      case GROUP_RAIL:
+        constructionGroup = &railbridgeConstructionGroup;
+      break;
+    }
+  }
+  else {
+    switch (constructionGroup->group) {
+      case GROUP_TRACK_BRIDGE:
+        constructionGroup = &trackConstructionGroup;
+      break;
+      case GROUP_ROAD_BRIDGE:
+        constructionGroup = &roadConstructionGroup;
+      break;
+      case GROUP_RAIL_BRIDGE:
+        constructionGroup = &railConstructionGroup;
+      break;
+    }
+  }
+}
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

@@ -50,9 +50,8 @@ CoalmineConstructionGroup coalmineConstructionGroup(
 //CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
 //CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
-Construction *CoalmineConstructionGroup::createConstruction(int x, int y)
-{
-    return new Coalmine(x, y, this);
+Construction *CoalmineConstructionGroup::createConstruction() {
+  return new Coalmine(this);
 }
 
 void Coalmine::update()
@@ -144,11 +143,54 @@ void Coalmine::animate() {
 void Coalmine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
     // i++;
     list_commodities(&i);
+}
+
+void Coalmine::place(int x, int y) {
+  Construction::place(x, y);
+
+  int coal = 0;
+  int lenm1 = world.len()-1;
+  int tmp;
+  tmp = x - constructionGroup->range;
+  this->xs = (tmp < 1) ? 1 : tmp;
+  tmp = y - constructionGroup->range;
+  this->ys = (tmp < 1) ? 1 : tmp;
+  tmp = x + constructionGroup->range + constructionGroup->size;
+  this->xe = (tmp > lenm1) ? lenm1 : tmp;
+  tmp = y + constructionGroup->range + constructionGroup->size;
+  this->ye = (tmp > lenm1) ? lenm1 : tmp;
+
+  for(int yy = ys; yy < ye ; yy++)
+  for (int xx = xs; xx < xe ; xx++)
+    coal += world(xx,yy)->coal_reserve;
+
+  //always provide some coal so player can
+  //store sustainable coal before the mine is deleted
+  if (coal < 20)
+  {
+      world(x,y)->coal_reserve += 20-coal;
+      coal = 20;
+  }
+
+  this->initial_coal_reserve = coal;
+  this->current_coal_reserve = coal;
+}
+
+void Coalmine::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
+  Construction::save(xmlWriter);
+}
+
+bool Coalmine::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/coalmine.cpp */

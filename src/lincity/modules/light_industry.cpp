@@ -24,10 +24,12 @@
 
 #include "light_industry.h"
 
-#include <stdlib.h>                 // for rand
-#include <vector>                   // for vector
+#include <stdlib.h>   // for rand
+#include <iterator>   // for advance
+#include <map>        // for map
+#include <vector>     // for vector
 
-#include "modules.h"
+#include "modules.h"  // for Commodity, basic_string, ExtraFrame, allocator
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
@@ -50,8 +52,8 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
 //IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
 //IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
-Construction *IndustryLightConstructionGroup::createConstruction(int x, int y ) {
-    return new IndustryLight(x, y, this);
+Construction *IndustryLightConstructionGroup::createConstruction() {
+  return new IndustryLight(this);
 }
 
 void IndustryLight::update()
@@ -175,12 +177,73 @@ void IndustryLight::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     // i++;
     list_commodities(&i);
+}
+
+void IndustryLight::init_resources() {
+  Construction::init_resources();
+
+  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
+  std::list<ExtraFrame>::iterator frit = frameIt;
+  std::advance(frit, 1);
+  fr_begin = frit;
+  frit = frameIt;
+  std::advance(frit, 1);
+  frit->move_x = -113;
+  frit->move_y = -210;
+  std::advance(frit, 1);
+  frit->move_x = -84;
+  frit->move_y = -198;
+  std::advance(frit, 1);
+  fr_end = frit;
+  for(frit = fr_begin;
+    frit != world(x,y)->framesptr->end() && frit != fr_end;
+    std::advance(frit, 1)
+  ) {
+    frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
+    frit->frame = -1; // hide smoke
+  }
+}
+
+void IndustryLight::place(int x, int y) {
+  Construction::place(x, y);
+
+  if (tech > MAX_TECH_LEVEL) {
+    bonus = (tech - MAX_TECH_LEVEL);
+    if (bonus > MAX_TECH_LEVEL)
+      bonus = MAX_TECH_LEVEL;
+    bonus /= MAX_TECH_LEVEL;
+    // check for filter technology bonus
+    if (tech > 2 * MAX_TECH_LEVEL) {
+      extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+      if (extra_bonus > MAX_TECH_LEVEL)
+        extra_bonus = 1;
+      else
+        extra_bonus /= MAX_TECH_LEVEL;
+    }
+  }
+
+  commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+    INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
+}
+
+void IndustryLight::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool IndustryLight::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "bonus");
+  else if(name == "extra_bonus");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/light_industry.cpp */

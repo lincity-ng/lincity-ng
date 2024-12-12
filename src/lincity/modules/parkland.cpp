@@ -24,8 +24,6 @@
 
 #include "parkland.h"
 
-#include <string>                   // for basic_string
-
 #include "modules.h"
 
 // Parkland:
@@ -57,8 +55,8 @@ ParklandConstructionGroup parkpondConstructionGroup(
      GROUP_PARKLAND_RANGE
 );
 
-Construction *ParklandConstructionGroup::createConstruction(int x, int y) {
-    return new Parkland(x, y, this);
+Construction *ParklandConstructionGroup::createConstruction() {
+  return new Parkland(this);
 }
 
 void Parkland::update()
@@ -71,7 +69,7 @@ void Parkland::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
 }

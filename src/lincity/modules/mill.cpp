@@ -25,7 +25,6 @@
 #include "mill.h"
 
 #include <list>                     // for _List_iterator
-#include <string>                   // for basic_string
 #include <vector>                   // for vector
 
 #include "modules.h"
@@ -45,8 +44,8 @@ MillConstructionGroup millConstructionGroup(
     GROUP_MILL_RANGE
 );
 
-Construction *MillConstructionGroup::createConstruction(int x, int y) {
-    return new Mill(x, y, this);
+Construction *MillConstructionGroup::createConstruction() {
+  return new Mill(this);
 }
 
 void Mill::update()
@@ -95,7 +94,7 @@ void Mill::animate() {
 void Mill::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), (float) busy);
     // i++;
     list_commodities(&i);

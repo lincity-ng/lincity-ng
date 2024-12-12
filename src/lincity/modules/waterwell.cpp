@@ -24,8 +24,6 @@
 
 #include "waterwell.h"
 
-#include <string>                   // for basic_string
-
 #include "modules.h"
 
 WaterwellConstructionGroup waterwellConstructionGroup(
@@ -42,8 +40,8 @@ WaterwellConstructionGroup waterwellConstructionGroup(
      GROUP_WATERWELL_RANGE
 );
 
-Construction *WaterwellConstructionGroup::createConstruction(int x, int y) {
-    return new Waterwell(x, y, this);
+Construction *WaterwellConstructionGroup::createConstruction() {
+  return new Waterwell(this);
 }
 
 void Waterwell::update()
@@ -68,7 +66,7 @@ void Waterwell::report()
 
     const char *p;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), busy);
@@ -76,6 +74,17 @@ void Waterwell::report()
     p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?N_("No"):N_("Yes");
     mps_store_ss(i++, N_("Drinkable"), p);
     list_commodities(&i);
+}
+
+void Waterwell::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->ugwCount = 0;
+  for(int yy = y; yy < y + constructionGroup->size; yy++)
+  for(int xx = x; xx < x + constructionGroup->size; xx++)
+    if(world(xx, yy)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+  this->water_output = this->ugwCount * WATER_PER_UGW;
 }
 
 /** @file lincity/modules/waterwell.cpp */

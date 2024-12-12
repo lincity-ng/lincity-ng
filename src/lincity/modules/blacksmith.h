@@ -83,17 +83,15 @@ public:
         commodityRuleCount[STUFF_GOODS].give = true;
     }
     // overriding method that creates a blacksmith
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern BlacksmithConstructionGroup blacksmithConstructionGroup;
 
-class Blacksmith: public RegisteredConstruction<Blacksmith> { // Blacksmith inherits from its RegisteredConstruction
+class Blacksmith: public Construction {
 public:
-    Blacksmith(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Blacksmith>(x, y)
-    {
+    Blacksmith(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->anim = 0;
         this->pauseCounter = 0;
         this->busy = 0;
