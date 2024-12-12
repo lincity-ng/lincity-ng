@@ -45,9 +45,9 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_RANGE
 );
 
-Construction *OremineConstructionGroup::createConstruction(int x, int y)
+Construction *OremineConstructionGroup::createConstruction()
 {
-    return new Oremine(x, y, this);
+  return new Oremine(this);
 }
 
 void Oremine::update()
@@ -144,11 +144,35 @@ void Oremine::animate() {
 void Oremine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     // i++;
     list_commodities(&i);
+}
+
+void Oremine::place(int x, int y) {
+  Construction::place(x, y);
+
+  int ore = 0;
+  for(int yy = y; yy < y + constructionGroup->size; yy++)
+  for(int xx = x; xx < x + constructionGroup->size; xx++)
+    ore += world(xx,yy)->ore_reserve;
+  if(ore < 1)
+    ore = 1;
+  this->total_ore_reserve = ore;
+}
+
+void Oremine::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
+  Construction::save(xmlWriter);
+}
+
+bool Oremine::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/oremine.cpp */

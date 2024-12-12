@@ -103,7 +103,7 @@ void Game::showHelpWindow( std::string topic ){
 void Game::backToMainMenu(){
     closeAllDialogs();
     getButtonPanel()->selectQueryTool();
-    saveCityNG( "9_currentGameNG.scn" );
+    saveCityNG( "9_currentGameNG.scn.gz" );
     running = false;
     quitState = MAINMENU;
 }
@@ -128,8 +128,7 @@ void Game::quickLoad(){
 
     //load file
     getGameView()->printStatusMessage( "quick load...");
-    std::string filename;
-    filename.append( "quicksave.scn" );
+    std::string filename("quicksave.scn.gz");
     if( loadCityNG( filename ) ){
           getGameView()->printStatusMessage( "quick load successful.");
     } else {
@@ -140,7 +139,7 @@ void Game::quickLoad(){
 void Game::quickSave(){
     //save file
     getGameView()->printStatusMessage( "quick save...");
-    saveCityNG( "quicksave.scn" );
+    saveCityNG("quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){
@@ -311,7 +310,7 @@ Game::run()
                     break;
                 }
                 case SDL_QUIT:
-                    saveCityNG( "9_currentGameNG.scn" );
+                    saveCityNG( "9_currentGameNG.scn.gz" );
                     running = false;
                     quitState = QUIT;
                     break;

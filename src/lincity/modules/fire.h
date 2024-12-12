@@ -38,7 +38,6 @@
 #define AFTER_FIRE_LENGTH (NUMOF_DAYS_IN_YEAR*10)
 
 #include <stdlib.h>                 // for rand
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -58,30 +57,27 @@ public:
 
     };
     // overriding method that creates a Fire
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern FireConstructionGroup fireConstructionGroup;
 //extern FireConstructionGroup fireWasteLandConstructionGroup;
 
-class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
+class Fire: public Construction {
 public:
-    Fire(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y)
-    {
+    Fire(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->burning_days = 0;
-        setMemberSaved(&this->burning_days, "burning_days");
         this->smoking_days = 0;
-        setMemberSaved(&this->smoking_days, "smoking_days");
-        // this->anim = 0;
+        this->anim = 0;
         this->days_before_spread = FIRE_DAYS_PER_SPREAD;
-        setMemberSaved(&this->days_before_spread, "days_before_spread");
-
     }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int burning_days;
     int smoking_days;

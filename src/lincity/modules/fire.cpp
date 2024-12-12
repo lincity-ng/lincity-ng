@@ -50,8 +50,8 @@ FireConstructionGroup fireConstructionGroup(
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 //FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
-Construction *FireConstructionGroup::createConstruction(int x, int y) {
-    return new Fire(x, y, this);
+Construction *FireConstructionGroup::createConstruction() {
+  return new Fire(this);
 }
 
 void Fire::update()
@@ -125,13 +125,29 @@ void Fire::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sd(i++,N_("Air Pollution"), world(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)
     {   mps_store_sddp(i++,N_("burnt down"), burning_days, FIRE_LENGTH);}
     else
     {   mps_store_sddp(i++,N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);}
+}
+
+void Fire::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"burning_days",       "%d", burning_days);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"smoking_days",       "%d", smoking_days);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"days_before_spread", "%d", days_before_spread);
+  Construction::save(xmlWriter);
+}
+
+bool Fire::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "burning_days")       burning_days       = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "smoking_days")       smoking_days       = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "days_before_spread") days_before_spread = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/fire.cpp */

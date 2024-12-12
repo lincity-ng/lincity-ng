@@ -68,7 +68,6 @@
 
 #include <array>                    // for array
 #include <map>                      // for map
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -121,17 +120,15 @@ public:
     std::map<Commodity, int> commodityRates;
     std::array<CommodityRule, STUFF_COUNT> tradeRule;
     // overriding method that creates a Port
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern PortConstructionGroup portConstructionGroup;
 
-class Port: public RegisteredConstruction<Port> { // park inherits from Construction
+class Port: public Construction {
 public:
-    Port(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y)
-    {
+    Port(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->daily_ic = 0; this->daily_et = 0;
         this->monthly_ic = 0; this->monthly_et = 0;
         this->lastm_ic = 0; this->lastm_et = 0;
@@ -139,7 +136,6 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->tech_made = 0;
-        setMemberSaved(&this->tech_made, "tech_made");
         initialize_commodities();
         //local copy of commodityRuleCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
@@ -160,7 +156,6 @@ public:
         commodityRuleCount[STUFF_ORE].give = false;
         commodityRuleCount[STUFF_STEEL].take = false;
         commodityRuleCount[STUFF_STEEL].give = false;
-        setCommodityRulesSaved(&commodityRuleCount);
 
         commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
         for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
@@ -176,9 +171,14 @@ public:
     virtual ~Port() { }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+
     int buy_stuff(Commodity stuff_ID);
     int sell_stuff(Commodity stuff_ID);
     void trade_connection();
+
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
     int daily_ic, monthly_ic, lastm_ic; //import cost
     int daily_et, monthly_et, lastm_et; //export tax

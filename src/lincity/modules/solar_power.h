@@ -37,7 +37,6 @@
 #define MAX_HIVOLT_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -64,39 +63,30 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     };
     // overriding method that creates a Solar Power Plant
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
-class SolarPower: public RegisteredConstruction<SolarPower> { // park inherits from RegisteredConstruction
+class SolarPower: public Construction {
 public:
-    SolarPower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y)
-    {
+    SolarPower(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
     }
 
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-        this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
-          (((double)tech * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-
-        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
     virtual void update() override;
     virtual void report() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+
     int  hivolt_output;
     int  tech;
     int  working_days, busy;
