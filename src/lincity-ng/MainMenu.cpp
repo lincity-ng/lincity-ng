@@ -985,7 +985,6 @@ MainMenu::run()
     quitState = QUIT;
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
-    Uint32 lastRedrawTicks = fpsTicks;
     int frame = 0;
     while(running)
     {
@@ -1049,18 +1048,9 @@ MainMenu::run()
         currentMenu->event(Event(elapsedTime));
         lastticks = ticks;
 
-        /* We unconditionally redraw every ~100 ms as workaround for an SDL bug
-         * under Wayland, in which window resizing is not communicated to the
-         * program until it redraws the window. When this bug is no longer
-         * present, this behavior should be safe to remove */
-        if (ticks - lastRedrawTicks > 90) {
-             currentMenu->reLayout();
-        }
-
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             painter->updateScreen();
-            lastRedrawTicks = ticks;
         }
 
         frame++;
