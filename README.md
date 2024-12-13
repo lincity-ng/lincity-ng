@@ -47,7 +47,7 @@ for a different version than what you are building can cause build failures.
 
 * zlib 1.0 or later
 
-  http://www.gzip.org/zlib/
+  https://zlib.net/
 
 * libxml 2.6.11 or later
 
