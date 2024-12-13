@@ -18,7 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainMenu.hpp"
 
-#include <SDL.h>                           // for SDL_GetWindowSize, SDL_Get...
+#include <SDL.h>                           // for SDL_GetTicks, SDL_GetWindo...
+#include <assert.h>                        // for assert
 #include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
 #include <stdio.h>                         // for fprintf, remove, size_t
 #include <stdlib.h>                        // for abs, atoi, unsetenv
@@ -28,7 +29,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iomanip>                         // for operator<<, setfill, setw
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream, basic_...
-#include <stdexcept>                       // for runtime_error
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
@@ -42,15 +42,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/DialogBuilder.hpp"
+#include "gui/DialogBuilder.hpp"           // for DialogBuilder
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Signal.hpp"                  // for Signal
-#include "gui/SwitchComponent.hpp"
-#include "gui/WindowManager.hpp"
+#include "gui/SwitchComponent.hpp"         // for SwitchComponent
+#include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-#include "lincity/engglobs.h"              // for world
+#include "lincity/engglobs.h"              // for world, total_money, total_...
 #include "lincity/init_game.h"             // for new_city, city_settings
 #include "lincity/world.h"                 // for World
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager

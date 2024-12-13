@@ -18,18 +18,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainLincity.hpp"
 
-#include <cassert>
 #include <physfs.h>                          // for PHYSFS_getDirSeparator
 #include <stdio.h>                           // for fclose, fopen, FILE
 #include <stdlib.h>                          // for srand
 #include <time.h>                            // for time
+#include <cassert>                           // for assert
+#include <exception>                         // for exception
 #include <iostream>                          // for basic_ostream, operator<<
 #include <stdexcept>                         // for runtime_error
 
 #include "Game.hpp"                          // for getGame
 #include "GameView.hpp"                      // for getGameView, GameView
 #include "TimerInterface.hpp"                // for reset_start_time
-#include "gui/DialogBuilder.hpp"
+#include "gui/DialogBuilder.hpp"             // for DialogBuilder
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
 #include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale

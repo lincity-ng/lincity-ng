@@ -23,19 +23,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Panel.hpp"
 
+#include <assert.h>              // for assert
+#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <iostream>              // for char_traits, operator<<, basic_ostream
+#include <iostream>              // for operator<<, basic_ostream, stringstream
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
-#include <string>                // for basic_string
+#include <string>                // for char_traits, allocator, basic_string
 #include <vector>                // for vector
 
-#include "Child.hpp"             // for Child, Childs
+#include "Child.hpp"             // for Childs, Child
 #include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "ComponentLoader.hpp"   // for createComponent
 #include "Painter.hpp"           // for Painter
-#include "Style.hpp"
+#include "Style.hpp"             // for parseStyleDef
 #include "TextureManager.hpp"    // for TextureManager, texture_manager
 #include "Vector2.hpp"           // for Vector2
 #include "XmlReader.hpp"         // for XmlReader
