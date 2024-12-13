@@ -160,8 +160,6 @@ Panel::opaque(const Vector2& pos) const
 
 void
 Panel::resize(float width, float height) {
-  if(!(getFlags() && FLAG_RESIZABLE)) return;
-
   for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
     Component* component = i->getComponent();
     if(component->getFlags() & FLAG_RESIZABLE) {

@@ -5,6 +5,7 @@ set(guiSourceFiles
   buttonpanel.xml
   creditslist.xml
   credits.xml
+  dialog.xml
   helpwindow.xml
   loadgame.xml
   mainmenu.xml

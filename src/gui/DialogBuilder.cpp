@@ -41,7 +41,9 @@
 
 WindowManager *DialogBuilder::defaultWm = NULL;
 
-DialogBuilder::DialogBuilder() {
+DialogBuilder::DialogBuilder() :
+  _image(NULL), _windowManager(NULL)
+{
   _message = new Document();
 }
 
@@ -142,9 +144,11 @@ DialogBuilder::build() {
   title->setText(_titleText);
 
   messageChild->setComponent(_message);
+  _message = NULL;
 
   if(_image) {
     imageChild->setComponent(_image);
+    _image = NULL;
   }
 
   if(!_windowManager)

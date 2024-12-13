@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <Window xmlns="http://lincity-ng.berlios.de/gui" border="5" titlesize="25" width="700" height="200">
   <title>
     <Document>
