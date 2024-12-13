@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
-<gui>
+<Panel name="newgame-menu" resizable="true">
     <DefineStyle name="random-button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
     <Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
@@ -186,4 +186,4 @@
         </TableLayout>
         </cell>
     </TableLayout>
-</gui>
+</Panel>

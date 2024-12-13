@@ -29,6 +29,7 @@ class TextReader;
 }  // namespace xmlpp
 
 #define LOADSAVE_VERSION_CURRENT 2130
+#define LOADSAVE_VERSION_COMPAT 2130
 
 typedef const unsigned char *xmlStr;
 typedef unsigned char *xmlMStr;

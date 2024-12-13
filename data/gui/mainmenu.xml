@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <gui>
+    <!-- TODO move these elsewhere once the system allows that -->
+    <DefineStyle name="title" color="white" font-size="20" margin-left="7"/>
+    <DefineStyle name="message" color="black" font-size="16"
+      margin-left="10" margin-right="10"/>
+    <DefineStyle name="messagebold" color="black" font-size="20"
+      font-weight="bold" margin-bottom="10"/>
+
     <!--
     <DefineStyle name="normal" color="white" font-size="30"/>
     <DefineStyle name="hover" color="#339fe6" font-size="30"/>
@@ -34,9 +41,10 @@
     <DefineStyle name="button-hover" color="red" font-size="30" margin-top="3"/>
     <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"/>
 -->
-
-    <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
-    <TableLayout rows="8" cols="3">
+  <SwitchComponent name="menu-switch">
+    <Panel name="main-menu" resizable="yes">
+      <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
+      <TableLayout rows="8" cols="3">
         <colsize col="1" relative="1"/>
         <colsize col="2" relative="0.5"/>
         <colsize col="3" relative="1"/>
@@ -105,6 +113,13 @@
                 <image-clicked src="images/mainmenu/buttons/quit-clicked.png"/>
             </Button>
         </cell>
-    </TableLayout>
+      </TableLayout>
+    </Panel>
+    <Import src="gui/newgame.xml"/>
+    <Import src="gui/loadgame.xml"/>
+    <Import src="gui/savegame.xml"/>
+    <Import src="gui/credits.xml"/>
+    <Import src="gui/options.xml"/>
+  </SwitchComponent>
+  <WindowManager name="windowManager"/>
 </gui>
-

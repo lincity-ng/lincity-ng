@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
-<gui>
+<Panel name="savegame-menu" resizable="true">
 	<Image src="images/mainmenu/loadsave_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
 	<TableLayout rows="3" cols="1" >
@@ -106,4 +106,4 @@
 		</TableLayout>
 		</cell>
 	</TableLayout>
-</gui>
+</Panel>

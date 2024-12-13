@@ -31,6 +31,7 @@ class CheckButton;
 class Component;
 class Desktop;
 class Paragraph;
+class SwitchComponent;
 
 class MainMenu
 {
@@ -53,6 +54,7 @@ private:
 
     void fillLoadMenu( bool save = false );
     void fillNewGameMenu();
+    void fillOptionsMenu();
 
     void creditsBackButtonClicked(Button* );
     void optionsBackButtonClicked(Button* );
@@ -77,13 +79,14 @@ private:
     void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
 
-    std::unique_ptr<Component> mainMenu;
-    std::unique_ptr<Component> newGameMenu;
-    std::unique_ptr<Component> loadGameMenu;
-    std::unique_ptr<Component> saveGameMenu;
-    std::unique_ptr<Component> creditsMenu;
-    std::unique_ptr<Component> optionsMenu;
-    Desktop* currentMenu;
+    std::unique_ptr<Desktop> menu;
+    SwitchComponent *menuSwitch;
+    Component *mainMenu;
+    Component *newGameMenu;
+    Component *loadGameMenu;
+    Component *saveGameMenu;
+    Component *creditsMenu;
+    Component *optionsMenu;
 
     bool running;
     MainState quitState;

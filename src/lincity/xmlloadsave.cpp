@@ -165,6 +165,12 @@ void loadGame(std::string filename) {
     else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
     else if(xmlReader.get_name() == "lc-game")
       break;
+    else if(xmlReader.get_name() == "SaveGame") {
+      // detected pre-2.13.0 format
+      throw std::runtime_error(
+        std::string("Detected a load/save format that is too old.") +
+        " See the readme for how to update the load/save format.");
+    }
     else
       unexpectedXmlElement(xmlReader);
     xmlReader.next();
@@ -176,7 +182,9 @@ void loadGame(std::string filename) {
     throw std::runtime_error("failed to parse load/save version");
   ldsv_version = std::stoi(versionStr);
   if(ldsv_version > LOADSAVE_VERSION_CURRENT)
-    throw std::runtime_error("load/save version too high");
+    throw std::runtime_error("load/save version too new");
+  else if(ldsv_version < LOADSAVE_VERSION_COMPAT)
+    throw std::runtime_error("load/save version too old");
 
   // parse sections
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
