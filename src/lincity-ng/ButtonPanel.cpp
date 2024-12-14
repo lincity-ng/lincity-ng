@@ -49,10 +49,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"   // for MODERN_WINDMILL_TECH, Wind...
 #include "tinygettext/gettext.hpp"         // for _
 
-#ifdef DEBUG
-#include <assert.h>                        // for assert
-#endif
-
 class Painter;
 class Vector2;
 
