@@ -55,12 +55,10 @@
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
 #define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
 
-#include <array>                    // for array
-#include <list>                     // for _List_iterator, list
-#include <map>                      // for map
-#include <string>                   // for basic_string, operator<
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ConstructionGroup
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:
@@ -101,22 +99,15 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a Shanty
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern ShantyConstructionGroup shantyConstructionGroup;
 
-class Shanty: public RegisteredConstruction<Shanty> { // Shanty inherits from Construction
+class Shanty: public Construction {
 public:
-    Shanty(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Shanty>(x, y)
-    {
+    Shanty(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
@@ -141,6 +132,8 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
 
     int anim;
     bool start_burning_waste;

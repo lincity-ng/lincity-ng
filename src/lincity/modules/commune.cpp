@@ -26,7 +26,6 @@
 
 #include <cstdlib>                        // for rand
 #include <list>                           // for _List_iterator
-#include <string>                         // for basic_string
 #include <vector>                         // for vector
 
 #include "lincity/ConstructionManager.h"  // for ConstructionManager
@@ -47,8 +46,8 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction(int x, int y) {
-    return new Commune(x, y, this);
+Construction *CommuneConstructionGroup::createConstruction() {
+  return new Commune(this);
 }
 
 void Commune::update()
@@ -153,7 +152,7 @@ void Commune::animate() {
 void Commune::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
     mps_store_sd(i++, N_("Pollution"), world(x,y)->pollution);
@@ -162,6 +161,23 @@ void Commune::report()
     else
     {   mps_store_title(i++, "");}
     list_commodities(&i);
+}
+
+void Commune::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->ugwCount = 0;
+  for(int i = 0; i < constructionGroup->size; i++)
+  for (int j = 0; j < constructionGroup->size; j++)
+    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+
+  if (this->ugwCount < 16 / 3)
+  {   this->coalprod = COMMUNE_COAL_MADE/3;}
+  else if (this->ugwCount < (2 * 16) / 3)
+  {   this->coalprod = COMMUNE_COAL_MADE/2;}
+  else
+  {   this->coalprod = COMMUNE_COAL_MADE;}
 }
 
 /** @file lincity/modules/commune.cpp */

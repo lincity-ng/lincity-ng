@@ -54,7 +54,6 @@
 #include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
 #include "lincity-ng/Permutator.hpp"       // for Permutator
 #include "lintypes.h"                      // for Construction, Construction...
-#include "loadsave.h"                      // for given_scene
 #include "modules/all_modules.h"           // for CommuneConstructionGroup
 #include "resources.hpp"                   // for ExtraFrame
 #include "stats.h"                         // for init_inventory

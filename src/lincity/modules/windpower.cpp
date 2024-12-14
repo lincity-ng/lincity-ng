@@ -46,8 +46,8 @@ WindpowerConstructionGroup windpowerConstructionGroup(
 //WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
 //WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
 
-Construction *WindpowerConstructionGroup::createConstruction(int x, int y) {
-    return new Windpower(x, y, this);
+Construction *WindpowerConstructionGroup::createConstruction() {
+  return new Windpower(this);
 }
 
 void Windpower::update()
@@ -95,12 +95,34 @@ void Windpower::animate() {
 void Windpower::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), float(busy) / hivolt_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), hivolt_output);
     // i++;
     list_commodities(&i);
+}
+
+void Windpower::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(WIND_POWER_HIVOLT +
+    (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
+void Windpower::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool Windpower::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "mwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/windpower.cpp */

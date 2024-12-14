@@ -25,7 +25,6 @@
 #include "power_line.h"
 
 #include <list>                     // for _List_iterator
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -44,9 +43,8 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_RANGE
 );
 
-Construction *PowerlineConstructionGroup::createConstruction(int x, int y)
-{
-    return new Powerline(x, y, this);
+Construction *PowerlineConstructionGroup::createConstruction() {
+  return new Powerline(this);
 }
 
 void Powerline::update()
@@ -86,7 +84,7 @@ void Powerline::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     // i++;
     list_commodities(&i);

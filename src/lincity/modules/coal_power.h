@@ -40,14 +40,11 @@
 #define MAX_LABOR_AT_COALPS (20 * LABOR_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
-#include <cstdlib>             // for NULL
-#include <array>               // for array
-#include <iterator>            // for advance
-#include <list>                // for _List_iterator, list, operator!=
-#include <map>                 // for map
-#include <string>              // for basic_string, operator<
+#include <array>      // for array
+#include <cstdlib>    // for NULL
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
 
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:
@@ -73,7 +70,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Coal_power
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
@@ -82,67 +79,20 @@ extern Coal_powerConstructionGroup coal_powerConstructionGroup;
 //extern Coal_powerConstructionGroup coal_power_full_ConstructionGroup;
 
 
-class Coal_power: public RegisteredConstruction<Coal_power> { // Coal_power inherits from its own RegisteredConstruction
+class Coal_power: public Construction {
 public:
-    Coal_power(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y)
-    {
+    Coal_power(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
-        std::list<ExtraFrame>::iterator frit = frameIt;
-        std::advance(frit, 1);
-        fr_begin = frit;
-        frit->move_x = 5;
-        frit->move_y = -378;
-        std::advance(frit, 1);
-        frit->move_x = 29;
-        frit->move_y = -390;
-        std::advance(frit, 1);
-        frit->move_x = 52;
-        frit->move_y = -397;
-        std::advance(frit, 1);
-        frit->move_x = 76;
-        frit->move_y = -409;
-        std::advance(frit, 1);
-        frit->move_x = 65;
-        frit->move_y = -348;
-        std::advance(frit, 1);
-        frit->move_x = 89;
-        frit->move_y = -360;
-        std::advance(frit, 1);
-        frit->move_x = 112;
-        frit->move_y = -371;
-        std::advance(frit, 1);
-        frit->move_x = 136;
-        frit->move_y = -383;
-        std::advance(frit, 1);
-        fr_end = frit;
-        for (frit = fr_begin; frit != world(x,y)->framesptr->end() && frit != fr_end; std::advance(frit, 1))
-        {
-            frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
-            frit->frame = -1; // hide smoke
-        }
         this->anim = 0;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->hivolt_output = (int)(POWERS_COAL_OUTPUT + (((double)tech_level * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->hivolt_output, "mwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * LABOR_COALPS_GENERATE;
         commodityMaxCons[STUFF_COAL] = 100 *
           (POWERS_COAL_OUTPUT / POWER_PER_COAL);
         // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-        this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
-          (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
-        commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
     }
 
     virtual ~Coal_power() //remove 2 or more extraframes
@@ -161,6 +111,10 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int anim;

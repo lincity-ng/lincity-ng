@@ -42,8 +42,8 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction(int x, int y) {
-    return new SolarPower(x, y, this);
+Construction *SolarPowerConstructionGroup::createConstruction() {
+  return new SolarPower(this);
 }
 
 void SolarPower::update()
@@ -70,13 +70,35 @@ void SolarPower::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), hivolt_output);
     // i++;
     list_commodities(&i);
+}
+
+void SolarPower::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
+    (((double)tech * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
+void SolarPower::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool SolarPower::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "mwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/solar_power.cpp */

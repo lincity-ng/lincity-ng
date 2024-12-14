@@ -24,8 +24,6 @@
 
 #include "water.h"
 
-#include <string>                // for basic_string
-
 #include "modules.h"             // for N_, MapTile, TileConstructionGroup
 #include "modules_interfaces.h"  // for mps_water
 

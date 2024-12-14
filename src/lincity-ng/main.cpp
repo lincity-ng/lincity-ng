@@ -53,7 +53,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "lc_error.h"                            // for HANDLE_ERRNO
 #include "lincity/init_game.h"                   // for destroy_game
-#include "lincity/loadsave.h"                    // for LC_APP, LC_ORG
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DEBUG
@@ -191,7 +190,7 @@ void initPhysfs(const char* argv0)
 
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* writedir = PHYSFS_getPrefDir(LC_ORG, LC_APP);
+    const char* writedir = PHYSFS_getPrefDir("lincity-ng", "lincity-ng");
     if(!writedir) {
       std::ostringstream msg;
       // Unfortunately, PHYSFS_getPrefDir does not expose the path name if
@@ -215,29 +214,6 @@ void initPhysfs(const char* argv0)
             << writedir << "': " << getPhysfsLastError();
         throw std::runtime_error(msg.str());
     }
-
-    // include old configuration directories to avoid data loss
-    // TODO: Move old data to new configuration directory.
-    const char* userdir = PHYSFS_getUserDir();
-    // TODO: Replace with fmt
-    char oldWritedir[1024];
-    if(snprintf(oldWritedir, 1024, "%s.lincity-ng", userdir) < 1024) {
-      PHYSFS_mount(oldWritedir, nullptr, 1);
-    }
-    else {
-      fprintf(stderr, "warning: %s, %s",
-        "home directory path name too long",
-        "cannot load legacy configuration directory: ~/.lincity-ng");
-    }
-    if(snprintf(oldWritedir, 1024, "%s.lincity", userdir) < 1024) {
-      PHYSFS_mount(oldWritedir, nullptr, 1);
-    }
-    else {
-      fprintf(stderr, "warning: %s, %s",
-        "home directory path name too long",
-        "cannot load legacy configuration directory: ~/.lincity");
-    }
-
 
     // compute install prefix from PHYSFS_getBaseDir()
     const char* dirsep = PHYSFS_getDirSeparator();

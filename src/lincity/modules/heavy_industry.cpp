@@ -50,8 +50,8 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
 //IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
-    return new IndustryHeavy(x, y, this);
+Construction *IndustryHeavyConstructionGroup::createConstruction() {
+  return new IndustryHeavy(this);
 }
 
 void IndustryHeavy::update()
@@ -154,12 +154,49 @@ void IndustryHeavy::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("busy"), (output_level));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     // i++;
     list_commodities(&i);
+}
+
+void IndustryHeavy::place(int x, int y) {
+  Construction::place(x, y);
+
+  if (tech > MAX_TECH_LEVEL) {
+    bonus = (tech - MAX_TECH_LEVEL);
+    if (bonus > MAX_TECH_LEVEL)
+      bonus = MAX_TECH_LEVEL;
+    bonus /= MAX_TECH_LEVEL;
+    // check for filter technology bonus
+    if (tech > 2 * MAX_TECH_LEVEL) {
+      extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+      if (extra_bonus > MAX_TECH_LEVEL)
+        extra_bonus = 1;
+      else
+        extra_bonus /= MAX_TECH_LEVEL;
+    }
+  }
+
+  int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
+  commodityMaxProd[STUFF_WASTE] = 100 * (int)(
+    ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
+}
+
+void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool IndustryHeavy::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "bonus");
+  else if(name == "extra_bonus");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/heavy_industry.cpp */

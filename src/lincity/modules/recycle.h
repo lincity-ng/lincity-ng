@@ -47,7 +47,6 @@
 
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -82,30 +81,19 @@ public:
         commodityRuleCount[STUFF_ORE].give = true;
     }
     // overriding method that creates a recyle
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern RecycleConstructionGroup recycleConstructionGroup;
 
-class Recycle: public RegisteredConstruction<Recycle> { // Recycle inherits from Construction
+class Recycle: public Construction {
 public:
-    Recycle(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Recycle>(x, y)
-    {
+    Recycle(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->busy = 0;
         this->working_days = 0;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         initialize_commodities();
-        // int efficiency;
-        // efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
-        // if (efficiency > (WASTE_RECYCLED * 8) / 10)
-        // {   efficiency = (WASTE_RECYCLED * 8) / 10;}
-        // this->make_ore = efficiency;
-        setMemberSaved(&this->make_ore, "make_ore"); // compatibility
-        // this->make_steel = efficiency / 50;
-        setMemberSaved(&this->make_steel, "make_steel"); // compatibility
 
         commodityMaxCons[STUFF_LABOR] = 100 * RECYCLE_LABOR;
         commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
@@ -115,24 +103,14 @@ public:
         // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
     }
 
-    virtual void initialize() override {
-        RegisteredConstruction::initialize();
-
-
-        int efficiency =
-          (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
-        if (efficiency > (WASTE_RECYCLED * 8) / 10)
-        {   efficiency = (WASTE_RECYCLED * 8) / 10;}
-        this->make_ore = efficiency;
-        this->make_steel = efficiency / 50;
-
-        commodityMaxProd[STUFF_ORE] = 100 * make_ore;
-        commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
-    }
 
     virtual ~Recycle() { }
     virtual void update() override;
     virtual void report() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;
     int  make_ore;

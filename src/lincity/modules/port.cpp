@@ -41,8 +41,8 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction(int x, int y) {
-    return new Port(x, y, this);
+Construction *PortConstructionGroup::createConstruction() {
+  return new Port(this);
 }
 
 int Port::buy_stuff(Commodity stuff)
@@ -131,13 +131,47 @@ void Port::update()
 void Port::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sd(i++, N_("Export"),lastm_et/100);
     mps_store_sd(i++, N_("Import"),lastm_ic/100);
     mps_store_sfp(i++, N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
     // i++;
     list_commodities(&i);
+}
+
+void Port::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
+
+  const std::string givePfx("give_");
+  const std::string takePfx("take_");
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    CommodityRule& rule = commodityRuleCount[stuff];
+    if(!rule.maxload) continue;
+    const char *name = commodityStandardName(stuff);
+    xmlStr giveName = (xmlStr)(givePfx + name).c_str();
+    xmlStr takeName = (xmlStr)(takePfx + name).c_str();
+    xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
+    xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
+  }
+
+  Construction::save(xmlWriter);
+}
+
+bool Port::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  bool give;
+  Commodity stuff;
+  if(((give = tag.find("give_")) == 0 || tag.find("take_") == 0) &&
+    (stuff = commodityFromStandardName(tag.substr(5).c_str())) != STUFF_COUNT &&
+    commodityRuleCount[stuff].maxload
+  ) {
+    CommodityRule& rule = commodityRuleCount[stuff];
+    give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
+  }
+  else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/port.cpp */

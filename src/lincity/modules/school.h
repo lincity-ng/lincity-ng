@@ -43,14 +43,11 @@
 #define SCHOOL_ANIMATION_BREAK 9500
 
 
-#include <stddef.h>                 // for NULL
-#include <array>                    // for array
-#include <iterator>                 // for advance
-#include <list>                     // for list, _List_iterator
-#include <map>                      // for map
-#include <string>                   // for basic_string, operator<
+#include <stddef.h>   // for NULL
+#include <array>      // for array
+#include <list>       // for list
 
-#include "modules.h"
+#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
 
 
 class SchoolConstructionGroup: public ConstructionGroup {
@@ -77,31 +74,21 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a School
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern SchoolConstructionGroup schoolConstructionGroup;
 
-class School: public RegisteredConstruction<School> { // School inherits from its own RegisteredConstruction
+class School: public Construction {
 public:
-    School(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<School>(x, y)
-    {
+    School(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        //std::list<ExtraFrame>::iterator frit = world(x,y)->createframe();
-        //CK ?? Why the hell is the variant above unsafe?
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
-        frit = frameIt;
-        std::advance(frit, 1);
-        frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
-        frit->frame = -1; //hide the swing
         // this->animate_enable = false;
         this->anim = 0;
         this->anim2 = 0;
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
-        setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MAKE_TECH_SCHOOL;
@@ -124,6 +111,11 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void init_resources() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator frit;
     int anim;

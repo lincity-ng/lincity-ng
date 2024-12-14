@@ -105,7 +105,6 @@
 
 #include <array>                    // for array
 #include <iostream>                 // for basic_ostream, operator<<, basic_...
-#include <string>                   // for char_traits, basic_string
 
 #include "modules.h"
 
@@ -188,20 +187,17 @@ public:
         commodityRuleCount[STUFF_WATER].give = false;
     }
     // overriding method that creates a residence
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern ResidenceConstructionGroup residenceLLConstructionGroup, residenceMLConstructionGroup, residenceHLConstructionGroup;
 extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConstructionGroup, residenceHHConstructionGroup;
 
-class Residence: public RegisteredConstruction<Residence> { // Residence inherits from its own RegisteredConstruction
+class Residence: public Construction {
 public:
-    Residence(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y)
-    {
+    Residence(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->local_population = 0;
-        setMemberSaved(&(this->local_population),"local_population");
         this->desireability = 0;
         this->births = 120000;
         this->deaths = 120000;
@@ -244,6 +240,9 @@ public:
     }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int local_population;
     int max_population;
