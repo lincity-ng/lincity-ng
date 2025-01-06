@@ -1,0 +1,71 @@
+name: C/C++ CI
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+jobs:
+  build:
+    name: ${{ matrix.name }}-${{ matrix.os }}-${{ matrix.cc }}
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [default]
+        os: [ubuntu-22.04, ubuntu-24.04]
+        cc: [gcc, clang]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set CC
+      run: |
+        CC=${{ matrix.cc }}
+        if [ "$CC" = "gcc" ] || [ -z "$CC" ]; then
+          CC=gcc
+          CXX=g++
+        else
+          CC=clang
+          CXX=clang++
+        fi
+        echo "CC=$CC" >> $GITHUB_ENV
+        echo "CXX=$CXX" >> $GITHUB_ENV
+
+    - name: Show info
+      run: |
+        export -p
+        echo '${{ toJSON(matrix) }}'
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt remove -y firefox
+        sudo apt upgrade
+        sudo apt install -y \
+          cmake \
+          gettext \
+          libphysfs-dev \
+          libsdl2-dev \
+          libsdl2-gfx-dev \
+          libsdl2-image-dev \
+          libsdl2-mixer-dev \
+          libsdl2-ttf-dev \
+          libxml++2.6-dev \
+          libxslt1-dev \
+          libxslt1.1 \
+          xsltproc \
+          zlib1g-dev
+
+    - name: Configure
+      run: |
+        cmake --version
+        cmake -B build
+
+    - name: Build
+      run: cmake --build build --parallel
+
+    - name: Install
+      run: sudo cmake --install build
