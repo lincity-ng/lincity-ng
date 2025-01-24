@@ -67,237 +67,6 @@ tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
 const char *appdatadir;
 
-#ifdef __APPLE__
-     extern char *getBundleSharePath(char *packageName);
-#endif
-
-#ifdef WIN32
-static char *strndup(const char *s, size_t n) {
-  n = strnlen(s, n);
-  char *d;
-  if(d = (char *)malloc((n + 1) * sizeof(char)))
-    strncpy(d, s, n);
-  return d;
-}
-#endif
-
-/**
- * Computes the path of the root of `subtrahend` relative to the root of
- * `minuend` assuming `subtrahend` and `minuend` refer to the same location.
- *
- * That is, `<root><minuend>` and `<root><result>/<subtrahend>` will refer
- * to the same location. The result will be absolute iff minuend is absolute.
- *
- * The result string is owned by the caller and should be freed with `free()`.
- *
- * Examples:
- *  path_subtract("/a/b/c/d", "c/d") --> "/a/b"
- *  path_subtract("/a/b/c/d", "/a/b/c/d") --> "/"
- *  path_subtract("c/d", "/a/b/c/d") --> "../.."
- *  path_subtract("../c/d", "/a/b/c/d") --> "../../.."
- *  path_subtract("a//x/../b/////c/.//y/.././d", "z/../c//.//d") --> "a//x/../b"
- *  path_subtract("a/b/c/x/y/z/../../../d", "c/d") --> "a/b"
- *  path_subtract("/a/b/c/d", "x/d") --> NULL (cannot refer to the same file)
- *  path_subtract("a/b/c/d", "/c/d") --> NULL (minuend goes below root)
- *  path_subtract("/c/d", "a/b/c/d") --> NULL (subtrahend goes below root)
- *  path_subtract("/a/b/c/d", "../c/d") --> NULL (cannot determine '..')
- *  path_subtract("/../a/b/c/d", "c/d") --> NULL (minuend dips below root)
- *  path_subtract("c/d", "/../a/b/c/d") --> NULL (subtrahend dips below root)
- */
-static char *path_subtract(const char *minuend, const char *subtrahend) {
-  const char * const dirsep = PHYSFS_getDirSeparator();
-  const size_t dirseplen = strlen(dirsep);
-
-  const char *path[2] = {minuend, subtrahend};
-  const char *elb[2];
-  const char *ele[2];
-  size_t eln[2];
-  bool finished[2] = {false, false};
-  for(int i = 0; i < 2; i++)
-    elb[i] = path[i] + strlen(path[i]) + dirseplen;
-  int skip[2] = {0, 0};
-
-  while(true) {
-    for(int i = 0; i < 2; i++) {
-      while(true) {
-        ele[i] = elb[i] - dirseplen;
-        if(ele[i] <= path[i]) {
-          finished[i] = true;
-          break;
-        }
-        elb[i] = ele[i] - dirseplen;
-        while(true) {
-          if(elb[i] < path[i]) {
-            elb[i] = path[i];
-            break;
-          }
-          if(!strncmp(elb[i], dirsep, dirseplen)) {
-            elb[i] += dirseplen;
-            break;
-          }
-          elb[i]--;
-        }
-
-        eln[i] = ele[i] - elb[i];
-        if(!strncmp(elb[i], "", eln[i]) || !strncmp(elb[i], ".", eln[i]))
-          ;
-        else if(!strncmp(elb[i], "..", eln[i]))
-          skip[i]++;
-        else if(skip[i])
-          skip[i]--;
-        else
-          break;
-      }
-    }
-
-    if(finished[1]) {
-      if(skip[1])
-        return NULL;
-      if(skip[0] && !strncmp(minuend, dirsep, dirseplen))
-        return NULL;
-      if(!finished[0] && !strncmp(subtrahend, dirsep, dirseplen))
-        return NULL;
-      if(skip[0]) {
-        char *ret = (char *)malloc(skip[0] * (2 + dirseplen));
-        if(!ret) return NULL;
-        char *retptr = ret;
-        for(int i = 0; i < skip[0]; i++) {
-          retptr += sprintf(retptr, "%s..", i ? dirsep : "");
-        }
-        return ret;
-      }
-      if(finished[0])
-        return strdup(strncmp(minuend, dirsep, dirseplen) ? "." : dirsep);
-      return strndup(minuend, ele[0] - minuend);
-    }
-    else if(finished[0]) {
-      skip[0]++;
-    }
-    else if(eln[0] != eln[1] || strncmp(elb[0], elb[1], eln[0])) {
-      return NULL;
-    }
-  }
-}
-
-void initPhysfs(const char* argv0)
-{
-    if(!PHYSFS_init(argv0)) {
-        std::stringstream msg;
-        msg << "Couldn't initialize physfs: "
-            << getPhysfsLastError();
-        throw std::runtime_error(msg.str());
-    }
-
-    // Initialize physfs (this is a slightly modified version of
-    // PHYSFS_setSaneConfig
-    const char* writedir = PHYSFS_getPrefDir("lincity-ng", "lincity-ng");
-    if(!writedir) {
-      std::ostringstream msg;
-      // Unfortunately, PHYSFS_getPrefDir does not expose the path name if
-      // creating the directory failed.
-      msg << "Failed to get configuration directory '";
-      throw std::runtime_error(msg.str());
-    }
-
-    // enable writing to configuration directory
-    if(!PHYSFS_setWriteDir(writedir)) {
-        std::ostringstream msg;
-        msg << "Failed to enable writing to configuration directory '"
-            << writedir << "': " << getPhysfsLastError();
-        throw std::runtime_error(msg.str());
-    }
-
-    // mount configuration directory
-    if(!PHYSFS_mount(writedir, nullptr, 0)) {
-        std::ostringstream msg;
-        msg << "Failed to mount configuration directory '"
-            << writedir << "': " << getPhysfsLastError();
-        throw std::runtime_error(msg.str());
-    }
-
-    // compute install prefix from PHYSFS_getBaseDir()
-    const char* dirsep = PHYSFS_getDirSeparator();
-    char *installPrefix = NULL;
-    if(strncmp(INSTALL_BINDIR, dirsep, strlen(dirsep))) {
-      HANDLE_ERRNO(
-        installPrefix = path_subtract(PHYSFS_getBaseDir(), INSTALL_BINDIR),
-        !installPrefix, 0, "trouble finding install prefix"
-      );
-    }
-
-
-    // mount read-only data directory
-    bool foundRodd = false;
-    char *appdatadir_calc = NULL;
-    if(installPrefix && strncmp(INSTALL_APPDATADIR, dirsep, strlen(dirsep))) {
-      HANDLE_ERRNO(
-        appdatadir_calc = (char *)malloc(
-          strlen(installPrefix)
-          + strlen(dirsep)
-          + strlen(INSTALL_APPDATADIR)
-          + 1),
-        !appdatadir_calc, 0, "malloc"
-      );
-      if(appdatadir_calc) {
-        sprintf(appdatadir_calc, "%s%s%s",
-          installPrefix, dirsep, INSTALL_APPDATADIR);
-        appdatadir = appdatadir_calc;
-      }
-    }
-    if(appdatadir) {
-      foundRodd = PHYSFS_mount(appdatadir, nullptr, 1);
-    }
-
-    if(!foundRodd) {
-      // use compiled-in install prefix as fallback
-      foundRodd = PHYSFS_mount(INSTALL_FULL_APPDATADIR, nullptr, 1);
-      if(foundRodd)
-        appdatadir = INSTALL_FULL_APPDATADIR;
-    }
-    if(!foundRodd) {
-      std::ostringstream msg;
-      msg << "Failed to mount read-only data directory '"
-          << appdatadir << "' or '"
-          << INSTALL_FULL_APPDATADIR
-          << "': " << getPhysfsLastError();
-      throw std::runtime_error(msg.str());
-    }
-
-    // free(appdatadir);
-    free(installPrefix);
-
-
-    // Search for archives and add them to the search path
-    //TODO: add zips later
-    const char* archiveExt = ".zip";
-    char** rc = PHYSFS_enumerateFiles("/");
-    size_t extlen = strlen(archiveExt);
-    //TODO sort .zip files! so we are sure which patch is first.
-    //and change all file access to physfs. what does PHYSFS_getRealDir
-    //do when file in in archive?
-    for(char** i = rc; *i != 0; ++i) {
-        size_t l = strlen(*i);
-        const char* ext = (*i) + (l - extlen);
-        if(l >= extlen && !SDL_strcasecmp(ext, archiveExt)) {
-            const char* d = PHYSFS_getRealDir(*i);
-            char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
-            sprintf(str, "%s%s%s", d, dirsep, *i);
-            PHYSFS_mount(str, nullptr, 1);
-            delete[] str;
-        }
-    }
-    PHYSFS_freeList(rc);
-
-    // allow symbolic links
-    PHYSFS_permitSymbolicLinks(1);
-
-    //show search Path
-    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
-    {   printf("[%s] is in the search path.\n", *i);}
-    //show write directory
-    printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
-}
-
 void musicHalted() {
     getSound()->changeTrack(NEXT_OR_FIRST_TRACK);
     //FIXME: options menu song entry doesn't update while song changes.
@@ -437,70 +206,12 @@ void mainLoop()
     }
 }
 
-void parseCommandLine(int argc, char** argv)
-{
-    for(int currentArgument = 1; currentArgument < argc; ++currentArgument) {
-        std::string argStr = argv[currentArgument];
-
-        if(argStr == "-v" || argStr == "--version") {
-            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-            exit(0);
-        } else  if(argStr == "-h" || argStr == "--help") {
-            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-            std::cout << "Command line overrides configfiles.\n";
-            std::cout << "Known arguments are:\n";
-            std::cout << "-v           --version         show version and exit\n";
-            std::cout << "-h           --help            show this text and exit\n";
-            std::cout << "-g           --gl              use OpenGL\n";
-            std::cout << "-s           --sdl             use SDL\n";
-            std::cout << "-S [size]    --size [size]     specify screensize (eg. -S 1024x768)\n";
-            std::cout << "-w           --window          run in window\n";
-            std::cout << "-f           --fullscreen      run fullscreen\n";
-            std::cout << "-m           --mute            mute audio\n";
-            std::cout << "                               -q 9 skips animation steps for speed.\n";
-            std::cout << "                               -q 8 is the slowest speed with full animation.\n";
-            std::cout << "                               -q 1 is fastest. It may heat your hardware!\n";
-            exit(0);
-        } else if(argStr == "-g" || argStr == "--gl") {
-            getConfig()->useOpenGL = true;
-        } else if(argStr == "-s" || argStr == "--sdl") {
-            getConfig()->useOpenGL = false;
-        } else if(argStr == "-S" || argStr == "--size") {
-            currentArgument++;
-            if(currentArgument >= argc) {
-                std::cerr << "Error: --size needs a parameter.\n";
-                exit(1);
-            }
-            argStr = argv[currentArgument];
-            int newX, newY, count;
-            count = sscanf( argStr.c_str(), "%ix%i", &newX, &newY );
-            if( count != 2  ) {
-                std::cerr << "Error: Can not parse --size parameter.\n";
-                exit( 1 );
-            }
-            if(newX <= 0 || newY <= 0) {
-                std::cerr << "Error: Size parameter out of range.\n";
-                exit(1);
-            }
-            getConfig()->videoX = newX;
-            getConfig()->videoY = newY;
-        } else if(argStr == "-f" || argStr == "--fullscreen") {
-            getConfig()->useFullScreen = true;
-        } else if(argStr == "-w" || argStr == "--window") {
-            getConfig()->useFullScreen = false;
-        } else if(argStr == "-m" || argStr == "--mute") {
-            getConfig()->soundEnabled = false;
-            getConfig()->musicEnabled = false;
-        } else {
-            std::cerr << "Unknown command line argument: " << argStr << "\n";
-            exit(1);
-        }
-    }
-}
-
 int main(int argc, char** argv)
 {
     int result = 0;
+
+    configPtr = new Config();
+    getConfig()->parseCommandLine(argc, argv);
 
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
@@ -508,7 +219,6 @@ int main(int argc, char** argv)
 #else
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
-        initPhysfs(argv[0]);
 
         if( getConfig()->language != "autodetect" ){
 #if defined (WIN32)
@@ -544,7 +254,6 @@ int main(int argc, char** argv)
         return 1;
     }
 #endif
-    parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine for anything command line might change.
 
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG
@@ -589,7 +298,6 @@ int main(int argc, char** argv)
     xmlCleanupParser();
     delete dictionaryManager;
     dictionaryManager = 0;
-    PHYSFS_deinit();
     if( restart ){
 #ifdef WIN32
         //Windows has a Problem with Whitespaces.

@@ -161,7 +161,7 @@ void loadGame(std::string filename) {
   // find the SaveGame node
   while(true) {
     if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
-      throw std::runtime_error("failed to find SaveGame element");
+      throw std::runtime_error("failed to find lc-game element");
     else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
     else if(xmlReader.get_name() == "lc-game")
       break;
