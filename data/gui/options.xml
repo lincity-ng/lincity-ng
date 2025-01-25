@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
-<gui>
+<Panel name="options-menu" resizable="true">
     <Image src="images/mainmenu/settings_back.png" resizable="yes"/>
     <TableLayout rows="9" cols="3" border="false">
         <colsize col="1" relative="1.3"/>
@@ -176,4 +176,4 @@
             </Button>
         </cell>
     </TableLayout>
-</gui>
+</Panel>

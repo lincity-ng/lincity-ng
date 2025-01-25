@@ -42,9 +42,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/DialogBuilder.hpp"
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Signal.hpp"                  // for Signal
+#include "gui/WindowManager.hpp"
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
@@ -188,6 +190,8 @@ Game::run()
     if(!desktop)
     {   throw std::runtime_error("Toplevel component is not a Desktop");}
     gui->resize(getConfig()->videoX, getConfig()->videoY);
+    DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
+      desktop->findComponent("windowManager")));
     int frame = 0;
 
     Uint32 next_execute = ~0, next_animate = ~0, next_gui = 0, next_fps = 0;
