@@ -26,8 +26,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <assert.h>              // for assert
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
 #include <string.h>              // for strcmp
-#include <functional>            // for bind, function, _1, _2
-#include <iostream>              // for operator<<, basic_ostream, cerr
+#include <filesystem>            // for path
+#include <functional>            // for bind, _1, _2, function
+#include <iostream>              // for basic_ostream, operator<<, cerr
 #include <memory>                // for unique_ptr
 #include <vector>                // for vector
 

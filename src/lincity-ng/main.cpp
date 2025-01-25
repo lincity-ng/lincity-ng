@@ -26,14 +26,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <assert.h>                              // for assert
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
-#include <physfs.h>                              // for PHYSFS_mount, PHYSFS...
-#include <stdio.h>                               // for NULL, printf, sprintf
-#include <stdlib.h>                              // for exit, malloc, free
-#include <string.h>                              // for strlen, strncmp, strdup
+#include <stdio.h>                               // for NULL, printf
+#include <stdlib.h>                              // for setenv
 #include <unistd.h>                              // for execlp
-#include <iostream>                              // for operator<<, basic_os...
-#include <memory>                                // for allocator, unique_ptr
-#include <sstream>                               // for basic_ostringstream
+#include <filesystem>                            // for operator/, path
+#include <iostream>                              // for basic_ostream, opera...
+#include <memory>                                // for unique_ptr, allocator
+#include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
 
@@ -42,7 +41,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
 #include "PBar.hpp"                              // for LCPBarPage1, LCPBarP...
-#include "PhysfsStream/PhysfsError.hpp"          // for getPhysfsLastError
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
@@ -51,13 +49,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "lc_error.h"                            // for HANDLE_ERRNO
 #include "lincity/init_game.h"                   // for destroy_game
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DEBUG
 #include <exception>                             // for exception
 #endif
+
+extern Config *configPtr;
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
@@ -229,12 +228,12 @@ int main(int argc, char** argv)
         }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory("locale");
+        dictionaryManager->add_directory(getConfig()->appDataDir / "locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
 
         // char *lc_textdomain_directory[1024];
         // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
-        //   appdatadir, PHYSFS_getDirSeparator(), "locale") < 1024) {
+        //   appdatadir, "/", "locale") < 1024) {
         //   char *dm = bindtextdomain(PACKAGE, lc_textdomain_directory);
         //   fprintf(stderr, "Bound textdomain directory is %s\n", dm);
         //   char *td = textdomain(PACKAGE);

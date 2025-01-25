@@ -41,10 +41,6 @@ for a different version than what you are building can cause build failures.
 
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
-* PhysicsFS 2.1.0 or later (use stable, not development branch)
-
-  http://www.icculus.org/physfs/
-
 * zlib 1.0 or later
 
   http://www.gzip.org/zlib/
@@ -90,14 +86,14 @@ To clone, configure, build, and install:
 ```
 git clone https://github.com/lincity-ng/lincity-ng.git
 cd lincity-ng
-cmake -B build
-cmake --build build --parallel
-sudo cmake --install build  # optional
+cmake -B build                  # configure
+cmake --build build --parallel  # build
+sudo cmake --install build      # install
 ```
 
-To create a package (currently tar.gz and zip):
+To create a package:
 ```
-cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install path>
 cmake --build build --parallel --target package
 ```
 
@@ -105,7 +101,7 @@ cmake --build build --parallel --target package
 
 To run the game from the source directory without installing:
 ```
-./build/bin/lincity-ng
+./build/bin/lincity-ng --app-data build/share/lincity-ng
 ```
 
 When the game is installed, you may run it with:

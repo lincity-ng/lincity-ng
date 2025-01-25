@@ -29,15 +29,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stddef.h>             // for NULL
 #include <iostream>             // for basic_ostream, operator<<, cerr
 #include <stdexcept>            // for runtime_error
-#include <string>               // for char_traits, basic_string, operator==
+#include <string>               // for char_traits, basic_string, operator<<
 
 #include "Child.hpp"            // for Childs, Child
 #include "ComponentLoader.hpp"  // for createComponent
 #include "Style.hpp"            // for parseStyleDef
 #include "XmlReader.hpp"        // for XmlReader
-
-class Event;
-class Painter;
 
 Desktop::Desktop()
 {

@@ -20,8 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"  // for TextureSDL
 
-class Texture;
-
 static const Uint8 ALPHA_BARRIER = 100;
 
 TextureManagerSDL::TextureManagerSDL()

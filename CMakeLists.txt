@@ -10,6 +10,10 @@ project(lincity-ng
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 list(APPEND CMAKE_MODULE_PATH
 	${CMAKE_SOURCE_DIR}/mk/cmake/modules
 	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
@@ -19,15 +23,7 @@ include(CheckIncludeFiles)
 include(GNUInstallDirs)
 include(GetGitRevisionDescription)
 
-set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
-
-
 ### build configurations
-
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_UPPER)
 set(BUILD_CONFIGS Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
 set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
@@ -46,7 +42,7 @@ endforeach()
 
 
 # find dependencies
-
+set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 find_package(Threads)
 find_package(ZLIB REQUIRED)
 find_package(SDL2 REQUIRED)
@@ -57,7 +53,6 @@ find_package(SDL2_ttf REQUIRED)
 find_package(LibXml2 REQUIRED)
 # Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
-find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
 
 # seems libxml++ doesn't have a find module, but it provides a pkg-config
 find_package(PkgConfig REQUIRED)
@@ -82,7 +77,6 @@ find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
 
 
 ### compute the LinCity-NG version
-
 git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
 if(FULL_PROJECT_VERSION)
 	string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)

@@ -25,13 +25,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <iostream>              // for char_traits, operator<<, basic_ostream
+#include <filesystem>            // for path
+#include <iostream>              // for basic_ostream, operator<<, stringstream
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
-#include <string>                // for basic_string
+#include <string>                // for char_traits, allocator, basic_string
 #include <vector>                // for vector
 
-#include "Child.hpp"             // for Child, Childs
+#include "Child.hpp"             // for Childs, Child
 #include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "ComponentLoader.hpp"   // for parseEmbeddedComponent
 #include "Painter.hpp"           // for Painter

@@ -19,22 +19,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 
 #include <assert.h>                       // for assert
-#include <cfgpath.h>
-#include <stdio.h>                        // for sscanf
-#include <string.h>                       // for strcmp
-#include <exception>                      // for exception
+#include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlerror.h>              // for XML_ERR_OK
+#include <libxml/xmlversion.h>            // for LIBXML_VERSION
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <limits.h>                       // for INT_MAX, INT_MIN
+#include <stdio.h>                        // for sscanf, NULL
+#include <stdlib.h>                       // for exit
 #include <iostream>                       // for basic_ostream, operator<<
+#include <memory>                         // for shared_ptr
+#include <stdexcept>                      // for runtime_error
 
-#include "config.h"
-#include "gui/XmlReader.hpp"              // for XmlReader
-#include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
-#include "lincity/engglobs.h"             // for world, seed_co...
+#include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
+#include "lincity/engglobs.h"             // for world
 #include "lincity/world.h"                // for World, WORLD_SIDE_LEN
-#include "lincity/xmlloadsave.h"
+#include "lincity/xmlloadsave.h"          // for xmlStr, unexpectedXmlElement
 
 
-static int parseInt(const std::string& value, int defaultValue, int minValue, int maxValue);
-static int parseBool(const std::string& value, bool defaultValue);
+static int parseInt(const std::string& value, int defaultValue,
+  int minValue = INT_MIN, int maxValue = INT_MAX);
+static bool parseBool(const std::string& value, bool defaultValue);
 
 Config *configPtr = nullptr;
 Config *getConfig() {
@@ -47,7 +52,7 @@ Config::Config() {
   useFullScreen = true;
   videoX = 1024;
   videoY = 768;
-  restartOnChangeScreen = true;
+  restartOnChangeScreen = false;
 
   soundVolume = 100;
   musicVolume = 50;
@@ -70,13 +75,15 @@ Config::Config() {
 Config::~Config() {}
 
 void Config::load(std::filesystem::path configFile) {
+  if(configFile.empty())
+    configFile = this->configFile;
   if(!std::filesystem::exists(configFile)) {
     std::cerr << "info: config file does not exist: "
       << appDataDir.string() << std::endl;
     return;
   }
 
-  xmlpp::TextReader xmlReader(configFile);
+  xmlpp::TextReader xmlReader(configFile.string());
   xmlReader.read();
   while(true) {
     if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
@@ -124,7 +131,7 @@ void Config::load(std::filesystem::path configFile) {
         xmlReader.next();
       }
     }
-    else if(XmlReader.get_name() == "audio") {
+    else if(xmlReader.get_name() == "audio") {
       if(!xmlReader.is_empty_element() && xmlReader.read())
       while(
         xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement
@@ -152,7 +159,7 @@ void Config::load(std::filesystem::path configFile) {
         xmlReader.next();
       }
     }
-    else if(XmlReader.get_name() == "game") {
+    else if(xmlReader.get_name() == "game") {
       if(!xmlReader.is_empty_element() && xmlReader.read())
       while(
         xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement
@@ -190,40 +197,7 @@ void Config::load(std::filesystem::path configFile) {
   }
 
   while(xmlReader.next()) {
-    if(xmlR
-
-static int parseInt(const std::string& value,
-  int defaultValue, int minValue, int maxValue
-) {
-    int tmp;
-    if(sscanf(value, "%i", &tmp) != 1)
-    {
-        std::cerr << "Config::parseInt# Error parsing integer value '" << value << "'.\n";
-        tmp = defaultValue;
-    }
-    if( ( tmp >= minValue ) && ( tmp <= maxValue ) ) {
-        return tmp;
-    } else {
-        std::cerr << "Config::parseInt# Value '" << value << "' not in ";
-        std::cerr << minValue << ".." << maxValue << "\n";
-        return defaultValue;
-    }
-}
-static bool parseBool(const char* value, bool defaultValue) {
-    if(strcmp(value, "no") == 0 || strcmp(value, "off") == 0
-            || strcmp(value, "false") == 0 || strcmp(value, "NO") == 0
-            || strcmp(value, "OFF") == 0 || strcmp(value, "FALSE") == 0) {
-        return false;
-    }
-    if(strcmp(value, "yes") == 0 || strcmp(value, "on") == 0
-            || strcmp(value, "true") == 0 || strcmp(value, "YES") == 0
-            || strcmp(value, "ON") == 0 || strcmp(value, "TRUE") == 0) {
-        return true;
-    }
-
-    std::cerr << "Couldn't parse boolean value '" << value << "'.\n";
-    return defaultValue;
-}eader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element)
       continue;
     unexpectedXmlElement(xmlReader);
   }
@@ -231,12 +205,14 @@ static bool parseBool(const char* value, bool defaultValue) {
 
 void
 Config::save(std::filesystem::path configFile) {
+  if(configFile.empty())
+    configFile = this->configFile;
+
   int xmlStatus = XML_ERR_OK;
   {
   xmlTextWriterPtr xmlWriter =
-    xmlNewTextWriterFilename(configFile.c_str(), false);
+    xmlNewTextWriterFilename(configFile.string().c_str(), false);
   if(!xmlWriter) {
-    xmlOutputBufferClose(xmlWriterBuffer);
     throw std::runtime_error("failed to create XML text writer");
   }
   std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter,
@@ -274,11 +250,11 @@ Config::save(std::filesystem::path configFile) {
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"musicVolume", "%d",
         musicVolume);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"musicTheme", "%s",
-        musicTheme);
+        musicTheme.c_str());
     xmlTextWriterEndElement(xmlWriter);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"game");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"language", "%s",
-        language);
+        language.c_str());
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"WorldSideLen", "%d",
         (world.len()<50)?50:world.len());
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"carsEnabled", "%s",
@@ -307,7 +283,7 @@ Config::parseCommandLine(int argc, char** argv) {
     if(argStr == "--config" || argStr == "-c") {
       argi++;
       if(argi >= argc)
-        throw runtime_error("--config needs a parameter");
+        throw std::runtime_error("--config needs a parameter");
       configFile = std::filesystem::path(argv[argi]);
       load(configFile);
     }
@@ -348,7 +324,7 @@ Config::parseCommandLine(int argc, char** argv) {
     } else if(argStr == "-S" || argStr == "--size") {
       argi++;
       if(argi >= argc)
-        throw runtime_error("--size needs a parameter");
+        throw std::runtime_error("--size needs a parameter");
       argStr = argv[argi];
       int newX, newY, count;
       count = sscanf( argStr.c_str(), "%ix%i", &newX, &newY );
@@ -372,12 +348,12 @@ Config::parseCommandLine(int argc, char** argv) {
     } else if(argStr == "--app-data") {
       argi++;
       if(argi >= argc)
-        throw runtime_error("--app-data needs a parameter");
+        throw std::runtime_error("--app-data needs a parameter");
       appDataDir = std::filesystem::path(argv[argi]);
     } else if(argStr == "--user-data") {
       argi++;
       if(argi >= argc)
-        throw runtime_error("--user-data needs a parameter");
+        throw std::runtime_error("--user-data needs a parameter");
       userDataDir = std::filesystem::path(argv[argi]);
     } else {
       std::cerr << "Unknown command line argument: " << argStr << "\n";
@@ -403,14 +379,18 @@ Config::parseCommandLine(int argc, char** argv) {
             << "user data dir: " << userDataDir << std::endl;
 #endif
 
-  if(!std::filesystem::exists(appDataDir)) {
-    std::cerr << "error: app data location does not exist: "
-      << appDataDir.string() << std::endl;
+  if(!std::filesystem::is_directory(appDataDir)) {
+    std::cerr << "error: app data location is not a directory: "
+      << appDataDir.string() << std::endl
+      << "  Use `--app-data` to configure the correct app data location."
+      << " Otherwise, LinCity-NG will likely crash." << std::endl;
   }
 
-  if(!std::filesystem::exists(userDataDir)) {
-    std::cerr << "error: user data location does not exist: "
-      << userDataDir.string() << std::endl;
+  if(!std::filesystem::is_directory(userDataDir)) {
+    std::cerr << "error: user data location is not a directory: "
+      << userDataDir.string() << std::endl
+      << "  Use `--user-data` to configure the correct user data location."
+      << std::endl;
   }
 }
 
@@ -418,7 +398,7 @@ static int parseInt(const std::string& value,
   int defaultValue, int minValue, int maxValue
 ) {
     int tmp;
-    if(sscanf(value, "%i", &tmp) != 1)
+    if(sscanf(value.c_str(), "%i", &tmp) != 1)
     {
         std::cerr << "Config::parseInt# Error parsing integer value '" << value << "'.\n";
         tmp = defaultValue;
@@ -432,15 +412,15 @@ static int parseInt(const std::string& value,
     }
 }
 
-static bool parseBool(const char* value, bool defaultValue) {
-    if(strcmp(value, "no") == 0 || strcmp(value, "off") == 0
-            || strcmp(value, "false") == 0 || strcmp(value, "NO") == 0
-            || strcmp(value, "OFF") == 0 || strcmp(value, "FALSE") == 0) {
+static bool parseBool(const std::string& value, bool defaultValue) {
+    if(value == "no" || value == "off"
+            || value == "false" || value == "NO"
+            || value == "OFF" || value == "FALSE") {
         return false;
     }
-    if(strcmp(value, "yes") == 0 || strcmp(value, "on") == 0
-            || strcmp(value, "true") == 0 || strcmp(value, "YES") == 0
-            || strcmp(value, "ON") == 0 || strcmp(value, "TRUE") == 0) {
+    if(value == "yes" || value == "on"
+            || value == "true" || value == "YES"
+            || value == "ON" || value == "TRUE") {
         return true;
     }
 

@@ -20,10 +20,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 
 #include <SDL.h>                           // for Uint32, SDL_GetTicks, SDL_...
-#include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
-#include <stddef.h>                        // for NULL, size_t
 #include <algorithm>                       // for min
-#include <functional>                      // for bind, function, _1
+#include <filesystem>                      // for path, directory_iterator
+#include <functional>                      // for bind, _1, function
 #include <iostream>                        // for basic_ostream, operator<<
 #include <stdexcept>                       // for runtime_error
 
@@ -33,7 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "HelpWindow.hpp"                  // for HelpWindow
-#include "MainLincity.hpp"                 // for saveCityNG, simDelay
+#include "MainLincity.hpp"                 // for saveCityNG, loadCityNG
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "ScreenInterface.hpp"             // for print_stats, updateDate
 #include "TimerInterface.hpp"              // for get_real_time_with
@@ -48,8 +47,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
-#include "lincity/engglobs.h"              // for constructionCount, fast_ti...
-#include "lincity/lin-city.h"              // for ANIMATE_DELAY
+#include "lincity/engglobs.h"              // for constructionCount
+#include "lincity/lin-city.h"              // for ANIMATE_DELAY, SIM_DELAY_P...
 #include "lincity/lintypes.h"              // for Construction
 #include "lincity/simulate.h"              // for do_animate, do_time_step
 
@@ -101,7 +100,7 @@ void Game::showHelpWindow( std::string topic ){
 void Game::backToMainMenu(){
     closeAllDialogs();
     getButtonPanel()->selectQueryTool();
-    saveCityNG( "9_currentGameNG.scn.gz" );
+    saveCityNG("9_currentGameNG.scn.gz");
     running = false;
     quitState = MAINMENU;
 }
@@ -141,42 +140,14 @@ void Game::quickSave(){
 }
 
 void Game::testAllHelpFiles(){
-    getGameView()->printStatusMessage( "Testing Help Files...");
+  getGameView()->printStatusMessage( "Testing Help Files...");
 
-    std::string filename;
-    std::string directory = "help/en";
-    std::string fullname;
-    char **rc = PHYSFS_enumerateFiles( directory.c_str() );
-    char **i;
-    size_t pos;
-    for (i = rc; *i != NULL; i++) {
-        fullname = directory;
-        fullname.append( *i );
-        filename.assign( *i );
-
-        // FIXME: Follow symlinks if able. symlink target may be directory
-        // NOTE: Do we really need to check if it's a directory? Unlikely that
-        //       a directory will have a '.xml' suffix anyway.
-        // FIXME: What to do with PHYSFS_FILETYPE_OTHER? Should we instead make
-        //        sure the filetype is PHYSFS_FILETYPE_REGULAR?
-        PHYSFS_Stat stat;
-        int errorCode = PHYSFS_stat(fullname.c_str(), &stat);
-        if(errorCode == 0) {
-            std::cerr << "could not stat file: " << filename << std::endl;
-        }
-        else if(stat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
-            continue;
-        }
-
-        pos = filename.rfind( ".xml" );
-        if( pos != std::string::npos ){
-            filename.replace( pos, 4 ,"");
-            std::cerr << "--- Examining " << filename << "\n";
-            helpWindow->showTopic( filename );
-            std::cerr << "\n";
-        }
-    }
-    PHYSFS_freeList(rc);
+  std::filesystem::path dir = getConfig()->appDataDir / "help" / "en";
+  for(auto& dirEntry : std::filesystem::directory_iterator(dir)) {
+    if(!dirEntry.is_regular_file()) continue;
+    std::cerr << "--- Examining " << dirEntry.path().stem() << "\n";
+    helpWindow->showTopic(dirEntry.path().stem().string());
+  }
 }
 
 MainState

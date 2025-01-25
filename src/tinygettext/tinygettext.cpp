@@ -19,7 +19,6 @@
 
 #include <SDL.h>                          // for SDL_free, SDL_iconv_string
 #include <ctype.h>                        // for isspace, toupper
-#include <physfs.h>                       // for PHYSFS_enumerateFiles, PHYS...
 #include <stdio.h>                        // for EOF, sscanf
 #include <stdlib.h>                       // for getenv
 #include <string.h>                       // for strcpy, strlen
@@ -29,7 +28,6 @@
 #include <iostream>                       // for cerr, cout
 #include <utility>                        // for pair, make_pair
 
-#include "PhysfsStream/PhysfsStream.hpp"  // for IFileStream
 #include "findlocale.hpp"                 // for FL_FindLocale, FL_FreeLocale
 #include "tinygettext.hpp"
 
@@ -277,48 +275,33 @@ DictionaryManager::get_dictionary(const std::string& spec)
         dict.set_charset(charset);
 
       for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
-        {
-          char** files = PHYSFS_enumerateFiles(p->c_str());
-          if(!files)
-            {
-              std::cerr << "Error: enumerateFiles() failed on " << *p << std::endl;
-            }
-          else
-            {
-              for(const char* const* filename = files;
-                      *filename != 0; filename++) {
+      {
+        for(auto& dirEnt : std::filesystem::directory_iterator(*p)) {
+          if(!dirEnt.is_regular_file()) continue;
 
-                // check if filename matches requested language
-		std::string fname = std::string(*filename);
-		std::string load_from_file = "";
-                if(fname == lang + ".po") {
-		  load_from_file = fname;
-		} else {
-                  std::string::size_type s = lang.find("_");
-                  if(s != std::string::npos) {
-                    std::string lang_short = std::string(lang, 0, s);
-		    if (fname == lang_short + ".po") {
-		      load_from_file = lang_short;
-		    }
-                  }
-		}
-
-	        // if it matched, load dictionary
-		if (load_from_file != "") {
-                  //log_debug << "Loading dictionary for language \"" << lang << "\" from \"" << filename << "\"" << std::endl;
-                  std::string pofile = *p + "/" + *filename;
-                  try {
-                      IFileStream in(pofile);
-                      read_po_file(dict, in);
-                  } catch(std::exception& e) {
-                      std::cerr << "Error: Failure file opening: " << pofile << std::endl;
-                      std::cerr << e.what() << "\n";
-                  }
-                }
+          // check if filename matches requested language
+          std::string fname = dirEnt.path().filename().string();
+          if(fname != lang + ".po") {
+            std::string::size_type s = lang.find("_");
+            if(s != std::string::npos) {
+              std::string lang_short = std::string(lang, 0, s);
+              if (fname != lang_short + ".po") {
+                continue;
               }
-              PHYSFS_freeList(files);
             }
+          }
+
+          // if it matched, load dictionary
+          try {
+            std::ifstream in(dirEnt.path());
+            read_po_file(dict, in);
+          } catch(std::exception& e) {
+            std::cerr << "error: failed to open file: "
+              << dirEnt.path() << ": "
+              << e.what() << std::endl;
+          }
         }
+      }
 
       return dict;
     }
@@ -330,23 +313,13 @@ DictionaryManager::get_languages()
   std::set<std::string> languages;
 
   for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
-    {
-      char** files = PHYSFS_enumerateFiles(p->c_str());
-      if (!files)
-        {
-          std::cerr << "Error: opendir() failed on " << *p << std::endl;
-        }
-      else
-        {
-          for(const char* const* file = files; *file != 0; file++) {
-              if(has_suffix(*file, ".po")) {
-                  std::string filename = *file;
-                  languages.insert(filename.substr(0, filename.length()-3));
-              }
-          }
-          PHYSFS_freeList(files);
-        }
+  {
+    for(auto& dirEnt : std::filesystem::directory_iterator(*p)) {
+      if(dirEnt.path().extension() == ".po") {
+        languages.insert(dirEnt.path().stem().string());
+      }
     }
+  }
   return languages;
 }
 
@@ -406,7 +379,7 @@ DictionaryManager::get_language_from_spec(const std::string& spec)
 }
 
 void
-DictionaryManager::add_directory(const std::string& pathname)
+DictionaryManager::add_directory(const std::filesystem::path& pathname)
 {
   dictionaries.clear(); // adding directories invalidates cache
   search_path.push_back(pathname);

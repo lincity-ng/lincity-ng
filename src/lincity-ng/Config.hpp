@@ -18,10 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
-#include <filesystem>
-#include <limits.h>  // for INT_MAX, INT_MIN
-#include <optional>
-#include <string>    // for string, basic_string
+#include <filesystem>  // for path
+#include <string>      // for basic_string, string
 
 class Config
 {
@@ -52,15 +50,10 @@ public:
   std::string language;
   std::string musicTheme;
 
-  void load(std::filesystem::path configPath = configFile);
-  void save(std::filesystem::path configPath = configFile);
+  void load(std::filesystem::path configPath = std::filesystem::path());
+  void save(std::filesystem::path configPath = std::filesystem::path());
 
   void parseCommandLine(int argc, char** argv);
-
-private:
-  int parseInt(const char* value, int defaultValue, int minValue = INT_MIN,
-          int maxValue = INT_MAX );
-  bool parseBool(const char* value, bool defaultvalue);
 };
 
 Config* getConfig();

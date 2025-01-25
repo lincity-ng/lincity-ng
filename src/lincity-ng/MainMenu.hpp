@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __MAINMENU_HPP__
 
 #include <SDL.h>     // for SDL_Window, Uint32
+#include <filesystem>
 #include <map>       // for map
 #include <memory>    // for unique_ptr
 #include <set>       // for set
@@ -72,9 +73,8 @@ private:
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
 
-    void selectLoadGameButtonClicked(CheckButton*,int i);
-    void selectSaveGameButtonClicked(CheckButton*,int i);
-    void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
+    void selectLoadSaveGameButtonClicked(CheckButton*, int, bool save,
+      std::filesystem::path file);
     void optionsMenuButtonClicked(CheckButton* button, int );
 
     std::unique_ptr<Component> mainMenu;
@@ -89,11 +89,11 @@ private:
     MainState quitState;
     int slotNr;
 
-    std::string mFilename;
+    std::filesystem::path mFilename;
     std::string baseName;
     static const Uint32 doubleClickTime = 1000;
     Uint32 lastClickTick;
-    std::string doubleClickButtonName;
+    CheckButton *doubleClickButton;
 
     Paragraph* musicParagraph;
     void changeTrack( bool next);

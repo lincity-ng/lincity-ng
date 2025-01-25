@@ -1,5 +1,5 @@
 //  $Id: tinygettext.h,v 1.2 2004/11/24 23:10:01 matzebraun Exp $
-// 
+//
 //  TinyGetText - A small flexible gettext() replacement
 //  Copyright (C) 2004 Ingo Ruhnke <grumbel@gmx.de>
 //
@@ -20,6 +20,7 @@
 #ifndef HEADER_TINYGETTEXT_H
 #define HEADER_TINYGETTEXT_H
 
+#include <filesystem>
 #include <iosfwd>  // for istream
 #include <map>     // for map
 #include <set>     // for set
@@ -104,7 +105,7 @@ class DictionaryManager
 private:
   typedef std::map<std::string, Dictionary> Dictionaries;
   Dictionaries dictionaries;
-  typedef std::vector<std::string> SearchPath;
+  typedef std::vector<std::filesystem::path> SearchPath;
   SearchPath search_path;
   typedef std::map<std::string, std::string> Aliases;
   Aliases language_aliases;
@@ -137,7 +138,7 @@ public:
   void set_language_alias(const std::string& alias, const std::string& lang);
 
   /** Add a directory to the search path for dictionaries */
-  void add_directory(const std::string& pathname);
+  void add_directory(const std::filesystem::path& pathname);
 
   /** Return a set of the available languages in their country code */
   std::set<std::string> get_languages();
@@ -160,4 +161,3 @@ LanguageDef& get_language_def(const std::string& name);
 /* EOF */
 
 /** @file tinygettext/TinyGetText.hpp */
-

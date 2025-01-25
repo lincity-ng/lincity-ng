@@ -38,6 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Desktop.hpp"           // for Desktop
 #include "Style.hpp"             // for parseStyleDef
 #include "XmlReader.hpp"         // for XmlReader
+#include "lincity-ng/Config.hpp"
 
 //void initFactories();
 
@@ -78,9 +79,9 @@ Component* createComponent(const std::string& type, XmlReader& reader)
     }
 }
 
-Component* loadGUIFile(const std::string& filename)
+Component* loadGUIFile(const std::filesystem::path& filename)
 {
-    XmlReader reader(filename);
+    XmlReader reader(getConfig()->appDataDir / filename);
 
     std::string componentName = (const char*) reader.getName();
     if(componentName == "gui") {
@@ -122,4 +123,3 @@ Component* parseEmbeddedComponent(XmlReader& reader)
 
 
 /** @file gui/ComponentLoader.cpp */
-

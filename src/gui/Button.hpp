@@ -24,17 +24,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __BUTTON_HPP__
 #define __BUTTON_HPP__
 
-#include <SDL.h>         // for Uint32
-#include <string>               // for string, basic_string
-#include <vector>               // for vector
+#include <SDL.h>          // for Uint32
+#include <string>         // for string, basic_string
+#include <vector>         // for vector
 
-#include "Child.hpp"            // for Child, Childs
-#include "Component.hpp"        // for Component
-#include "Event.hpp"            // for Event
-#include "Vector2.hpp"          // for Vector2
-#include "Signal.hpp"  // for Signal
+#include "Child.hpp"      // for Child (ptr only), Childs
+#include "Component.hpp"  // for Component
+#include "Signal.hpp"     // for Signal
+#include "Vector2.hpp"    // for Vector2
 
-class Painter;
 class XmlReader;
 
 /**
