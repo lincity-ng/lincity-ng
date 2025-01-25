@@ -42,7 +42,7 @@ add_library(lincity_gui  STATIC
 		ComponentFactory.hpp
 		ComponentLoader.hpp
 		Desktop.hpp
-		DialogBuilder.cpp
+		DialogBuilder.hpp
 		Document.hpp
 		DocumentElement.hpp
 		DocumentImage.hpp
