@@ -1,8 +1,34 @@
-## Unreleased
+## LinCity-NG 2.13.0 [SECURITY]
+
+date: 2025-01-26
+
+###### Gameplay
+- Fixed rocket pads resetting after save-load cycle.
+
+###### User Interface
+- Fixed the camera position when starting a game.
+- Added popup dialog for game load errors
+- Fixed lag and high CPU utilization in menus.
+- Changed dialogs to be not resizable by default.
+- Removed construction ID numbers.
+
+###### Internal
+- [SECURITY] Fixed a heap overflow in game loading.
+- Changed the load/save format. (Games saved with previous versions of
+  LinCity-NG are incompatible with the current version and vise-versa.)
+- Added a script to convert games from the load/save format of version 2.12.x.
+- Added libxml++ dependency for load/save parsing.
+- Changed starting scenarios to current load/save format.
+- Fixed an issue where games may not load correctly on a different platform than
+  the one used for saving.
+- Changed the C++ standard from C++11 to C++17.
+- Added BetaTest and DebugOpt build configurations.
+- Removed ~/.lincity-ng from the search path.
 
 ###### Documentation / Translation
 - Added a contributing guide.
 - Added Hungarian translation for GUI and source strings.
+- Fixed formatting on information tabs help page.
 
 
 ## LinCity-NG 2.12.0
