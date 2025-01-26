@@ -112,8 +112,9 @@ TileConstructionGroup tree3ConstructionGroup(
 );
 
 //Dont use this one after all maptiles are no constructions
-Construction *TileConstructionGroup::createConstruction(int, int)
-{   return 0;}
+Construction *TileConstructionGroup::createConstruction() {
+  return nullptr;
+}
 
 
  /** @file lincity/all_buildings.cpp */

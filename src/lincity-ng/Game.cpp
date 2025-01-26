@@ -42,9 +42,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/DialogBuilder.hpp"
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Signal.hpp"                  // for Signal
+#include "gui/WindowManager.hpp"
 #include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/ConstructionCount.h"     // for ConstructionCount
@@ -101,7 +103,7 @@ void Game::showHelpWindow( std::string topic ){
 void Game::backToMainMenu(){
     closeAllDialogs();
     getButtonPanel()->selectQueryTool();
-    saveCityNG( "9_currentGameNG.scn" );
+    saveCityNG( "9_currentGameNG.scn.gz" );
     running = false;
     quitState = MAINMENU;
 }
@@ -126,8 +128,7 @@ void Game::quickLoad(){
 
     //load file
     getGameView()->printStatusMessage( "quick load...");
-    std::string filename;
-    filename.append( "quicksave.scn" );
+    std::string filename("quicksave.scn.gz");
     if( loadCityNG( filename ) ){
           getGameView()->printStatusMessage( "quick load successful.");
     } else {
@@ -138,7 +139,7 @@ void Game::quickLoad(){
 void Game::quickSave(){
     //save file
     getGameView()->printStatusMessage( "quick save...");
-    saveCityNG( "quicksave.scn" );
+    saveCityNG("quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){
@@ -189,6 +190,8 @@ Game::run()
     if(!desktop)
     {   throw std::runtime_error("Toplevel component is not a Desktop");}
     gui->resize(getConfig()->videoX, getConfig()->videoY);
+    DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
+      desktop->findComponent("windowManager")));
     int frame = 0;
 
     Uint32 next_execute = ~0, next_animate = ~0, next_gui = 0, next_fps = 0;
@@ -307,7 +310,7 @@ Game::run()
                     break;
                 }
                 case SDL_QUIT:
-                    saveCityNG( "9_currentGameNG.scn" );
+                    saveCityNG( "9_currentGameNG.scn.gz" );
                     running = false;
                     quitState = QUIT;
                     break;

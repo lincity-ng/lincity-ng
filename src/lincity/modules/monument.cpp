@@ -47,8 +47,8 @@ MonumentConstructionGroup monumentConstructionGroup(
 
 //MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
-Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
-    return new Monument(x, y, this);
+Construction *MonumentConstructionGroup::createConstruction() {
+  return new Monument(this);
 }
 
 void Monument::update()
@@ -110,7 +110,7 @@ void Monument::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {
@@ -127,5 +127,23 @@ void Monument::report()
     }
 }
 
+void Monument::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"completion", "%d", completion);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"labor_consumed", "%d", labor_consumed);
+  Construction::save(xmlWriter);
+}
+
+bool Monument::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "tech_made")  tech_made      = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "tail_off")   tail_off       = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "completion") completion     = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "labor_consumed" || name == "jobs_consumed")
+                                labor_consumed = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
 
 /** @file lincity/modules/monument.cpp */

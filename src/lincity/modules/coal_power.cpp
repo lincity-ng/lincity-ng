@@ -24,9 +24,11 @@
 
 #include "coal_power.h"
 
-#include <vector>                   // for vector
+#include <iterator>   // for advance
+#include <map>        // for map
+#include <vector>     // for vector
 
-#include "modules.h"
+#include "modules.h"  // for ExtraFrame, basic_string, allocator, Commodity
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),
@@ -47,8 +49,8 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
 //Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
 //Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
-Construction *Coal_powerConstructionGroup::createConstruction(int x, int y) {
-    return new Coal_power(x, y, this);
+Construction *Coal_powerConstructionGroup::createConstruction() {
+  return new Coal_power(this);
 }
 
 void Coal_power::update()
@@ -110,7 +112,7 @@ void Coal_power::animate() {
 void Coal_power::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i++, constructionGroup->name);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), hivolt_output);
@@ -118,5 +120,66 @@ void Coal_power::report()
     list_commodities(&i);
 }
 
+void Coal_power::init_resources() {
+  Construction::init_resources();
+
+  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
+  std::list<ExtraFrame>::iterator frit = frameIt;
+  std::advance(frit, 1);
+  fr_begin = frit;
+  frit->move_x = 5;
+  frit->move_y = -378;
+  std::advance(frit, 1);
+  frit->move_x = 29;
+  frit->move_y = -390;
+  std::advance(frit, 1);
+  frit->move_x = 52;
+  frit->move_y = -397;
+  std::advance(frit, 1);
+  frit->move_x = 76;
+  frit->move_y = -409;
+  std::advance(frit, 1);
+  frit->move_x = 65;
+  frit->move_y = -348;
+  std::advance(frit, 1);
+  frit->move_x = 89;
+  frit->move_y = -360;
+  std::advance(frit, 1);
+  frit->move_x = 112;
+  frit->move_y = -371;
+  std::advance(frit, 1);
+  frit->move_x = 136;
+  frit->move_y = -383;
+  std::advance(frit, 1);
+  fr_end = frit;
+  for(frit = fr_begin;
+    frit != world(x,y)->framesptr->end() && frit != fr_end;
+    std::advance(frit, 1)
+  ) {
+    frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
+    frit->frame = -1; // hide smoke
+  }
+}
+
+void Coal_power::place(int x, int y) {
+  Construction::place(x, y);
+
+  this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
+    (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));
+  commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
+void Coal_power::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "mwh_output");
+  else return Construction::loadMember(xmlReader);
+  return true;
+}
 
 /** @file lincity/modules/coal_power.cpp */

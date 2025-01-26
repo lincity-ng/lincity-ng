@@ -19,11 +19,33 @@ include(CheckIncludeFiles)
 include(GNUInstallDirs)
 include(GetGitRevisionDescription)
 
-set(CMAKE_CXX_STANDARD 11 CACHE STRING "C++ standard")
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+
+
+### build configurations
+
+string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_UPPER)
+set(BUILD_CONFIGS Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
+set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os    -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
+set(CMAKE_CXX_FLAGS_BETATEST       "-O3 -g")
+set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g -DDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUGOPT       "-O2 -g -DDEBUG")
+foreach(BConfig ${BUILD_CONFIGS})
+	string(TOUPPER ${BConfig} BCONFIG)
+	set(CMAKE_CXX_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BCONFIG}}
+		CACHE STRING "Flags used by the CXX compiler for ${BCONFIG} builds.")
+	set(CMAKE_C_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BCONFIG}}
+		CACHE STRING "Flags used by the C compiler for ${BCONFIG} builds.")
+endforeach()
+
+
+# find dependencies
 
 find_package(Threads)
 find_package(ZLIB REQUIRED)
@@ -36,6 +58,10 @@ find_package(LibXml2 REQUIRED)
 # Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 find_package(PhysFS MODULE REQUIRED) # config seems broken, so use module
+
+# seems libxml++ doesn't have a find module, but it provides a pkg-config
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(libXMLPlusPlus REQUIRED IMPORTED_TARGET libxml++-5.0)
 
 # find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
 # The libxslt find module is broken when cross compiling because it looks in the
@@ -54,12 +80,25 @@ endif()
 find_program(GETTEXT_XGETTEXT NAMES xgettext)
 find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
 
+
+### compute the LinCity-NG version
+
 git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
 if(FULL_PROJECT_VERSION)
 	string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)
 else()
 	set(FULL_PROJECT_VERSION ${PROJECT_VERSION}-unknown)
 endif()
+set(BUILD_TYPE_RELEASE "")
+set(BUILD_TYPE_MINSIZEREL "")
+set(BUILD_TYPE_RELWITHDEBINFO "debinfo")
+set(BUILD_TYPE_BETATEST "beta")
+set(BUILD_TYPE_DEBUG "debug")
+set(BUILD_TYPE_DEBUGOPT "debug")
+if(BUILD_TYPE_${BUILD_TYPE_UPPER})
+	set(FULL_PROJECT_VERSION ${FULL_PROJECT_VERSION}-${BUILD_TYPE_${BUILD_TYPE_UPPER}})
+endif()
+
 
 check_include_files(dirent.h HAVE_DIRENT_H)
 
@@ -69,7 +108,6 @@ set(CMAKE_BINARY_BINDIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 set(CMAKE_BINARY_DATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR})
 set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 
-add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 add_compile_options("-fmacro-prefix-map=${CMAKE_SOURCE_DIR}=.")
 if(UNIX)
 	add_compile_definitions("UNIX")
@@ -82,8 +120,8 @@ if(APPLE)
 endif()
 
 if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE)
-	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE
-	"${INCLUDE_WHAT_YOU_USE};-w;-Xiwyu;--mapping_file=${CMAKE_SOURCE_DIR}/iwyu.map")
+	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE}
+		-w -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/iwyu.map)
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 
@@ -131,5 +169,9 @@ set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
 set(CPACK_SOURCE_GENERATOR TGZ)
 set(CPACK_SOURCE_IGNORE_FILES ${CMAKE_BINARY_DIR}/ ${CMAKE_SOURCE_DIR}/\\\\.git/ ${CMAKE_SOURCE_DIR}/build.*/)
 set(CPACK_PACKAGE_VERSION ${FULL_PROJECT_VERSION})
-set(CPACK_STRIP_FILES TRUE)
+if(CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-g( |$)")
+	set(CPACK_STRIP_FILES FALSE)
+else()
+	set(CPACK_STRIP_FILES TRUE)
+endif()
 include(CPack)

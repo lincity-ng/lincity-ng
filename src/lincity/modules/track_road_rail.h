@@ -22,20 +22,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <assert.h>             // for assert
 #include <array>                // for array
-#include <iostream>             // for basic_ostream, operator<<, basic_ostr...
-#include <list>                 // for _List_iterator, list
-#include <map>                  // for map
-#include <string>               // for char_traits, basic_string, operator<
+#include <list>                 // for list
 
 #include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
-#include "modules.h"            // for CommodityRule, Commodity, Counted
-
-#ifdef DEBUG
-#include <SDL.h>                // for SDL_GetKeyboardState, SDL_SCANCODE_LS...
-#include <stddef.h>             // for NULL
-#endif
+#include "modules.h"            // for CommodityRule, Commodity, Constructio...
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:
@@ -110,7 +101,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = true;
     }
     // overriding method that creates a transport tile
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern TransportConstructionGroup trackConstructionGroup, roadConstructionGroup, railConstructionGroup;
@@ -124,11 +115,10 @@ class TrackBridge{};
 class RoadBridge{};
 class RailBridge{};
 
-class Transport : public RegisteredConstruction<Transport> { // Transport inherits from countedConstruction
+class Transport : public Construction {
 public:
-    Transport(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Transport>(x, y)
-    {
-        unsigned short group = cstgrp->group;
+    Transport(ConstructionGroup *cstgrp) {
+        this->constructionGroup = cstgrp;
         this->anim = 0;
         this->start_burning_waste = false;
         this->waste_fire_anim = 0;
@@ -136,86 +126,6 @@ public:
         // disable evacuation
         //transparency is set and updated in connect_transport
         this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
-#ifdef DEBUG
-        const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-        if (world(x,y)->is_water() || keystate[SDL_SCANCODE_LSHIFT] || keystate[SDL_SCANCODE_RSHIFT] )//we build bridges on water
-#else
-        if (world(x,y)->is_water())
-#endif
-        {
-            switch (group)
-            {
-                case GROUP_TRACK:
-                    group = GROUP_TRACK_BRIDGE;
-                break;
-                case GROUP_ROAD:
-                    group = GROUP_ROAD_BRIDGE;
-                break;
-                case GROUP_RAIL:
-                    group = GROUP_RAIL_BRIDGE;
-                break;
-            }
-        }
-        else // we dont build bridges anywhere else
-        {
-            switch (group)
-            {
-                case GROUP_TRACK_BRIDGE:
-                    group = GROUP_TRACK;
-                break;
-                case GROUP_ROAD_BRIDGE:
-                    group = GROUP_ROAD;
-                break;
-                case GROUP_RAIL_BRIDGE:
-                    group = GROUP_RAIL;
-                break;
-            }
-        }
-
-      switch (group)  //here we build according to terrain
-        {
-            case GROUP_TRACK:
-                constructionGroup = &trackConstructionGroup;
-                countedTrack = new Counted<Track>();
-                this->subgroupID = countedTrack->getNextId();
-            break;
-            case GROUP_TRACK_BRIDGE:
-                constructionGroup = &trackbridgeConstructionGroup;
-                countedTrackBridge = new Counted<TrackBridge>();
-                this->subgroupID = countedTrackBridge->getNextId();
-            break;
-            case GROUP_ROAD:
-                constructionGroup = &roadConstructionGroup;
-                countedRoad = new Counted<Road>();
-                this->subgroupID = countedRoad->getNextId();
-            break;
-            case GROUP_ROAD_BRIDGE:
-                constructionGroup = &roadbridgeConstructionGroup;
-                countedRoadBridge = new Counted<RoadBridge>();
-                this->subgroupID = countedRoadBridge->getNextId();
-            break;
-            case GROUP_RAIL:
-                constructionGroup = &railConstructionGroup;
-                countedRail = new Counted<Rail>();
-                this->subgroupID = countedRail->getNextId();
-            break;
-            case GROUP_RAIL_BRIDGE:
-                constructionGroup = &railbridgeConstructionGroup;
-                countedRailBridge = new Counted<RailBridge>();
-                this->subgroupID = countedRailBridge->getNextId();
-            break;
-            default :
-                std::cout << "invalid transport group,x,y "
-                << ", " << group << ", "
-                << x << ", " << y << ", " << std::endl;
-                assert(false);
-        }
-        init_resources();
-        waste_fire_frit = world(x, y)->createframe();
-        waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
-        waste_fire_frit->move_x = 0;
-        waste_fire_frit->move_y = 0;
-        waste_fire_frit->frame = -1;
 
         initialize_commodities();
         this->trafficCount = this->commodityCount;
@@ -242,49 +152,18 @@ public:
         commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_LOSS_ON_TRANSPORT;
         commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
     }
-    ~Transport()
-    {
-        switch (constructionGroup->group)
-        {
-            case GROUP_TRACK:
-                delete countedTrack;
-            break;
-            case GROUP_TRACK_BRIDGE:
-                delete countedTrackBridge;
-            break;
-            case GROUP_ROAD:
-                delete countedRoad;
-            break;
-            case GROUP_ROAD_BRIDGE:
-                delete countedRoadBridge;
-            break;
-            case GROUP_RAIL:
-                delete countedRail;
-            break;
-            case GROUP_RAIL_BRIDGE:
-                delete countedRailBridge;
-            break;
-            default:
-                std::cout << "counting error in Transport IDs" << std::endl;
-            break;
-        }
-
+    ~Transport() {
         world(x,y)->killframe(waste_fire_frit);
     }
-    Counted<Track> *countedTrack;
-    Counted<Road> *countedRoad;
-    Counted<Rail> *countedRail;
-    Counted<TrackBridge> *countedTrackBridge;
-    Counted<RoadBridge> *countedRoadBridge;
-    Counted<RailBridge> *countedRailBridge;
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void playSound(); //override random sound
     virtual bool canPlaceVehicle();
+    virtual void init_resources() override;
+    virtual void place(int x, int y) override;
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic( int* i);
-    int subgroupID;
     int anim;
     bool start_burning_waste;
     std::list<ExtraFrame>::iterator waste_fire_frit;

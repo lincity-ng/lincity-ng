@@ -39,7 +39,6 @@
 #define TIP_TAKES_WASTE (20 * WASTE_BURRIED)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -63,24 +62,20 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a tip
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern TipConstructionGroup tipConstructionGroup;
 
-class Tip: public RegisteredConstruction<Tip>{ // Tip inherits from its own RegisteredConstruction
+class Tip: public Construction{
 public:
-    Tip(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Tip>(x, y)
-    {
+    Tip(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
-        setMemberSaved(&this->total_waste,"total_waste");
         this->working_days = 0;
         this->busy = 0;
         this->degration_days = 0;
-        setMemberSaved(&this->degration_days,"degration_days");
         initialize_commodities();
 
         commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURRIED;
@@ -90,6 +85,9 @@ public:
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  working_days, busy;
     int  total_waste;

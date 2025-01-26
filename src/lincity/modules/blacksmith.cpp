@@ -25,7 +25,6 @@
 #include "blacksmith.h"
 
 #include <list>                     // for _List_iterator
-#include <string>                   // for basic_string
 #include <vector>                   // for vector
 
 #include "modules.h"
@@ -44,8 +43,8 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_RANGE
 );
 
-Construction *BlacksmithConstructionGroup::createConstruction(int x, int y) {
-    return new Blacksmith(x, y, this);
+Construction *BlacksmithConstructionGroup::createConstruction() {
+  return new Blacksmith(this);
 }
 
 void Blacksmith::update()
@@ -101,7 +100,7 @@ void Blacksmith::report()
 {
   int i = 0;
 
-  mps_store_sd(i++, constructionGroup->name, ID);
+  mps_store_title(i++, constructionGroup->name);
   i++;
   mps_store_sfp(i++, N_("busy"), (float) busy);
   // i++;

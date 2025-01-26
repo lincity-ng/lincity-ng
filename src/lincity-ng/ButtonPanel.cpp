@@ -21,9 +21,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_BUTT...
 #include <assert.h>                        // for assert
-#include <stdio.h>                         // for NULL, sscanf
+#include <stdio.h>                         // for sscanf
 #include <string.h>                        // for strcmp
-#include <functional>                      // for bind, _Bind, function, _2, _1
+#include <functional>                      // for bind, _Bind, _2, function, _1
 #include <iostream>                        // for basic_ostream, operator<<
 #include <list>                            // for list, _List_iterator
 #include <sstream>                         // for basic_stringstream, basic_...
@@ -48,10 +48,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lintypes.h"              // for ConstructionGroup
 #include "lincity/modules/all_modules.h"   // for MODERN_WINDMILL_TECH, Wind...
 #include "tinygettext/gettext.hpp"         // for _
-
-#ifdef DEBUG
-#include <assert.h>                        // for assert
-#endif
 
 class Painter;
 class Vector2;

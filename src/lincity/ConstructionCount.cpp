@@ -21,13 +21,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <map>                        // for map, operator!=, _Rb_tree_iterator
-#include <utility>                    // for pair
-
 #include "ConstructionCount.h"
 #include "engglobs.h"                 // for world
 #include "lincity-ng/Permutator.hpp"  // for Permutator
-#include "lintypes.h"                 // for Construction, ConstructionGroup
+#include "lintypes.h"                 // for Construction
 #include "world.h"                    // for World
 
 ConstructionCount::ConstructionCount()
@@ -57,7 +54,7 @@ ConstructionCount::add_construction(Construction * construction)
     constructionVector[free_slot++] = construction;
     world.dirty = true;
     //std::cout << "Added Construction to constructionCount: " <<
-    //    construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
+    //    construction->constructionGroup->name << std::endl;
 }
 
 void
@@ -71,7 +68,7 @@ ConstructionCount::remove_construction(Construction * construction)
     if (constructionVector[free_slot] == construction)
     {
         //std::cout << "Nullified Construction in constructionCount: " <<
-        //construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
+        //construction->constructionGroup->name << std::endl;
         constructionVector[free_slot] = NULL;
         //constructionVector.erase(i,i+1);
         //update_permutator();
@@ -81,7 +78,7 @@ ConstructionCount::remove_construction(Construction * construction)
     else
     {
         std::cout << "Could not find Construction in constructionCount: " <<
-        construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
+        construction->constructionGroup->name << std::endl;
         //assert(false);
     }
 */
@@ -139,46 +136,6 @@ ConstructionCount::count()
         {   ++n;}
     }
     return n;
-}
-
-void
-ConstructionCount::sort()
-{
-/*
-   //FIXME The resuluts with this one are quite good, but not really ordered
-   std::sort(constructionVector.begin(), constructionVector.end(), earlier);
-*/
-    //Alternate Solution
-    std::map <unsigned short,std::map <int, Construction*> > census;
-    for(size_t i = 0; i < constructionVector.size(); ++i)
-    {
-        if (constructionVector[i])
-        {
-            Construction *cst = constructionVector[i];
-            int ID = cst->ID;
-            unsigned short group = cst->constructionGroup->group;
-            census[group][ID] = cst;
-            constructionVector[i] = 0;
-        }
-    }
-    std::map <unsigned short,std::map <int, Construction*> >::iterator group_it;
-    std::map <int, Construction*>::iterator cst_it;
-    free_slot = 0;
-    for(group_it = census.begin(); group_it != census.end(); ++group_it)
-    {   //for every groups
-        for(cst_it = group_it->second.begin(); cst_it != group_it->second.end(); ++cst_it)
-        {   //for every construction
-            constructionVector[free_slot++] = cst_it->second;
-        }
-    }
-}
-
-bool
-ConstructionCount::earlier(Construction* a, Construction* b)
-{
-//sort works until all tests are false
-return (a && b)?((a->constructionGroup->group == b->constructionGroup->group)?(a->ID < b->ID):
-        (a->constructionGroup->group < b->constructionGroup->group)):false;
 }
 
 //FIXME Only for use in debugging

@@ -42,7 +42,6 @@
 #define MODERN_WINDMILL_TECH 450000
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -67,44 +66,34 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Windmill
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern WindmillConstructionGroup windmillConstructionGroup;
 
-class Windmill: public RegisteredConstruction<Windmill> { // Windmill inherits from its own RegisteredConstruction
+class Windmill: public Construction {
 public:
-    Windmill(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y)
-    {
+    Windmill(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
-        // this->anim = 0;
+        this->anim = 0;
         this->animate_enable = false;
         this->tech = tech_level;
-        setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        // this->lovolt_output = (int)(WINDMILL_LOVOLT + (((double)tech_level * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->lovolt_output, "kwh_output"); // compatibility
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
         // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
     }
 
-    virtual void initialize() override {
-      RegisteredConstruction::initialize();
-
-      this->lovolt_output = (int)(WINDMILL_LOVOLT +
-        (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
-
-      commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
-    }
-
     virtual ~Windmill() { }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
+    virtual void place(int x, int y) override;
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  lovolt_output;
     int  tech;

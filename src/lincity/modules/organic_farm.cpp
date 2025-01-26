@@ -43,8 +43,8 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_RANGE
 );
 
-Construction *Organic_farmConstructionGroup::createConstruction(int x, int y) {
-    return new Organic_farm(x, y, this);
+Construction *Organic_farmConstructionGroup::createConstruction() {
+  return new Organic_farm(this);
 }
 
 
@@ -129,7 +129,7 @@ void Organic_farm::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
     mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
@@ -137,6 +137,36 @@ void Organic_farm::report()
     mps_store_sd(i++, N_("Output"), max_foodprod);
     // i++;
     list_commodities(&i);
+}
+
+void Organic_farm::place(int x, int y) {
+  Construction::place(x, y);
+
+  // Check underground water, and reduce food production accordingly
+  this->ugwCount = 0;
+  for(int i = 0; i < constructionGroup->size; i++)
+  for (int j = 0; j < constructionGroup->size; j++)
+    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      this->ugwCount++;
+
+  this->tech_bonus = (int)((long long int)this->tech
+    * ORGANIC_FARM_FOOD_OUTPUT / MAX_TECH_LEVEL);
+
+  commodityMaxProd[STUFF_FOOD] = 100 *
+    (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
+}
+
+void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string tag = xmlReader.get_name();
+  if(tag == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(tag == "tech_bonus");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/organic_farm.cpp */

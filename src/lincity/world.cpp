@@ -24,22 +24,23 @@
 
 #include "world.h"
 
-#include <assert.h>         // for assert
-#include <stdlib.h>         // for NULL, size_t
-#include <iostream>         // for char_traits, basic_ostream, basic_ostream...
+#include <stdlib.h>         // for NULL
+#include <iostream>         // for basic_ostream, char_traits, operator<<
 #include <iterator>         // for advance
 #include <map>              // for map
-#include <string>           // for basic_string, operator==, operator<, oper...
+#include <string>           // for basic_string, operator<
 
 #include "all_buildings.h"  // for TileConstructionGroup, desertConstruction...
-#include "engglobs.h"       // for world, binary_mode, dxo, dyo, world_id
-#include "groups.h"         // for GROUP_WATER, GROUP_DESERT, GROUP_BARE
+#include "engglobs.h"       // for world, dxo, dyo, world_id
+#include "groups.h"         // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
 #include "init_game.h"      // for clear_game
-#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_ALT...
+#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_HAS...
 #include "lintypes.h"       // for Construction, ConstructionGroup
-#include "resources.hpp"    // for ExtraFrame, ResourceGroup, GraphicsInfo
-#include "xmlloadsave.h"    // for XMLTemplate, bin_template_libary, xml_tem...
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup
 
+#ifdef DEBUG
+#include <cassert>          // for assert
+#endif
 
 Ground::Ground() {
   altitude = 0;
@@ -245,166 +246,6 @@ bool MapTile::is_residence() //true on residences
      || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HH) ) );
 }
 
-void MapTile::writeTemplate()
-{
-    std::string xml_tag;
-    if ((!binary_mode && xml_template_libary.count("tile") == 0)
-        || (binary_mode && bin_template_libary.count(GROUP_DESERT) == 0) )
-    {
-
-        XMLTemplate * xml_tmp = new XMLTemplate("tile");
-        if (!binary_mode)
-        {
-            xml_tmp->putTag("group");
-            xml_tmp->add_len(sizeof(group));
-            xml_tmp->putTag("type");
-            xml_tmp->add_len(sizeof(type));
-            xml_tmp->putTag("map_x");
-            xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
-            xml_tmp->putTag("map_y");
-            xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
-        }
-        xml_tmp->putTag("flags");
-        xml_tmp->add_len(sizeof(flags));
-        xml_tmp->putTag("air_pol");
-        xml_tmp->add_len(sizeof(pollution));
-        xml_tmp->putTag("ore");
-        xml_tmp->add_len(sizeof(ore_reserve));
-        xml_tmp->putTag("coal");
-        xml_tmp->add_len(sizeof(coal_reserve));
-        xml_tmp->putTag("altitude");
-        xml_tmp->add_len(sizeof(ground.altitude));
-        xml_tmp->putTag("ecotable");
-        xml_tmp->add_len(sizeof(ground.ecotable));
-        xml_tmp->putTag("wastes");
-        xml_tmp->add_len(sizeof(ground.wastes));
-        xml_tmp->putTag("grd_pol");
-        xml_tmp->add_len(sizeof(ground.pollution));
-        xml_tmp->putTag("water_alt");
-        xml_tmp->add_len(sizeof(ground.water_alt));
-        xml_tmp->putTag("water_pol");
-        xml_tmp->add_len(sizeof(ground.water_pol));
-        xml_tmp->putTag("water_next");
-        xml_tmp->add_len(sizeof(ground.water_next));
-        xml_tmp->putTag("int1");
-        xml_tmp->add_len(sizeof(ground.int1));
-        xml_tmp->putTag("int2");
-        xml_tmp->add_len(sizeof(ground.int2));
-        xml_tmp->putTag("int3");
-        xml_tmp->add_len(sizeof(ground.int3));
-        xml_tmp->putTag("int4");
-        xml_tmp->add_len(sizeof(ground.int4));
-        if (binary_mode)
-        {   xml_tmp->set_group(GROUP_DESERT);}
-    }
-}
-
-
-void MapTile::saveMembers(std::ostream *os)
-{
-    type = type % getTileResourceGroup()->graphicsInfoVector.size();
-    int x = world.map_x(this);
-    int y = world.map_y(this);
-    unsigned short head = GROUP_DESERT;
-    size_t cm = 0;
-    std::string xml_tag;
-     if ((!binary_mode && xml_template_libary.count("tile") == 0)
-        || (binary_mode && bin_template_libary.count(head) == 0) )
-    {
-        writeTemplate();
-        //std::cout << "creating xml template for tile" << std::endl;
-    }
-    XMLTemplate * xml_tmp;
-    if (binary_mode)
-    {   xml_tmp = bin_template_libary[head];}
-    else
-    {
-        xml_tmp = xml_template_libary["tile"];
-        if (os == &std::cout)
-        {   xml_tmp->report(os);}
-    }
-    xml_tmp->rewind();
-
-    if (!binary_mode)
-    {
-        *os << "<tile>";
-        os->flush();
-        while (!xml_tmp->reached_end())
-        {
-            xml_tag = xml_tmp->getTag();
-            if (xml_tag == "map_x")                  {*os << x;}
-            else if (xml_tag == "map_y")             {*os << y;}
-            //mapTile
-            else if (xml_tag == "flags")             {*os << flags;}
-            else if (xml_tag == "type")              {*os << type;}
-            else if (xml_tag == "group")             {*os << group;}
-            else if (xml_tag == "air_pol")           {*os << pollution;}
-            else if (xml_tag == "ore")               {*os << ore_reserve;}
-            else if (xml_tag == "coal")              {*os << coal_reserve;}
-            //ground
-            else if (xml_tag == "altitude")          {*os << ground.altitude;}
-            else if (xml_tag == "ecotable")          {*os << ground.ecotable;}
-            else if (xml_tag == "wastes")            {*os << ground.wastes;}
-            else if (xml_tag == "grd_pol")           {*os << ground.pollution;}
-            else if (xml_tag == "water_alt")         {*os << ground.water_alt;}
-            else if (xml_tag == "water_pol")         {*os << ground.water_pol;}
-            else if (xml_tag == "water_wast")        {*os << ground.water_wast;}
-            else if (xml_tag == "water_next")        {*os << ground.water_next;}
-            else if (xml_tag == "int1")              {*os << ground.int1;}
-            else if (xml_tag == "int2")              {*os << ground.int2;}
-            else if (xml_tag == "int3")              {*os << ground.int3;}
-            else if (xml_tag == "int4")              {*os << ground.int4;}
-            else
-            {
-                std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
-            }
-
-            *os << '\t';
-            os->flush();
-            xml_tmp->step();
-        }
-        *os << "</tile>" << std::endl;
-    }
-    else
-    {
-        int idx = x + y * world.len();
-        os->write( (char*)&head,sizeof(head)); //Head aka GROUP_DESERT
-        os->write( (char*)&group,sizeof(group));
-        os->write( (char*)&type,sizeof(type));
-        os->write( (char*)&idx,sizeof(idx));
-
-        while (!xml_tmp->reached_end())
-        {
-            xml_tag = xml_tmp->getTag();
-            xml_tmp->step();
-            //mapTile
-            if (xml_tag == "flags")                  {os->write( (char*)&flags,sizeof(flags));cm+=sizeof(flags);}
-            else if (xml_tag == "air_pol")           {os->write( (char*)&pollution,sizeof(pollution));cm+=sizeof(pollution);}
-            else if (xml_tag == "ore")               {os->write( (char*)&ore_reserve,sizeof(ore_reserve));cm+=sizeof(ore_reserve);}
-            else if (xml_tag == "coal")              {os->write( (char*)&coal_reserve,sizeof(coal_reserve));cm+=sizeof(coal_reserve);}
-            //ground
-            else if (xml_tag == "altitude")          {os->write( (char*)&ground.altitude,sizeof(ground.altitude));cm+=sizeof(ground.altitude);}
-            else if (xml_tag == "ecotable")          {os->write( (char*)&ground.ecotable,sizeof(ground.ecotable));cm+=sizeof(ground.ecotable);}
-            else if (xml_tag == "wastes")            {os->write( (char*)&ground.wastes,sizeof(ground.wastes));cm+=sizeof(ground.wastes);}
-            else if (xml_tag == "grd_pol")           {os->write( (char*)&ground.pollution,sizeof(ground.pollution));cm+=sizeof(ground.pollution);}
-            else if (xml_tag == "water_alt")         {os->write( (char*)&ground.water_alt,sizeof(ground.water_alt));cm+=sizeof(ground.water_alt);}
-            else if (xml_tag == "water_pol")         {os->write( (char*)&ground.water_pol,sizeof(ground.water_pol));cm+=sizeof(ground.water_pol);}
-            else if (xml_tag == "water_wast")        {os->write( (char*)&ground.water_wast,sizeof(ground.water_wast));cm+=sizeof(ground.water_wast);}
-            else if (xml_tag == "water_next")        {os->write( (char*)&ground.water_next,sizeof(ground.water_next));cm+=sizeof(ground.water_next);}
-            else if (xml_tag == "int1")              {os->write( (char*)&ground.int1,sizeof(ground.int1));cm+=sizeof(ground.int1);}
-            else if (xml_tag == "int2")              {os->write( (char*)&ground.int2,sizeof(ground.int2));cm+=sizeof(ground.int2);}
-            else if (xml_tag == "int3")              {os->write( (char*)&ground.int3,sizeof(ground.int3));cm+=sizeof(ground.int3);}
-            else if (xml_tag == "int4")              {os->write( (char*)&ground.int4,sizeof(ground.int4));cm+=sizeof(ground.int4);}
-            else
-            {
-                std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
-            }
-        }
-        //std::cout << "cm/len: " << cm << "/" << xml_tmp->len() << std::endl;
-        assert(cm == xml_tmp->len());
-    }
-}
-
 std::list<ExtraFrame>::iterator MapTile::createframe(void)
 {
     if(!framesptr)
@@ -601,17 +442,6 @@ bool World::checkEdgeMin(int x , int y)
     }
     else
         return false;
-}
-
-int World::count_altered(void)
-{
-    int count = 0;
-    for (size_t i = 0; i < maptile.size(); ++i)
-    {
-        if(maptile[i].flags & FLAG_ALTERED)
-        {   ++count;}
-    }
-    return count;
 }
 
 

@@ -41,7 +41,6 @@
 #define MAX_WASTE_AT_UNIVERSITY (20 * UNIVERSITY_GOODS / 3)
 
 #include <array>                    // for array
-#include <string>                   // for basic_string
 
 #include "modules.h"
 
@@ -70,21 +69,18 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a University
-    virtual Construction *createConstruction(int x, int y);
+    virtual Construction *createConstruction();
 };
 
 extern UniversityConstructionGroup universityConstructionGroup;
 
-class University: public RegisteredConstruction<University> { // university inherits from its own RegisteredConstruction
+class University: public Construction {
 public:
-    University(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<University>(x, y)
-    {
+    University(ConstructionGroup *cstgrp) {
         this->constructionGroup = cstgrp;
-        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
-        setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
 
         commodityMaxCons[STUFF_LABOR] = 100 * UNIVERSITY_LABOR;
@@ -94,6 +90,9 @@ public:
     virtual ~University() { }
     virtual void update();
     virtual void report();
+
+    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_tech_made;
     int working_days, busy;

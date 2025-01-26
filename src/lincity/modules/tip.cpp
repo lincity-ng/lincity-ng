@@ -43,8 +43,8 @@ TipConstructionGroup tipConstructionGroup(
      GROUP_TIP_RANGE
 );
 
-Construction *TipConstructionGroup::createConstruction(int x, int y ) {
-    return new Tip(x, y, this);
+Construction *TipConstructionGroup::createConstruction() {
+  return new Tip(this);
 }
 
 
@@ -93,13 +93,27 @@ void Tip::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++,N_("busy"), busy);
     mps_store_sd(i++, N_("Waste"), total_waste);
     mps_store_sfp(i++, N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
     // i++;
     list_commodities(&i);
+}
+
+void Tip::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_waste",    "%d", total_waste);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"degration_days", "%d", degration_days);
+  Construction::save(xmlWriter);
+}
+
+bool Tip::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if     (name == "total_waste")    total_waste    = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "degration_days") degration_days = std::stoi(xmlReader.read_inner_xml());
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/tip.cpp */

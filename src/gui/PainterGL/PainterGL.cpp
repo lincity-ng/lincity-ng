@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Texture.hpp"    // for Texture
 #include "TextureGL.hpp"  // for TextureGL
 
-#ifdef DEBUG
+#ifndef NDEBUG
 #include <typeinfo>       // for typeid
 #endif
 

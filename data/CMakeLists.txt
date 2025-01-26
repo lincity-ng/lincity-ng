@@ -60,3 +60,10 @@ copy_data_file(lincity-ng.png ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADI
 
 add_custom_target(data-files.target DEPENDS ${data_files_out})
 add_dependencies(lincity-ng data-files.target)
+
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/1328-to-2130.sh
+  "#!/usr/bin/env bash\nzcat | sed '3,\$y/ /-/' | xsltproc ${CMAKE_INSTALL_FULL_APPDATADIR}/1328-to-2130.xsl - | gzip -9 -c")
+install(FILES ${CMAKE_SOURCE_DIR}/contrib/ldsv-format-convert/1328-to-2130.xsl
+  DESTINATION ${CMAKE_INSTALL_APPDATADIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/1328-to-2130.sh
+  DESTINATION ${CMAKE_INSTALL_APPDATADIR})

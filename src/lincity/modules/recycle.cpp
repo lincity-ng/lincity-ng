@@ -40,8 +40,8 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_RANGE
 );
 
-Construction *RecycleConstructionGroup::createConstruction(int x, int y) {
-    return new Recycle(x, y, this);
+Construction *RecycleConstructionGroup::createConstruction() {
+  return new Recycle(this);
 }
 
 void Recycle::update()
@@ -82,7 +82,7 @@ void Recycle::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_title(i, constructionGroup->name);
     i++;
     mps_store_sfp(i++, N_("Tech"), tech * 100.0f / MAX_TECH_LEVEL);
     mps_store_sfp(i++, N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);
@@ -90,6 +90,34 @@ void Recycle::report()
     mps_store_sfp(i++, N_("busy"), busy);
     // i++;
     list_commodities(&i);
+}
+
+void Recycle::place(int x, int y) {
+  Construction::place(x, y);
+
+  int efficiency =
+    (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
+  if (efficiency > (WASTE_RECYCLED * 8) / 10)
+    efficiency = (WASTE_RECYCLED * 8) / 10;
+  this->make_ore = efficiency;
+  this->make_steel = efficiency / 50;
+
+  commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+  commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
+}
+
+void Recycle::save(xmlTextWriterPtr xmlWriter) {
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  Construction::save(xmlWriter);
+}
+
+bool Recycle::loadMember(xmlpp::TextReader& xmlReader) {
+  std::string name = xmlReader.get_name();
+  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  else if(name == "make_ore");
+  else if(name == "make_steel");
+  else return Construction::loadMember(xmlReader);
+  return true;
 }
 
 /** @file lincity/modules/recycle.cpp */
