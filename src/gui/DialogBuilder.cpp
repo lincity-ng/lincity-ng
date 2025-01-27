@@ -191,6 +191,7 @@ DialogBuilder::build() {
     break;
   }
 
+  dialog->resize(dialog->getWidth(), dialog->getHeight()); // force relayout
   _windowManager->addWindow(dialog.release());
 }
 
