@@ -194,6 +194,7 @@ void Config::load(std::filesystem::path configFile) {
     else {
       unexpectedXmlElement(xmlReader);
     }
+    xmlReader.next();
   }
 
   while(xmlReader.next()) {

@@ -426,7 +426,7 @@ Sound::enableMusic(bool enabled)
 void
 Sound::setMusicVolume(int vol)
 {
-    assert(vol >= 0 && vol >= 100);
+    assert(vol >= 0 && vol <= 100);
     getConfig()->musicVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_VolumeMusic(static_cast<int>(volvalue));
@@ -435,7 +435,7 @@ Sound::setMusicVolume(int vol)
 void
 Sound::setSoundVolume(int vol)
 {
-    assert(vol >= 0 && vol >= 100);
+    assert(vol >= 0 && vol <= 100);
     getConfig()->soundVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_Volume(-1, static_cast<int>(volvalue));
