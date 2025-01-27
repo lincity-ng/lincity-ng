@@ -22,13 +22,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>                         // for fprintf, size_t, stderr
 #include <string.h>                        // for strcpy
 #include <algorithm>                       // for sort
+#include <cassert>
 #include <chrono>                          // for operator>
 #include <cstdlib>                         // for abs, unsetenv
 #include <functional>                      // for bind, _1, function, _2
 #include <iomanip>                         // for operator<<, setfill, setw
 #include <iostream>                        // for basic_ostream, operator<<
 #include <sstream>                         // for basic_stringstream, basic_...
-#include <stdexcept>                       // for runtime_error
 #include <utility>                         // for pair
 #include <vector>                          // for vector
 
@@ -42,10 +42,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"               // for Component
 #include "gui/ComponentLoader.hpp"         // for loadGUIFile
 #include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/DialogBuilder.hpp"           // for DialogBuilder
 #include "gui/Event.hpp"                   // for Event
 #include "gui/Painter.hpp"                 // for Painter
 #include "gui/Paragraph.hpp"               // for Paragraph
 #include "gui/Signal.hpp"                  // for Signal
+#include "gui/SwitchComponent.hpp"         // for SwitchComponent
+#include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/engglobs.h"              // for world, total_money, total_...
 #include "lincity/init_game.h"             // for _CitySettings, new_city
@@ -61,7 +64,13 @@ MainMenu::MainMenu(SDL_Window* _window)
     : window(_window)
 {
     loadMainMenu();
-    switchMenu(mainMenu.get());
+    loadNewGameMenu();
+    loadLoadGameMenu();
+    loadSaveGameMenu();
+    loadCreditsMenu();
+    loadOptionsMenu();
+    switchMenu(mainMenu);
+
     baseName = "";
     lastClickTick = 0;
     doubleClickButton = nullptr;
@@ -74,32 +83,28 @@ MainMenu::~MainMenu()
 }
 
 void
-MainMenu::loadMainMenu()
-{
-    if(mainMenu.get() == 0)
-    {
-        mainMenu.reset(loadGUIFile("gui/mainmenu.xml"));
-        // connect signals
-        Button* quitButton = getButton(*mainMenu, "QuitButton");
-        quitButton->clicked.connect(std::bind(&MainMenu::quitButtonClicked, this, _1));
-        Button* continueButton = getButton(*mainMenu, "ContinueButton");
-        continueButton->clicked.connect(std::bind(&MainMenu::continueButtonClicked, this, _1));
-        Button* newGameButton = getButton(*mainMenu, "NewGameButton");
-        newGameButton->clicked.connect(std::bind(&MainMenu::newGameButtonClicked, this, _1));
-        Button* loadGameButton = getButton(*mainMenu, "LoadButton");
-        loadGameButton->clicked.connect(std::bind(&MainMenu::loadGameButtonClicked, this, _1));
-        Button* saveGameButton = getButton(*mainMenu, "SaveButton");
-        saveGameButton->clicked.connect(std::bind(&MainMenu::saveGameButtonClicked, this, _1));
-        Button* creditsButton = getButton(*mainMenu, "CreditsButton");
-        creditsButton->clicked.connect(std::bind(&MainMenu::creditsButtonClicked, this, _1));
-        Button* optionsButton = getButton(*mainMenu, "OptionsButton");
-        optionsButton->clicked.connect(std::bind(&MainMenu::optionsButtonClicked, this, _1));
+MainMenu::loadMainMenu() {
+  menu.reset(dynamic_cast<Desktop *>(loadGUIFile("gui/mainmenu.xml")));
+  menuSwitch = dynamic_cast<SwitchComponent *>(
+    menu->findComponent("menu-switch"));
+  assert(menuSwitch);
 
-    }
-
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    mainMenu->resize(width, height);
+  mainMenu = menuSwitch->findComponent("main-menu");
+  // connect signals
+  Button* quitButton = getButton(*mainMenu, "QuitButton");
+  quitButton->clicked.connect(std::bind(&MainMenu::quitButtonClicked, this, _1));
+  Button* continueButton = getButton(*mainMenu, "ContinueButton");
+  continueButton->clicked.connect(std::bind(&MainMenu::continueButtonClicked, this, _1));
+  Button* newGameButton = getButton(*mainMenu, "NewGameButton");
+  newGameButton->clicked.connect(std::bind(&MainMenu::newGameButtonClicked, this, _1));
+  Button* loadGameButton = getButton(*mainMenu, "LoadButton");
+  loadGameButton->clicked.connect(std::bind(&MainMenu::loadGameButtonClicked, this, _1));
+  Button* saveGameButton = getButton(*mainMenu, "SaveButton");
+  saveGameButton->clicked.connect(std::bind(&MainMenu::saveGameButtonClicked, this, _1));
+  Button* creditsButton = getButton(*mainMenu, "CreditsButton");
+  creditsButton->clicked.connect(std::bind(&MainMenu::creditsButtonClicked, this, _1));
+  Button* optionsButton = getButton(*mainMenu, "OptionsButton");
+  optionsButton->clicked.connect(std::bind(&MainMenu::optionsButtonClicked, this, _1));
 }
 
 void MainMenu::fillNewGameMenu()
@@ -126,7 +131,7 @@ void MainMenu::fillNewGameMenu()
 
   for(int i=0;i<6;i++)
   {
-    button=getCheckButton(*newGameMenu.get(),buttonNames[i]);
+    button = getCheckButton(*newGameMenu, buttonNames[i]);
 
     std::filesystem::path file;
     while(dirIt != std::filesystem::end(dirIt)) {
@@ -146,27 +151,6 @@ void MainMenu::fillNewGameMenu()
       button->setCaptionText(_("empty"));
   }
 
-  button=getCheckButton(*newGameMenu.get(),"WithVillage");
-  button->check();
-  //button->setCaptionText(_("random empty board"));
-  //button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-
-  button=getCheckButton(*newGameMenu.get(),"RiverDelta");
-  button->setCaptionText(_("river delta"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked, this, _1, _2, false, std::filesystem::path()));
-
-  button=getCheckButton(*newGameMenu.get(),"DesertArea");
-  button->setCaptionText(_("semi desert"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked, this, _1, _2, false, std::filesystem::path()));
-
-  button=getCheckButton(*newGameMenu.get(),"TemperateArea");
-  button->setCaptionText(_("temperate"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked, this, _1, _2, false, std::filesystem::path()));
-
-  button=getCheckButton(*newGameMenu.get(),"SwampArea");
-  button->setCaptionText(_("swamp"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked, this, _1, _2, false, std::filesystem::path()));
-
   return;
 }
 
@@ -182,8 +166,7 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
     std::filesystem::file_time_type t;
 
     std::string filestart = std::to_string(i+1) + "_";
-    button = getCheckButton(
-      *(save?saveGameMenu:loadGameMenu).get(),buttonNames[i]);
+    button = getCheckButton(*(save?saveGameMenu:loadGameMenu),buttonNames[i]);
 
     for(auto& dirEnt : std::filesystem::directory_iterator(
       getConfig()->userDataDir)
@@ -197,6 +180,7 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
         t = dirEnt.last_write_time();
       }
     }
+
     // FIXME: this will cause problems with RadioButtonGroup
     button->clicked.clear();
     button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked, this, _1, _2, save, recentfile));
@@ -206,159 +190,173 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
 }
 
 void
-MainMenu::loadNewGameMenu()
-{
-    if(newGameMenu.get() == 0) {
-        newGameMenu.reset(loadGUIFile("gui/newgame.xml"));
+MainMenu::loadNewGameMenu() {
+  newGameMenu = menuSwitch->findComponent("newgame-menu");
 
-        // connect signals
-        Button* startButton = getButton(*newGameMenu, "StartButton");
-        startButton->clicked.connect(std::bind(&MainMenu::newGameStartButtonClicked, this, _1));
+  // connect signals
+  Button* startButton = getButton(*newGameMenu, "StartButton");
+  startButton->clicked.connect(std::bind(&MainMenu::newGameStartButtonClicked, this, _1));
 
-        Button* backButton = getButton(*newGameMenu, "BackButton");
-        backButton->clicked.connect(std::bind(&MainMenu::newGameBackButtonClicked, this, _1));
+  Button* backButton = getButton(*newGameMenu, "BackButton");
+  backButton->clicked.connect(std::bind(&MainMenu::newGameBackButtonClicked, this, _1));
 
+  CheckButton *button;
+  button = getCheckButton(*newGameMenu,"WithVillage");
+  button->check();
+  //button->setCaptionText(_("random empty board"));
+  //button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
-        fillNewGameMenu();
-    }
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    newGameMenu->resize(width, height);
+  button = getCheckButton(*newGameMenu,"RiverDelta");
+  button->setCaptionText(_("river delta"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked,
+    this, _1, _2, false, std::filesystem::path()));
+
+  button = getCheckButton(*newGameMenu,"DesertArea");
+  button->setCaptionText(_("semi desert"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked,
+    this, _1, _2, false, std::filesystem::path()));
+
+  button = getCheckButton(*newGameMenu,"TemperateArea");
+  button->setCaptionText(_("temperate"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked,
+    this, _1, _2, false, std::filesystem::path()));
+
+  button = getCheckButton(*newGameMenu,"SwampArea");
+  button->setCaptionText(_("swamp"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadSaveGameButtonClicked,
+    this, _1, _2, false, std::filesystem::path()));
 }
 
 void
-MainMenu::loadCreditsMenu()
-{
-    if(creditsMenu.get() == 0)
-    {
-        creditsMenu.reset(loadGUIFile("gui/credits.xml"));
-        Button* backButton = getButton(*creditsMenu, "BackButton");
-        backButton->clicked.connect(std::bind(&MainMenu::creditsBackButtonClicked, this, _1));
-    }
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    creditsMenu->resize(width, height);
+MainMenu::loadCreditsMenu() {
+  creditsMenu = menuSwitch->findComponent("credits-menu");
+  Button* backButton = getButton(*creditsMenu, "BackButton");
+  backButton->clicked.connect(std::bind(&MainMenu::creditsBackButtonClicked, this, _1));
 }
 
 void
-MainMenu::loadOptionsMenu()
-{
-    if(optionsMenu.get() == 0) {
-        optionsMenu.reset(loadGUIFile("gui/options.xml"));
-        CheckButton* currentCheckButton = getCheckButton(*optionsMenu, "BackgroundMusic");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "SoundFX");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "Fullscreen");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumePlus");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumeMinus");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "FXVolumePlus");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "FXVolumeMinus");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "TrackPrev");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "TrackNext");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "ResolutionPrev");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "WorldLenPrev");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
-        currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
-        // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-        // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
-        // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
-
-        Button* currentButton = getButton(*optionsMenu, "BackButton");
-        currentButton->clicked.connect(std::bind(&MainMenu::optionsBackButtonClicked, this, _1));
-    }
-    //adjust checkbutton-states
-    if( getConfig()->musicEnabled ){
-        getCheckButton(*optionsMenu, "BackgroundMusic")->check();
-    } else {
-        getCheckButton(*optionsMenu, "BackgroundMusic")->uncheck();
-    }
-    if( getConfig()->soundEnabled ){
-        getCheckButton(*optionsMenu, "SoundFX")->check();
-    } else {
-        getCheckButton(*optionsMenu, "SoundFX")->uncheck();
-    }
-    if( getConfig()->useFullScreen ){
-        getCheckButton(*optionsMenu, "Fullscreen")->check();
-    } else {
-        getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
-    }
-    //current background track
-    musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
-    musicParagraph->setText(getSound()->currentTrack.title);
+MainMenu::fillOptionsMenu() {
+  //adjust checkbutton-states
+  if( getConfig()->musicEnabled ){
+    getCheckButton(*optionsMenu, "BackgroundMusic")->check();
+  } else {
+    getCheckButton(*optionsMenu, "BackgroundMusic")->uncheck();
+  }
+  if( getConfig()->soundEnabled ){
+    getCheckButton(*optionsMenu, "SoundFX")->check();
+  } else {
+    getCheckButton(*optionsMenu, "SoundFX")->uncheck();
+  }
+  if( getConfig()->useFullScreen ){
+    getCheckButton(*optionsMenu, "Fullscreen")->check();
+  } else {
+    getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
+  }
+  //current background track
+  musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
+  musicParagraph->setText(getSound()->currentTrack.title);
 
 
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
+  int width = 0, height = 0;
+  SDL_GetWindowSize(window, &width, &height);
 
-    std::stringstream mode;
-    if (getConfig()->useFullScreen) {
-        mode << "fullscreen";
-    } else {
-        mode << width << "x" << height;
-    }
-    getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    mode.str("");
-    mode << world.len();
-    getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
-    languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
-    currentLanguage = getConfig()->language;
-    languageParagraph->setText( getConfig()->language );
-    languages = dictionaryManager->get_languages();
-    languages.insert( "autodetect" );
-    languages.insert( "en" ); // English is the default when no translation is used
-    optionsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+  std::stringstream mode;
+  if (getConfig()->useFullScreen) {
+    mode << "fullscreen";
+  } else {
+    mode << width << "x" << height;
+  }
+  getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+  mode.str("");
+  mode << world.len();
+  getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
+  languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
+  currentLanguage = getConfig()->language;
+  languageParagraph->setText( getConfig()->language );
+  languages = dictionaryManager->get_languages();
+  languages.insert( "autodetect" );
+  languages.insert( "en" ); // English is the default when no translation is used
 }
 
 void
-MainMenu::loadLoadGameMenu()
-{
-    if(loadGameMenu.get() == 0) {
-        loadGameMenu.reset(loadGUIFile("gui/loadgame.xml"));
+MainMenu::loadOptionsMenu() {
+  optionsMenu = menuSwitch->findComponent("options-menu");
+  CheckButton* currentCheckButton = getCheckButton(*optionsMenu, "BackgroundMusic");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "SoundFX");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "Fullscreen");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumePlus");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumeMinus");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "FXVolumePlus");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "FXVolumeMinus");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "TrackPrev");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "TrackNext");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "ResolutionPrev");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "WorldLenPrev");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
+  currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
+  // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+  // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
+  // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
 
-        // connect signals
-        Button* loadButton = getButton(*loadGameMenu, "LoadButton");
-        loadButton->clicked.connect(std::bind(&MainMenu::loadGameLoadButtonClicked, this, _1));
-        Button* backButton = getButton(*loadGameMenu, "BackButton");
-        backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
-    }
+  Button* currentButton = getButton(*optionsMenu, "BackButton");
+  currentButton->clicked.connect(std::bind(&MainMenu::optionsBackButtonClicked, this, _1));
+}
 
-    // fill in file-names into slots
+void
+MainMenu::loadLoadGameMenu() {
+  loadGameMenu = menuSwitch->findComponent("loadgame-menu");
+
+  // connect signals
+  Button* loadButton = getButton(*loadGameMenu, "LoadButton");
+  loadButton->clicked.connect(std::bind(&MainMenu::loadGameLoadButtonClicked, this, _1));
+  Button* backButton = getButton(*loadGameMenu, "BackButton");
+  backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
+}
+
+void
+MainMenu::loadSaveGameMenu() {
+  saveGameMenu = menuSwitch->findComponent("savegame-menu");
+
+  // connect signals
+  Button* saveButton = getButton(*saveGameMenu, "SaveButton");
+  saveButton->clicked.connect(std::bind(&MainMenu::loadGameSaveButtonClicked, this, _1));
+  Button* backButton = getButton(*saveGameMenu, "BackButton");
+  backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
+}
+
+void
+MainMenu::switchMenu(Component *newMenu) {
+  if(newMenu == newGameMenu) {
+    fillNewGameMenu();
+  }
+  else if(newMenu == loadGameMenu) {
     fillLoadMenu();
-    loadGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
-}
-
-void
-MainMenu::loadSaveGameMenu()
-{
-    if(saveGameMenu.get() == 0) {
-        saveGameMenu.reset(loadGUIFile("gui/savegame.xml"));
-
-        // connect signals
-        Button* saveButton = getButton(*saveGameMenu, "SaveButton");
-        saveButton->clicked.connect(std::bind(&MainMenu::loadGameSaveButtonClicked, this, _1));
-        Button* backButton = getButton(*saveGameMenu, "BackButton");
-        backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
-        // fill in file-names into slots
-        fillLoadMenu( true );
-    }
-    saveGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+  }
+  else if(newMenu == saveGameMenu) {
+    fillLoadMenu(true);
+  }
+  else if(newMenu == optionsMenu) {
+    fillOptionsMenu();
+  }
+  menuSwitch->switchComponent(newMenu->getName());
 }
 
 /**
@@ -371,6 +369,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button, int /* btn */,
     mFilename = file;
     baseName = "";
 
+    Component *currentMenu = menuSwitch->getActiveComponent();
     const std::string bs[]={"File0","File1","File2","File3","File4","File5",""};
     for(int i=0;std::string(bs[i]).length();i++) {
         CheckButton *b=getCheckButton(*currentMenu,bs[i]);
@@ -378,12 +377,12 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button, int /* btn */,
             b->uncheck();
         } else {
             b->check();
-            if(newGameMenu.get() != currentMenu)
+            if(newGameMenu != currentMenu)
               slotNr = i + 1;
         }
     }
 
-    if( newGameMenu.get()==currentMenu ) {
+    if(newGameMenu == currentMenu) {
         const std::string rnd[]={"RiverDelta","DesertArea","TemperateArea","SwampArea",""};
         for(int i=0;std::string(rnd[i]).length();i++) {
             CheckButton *b=getCheckButton(*currentMenu,rnd[i]);
@@ -403,7 +402,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button, int /* btn */,
 
         lastClickTick = 0;
         doubleClickButton = nullptr;
-        if( newGameMenu.get() == currentMenu ) {
+        if(newGameMenu == currentMenu) {
             //load scenario
             newGameStartButtonClicked( 0 );
         } else {
@@ -641,30 +640,15 @@ MainMenu::quitButtonClicked(Button* )
 }
 
 void
-MainMenu::switchMenu(Component* newMenu)
-{
-    currentMenu = dynamic_cast<Desktop*> (newMenu);
-    if(!currentMenu)
-    {   throw std::runtime_error("Menu Component is not a Desktop");}
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    currentMenu->resize(width, height);
+MainMenu::creditsButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(creditsMenu);
 }
 
 void
-MainMenu::creditsButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadCreditsMenu();
-    switchMenu(creditsMenu.get());
-}
-
-void
-MainMenu::optionsButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadOptionsMenu();
-    switchMenu(optionsMenu.get());
+MainMenu::optionsButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(optionsMenu);
 }
 
 void
@@ -689,38 +673,29 @@ MainMenu::continueButtonClicked(Button* )
 }
 
 void
-MainMenu::newGameButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadNewGameMenu();
-    switchMenu(newGameMenu.get());
+MainMenu::newGameButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(newGameMenu);
 }
 
 void
-MainMenu::loadGameButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadLoadGameMenu();
-    switchMenu(loadGameMenu.get());
+MainMenu::loadGameButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(loadGameMenu);
 }
 
 void
-MainMenu::saveGameButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    if(getGame())
-    {
-        loadSaveGameMenu();
-        switchMenu(saveGameMenu.get());
-    }
+MainMenu::saveGameButtonClicked(Button* ) {
+  getSound()->playSound( "Click" );
+  if(getGame()) {
+    switchMenu(saveGameMenu);
+  }
 }
 
 void
-MainMenu::creditsBackButtonClicked(Button* )
-{
-    getSound()->playSound("Click");
-    loadMainMenu();
-    switchMenu(mainMenu.get());
+MainMenu::creditsBackButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(mainMenu);
 }
 
 void
@@ -771,11 +746,13 @@ MainMenu::newGameStartButtonClicked(Button* )
     }
     getSound()->playSound( "Click" );
 
-    city_settings  city_obj;
-    city_settings *city=&city_obj;
+    city_settings city_obj;
+    city_settings *city = &city_obj;
 
-    city->with_village  = getCheckButton(*currentMenu,"WithVillage" )->isChecked();
-    city->without_trees = getCheckButton(*currentMenu,"WithoutTrees")->isChecked();
+    city->with_village =
+      getCheckButton(*newGameMenu, "WithVillage")->isChecked();
+    city->without_trees =
+      getCheckButton(*newGameMenu, "WithoutTrees")->isChecked();
 
     if( baseName == "RiverDelta" ){
         new_city( &main_screen_originx, &main_screen_originy, city);
@@ -804,26 +781,20 @@ MainMenu::newGameStartButtonClicked(Button* )
 }
 
 void
-MainMenu::newGameBackButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadMainMenu();
-    switchMenu(mainMenu.get());
+MainMenu::newGameBackButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(mainMenu);
 }
 
 void
-MainMenu::loadGameBackButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    loadMainMenu();
-    switchMenu(mainMenu.get());
+MainMenu::loadGameBackButtonClicked(Button* ) {
+  getSound()->playSound("Click");
+  switchMenu(mainMenu);
 }
 
 void
-MainMenu::gotoMainMenu()
-{
-    loadMainMenu();
-    switchMenu(mainMenu.get());
+MainMenu::gotoMainMenu() {
+  switchMenu(mainMenu);
 }
 
 void
@@ -885,10 +856,16 @@ MainMenu::run()
     SDL_Event event;
     running = true;
     quitState = QUIT;
+    DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
+      menu->findComponent("windowManager")));
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
-    Uint32 lastRedrawTicks = fpsTicks;
     int frame = 0;
+    {
+      int width, height;
+      SDL_GetWindowSize(window, &width, &height);
+      menu->resize(width, height);
+    }
     while(running)
     {
         if(SDL_WaitEventTimeout(&event, 100))
@@ -897,12 +874,11 @@ MainMenu::run()
                 case SDL_WINDOWEVENT:
                     if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
                         videoSizeChanged(event.window.data1, event.window.data2);
-                        currentMenu->resize(event.window.data1, event.window.data2);
+                        menu->resize(event.window.data1, event.window.data2);
                         getConfig()->videoX = event.window.data1;
                         getConfig()->videoY = event.window.data2;
 
-                        if(currentMenu == optionsMenu.get())//update resolution display
-                        {
+                        if(menuSwitch->getActiveComponent() == optionsMenu) {
                             std::stringstream mode;
                             mode.str("");
                             if (getConfig()->useFullScreen) {
@@ -920,7 +896,7 @@ MainMenu::run()
                 case SDL_MOUSEWHEEL:
                 case SDL_KEYDOWN:{
                     Event gui_event(event);
-                    currentMenu->event(gui_event);
+                    menu->event(gui_event);
                     break;
                 }
                 case SDL_KEYUP: {
@@ -933,7 +909,7 @@ MainMenu::run()
                         quitState = QUIT;
                         break;
                     }
-                    currentMenu->event(gui_event);
+                    menu->event(gui_event);
                     break;
                 }
                 case SDL_QUIT:
@@ -948,21 +924,12 @@ MainMenu::run()
         // create update Event
         Uint32 ticks = SDL_GetTicks();
         float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
-        currentMenu->event(Event(elapsedTime));
+        menu->event(Event(elapsedTime));
         lastticks = ticks;
 
-        /* We unconditionally redraw every ~100 ms as workaround for an SDL bug
-         * under Wayland, in which window resizing is not communicated to the
-         * program until it redraws the window. When this bug is no longer
-         * present, this behavior should be safe to remove */
-        if (ticks - lastRedrawTicks > 90) {
-             currentMenu->reLayout();
-        }
-
-        if(currentMenu->needsRedraw()) {
-            currentMenu->draw(*painter);
+        if(menu->needsRedraw()) {
+            menu->draw(*painter);
             painter->updateScreen();
-            lastRedrawTicks = ticks;
         }
 
         frame++;

@@ -9,6 +9,7 @@ add_library(lincity_gui  STATIC
 		ComponentFactory.cpp
 		ComponentLoader.cpp
 		Desktop.cpp
+		DialogBuilder.cpp
 		Document.cpp
 		DocumentImage.cpp
 		Event.cpp
@@ -41,6 +42,7 @@ add_library(lincity_gui  STATIC
 		ComponentFactory.hpp
 		ComponentLoader.hpp
 		Desktop.hpp
+		DialogBuilder.hpp
 		Document.hpp
 		DocumentElement.hpp
 		DocumentImage.hpp

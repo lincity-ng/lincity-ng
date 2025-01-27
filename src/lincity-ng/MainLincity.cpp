@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"                          // for getGame
 #include "GameView.hpp"                      // for getGameView, GameView
 #include "TimerInterface.hpp"                // for reset_start_time
+#include "gui/DialogBuilder.hpp"             // for DialogBuilder
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
 #include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale
@@ -76,7 +77,15 @@ bool loadCityNG(const std::filesystem::path& filename){
   } catch(std::runtime_error& err) {
     std::cerr << "error: failed to load game from '" << filename
       << "': " << err.what() << std::endl;
-    assert(false);
+    DialogBuilder()
+      .titleText("Error!")
+      .messageAddTextBold("Error: Failed to load game.")
+      .messageAddText(std::string("Could not load '") + filename.string() +
+        "'.")
+      .messageAddText(err.what())
+      .imageFile("images/gui/dialogs/error.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
     return false;
   }
   update_avail_modules(0);

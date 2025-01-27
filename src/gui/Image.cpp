@@ -143,6 +143,11 @@ void Image::setFile(const std::string &pfilename)
     filename=pfilename;
     texture = 0;
     texture = texture_manager->load(pfilename);
+
+    if(width <= 0 || height <= 0) {
+      width = texture->getWidth() + 1;
+      height = texture->getHeight() + 1;
+    }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Image)

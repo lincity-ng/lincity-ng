@@ -43,6 +43,7 @@ public:
     void parse(XmlReader& reader);
     void draw(Painter& painter);
     bool opaque(const Vector2& pos) const;
+    virtual void resize(float width, float height) override;
 
 private:
     Texture* background;

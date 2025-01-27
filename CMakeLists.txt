@@ -4,7 +4,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
 
 project(lincity-ng
-	VERSION 2.12.0
+	VERSION 2.13.0
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
@@ -153,7 +153,10 @@ endif()
 # endif()
 
 
-set(CPACK_GENERATOR TGZ ZIP)
+set(CPACK_GENERATOR TXZ)
+if(WIN32)
+	set(CPACK_GENERATOR ZIP)
+endif()
 set(CPACK_PACKAGE_ICON data/lincity-ng.png)
 set(CPACK_PACKAGE_CHECKSUM SHA256)
 set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
