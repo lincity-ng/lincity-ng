@@ -41,7 +41,7 @@
 #include "stats.h"                         // for ddeaths, tunnat_deaths
 #include "tinygettext/gettext.hpp"         // for _
 #include "transport.h"                     // for connect_transport
-#include "world.h"                         // for World, MapTile
+#include "world.h"                         // for Map, MapTile
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert

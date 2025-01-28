@@ -269,21 +269,21 @@ void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 
 
 
-World::World(int map_len)
+Map::Map(int map_len)
 {
     maptile.resize(map_len * map_len);
     dirty = false;
     world.climate = -1;
     world.old_setup_ground = -1;
-    //std::cout << "created World len = " << len() << "²" << std::endl;
+    //std::cout << "created Map len = " << len() << "²" << std::endl;
 }
 
-World::~World()
+Map::~Map()
 {
     maptile.clear();
 }
 
-void World::len(int new_len)
+void Map::len(int new_len)
 {
     if (new_len < 50)
     {   new_len = 50;}
@@ -309,67 +309,67 @@ void World::len(int new_len)
     }
 }
 
-MapTile* World::operator()(int x, int y)
+MapTile* Map::operator()(int x, int y)
 {
     return &(maptile[x + y * side_len]);
 }
 
-MapTile* World::operator()(int index)
+MapTile* Map::operator()(int index)
 {
     return &(maptile[index]);
 }
 
-bool World::is_inside(int x, int y)
+bool Map::is_inside(int x, int y)
 {
     return (x >= 0 && y >= 0 && x < side_len && y < side_len);
 }
 
-bool World::is_inside(int index)
+bool Map::is_inside(int index)
 {
     return (index >= 0 && index < side_len * side_len);
 }
 
-bool World::is_border(int x, int y)
+bool Map::is_border(int x, int y)
 {
     return (x == 0 || y == 0 || x == side_len-1 || y == side_len -1);
 }
 
-bool World::is_border(int index)
+bool Map::is_border(int index)
 {
     return (index%side_len == side_len -1 || index%side_len == 0 || index/side_len == side_len-1 || index/side_len == 0);
 }
 
-bool World::is_edge(int x, int y)
+bool Map::is_edge(int x, int y)
 {
     return (x == 1 || y == 1 || x == side_len-2 || y == side_len -2);
 }
 
-bool World::is_visible(int x, int y)
+bool Map::is_visible(int x, int y)
 {
     return (x > 0 && y > 0 && x < side_len-1 && y < side_len -1);
 }
 
-int World::map_x(MapTile * tile)
+int Map::map_x(MapTile * tile)
 {
     return (tile-&maptile[0]) % side_len;
 }
 
-int World::map_y(MapTile * tile)
+int Map::map_y(MapTile * tile)
 {
     return (tile-&maptile[0]) / side_len;
 }
 
-int World::map_index(MapTile * tile)
+int Map::map_index(MapTile * tile)
 {
     return (tile-&maptile[0]);
 }
 
-int World::len()
+int Map::len()
 {
     return side_len;
 }
 
-int World::seed()
+int Map::seed()
 {
 #ifdef DEBUG
     assert(world_id == id);
@@ -377,13 +377,13 @@ int World::seed()
     return id;
 }
 
-void World::seed( int new_seed)
+void Map::seed( int new_seed)
 {
     this->id = new_seed;
     world_id = new_seed;
 }
 
-bool World::maximum(int x , int y)
+bool Map::maximum(int x , int y)
 {
     int alt = maptile[x + y * side_len].ground.altitude;
     bool is_max = true;
@@ -396,7 +396,7 @@ bool World::maximum(int x , int y)
     return is_max;
 }
 
-bool World::minimum(int x , int y)
+bool Map::minimum(int x , int y)
 {
     int alt = maptile[x + y * side_len].ground.altitude;
     bool is_min = true;
@@ -409,7 +409,7 @@ bool World::minimum(int x , int y)
     return is_min;
 }
 
-bool World::saddlepoint(int x , int y)
+bool Map::saddlepoint(int x , int y)
 {
     int alt = maptile[x + y * side_len].ground.altitude;
     int dips = 0;
@@ -427,7 +427,7 @@ bool World::saddlepoint(int x , int y)
     return dips > 1;
 }
 
-bool World::checkEdgeMin(int x , int y)
+bool Map::checkEdgeMin(int x , int y)
 {
     int alt = maptile[x + y * side_len].ground.altitude;
     if (x==1 || x == side_len-2)

@@ -53,7 +53,7 @@
 #include "modules/windmill.h"              // for MODERN_WINDMILL_TECH
 #include "stats.h"                         // for ly_cricket_cost, ly_deaths...
 #include "transport.h"                     // for connect_transport
-#include "world.h"                         // for MapTile, Ground, World
+#include "world.h"                         // for MapTile, Ground, Map
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter);
 static void loadGlobals(xmlpp::TextReader& xmlReader);

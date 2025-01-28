@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lintypes.h"             // for Construction, ConstructionG...
 #include "lincity/modules/all_modules.h"  // for Transport
 #include "lincity/resources.hpp"          // for ResourceGroup
-#include "lincity/world.h"                // for World, MapTile
+#include "lincity/world.h"                // for Map, MapTile
 
 Mps* globalMPS = 0;
 Mps* mapMPS = 0;

@@ -33,7 +33,7 @@
 
 #include "ConstructionCount.h"  // for ConstructionCount
 #include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...
-#include "world.h"              // for World, WORLD_SIDE_LEN
+#include "world.h"              // for Map, WORLD_SIDE_LEN
 
 enum Commodity : int;
 
@@ -44,7 +44,7 @@ int use_waterwell = true;
 char given_scene[1024];
 
 ConstructionCount constructionCount = ConstructionCount();
-World world = World(WORLD_SIDE_LEN);
+Map world = Map(WORLD_SIDE_LEN);
 int world_id = 0;
 UserOperation* userOperation = NULL;
 
@@ -122,7 +122,7 @@ int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
 
 int  global_aridity;
 int  global_mountainity;
-//TODO These and their updating should go to class World
+//TODO These and their updating should go to class Map
 int alt_min, alt_max, alt_step;
 
 /** @file lincity/engglobs.cpp */

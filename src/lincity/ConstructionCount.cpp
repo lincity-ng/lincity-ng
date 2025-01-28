@@ -25,7 +25,7 @@
 #include "engglobs.h"                 // for world
 #include "lincity-ng/Permutator.hpp"  // for Permutator
 #include "lintypes.h"                 // for Construction
-#include "world.h"                    // for World
+#include "world.h"                    // for Map
 
 ConstructionCount::ConstructionCount()
 {

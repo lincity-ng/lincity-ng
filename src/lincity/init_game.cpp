@@ -58,7 +58,7 @@
 #include "resources.hpp"                   // for ExtraFrame
 #include "stats.h"                         // for init_inventory
 #include "transport.h"                     // for connect_transport
-#include "world.h"                         // for World, MapTile, Array2D
+#include "world.h"                         // for Map, MapTile, Array2D
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert

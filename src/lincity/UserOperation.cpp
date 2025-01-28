@@ -32,7 +32,7 @@
 #include "lin-city.h"               // for FLAG_NEVER_EVACUATE, MAX_TECH_LEVEL
 #include "lintypes.h"               // for ConstructionGroup, MapTile, Const...
 #include "tinygettext/gettext.hpp"  // for _
-#include "world.h"                  // for World
+#include "world.h"                  // for Map
 
 static int last_warning_message_group = 0;
 

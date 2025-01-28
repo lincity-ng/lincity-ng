@@ -37,7 +37,7 @@
 #include "groups.h"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
 #include "lintypes.h"       // for Construction
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "world.h"          // for World, MapTile
+#include "world.h"          // for Map, MapTile
 
 std::list<Vehicle*> Vehicle::vehicleList;
 

@@ -135,11 +135,11 @@ public:
   void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
 };
 
-class World
+class Map
 {
 public:
-  World(int map_len);
-  ~World();
+  Map(int map_len);
+  ~Map();
   MapTile* operator()(int x, int y);
   MapTile* operator()(int index);
   bool is_inside(int x, int y);

@@ -33,7 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
 #include "lincity/engglobs.h"             // for world
-#include "lincity/world.h"                // for World, WORLD_SIDE_LEN
+#include "lincity/world.h"                // for Map, WORLD_SIDE_LEN
 #include "lincity/xmlloadsave.h"          // for xmlStr, unexpectedXmlElement
 
 

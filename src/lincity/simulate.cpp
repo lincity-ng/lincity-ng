@@ -53,7 +53,7 @@
 #include "stats.h"                         // for export_tax, goods_tax, ly_...
 #include "sustainable.h"                   // for SUST_MIN_TECH_LEVEL, SUST_...
 #include "tinygettext/gettext.hpp"         // for _
-#include "world.h"                         // for World, MapTile
+#include "world.h"                         // for Map, MapTile
 
 
 /* extern resources */

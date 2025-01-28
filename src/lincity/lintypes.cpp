@@ -49,7 +49,7 @@
 #include "stats.h"                        // for coal_tax, goods_tax, income...
 #include "tinygettext/gettext.hpp"        // for _
 #include "transport.h"                    // for TRANSPORT_QUANTA, TRANSPORT...
-#include "world.h"                        // for World, MapTile
+#include "world.h"                        // for Map, MapTile
 #include "xmlloadsave.h"                  // for xmlStr
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp

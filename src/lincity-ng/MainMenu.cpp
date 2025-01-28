@@ -52,7 +52,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/engglobs.h"              // for world, total_money, total_...
 #include "lincity/init_game.h"             // for _CitySettings, new_city
-#include "lincity/world.h"                 // for World
+#include "lincity/world.h"                 // for Map
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for DictionaryManager
 

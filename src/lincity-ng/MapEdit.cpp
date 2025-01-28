@@ -38,7 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lintypes.h"             // for Construction, ConstructionG...
 #include "lincity/modules/all_modules.h"  // for ParklandConstructionGroup
 #include "lincity/transport.h"            // for connect_transport
-#include "lincity/world.h"                // for MapTile, World
+#include "lincity/world.h"                // for MapTile, Map
 
 extern void ok_dial_box(const char *, int, const char *);
 

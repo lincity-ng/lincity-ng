@@ -58,7 +58,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lintypes.h"              // for Construction, Construction...
 #include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
 #include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
-#include "lincity/world.h"                 // for World, MapTile
+#include "lincity/world.h"                 // for Map, MapTile
 
 using namespace std::placeholders;
 

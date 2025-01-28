@@ -113,8 +113,8 @@ public:
    *
    * Note: In general, XML elements, along with their attributes, are
    * caller-owned. A callee is expected to populate an element with child
-   * elements. For example, a `World` may own a `Construction`, so
-   * `World::save` may create a `<construction>` XML start element, add some
+   * elements. For example, a `Map` may own a `Construction`, so
+   * `Map::save` may create a `<construction>` XML start element, add some
    * attributes to it, like x/y position, and then call `Construction::save`
    * to populate the `<construction>` element with child elements.
    * `Construction::save` is NOT the owner of the `<construction>` element and

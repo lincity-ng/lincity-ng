@@ -32,7 +32,7 @@
 #include "lintypes.h"              // for Construction, MapTile, Constructio...
 #include "modules/all_modules.h"   // for FireConstructionGroup, Fire, Parkl...
 #include "transport.h"             // for connect_transport, POWER_MODULUS
-#include "world.h"                 // for World
+#include "world.h"                 // for Map
 
 //#include "../lincity-ng/Mps.hpp"
 //FIXME cannot include mps.h because of differing paths for further dependencies

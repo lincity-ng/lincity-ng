@@ -34,7 +34,7 @@
 #include "lintypes.h"             // for Construction
 #include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
 #include "resources.hpp"          // for ExtraFrame
-#include "world.h"                // for World, MapTile
+#include "world.h"                // for Map, MapTile
 
 
 

@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/modules_interfaces.h"  // for mps_water
 #include "lincity/modules/shanty.h"              // for ShantyConstructionGroup
 #include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
-#include "lincity/world.h"                       // for World, MapTile, Ground
+#include "lincity/world.h"                       // for Map, MapTile, Ground
 #include "tinygettext/gettext.hpp"               // for N_, _
 
 // implement everything here
