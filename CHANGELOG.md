@@ -1,3 +1,13 @@
+## Unreleased
+
+###### User Interface
+- Fixed popup dialog text not showing.
+- Fixed input lag in main menu.
+
+###### Internal
+- Fixed random crashing on Windows caused by a bad string termination.
+
+
 ## LinCity-NG 2.13.0 [SECURITY]
 
 date: 2025-01-26
