@@ -55,7 +55,9 @@ void saveCityNG(const std::filesystem::path& filename){
     {
         GameView* gv = getGameView();
         if( gv ){ gv->writeOrigin(); }
-        std::filesystem::path fullname = getConfig()->userDataDir / filename;
+        std::filesystem::path fullname = filename;
+        if(!filename.has_parent_path())
+          fullname = getConfig()->userDataDir / filename;
         try {
           saveGame(fullname);
           std::cout << "saved game to '" << fullname << "'" << std::endl;
@@ -72,11 +74,14 @@ void saveCityNG(const std::filesystem::path& filename){
  */
 bool loadCityNG(const std::filesystem::path& filename){
   try {
-    loadGame(getConfig()->userDataDir / filename);
+    std::filesystem::path fullname = filename;
+    if(!filename.has_parent_path())
+      fullname = getConfig()->userDataDir / filename;
+    loadGame(fullname);
     std::cout << "loaded game from " << filename << std::endl;
   } catch(std::runtime_error& err) {
-    std::cerr << "error: failed to load game from '" << filename
-      << "': " << err.what() << std::endl;
+    std::cerr << "error: failed to load game from " << filename
+      << ": " << err.what() << std::endl;
     DialogBuilder()
       .titleText("Error!")
       .messageAddTextBold("Error: Failed to load game.")
