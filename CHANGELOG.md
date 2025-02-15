@@ -1,4 +1,6 @@
-## Unreleased
+## LinCity-NG 2.13.1
+
+date: 2025-02-15
 
 ###### User Interface
 - Fixed popup dialog text not showing.
