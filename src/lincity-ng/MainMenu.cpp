@@ -947,7 +947,7 @@ MainMenu::run()
     __attribute__((unused))
     Uint32 prev_gui = 0, prev_fps = 0;
     Uint32 next_task;
-    Uint32 tick;
+    Uint32 tick = 0;
     while(running) {
         next_task = std::min({next_gui, next_fps});
         while(true) {

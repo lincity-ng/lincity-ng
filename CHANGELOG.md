@@ -6,6 +6,10 @@
 
 ###### Internal
 - Fixed random crashing on Windows caused by a bad string termination.
+- Fixed segfault when loading communes from a saved game.
+- Fixed freeze on launch.
+- Fixed freeze when starting a game.
+- Fixed segfault and dangling thread when quitting the game in debug mode.
 
 
 ## LinCity-NG 2.13.0 [SECURITY]
