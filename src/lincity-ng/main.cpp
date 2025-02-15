@@ -255,9 +255,7 @@ int main(int argc, char** argv)
 #endif
 
 // in debug mode we want a backtrace of the exceptions so we don't catch them
-#ifndef DEBUG
     try {
-#endif
         xmlInitParser ();
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             std::stringstream msg;
@@ -278,7 +276,6 @@ int main(int argc, char** argv)
         mainLoop();
         getConfig()->save();
         destroy_game();
-#ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";
         result = 1;
@@ -286,7 +283,6 @@ int main(int argc, char** argv)
         std::cerr << "Unexpected exception.\n";
         result = 1;
     }
-#endif
     delete painter;
     delete fontManager;
     delete texture_manager;
