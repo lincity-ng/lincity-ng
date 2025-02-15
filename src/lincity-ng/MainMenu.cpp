@@ -139,7 +139,7 @@ void MainMenu::fillNewGameMenu()
       if(fName.substr(fName.size() - 7) == ".scn.gz"
         && dirIt->is_regular_file()
       ) {
-        file = *(++dirIt);
+        file = *(dirIt++);
         break;
       }
       dirIt++;
