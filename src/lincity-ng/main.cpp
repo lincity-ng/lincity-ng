@@ -76,7 +76,7 @@ static char *strndup(const char *s, size_t n) {
   n = strnlen(s, n);
   char *d;
   if(d = (char *)malloc((n + 1) * sizeof(char)))
-    strncpy(d, s, n);
+    strncpy(d, s, n)[n] = '\0';
   return d;
 }
 #endif
