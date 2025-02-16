@@ -63,28 +63,19 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     };
     // overriding method that creates a Solar Power Plant
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
 class SolarPower: public Construction {
 public:
-    SolarPower(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->tech = tech_level;
-        this->working_days = 0;
-        this->busy = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
-    }
-
+    SolarPower(World& world, ConstructionGroup *cstgrp);
     virtual void update() override;
     virtual void report() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  hivolt_output;

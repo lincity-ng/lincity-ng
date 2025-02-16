@@ -55,6 +55,8 @@ add_library(lincity_lib_modules  STATIC
 		solar_power.h
 		substation.cpp
 		substation.h
+		tile.cpp
+		tile.hpp
 		tip.cpp
 		tip.h
 		track_road_rail.cpp

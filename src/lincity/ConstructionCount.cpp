@@ -52,7 +52,6 @@ ConstructionCount::add_construction(Construction * construction)
         //std::cout << "growing constructionCount " << constructionVector.size() << std::endl;
     }
     constructionVector[free_slot++] = construction;
-    world.dirty = true;
     //std::cout << "Added Construction to constructionCount: " <<
     //    construction->constructionGroup->name << std::endl;
 }
@@ -114,8 +113,7 @@ ConstructionCount::update_permutator()
 }
 
 int
-ConstructionCount::size()
-{
+ConstructionCount::size() const {
     return constructionVector.size();
 }
 

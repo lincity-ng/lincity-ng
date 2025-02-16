@@ -46,8 +46,44 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction() {
-  return new Commune(this);
+Construction *CommuneConstructionGroup::createConstruction(World& world) {
+  return new Commune(world, this);
+}
+
+Commune::Commune(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0; // or real_time?
+  this->animate_enable = false;
+  this->steel_made = false;
+  this->monthly_stuff_made = 0;
+  this->last_month_output = 0;
+  this->lazy_months = 0;
+  initialize_commodities();
+  // Check underground water, and reduce coal production accordingly
+  int w = 0;
+  for (int i = 0; i < constructionGroup->size; i++) {
+    for (int j = 0; j < constructionGroup->size; j++) {
+      if (world.map(x+j, y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+        w++;
+    }// end j
+  }//end i
+  this->ugwCount = w;
+  if (w < 16 / 3)
+    this->coalprod = COMMUNE_COAL_MADE/3;
+  else if (w < (2 * 16) / 3)
+    this->coalprod = COMMUNE_COAL_MADE/2;
+  else
+    this->coalprod = COMMUNE_COAL_MADE;
+
+  commodityMaxCons[STUFF_WATER] = 100 *
+    constructionGroup->size * constructionGroup->size * WATER_FOREST;
+  commodityMaxProd[STUFF_COAL] = 100 * COMMUNE_COAL_MADE;
+  commodityMaxProd[STUFF_ORE] = 100 *
+    (COMMUNE_ORE_MADE + COMMUNE_ORE_FROM_WASTE);
+  commodityMaxCons[STUFF_WASTE] = 100 * COMMUNE_WASTE_GET;
+  commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
 }
 
 void Commune::update()
@@ -85,15 +121,15 @@ void Commune::update()
         if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
         {   produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);}
     }
-    if (total_time % 10 == 0)
+    if (world.total_time % 10 == 0)
     {
-        int modulus = ((total_time%20)?1:0);
+        int modulus = ((world.total_time%20)?1:0);
         for(int idx = 0; idx < tmpUgwCount; idx++)
         {
             int i = x + idx % s;
             int j = y + idx / s;
-            if((i+j)%2==modulus && world(i,j)->pollution)
-            {   --world(i,j)->pollution;}
+            if((i+j)%2==modulus && world.map(i,j)->pollution)
+            {   --world.map(i,j)->pollution;}
         }
         if (modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
@@ -104,7 +140,7 @@ void Commune::update()
         }
     }
 
-    if (total_time % 100 == 99) { //each month
+    if (world.total_time % 100 == 99) { //each month
         reset_prod_counters();
         last_month_output = monthly_stuff_made;
         monthly_stuff_made = 0;
@@ -155,7 +191,7 @@ void Commune::report()
     mps_store_title(i, constructionGroup->name);
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
-    mps_store_sd(i++, N_("Pollution"), world(x,y)->pollution);
+    mps_store_sd(i++, N_("Pollution"), world.map(x,y)->pollution);
     if(lazy_months)
     {   mps_store_sddp(i++, N_("lazy months"), lazy_months, 120);}
     else
@@ -169,7 +205,7 @@ void Commune::place(int x, int y) {
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if (world.map(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   if (this->ugwCount < 16 / 3)

@@ -42,8 +42,20 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction() {
-  return new SolarPower(this);
+Construction *SolarPowerConstructionGroup::createConstruction(World& world) {
+  return new SolarPower(world, this);
+}
+
+SolarPower::SolarPower(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
 }
 
 void SolarPower::update()
@@ -58,11 +70,10 @@ void SolarPower::update()
         produceStuff(STUFF_HIVOLT, hivolt_made);
         working_days += hivolt_made;
     }
-    if (total_time % 100 == 99) //monthly update
-    {
-        reset_prod_counters();
-        busy = working_days / hivolt_output;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days / hivolt_output;
+      working_days = 0;
     }
 }
 
@@ -88,7 +99,7 @@ void SolarPower::place(int x, int y) {
   commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
 }
 
-void SolarPower::save(xmlTextWriterPtr xmlWriter) {
+void SolarPower::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

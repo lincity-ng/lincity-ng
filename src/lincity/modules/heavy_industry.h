@@ -92,7 +92,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a HeavyIndustry
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
@@ -102,35 +102,14 @@ extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
 
 class IndustryHeavy: public Construction {
 public:
-    IndustryHeavy(ConstructionGroup *cstgrp) {
-        constructionGroup = cstgrp;
-        this->tech = tech_level;
-        this->output_level = 0;
-        this->steel_this_month = 0;
-        // this->anim = 0;
-        initialize_commodities();
-         //check for pollution bonus
-        this->bonus = 0;
-        this->extra_bonus = 0;
-
-        int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
-        commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
-        commodityMaxCons[STUFF_LOVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL);
-        commodityMaxCons[STUFF_COAL] = 100 * (steel_prod * COAL_MAKE_STEEL);
-        commodityMaxCons[STUFF_LABOR] = 100 * (MAX_ORE_USED / LABOR_MAKE_STEEL +
-          LABOR_LOAD_COAL + LABOR_LOAD_ORE + LABOR_LOAD_STEEL);
-        commodityMaxCons[STUFF_ORE] = 100 * MAX_ORE_USED;
-        commodityMaxProd[STUFF_STEEL] = 100 * steel_prod;
-        // commodityMaxProd[STUFF_WASTE] = 100 * (int)(
-        //   ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
-    }
+    IndustryHeavy(World& world, ConstructionGroup *cstgrp);
 
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;

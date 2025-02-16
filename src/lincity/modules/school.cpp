@@ -32,43 +32,72 @@
 
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(
-    N_("Elementary School"),
-     FALSE,                     /* need credit? */
-     GROUP_SCHOOL,
-     GROUP_SCHOOL_SIZE,
-     GROUP_SCHOOL_COLOUR,
-     GROUP_SCHOOL_COST_MUL,
-     GROUP_SCHOOL_BUL_COST,
-     GROUP_SCHOOL_FIREC,
-     GROUP_SCHOOL_COST,
-     GROUP_SCHOOL_TECH,
-     GROUP_SCHOOL_RANGE
+  N_("Elementary School"),
+  FALSE,                     /* need credit? */
+  GROUP_SCHOOL,
+  GROUP_SCHOOL_SIZE,
+  GROUP_SCHOOL_COLOUR,
+  GROUP_SCHOOL_COST_MUL,
+  GROUP_SCHOOL_BUL_COST,
+  GROUP_SCHOOL_FIREC,
+  GROUP_SCHOOL_COST,
+  GROUP_SCHOOL_TECH,
+  GROUP_SCHOOL_RANGE
 );
 
-Construction *SchoolConstructionGroup::createConstruction() {
-  return new School(this);
+Construction *SchoolConstructionGroup::createConstruction(World& world) {
+  return new School(world, this);
 }
 
-void School::update()
+School::School(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
+  this->constructionGroup = cstgrp;
+  // this->animate_enable = false;
+  this->anim = 0;
+  this->anim2 = 0;
+  this->working_days = 0;
+  this->busy = 0;
+  this->total_tech_made = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MAKE_TECH_SCHOOL;
+  commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MAKE_TECH_SCHOOL;
+  commodityMaxProd[STUFF_WASTE] = 100 * (GOODS_MAKE_TECH_SCHOOL/3);
+}
+
+School::~School() {
+  if(world.map(x,y)->framesptr) {
+    world.map(x,y)->framesptr->erase(frit);
+    if(world.map(x,y)->framesptr->empty()) {
+      delete world.map(x,y)->framesptr;
+      world.map(x,y)->framesptr = NULL;
+    }
+  }
+}
+
+void School::update() {
+  try {
+    world.stats.expenses.school += SCHOOL_RUNNING_COST;
+
     if (commodityCount[STUFF_LABOR] >= LABOR_MAKE_TECH_SCHOOL
-    &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
-    &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
-    {
-        consumeStuff(STUFF_LABOR, LABOR_MAKE_TECH_SCHOOL);
-        consumeStuff(STUFF_GOODS, GOODS_MAKE_TECH_SCHOOL);
-        produceStuff(STUFF_WASTE, GOODS_MAKE_TECH_SCHOOL / 3);
-        ++working_days;
-        tech_level += TECH_MADE_BY_SCHOOL;
-        total_tech_made += TECH_MADE_BY_SCHOOL;
+      &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
+      &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL
+    ) {
+      consumeStuff(STUFF_LABOR, LABOR_MAKE_TECH_SCHOOL);
+      consumeStuff(STUFF_GOODS, GOODS_MAKE_TECH_SCHOOL);
+      produceStuff(STUFF_WASTE, GOODS_MAKE_TECH_SCHOOL / 3);
+      ++working_days;
+      world.tech_level += TECH_MADE_BY_SCHOOL;
+      total_tech_made += TECH_MADE_BY_SCHOOL;
     }
-    if ((total_time % 100) == 0)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    school_cost += SCHOOL_RUNNING_COST;
+  } catch(OutOfMoneyException) {}
+
+  if(world.total_time % 100 == 0) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
 void School::animate() {
@@ -112,14 +141,14 @@ void School::report()
 void School::init_resources() {
   Construction::init_resources();
 
-  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
+  world.map(x,y)->framesptr->resize(world.map(x,y)->framesptr->size()+1);
   frit = frameIt;
   std::advance(frit, 1);
   frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
   frit->frame = -1; //hide the swing
 }
 
-void School::save(xmlTextWriterPtr xmlWriter) {
+void School::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
   Construction::save(xmlWriter);
 }

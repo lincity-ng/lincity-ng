@@ -108,71 +108,23 @@ public:
         commodityRates[STUFF_GOODS] = PORT_GOODS_RATE;
         commodityRates[STUFF_ORE] = PORT_ORE_RATE;
         commodityRates[STUFF_STEEL] = PORT_STEEL_RATE;
-
-        tradeRule = commodityRuleCount;
-        tradeRule[STUFF_LABOR] = (CommodityRule){
-          .maxload = 0,
-          .take = false,
-          .give = false
-        };
     };
     //map that holds the Rates for the commodities
     std::map<Commodity, int> commodityRates;
-    std::array<CommodityRule, STUFF_COUNT> tradeRule;
     // overriding method that creates a Port
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern PortConstructionGroup portConstructionGroup;
 
 class Port: public Construction {
 public:
-    Port(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->daily_ic = 0; this->daily_et = 0;
-        this->monthly_ic = 0; this->monthly_et = 0;
-        this->lastm_ic = 0; this->lastm_et = 0;
-        this->pence = 0;
-        this->working_days = 0;
-        this->busy = 0;
-        this->tech_made = 0;
-        initialize_commodities();
-        //local copy of commodityRuleCount
-        commodityRuleCount = constructionGroup->commodityRuleCount;
-        //do not trade labor
-        // commodityRuleCount.erase (STUFF_LABOR);
-        commodityRuleCount[STUFF_LABOR] = (CommodityRule){
-          .maxload = 0,
-          .take = false,
-          .give = false
-        };
-        commodityRuleCount[STUFF_FOOD].take = false;
-        commodityRuleCount[STUFF_FOOD].give = false;
-        commodityRuleCount[STUFF_COAL].take = false;
-        commodityRuleCount[STUFF_COAL].give = false;
-        commodityRuleCount[STUFF_GOODS].take = false;
-        commodityRuleCount[STUFF_GOODS].give = false;
-        commodityRuleCount[STUFF_ORE].take = false;
-        commodityRuleCount[STUFF_ORE].give = false;
-        commodityRuleCount[STUFF_STEEL].take = false;
-        commodityRuleCount[STUFF_STEEL].give = false;
-
-        commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
-        for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
-            if(!commodityRuleCount[stuff].maxload) continue;
-            commodityMaxCons[stuff] = 100 * ((
-              portConstructionGroup.commodityRuleCount[stuff].maxload *
-              PORT_EXPORT_RATE) / 1000);
-            commodityMaxProd[stuff] = 100 * ((
-              portConstructionGroup.commodityRuleCount[stuff].maxload *
-              PORT_IMPORT_RATE) / 1000);
-        }
-    }
+    Port(World& world, ConstructionGroup *cstgrp);
     virtual ~Port() { }
     virtual void update();
     virtual void report();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int buy_stuff(Commodity stuff_ID);

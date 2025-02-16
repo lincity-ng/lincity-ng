@@ -44,8 +44,27 @@ MillConstructionGroup millConstructionGroup(
     GROUP_MILL_RANGE
 );
 
-Construction *MillConstructionGroup::createConstruction() {
-  return new Mill(this);
+Construction *MillConstructionGroup::createConstruction(World& world) {
+  return new Mill(world, this);
+}
+
+Mill::Mill(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->animate_enable = false;
+  this->pol_count = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_COAL] = 100 * COAL_USED_BY_MILL;
+  commodityMaxCons[STUFF_LOVOLT] = 100 *
+    COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
+  commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
+  commodityMaxCons[STUFF_LABOR] = 100 * MILL_LABOR;
+  commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
 }
 
 void Mill::update()
@@ -67,11 +86,11 @@ void Mill::update()
         ++working_days;
         animate_enable = true;
         if ((++pol_count %= 7) == 0)
-        {   world(x,y)->pollution++;}
+        {   world.map(x,y)->pollution++;}
     }
 
     //monthly update
-    if(total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;

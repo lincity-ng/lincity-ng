@@ -80,29 +80,14 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a mill
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern MillConstructionGroup millConstructionGroup;
 
 class Mill: public Construction {
 public:
-    Mill(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->busy = 0;
-        this->working_days = 0;
-        this->animate_enable = false;
-        this->pol_count = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_COAL] = 100 * COAL_USED_BY_MILL;
-        commodityMaxCons[STUFF_LOVOLT] = 100 *
-          COAL_USED_BY_MILL * MILL_POWER_PER_COAL;
-        commodityMaxCons[STUFF_FOOD] = 100 * FOOD_USED_BY_MILL;
-        commodityMaxCons[STUFF_LABOR] = 100 * MILL_LABOR;
-        commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_MILL;
-    }
+    Mill(World& world, ConstructionGroup *cstgrp);
     virtual ~Mill() { }
     virtual void update() override;
     virtual void report() override;

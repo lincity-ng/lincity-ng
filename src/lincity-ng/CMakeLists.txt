@@ -45,6 +45,8 @@ add_executable(lincity-ng
 		Sound.hpp
 		TimerInterface.cpp
 		TimerInterface.hpp
+		UserOperation.cpp
+		UserOperation.hpp
 		Util.cpp
 		Util.hpp
 )

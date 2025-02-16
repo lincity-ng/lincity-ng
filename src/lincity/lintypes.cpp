@@ -57,7 +57,9 @@ extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
 //Construction Declarations
 
-Construction::Construction() {
+Construction::Construction(World& world) :
+  world(world)
+{
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     commodityCount[stuff] = 0;
     commodityProd[stuff] = 0;
@@ -264,7 +266,7 @@ void Construction::initialize_commodities(void)
 
 void Construction::init_resources()
 {
-    frameIt = world(x,y)->createframe();
+    frameIt = world.map(x,y)->createframe();
     ResourceGroup *resGroup = ResourceGroup::resMap[constructionGroup->resourceID];
     if (resGroup)
     {
@@ -291,18 +293,16 @@ void Construction::bootstrap_commodities(int percent)
     }
 }
 
-void Construction::report_commodities(void)
-{
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        tstat_census[stuff] += commodityCount[stuff];
-        tstat_capacities[stuff] +=
-          constructionGroup->commodityRuleCount[stuff].maxload;
-    }
-
+void Construction::report_commodities(void) {
+  for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+    world.stats.inventory[stuff] += (Stats::Inventory<>){
+      .amount = commodityCount[stuff],
+      .capacity = constructionGroup->commodityRuleCount[stuff].maxload
+    };
+  }
 }
 
-void Construction::save(xmlTextWriterPtr xmlWriter) {
+void Construction::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter,
     (xmlStr)"flags", "0x%x", flags & ~VOLATILE_FLAGS);
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
@@ -349,7 +349,7 @@ bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
 
 void Construction::place(int x, int y) {
   unsigned short size = constructionGroup->size;
-  if(!world.is_inside(x, y) || !world.is_inside(x + size, y + size))
+  if(!world.map.is_inside(x, y) || !world.map.is_inside(x + size, y + size))
     throw std::runtime_error("cannot place a Construction outside the map");
 
   this->x = x;
@@ -360,23 +360,23 @@ void Construction::place(int x, int y) {
   for (unsigned short i = 0; i < size; i++) {
     for (unsigned short j = 0; j < size; j++) {
       //never change water upon building something
-      if(!world(x + j, y + i)->is_water()) {
+      if(!world.map(x + j, y + i)->is_water()) {
         if(!(flags & FLAG_TRANSPARENT)) {
-          world(x + j, y + i)->setTerrain(GROUP_DESERT);
-          world(x + j, y + i)->flags |= FLAG_INVISIBLE; // hide maptiles
+          world.map(x + j, y + i)->setTerrain(GROUP_DESERT);
+          world.map(x + j, y + i)->flags |= FLAG_INVISIBLE; // hide maptiles
         }
         else {
-          world(x + j, y + i)->flags &= ~FLAG_INVISIBLE; // show maptiles
-          if(world(x + j, y + i)->group != GROUP_DESERT)
-            world(x + j, y + i)->setTerrain(GROUP_BARE);
+          world.map(x + j, y + i)->flags &= ~FLAG_INVISIBLE; // show maptiles
+          if(world.map(x + j, y + i)->group != GROUP_DESERT)
+            world.map(x + j, y + i)->setTerrain(GROUP_BARE);
         }
       }
-      assert(!world(x+j, y+i)->reportingConstruction);
-      world(x + j, y + i)->reportingConstruction = this;
+      assert(!world.map(x+j, y+i)->reportingConstruction);
+      world.map(x + j, y + i)->reportingConstruction = this;
     } //endfor j
   }// endfor i
-  world(x, y)->construction = this;
-  constructionCount.add_construction(this); //register for Simulation
+  world.map(x, y)->construction = this;
+  world.map.constructionCount.add_construction(this); //register for Simulation
   constructionGroup->count++;
 
   //now look for neighbors
@@ -387,17 +387,17 @@ void Construction::place(int x, int y) {
 void Construction::detach()
 {
     //std::cout << "detaching: " << constructionGroup->name << std::endl;
-    ::constructionCount.remove_construction(this);
-    if(world(x,y)->construction == this) {
-        world(x,y)->construction = NULL;
-        world(x,y)->killframe(frameIt);
+    world.map.constructionCount.remove_construction(this);
+    if(world.map(x,y)->construction == this) {
+        world.map(x,y)->construction = NULL;
+        world.map(x,y)->killframe(frameIt);
         constructionGroup->count--;
 /*
-        world(x,y)->framesptr->erase(frameIt);
-        if(world(x,y)->framesptr->empty())
+        world.map(x,y)->framesptr->erase(frameIt);
+        if(world.map(x,y)->framesptr->empty())
         {
-            delete world(x,y)->framesptr;
-            world(x,y)->framesptr = NULL;
+            delete world.map(x,y)->framesptr;
+            world.map(x,y)->framesptr = NULL;
         }
 */
     }
@@ -406,19 +406,19 @@ void Construction::detach()
     {
         for (unsigned short j = 0; j < constructionGroup->size; ++j)
         {
-            world(x + j, y + i)->flags &= (~FLAG_INVISIBLE);
+            world.map(x + j, y + i)->flags &= (~FLAG_INVISIBLE);
             // constructions may have children e.g. waste burning markets/shanties
-            Construction* child = world(x+j,y+i)->construction;
+            Construction* child = world.map(x+j,y+i)->construction;
             if(child)
             {
-                //std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
-                ::constructionCount.remove_construction(child);
-                world(x+j,y+i)->killframe(child->frameIt);
+                //std::cout << "killing child: " << world.map(x+j,y+i)->construction->constructionGroup->name << std::endl;
+                world.map.constructionCount.remove_construction(child);
+                world.map(x+j,y+i)->killframe(child->frameIt);
                 delete child;
                 child = NULL;
-                world(x+j,y+i)->construction = NULL;
+                world.map(x+j,y+i)->construction = NULL;
             }
-            world(x+j,y+i)->reportingConstruction = NULL;
+            world.map(x+j,y+i)->reportingConstruction = NULL;
         }
     }
     deneighborize();
@@ -452,10 +452,10 @@ void Construction::deneighborize()
     partners.clear();
     if (constructionGroup->group == GROUP_POWER_LINE)
     {
-        world(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
-        world(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
-        world(x, y + 1)->flags &= ~FLAG_POWER_CABLES_0;
-        world(x, y - 1)->flags &= ~FLAG_POWER_CABLES_0;
+        world.map(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
+        world.map(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
+        world.map(x, y + 1)->flags &= ~FLAG_POWER_CABLES_0;
+        world.map(x, y - 1)->flags &= ~FLAG_POWER_CABLES_0;
     }
 }
 
@@ -463,10 +463,9 @@ void Construction::deneighborize()
 void Construction::neighborize()
 {
 //skip ghosts (aka burning waste) and powerlines here
-    if(!(flags & (FLAG_IS_GHOST))
-        && (constructionGroup->group != GROUP_FIRE)
-        && (constructionGroup->group != GROUP_POWER_LINE)   )
-    {
+    if(constructionGroup->group != GROUP_FIRE
+      && constructionGroup->group != GROUP_POWER_LINE
+    ) {
         if(flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
         {
             Construction* cst = NULL;
@@ -475,35 +474,38 @@ void Construction::neighborize()
             Construction* cst3 = NULL;
             Construction* cst4 = NULL;
             unsigned short size = constructionGroup->size;
-            for (unsigned short edge = 0; edge < size; ++edge)
-            {
-                //here we rely on invisible edge tiles
-                cst = world(x - 1,y + edge)->reportingConstruction;
-                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST))
-                    && (cst->constructionGroup->group != GROUP_FIRE)
-                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
-                {   link_to(cst1 = cst);}
-                cst = world(x + edge,y - 1)->reportingConstruction;
-                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST))
-                    && (cst->constructionGroup->group != GROUP_FIRE)
-                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
-                {   link_to(cst2 = cst);}
-                cst = world(x + size,y + edge)->reportingConstruction;
-                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST))
-                    && (cst->constructionGroup->group != GROUP_FIRE)
-                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
-                {   link_to(cst3 = cst);}
-                cst = world(x + edge,y + size)->reportingConstruction;
-                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST))
-                    && (cst->constructionGroup->group != GROUP_FIRE)
-                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
-                {   link_to(cst4 = cst);}
+            for(unsigned short edge = 0; edge < size; ++edge) {
+              //here we rely on invisible edge tiles
+              cst = world.map(x - 1,y + edge)->reportingConstruction;
+              if(cst && cst != cst1
+                && cst->constructionGroup->group != GROUP_FIRE
+                && cst->constructionGroup->group != GROUP_POWER_LINE
+              )
+                link_to(cst1 = cst);
+              cst = world.map(x + edge,y - 1)->reportingConstruction;
+              if(cst && cst != cst2
+                && cst->constructionGroup->group != GROUP_FIRE
+                && cst->constructionGroup->group != GROUP_POWER_LINE
+              )
+                link_to(cst2 = cst);
+              cst = world.map(x + size,y + edge)->reportingConstruction;
+              if(cst && cst != cst3
+                && cst->constructionGroup->group != GROUP_FIRE
+                && cst->constructionGroup->group != GROUP_POWER_LINE
+              )
+                link_to(cst3 = cst);
+              cst = world.map(x + edge,y + size)->reportingConstruction;
+              if(cst && cst != cst4
+                && cst->constructionGroup->group != GROUP_FIRE
+                && cst->constructionGroup->group != GROUP_POWER_LINE
+              )
+                link_to(cst4 = cst);
             }
         }
         else // search full market range for constructions
         {
             int tmp;
-            int lenm1 = world.len()-1;
+            int lenm1 = world.map.len()-1;
             tmp = x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
             int xs = (tmp < 1) ? 1 : tmp;
             tmp = y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
@@ -520,9 +522,9 @@ void Construction::neighborize()
                     //don't search at home
                     if(((xx == x )  && (yy == y)))
                     {   continue;}
-                    if(world(xx,yy)->construction) //be unique
+                    if(world.map(xx,yy)->construction) //be unique
                     {
-                        Construction *cst = world(xx,yy)->reportingConstruction; //stick with reporting
+                        Construction *cst = world.map(xx,yy)->reportingConstruction; //stick with reporting
                         if((cst->constructionGroup->group == GROUP_FIRE)
                         || (cst->constructionGroup->group == GROUP_POWER_LINE)  )
                         {   continue;}
@@ -645,19 +647,19 @@ int Construction::countPowercables(int mask)
     for(unsigned short i = 0; i < size; ++i)
     {
         if( (mask & 8) &&
-            world(x + i, y - 1)->flags & FLAG_POWER_CABLES_0 )
+            world.map(x + i, y - 1)->flags & FLAG_POWER_CABLES_0 )
         {++count;}
 
         if( (mask & 4) &&
-            world(x - 1, y + i)->flags & FLAG_POWER_CABLES_90 )
+            world.map(x - 1, y + i)->flags & FLAG_POWER_CABLES_90 )
         {   ++count;}
 
         if( (mask & 2)
-            && world(x + size, y + i)->flags & FLAG_POWER_CABLES_90 )
+            && world.map(x + size, y + i)->flags & FLAG_POWER_CABLES_90 )
         {   ++count;}
 
         if( (mask & 1) &&
-            world(x + i, y + size)->flags & FLAG_POWER_CABLES_0 )
+            world.map(x + i, y + size)->flags & FLAG_POWER_CABLES_0 )
         {   ++count;}
 
     } //end for size
@@ -665,8 +667,8 @@ int Construction::countPowercables(int mask)
     if (constructionGroup == &substationConstructionGroup )
     {
         //here size = 2
-        world(x+1,y)->flags &= (world(x + 2, y)->flags & FLAG_POWER_CABLES_90);
-        world(x,y+1)->flags &= (world(x, y + 2)->flags & FLAG_POWER_CABLES_0);
+        world.map(x+1,y)->flags &= (world.map(x + 2, y)->flags & FLAG_POWER_CABLES_90);
+        world.map(x,y+1)->flags &= (world.map(x, y + 2)->flags & FLAG_POWER_CABLES_0);
     }
 */
     return count;
@@ -789,7 +791,7 @@ void Construction::trade()
             if(simDelay != SIM_DELAY_FAST
             && getConfig()->carsEnabled
             && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
-            && world(x,y)->getTransportGroup() == GROUP_ROAD)
+            && world.map(x,y)->getTransportGroup() == GROUP_ROAD)
             {
                 int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
                 if(simDelay == SIM_DELAY_MED) // compensate for overall animation
@@ -800,9 +802,11 @@ void Construction::trade()
                         if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2
                           && transport->canPlaceVehicle()
                         ) {
-                          new Vehicle(x, y, VEHICLE_BLUECAR, (flow > 0)
-                            ? VEHICLE_STRATEGY_MAXIMIZE
-                            : VEHICLE_STRATEGY_MINIMIZE
+                          world.vehicleList.push_back(
+                            new Vehicle(world, x, y, VEHICLE_BLUECAR, (flow > 0)
+                              ? VEHICLE_STRATEGY_MAXIMIZE
+                              : VEHICLE_STRATEGY_MINIMIZE
+                            )
                           );
                         }
                         break;
@@ -876,14 +880,13 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
             switch (stuff_ID)
             {
                 case (STUFF_LABOR) :
-                    income_tax += flow;
+                    world.stats.taxable.labor += flow;
                     break;
                 case (STUFF_GOODS) :
-                    goods_tax += flow;
-                    goods_used += flow;
+                    world.stats.taxable.goods += flow;
                     break;
                 case (STUFF_COAL) :
-                    coal_tax += flow;
+                    world.stats.taxable.coal += flow;
                     break;
                 default:
                     break;
@@ -919,12 +922,12 @@ void Construction::playSound()
 
 //ConstructionGroup Declarations
 
-int ConstructionGroup::getCosts() {
-    return static_cast<int>
-        (cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL)));
+int ConstructionGroup::getCosts(World& world) {
+  return static_cast<int>(cost *
+    (1.0f + cost_mul * world.tech_level / static_cast<float>(MAX_TECH_LEVEL)));
 }
 
-int ConstructionGroup::placeItem(int x, int y)
+int ConstructionGroup::placeItem(World& world, int x, int y)
 {
 
     //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
@@ -934,16 +937,16 @@ int ConstructionGroup::placeItem(int x, int y)
     {
         for (unsigned short j = 0; j < size; j++)
         {
-            if (world(x+j, y+i)->reportingConstruction)
-            {
-                ConstructionManager::executeRequest
-                ( new ConstructionDeletionRequest(world(x+j, y+i)->reportingConstruction));
+            if(world.map(x+j, y+i)->reportingConstruction) {
+              ConstructionManager::executeRequest(
+                new ConstructionDeletionRequest(
+                  world.map(x+j, y+i)->reportingConstruction));
             }
         }
     }
 
 
-    Construction *tmpConstr = createConstruction();
+    Construction *tmpConstr = createConstruction(world);
 #ifdef DEBUG
     if (tmpConstr == NULL)
     {
@@ -958,61 +961,32 @@ int ConstructionGroup::placeItem(int x, int y)
 }
 
 std::string ConstructionGroup::getName(void){
-    return _(name);
+    return _(name.c_str());
 }
 
 extern void ok_dial_box(const char *, int, const char *);
 
-bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
-{
-
+bool ConstructionGroup::is_allowed_here(World& world, int x, int y, bool msg) {
     //handle transport quickly
-    if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_RAIL))
-    {   return (world(x,y)->is_bare() ||
-            (world(x,y)->getGroup() == GROUP_POWER_LINE) ||
-    (world(x,y)->is_water() && !world(x,y)->is_transport()) ||
-    ((world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));
-    }
+    if(world.map.is_visible(x, y) && (
+      group == GROUP_TRACK ||
+      group == GROUP_ROAD ||
+      group == GROUP_RAIL)
+    )
+      return world.map(x,y)->is_bare() ||
+        world.map(x,y)->getGroup() == GROUP_POWER_LINE ||
+        world.map(x,y)->is_water() && !world.map(x,y)->is_transport() ||
+        world.map(x,y)->is_transport() &&
+          world.map(x,y)->getTransportGroup() != group;
 
     //now check for special rules
-    switch (group)
-    {
-    case GROUP_SOLAR_POWER:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
-            return false;
-        }
-        break;
-
+    switch (group) {
     case GROUP_UNIVERSITY:
-        if (total_money <= 0)
-        {
-            if (msg)
-                ok_dial_box("no-credit-university.mes", BAD, 0L);
-            return false;
-        }
-        else if(schoolConstructionGroup.count/4
+        if(schoolConstructionGroup.count/4
           - universityConstructionGroup.count < 1\
         ) {
             if (msg)
                 ok_dial_box("warning.mes", BAD, _("Not enough students, build more schools."));
-            return false;
-        }
-        break;
-
-    case GROUP_RECYCLE:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-recycle.mes", BAD, 0L);
-            return false;
-        }
-        break;
-
-    case GROUP_ROCKET:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-rocket.mes", BAD, 0L);
             return false;
         }
         break;
@@ -1022,7 +996,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
     case GROUP_PORT:
         for(int j = 0; j < size; j++ )
         {
-            if (!( world(x + size, y + j)->flags & FLAG_IS_RIVER ) )
+            if (!( world.map(x + size, y + j)->flags & FLAG_IS_RIVER ) )
             {
                 if (msg)
                     ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
@@ -1037,7 +1011,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
             bool has_ugw = false;
             for (int i = 0; i < size; i++)
                 for (int j = 0; j < size; j++)
-                    has_ugw = has_ugw | (world(x + j,y + i)->flags & FLAG_HAS_UNDERGROUND_WATER);
+                    has_ugw = has_ugw | (world.map(x + j,y + i)->flags & FLAG_HAS_UNDERGROUND_WATER);
             if (!has_ugw)
             {
                 if (msg)
@@ -1056,7 +1030,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    total_ore += world(x+j, y+i)->ore_reserve;
+                    total_ore += world.map(x+j, y+i)->ore_reserve;
                 }
             }
             if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
@@ -1068,35 +1042,29 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 
     //Parkland
     case GROUP_PARKLAND:
-        if (!(world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
+        if (!(world.map(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
         {
             if (msg)
                 ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
             return false;
         }
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-parkland.mes", BAD, 0L);
-            return false;
-        }
         break;
     //Other cases
     }
-    //double check cash
-    if (no_credit && (total_money < 1))
-    {
-        if (msg)
-        {
-            ok_dial_box("warning.mes", BAD, _("You cannot build this item on credit!"));
-        }
-        return false;
+
+    if(no_credit && world.total_money < getCosts(world)) {
+      if(msg) {
+        world.addEvent(new CannotBuildOnCreditMessage(world));
+      }
+      return false;
     }
+
     //At last check for bare building site
     for(int j = 0; j<size; j++)
     {
         for(int i = 0; i<size; i++)
         {
-            if(!world(x+i, y+j)->is_bare())
+            if(!world.map(x+i, y+j)->is_bare())
             {   return false;}
         }
     }

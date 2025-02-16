@@ -94,7 +94,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = false;
     };
     // overriding method that creates a LightIndustry
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
@@ -106,58 +106,9 @@ extern IndustryLightConstructionGroup industryLightConstructionGroup;
 
 class IndustryLight: public Construction {
 public:
-    IndustryLight(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->tech = tech_level;
-        this->working_days = 0;
-        this->busy = 0;
-        this->goods_this_month = 0;
-        this->anim = 0;
-        initialize_commodities();
-        this->bonus = 0;
-        this->extra_bonus = 0;
-        // if (tech > MAX_TECH_LEVEL)
-        // {
-        //     bonus = (tech - MAX_TECH_LEVEL);
-        //     if (bonus > MAX_TECH_LEVEL)
-        //         bonus = MAX_TECH_LEVEL;
-        //     bonus /= MAX_TECH_LEVEL;
-        //     // check for filter technology bonus
-        //     if (tech > 2 * MAX_TECH_LEVEL)
-        //     {
-        //         extra_bonus = tech - 2 * MAX_TECH_LEVEL;
-        //         if (extra_bonus > MAX_TECH_LEVEL)
-        //             extra_bonus = MAX_TECH_LEVEL;
-        //         extra_bonus /= MAX_TECH_LEVEL;
-        //     }
-        // }
+    IndustryLight(World& world, ConstructionGroup *cstgrp);
 
-        commodityMaxCons[STUFF_LABOR] = 100 * (INDUSTRY_L_LABOR_USED +
-          INDUSTRY_L_LABOR_LOAD_ORE + LABOR_LOAD_ORE +
-          INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL);
-        commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
-        commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
-        commodityMaxCons[STUFF_LOVOLT] = 100 *
-          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 8;
-        commodityMaxCons[STUFF_HIVOLT] = 100 *
-          INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 4;
-        commodityMaxProd[STUFF_GOODS] = 100 * INDUSTRY_L_MAKE_GOODS * 8;
-        // commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
-        //   INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
-    }
-
-    virtual ~IndustryLight() //remove 2 or more extraframes
-    {
-        if(world(x,y)->framesptr)
-        {
-            world(x,y)->framesptr->erase(fr_begin, fr_end);
-            if(world(x,y)->framesptr->empty())
-            {
-                delete world(x,y)->framesptr;
-                world(x,y)->framesptr = NULL;
-            }
-        }
-    }
+    virtual ~IndustryLight();
 
     virtual void update() override;
     virtual void report() override;
@@ -166,7 +117,7 @@ public:
     virtual void init_resources() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;

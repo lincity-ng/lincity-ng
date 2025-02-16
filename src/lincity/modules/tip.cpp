@@ -43,10 +43,24 @@ TipConstructionGroup tipConstructionGroup(
      GROUP_TIP_RANGE
 );
 
-Construction *TipConstructionGroup::createConstruction() {
-  return new Tip(this);
+Construction *TipConstructionGroup::createConstruction(World& world) {
+  return new Tip(world, this);
 }
 
+Tip::Tip(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->flags |= FLAG_NEVER_EVACUATE;
+  this->total_waste = 0;
+  this->working_days = 0;
+  this->busy = 0;
+  this->degration_days = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURRIED;
+  commodityMaxProd[STUFF_WASTE] = 100 * WASTE_BURRIED;
+}
 
 void Tip::update()
 {
@@ -63,7 +77,7 @@ void Tip::update()
         consumeStuff(STUFF_WASTE, WASTE_BURRIED);
         total_waste += WASTE_BURRIED;
         working_days++;
-        sust_dig_ore_coal_tip_flag = 0;
+        world.stats.sustainability.mining_flag = false;
     }
     else if ((commodityCount[STUFF_WASTE] + WASTE_BURRIED <= TIP_TAKES_WASTE)
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE < CRITICAL_WASTE_LEVEL)
@@ -74,11 +88,10 @@ void Tip::update()
         total_waste -= waste_dug;
         working_days++;
     }
-    if ((total_time % 100) == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
     }
 }
 
@@ -102,7 +115,7 @@ void Tip::report()
     list_commodities(&i);
 }
 
-void Tip::save(xmlTextWriterPtr xmlWriter) {
+void Tip::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_waste",    "%d", total_waste);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"degration_days", "%d", degration_days);
   Construction::save(xmlWriter);

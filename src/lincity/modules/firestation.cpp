@@ -46,33 +46,56 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_RANGE
 );
 
-Construction *FireStationConstructionGroup::createConstruction() {
-  return new FireStation(this);
+Construction *FireStationConstructionGroup::createConstruction(World& world) {
+  return new FireStation(world, this);
+}
+FireStation::FireStation(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->active = false;
+  this->busy = 0;
+  this->working_days = 0;
+  this->daycount = 0;
+  this->covercount = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
+  commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;
+  commodityMaxProd[STUFF_WASTE] = 100 * (FIRESTATION_GOODS / 3);
 }
 
 void FireStation::update()
 {
-    ++daycount;
-    if (commodityCount[STUFF_LABOR] >= FIRESTATION_LABOR
-    &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
-    &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION)
-    {
-        consumeStuff(STUFF_LABOR, FIRESTATION_LABOR);
-        consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
-        produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
-        ++covercount;
-        ++working_days;
+  ++daycount;
+  try {
+    world.expense(FIRESTATION_RUNNING_COST * (1 +
+        FIRESTATION_RUNNING_COST_MUL * world.tech_level / MAX_TECH_LEVEL),
+      world.stats.expenses.firestation);
+
+    if(commodityCount[STUFF_LABOR] >= FIRESTATION_LABOR
+      &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
+      &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION
+    ) {
+      consumeStuff(STUFF_LABOR, FIRESTATION_LABOR);
+      consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
+      produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
+      ++covercount;
+      ++working_days;
     }
-    //monthly update
-    if (total_time % 100 == 99) {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    /* That's all. Cover is done by different functions every 3 months or so. */
-    fire_cost += FIRESTATION_RUNNING_COST;
-    if(refresh_cover)
-    {   cover();}
+  } catch(OutOfMoneyException ex) {}
+
+  if(world.total_time % DAYS_BETWEEN_COVER == 75)
+    cover();
+
+  //monthly update
+  if (world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
+  }
 }
 
 void FireStation::cover()
@@ -89,12 +112,12 @@ void FireStation::cover()
     animate_enable = true;
 
     int xs = std::max(x - constructionGroup->range, 1);
-    int xe = std::min(x + constructionGroup->range, world.len() - 1);
+    int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
     int ys = std::max(y - constructionGroup->range, 1);
-    int ye = std::min(y + constructionGroup->range, world.len() - 1);
+    int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
     for(int yy = ys; yy < ye; ++yy)
     for(int xx = xs; xx < xe; ++xx)
-      world(xx,yy)->flags |= FLAG_FIRE_COVER;
+      world.map(xx,yy)->flags |= FLAG_FIRE_COVER_CHECK;
 }
 
 void FireStation::animate() {
@@ -122,7 +145,7 @@ void FireStation::report()
     mps_store_ss(i++, N_("Fire Protection"), p);
 }
 
-void FireStation::save(xmlTextWriterPtr xmlWriter) {
+void FireStation::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);

@@ -1,10 +1,8 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/all_buildings.cpp
+ * src/lincity/exceptions.hpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +19,35 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "all_buildings.h"
+#ifndef __LINCITYNG_LINCITY_EXCEPTIONS_HPP__
+#define __LINCITYNG_LINCITY_EXCEPTIONS_HPP__
 
- /** @file lincity/all_buildings.cpp */
+#include <exception>
+#include <string>
+
+class LincityException : public std::exception {
+public:
+  LincityException(std::string whatMsg);
+
+  virtual const char *what() const noexcept;
+
+private:
+  const std::string whatMsg;
+};
+
+class IllegalActionException : public LincityException {
+public:
+  IllegalActionException(std::string action = "", std::string reason = "");
+
+  const std::string action;
+  const std::string reason;
+};
+
+class OutOfMoneyException : public IllegalActionException {
+public:
+  OutOfMoneyException(std::string action = "", bool allowCredit = true);
+
+  const bool usingCredit;
+};
+
+#endif // __LINCITYNG_LINCITY_EXCEPTIONS_HPP__

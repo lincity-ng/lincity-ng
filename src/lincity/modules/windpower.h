@@ -66,33 +66,21 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Windpower
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern WindpowerConstructionGroup windpowerConstructionGroup;
 
 class Windpower: public Construction {
 public:
-    Windpower(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->animate_enable = false;
-        this->tech = tech_level;
-        this->working_days = 0;
-        this->busy = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
-        // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-    virtual ~Windpower() { }
-
+    Windpower(World& world, ConstructionGroup *cstgrp);
+    virtual ~Windpower() {}
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  hivolt_output;

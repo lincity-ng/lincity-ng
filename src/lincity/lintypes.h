@@ -35,18 +35,19 @@
 
 #include "commodities.hpp"  // for Commodity, CommodityRule, operator++
 #include "resources.hpp"    // for ResourceGroup, ExtraFrame (ptr only)
+#include "world.h"
 
 class ConstructionGroup;
-
 namespace xmlpp {
 class TextReader;
 }  // namespace xmlpp
 typedef struct _xmlTextWriter *xmlTextWriterPtr;
+class World;
 
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
 
-#define NUMOF_COAL_RESERVES ((world.len() * world.len()) / 400)
+#define NUMOF_COAL_RESERVES ((map.len() * map.len()) / 400)
 
 #define OLD_MAX_NUMOF_MARKETS 100
 #define MAX_NUMOF_MARKETS 512
@@ -58,7 +59,7 @@ unsigned short get_group_of_type(unsigned short selected_type);
 
 class Construction {
 public:
-  Construction();
+  Construction(World& world);
   virtual ~Construction() {}
 
   virtual void update() = 0;
@@ -69,7 +70,7 @@ public:
    * Initializes a new construction (i.e. one that is not loaded from a save
    * file) before placement on the map.
    *
-   * Note: Overloads are required to forward the call the base-class method.
+   * Note: Overloads are required to forward the call to the base-class method.
   **/
   virtual void initialize() {}
 
@@ -120,7 +121,7 @@ public:
    * `Construction::save` is NOT the owner of the `<construction>` element and
    * should neither create it nor add attributes to it.
   **/
-  virtual void save(xmlTextWriterPtr xmlWriter);
+  virtual void save(xmlTextWriterPtr xmlWriter) const;
 
 
 
@@ -128,7 +129,9 @@ public:
   ResourceGroup *soundGroup;
 
   int x, y;
+  MapPoint point;
   int flags;              //flags are defined in lin-city.h
+  World& world;
 
   // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
   std::array<int, STUFF_COUNT> commodityCount;    // inventory
@@ -163,10 +166,6 @@ public:
   //equilibrates stuff with an external reservoir (e.g. another construction invoking this method)
   void playSound();//plays random chunk from constructionGroup
 };
-
-//global Vars for statistics on commodities
-extern std::map<Commodity, int> tstat_capacities;
-extern std::map<Commodity, int> tstat_census;
 
 class ConstructionGroup {
 public:
@@ -203,18 +202,18 @@ public:
     virtual ~ConstructionGroup() {}
 
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
-    int getCosts();
-    bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
+    int getCosts(World& world);
+    bool is_allowed_here(World& world, int x, int y, bool msg);//check if construction could be placed
 
-    virtual int placeItem(int x, int y);
+    virtual int placeItem(World& world, int x, int y);
 
     // this method must be overriden by the concrete ConstructionGroup classes.
-    virtual Construction *createConstruction() = 0;
+    virtual Construction *createConstruction(World& world) = 0;
 
     std::string getName(void);
 
     std::string resourceID;           /* name for matching resources from XML*/
-    const char *name;           /* inGame name of group */
+    std::string name;           /* inGame name of group */
     bool no_credit;   /* TRUE if need credit to build */
     unsigned short group;       /* This is redundant: it must match
                                    the index into the table */

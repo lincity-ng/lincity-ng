@@ -88,30 +88,14 @@ public:
         commodityRuleCount[STUFF_WATER].take = true;
     }
     // overriding method that creates a organic_farm
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern Organic_farmConstructionGroup organic_farmConstructionGroup;
 
 class Organic_farm: public Construction {
 public:
-    Organic_farm(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->tech = tech_level;
-        this->crop_rotation_key = (rand() % 4) + 1;
-        this->month_stagger = rand() % 100;
-        this->food_this_month = 0;
-        this->food_last_month = 0;
-        //this->max_foodprod = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
-        commodityMaxCons[STUFF_LABOR] = 100 * FARM_LABOR_USED;
-        commodityMaxCons[STUFF_LOVOLT] = 100 * ORG_FARM_POWER_REC;
-        commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
-        // commodityMaxProd[STUFF_FOOD] = 100 *
-        //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
-    }
+    Organic_farm(World& world, ConstructionGroup *cstgrp);
 
     virtual ~Organic_farm() { }
     virtual void update() override;
@@ -119,7 +103,7 @@ public:
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  ugwCount;

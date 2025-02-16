@@ -33,7 +33,6 @@
 #define ROAD_POLLUTION          1
 #define DAYS_PER_ROAD_POLLUTION 20
 #define UNNAT_DEATHS_COST       500
-#define POL_DIV                 64      /* GCS -- from engine.c */
 
 #define INCOME_TAX_RATE 8
 #define COAL_TAX_RATE 15
@@ -125,46 +124,6 @@
 #define GROUP_TREE3_BUL_COST 1
 #define GROUP_TREE3_TECH    0
 #define GROUP_TREE3_FIREC   0
-
-/********   end of buildings // groups   ************/
-
-
-#include "lintypes.h"
-
-/*
-* TileConstructionGroups hold information about inactive tiles
-* in city. They cannot create any constructions and should not be found
-* in ConstructionGroup::groupmap. They also hold the sounds and graphics
-* for the tiles, and are acessed via a switch of maptile.group
-*/
-
-class TileConstructionGroup: public ConstructionGroup {
-public:
-    TileConstructionGroup(
-        const char *name,
-        unsigned short no_credit,
-        unsigned short group,
-        unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance,
-        int cost, int tech, int range
-    ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range, 1/*mps_pages*/
-    ) {
-
-    };
-    // dont use that one tiles are no constructions
-    virtual Construction *createConstruction();
-};
-
-extern TileConstructionGroup waterConstructionGroup;
-extern TileConstructionGroup bareConstructionGroup;
-extern TileConstructionGroup desertConstructionGroup;
-extern TileConstructionGroup treeConstructionGroup;
-extern TileConstructionGroup tree2ConstructionGroup;
-extern TileConstructionGroup tree3ConstructionGroup;
-
-
 
 #endif // __all_buildings_h__
 

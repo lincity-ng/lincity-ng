@@ -38,8 +38,8 @@
 
 
 
-void connect_transport(int originx, int originy, int lastx, int lasty)
-{
+void
+World::connect_transport(int originx, int originy, int lastx, int lasty) {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     static const short power_table[16] = {
         0, 1, 0, 2,
@@ -61,140 +61,140 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
     {   originx = 1;}
     if (originy <= 0)
     {   originy = 1;}
-    if (lastx >= world.len())
-    {   lastx = world.len() - 1;}
-    if (lasty >= world.len())
-    {   lasty = world.len() - 1;}
+    if (lastx >= map.len())
+    {   lastx = map.len() - 1;}
+    if (lasty >= map.len())
+    {   lasty = map.len() - 1;}
 
     for (int y = originy; y <= lasty; ++y)
     {
         for (int x = originx; x <= lastx; ++x)
         {
             // First, set up a mask according to directions
-            cstr = world(x, y)->construction;
+            cstr = map(x, y)->construction;
             int* frame = cstr ? &(cstr->frameIt->frame) : NULL;
             int mask = 0;
-            switch (world(x, y)->getGroup())
+            switch (map(x, y)->getGroup())
             {
             case GROUP_POWER_LINE:
             {
                 bool far = false;
                 int hivolt = -1;
-                world(x,y)->reportingConstruction->deneighborize();
+                map(x,y)->reportingConstruction->deneighborize();
                 /* up -- (ThMO) */
-                hivolt = world(x, y-1)->reportingConstruction?
-                world(x, y-1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
-                if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
+                hivolt = map(x, y-1)->reportingConstruction?
+                map(x, y-1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                if ((far = ((y > 1) && (map(x, y-1)->is_water() || map(x, y-1)->is_transport()))))
                 {
-                    hivolt = world(x, y-2)->reportingConstruction?
-                    world(x, y-2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                    hivolt = map(x, y-2)->reportingConstruction?
+                    map(x, y-2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
                 if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
                         //opposite edge
-                        if (!world(x, y-2)->reportingConstruction->countPowercables(1))
+                        if (!map(x, y-2)->reportingConstruction->countPowercables(1))
                         {
-                            world(x, y-1)->flags |= FLAG_POWER_CABLES_0;
-                            cstr->link_to(world(x,y-2)->reportingConstruction);
+                            map(x, y-1)->flags |= FLAG_POWER_CABLES_0;
+                            cstr->link_to(map(x,y-2)->reportingConstruction);
                             mask |=8;
                         }
                     }
                     else
                     {
-                        cstr->link_to(world(x,y-1)->reportingConstruction);
+                        cstr->link_to(map(x,y-1)->reportingConstruction);
                         mask |=8;
                     }
                 }
                 else
-                {   world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;}
+                {   map(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 /* left -- (ThMO) */
-                hivolt = world(x-1, y)->reportingConstruction?
-                world(x-1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
-                if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
+                hivolt = map(x-1, y)->reportingConstruction?
+                map(x-1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                if((far = ((x > 1) && (map(x-1, y)->is_water() || map(x-1, y)->is_transport()))))
                 {
-                    hivolt = world(x-2, y)->reportingConstruction?
-                    world(x-2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                    hivolt = map(x-2, y)->reportingConstruction?
+                    map(x-2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
                 if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
                         //opposite edge
-                        if ( !world(x-2, y)->reportingConstruction->countPowercables(2) )
+                        if ( !map(x-2, y)->reportingConstruction->countPowercables(2) )
                         {
-                            cstr->link_to(world(x-2,y)->reportingConstruction);
-                            world(x-1, y)->flags |= FLAG_POWER_CABLES_90;
+                            cstr->link_to(map(x-2,y)->reportingConstruction);
+                            map(x-1, y)->flags |= FLAG_POWER_CABLES_90;
                             mask |=4;
                         }
                     }
                     else
                     {
-                        cstr->link_to(world(x-1,y)->reportingConstruction);
+                        cstr->link_to(map(x-1,y)->reportingConstruction);
                         mask |=4;
                     }
                 }
                 else
-                {   world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;}
+                {   map(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* right -- (ThMO) */
-                hivolt = world(x+1, y)->reportingConstruction?
-                world(x+1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
-                if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
+                hivolt = map(x+1, y)->reportingConstruction?
+                map(x+1, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                if ((far = ((x < map.len() - 2) && (map(x+1, y)->is_water() || map(x+1, y)->is_transport()))))
                 {
-                    hivolt = world(x+2, y)->reportingConstruction?
-                    world(x+2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                    hivolt = map(x+2, y)->reportingConstruction?
+                    map(x+2, y)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
                 }
                 if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
                         //opposite edge
-                        if ( !world(x+2, y)->reportingConstruction->countPowercables(4) )
+                        if ( !map(x+2, y)->reportingConstruction->countPowercables(4) )
                         {
-                            cstr->link_to(world(x+2,y)->reportingConstruction);
-                            world(x+1, y)->flags |= FLAG_POWER_CABLES_90;
+                            cstr->link_to(map(x+2,y)->reportingConstruction);
+                            map(x+1, y)->flags |= FLAG_POWER_CABLES_90;
                             mask |=2;
                         }
                     }
                     else
                     {
-                        cstr->link_to(world(x+1,y)->reportingConstruction);
+                        cstr->link_to(map(x+1,y)->reportingConstruction);
                         mask |=2;
                     }
                 }
                 else
-                {   world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;}
+                {   map(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* down -- (ThMO) */
-                hivolt = world(x, y+1)->reportingConstruction?
-                world(x, y+1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
-                if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
+                hivolt = map(x, y+1)->reportingConstruction?
+                map(x, y+1)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;
+                if ((far = (y < map.len() - 2) && (map(x, y+1)->is_water() || map(x, y+1)->is_transport())))
                 {
-                    hivolt = world(x, y+2)->reportingConstruction?
-                    world(x, y+2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;}
+                    hivolt = map(x, y+2)->reportingConstruction?
+                    map(x, y+2)->reportingConstruction->tellstuff(STUFF_HIVOLT, -2):-1;}
                 if(hivolt != -1)
                 {
                     if (far) //suspended cables
                     {
                         //opposite edge
-                        if ( !world(x, y+2)->reportingConstruction->countPowercables(8) )
+                        if ( !map(x, y+2)->reportingConstruction->countPowercables(8) )
                         {
-                            cstr->link_to(world(x,y+2)->reportingConstruction);
-                            world(x, y+1)->flags |= FLAG_POWER_CABLES_0;
+                            cstr->link_to(map(x,y+2)->reportingConstruction);
+                            map(x, y+1)->flags |= FLAG_POWER_CABLES_0;
                             mask |=1;
                         }
                     }
                     else
                     {
-                        cstr->link_to(world(x,y+1)->reportingConstruction);
+                        cstr->link_to(map(x,y+1)->reportingConstruction);
                         mask |=1;
                     }
                 }
                 else
-                {   world(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;}
+                {   map(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 *frame = power_table[mask];
                 break;
@@ -278,8 +278,8 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                          check_group(x, y+1) == GROUP_TRACK &&
                          check_group(x, y-1) == GROUP_TRACK)
                 {
-                    railConstructionGroup.placeItem(x,y);
-                    cstr = world(x,y)->construction;
+                    railConstructionGroup.placeItem(*this, x,y);
+                    cstr = map(x,y)->construction;
                     frame = &(cstr->frameIt->frame);
                     *frame = 21;
                     //rewind the loops
@@ -296,8 +296,8 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                          check_group(x+1, y) == GROUP_TRACK &&
                          check_group(x-1, y) == GROUP_TRACK)
                 {
-                    railConstructionGroup.placeItem(x,y);
-                    cstr = world(x,y)->construction;
+                    railConstructionGroup.placeItem(*this, x,y);
+                    cstr = map(x,y)->construction;
                     frame = &(cstr->frameIt->frame);
                     *frame = 22;
                     //rewind the loops
@@ -314,12 +314,12 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 if (*frame >= 11 && *frame <= 12)
                 {
                     cstr->flags |= FLAG_TRANSPARENT;
-                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                    map(x,y)->flags &= (~FLAG_INVISIBLE);
                 }
                 else
                 {
                    cstr->flags &= (~FLAG_TRANSPARENT);
-                   world(x,y)->flags |= FLAG_INVISIBLE;
+                   map(x,y)->flags |= FLAG_INVISIBLE;
                 }
                 break;
 
@@ -340,7 +340,7 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 else //a lonely bridge tile
                 {   *frame = 1;}
                 cstr->flags |= FLAG_TRANSPARENT;
-                world(x,y)->flags &= (~FLAG_INVISIBLE);
+                map(x,y)->flags &= (~FLAG_INVISIBLE);
                 break;
 
             case GROUP_ROAD:
@@ -428,8 +428,8 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                          check_group(x, y+1) == GROUP_ROAD &&
                          check_group(x, y-1) == GROUP_ROAD)
                 {
-                    railConstructionGroup.placeItem(x,y);
-                    cstr = world(x,y)->construction;
+                    railConstructionGroup.placeItem(*this, x,y);
+                    cstr = map(x,y)->construction;
                     frame = &(cstr->frameIt->frame);
                     *frame = 23;
                     //rewind the loops
@@ -445,8 +445,8 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                          check_group(x+1, y) == GROUP_ROAD &&
                          check_group(x-1, y) == GROUP_ROAD)
                 {
-                    railConstructionGroup.placeItem(x,y);
-                    cstr = world(x,y)->construction;
+                    railConstructionGroup.placeItem(*this, x,y);
+                    cstr = map(x,y)->construction;
                     frame = &(cstr->frameIt->frame);
                     *frame = 24;
                     //rewind the loops
@@ -462,12 +462,12 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 if(*frame >= 11 && *frame <= 16)
                 {
                     cstr->flags |= FLAG_TRANSPARENT;
-                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                    map(x,y)->flags &= (~FLAG_INVISIBLE);
                 }
                 else
                 {
                    cstr->flags &= (~FLAG_TRANSPARENT);
-                   world(x,y)->flags |= FLAG_INVISIBLE;
+                   map(x,y)->flags |= FLAG_INVISIBLE;
                 }
                 break;
 
@@ -569,12 +569,12 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 if(*frame >= 11 && *frame <= 16)
                 {
                     cstr->flags |= FLAG_TRANSPARENT;
-                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                    map(x,y)->flags &= (~FLAG_INVISIBLE);
                 }
                 else
                 {
                        cstr->flags &= (~FLAG_TRANSPARENT);
-                       world(x,y)->flags |= FLAG_INVISIBLE;
+                       map(x,y)->flags |= FLAG_INVISIBLE;
                 }
                 break;
 
@@ -589,7 +589,7 @@ void connect_transport(int originx, int originy, int lastx, int lasty)
                 else
                 {   *frame = 1;}
                 cstr->flags |= FLAG_TRANSPARENT;
-                world(x,y)->flags &= (~FLAG_INVISIBLE);
+                map(x,y)->flags &= (~FLAG_INVISIBLE);
                 break;
             }                   /* end switch */
         }                       /* end for y*/

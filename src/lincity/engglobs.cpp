@@ -31,22 +31,7 @@
 #include <stddef.h>             // for NULL
 #include <map>                  // for map
 
-#include "ConstructionCount.h"  // for ConstructionCount
-#include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...
-#include "world.h"              // for Map, WORLD_SIDE_LEN
-
-enum Commodity : int;
-
-/* load/save version for compatibility with(out) waterwell */
-int ldsv_version;
-int use_waterwell = true;
-
-char given_scene[1024];
-
-ConstructionCount constructionCount = ConstructionCount();
-Map world = Map(WORLD_SIDE_LEN);
-int world_id = 0;
-UserOperation* userOperation = NULL;
+#include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...\
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
@@ -55,13 +40,7 @@ const int dy[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
 const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
 const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
 
-//These have to be decalred as extern in lintypes.h after class Construction
-std::map<Commodity, int> tstat_capacities;
-std::map<Commodity, int> tstat_census;
-
 int main_screen_originx, main_screen_originy;
-
-int pix_double = 0;
 
 /* graph stuff from src/gui_interface/shared_globals.h */
 int cheat_flag;

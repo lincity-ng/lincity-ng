@@ -25,9 +25,9 @@
 #ifndef __MODULES_INTERFACES_H__
 #define __MODULES_INTERFACES_H__
 
-void update_shanty(void);
-void mps_water(int x, int y);
-void add_a_shanty(void);
+void update_shanty(World& world);
+void mps_water(int x, int y, World& world);
+void add_a_shanty(World& world);
 void remove_a_shanty(int x, int y);
 
 //FIXME In principle all these should be obsolete

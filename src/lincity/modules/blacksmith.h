@@ -83,28 +83,14 @@ public:
         commodityRuleCount[STUFF_GOODS].give = true;
     }
     // overriding method that creates a blacksmith
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern BlacksmithConstructionGroup blacksmithConstructionGroup;
 
 class Blacksmith: public Construction {
 public:
-    Blacksmith(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->pauseCounter = 0;
-        this->busy = 0;
-        this->working_days = 0;
-        this->animate_enable = false;
-        this->goods_made = 0;
-        initialize_commodities();
-
-        commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_BLACKSMITH;
-        commodityMaxCons[STUFF_COAL] = 100 * BLACKSMITH_COAL_USED;
-        commodityMaxCons[STUFF_STEEL] = 100 * BLACKSMITH_STEEL_USED;
-        commodityMaxCons[STUFF_LABOR] = 100 * BLACKSMITH_LABOR;
-    }
+    Blacksmith(World& world, ConstructionGroup *cstgrp);
     virtual ~Blacksmith() { }
     virtual void update() override;
     virtual void report() override;

@@ -53,6 +53,7 @@
 #include "shanty.h"
 #include "solar_power.h"
 #include "substation.h"
+#include "tile.hpp"
 #include "tip.h"
 #include "track_road_rail.h"
 //#include "track.h" //superseeded by track_road_rail_powerline.h

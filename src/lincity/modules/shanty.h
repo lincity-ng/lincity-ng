@@ -99,35 +99,15 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = false;
     }
     // overriding method that creates a Shanty
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern ShantyConstructionGroup shantyConstructionGroup;
 
 class Shanty: public Construction {
 public:
-    Shanty(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        initialize_commodities();
-        this->flags |= FLAG_NEVER_EVACUATE;
-        this->anim = 0;
-        this->start_burning_waste = false;
-        this->waste_fire_anim = 0;
-
-        commodityMaxProd[STUFF_WASTE] = 100 *
-          (SHANTY_PUT_WASTE * 2 + SHANTY_GET_GOODS / 3);
-        commodityMaxCons[STUFF_FOOD] = 100 * SHANTY_GET_FOOD;
-        commodityMaxCons[STUFF_LABOR] = 100 * SHANTY_GET_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * SHANTY_GET_GOODS;
-        commodityMaxCons[STUFF_COAL] = 100 * SHANTY_GET_COAL;
-        commodityMaxCons[STUFF_ORE] = 100 * SHANTY_GET_ORE;
-        commodityMaxCons[STUFF_STEEL] = 100 * SHANTY_GET_STEEL;
-        commodityMaxCons[STUFF_WASTE] = 100 *
-          (MAX_WASTE_AT_SHANTY /*+ SHANTY_PUT_WASTE*2 + SHANTY_GET_GOODS/3*/);
-    }
-    virtual ~Shanty() {
-        world(x,y)->killframe(waste_fire_frit);
-    }
+    Shanty(World& world, ConstructionGroup *cstgrp);
+    virtual ~Shanty();
 
     virtual void update() override;
     virtual void report() override;

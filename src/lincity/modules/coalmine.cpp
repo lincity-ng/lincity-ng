@@ -50,8 +50,22 @@ CoalmineConstructionGroup coalmineConstructionGroup(
 //CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
 //CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
-Construction *CoalmineConstructionGroup::createConstruction() {
-  return new Coalmine(this);
+Construction *CoalmineConstructionGroup::createConstruction(World& world) {
+  return new Coalmine(world, this);
+}
+
+Coalmine::Coalmine(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+  commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+  commodityMaxCons[STUFF_LABOR] = 100 * COALMINE_LABOR;
 }
 
 void Coalmine::update()
@@ -62,7 +76,7 @@ void Coalmine::update()
     for (int yy = ys; yy < ye ; yy++)
     {
         for (int xx = xs; xx < xe ; xx++)
-        {   current_coal_reserve += world(xx,yy)->coal_reserve;}
+        {   current_coal_reserve += world.map(xx,yy)->coal_reserve;}
     }
     // mine some coal
     if ((current_coal_reserve > 0)
@@ -73,15 +87,14 @@ void Coalmine::update()
         {
             for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
-                if (world(xx,yy)->coal_reserve > 0)
+                if (world.map(xx,yy)->coal_reserve > 0)
                 {
-                    world(xx,yy)->coal_reserve--;
-                    world(xx,yy)->pollution += COALMINE_POLLUTION;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
+                    world.map(xx,yy)->coal_reserve--;
+                    world.map(xx,yy)->pollution += COALMINE_POLLUTION;
                     produceStuff(STUFF_COAL, COAL_PER_RESERVE);
                     consumeStuff(STUFF_LABOR, COALMINE_LABOR);
                     if (current_coal_reserve < initial_coal_reserve)
-                    {   sust_dig_ore_coal_tip_flag = 0;}
+                      world.stats.sustainability.mining_flag = false;
                     coal_found = true;
                     working_days++;
                 }
@@ -95,10 +108,9 @@ void Coalmine::update()
         {
             for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
-                if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE)
+                if (world.map(xx,yy)->coal_reserve < COAL_RESERVE_SIZE)
                 {
-                    world(xx,yy)->coal_reserve++;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
+                    world.map(xx,yy)->coal_reserve++;
                     consumeStuff(STUFF_COAL, COAL_PER_RESERVE);
                     consumeStuff(STUFF_LABOR, COALMINE_LABOR);
                     coal_found = true;
@@ -108,7 +120,7 @@ void Coalmine::update()
         }
     }
     //Monthly update of activity
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -154,7 +166,7 @@ void Coalmine::place(int x, int y) {
   Construction::place(x, y);
 
   int coal = 0;
-  int lenm1 = world.len()-1;
+  int lenm1 = world.map.len()-1;
   int tmp;
   tmp = x - constructionGroup->range;
   this->xs = (tmp < 1) ? 1 : tmp;
@@ -167,13 +179,13 @@ void Coalmine::place(int x, int y) {
 
   for(int yy = ys; yy < ye ; yy++)
   for (int xx = xs; xx < xe ; xx++)
-    coal += world(xx,yy)->coal_reserve;
+    coal += world.map(xx,yy)->coal_reserve;
 
   //always provide some coal so player can
   //store sustainable coal before the mine is deleted
   if (coal < 20)
   {
-      world(x,y)->coal_reserve += 20-coal;
+      world.map(x,y)->coal_reserve += 20-coal;
       coal = 20;
   }
 
@@ -181,7 +193,7 @@ void Coalmine::place(int x, int y) {
   this->current_coal_reserve = coal;
 }
 
-void Coalmine::save(xmlTextWriterPtr xmlWriter) {
+void Coalmine::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
   Construction::save(xmlWriter);
 }

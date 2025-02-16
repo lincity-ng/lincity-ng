@@ -48,25 +48,15 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a power line
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern PowerlineConstructionGroup powerlineConstructionGroup;
 
 class Powerline: public Construction {
 public:
-    Powerline(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
-        this->anim_counter = 0;
-        this->anim = 0;
-        this->flashing = false;
-        initialize_commodities();
-        this->trafficCount = this->commodityCount;
-
-        commodityMaxCons[STUFF_HIVOLT] = 100 * 1;
-    }
-    virtual ~Powerline() { }
+    Powerline(World& world, ConstructionGroup *cstgrp);
+    virtual ~Powerline() {}
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;

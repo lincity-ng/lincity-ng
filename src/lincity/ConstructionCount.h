@@ -38,12 +38,13 @@ public:
     void add_construction(Construction * construction);
     void remove_construction(Construction * construction);
     void shuffle(); //suffle the permutator
-    int size();     //return the current size constructionVector NOT the number of Constructions
+    int size() const;     //return the current size constructionVector NOT the number of Constructions
     int count();    //return the current number of constructions
     void size (int new_len); //set the new size of constructionVector
     void reset(); //FIXME Only for use in debugging
     Construction* operator[](unsigned int i);
     Construction* pos(unsigned int i);
+    const Construction *pos(unsigned int i) const;
 protected:
     size_t free_slot;
     Permutator * permutator;

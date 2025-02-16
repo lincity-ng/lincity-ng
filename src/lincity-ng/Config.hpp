@@ -50,6 +50,8 @@ public:
   std::string language;
   std::string musicTheme;
 
+  int worldSize;
+
   void load(std::filesystem::path configPath = std::filesystem::path());
   void save(std::filesystem::path configPath = std::filesystem::path());
 

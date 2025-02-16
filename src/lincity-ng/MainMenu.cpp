@@ -585,14 +585,10 @@ void MainMenu::changeResolution(bool next) {
 }
 
 void
-MainMenu::changeWorldLen(bool next)
-{
-    std::ostringstream os;
-    int new_len;
-    new_len = world.len()+(next?25:-25);
-    world.len(new_len);
-    os << world.len();
-    getParagraph( *optionsMenu, "WorldLenParagraph")->setText(os.str());
+MainMenu::changeWorldLen(bool next) {
+  getConfig()->worldSize += (next?25:-25);
+  getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
+    std::to_string(getConfig()->worldSize));
 }
 
 void
@@ -657,8 +653,8 @@ MainMenu::continueButtonClicked(Button* )
     getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
-    //only act if world is still clean
-    if (!world.dirty)
+
+    if (!world.dirty) // if a world doesn't exist yet (game freshly started)
     {
         //load current game if it exists
         if(!loadCityNG("9_currentGameNG.scn.gz")) {

@@ -26,6 +26,8 @@
 
 #include <list>  // for list
 
+#include "world.h"
+
 enum Commodity : int;
 struct ExtraFrame;
 
@@ -52,16 +54,17 @@ class Vehicle
 {
 public:
 
-    Vehicle(int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStrategy = VEHICLE_STRATEGY_RANDOM );
+    Vehicle(World& world, int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStrategy = VEHICLE_STRATEGY_RANDOM );
 
     ~Vehicle(void);
 
+    World& world;
     //location, heading and comming from
     int x, xnext, xprev, xold1, xold2;
     int y, ynext, yprev, yold1, yold2;
     float xr, yr;
     int death_counter;
-    bool alive, turn_left;
+    bool turn_left;
     unsigned int headings;
     int direction;
 
@@ -78,7 +81,6 @@ public:
 
     static std::list<Vehicle*> vehicleList;
 
-    static void clearVehicleList(); //kill all vehicles
     static void cleanVehicleList(); //kill vehicles with deathcounter < 0
 private:
     void getNewHeadings(); //plan ahead for 2 tiles

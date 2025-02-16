@@ -63,7 +63,7 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Substation
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern SubstationConstructionGroup substationConstructionGroup;
@@ -72,16 +72,8 @@ extern SubstationConstructionGroup substationConstructionGroup;
 
 class Substation: public Construction {
 public:
-    Substation(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->working_days = 0;
-        this->busy = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_HIVOLT] = 100 * SUBSTATION_HIVOLT;
-        commodityMaxProd[STUFF_LOVOLT] = 100 * 2 * SUBSTATION_HIVOLT;
-    }
-    virtual ~Substation() { }
+    Substation(World& world, ConstructionGroup *cstgrp);
+    virtual ~Substation() {}
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;

@@ -81,35 +81,21 @@ public:
         commodityRuleCount[STUFF_ORE].give = true;
     }
     // overriding method that creates a recyle
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern RecycleConstructionGroup recycleConstructionGroup;
 
 class Recycle: public Construction {
 public:
-    Recycle(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->busy = 0;
-        this->working_days = 0;
-        this->tech = tech_level;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * RECYCLE_LABOR;
-        commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
-        commodityMaxCons[STUFF_WASTE] = 100 *
-          (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
-        // commodityMaxProd[STUFF_ORE] = 100 * make_ore;
-        // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
-    }
-
+    Recycle(World& world, ConstructionGroup *cstgrp);
 
     virtual ~Recycle() { }
     virtual void update() override;
     virtual void report() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  tech;

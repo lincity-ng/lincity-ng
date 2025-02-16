@@ -1,10 +1,8 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/all_buildings.cpp
+ * src/lincity/events.cpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +18,3 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
-
-#include "all_buildings.h"
-
- /** @file lincity/all_buildings.cpp */

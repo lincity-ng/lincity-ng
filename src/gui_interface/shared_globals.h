@@ -4,13 +4,6 @@
 extern int selected_module_cost;
 
 // main screen
-extern int main_screen_originx, main_screen_originy;
-
-extern int monthgraph_size;
-extern int *monthgraph_pop;
-extern int *monthgraph_starve;
-extern int *monthgraph_nojobs;
-extern int *monthgraph_ppool;
 
 extern int modern_windmill_flag;
 
@@ -35,4 +28,3 @@ void update_avail_modules (int popup);
 #endif
 
 /** @file gui_interface/shared_globals.h */
-

@@ -71,28 +71,14 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a Cricket
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern CricketConstructionGroup cricketConstructionGroup;
 
 class Cricket: public Construction {
 public:
-    Cricket(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        // this->anim = 0;
-        this->animate_enable = false;
-        this->active = false;
-        this->busy = 0;
-        this->daycount = 0;
-        this->working_days = 0;
-        this->covercount = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * CRICKET_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * CRICKET_GOODS;
-        commodityMaxProd[STUFF_WASTE] = 100 * (CRICKET_GOODS / 3);
-    }
+    Cricket(World& world, ConstructionGroup *cstgrp);
 
     virtual ~Cricket() { }
     virtual void update() override;
@@ -100,7 +86,7 @@ public:
     virtual void animate() override;
     void cover();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int daycount, covercount;

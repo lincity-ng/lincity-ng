@@ -43,10 +43,29 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_RANGE
 );
 
-Construction *Organic_farmConstructionGroup::createConstruction() {
-  return new Organic_farm(this);
+Construction *Organic_farmConstructionGroup::createConstruction(World& world) {
+  return new Organic_farm(world, this);
 }
 
+Organic_farm::Organic_farm(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->crop_rotation_key = (rand() % 4) + 1;
+  this->month_stagger = rand() % 100;
+  this->food_this_month = 0;
+  this->food_last_month = 0;
+  //this->max_foodprod = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
+  commodityMaxCons[STUFF_LABOR] = 100 * FARM_LABOR_USED;
+  commodityMaxCons[STUFF_LOVOLT] = 100 * ORG_FARM_POWER_REC;
+  commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
+  // commodityMaxProd[STUFF_FOOD] = 100 *
+  //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
+}
 
 void Organic_farm::update()
 {
@@ -101,7 +120,7 @@ void Organic_farm::update()
         food_this_month += 100 * foodprod / max_foodprod;
     }
     // monthly update
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         food_last_month = food_this_month;
         food_this_month = 0;
@@ -109,7 +128,7 @@ void Organic_farm::update()
 }
 
 void Organic_farm::animate() {
-  int i = (total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
+  int i = (world.total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
   //Every three month
   if (i % 300 == 0) {
     i /= 300;
@@ -146,7 +165,7 @@ void Organic_farm::place(int x, int y) {
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if (world.map(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   this->tech_bonus = (int)((long long int)this->tech
@@ -156,7 +175,7 @@ void Organic_farm::place(int x, int y) {
     (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
 }
 
-void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
+void Organic_farm::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

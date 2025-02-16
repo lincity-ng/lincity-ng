@@ -57,7 +57,7 @@ public:
 
     };
     // overriding method that creates a Fire
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern FireConstructionGroup fireConstructionGroup;
@@ -65,24 +65,21 @@ extern FireConstructionGroup fireConstructionGroup;
 
 class Fire: public Construction {
 public:
-    Fire(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->burning_days = 0;
-        this->smoking_days = 0;
-        this->anim = 0;
-        this->days_before_spread = FIRE_DAYS_PER_SPREAD;
-    }
+    Fire(World& world, ConstructionGroup *cstgrp);
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int burning_days;
     int smoking_days;
     int days_before_spread;
     int anim;
+
+private:
+  void spread();
 };
 
 /** @file lincity/modules/fire.h */

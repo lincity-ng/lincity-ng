@@ -75,35 +75,20 @@ public:
     commodityRuleCount[STUFF_WASTE].give = true;
   }
   // overriding method that creates a RocketPad
-  virtual Construction *createConstruction() override;
+  virtual Construction *createConstruction(World& world) override;
 };
 
 extern RocketPadConstructionGroup rocketPadConstructionGroup;
 
 class RocketPad: public Construction {
 public:
-  RocketPad(ConstructionGroup* cstgrp) {
-    this->constructionGroup = cstgrp;
-    this->working_days = 0;
-    this->busy = 0;
-    this->anim = 0;
-    this->steps = 0;
-    this->stage = BUILDING;
-    this->tech = tech_level;
-    initialize_commodities();
-
-    commodityMaxCons[STUFF_LABOR] = 100 * MAX_LABOR_AT_ROCKET_PAD;
-    commodityMaxCons[STUFF_GOODS] = 100 * MAX_GOODS_AT_ROCKET_PAD;
-    commodityMaxCons[STUFF_STEEL] = 100 * MAX_STEEL_AT_ROCKET_PAD;
-    commodityMaxProd[STUFF_WASTE] = 100 * MAX_WASTE_AT_ROCKET_PAD;
-  }
-
+  RocketPad(World& world, ConstructionGroup* cstgrp);
   virtual ~RocketPad() { }
   virtual void update() override;
   virtual void animate() override;
   virtual void report() override;
 
-  virtual void save(xmlTextWriterPtr xmlWriter) override;
+  virtual void save(xmlTextWriterPtr xmlWriter) const override;
   virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
   void launch_rocket();

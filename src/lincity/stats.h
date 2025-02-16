@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,95 +25,205 @@
 #ifndef __stats_h__
 #define __stats_h__
 
-/* Statistics, Accumulators and Counters all reside here */
-
-/* Daily accumulators */
-
 #include <deque>  // for deque
+#include <array>
 
-/*
-  Note on variables (GCS):
-  --
-  Variables that begin with a "t" (e.g. tpopulation) are monthly
-  accumulators.  They are initialized to zero on the first day of
-  the month.
-  --
-  The yearly accumulators have no prefix (e.g. income_tax).
-  --
-  The daily accumulators have no prefix either (e.g. population).
-  --
-  Variables that begin with a "ly" (Last Year;  e.g. ly_university_cost)
-  are yearly display variables.  They will be displayed in the mini-map
-  when the user clicks on the pound sterling icon.
-*/
+#include "commodities.hpp"
 
-/*daily*/
-extern int ddeaths, dbirths;
+#define NUM_PBARS 15
+#define PPOP    0
+#define PTECH   1
+#define PMONEY  2
+#define PFOOD   3
+#define PLABOR  4
+#define PGOODS  5
+#define PCOAL   6
+#define PORE    7
+#define PSTEEL  8
+#define PPOL     9
+#define PLOVOLT 10
+#define PHIVOLT 11
+#define PWATER  12
+#define PWASTE  13
+#define PHOUSE  14
+#define PBAR_DATA_SIZE 1
 
-/* monthly */
-extern int tpopulation;
-extern int thousing;
-extern int tstarving_population;
-extern int tunemployed_population;
-extern int tbirths, tdeaths, tunnat_deaths;
-// monthly updated births/deaths for last 12 month
-extern int ltbirths, ltdeaths, ltunnat_deaths;
-//history of last 12 month
-extern std::deque<int> birthq, deathq, unnatdeathq;
+template<typename T = unsigned int, T zero = 0>
+class Stat {
+public:
 
-/* yearly */
-extern int income_tax;
-extern int coal_tax;
-extern int goods_tax;
-extern int export_tax;
-extern int import_cost;
-extern int unemployment_cost;
-extern int transport_cost;
-extern int windmill_cost;
-extern int university_cost;
-extern int recycle_cost;
-extern int deaths_cost;
-extern int health_cost;
-extern int rocket_pad_cost;
-extern int school_cost;
-extern int fire_cost;
-extern int cricket_cost;
-extern int other_cost;
+  operator T() { return stat; }
+  void operator+=(const T& rhs) { acc += rhs; }
+  void operator-=(const T& rhs) { acc -= rhs; }
+  void operator++(int) { acc++; }
+  void operator++() { ++acc; }
+  void operator--(int) { acc--; }
+  void operator--() { --acc; }
+  T finalize() { stat = acc; acc = zero; return stat; }
 
-/* yearly */
-extern int ly_income_tax;
-extern int ly_coal_tax;
-extern int ly_goods_tax;
-extern int ly_export_tax;
-extern int ly_import_cost;
-extern int ly_other_cost;
-extern int ly_unemployment_cost;
-extern int ly_transport_cost;
-extern int ly_fire_cost;
-extern int ly_university_cost;
-extern int ly_recycle_cost;
-extern int ly_school_cost;
-extern int ly_deaths_cost;
-extern int ly_health_cost;
-extern int ly_rocket_pad_cost;
-extern int ly_interest;
-extern int ly_windmill_cost;
-extern int ly_cricket_cost;
-extern int ly_births; // total births during last 12 month
-extern int ly_deaths; // total deaths during last 12 month
-extern int ly_unnatdeaths; //total unnat deaths during last 12 month
+  T stat = zero;
+  T acc = zero;
+};
 
-/* Averaging variables */
-extern int data_last_month;
+class Stats {
+public:
+  Stats();
+  ~Stats();
 
-/* Function prototypes */
-void init_inventory(void);
-void inventory(int x, int y);
-void init_daily(void);
-void init_monthly(void);
-void init_census(void);
-void init_yearly(void);
-void add_daily_to_monthly(void);
+  struct {
+    // daily
+    Stat<int> population_d;
+    Stat<int> housed_d;
+    Stat<int> starving_d;
+    Stat<int> unemployed_d;
+    Stat<int> housing_d;
+
+    // monthly
+    Stat<int> population_m;
+    Stat<int> housed_m;
+    Stat<int> starving_m;
+    Stat<int> unemployed_m;
+    Stat<int> housing_m;
+    Stat<int> births_m;
+    Stat<int> deaths_m;
+    Stat<int> unnat_deaths_m;
+
+    // rolling 12-month sum
+    int births_12m = 0;
+    int deaths_12m = 0;
+    int unnat_deaths_12m = 0;
+
+  private:
+    // 12-month history
+    std::deque<int> births_m12;
+    std::deque<int> deaths_m12;
+    std::deque<int> unnat_deaths_m12;
+
+  public:
+    // totals
+    int evacuated_t = 0;
+    int births_t = 0;
+    int pollution_deaths_t = 0;
+    int starve_deaths_t = 0;
+    int unemployed_days_t = 0;
+
+    // decaying counters
+    float unemployed_history = 0;
+    float pollution_deaths_history = 0;
+    float starve_deaths_history = 0;
+
+    // maximum
+    int max_pop_ever = 0;
+
+    friend Stats;
+  } population;
+
+  struct {
+    int labor = 0;
+    int coal = 0;
+    int goods = 0;
+    int trade_ex = 0;
+    // Stat<int> trade_im; // import is payed for directly
+  } taxable;
+
+  struct {
+    Stat<int> income_tax;
+    Stat<int> coal_tax;
+    Stat<int> goods_tax;
+    Stat<int> export_tax;
+  } income;
+
+  struct {
+    Stat<int> construction;
+    Stat<int> bulldoze;
+    Stat<int> coalSurvey;
+    Stat<int> import;
+    Stat<int> unemployment;
+    Stat<int> transport;
+    Stat<int> windmill;
+    Stat<int> university;
+    Stat<int> recycle;
+    Stat<int> deaths;
+    Stat<int> health;
+    Stat<int> rockets;
+    Stat<int> school;
+    Stat<int> firestation;
+    Stat<int> cricket;
+    Stat<int> interest;
+  } expenses;
+
+  struct {
+    bool mining_flag = true;
+    int mining_years = 0;
+
+    bool trade_flag = true;
+    int trade_years = 0;
+
+    int old_money = 0;
+    int money_years = 0;
+
+    int old_population = 0;
+    int population_years = 0;
+
+    int old_tech = 0;
+    int tech_years = 0;
+
+    int fire_years = 0;
+
+    bool sustainable = false;
+  } sustainability;
+
+  template<typename I = int>
+  struct Inventory {
+    I amount;
+    I capacity;
+
+    template<typename O>
+    Inventory<I>& operator+=(const Inventory<O>& rhs) {
+      amount += rhs.amount;
+      capacity += rhs.capacity;
+      return *this;
+    }
+    template<typename O>
+    Inventory<I>& operator-=(const Inventory<O>& rhs) {
+      amount -= rhs.amount;
+      capacity -= rhs.capacity;
+      return *this;
+    }
+
+    int percent() {
+      if(capacity == 0) return 0;
+      return amount * 1000L / capacity;
+    }
+  };
+
+  std::array<Inventory<Stat<>>, STUFF_COUNT> inventory;
+
+  struct {
+    // previously "monthgraph"
+    std::deque<int> pop;
+    std::deque<int> starve;
+    std::deque<int> nojobs;
+    std::deque<int> ppool;
+    // previously "pbar"
+    std::deque<int> tech;
+    std::deque<int> money;
+    std::deque<int> pollution;
+    std::array<std::deque<Inventory<>>, STUFF_COUNT> inventory;
+    std::deque<Inventory<>> tenants;
+  } history;
+
+  int highest_tech_level = 0;
+  int total_pollution = 0;
+
+  // NOTE: These are NOT the official counters.
+  int tech_level = 0;
+  int total_money = 0;
+
+  void daily();
+  void monthly();
+  void yearly();
+};
 
 #endif
 

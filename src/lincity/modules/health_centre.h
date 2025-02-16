@@ -67,32 +67,20 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a HealthCentre
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern HealthCentreConstructionGroup healthCentreConstructionGroup;
 
 class HealthCentre: public Construction {
 public:
-    HealthCentre(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->active = false;
-        this->busy = 0;
-        this->daycount = 0;
-        this->working_days = 0;
-        this->covercount = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * HEALTH_CENTRE_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * HEALTH_CENTRE_GOODS;
-        commodityMaxProd[STUFF_WASTE] = 100 * (HEALTH_CENTRE_GOODS / 3);
-    }
+    HealthCentre(World& world, ConstructionGroup *cstgrp);
     virtual ~HealthCentre() { }
     virtual void update();
     virtual void report();
     void cover();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;

@@ -74,47 +74,22 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a School
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern SchoolConstructionGroup schoolConstructionGroup;
 
 class School: public Construction {
 public:
-    School(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        // this->animate_enable = false;
-        this->anim = 0;
-        this->anim2 = 0;
-        this->working_days = 0;
-        this->busy = 0;
-        this->total_tech_made = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MAKE_TECH_SCHOOL;
-        commodityMaxCons[STUFF_GOODS] = 100 * GOODS_MAKE_TECH_SCHOOL;
-        commodityMaxProd[STUFF_WASTE] = 100 * (GOODS_MAKE_TECH_SCHOOL/3);
-    }
-
-    virtual ~School() //remove the one extraframe
-    {
-        if(world(x,y)->framesptr)
-        {
-            world(x,y)->framesptr->erase(frit);
-            if(world(x,y)->framesptr->empty())
-            {
-                delete world(x,y)->framesptr;
-                world(x,y)->framesptr = NULL;
-            }
-        }
-    }
+    School(World& world, ConstructionGroup *cstgrp);
+    virtual ~School();
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
 
     virtual void init_resources() override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator frit;

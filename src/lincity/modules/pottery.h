@@ -73,27 +73,14 @@ public:
         commodityRuleCount[STUFF_ORE].give = false;
     }
     // overriding method that creates a pottery
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern PotteryConstructionGroup potteryConstructionGroup;
 
 class Pottery: public Construction {
 public:
-    Pottery(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        // this->anim = 0; // or real_time?
-        this->pauseCounter = 0;
-        this->busy = 0;
-        this->working_days = 0;
-        this->animate_enable = false;
-        initialize_commodities();
-
-        commodityMaxProd[STUFF_GOODS] = 100 * POTTERY_MADE_GOODS;
-        commodityMaxCons[STUFF_ORE] = 100 * POTTERY_ORE_MAKE_GOODS;
-        commodityMaxCons[STUFF_COAL] = 100 * POTTERY_COAL_MAKE_GOODS;
-        commodityMaxCons[STUFF_LABOR] = 100 * POTTERY_LABOR;
-    }
+    Pottery(World& world, ConstructionGroup *cstgrp);
     virtual ~Pottery() { }
     virtual void update() override;
     virtual void report() override;

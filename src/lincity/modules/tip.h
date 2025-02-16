@@ -62,31 +62,20 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a tip
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern TipConstructionGroup tipConstructionGroup;
 
 class Tip: public Construction{
 public:
-    Tip(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->flags |= FLAG_NEVER_EVACUATE;
-        this->total_waste = 0;
-        this->working_days = 0;
-        this->busy = 0;
-        this->degration_days = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURRIED;
-        commodityMaxProd[STUFF_WASTE] = 100 * WASTE_BURRIED;
-    }
+    Tip(World& world, ConstructionGroup *cstgrp);
     virtual ~Tip() { }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  working_days, busy;

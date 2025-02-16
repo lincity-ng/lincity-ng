@@ -67,34 +67,21 @@ public:
 
     }
     // overriding method that creates an Oremine
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern OremineConstructionGroup oremineConstructionGroup;
 
 class Oremine: public Construction {
 public:
-    Oremine(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        // this->anim = 0;
-        this->animate_enable = false;
-        this->working_days = 0;
-        this->busy = 0;
-        this->anim_count = 0;
-        // this->days_offset = 0;
-        initialize_commodities();
-
-        commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
-        commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
-        commodityMaxCons[STUFF_LABOR] = 100 * OREMINE_LABOR;
-    }
+    Oremine(World& world, ConstructionGroup *cstgrp);
     virtual ~Oremine() {}
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_ore_reserve;

@@ -44,13 +44,39 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
      GROUP_COAL_POWER_RANGE
 );
 
+Coal_power::Coal_power(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * LABOR_COALPS_GENERATE;
+  commodityMaxCons[STUFF_COAL] = 100 *
+    (POWERS_COAL_OUTPUT / POWER_PER_COAL);
+  // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
+}
+
+Coal_power::~Coal_power() {
+  if(world.map(x,y)->framesptr) {
+    world.map(x,y)->framesptr->erase(fr_begin, fr_end);
+    if(world.map(x,y)->framesptr->empty()) {
+      delete world.map(x,y)->framesptr;
+      world.map(x,y)->framesptr = NULL;
+    }
+  }
+}
+
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 //Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstructionGroup;
 //Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
 //Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
-Construction *Coal_powerConstructionGroup::createConstruction() {
-  return new Coal_power(this);
+Construction *Coal_powerConstructionGroup::createConstruction(World& world) {
+  return new Coal_power(world, this);
 }
 
 void Coal_power::update()
@@ -66,11 +92,11 @@ void Coal_power::update()
         consumeStuff(STUFF_LABOR, labor_used);
         consumeStuff(STUFF_COAL, coal_used);
         produceStuff(STUFF_HIVOLT, hivolt_made);
-        world(x,y)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);
+        world.map(x,y)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);
         working_days += (hivolt_made/100);
     }
     //monthly update
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days / (hivolt_output/100);
         working_days = 0;
@@ -123,7 +149,7 @@ void Coal_power::report()
 void Coal_power::init_resources() {
   Construction::init_resources();
 
-  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
+  world.map(x,y)->framesptr->resize(world.map(x,y)->framesptr->size()+8);
   std::list<ExtraFrame>::iterator frit = frameIt;
   std::advance(frit, 1);
   fr_begin = frit;
@@ -153,7 +179,7 @@ void Coal_power::init_resources() {
   std::advance(frit, 1);
   fr_end = frit;
   for(frit = fr_begin;
-    frit != world(x,y)->framesptr->end() && frit != fr_end;
+    frit != world.map(x,y)->framesptr->end() && frit != fr_end;
     std::advance(frit, 1)
   ) {
     frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
@@ -169,7 +195,7 @@ void Coal_power::place(int x, int y) {
   commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
 }
 
-void Coal_power::save(xmlTextWriterPtr xmlWriter) {
+void Coal_power::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

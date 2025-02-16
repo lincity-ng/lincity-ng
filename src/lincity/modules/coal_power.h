@@ -70,7 +70,7 @@ public:
         commodityRuleCount[STUFF_HIVOLT].give = true;
     }
     // overriding method that creates a Coal_power
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
@@ -81,39 +81,16 @@ extern Coal_powerConstructionGroup coal_powerConstructionGroup;
 
 class Coal_power: public Construction {
 public:
-    Coal_power(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->tech = tech_level;
-        this->working_days = 0;
-        this->busy = 0;
-        initialize_commodities();
+    Coal_power(World& world, ConstructionGroup *cstgrp);
 
-        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_COALPS_GENERATE;
-        commodityMaxCons[STUFF_COAL] = 100 *
-          (POWERS_COAL_OUTPUT / POWER_PER_COAL);
-        // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
-    }
-
-    virtual ~Coal_power() //remove 2 or more extraframes
-    {
-        if(world(x,y)->framesptr)
-        {
-            world(x,y)->framesptr->erase(fr_begin, fr_end);
-            if(world(x,y)->framesptr->empty())
-            {
-                delete world(x,y)->framesptr;
-                world(x,y)->framesptr = NULL;
-            }
-        }
-    }
+    virtual ~Coal_power();
 
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void init_resources() override;
     virtual void place(int x, int y) override;
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     std::list<ExtraFrame>::iterator fr_begin, fr_end;

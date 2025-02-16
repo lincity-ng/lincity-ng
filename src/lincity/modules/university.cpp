@@ -41,32 +41,47 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_RANGE
 );
 
-Construction *UniversityConstructionGroup::createConstruction() {
-  return new University(this);
+Construction *UniversityConstructionGroup::createConstruction(World& world) {
+  return new University(world, this);
 }
 
-void University::update()
+University::University(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    university_cost += UNIVERSITY_RUNNING_COST;
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  this->total_tech_made = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * UNIVERSITY_LABOR;
+  commodityMaxCons[STUFF_GOODS] = 100 * UNIVERSITY_GOODS;
+  commodityMaxProd[STUFF_WASTE] = 100 * (UNIVERSITY_GOODS/3);
+}
+
+void University::update() {
+  try {
+    world.expense(UNIVERSITY_RUNNING_COST, world.stats.expenses.university);
     //do the teaching
     if (commodityCount[STUFF_LABOR] >= UNIVERSITY_LABOR
-    &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
-    &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY)
-    {
-        consumeStuff(STUFF_LABOR, UNIVERSITY_LABOR);
-        consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
-        produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
-        ++working_days;
-        tech_level += UNIVERSITY_TECH_MADE;
-        total_tech_made += UNIVERSITY_TECH_MADE;
+      &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
+      &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY
+    ) {
+      consumeStuff(STUFF_LABOR, UNIVERSITY_LABOR);
+      consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
+      produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
+      ++working_days;
+      world.tech_level += UNIVERSITY_TECH_MADE;
+      total_tech_made += UNIVERSITY_TECH_MADE;
     }
-    //monthly update
-    if ((total_time % 100) == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  } catch(OutOfMoneyException ex) {}
+
+  //monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
 void University::report()
@@ -80,7 +95,7 @@ void University::report()
     list_commodities(&i);
 }
 
-void University::save(xmlTextWriterPtr xmlWriter) {
+void University::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
   Construction::save(xmlWriter);
 }

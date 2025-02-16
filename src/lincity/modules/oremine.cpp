@@ -45,9 +45,25 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_RANGE
 );
 
-Construction *OremineConstructionGroup::createConstruction()
+Construction *OremineConstructionGroup::createConstruction(World& world) {
+  return new Oremine(world, this);
+}
+
+Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-  return new Oremine(this);
+  this->constructionGroup = cstgrp;
+  // this->anim = 0;
+  this->animate_enable = false;
+  this->working_days = 0;
+  this->busy = 0;
+  this->anim_count = 0;
+  // this->days_offset = 0;
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+  commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+  commodityMaxCons[STUFF_LABOR] = 100 * OREMINE_LABOR;
 }
 
 void Oremine::update()
@@ -64,17 +80,16 @@ void Oremine::update()
         {
             for (xx = x; (xx < x + constructionGroup->size); xx++)
             {
-                if (world(xx,yy)->ore_reserve > 0)
+                if (world.map(xx,yy)->ore_reserve > 0)
                 {
-                    world(xx,yy)->ore_reserve--;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
+                    world.map(xx,yy)->ore_reserve--;
                     total_ore_reserve--;
                     produceStuff(STUFF_ORE, ORE_PER_RESERVE);
                     consumeStuff(STUFF_LABOR, OREMINE_LABOR);
                     //FIXME ore_tax should be handled upon delivery
                     //ore_made += ORE_PER_RESERVE;
                     if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
-                    {   sust_dig_ore_coal_tip_flag = 0;}
+                      world.stats.sustainability.mining_flag = false;
                     animate_enable = true;
                     working_days++;
                     goto end_mining;
@@ -90,10 +105,9 @@ void Oremine::update()
         {
             for (xx = x; (xx < x + constructionGroup->size); xx++)
             {
-                if (world(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
+                if (world.map(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
                 {
-                    world(xx,yy)->ore_reserve++;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
+                    world.map(xx,yy)->ore_reserve++;
                     total_ore_reserve++;
                     consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
                     consumeStuff(STUFF_LABOR, OREMINE_LABOR);
@@ -107,7 +121,7 @@ void Oremine::update()
     end_mining:
 
     //Monthly update of activity
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -157,13 +171,13 @@ void Oremine::place(int x, int y) {
   int ore = 0;
   for(int yy = y; yy < y + constructionGroup->size; yy++)
   for(int xx = x; xx < x + constructionGroup->size; xx++)
-    ore += world(xx,yy)->ore_reserve;
+    ore += world.map(xx,yy)->ore_reserve;
   if(ore < 1)
     ore = 1;
   this->total_ore_reserve = ore;
 }
 
-void Oremine::save(xmlTextWriterPtr xmlWriter) {
+void Oremine::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
   Construction::save(xmlWriter);
 }

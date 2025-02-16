@@ -82,18 +82,18 @@ void update_pbars_monthly()
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);
     update_pbar (PMONEY, total_money, 1);
-    update_pbar (PFOOD, tstat_census[STUFF_FOOD] * 1000L / tstat_capacities[STUFF_FOOD], 1);
-    update_pbar (PLABOR, tstat_census[STUFF_LABOR] * 1000L / tstat_capacities[STUFF_LABOR], 1);
-    update_pbar (PGOODS, tstat_census[STUFF_GOODS] * 1000L / tstat_capacities[STUFF_GOODS], 1);
-    update_pbar (PCOAL, tstat_census[STUFF_COAL] * 1000L / tstat_capacities[STUFF_COAL], 1);
-    update_pbar (PORE, tstat_census[STUFF_ORE] * 1000L / tstat_capacities[STUFF_ORE], 1);
-    update_pbar (PSTEEL, tstat_census[STUFF_STEEL] * 1000L / tstat_capacities[STUFF_STEEL], 1);
+    update_pbar (PFOOD, tstat_census[STUFF_FOOD] * 1000L / (tstat_capacities[STUFF_FOOD] + 1), 1);
+    update_pbar (PLABOR, tstat_census[STUFF_LABOR] * 1000L / (tstat_capacities[STUFF_LABOR] + 1), 1);
+    update_pbar (PGOODS, tstat_census[STUFF_GOODS] * 1000L / (tstat_capacities[STUFF_GOODS] + 1), 1);
+    update_pbar (PCOAL, tstat_census[STUFF_COAL] * 1000L / (tstat_capacities[STUFF_COAL] + 1), 1);
+    update_pbar (PORE, tstat_census[STUFF_ORE] * 1000L / (tstat_capacities[STUFF_ORE] + 1), 1);
+    update_pbar (PSTEEL, tstat_census[STUFF_STEEL] * 1000L / (tstat_capacities[STUFF_STEEL] + 1), 1);
 
     update_pbar (PPOL, total_pollution, 1);
-    update_pbar (PLOVOLT, tstat_census[STUFF_LOVOLT] * 1000L / tstat_capacities[STUFF_LOVOLT], 1);
-    update_pbar (PHIVOLT, tstat_census[STUFF_HIVOLT] * 1000L / tstat_capacities[STUFF_HIVOLT], 1);
-    update_pbar (PWATER, tstat_census[STUFF_WATER] * 1000L / tstat_capacities[STUFF_WATER], 1);
-    update_pbar (PWASTE, tstat_census[STUFF_WASTE] * 1000L / tstat_capacities[STUFF_WASTE], 1);
+    update_pbar (PLOVOLT, tstat_census[STUFF_LOVOLT] * 1000L / (tstat_capacities[STUFF_LOVOLT] + 1), 1);
+    update_pbar (PHIVOLT, tstat_census[STUFF_HIVOLT] * 1000L / (tstat_capacities[STUFF_HIVOLT] + 1), 1);
+    update_pbar (PWATER, tstat_census[STUFF_WATER] * 1000L / (tstat_capacities[STUFF_WATER] + 1), 1);
+    update_pbar (PWASTE, tstat_census[STUFF_WASTE] * 1000L / (tstat_capacities[STUFF_WASTE] + 1), 1);
     if (total_housing)
     {    update_pbar (PHOUSE, (1000 * housed_population)/total_housing , 1);}
     else update_pbar (PHOUSE,0,1);

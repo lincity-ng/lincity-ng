@@ -83,48 +83,14 @@ public:
         commodityRuleCount[STUFF_WATER].take = true;
     }
     // overriding method that creates a commune
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern CommuneConstructionGroup communeConstructionGroup;
 
 class Commune: public Construction {
 public:
-    Commune(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0; // or real_time?
-        this->animate_enable = false;
-        this->steel_made = false;
-        this->monthly_stuff_made = 0;
-        this->last_month_output = 0;
-        this->lazy_months = 0;
-        initialize_commodities();
-        // Check underground water, and reduce coal production accordingly
-        int w = 0;
-        for (int i = 0; i < constructionGroup->size; i++)
-        {
-            for (int j = 0; j < constructionGroup->size; j++)
-            {
-                if (world(x+j, y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                {    w++;}
-            }// end j
-        }//end i
-        this->ugwCount = w;
-        if (w < 16 / 3)
-        {   this->coalprod = COMMUNE_COAL_MADE/3;}
-        else if (w < (2 * 16) / 3)
-        {   this->coalprod = COMMUNE_COAL_MADE/2;}
-        else
-        {   this->coalprod = COMMUNE_COAL_MADE;}
-
-        commodityMaxCons[STUFF_WATER] = 100 *
-          constructionGroup->size * constructionGroup->size * WATER_FOREST;
-        commodityMaxProd[STUFF_COAL] = 100 * COMMUNE_COAL_MADE;
-        commodityMaxProd[STUFF_ORE] = 100 *
-          (COMMUNE_ORE_MADE + COMMUNE_ORE_FROM_WASTE);
-        commodityMaxCons[STUFF_WASTE] = 100 * COMMUNE_WASTE_GET;
-        commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
-    }
+    Commune(World& world, ConstructionGroup *cstgrp);
     virtual ~Commune() { }
     virtual void update() override;
     virtual void report() override;

@@ -55,14 +55,21 @@ ParklandConstructionGroup parkpondConstructionGroup(
      GROUP_PARKLAND_RANGE
 );
 
-Construction *ParklandConstructionGroup::createConstruction() {
-  return new Parkland(this);
+Construction *ParklandConstructionGroup::createConstruction(World& world) {
+  return new Parkland(world, this);
+}
+
+Parkland::Parkland(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->flags |= FLAG_NEVER_EVACUATE;
 }
 
 void Parkland::update()
 {
-    if (world(x,y)->pollution > 10 && (total_time & 1) == 0)
-        world(x,y)->pollution --;
+    if (world.map(x,y)->pollution > 10 && (world.total_time & 1) == 0)
+        world.map(x,y)->pollution --;
 }
 
 void Parkland::report()
@@ -71,7 +78,7 @@ void Parkland::report()
 
     mps_store_title(i, constructionGroup->name);
     i++;
-    mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
+    mps_store_sd(i++, N_("Air Pollution"), world.map(x,y)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */

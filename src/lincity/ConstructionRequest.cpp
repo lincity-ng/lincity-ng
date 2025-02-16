@@ -54,7 +54,7 @@ void ConstructionDeletionRequest::execute()
         for (int j = 0; j < size; j++)
         {
             //update mps display
-            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            subject->world.map(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}
         }
@@ -75,11 +75,12 @@ void OreMineDeletionRequest::execute()
     {
         for (int j = 0; j < size; j++)
         {
-            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            if (world(x+j,y+i)->ore_reserve < ORE_RESERVE / 2)
-            {
-                world(x+j,y+i)->setTerrain(GROUP_WATER);
-                world(x+j,y+i)->flags |= (FLAG_HAS_UNDERGROUND_WATER | FLAG_ALTERED);
+            subject->world.map(x + j, y + i)->flags &=
+              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            if (subject->world.map(x+j,y+i)->ore_reserve < ORE_RESERVE / 2) {
+                subject->world.map(x+j,y+i)->setTerrain(GROUP_WATER);
+                subject->world.map(x+j,y+i)->flags |=
+                  FLAG_HAS_UNDERGROUND_WATER;
                 connect_rivers(x+j,y+i);
             }
             //update mps display
@@ -104,9 +105,10 @@ void CommuneDeletionRequest::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-            {    parklandConstructionGroup.placeItem(x+j, y+i);}
+            subject->world.map(x + j, y + i)->flags &=
+              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            if(subject->world.map(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+              parklandConstructionGroup.placeItem(subject->world, x+j, y+i);
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}
@@ -120,6 +122,7 @@ void CommuneDeletionRequest::execute()
 void BurnDownRequest::execute()
 {
     unsigned short size = subject->constructionGroup->size;
+    World& world = subject->world;
     int x = subject->x;
     int y = subject->y;
     subject->detach();
@@ -128,9 +131,11 @@ void BurnDownRequest::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            fireConstructionGroup.placeItem(x+j, y+i);
-            static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
+            world.map(x + j, y + i)->flags &=
+              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            fireConstructionGroup.placeItem(subject->world, x+j, y+i);
+            static_cast<Fire*>(subject->world.map(x+j,y+i)->construction)
+              ->burning_days = FIRE_LENGTH - 25;
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}
@@ -152,8 +157,9 @@ void SetOnFire::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            fireConstructionGroup.placeItem(x+j, y+i);
+            subject->world.map(x + j, y + i)->flags &=
+              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            fireConstructionGroup.placeItem(subject->world, x+j, y+i);
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}

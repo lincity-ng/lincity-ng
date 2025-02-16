@@ -52,10 +52,32 @@ MarketConstructionGroup marketConstructionGroup(
 //MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
 
 
-Construction *MarketConstructionGroup::createConstruction() {
-  return new Market(this);
+Construction *MarketConstructionGroup::createConstruction(World& world) {
+  return new Market(world, this);
 }
 
+Market::Market(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  //local copy of commodityRuCount
+  commodityRuleCount = constructionGroup->commodityRuleCount;
+  initialize_commodities();
+  this->labor = LABOR_MARKET_EMPTY;
+  this->anim = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->market_ratio = 0;
+  this->start_burning_waste = false;
+  this->waste_fire_anim = 0;
+
+  commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
+  commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
+}
+
+Market::~Market() {
+  world.map(x,y)->killframe(waste_fire_frit);
+}
 
 void Market::update()
 {
@@ -124,24 +146,24 @@ void Market::update()
     {
         consumeStuff(STUFF_LABOR, labor);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
-        income_tax += labor;
+        world.stats.taxable.labor += labor;
         ++working_days;
     }
 
-    if(total_time % 50)
+    if(world.total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
         start_burning_waste = true;
-        world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
+        world.map(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
         consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
     }
 
     //monthly update
-    if (total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
-    if (total_time % 25 == 17)
+    if(world.total_time % 25 == 17)
     {
         //average filling of the market, catch n == 0 in case market has
         //not yet any commodities initialized
@@ -168,18 +190,18 @@ void Market::update()
         }
     }
 
-    if(refresh_cover)
-    {   cover();}
+    if(world.total_time % DAYS_BETWEEN_COVER == 75)
+      cover();
 }
 
 void Market::cover() {
   int xs = std::max(x - constructionGroup->range, 1);
-  int xe = std::min(x + constructionGroup->range, world.len() - 1);
+  int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
   int ys = std::max(y - constructionGroup->range, 1);
-  int ye = std::min(y + constructionGroup->range, world.len() - 1);
+  int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
   for(int yy = ys; yy < ye; yy++)
   for(int xx = xs; xx < xe; xx++)
-    world(xx,yy)->flags |= FLAG_MARKET_COVER;
+    world.map(xx,yy)->flags |= FLAG_MARKET_COVER_CHECK;
 }
 
 void Market::animate() {
@@ -250,7 +272,7 @@ void Market::report()
 void Market::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit = world.map(x, y)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
@@ -286,11 +308,11 @@ void Market::toggleEvacuation()
     {   flags |= FLAG_EVACUATE;}
 }
 
-void Market::save(xmlTextWriterPtr xmlWriter) {
+void Market::save(xmlTextWriterPtr xmlWriter) const {
   const std::string givePfx("give_");
   const std::string takePfx("take_");
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
-    CommodityRule& rule = commodityRuleCount[stuff];
+    const CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
     const char *name = commodityStandardName(stuff);
     xmlStr giveName = (xmlStr)(givePfx + name).c_str();

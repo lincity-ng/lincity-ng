@@ -26,8 +26,9 @@
 
 #include "modules.h"             // for N_, MapTile, TileConstructionGroup
 #include "modules_interfaces.h"  // for mps_water
+#include "tile.hpp"
 
-void mps_water(int x, int y)
+void mps_water(int x, int y, World& world)
 {
     int i;
     const char *p;
@@ -36,12 +37,12 @@ void mps_water(int x, int y)
     mps_store_sdd(i++, waterConstructionGroup.name, x, y);
     i++;
 
-    if ( world(x,y)->flags & FLAG_IS_LAKE )
-    {   p = N_("Lake");}
-    else if ( world(x,y)->flags & FLAG_IS_RIVER )
-    {   p = N_("River");}
+    if(world.map(x,y)->flags & FLAG_IS_LAKE)
+      p = N_("Lake");
+    else if(world.map(x,y)->flags & FLAG_IS_RIVER)
+      p = N_("River");
     else
-    {   p = N_("Pond");}
+      p = N_("Pond");
     mps_store_title(i++, p);
 /*
 #ifdef DEBUG

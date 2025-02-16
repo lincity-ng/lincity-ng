@@ -43,34 +43,56 @@ HealthCentreConstructionGroup healthCentreConstructionGroup(
      GROUP_HEALTH_RANGE
 );
 
-Construction *HealthCentreConstructionGroup::createConstruction() {
-  return new HealthCentre(this);
+Construction *HealthCentreConstructionGroup::createConstruction(World& world) {
+  return new HealthCentre(world, this);
 }
 
-void HealthCentre::update()
+HealthCentre::HealthCentre(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    ++daycount;
+  this->constructionGroup = cstgrp;
+  this->active = false;
+  this->busy = 0;
+  this->daycount = 0;
+  this->working_days = 0;
+  this->covercount = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * HEALTH_CENTRE_LABOR;
+  commodityMaxCons[STUFF_GOODS] = 100 * HEALTH_CENTRE_GOODS;
+  commodityMaxProd[STUFF_WASTE] = 100 * (HEALTH_CENTRE_GOODS / 3);
+}
+
+void HealthCentre::update() {
+  ++daycount;
+
+  try {
+    world.expense(HEALTH_RUNNING_COST * (1 +
+        HEALTH_RUNNING_COST_MUL * world.tech_level / MAX_TECH_LEVEL),
+      world.stats.expenses.health);
+
     if (commodityCount[STUFF_LABOR] >= HEALTH_CENTRE_LABOR
-    &&  commodityCount[STUFF_GOODS] >= HEALTH_CENTRE_GOODS
-    &&  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS / 3) <= MAX_WASTE_AT_HEALTH_CENTRE)
-    {
-        consumeStuff(STUFF_LABOR, HEALTH_CENTRE_LABOR);
-        consumeStuff(STUFF_GOODS, HEALTH_CENTRE_GOODS);
-        produceStuff(STUFF_WASTE, HEALTH_CENTRE_GOODS / 3);
-        ++covercount;
-        ++working_days;
+      &&  commodityCount[STUFF_GOODS] >= HEALTH_CENTRE_GOODS
+      &&  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS / 3) <= MAX_WASTE_AT_HEALTH_CENTRE
+    ) {
+      consumeStuff(STUFF_LABOR, HEALTH_CENTRE_LABOR);
+      consumeStuff(STUFF_GOODS, HEALTH_CENTRE_GOODS);
+      produceStuff(STUFF_WASTE, HEALTH_CENTRE_GOODS / 3);
+      ++covercount;
+      ++working_days;
     }
-    //monthly update
-    if (total_time % 100 == 99) {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    //TODO implement animation once graphics exist
-    /* That's all. Cover is done by different functions every 3 months or so. */
-    health_cost += HEALTH_RUNNING_COST;
-    if(refresh_cover)
-    {   cover();}
+  } catch(OutOfMoneyException ex) {}
+
+  //TODO implement animation once graphics exist
+  if(world.total_time % DAYS_BETWEEN_COVER == 75)
+    cover();
+
+  //monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
 void HealthCentre::cover()
@@ -86,12 +108,12 @@ void HealthCentre::cover()
     daycount = 0;
 
     int xs = std::max(x - constructionGroup->range, 1);
-    int xe = std::min(x + constructionGroup->range, world.len() - 1);
+    int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
     int ys = std::max(y - constructionGroup->range, 1);
-    int ye = std::min(y + constructionGroup->range, world.len() - 1);
+    int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
     for(int yy = ys; yy < ye; ++yy)
     for(int xx = xs; xx < xe; ++xx)
-      world(xx,yy)->flags |= FLAG_HEALTH_COVER;
+      world.map(xx,yy)->flags |= FLAG_HEALTH_COVER_CHECK;
 }
 
 void HealthCentre::report() {
@@ -106,7 +128,7 @@ void HealthCentre::report() {
     mps_store_ss(i++, N_("Health Care"), p);
 }
 
-void HealthCentre::save(xmlTextWriterPtr xmlWriter) {
+void HealthCentre::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);

@@ -50,8 +50,18 @@ FireConstructionGroup fireConstructionGroup(
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 //FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
-Construction *FireConstructionGroup::createConstruction() {
-  return new Fire(this);
+Construction *FireConstructionGroup::createConstruction(World& world) {
+  return new Fire(world, this);
+}
+
+Fire::Fire(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+    this->constructionGroup = cstgrp;
+    this->burning_days = 0;
+    this->smoking_days = 0;
+    this->anim = 0;
+    this->days_before_spread = FIRE_DAYS_PER_SPREAD;
 }
 
 void Fire::update()
@@ -67,42 +77,50 @@ void Fire::update()
         if (smoking_days == 0)   /* rand length here also */
         {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
         smoking_days++;
-        if (world(x,y)->flags & FLAG_FIRE_COVER)
+        if (world.map(x,y)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
-        if (!(flags & FLAG_IS_GHOST) && smoking_days > AFTER_FIRE_LENGTH)
-        {   ConstructionManager::submitRequest( new ConstructionDeletionRequest(this) ); }
+        if(smoking_days > AFTER_FIRE_LENGTH)
+          ConstructionManager::submitRequest(
+            new ConstructionDeletionRequest(this));
         return;
     }
 
     burning_days++;
-    if (world(x,y)->flags & FLAG_FIRE_COVER)
+    if (world.map(x,y)->flags & FLAG_FIRE_COVER)
     {   burning_days += 4;}
     days_before_spread--;
-    if( !(flags & FLAG_IS_GHOST) )
-    {   world(x,y)->pollution++;}
-    if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))
-    {
-        days_before_spread = FIRE_DAYS_PER_SPREAD;
-        if ((rand() % 20) == 1)
-        {
-            i = rand() % 4;
-            switch (i)
-            {
-                case (0):
-                    do_random_fire(x - 1, y, 0);
-                break;
-                case (1):
-                    do_random_fire(x, y - 1, 0);
-                break;
-                case (2):
-                    do_random_fire(x + 1, y, 0);
-                break;
-                case (3):
-                    do_random_fire(x, y + 1, 0);
-                break;
-            }
-        }
+    world.map(x,y)->pollution++;
+    if(days_before_spread == 0) {
+      days_before_spread = FIRE_DAYS_PER_SPREAD;
+      spread();
     }
+}
+
+void Fire::spread() {
+  MapPoint loc;
+  switch(rand() % 80) {
+  case 0:
+    loc = point.n();
+    break;
+  case 1:
+    loc = point.s();
+    break;
+  case 2:
+    loc = point.e();
+    break;
+  case 3:
+    loc = point.w();
+    break;
+  default:
+    return;
+  }
+
+  // TODO: spread should be faster than do_random_fire
+  // TODO: fire cover should only slow down spread -- not stop it
+  if(rand() % 100 >= world.map(loc)->getConstructionGroup()->fire_chance)
+    return;
+  if(world.map(loc)->flags & FLAG_FIRE_COVER)
+    return;
 }
 
 void Fire::animate() {
@@ -127,14 +145,14 @@ void Fire::report()
 
     mps_store_title(i, constructionGroup->name);
     i++;
-    mps_store_sd(i++,N_("Air Pollution"), world(x,y)->pollution);
+    mps_store_sd(i++,N_("Air Pollution"), world.map(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)
     {   mps_store_sddp(i++,N_("burnt down"), burning_days, FIRE_LENGTH);}
     else
     {   mps_store_sddp(i++,N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);}
 }
 
-void Fire::save(xmlTextWriterPtr xmlWriter) {
+void Fire::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"burning_days",       "%d", burning_days);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"smoking_days",       "%d", smoking_days);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"days_before_spread", "%d", days_before_spread);

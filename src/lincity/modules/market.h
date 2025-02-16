@@ -83,7 +83,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = true;
     };
     // overriding method that creates a Market
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
@@ -93,25 +93,8 @@ extern MarketConstructionGroup marketConstructionGroup;
 
 class Market: public Construction {
 public:
-    Market(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        //local copy of commodityRuCount
-        commodityRuleCount = constructionGroup->commodityRuleCount;
-        initialize_commodities();
-        this->labor = LABOR_MARKET_EMPTY;
-        this->anim = 0;
-        this->busy = 0;
-        this->working_days = 0;
-        this->market_ratio = 0;
-        this->start_burning_waste = false;
-        this->waste_fire_anim = 0;
-
-        commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
-        commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
-    }
-    virtual ~Market() {
-        world(x,y)->killframe(waste_fire_frit);
-    }
+    Market(World& world, ConstructionGroup *cstgrp);
+    virtual ~Market();
 
     virtual void update() override;
     virtual void report() override;
@@ -121,7 +104,7 @@ public:
     void cover();
     void toggleEvacuation();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;

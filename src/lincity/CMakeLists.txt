@@ -15,6 +15,10 @@ add_library(lincity_lib  STATIC
 		engglobs.h
 		engine.cpp
 		engine.h
+		events.cpp
+		events.hpp
+		exceptions.cpp
+		exceptions.hpp
 		groups.h
 		init_game.cpp
 		init_game.h
@@ -35,8 +39,6 @@ add_library(lincity_lib  STATIC
 		sustainable.h
 		transport.cpp
 		transport.h
-		UserOperation.cpp
-		UserOperation.h
 		Vehicles.cpp
 		Vehicles.h
 		world.cpp

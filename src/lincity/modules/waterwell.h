@@ -56,24 +56,15 @@ public:
         commodityRuleCount[STUFF_WATER].take = false;
     }
     // overriding method that creates a waterwell
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern WaterwellConstructionGroup waterwellConstructionGroup;
 
 class Waterwell: public Construction {
 public:
-    Waterwell(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->busy = 0;
-        this->working_days = 0;
-        initialize_commodities();
-
-        int area = cstgrp->size * cstgrp->size;
-        commodityMaxProd[STUFF_WATER] = 100 * WATER_PER_UGW * area;
-    }
-
-    virtual ~Waterwell() { }
+    Waterwell(World& world, ConstructionGroup *cstgrp);
+    virtual ~Waterwell() {}
     virtual void update() override;
     virtual void report() override;
     virtual void place(int x, int y) override;

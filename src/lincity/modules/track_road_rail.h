@@ -101,7 +101,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = true;
     }
     // overriding method that creates a transport tile
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern TransportConstructionGroup trackConstructionGroup, roadConstructionGroup, railConstructionGroup;
@@ -117,44 +117,8 @@ class RailBridge{};
 
 class Transport : public Construction {
 public:
-    Transport(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->start_burning_waste = false;
-        this->waste_fire_anim = 0;
-        // register the construction as transport tile
-        // disable evacuation
-        //transparency is set and updated in connect_transport
-        this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
-
-        initialize_commodities();
-        this->trafficCount = this->commodityCount;
-
-        switch (constructionGroup->group) {
-        case GROUP_ROAD:
-        case GROUP_ROAD_BRIDGE:
-            commodityMaxCons[STUFF_GOODS] =
-              (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
-            commodityMaxProd[STUFF_WASTE] =
-              (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
-            break;
-        case GROUP_RAIL:
-        case GROUP_RAIL_BRIDGE:
-            commodityMaxCons[STUFF_GOODS] =
-              (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1;
-            commodityMaxCons[STUFF_STEEL] =
-              (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
-            commodityMaxProd[STUFF_WASTE] =
-              (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1 +
-              (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
-            break;
-        }
-        commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_LOSS_ON_TRANSPORT;
-        commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
-    }
-    ~Transport() {
-        world(x,y)->killframe(waste_fire_frit);
-    }
+    Transport(World& world, ConstructionGroup *cstgrp);
+    ~Transport();
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;

@@ -67,31 +67,21 @@ public:
         commodityRuleCount[STUFF_COAL].give = true;
     }
     // overriding method that creates an Coalmine
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public Construction {
 public:
-    Coalmine(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->working_days = 0;
-        this->busy = 0;
-        this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete
-        initialize_commodities();
-
-        commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
-        commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
-        commodityMaxCons[STUFF_LABOR] = 100 * COALMINE_LABOR;
-    }
+    Coalmine(World& world, ConstructionGroup *cstgrp);
     virtual ~Coalmine() { }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;

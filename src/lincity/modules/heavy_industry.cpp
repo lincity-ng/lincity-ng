@@ -50,8 +50,33 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
 //IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction() {
-  return new IndustryHeavy(this);
+Construction *IndustryHeavyConstructionGroup::createConstruction(World& world) {
+  return new IndustryHeavy(world, this);
+}
+
+IndustryHeavy::IndustryHeavy(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->output_level = 0;
+  this->steel_this_month = 0;
+  // this->anim = 0;
+  initialize_commodities();
+   //check for pollution bonus
+  this->bonus = 0;
+  this->extra_bonus = 0;
+
+  int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
+  commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
+  commodityMaxCons[STUFF_LOVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL);
+  commodityMaxCons[STUFF_COAL] = 100 * (steel_prod * COAL_MAKE_STEEL);
+  commodityMaxCons[STUFF_LABOR] = 100 * (MAX_ORE_USED / LABOR_MAKE_STEEL +
+    LABOR_LOAD_COAL + LABOR_LOAD_ORE + LABOR_LOAD_STEEL);
+  commodityMaxCons[STUFF_ORE] = 100 * MAX_ORE_USED;
+  commodityMaxProd[STUFF_STEEL] = 100 * steel_prod;
+  // commodityMaxProd[STUFF_WASTE] = 100 * (int)(
+  //   ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
 }
 
 void IndustryHeavy::update()
@@ -111,19 +136,19 @@ void IndustryHeavy::update()
             produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;
             //cause some pollution and waste depending on bonuses
-            world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
+            world.map(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
             produceStuff(STUFF_WASTE, (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus)));
             // if the trash bin is full reburn the filterd pollution
             if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
             {
-                world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
+                world.map(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
                 levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_H);
             }
         }//endif steel still > 0
     }//endif steel > 0
 
     //monthly update
-    if (total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
@@ -185,7 +210,7 @@ void IndustryHeavy::place(int x, int y) {
     ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
 }
 
-void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
+void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

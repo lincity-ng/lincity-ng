@@ -48,8 +48,20 @@ SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstruc
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 
 
-Construction *SubstationConstructionGroup::createConstruction() {
-  return new Substation(this);
+Construction *SubstationConstructionGroup::createConstruction(World& world) {
+  return new Substation(world, this);
+}
+
+Substation::Substation(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_HIVOLT] = 100 * SUBSTATION_HIVOLT;
+  commodityMaxProd[STUFF_LOVOLT] = 100 * 2 * SUBSTATION_HIVOLT;
 }
 
 void Substation::update()
@@ -62,11 +74,10 @@ void Substation::update()
         produceStuff(STUFF_LOVOLT, 2 * use_hivolt);
         working_days += use_hivolt;
     }
-    if (total_time % 100 == 99) //monthly update
-    {
-        reset_prod_counters();
-        busy = working_days/SUBSTATION_HIVOLT;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days/SUBSTATION_HIVOLT;
+      working_days = 0;
     }
 }
 

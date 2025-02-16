@@ -49,7 +49,7 @@ public:
 
     };
     // overriding method that creates a Park
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern ParklandConstructionGroup parklandConstructionGroup;
@@ -57,10 +57,7 @@ extern ParklandConstructionGroup parkpondConstructionGroup;
 
 class Parkland: public Construction {
 public:
-    Parkland(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->flags |= FLAG_NEVER_EVACUATE;
-    }
+    Parkland(World& world, ConstructionGroup *cstgrp);
     virtual void update();
     virtual void report();
 };

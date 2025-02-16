@@ -69,36 +69,21 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a firestation
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern FireStationConstructionGroup fireStationConstructionGroup;
 
 class FireStation: public Construction {
 public:
-    FireStation(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->animate_enable = false;
-        this->active = false;
-        this->busy = 0;
-        this->working_days = 0;
-        this->daycount = 0;
-        this->covercount = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;
-        commodityMaxProd[STUFF_WASTE] = 100 * (FIRESTATION_GOODS / 3);
-
-    }
+    FireStation(World& world, ConstructionGroup *cstgrp);
     virtual ~FireStation() { }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     void cover();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int xs, ys, xe, ye;

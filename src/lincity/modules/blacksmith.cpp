@@ -43,8 +43,26 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_RANGE
 );
 
-Construction *BlacksmithConstructionGroup::createConstruction() {
-  return new Blacksmith(this);
+Construction *BlacksmithConstructionGroup::createConstruction(World& world) {
+  return new Blacksmith(world, this);
+}
+
+Blacksmith::Blacksmith(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->pauseCounter = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->animate_enable = false;
+  this->goods_made = 0;
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_BLACKSMITH;
+  commodityMaxCons[STUFF_COAL] = 100 * BLACKSMITH_COAL_USED;
+  commodityMaxCons[STUFF_STEEL] = 100 * BLACKSMITH_STEEL_USED;
+  commodityMaxCons[STUFF_LABOR] = 100 * BLACKSMITH_LABOR;
 }
 
 void Blacksmith::update()
@@ -64,7 +82,7 @@ void Blacksmith::update()
     working_days++;
     if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH) {
       animate_enable = true;
-      world(x,y)->pollution++;
+      world.map(x,y)->pollution++;
       goods_made = 0;
     }
   }
@@ -74,7 +92,7 @@ void Blacksmith::update()
   }
 
   //monthly update
-  if (total_time % 100 == 99) {
+  if (world.total_time % 100 == 99) {
     reset_prod_counters();
     busy = working_days;
     working_days = 0;

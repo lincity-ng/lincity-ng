@@ -22,11 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __modules_h__
-#define __modules_h__
 
-// IWYU pragma: always_keep
-// IWYU pragma: begin_exports
 #include <libxml/xmlwriter.h> // TODO: do not include this in headers
 #include <libxml++/parsers/textreader.h>
 #include <string>
@@ -44,8 +40,7 @@
 #include "lincity/world.h"                // tally: 111111111111111111111111
 #include "lincity/xmlloadsave.h"
 #include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111
-// IWYU pragma: end_exports
-
-#endif /* __modules_h__ */
+#include "lincity/events.hpp"
+#include "lincity/exceptions.hpp"
 
 /** @file lincity/modules/modules.h */

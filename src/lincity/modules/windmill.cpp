@@ -30,47 +30,65 @@
 
 
 WindmillConstructionGroup windmillConstructionGroup(
-    N_("Windmill"),
-     FALSE,                     /* need credit? */
-     GROUP_WINDMILL,
-     GROUP_WINDMILL_SIZE,
-     GROUP_WINDMILL_COLOUR,
-     GROUP_WINDMILL_COST_MUL,
-     GROUP_WINDMILL_BUL_COST,
-     GROUP_WINDMILL_FIREC,
-     GROUP_WINDMILL_COST,
-     GROUP_WINDMILL_TECH,
-     GROUP_WINDMILL_RANGE
+  N_("Windmill"),
+  FALSE,                     /* need credit? */
+  GROUP_WINDMILL,
+  GROUP_WINDMILL_SIZE,
+  GROUP_WINDMILL_COLOUR,
+  GROUP_WINDMILL_COST_MUL,
+  GROUP_WINDMILL_BUL_COST,
+  GROUP_WINDMILL_FIREC,
+  GROUP_WINDMILL_COST,
+  GROUP_WINDMILL_TECH,
+  GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction() {
-  return new Windmill(this);
+Construction *WindmillConstructionGroup::createConstruction(World& world) {
+  return new Windmill(world, this);
 }
 
-void Windmill::update()
+Windmill::Windmill(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    if (!(total_time%(WINDMILL_RCOST)))
-    {   windmill_cost++;}
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
+  // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
+}
+
+void Windmill::update() {
+  try {
+    if(world.total_time % WINDMILL_RCOST == 0)
+      world.expense(1, world.stats.expenses.windmill);
     int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
     int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
 
-    if ((commodityCount[STUFF_LABOR] >= labor_used)
-     && (lovolt_made >= WINDMILL_LOVOLT))
-    {
-        consumeStuff(STUFF_LABOR, labor_used);
-        produceStuff(STUFF_LOVOLT, lovolt_made);
-        animate_enable = true;
-        working_days += lovolt_made;
+    if(commodityCount[STUFF_LABOR] >= labor_used
+      && lovolt_made >= WINDMILL_LOVOLT
+    ) {
+      consumeStuff(STUFF_LABOR, labor_used);
+      produceStuff(STUFF_LOVOLT, lovolt_made);
+      animate_enable = true;
+      working_days += lovolt_made;
     }
     else
     {   animate_enable = false;}
-    //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  } catch(OutOfMoneyException ex) {
+    animate_enable = false;
+  }
+
+  //monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
 void Windmill::animate() {
@@ -100,7 +118,7 @@ void Windmill::place(int x, int y) {
   commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
 }
 
-void Windmill::save(xmlTextWriterPtr xmlWriter) {
+void Windmill::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

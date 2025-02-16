@@ -30,30 +30,45 @@
 #include "modules.h"
 
 WindpowerConstructionGroup windpowerConstructionGroup(
-    N_("Wind Power"),
-     TRUE,                     /* need credit? */
-     GROUP_WIND_POWER,
-     GROUP_WIND_POWER_SIZE,
-     GROUP_WIND_POWER_COLOUR,
-     GROUP_WIND_POWER_COST_MUL,
-     GROUP_WIND_POWER_BUL_COST,
-     GROUP_WIND_POWER_FIREC,
-     GROUP_WIND_POWER_COST,
-     GROUP_WIND_POWER_TECH,
-     GROUP_WIND_POWER_RANGE
+  N_("Wind Power"),
+  TRUE,                     /* need credit? */
+  GROUP_WIND_POWER,
+  GROUP_WIND_POWER_SIZE,
+  GROUP_WIND_POWER_COLOUR,
+  GROUP_WIND_POWER_COST_MUL,
+  GROUP_WIND_POWER_BUL_COST,
+  GROUP_WIND_POWER_FIREC,
+  GROUP_WIND_POWER_COST,
+  GROUP_WIND_POWER_TECH,
+  GROUP_WIND_POWER_RANGE
 );
 
 //WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
 //WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
 
-Construction *WindpowerConstructionGroup::createConstruction() {
-  return new Windpower(this);
+Construction *WindpowerConstructionGroup::createConstruction(World& world) {
+  return new Windpower(world, this);
+}
+
+Windpower::Windpower(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * WIND_POWER_LABOR;
+  // commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
 }
 
 void Windpower::update()
 {
-    if (!(total_time%(WIND_POWER_RCOST)))
-    {   windmill_cost++;}
+    if(world.total_time % WIND_POWER_RCOST)
+      world.stats.expenses.windmill++;
     int hivolt_made = (commodityCount[STUFF_HIVOLT] + hivolt_output <= MAX_HIVOLT_AT_WIND_POWER)?hivolt_output:MAX_HIVOLT_AT_WIND_POWER-commodityCount[STUFF_HIVOLT];
     int labor_used = WIND_POWER_LABOR * hivolt_made/hivolt_output;
 
@@ -68,11 +83,10 @@ void Windpower::update()
     else
     {   animate_enable = false;}
     //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
     }
 }
 
@@ -112,7 +126,7 @@ void Windpower::place(int x, int y) {
   commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
 }
 
-void Windpower::save(xmlTextWriterPtr xmlWriter) {
+void Windpower::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

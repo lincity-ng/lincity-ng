@@ -41,29 +41,81 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction() {
-  return new Port(this);
+Construction *PortConstructionGroup::createConstruction(World& world) {
+  return new Port(world, this);
+}
+
+Port::Port(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+    this->constructionGroup = cstgrp;
+    this->daily_ic = 0; this->daily_et = 0;
+    this->monthly_ic = 0; this->monthly_et = 0;
+    this->lastm_ic = 0; this->lastm_et = 0;
+    this->pence = 0;
+    this->working_days = 0;
+    this->busy = 0;
+    this->tech_made = 0;
+    initialize_commodities();
+    //local copy of commodityRuleCount
+    commodityRuleCount = constructionGroup->commodityRuleCount;
+    //do not trade labor
+    // commodityRuleCount.erase (STUFF_LABOR);
+    commodityRuleCount[STUFF_LABOR] = (CommodityRule){
+      .maxload = 0,
+      .take = false,
+      .give = false
+    };
+    commodityRuleCount[STUFF_FOOD].take = false;
+    commodityRuleCount[STUFF_FOOD].give = false;
+    commodityRuleCount[STUFF_COAL].take = false;
+    commodityRuleCount[STUFF_COAL].give = false;
+    commodityRuleCount[STUFF_GOODS].take = false;
+    commodityRuleCount[STUFF_GOODS].give = false;
+    commodityRuleCount[STUFF_ORE].take = false;
+    commodityRuleCount[STUFF_ORE].give = false;
+    commodityRuleCount[STUFF_STEEL].take = false;
+    commodityRuleCount[STUFF_STEEL].give = false;
+
+    commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+        if(!commodityRuleCount[stuff].maxload) continue;
+        commodityMaxCons[stuff] = 100 * ((
+          portConstructionGroup.commodityRuleCount[stuff].maxload *
+          PORT_EXPORT_RATE) / 1000);
+        commodityMaxProd[stuff] = 100 * ((
+          portConstructionGroup.commodityRuleCount[stuff].maxload *
+          PORT_IMPORT_RATE) / 1000);
+    }
 }
 
 int Port::buy_stuff(Commodity stuff)
 //fills up a PORT_IMPORT_RATE fraction of the available capacity and returns the cost
 //amount to buy must exceed PORT_TRIGGER_RATE
 {
-    if(!portConstructionGroup.tradeRule[stuff].take)
+    if(!world.tradeRule[stuff].take)
         return 0;
     int i = portConstructionGroup.commodityRuleCount[stuff].maxload - commodityCount[stuff];
     i = (i * PORT_IMPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
     {   return 0;}
-    produceStuff(stuff, i);
-    return (i * portConstructionGroup.commodityRates[stuff]);
+    try {
+      int cost = i * portConstructionGroup.commodityRates[stuff];
+      // TODO: track fractional remainder
+      world.expense(cost * world.money_rates.import_cost / 100,
+        world.stats.expenses.import);
+      produceStuff(stuff, i);
+      return cost;
+    } catch(OutOfMoneyException ex) {
+      return 0;
+    }
 }
 
 int Port::sell_stuff(Commodity stuff)
 //sells a PORT_IMPORT_RATE fraction of the current load and returns the revenue
 //amount to sell must exceed PORT_TRIGGER_RATE
 {
-    if(!portConstructionGroup.tradeRule[stuff].give)
+    if(!world.tradeRule[stuff].give)
         return 0;
     int i = commodityCount[stuff];
     i = (i * PORT_EXPORT_RATE) / 1000;
@@ -99,20 +151,19 @@ void Port::update()
         if (daily_ic || daily_et)
         {
             consumeStuff(STUFF_LABOR, PORT_LABOR);
-            world(x,y)->pollution += PORT_POLLUTION;
-            sust_port_flag = 0;
+            world.map(x,y)->pollution += PORT_POLLUTION;
+            world.stats.sustainability.trade_flag = false;
             tech_made++;
-            tech_level++;
+            world.tech_level++;
             working_days++;
             if (daily_ic && daily_et)
-            {   tech_level++;}
+              world.tech_level++;
         }
     }
     monthly_ic += daily_ic;
     monthly_et += daily_et;
     //monthly update
-    if (total_time % 100 == 99)
-    {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -123,9 +174,8 @@ void Port::update()
     }
 
     daily_et += pence;
-    export_tax += daily_et / 100;
+    world.stats.taxable.trade_ex += daily_et / 100;
     pence = daily_et % 100;
-    import_cost += daily_ic;
 }
 
 void Port::report()
@@ -140,13 +190,13 @@ void Port::report()
     list_commodities(&i);
 }
 
-void Port::save(xmlTextWriterPtr xmlWriter) {
+void Port::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
 
   const std::string givePfx("give_");
   const std::string takePfx("take_");
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
-    CommodityRule& rule = commodityRuleCount[stuff];
+    const CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
     const char *name = commodityStandardName(stuff);
     xmlStr giveName = (xmlStr)(givePfx + name).c_str();

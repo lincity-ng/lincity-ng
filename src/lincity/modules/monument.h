@@ -61,33 +61,20 @@ public:
 
     }
     // overriding method that creates a monument
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern MonumentConstructionGroup monumentConstructionGroup;
 
 class Monument: public Construction {
 public:
-    Monument(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->busy = 0;
-        this->working_days = 0;
-        this->tech_made = 0;
-        this->tail_off = 0;
-        this->completion = 0;
-        this->completed = false; //don't save this one
-        this->labor_consumed = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * MONUMENT_GET_LABOR;
-    }
-
+    Monument(World& world, ConstructionGroup *cstgrp);
     virtual ~Monument() { }
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  working_days, busy;

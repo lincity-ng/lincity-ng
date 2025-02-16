@@ -40,42 +40,59 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_RANGE
 );
 
-Construction *RecycleConstructionGroup::createConstruction() {
-  return new Recycle(this);
+Construction *RecycleConstructionGroup::createConstruction(World& world) {
+  return new Recycle(world, this);
 }
 
-void Recycle::update()
+Recycle::Recycle(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    recycle_cost += RECYCLE_RUNNING_COST;
+  this->constructionGroup = cstgrp;
+  this->busy = 0;
+  this->working_days = 0;
+  this->tech = world.tech_level;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * RECYCLE_LABOR;
+  commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
+  commodityMaxCons[STUFF_WASTE] = 100 *
+    (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
+  // commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+  // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
+}
+
+void Recycle::update() {
+  try {
+    world.expense(RECYCLE_RUNNING_COST, world.stats.expenses.recycle);
 
     // always recycle waste and only make steel & ore if there are free capacities
     if (commodityCount[STUFF_WASTE] >= WASTE_RECYCLED
-        && commodityCount[STUFF_LOVOLT] >= LOVOLT_RECYCLE_WASTE
-        && commodityCount[STUFF_LABOR] >= RECYCLE_LABOR)
-    {
-        consumeStuff(STUFF_LABOR, RECYCLE_LABOR);
-        consumeStuff(STUFF_LOVOLT, LOVOLT_RECYCLE_WASTE);
-        consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
-        working_days++;
-        // rather loose ore / steel than stop recycling the waste
-        produceStuff(STUFF_ORE, make_ore);
-        produceStuff(STUFF_STEEL, make_steel);
-        if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
-        {   levelStuff(STUFF_ORE, MAX_ORE_AT_RECYCLE);}
-        if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
-        {   levelStuff(STUFF_STEEL, MAX_STEEL_AT_RECYCLE);}
+      && commodityCount[STUFF_LOVOLT] >= LOVOLT_RECYCLE_WASTE
+      && commodityCount[STUFF_LABOR] >= RECYCLE_LABOR
+    ) {
+      consumeStuff(STUFF_LABOR, RECYCLE_LABOR);
+      consumeStuff(STUFF_LOVOLT, LOVOLT_RECYCLE_WASTE);
+      consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
+      working_days++;
+      // rather loose ore / steel than stop recycling the waste
+      produceStuff(STUFF_ORE, make_ore);
+      produceStuff(STUFF_STEEL, make_steel);
+      if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
+      {   levelStuff(STUFF_ORE, MAX_ORE_AT_RECYCLE);}
+      if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
+      {   levelStuff(STUFF_STEEL, MAX_STEEL_AT_RECYCLE);}
+    }
+  } catch(OutOfMoneyException ex) {}
 
-    }
-    // monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    // if we've still >90% waste in stock, burn some waste cleanly.
-    if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
-    {   consumeStuff(STUFF_WASTE, BURN_WASTE_AT_RECYCLE);}
+  // monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
+  // if we've still >90% waste in stock, burn some waste cleanly.
+  if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
+  {   consumeStuff(STUFF_WASTE, BURN_WASTE_AT_RECYCLE);}
 }
 
 void Recycle::report()
@@ -106,7 +123,7 @@ void Recycle::place(int x, int y) {
   commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
 }
 
-void Recycle::save(xmlTextWriterPtr xmlWriter) {
+void Recycle::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }

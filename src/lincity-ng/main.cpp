@@ -277,7 +277,6 @@ int main(int argc, char** argv)
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
         getConfig()->save();
-        destroy_game();
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";

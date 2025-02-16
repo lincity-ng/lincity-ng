@@ -69,29 +69,19 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a University
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern UniversityConstructionGroup universityConstructionGroup;
 
 class University: public Construction {
 public:
-    University(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->working_days = 0;
-        this->busy = 0;
-        this->total_tech_made = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * UNIVERSITY_LABOR;
-        commodityMaxCons[STUFF_GOODS] = 100 * UNIVERSITY_GOODS;
-        commodityMaxProd[STUFF_WASTE] = 100 * (UNIVERSITY_GOODS/3);
-    }
+    University(World& world, ConstructionGroup *cstgrp);
     virtual ~University() { }
     virtual void update();
     virtual void report();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int total_tech_made;

@@ -43,8 +43,22 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_RANGE
 );
 
-Construction *PowerlineConstructionGroup::createConstruction() {
-  return new Powerline(this);
+Construction *PowerlineConstructionGroup::createConstruction(World& world) {
+  return new Powerline(world, this);
+}
+
+Powerline::Powerline(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
+  this->anim_counter = 0;
+  this->anim = 0;
+  this->flashing = false;
+  initialize_commodities();
+  this->trafficCount = this->commodityCount;
+
+  commodityMaxCons[STUFF_HIVOLT] = 100 * 1;
 }
 
 void Powerline::update()
@@ -54,8 +68,8 @@ void Powerline::update()
         consumeStuff(STUFF_HIVOLT, 1);// loss on powerline
     }
 
-    if(total_time % 100 == 99) {
-        reset_prod_counters();
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
     }
 }
 

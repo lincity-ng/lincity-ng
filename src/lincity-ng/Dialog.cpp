@@ -439,7 +439,7 @@ void Dialog::gameStats(){
         _("History"), pollution_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %7d   %s %8.3f",
-        _("Years of unemployment"), total_unemployed_years,
+        _("Years of unemployment"), total_unemployed_days / NUMOF_DAYS_IN_YEAR,
         _("History"), unemployed_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %2d  %s %2d",
@@ -584,7 +584,7 @@ void Dialog::saveGameStats(){
          total_pollution_deaths, pollution_deaths_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Years of unemployment %7d   History %8.3f",
-         total_unemployed_years, unemployed_history);
+         total_unemployed_days / NUMOF_DAYS_IN_YEAR, unemployed_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Rockets launched %2d  Successful launches %2d",
          rockets_launched, rockets_launched_success);

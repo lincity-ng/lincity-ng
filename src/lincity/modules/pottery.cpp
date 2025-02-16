@@ -43,14 +43,30 @@ PotteryConstructionGroup potteryConstructionGroup(
     GROUP_POTTERY_RANGE
 );
 
-Construction *PotteryConstructionGroup::createConstruction() {
-  return new Pottery(this);
+Construction *PotteryConstructionGroup::createConstruction(World& world) {
+  return new Pottery(world, this);
+}
+
+Pottery::Pottery(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  // this->anim = 0; // or real_time?
+  this->pauseCounter = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->animate_enable = false;
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_GOODS] = 100 * POTTERY_MADE_GOODS;
+  commodityMaxCons[STUFF_ORE] = 100 * POTTERY_ORE_MAKE_GOODS;
+  commodityMaxCons[STUFF_COAL] = 100 * POTTERY_COAL_MAKE_GOODS;
+  commodityMaxCons[STUFF_LABOR] = 100 * POTTERY_LABOR;
 }
 
 void Pottery::update()
 {
-    if (total_time % 100 == 0)
-    {
+    if(world.total_time % 100 == 0) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -71,7 +87,7 @@ void Pottery::update()
 
         animate_enable = true;
         if(!((working_days++)%10))
-        {   world(x,y)->pollution++;}
+          world.map(x,y)->pollution++;
     }
     else
     {

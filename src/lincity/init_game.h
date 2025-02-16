@@ -24,6 +24,10 @@
 #ifndef __init_game_h__
 #define __init_game_h__
 
+#include <memory>
+
+#include "world.h"
+
 typedef struct _CitySettings city_settings;
 
 struct _CitySettings {
@@ -31,15 +35,22 @@ struct _CitySettings {
   bool without_trees;
 };
 
-void destroy_game(void);
-void clear_game(void);
-void setup_land(void);
-void create_new_city(int *originx, int *originy, city_settings *city, int old_setup_ground, int climate);
+std::unique_ptr<World>
+create_new_city(int *originx, int *originy, city_settings *city, int mapSize,
+  int old_setup_ground, int climate);
 
-void new_city(int *originx, int *originy, city_settings *city);
-void new_desert_city(int *originx, int *originy, city_settings *city);
-void new_temperate_city(int *originx, int *originy, city_settings *city);
-void new_swamp_city(int *originx, int *originy, city_settings *city);
+std::unique_ptr<World>
+new_city(int *originx, int *originy, city_settings *city, int mapSize);
+
+std::unique_ptr<World>
+new_desert_city(int *originx, int *originy, city_settings *city, int mapSize);
+
+std::unique_ptr<World>
+new_temperate_city(int *originx, int *originy, city_settings *city, int mapSize
+);
+
+std::unique_ptr<World>
+new_swamp_city(int *originx, int *originy, city_settings *city, int mapSize);
 
 #endif /* __init_game_h__ */
 

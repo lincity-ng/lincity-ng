@@ -204,7 +204,7 @@ void EconomyGraph::updateData(){
     //sustainability check from do_sust_barchart
     if (sust_dig_ore_coal_count >= SUST_ORE_COAL_YEARS_NEEDED
         && sust_port_count >= SUST_PORT_YEARS_NEEDED
-        && sust_old_money_count >= SUST_MONEY_YEARS_NEEDED
+        && sust_money_count >= SUST_MONEY_YEARS_NEEDED
         && sust_old_population_count >= SUST_POP_YEARS_NEEDED
         && sust_old_tech_count >= SUST_TECH_YEARS_NEEDED
         && sust_fire_count >= SUST_FIRE_YEARS_NEEDED)

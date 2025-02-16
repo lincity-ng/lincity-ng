@@ -47,8 +47,24 @@ MonumentConstructionGroup monumentConstructionGroup(
 
 //MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
-Construction *MonumentConstructionGroup::createConstruction() {
-  return new Monument(this);
+Construction *MonumentConstructionGroup::createConstruction(World& world) {
+  return new Monument(world, this);
+}
+
+Monument::Monument(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->busy = 0;
+  this->working_days = 0;
+  this->tech_made = 0;
+  this->tail_off = 0;
+  this->completion = 0;
+  this->completed = false; //don't save this one
+  this->labor_consumed = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * MONUMENT_GET_LABOR;
 }
 
 void Monument::update()
@@ -72,26 +88,25 @@ void Monument::update()
         }
         /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */
-        if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)
-            && (total_time % MONUMENT_DAYS_PER_TECH) == 1)
+        if (world.tech_level < (MONUMENT_TECH_EXPIRE * 1000)
+            && (world.total_time % MONUMENT_DAYS_PER_TECH) == 1)
         {
             tail_off++;
-            if (tail_off > (tech_level / 10000) - 2)
+            if (tail_off > (world.tech_level / 10000) - 2)
             {
-                tech_level++;
+                world.tech_level++;
                 tech_made++;
                 tail_off = 0;
             }
         }
     }
     //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-        if(commodityCount[STUFF_LABOR]==0 && completed)
-        {   deneighborize();}
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
+      if(commodityCount[STUFF_LABOR]==0 && completed)
+        deneighborize();
     }
 }
 
@@ -127,7 +142,7 @@ void Monument::report()
     }
 }
 
-void Monument::save(xmlTextWriterPtr xmlWriter) {
+void Monument::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"completion", "%d", completion);

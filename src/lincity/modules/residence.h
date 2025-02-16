@@ -187,7 +187,7 @@ public:
         commodityRuleCount[STUFF_WATER].give = false;
     }
     // overriding method that creates a residence
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern ResidenceConstructionGroup residenceLLConstructionGroup, residenceMLConstructionGroup, residenceHLConstructionGroup;
@@ -195,53 +195,12 @@ extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConst
 
 class Residence: public Construction {
 public:
-    Residence(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->local_population = 0;
-        this->desireability = 0;
-        this->births = 120000;
-        this->deaths = 120000;
-        this->pol_deaths = 0;
-        if (cstgrp == &residenceLLConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_LL_MAX_POP;}
-        else if (cstgrp == &residenceMLConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_ML_MAX_POP;}
-        else if (cstgrp == &residenceHLConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_HL_MAX_POP;}
-        else if (cstgrp == &residenceLHConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_LH_MAX_POP;}
-        else if (cstgrp == &residenceMHConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_MH_MAX_POP;}
-        else if (cstgrp == &residenceHHConstructionGroup)
-        {   this->max_population = GROUP_RESIDENCE_HH_MAX_POP;}
-        else
-        {
-            this->max_population = 50;
-            std::cout << "unknown ConstructionGroup in new Residence at (" << x << "," << y << ")" << std::endl;
-        }
-
-        initialize_commodities();
-        commodityMaxCons[STUFF_FOOD] = 100 * max_population;
-        commodityMaxCons[STUFF_WATER] = 100 * max_population;
-        commodityMaxCons[STUFF_LOVOLT] = 100 * (POWER_RES_OVERHEAD +
-          (POWER_USE_PER_PERSON * max_population) + max_population/2);
-        commodityMaxProd[STUFF_LABOR] = 100 * (max_population * (
-            WORKING_POP_PERCENT + JOB_SWING +
-            HC_WORKING_POP + HC_JOB_SWING +
-            CRICKET_WORKING_POP + CRICKET_JOB_SWING)
-          / 100);
-        commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 4) * 2;
-        commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2;
-    }
-    virtual ~Residence()
-    {
-        //everyone survives demolition
-        people_pool += local_population;
-    }
+    Residence(World& world, ConstructionGroup *cstgrp);
+    virtual ~Residence();
     virtual void update();
     virtual void report();
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int local_population;

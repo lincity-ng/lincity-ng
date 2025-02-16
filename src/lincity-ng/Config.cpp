@@ -65,7 +65,7 @@ Config::Config() {
   appDataDirIsDefault = false;
   userDataDirIsDefault = false;
   // TODO: remove this. also see issue #225
-  world.len(WORLD_SIDE_LEN);
+  worldSize = WORLD_SIDE_LEN;
   // TODO: Remove monthgraph size from config. Monthgraph size should be based
   //       on available space in GUI.
   monthgraphW = 190;
@@ -178,7 +178,7 @@ void Config::load(std::filesystem::path configFile) {
         else if(xml_tag == "language")
           language = xml_val;
         else if(xml_tag == "WorldSideLen")
-          world.len(parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000));
+          worldSize = parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000);
         else if(xml_tag == "carsEnabled")
           carsEnabled = parseBool(xml_val, carsEnabled);
         else if(xml_tag == "appDataDir")

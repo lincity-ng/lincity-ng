@@ -66,33 +66,21 @@ public:
         commodityRuleCount[STUFF_LOVOLT].give = true;
     }
     // overriding method that creates a Windmill
-    virtual Construction *createConstruction();
+    virtual Construction *createConstruction(World& world);
 };
 
 extern WindmillConstructionGroup windmillConstructionGroup;
 
 class Windmill: public Construction {
 public:
-    Windmill(ConstructionGroup *cstgrp) {
-        this->constructionGroup = cstgrp;
-        this->anim = 0;
-        this->animate_enable = false;
-        this->tech = tech_level;
-        this->working_days = 0;
-        this->busy = 0;
-        initialize_commodities();
-
-        commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
-        // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
-    }
-
-    virtual ~Windmill() { }
+    Windmill(World& world, ConstructionGroup *cstgrp);
+    virtual ~Windmill() {}
     virtual void update() override;
     virtual void report() override;
     virtual void animate() override;
     virtual void place(int x, int y) override;
 
-    virtual void save(xmlTextWriterPtr xmlWriter) override;
+    virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
 
     int  lovolt_output;
