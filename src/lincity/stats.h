@@ -71,13 +71,6 @@ public:
   ~Stats();
 
   struct {
-    // daily
-    Stat<int> population_d;
-    Stat<int> housed_d;
-    Stat<int> starving_d;
-    Stat<int> unemployed_d;
-    Stat<int> housing_d;
-
     // monthly
     Stat<int> population_m;
     Stat<int> housed_m;
@@ -88,18 +81,6 @@ public:
     Stat<int> deaths_m;
     Stat<int> unnat_deaths_m;
 
-    // rolling 12-month sum
-    int births_12m = 0;
-    int deaths_12m = 0;
-    int unnat_deaths_12m = 0;
-
-  private:
-    // 12-month history
-    std::deque<int> births_m12;
-    std::deque<int> deaths_m12;
-    std::deque<int> unnat_deaths_m12;
-
-  public:
     // totals
     int evacuated_t = 0;
     int births_t = 0;
@@ -114,17 +95,7 @@ public:
 
     // maximum
     int max_pop_ever = 0;
-
-    friend Stats;
   } population;
-
-  struct {
-    int labor = 0;
-    int coal = 0;
-    int goods = 0;
-    int trade_ex = 0;
-    // Stat<int> trade_im; // import is payed for directly
-  } taxable;
 
   struct {
     Stat<int> income_tax;
@@ -211,6 +182,10 @@ public:
     std::deque<int> pollution;
     std::array<std::deque<Inventory<>>, STUFF_COUNT> inventory;
     std::deque<Inventory<>> tenants;
+    // previously "q"
+    std::deque<int> births;
+    std::deque<int> deaths;
+    std::deque<int> unnat_deaths;
   } history;
 
   int highest_tech_level = 0;

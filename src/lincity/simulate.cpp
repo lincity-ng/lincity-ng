@@ -202,37 +202,37 @@ World::end_of_month_update(void) {
 
 void
 World::end_of_year_update(void) {
-  income(stats.taxable.labor * money_rates.income_tax / 100,
+  income(taxable.labor * money_rates.income_tax / 100,
     stats.income.income_tax);
-  stats.taxable.labor = 0;
+  taxable.labor = 0;
 
-  income(stats.taxable.coal * money_rates.coal_tax / 10,
+  income(taxable.coal * money_rates.coal_tax / 10,
     stats.income.coal_tax);
-  stats.taxable.coal = 0;
+  taxable.coal = 0;
 
-  int goods_tax = (stats.taxable.goods * money_rates.goods_tax) / 100;
+  int goods_tax = (taxable.goods * money_rates.goods_tax) / 100;
   goods_tax += (int)((float)(goods_tax * money_rates.goods_tax)
     * (float)tech_level / 2000000.0);
   income(goods_tax, stats.income.goods_tax);
-  stats.taxable.goods = 0;
+  taxable.goods = 0;
 
   /* The price of exports on the world market drops as you export more.
      The exporters have to discount there wares, therefore the
      tax take is less.
    */
-  if(stats.taxable.trade_ex > ex_tax_dis[0]) {
+  if(taxable.trade_ex > ex_tax_dis[0]) {
     int discount, disi;
     discount = 0;
     for(disi = 0;
       disi < NUMOF_DISCOUNT_TRIGGERS
-        && stats.taxable.trade_ex > ex_tax_dis[disi];
+        && taxable.trade_ex > ex_tax_dis[disi];
       disi++
     )
-      discount += (stats.taxable.trade_ex - ex_tax_dis[disi]) / 10;
-    stats.taxable.trade_ex -= discount;
+      discount += (taxable.trade_ex - ex_tax_dis[disi]) / 10;
+    taxable.trade_ex -= discount;
   }
-  income(stats.taxable.trade_ex, stats.income.export_tax);
-  stats.taxable.trade_ex = 0;
+  income(taxable.trade_ex, stats.income.export_tax);
+  taxable.trade_ex = 0;
 
   try {
     if(total_money < 0)

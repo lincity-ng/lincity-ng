@@ -256,26 +256,26 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"people_pool",                 "%d", world.people_pool);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_money",                 "%d", world.total_money);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_income_tax",               "%d", world.stats.income.income_tax.stat); // TODO: save acc
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax",                  "%d", world.stats.taxable.labor);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax",                  "%d", world.taxable.labor);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_rate",             "%d", world.money_rates.income_tax);
 
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_interest",                 "%d", world.stats.expenses.interest);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_coal_tax",                 "%d", world.stats.income.coal_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax",                    "%d", world.stats.taxable.coal); // TODO: save acc
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax",                    "%d", world.taxable.coal);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax_rate",               "%d", world.money_rates.coal_tax);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_unemployment_cost",        "%d", world.stats.expenses.unemployment);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployment_cost",           "%d", world.stats.population.unemployed_m.acc + world.stats.population.unemployed_d.acc);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployment_cost",           "%d", world.stats.population.unemployed_m.acc);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"dole_rate",                   "%d", world.money_rates.dole);
 
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_transport_cost",           "%d", world.stats.expenses.transport);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_cost",              "%d", 0);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_cost_rate",         "%d", world.money_rates.transport_cost);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_goods_tax",                "%d", world.stats.income.goods_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax",                   "%d", world.stats.taxable.goods);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax",                   "%d", world.taxable.goods);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax_rate",              "%d", world.money_rates.goods_tax);
 
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_export_tax",               "%d", world.stats.income.export_tax);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax",                  "%d", world.stats.taxable.trade_ex);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax",                  "%d", world.taxable.trade_ex);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax_rate",             "%d", world.money_rates.export_tax);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ly_import_cost",              "%d", world.stats.expenses.import);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_cost",                 "%d", 0);
@@ -357,7 +357,10 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
       {world.stats.history.ppool, (xmlStr)"ppool"},
       {world.stats.history.tech, (xmlStr)"tech"},
       {world.stats.history.money, (xmlStr)"money"},
-      {world.stats.history.pollution, (xmlStr)"pollution"}
+      {world.stats.history.pollution, (xmlStr)"pollution"},
+      {world.stats.history.births, (xmlStr)"births"},
+      {world.stats.history.deaths, (xmlStr)"deaths"},
+      {world.stats.history.unnat_deaths, (xmlStr)"unnat_deaths"}
     });
     for(auto& history : histories) {
       xmlTextWriterStartElement(xmlWriter, history.second);
@@ -422,12 +425,12 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world) {
     else if(xml_tag == "people_pool")                 world.people_pool = std::stoi(xml_val);
     else if(xml_tag == "total_money")                 world.stats.total_money = world.total_money = std::stoi(xml_val);
     else if(xml_tag == "ly_income_tax")               world.stats.income.income_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "income_tax")                  world.stats.taxable.labor = std::stoi(xml_val);
+    else if(xml_tag == "income_tax")                  world.taxable.labor = std::stoi(xml_val);
     else if(xml_tag == "income_tax_rate")             world.money_rates.income_tax = std::stoi(xml_val);
 
     else if(xml_tag == "ly_interest")                 world.stats.expenses.interest.stat = std::stoi(xml_val);
     else if(xml_tag == "ly_coal_tax")                 world.stats.income.coal_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "coal_tax")                    world.stats.taxable.coal = std::stoi(xml_val);
+    else if(xml_tag == "coal_tax")                    world.taxable.coal = std::stoi(xml_val);
     else if(xml_tag == "coal_tax_rate")               world.money_rates.coal_tax = std::stoi(xml_val);
 
     else if(xml_tag == "ly_unemployment_cost")        world.stats.expenses.unemployment.stat = std::stoi(xml_val);
@@ -438,11 +441,11 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world) {
     else if(xml_tag == "transport_cost")              world.stats.expenses.transport.acc = std::stoi(xml_val);
     else if(xml_tag == "transport_cost_rate")         world.money_rates.transport_cost = std::stoi(xml_val);
     else if(xml_tag == "ly_goods_tax")                world.stats.income.goods_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "goods_tax")                   world.stats.taxable.goods = std::stoi(xml_val);
+    else if(xml_tag == "goods_tax")                   world.taxable.goods = std::stoi(xml_val);
     else if(xml_tag == "goods_tax_rate")              world.money_rates.goods_tax = std::stoi(xml_val);
 
     else if(xml_tag == "ly_export_tax")               world.stats.income.export_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "export_tax")                  world.stats.taxable.trade_ex = std::stoi(xml_val);
+    else if(xml_tag == "export_tax")                  world.taxable.trade_ex = std::stoi(xml_val);
     else if(xml_tag == "export_tax_rate")             world.money_rates.export_tax = std::stoi(xml_val);
     else if(xml_tag == "ly_import_cost")              world.stats.expenses.import.stat = std::stoi(xml_val);
     else if(xml_tag == "import_cost")                 world.stats.expenses.import.acc = std::stoi(xml_val);
@@ -552,7 +555,10 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world) {
           {"ppool", world.stats.history.ppool},
           {"tech", world.stats.history.tech},
           {"money", world.stats.history.money},
-          {"pollution", world.stats.history.pollution}
+          {"pollution", world.stats.history.pollution},
+          {"births", world.stats.history.births},
+          {"deaths", world.stats.history.deaths},
+          {"unnat_deaths", world.stats.history.unnat_deaths}
         });
         if(auto historyIt = histories.find(xmlReader.get_name());
           historyIt != histories.end()

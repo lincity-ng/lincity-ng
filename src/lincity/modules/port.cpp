@@ -174,7 +174,7 @@ void Port::update()
     }
 
     daily_et += pence;
-    world.stats.taxable.trade_ex += daily_et / 100;
+    world.taxable.trade_ex += daily_et / 100;
     pence = daily_et % 100;
 }
 

@@ -199,6 +199,14 @@ public:
     int import_cost = IM_PORT_COST_RATE;
   } money_rates;
 
+  struct {
+    int labor = 0;
+    int coal = 0;
+    int goods = 0;
+    int trade_ex = 0;
+    // int trade_im; // import is payed for directly
+  } taxable;
+
   int tech_level;
 
 

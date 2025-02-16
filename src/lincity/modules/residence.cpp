@@ -214,7 +214,7 @@ void Residence::update()
                 ++world.stats.population.starve_deaths_t;
                 world.stats.population.starve_deaths_history += 1.0;
             }
-            world.stats.population.starving_d += local_population; //only the survivors are starving
+            world.stats.population.starving_m += local_population; //only the survivors are starving
             bad += 250; // This place really sucks
             drm = 100; //starving is also unhealty
         }
@@ -275,7 +275,7 @@ void Residence::update()
     else
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
-        world.stats.population.unemployed_d += local_population;
+        world.stats.population.unemployed_m += local_population;
         world.stats.population.unemployed_days_t += local_population;
         world.stats.population.unemployed_history +=
           (double)local_population / NUMOF_DAYS_IN_YEAR;
@@ -376,9 +376,9 @@ void Residence::update()
         --world.people_pool;
     }
     /* XXX AL1: this is daily accumulator used stats.cpp, and maybe pop graph */
-    world.stats.population.population_d += local_population;
-    world.stats.population.housed_d += local_population;
-    world.stats.population.housing_d += max_population;
+    world.stats.population.population_m += local_population;
+    world.stats.population.housed_m += local_population;
+    world.stats.population.housing_m += max_population;
 
     if(world.total_time % 100 == 99) {
       reset_prod_counters();

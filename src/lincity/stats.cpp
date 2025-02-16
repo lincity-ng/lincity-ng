@@ -39,15 +39,13 @@ Stats::Stats() {
   history.pollution.resize(2);
   for(auto& i : history.inventory)
     i.resize(2);
+  history.births.resize(12);
+  history.deaths.resize(12);
+  history.unnat_deaths.resize(12);
 }
 
 void
 Stats::daily() {
-  population.population_m += population.population_d.finalize();
-  population.housed_m += population.housed_d.finalize();
-  population.starving_m += population.starving_d.finalize();
-  population.unemployed_m += population.unemployed_d.finalize();
-  population.housing_m += population.housing_d.finalize();
 }
 
 void
@@ -59,36 +57,6 @@ Stats::monthly() {
   population.births_m.finalize();
   population.deaths_m.finalize();
   population.unnat_deaths_m.finalize();
-
-  if(population.population_m > population.max_pop_ever)
-    population.max_pop_ever = population.population_m;
-
-  if(population.births_m12.size() >= 12) {
-    population.births_12m -= population.births_m12.front();
-    population.births_m12.pop_front();
-  }
-  if(population.births_m12.size() < 12) {
-    population.births_12m += population.births_m;
-    population.births_m12.push_back(population.births_m);
-  }
-
-  if(population.deaths_m12.size() >= 12) {
-    population.deaths_12m -= population.deaths_m12.front();
-    population.deaths_m12.pop_front();
-  }
-  if(population.deaths_m12.size() < 12) {
-    population.deaths_12m += population.deaths_m;
-    population.deaths_m12.push_back(population.deaths_m);
-  }
-
-  if(population.unnat_deaths_m12.size() >= 12) {
-    population.unnat_deaths_12m -= population.unnat_deaths_m12.front();
-    population.unnat_deaths_m12.pop_front();
-  }
-  if(population.unnat_deaths_m12.size() < 12) {
-    population.unnat_deaths_12m += population.unnat_deaths_m;
-    population.unnat_deaths_m12.push_back(population.unnat_deaths_m);
-  }
 
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     inventory[stuff].amount.finalize();
@@ -111,6 +79,9 @@ Stats::monthly() {
     .amount = population.housed_m,
     .capacity = population.housing_m
   });
+  history.births.push_front(population.births_m);
+  history.deaths.push_front(population.deaths_m);
+  history.unnat_deaths.push_front(population.unnat_deaths_m);
   history.pop.pop_back();
   history.starve.pop_back();
   history.nojobs.pop_back();
@@ -119,6 +90,9 @@ Stats::monthly() {
   history.money.pop_back();
   history.pollution.pop_back();
   history.tenants.pop_back();
+  history.births.pop_back();
+  history.deaths.pop_back();
+  history.unnat_deaths.pop_back();
 }
 
 void

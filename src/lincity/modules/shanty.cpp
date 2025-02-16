@@ -177,21 +177,21 @@ void Shanty::update()
     if (commodityCount[STUFF_LABOR] >= SHANTY_GET_LABOR)
     {
         consumeStuff(STUFF_LABOR, SHANTY_GET_LABOR);
-        if ((world.stats.taxable.labor -= SHANTY_GET_LABOR * 2) < 0)
-        {   world.stats.taxable.labor = 0;}
+        if ((world.taxable.labor -= SHANTY_GET_LABOR * 2) < 0)
+        {   world.taxable.labor = 0;}
     }
     if (commodityCount[STUFF_GOODS] >= SHANTY_GET_GOODS)
     {
         consumeStuff(STUFF_GOODS, SHANTY_GET_GOODS);
         produceStuff(STUFF_WASTE, SHANTY_GET_GOODS / 3);
-        if ((world.stats.taxable.goods -= SHANTY_GET_GOODS * 2) < 0)
-        {   world.stats.taxable.goods = 0;}
+        if ((world.taxable.goods -= SHANTY_GET_GOODS * 2) < 0)
+        {   world.taxable.goods = 0;}
     }
     if (commodityCount[STUFF_COAL] >= SHANTY_GET_COAL)
     {
         consumeStuff(STUFF_COAL, SHANTY_GET_COAL);
-        if ((world.stats.taxable.coal -= SHANTY_GET_COAL * 2) < 0)
-        {   world.stats.taxable.coal = 0;}
+        if ((world.taxable.coal -= SHANTY_GET_COAL * 2) < 0)
+        {   world.taxable.coal = 0;}
     }
     if (commodityCount[STUFF_ORE] >= SHANTY_GET_ORE)
     {   consumeStuff(STUFF_ORE, SHANTY_GET_ORE);}

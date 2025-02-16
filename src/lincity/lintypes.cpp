@@ -880,13 +880,13 @@ int Construction::equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule, int ra
             switch (stuff_ID)
             {
                 case (STUFF_LABOR) :
-                    world.stats.taxable.labor += flow;
+                    world.taxable.labor += flow;
                     break;
                 case (STUFF_GOODS) :
-                    world.stats.taxable.goods += flow;
+                    world.taxable.goods += flow;
                     break;
                 case (STUFF_COAL) :
-                    world.stats.taxable.coal += flow;
+                    world.taxable.coal += flow;
                     break;
                 default:
                     break;

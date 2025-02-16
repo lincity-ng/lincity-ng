@@ -146,7 +146,7 @@ void Market::update()
     {
         consumeStuff(STUFF_LABOR, labor);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
-        world.stats.taxable.labor += labor;
+        world.taxable.labor += labor;
         ++working_days;
     }
 
