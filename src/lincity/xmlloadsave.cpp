@@ -45,7 +45,6 @@
 #include <sstream>
 #include <regex>
 
-#include "ConstructionCount.h"             // for ConstructionCount
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, alt_min, alt_max
 #include "engine.h"                        // for desert_water_frontiers
@@ -987,9 +986,7 @@ static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
     xmlTextWriterEndElement(xmlWriter);
   }
 
-  for(int i = 0; i < map.constructionCount.size(); i++) {
-    const Construction *cst = map.constructionCount.pos(i);
-    if(!cst) continue;
+  for(Construction *cst : map.constructions) {
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"Construction");
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", cst->constructionGroup->group);
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->x);

@@ -35,8 +35,6 @@ add_executable(lincity-ng
 		PBar.cpp
 		PBar.hpp
 		PbarInterface.cpp
-		Permutator.cpp
-		Permutator.hpp
 		readdir.cpp
 		readdir.hpp
 		ScreenInterface.cpp

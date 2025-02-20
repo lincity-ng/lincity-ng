@@ -33,7 +33,6 @@
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionCount.h"            // for ConstructionCount
 #include "ConstructionManager.h"          // for ConstructionManager
 #include "ConstructionRequest.h"          // for ConstructionDeletionRequest
 #include "Vehicles.h"                     // for Vehicle, VehicleStrategy
@@ -376,7 +375,7 @@ void Construction::place(int x, int y) {
     } //endfor j
   }// endfor i
   world.map(x, y)->construction = this;
-  world.map.constructionCount.add_construction(this); //register for Simulation
+  world.map.constructions.insert(this); //register for Simulation
   constructionGroup->count++;
 
   //now look for neighbors
@@ -387,7 +386,7 @@ void Construction::place(int x, int y) {
 void Construction::detach()
 {
     //std::cout << "detaching: " << constructionGroup->name << std::endl;
-    world.map.constructionCount.remove_construction(this);
+    world.map.constructions.erase(this);
     if(world.map(x,y)->construction == this) {
         world.map(x,y)->construction = NULL;
         world.map(x,y)->killframe(frameIt);
@@ -400,26 +399,6 @@ void Construction::detach()
             world.map(x,y)->framesptr = NULL;
         }
 */
-    }
-
-    for (unsigned short i = 0; i < constructionGroup->size; ++i)
-    {
-        for (unsigned short j = 0; j < constructionGroup->size; ++j)
-        {
-            world.map(x + j, y + i)->flags &= (~FLAG_INVISIBLE);
-            // constructions may have children e.g. waste burning markets/shanties
-            Construction* child = world.map(x+j,y+i)->construction;
-            if(child)
-            {
-                //std::cout << "killing child: " << world.map(x+j,y+i)->construction->constructionGroup->name << std::endl;
-                world.map.constructionCount.remove_construction(child);
-                world.map(x+j,y+i)->killframe(child->frameIt);
-                delete child;
-                child = NULL;
-                world.map(x+j,y+i)->construction = NULL;
-            }
-            world.map(x+j,y+i)->reportingConstruction = NULL;
-        }
     }
     deneighborize();
 }

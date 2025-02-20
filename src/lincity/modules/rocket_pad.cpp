@@ -33,7 +33,6 @@
 #include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
 #include "lincity-ng/Dialog.hpp"           // for Dialog, ASK_LAUNCH_ROCKET
 #include "lincity-ng/Sound.hpp"            // for getSound, Sound
-#include "lincity/ConstructionCount.h"     // for ConstructionCount
 #include "modules.h"                       // for basic_string, char_traits
 #include "residence.h"                     // for Residence
 
@@ -216,24 +215,21 @@ void RocketPad::remove_people(int num)
   /* reset housed population so that we can display it correctly */
   while(num > 0) {
     int housed = 0;
-    for(int i = 0; i < world.map.constructionCount.size(); i++) {
-      Construction *cst = world.map.constructionCount[i];
-      if(cst) {
-        unsigned short grp = cst->constructionGroup->group;
-        if(  grp == GROUP_RESIDENCE_LL
-          || grp == GROUP_RESIDENCE_ML
-          || grp == GROUP_RESIDENCE_HL
-          || grp == GROUP_RESIDENCE_LH
-          || grp == GROUP_RESIDENCE_MH
-          || grp == GROUP_RESIDENCE_HH
-        ) {
-          Residence* residence = static_cast<Residence *>(cst);
-          if(residence->local_population) {
-            residence->local_population--;
-            housed += residence->local_population;
-            num--;
-            world.stats.population.evacuated_t++;
-          }
+    for(Construction *cst : world.map.constructions) {
+      unsigned short grp = cst->constructionGroup->group;
+      if(  grp == GROUP_RESIDENCE_LL
+        || grp == GROUP_RESIDENCE_ML
+        || grp == GROUP_RESIDENCE_HL
+        || grp == GROUP_RESIDENCE_LH
+        || grp == GROUP_RESIDENCE_MH
+        || grp == GROUP_RESIDENCE_HH
+      ) {
+        Residence* residence = static_cast<Residence *>(cst);
+        if(residence->local_population) {
+          residence->local_population--;
+          housed += residence->local_population;
+          num--;
+          world.stats.population.evacuated_t++;
         }
       }
     }

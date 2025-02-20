@@ -21,15 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-// This was part of simulate.cpp.
-// Moved in new file for clarification
-//
-// (re)initialise engine and UI data when
-//  - load a saved game (or a scenario)
-//  - start a random village (or a  void map)
-//
-
-//#define DEBUG_EXPERIMENTAL
+#include "init_game.h"
 
 #include <array>                           // for array
 #include <cmath>                           // for pow, exp
@@ -39,8 +31,9 @@
 #include <list>                            // for list
 #include <vector>                          // for vector
 #include <memory>
+#include <random>
+#include <cassert>
 
-#include "ConstructionCount.h"             // for ConstructionCount
 #include "ConstructionManager.h"           // for ConstructionManager
 #include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
 #include "commodities.hpp"                 // for Commodity, CommodityRule
@@ -49,19 +42,18 @@
 #include "groups.h"                        // for GROUP_BARE, GROUP_TREE
 #include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
 #include "gui_interface/shared_globals.h"  // for update_avail_modules, mont...
-#include "init_game.h"
 #include "lctypes.h"                       // for CST_GREEN, CST_WATER
 #include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
-#include "lincity-ng/Permutator.hpp"       // for Permutator
 #include "lintypes.h"                      // for Construction, Construction...
 #include "modules/all_modules.h"           // for CommuneConstructionGroup
 #include "resources.hpp"                   // for ExtraFrame
 #include "stats.h"                         // for init_inventory
 #include "transport.h"                     // for connect_transport
 #include "world.h"                         // for Map, MapTile, Array2D
+#include "lc_random.hpp"
 
 #ifdef DEBUG
-#include <assert.h>                        // for assert
+// #include <assert.h>                        // for assert
 #include <stdio.h>                         // for fprintf, stderr, size_t
 #endif
 
@@ -71,7 +63,8 @@
 //static void init_mappoint_array(void);
 static void setup_land(Map& map, int global_aridity, bool without_trees);
 static void nullify_mappoint(int x, int y);
-static void random_start(World& world, int *originx, int *originy);
+static void random_start(World& world, int *originx, int *originy,
+  bool without_trees);
 static void coal_reserve_setup(Map& map);
 static void ore_reserve_setup(Map& map);
 static void setup_river(Map& map, int global_mountainity);
@@ -230,7 +223,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     /* Altitude has same effect as distance */
     r = rand()%(d2w_min/5 + 1) + arid +
       (map(xx, yy)->ground.altitude - alt0) * 50 / map.alt_step;
-    do_rand_ecology(map, xx,yy,r, without_trees);
+    do_rand_ecology(map, xx, yy, r, without_trees);
   }
 
   std::cout << " done" << std::endl;
@@ -286,8 +279,10 @@ create_new_city(int *originx, int *originy, city_settings *city, int mapSize,
   ore_reserve_setup(world.map);
   init_pbars(); // TODO: move to NG
 
-  if (city->with_village) random_start(world, originx, originy);
-  else                    *originx = *originy = world.map.len() / 2;
+  if(city->with_village)
+    random_start(world, originx, originy, city->without_trees);
+  else
+    *originx = *originy = world.map.len() / 2;
 
   update_pbar(PPOP, world.stats.population.population_m, 1); // TODO: move to NG
   connect_transport(1, 1, world.map.len() - 2, world.map.len() - 2);
@@ -690,12 +685,6 @@ static void new_setup_river(Map& map, int global_aridity)
     if (m>area/400)
         m = area/400;
 
-    Permutator * permutator;
-    permutator = new Permutator(l,m);
-    for (i = 0; i<rand()%10; i++)
-    {
-        permutator->shuffle();
-    }
     /*
     //In case we want extra random rivers instead of connected lakes
     for(i=0;i<m;++i)
@@ -706,32 +695,26 @@ static void new_setup_river(Map& map, int global_aridity)
     std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
     std::cout.flush();
     //sort_by_altitude(m, &lakx, &laky);
-    for (i = 0; i < m; i++)
-    {
-        j = permutator->getIndex(i);
-        if (map.minimum(lkidx[j] % len, lkidx[j] / len ))
-        {
-            k = overfill_lake(map, lkidx[j] % len, lkidx[j] / len );
+    for (i = 0; i < m; i++) {
+      j = std::uniform_int_distribution((size_t)0, lkidx.size() - 1)(
+        LcUrbg::get());
+      k = lkidx[j];
+      do {
+        int kx = k % len;
+        int ky = k / len;
+        if(map.minimum(kx, ky)) {
+          k = overfill_lake(map, kx, ky);
         }
-        else
-        {
-            k=quick_river(map, lkidx[j] % len, lkidx[j] / len);
-            set_river_tile(*map(lkidx[j] % len, lkidx[j] / len));
+        else {
+          k = quick_river(map, kx, ky);
+          set_river_tile(*map(kx, ky));
         }
-        if (k != -1)
-        {
-            int x = k % len;
-            int y = k / len;
-            if (map(x,y)->is_visible() && map(x,y)->is_river())
-            {
-                lkidx[j] = x + y * len;
-                i--;
-                //std::cout << "attaching lake x, y: " << x << ", " << y << std::endl;
-            }
-        }
+      } while(k != -1 && map(k)->is_visible() && map(k)->is_river());
+
+      lkidx[j] = lkidx.back();
+      lkidx.pop_back();
     }
     std::cout << " done" << std::endl;
-    delete permutator;
 }
 
 static int overfill_lake(Map& map, int start_x, int start_y)//, Shoreline *shore, int lake_id)
@@ -1331,7 +1314,7 @@ static void random_start(World& world, int *originx, int *originy,
     world.stats.sustainability.old_population = world.people_pool;
 }
 
-static void do_rand_ecology(Map& map, int x, int y, int r, int without_trees)
+static void do_rand_ecology(Map& map, int x, int y, int r, bool without_trees)
 {
     int r3 = rand();
     if (r >= 300)

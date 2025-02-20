@@ -28,9 +28,10 @@
 #include <cstdlib>                         // for rand, abs
 #include <iterator>                        // for advance
 #include <list>                            // for list, _List_iterator, oper...
+#include <numeric>
+#include <algorithm>
 
 #include "../lincity-ng/GameView.hpp"      // for getGameView, GameView
-#include "ConstructionCount.h"             // for ConstructionCount
 #include "ConstructionManager.h"           // for ConstructionManager
 #include "Vehicles.h"                      // for Vehicle
 #include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
@@ -47,6 +48,7 @@
 #include "sustainable.h"                   // for SUST_MIN_TECH_LEVEL, SUST_...
 #include "tinygettext/gettext.hpp"         // for _
 #include "world.h"                         // for Map, MapTile
+#include "lc_random.hpp"
 
 /* extern resources */
 extern void print_total_money(void);
@@ -91,11 +93,8 @@ World::do_time_step(void) {
 void
 World::do_animate() {
   Construction *construction;
-  for(int i = 0; i < map.constructionCount.size(); i++) {
-    construction = map.constructionCount[i];
-    if(construction) {
-      construction->animate();
-    }
+  for(Construction *cst : map.constructions) {
+    cst->animate();
   }
   for(std::list<Vehicle*>::iterator it = vehicleList.begin();
     it != vehicleList.end();
@@ -190,9 +189,8 @@ World::end_of_month_update(void) {
       stats.expenses.unemployment);
   } catch(OutOfMoneyException ex) {}
 
-  for(int i = 0; i < map.constructionCount.size(); i++) {
-    if(map.constructionCount[i])
-      map.constructionCount[i]->report_commodities();
+  for(Construction *cst : map.constructions) {
+    cst->report_commodities();
   }
 
   stats.total_money = total_money;
@@ -258,17 +256,18 @@ World::end_of_year_update(void) {
 
 void
 World::simulate_mappoints(void) {
-    Construction *construction;
-    map.constructionCount.shuffle();
-    for (int i = 0; i < map.constructionCount.size(); i++)
-    {
-        construction = map.constructionCount[i];
-        if (construction)
-        {
-            construction->trade();
-            construction->update();
-        }
-    }
+  // We could directly shuffle constructions, but the swaps could be more
+  // expensive if we decide down the line to store Construction's directly
+  // instead of using pointers.
+  std::vector<decltype(map.constructions)::iterator> ordering(
+    map.constructions.size());
+  std::iota(ordering.begin(), ordering.end(), map.constructions.begin());
+  std::shuffle(ordering.begin(), ordering.end(), LcUrbg::get());
+  for(auto cst : ordering) {
+    Construction *construction = *cst;
+    construction->trade();
+    construction->update();
+  }
 }
 
 void
@@ -330,23 +329,21 @@ World::sustainability_test(void) {
 
 bool
 World::sust_fire_cover(void) {
-  for(int i = 0; i < map.constructionCount.size(); i++) {
-    if(map.constructionCount[i]) {
-      if(map.constructionCount[i]->flags & FLAG_IS_TRANSPORT)
-        continue;
-      unsigned short grp = map.constructionCount[i]->constructionGroup->group;
-      if(grp == GROUP_MONUMENT
-        || grp == GROUP_OREMINE
-        || grp == GROUP_ROCKET
-        || grp == GROUP_FIRE
-        || grp == GROUP_POWER_LINE
-      )
-        continue;
-      int x = map.constructionCount[i]->x;
-      int y = map.constructionCount[i]->y;
-      if(!(map(x, y)->flags & FLAG_FIRE_COVER))
-        return false;
-    }
+  for(Construction *cst : map.constructions) {
+    if(cst->flags & FLAG_IS_TRANSPORT)
+      continue;
+    unsigned short grp = cst->constructionGroup->group;
+    if(grp == GROUP_MONUMENT
+      || grp == GROUP_OREMINE
+      || grp == GROUP_ROCKET
+      || grp == GROUP_FIRE
+      || grp == GROUP_POWER_LINE
+    )
+      continue;
+    int x = cst->x;
+    int y = cst->y;
+    if(!(map(x, y)->flags & FLAG_FIRE_COVER))
+      return false;
   }
   return true;
 }

@@ -5,8 +5,6 @@ add_library(lincity_lib  STATIC
 		all_buildings.h
 		commodities.cpp
 		commodities.hpp
-		ConstructionCount.cpp
-		ConstructionCount.h
 		ConstructionManager.cpp
 		ConstructionManager.h
 		ConstructionRequest.cpp
@@ -24,6 +22,8 @@ add_library(lincity_lib  STATIC
 		init_game.h
 		lc_locale.cpp
 		lc_locale.h
+		lc_random.cpp
+		lc_random.hpp
 		lclib.cpp
 		lclib.h
 		lctypes.h

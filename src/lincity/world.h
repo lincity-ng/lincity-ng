@@ -38,7 +38,6 @@
 
 #include "resources.hpp"  // for ExtraFrame, ResourceGroup (ptr only)
 #include "stats.h"
-#include "ConstructionCount.h"
 #include "events.hpp"
 #include "lctypes.h"
 #include "all_buildings.h"
@@ -162,7 +161,7 @@ public:
 
   int alt_min, alt_max, alt_step;
 
-  ConstructionCount constructionCount;
+  std::unordered_set<Construction *> constructions;
 
   MapPoint recentPoint;
 
