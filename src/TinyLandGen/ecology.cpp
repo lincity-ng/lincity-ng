@@ -23,117 +23,56 @@ void set_mappoint(int x, int y, int type)
 
 static void do_rand_ecology(int x, int y)
 {
+	if ((MP_FLAG(x, y) | FLAG_HAS_UNDERGROUND_WATER) == 0) return; /*true desert */
 	int r = lmap.ecotable[x][y];
-	if ((MP_FLAG(x, y) | FLAG_HAS_UNDERGROUND_WATER) == 0) {
-		/*true desert */
-		return;
-	}
 
 	if (r >= 300) {
 		/* very dry land */
 		int r2 = rand() % 10;
-		if (r2 <= 6)
-			set_mappoint(x, y, DESERT);
-		else if (r2 <= 8)
-			set_mappoint(x, y, GREEN);
-		else
-			set_mappoint(x, y, TREE);
+		set_mappoint(x, y, (r2 <= 6 ? DESERT : r2 <= 8 ? GREEN : TREE));
 	} else if (r >= 160) {
 		int r2 = rand() % 10;
-		if (r2 <= 2)
-			set_mappoint(x, y, DESERT);
-		else if (r2 <= 6)
-			set_mappoint(x, y, GREEN);
-		else
-			set_mappoint(x, y, TREE);
+		set_mappoint(x, y, (r2 <= 2 ? DESERT : r2 <= 6 ? GREEN : TREE));
 	} else if (r >= 80) {
 		int r2 = rand() % 10;
-		if (r2 <= 1)
-			set_mappoint(x, y, DESERT);
-		else if (r2 <= 4)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 6)
-			set_mappoint(x, y, TREE);
-		else
-			set_mappoint(x, y, TREE2);
+		set_mappoint(x, y, (r2 <= 1 ? DESERT : r2 <= 4 ? GREEN : r2 <= 6 ? TREE : TREE2));
 	} else if (r >= 40) {
 		int r2 = rand() % 40;
-		if (r2 == 0)
-			set_mappoint(x, y, DESERT);
-		else if (r2 <= 12)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 24)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 36)
-			set_mappoint(x, y, TREE2);
-		else
-			set_mappoint(x, y, TREE3);
+		set_mappoint(x, y, (r2 == 0 ? DESERT : r2 <= 12 ? GREEN : r2 <= 24 ? TREE : r2 <= 36 ? TREE2 : TREE3));
 	} else if (r >= 0) {
 		/* normal land */
 		int r2 = rand() % 40;
-		if (r2 <= 10)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 20)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 30)
-			set_mappoint(x, y, TREE2);
-		else
-			set_mappoint(x, y, TREE3);
+		set_mappoint(x, y, (r2 <= 10 ? GREEN : r2 <= 20 ? TREE : r2 <= 30 ? TREE2 : TREE3));
 	} else if (r >= -40) {
 		/* forest */
 		int r2 = rand() % 40;
-		if (r2 <= 5)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 10)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 25)
-			set_mappoint(x, y, TREE2);
-		else
-			set_mappoint(x, y, TREE3);
+		set_mappoint(x, y, (r2 <= 5 ? GREEN : r2 <= 10 ? TREE : r2 <= 25 ? TREE2 : TREE3));
 	} else if (r >= -80) {
 		int r2 = rand() % 40;
-		if (r2 <= 0)
+		if (r2 == 0)
 			MP_TYPE(x, y) = WATER;
-		else if (r2 <= 6)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 15)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 28)
-			set_mappoint(x, y, TREE2);
 		else
-			set_mappoint(x, y, TREE3);
+			set_mappoint(x, y, (r2 <= 6 ? GREEN : r2 <= 15 ? TREE : r2 <= 28 ? TREE2 : TREE3));
 	} else if (r >= -120) {
 		int r2 = rand() % 40;
 		if (r2 <= 1)
 			MP_TYPE(x, y) = WATER;
-		else if (r2 <= 6)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 16)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 30)
-			set_mappoint(x, y, TREE2);
 		else
-			set_mappoint(x, y, TREE3);
+			set_mappoint(x, y, (r2 <= 6 ? GREEN : r2 <= 16 ? TREE : r2 <= 30 ? TREE2 : TREE3));
 	} else {
 		/* wetland */
 		int r2 = rand() % 40;
 		if (r2 <= 3)
 			MP_TYPE(x, y) = WATER;
-		else if (r2 <= 8)
-			set_mappoint(x, y, GREEN);
-		else if (r2 <= 20)
-			set_mappoint(x, y, TREE);
-		else if (r2 <= 35)
-			set_mappoint(x, y, TREE2);
 		else
-			set_mappoint(x, y, TREE3);
+			set_mappoint(x, y, (r2 <= 8 ? GREEN : r2 <= 20 ? TREE : r2 <= 35 ? TREE2 : TREE3));
 	}
 }
 
 int dist_to_water( int x, int y)
 {
 	// Mahattan distance (d1) computed iteratively
-#define d2r(x, y) lmap.dist2w[x][y]
+	auto d2r = [](int x, int y) { return lmap.dist2w[x][y]; };
 	int d = INIT_DIST;
 	if (IS_RIVER(x,y))
 		return 0;
