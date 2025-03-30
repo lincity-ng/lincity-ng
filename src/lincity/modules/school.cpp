@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,7 +91,7 @@ void School::update() {
       world.tech_level += TECH_MADE_BY_SCHOOL;
       total_tech_made += TECH_MADE_BY_SCHOOL;
     }
-  } catch(OutOfMoneyException) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
 
   if(world.total_time % 100 == 0) {
     reset_prod_counters();
@@ -100,7 +100,7 @@ void School::update() {
   }
 }
 
-void School::animate() {
+void School::animate(unsigned long real_time) {
   if(real_time >= anim) {
     anim = real_time + SCHOOL_ANIMATION_SPEED;
     int& frame = frameIt->frame;
@@ -127,15 +127,12 @@ void School::animate() {
   }
 }
 
-void School::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (float)busy);
-    mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void School::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (float)busy);
+  mps.add_sfp(N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
 void School::init_resources() {
@@ -153,10 +150,10 @@ void School::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool School::loadMember(xmlpp::TextReader& xmlReader) {
+bool School::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

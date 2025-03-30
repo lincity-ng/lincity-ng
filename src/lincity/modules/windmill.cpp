@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,23 +63,28 @@ Windmill::Windmill(World& world, ConstructionGroup *cstgrp) :
 }
 
 void Windmill::update() {
-  try {
-    if(world.total_time % WINDMILL_RCOST == 0)
+  static bool paid = false;
+  if(world.total_time % WINDMILL_RCOST == 0)
+    paid = false;
+  if(!paid)
+    try {
       world.expense(1, world.stats.expenses.windmill);
-    int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
-    int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
+      paid = true;
+    } catch (OutOfMoneyMessage ex) { }
 
-    if(commodityCount[STUFF_LABOR] >= labor_used
-      && lovolt_made >= WINDMILL_LOVOLT
-    ) {
-      consumeStuff(STUFF_LABOR, labor_used);
-      produceStuff(STUFF_LOVOLT, lovolt_made);
-      animate_enable = true;
-      working_days += lovolt_made;
-    }
-    else
-    {   animate_enable = false;}
-  } catch(OutOfMoneyException ex) {
+  int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
+  int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
+
+  if(paid
+    && commodityCount[STUFF_LABOR] >= labor_used
+    && lovolt_made >= WINDMILL_LOVOLT
+  ) {
+    consumeStuff(STUFF_LABOR, labor_used);
+    produceStuff(STUFF_LOVOLT, lovolt_made);
+    animate_enable = true;
+    working_days += lovolt_made;
+  }
+  else {
     animate_enable = false;
   }
 
@@ -91,22 +96,19 @@ void Windmill::update() {
   }
 }
 
-void Windmill::animate() {
+void Windmill::animate(unsigned long real_time) {
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(ANTIQUE_WINDMILL_ANIM_SPEED);
     ++frameIt->frame %= 3;
   }
 }
 
-void Windmill::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), float(busy) / lovolt_output);
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), lovolt_output);
-    // i++;
-    list_commodities(&i);
+void Windmill::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), float(busy) / lovolt_output);
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  mps.add_sd(N_("Output"), lovolt_output);
+  list_commodities(mps, production);
 }
 
 void Windmill::place(int x, int y) {
@@ -123,11 +125,11 @@ void Windmill::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Windmill::loadMember(xmlpp::TextReader& xmlReader) {
+bool Windmill::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "kwh_output");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

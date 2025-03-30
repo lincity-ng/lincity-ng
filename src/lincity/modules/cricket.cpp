@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ void Cricket::update()
         ++covercount;
         ++working_days;
       }
-    } catch(OutOfMoneyException ex) {}
+    } catch(OutOfMoneyMessage::Exception& ex) { }
 
     if(world.total_time % DAYS_BETWEEN_COVER == 75)
       cover();
@@ -112,16 +112,16 @@ void Cricket::cover()
     int tmp;
     int lenm1 = world.map.len()-1;
 
-    int xs = std::max(x - constructionGroup->range, 1);
-    int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
-    int ys = std::max(y - constructionGroup->range, 1);
-    int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
+    int xs = std::max(point.x - constructionGroup->range, 1);
+    int xe = std::min(point.x + constructionGroup->range, world.map.len() - 1);
+    int ys = std::max(point.y - constructionGroup->range, 1);
+    int ye = std::min(point.y + constructionGroup->range, world.map.len() - 1);
     for(int yy = ys; yy < ye; ++yy)
       for(int xx = xs; xx < xe; ++xx)
-        world.map(xx,yy)->flags |= FLAG_CRICKET_COVER_CHECK;
+        world.map(MapPoint(xx,yy))->flags |= FLAG_CRICKET_COVER_CHECK;
 }
 
-void Cricket::animate() {
+void Cricket::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(CRICKET_ANIMATION_SPEED);
@@ -133,17 +133,11 @@ void Cricket::animate() {
   }
 }
 
-void Cricket::report()
-{
-    int i = 0;
-    const char* p;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    // i++;
-    list_commodities(&i);
-    p = active?N_("Yes"):N_("No");
-    mps_store_ss(i++, N_("Public sports"), p);
+void Cricket::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  list_commodities(mps, production);
+  mps.add_ss(N_("Public sports"), active ? N_("Yes") : N_("No"));
 }
 
 void Cricket::save(xmlTextWriterPtr xmlWriter) const {
@@ -153,12 +147,13 @@ void Cricket::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Cricket::loadMember(xmlpp::TextReader& xmlReader) {
+bool
+Cricket::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "active") active = std::stoi(xmlReader.read_inner_xml());
   else if(name == "daycount") daycount = std::stoi(xmlReader.read_inner_xml());
   else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

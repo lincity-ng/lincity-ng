@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include "university.h"
 
 #include "modules.h"
+#include "school.h"
 
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
@@ -43,6 +44,17 @@ UniversityConstructionGroup universityConstructionGroup(
 
 Construction *UniversityConstructionGroup::createConstruction(World& world) {
   return new University(world, this);
+}
+
+bool
+UniversityConstructionGroup::can_build(const World& world, Message::ptr& message
+) const {
+  if(schoolConstructionGroup.count/4 - universityConstructionGroup.count < 1) {
+    message = NotEnoughStudentsMessage::create();
+    return false;
+  }
+
+  return ConstructionGroup::can_build(world, message);
 }
 
 University::University(World& world, ConstructionGroup *cstgrp) :
@@ -74,7 +86,7 @@ void University::update() {
       world.tech_level += UNIVERSITY_TECH_MADE;
       total_tech_made += UNIVERSITY_TECH_MADE;
     }
-  } catch(OutOfMoneyException ex) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
 
   //monthly update
   if(world.total_time % 100 == 99) {
@@ -84,15 +96,12 @@ void University::update() {
   }
 }
 
-void University::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void University::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sfp(N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
 void University::save(xmlTextWriterPtr xmlWriter) const {
@@ -100,10 +109,10 @@ void University::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool University::loadMember(xmlpp::TextReader& xmlReader) {
+bool University::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

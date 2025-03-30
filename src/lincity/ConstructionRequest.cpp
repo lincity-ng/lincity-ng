@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +21,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- *
 
 #include "ConstructionRequest.h"
 
@@ -44,130 +46,124 @@ void ConstructionDeletionRequest::execute()
 {
     //std::cout << "deleting: " << subject->constructionGroup->name
     //<< " (" << subject->x << "," << subject->y << ")" << std::endl;
+    World& world = subject->world;
     unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
     subject->detach();
-    delete subject;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
         {
             //update mps display
-            subject->world.map(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            if (mps_x == x + j && mps_y == y + i)
-            {   mps_set(x + j, y + i, MPS_MAP);}
+            world.map(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            world.setUpdated(World::Updatable::MAP);
         }
     }
     // update adjacencies
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+    world.map.connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    world.map.desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void OreMineDeletionRequest::execute()
 {
+    World& world = subject->world;
     int size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
     subject->detach();
-    delete subject;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
         {
-            subject->world.map(x + j, y + i)->flags &=
+            world.map(x + j, y + i)->flags &=
               ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            if (subject->world.map(x+j,y+i)->ore_reserve < ORE_RESERVE / 2) {
-                subject->world.map(x+j,y+i)->setTerrain(GROUP_WATER);
-                subject->world.map(x+j,y+i)->flags |=
+            if (world.map(x+j,y+i)->ore_reserve < ORE_RESERVE / 2) {
+                world.map(x+j,y+i)->setTerrain(GROUP_WATER);
+                world.map(x+j,y+i)->flags |=
                   FLAG_HAS_UNDERGROUND_WATER;
-                connect_rivers(x+j,y+i);
+                world.map.connect_rivers(x+j,y+i);
             }
             //update mps display
-            if (mps_x == x + j && mps_y == y + i)
-            {   mps_set(x + j, y + i, MPS_MAP);}
+            world.setUpdated(World::Updatable::MAP);
         }
     }
 
     // update adjacencies
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+    world.map.connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    world.map.desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void CommuneDeletionRequest::execute()
 {
-    unsigned short size = subject->constructionGroup->size;
-    int x = subject->x;
-    int y = subject->y;
-    subject->detach();
-    delete subject;
-    for (unsigned short i = 0; i < size; ++i)
-    {
-        for (unsigned short j = 0; j < size; ++j)
-        {
-            subject->world.map(x + j, y + i)->flags &=
-              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            if(subject->world.map(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-              parklandConstructionGroup.placeItem(subject->world, x+j, y+i);
-            //update mps display
-            if (mps_x == x + j && mps_y == y + i)
-            {   mps_set(x + j, y + i, MPS_MAP);}
-        }
-    }
-    // update adjacencies
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
-}
-
-void BurnDownRequest::execute()
-{
-    unsigned short size = subject->constructionGroup->size;
     World& world = subject->world;
+    unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
     subject->detach();
-    delete subject;
     for (unsigned short i = 0; i < size; ++i)
     {
         for (unsigned short j = 0; j < size; ++j)
         {
             world.map(x + j, y + i)->flags &=
               ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            fireConstructionGroup.placeItem(subject->world, x+j, y+i);
-            static_cast<Fire*>(subject->world.map(x+j,y+i)->construction)
-              ->burning_days = FIRE_LENGTH - 25;
+            if(world.map(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+              parklandConstructionGroup.placeItem(world, x+j, y+i);
             //update mps display
-            if (mps_x == x + j && mps_y == y + i)
-            {   mps_set(x + j, y + i, MPS_MAP);}
+            world.setUpdated(World::Updatable::MAP);
         }
     }
     // update adjacencies
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+    world.map.connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    world.map.desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
-void SetOnFire::execute()
+void BurnDownRequest::execute()
 {
+    World& world = subject->world;
     unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
     subject->detach();
-    delete subject;
     for (unsigned short i = 0; i < size; ++i)
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            subject->world.map(x + j, y + i)->flags &=
+            world.map(x + j, y + i)->flags &=
               ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-            fireConstructionGroup.placeItem(subject->world, x+j, y+i);
+            fireConstructionGroup.placeItem(world, x+j, y+i);
+            static_cast<Fire*>(world.map(x+j,y+i)->construction)
+              ->burning_days = FIRE_LENGTH - 25;
             //update mps display
-            if (mps_x == x + j && mps_y == y + i)
-            {   mps_set(x + j, y + i, MPS_MAP);}
+            world.setUpdated(World::Updatable::MAP);
         }
     }
     // update adjacencies
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+    world.map.connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    world.map.desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+}
+
+void SetOnFire::execute()
+{
+    World& world = subject->world;
+    unsigned short size = subject->constructionGroup->size;
+    int x = subject->x;
+    int y = subject->y;
+    subject->detach();
+    for (unsigned short i = 0; i < size; ++i)
+    {
+        for (unsigned short j = 0; j < size; ++j)
+        {
+            world.map(x + j, y + i)->flags &=
+              ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            fireConstructionGroup.placeItem(world, x+j, y+i);
+            //update mps display
+            world.setUpdated(World::Updatable::MAP);
+        }
+    }
+    // update adjacencies
+    world.map.connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    world.map.desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void PowerLineFlashRequest::execute()

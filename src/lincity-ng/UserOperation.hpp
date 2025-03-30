@@ -1,10 +1,11 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/UserOperation.h
+ * src/lincity-ng/UserOperation.hpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,33 +26,38 @@
 #define USER_OPERATION_H__
 
 #include <string>  // for string, basic_string
+#include "lincity/messages.hpp"
 
 class ConstructionGroup;
+class World;
+class MapPoint;
+class Game;
 
 class UserOperation {
 public:
-    UserOperation();
-    ~UserOperation();
-    ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
-    std::string helpName;
+  UserOperation();
+  ~UserOperation();
+  ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
 
-    enum Action //What User wants to do
-    {
-        ACTION_QUERY,
-        ACTION_EVACUATE,
-        ACTION_BULLDOZE,
-        ACTION_FLOOD,
-        ACTION_BUILD,
-        ACTION_UNKNOWN
-    };
+  enum Action {
+    ACTION_QUERY,
+    ACTION_EVACUATE,
+    ACTION_BULLDOZE,
+    ACTION_FLOOD,
+    ACTION_BUILD,
+    ACTION_UNKNOWN
+  };
 
-    Action action;
-    bool is_allowed_here(int x, int y, bool warning);
-    bool enoughTech();// tells if scaled tech_level is sufficient
-    float requiredTech(); // returns scaled tech_level for tooltipp info
-    unsigned short cursorSize(); //tells size of affectet aerea
-    std::string createTooltip( bool root = true );
+  Action action;
+  bool isAllowedHere(World& world, MapPoint point, Message::ptr& message);
+  bool isAllowed(World& world, Message::ptr& message);
+  bool execute(Game& game, MapPoint point);
+  unsigned short cursorSize();
+
 private:
+  void do_execute(Game& game, MapPoint point);
+  void handleMessage(Message::ptr message);
+  bool dialogShown;
 };
 
 

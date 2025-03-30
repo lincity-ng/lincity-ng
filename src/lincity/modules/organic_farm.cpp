@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,12 +77,10 @@ void Organic_farm::update()
     max_foodprod = 0;
     /* check labor */
     used_labor = (FARM_LABOR_USED<commodityCount[STUFF_LABOR]?FARM_LABOR_USED:commodityCount[STUFF_LABOR]);
-    flags &= ~(FLAG_POWERED);
     /* check for power */
     if (commodityCount[STUFF_LOVOLT] >= ORG_FARM_POWER_REC)
     {
         used_power = ORG_FARM_POWER_REC;
-        flags |= FLAG_POWERED;
         if (commodityCount[STUFF_WASTE] >= 3 * ORG_FARM_WASTE_GET)
         {   consumeStuff(STUFF_WASTE, ORG_FARM_WASTE_GET);}
         used_water = commodityCount[STUFF_WATER] / WATER_FARM;
@@ -127,7 +125,7 @@ void Organic_farm::update()
     }
 }
 
-void Organic_farm::animate() {
+void Organic_farm::animate(unsigned long real_time) {
   int i = (world.total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
   //Every three month
   if (i % 300 == 0) {
@@ -144,18 +142,14 @@ void Organic_farm::animate() {
   }
 }
 
-void Organic_farm::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
-    mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, N_("busy"), (float)food_last_month / 100.0);
-    mps_store_sd(i++, N_("Output"), max_foodprod);
-    // i++;
-    list_commodities(&i);
+void Organic_farm::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sddp(N_("Fertility"), ugwCount, 16);
+  mps.add_sfp(N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
+  mps.add_sfp(N_("busy"), (float)food_last_month / 100.0);
+  mps.add_sd(N_("Output"), max_foodprod);
+  list_commodities(mps, production);
 }
 
 void Organic_farm::place(int x, int y) {
@@ -180,11 +174,11 @@ void Organic_farm::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {
+bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   if(tag == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(tag == "tech_bonus");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

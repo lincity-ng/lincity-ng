@@ -1,21 +1,24 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/Dialog.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "Dialog.hpp"
 
@@ -37,7 +40,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Config.hpp"                      // for getConfig, Config
 #include "GameView.hpp"                    // for getGameView, GameView
-#include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
 #include "MapPoint.hpp"                    // for MapPoint
 #include "Util.hpp"                        // for getCheckButton, getButton
 #include "gui/Button.hpp"                  // for Button
@@ -60,6 +62,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"   // for Market, ResidenceConstruct...
 #include "lincity/world.h"                 // for MapTile, Map
 #include "tinygettext/gettext.hpp"         // for _
+#include "Game.hpp"
 
 using namespace std::placeholders;
 
@@ -75,7 +78,7 @@ void closeAllDialogs(){
     }
 }
 
-Dialog::Dialog( int type ){
+Dialog::Dialog(Game& game, int type) : game(game) {
     initDialog();
     switch( type ){
         case ASK_COAL_SURVEY:
@@ -91,31 +94,9 @@ Dialog::Dialog( int type ){
     }
 }
 
-Dialog::Dialog( int type, std::string message, std::string extraString){
-    initDialog();
-    switch( type ){
-        case MSG_DIALOG:
-            msgDialog( message, extraString );
-            break;
-        default:
-            std::stringstream msg;
-            msg <<"Can't open Dialog type " << type << " with String parameters.";
-            throw std::runtime_error(msg.str());
-    }
-}
-
-Dialog::Dialog( int type, int x, int y ){
+Dialog::Dialog(Game& game, int type, int x, int y) : game(game) {
     initDialog( x, y );
     switch( type ) {
-        case BULLDOZE_MONUMENT:
-            askBulldozeMonument();
-            break;
-        case BULLDOZE_RIVER:
-            askBulldozeRiver();
-            break;
-        case BULLDOZE_SHANTY:
-            askBulldozeShanty();
-            break;
         case EDIT_MARKET:
             editMarket();
             break;
@@ -133,22 +114,14 @@ Dialog::Dialog( int type, int x, int y ){
 }
 
 void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
-    Component* root = getGameView();
     windowManager = 0;
     myDialogComponent = 0;
     pointX = x;
     pointY = y;
     iAmBlocking = false;
-    if( root ) {
-        while( root->getParent() )
-            root = root->getParent();
-        windowManager = dynamic_cast<WindowManager*>(
-          root->findComponent("windowManager"));
-        if(!windowManager)
-            std::cerr << "Root not a window manager!?!\n";
-    } else {
-        std::cerr << "Dialog: Root not found.\n";
-    }
+    windowManager = dynamic_cast<WindowManager*>(
+      game.getGui().findComponent("windowManager"));
+    assert(windowManager);
 }
 
 Dialog::~Dialog(){
@@ -203,112 +176,6 @@ void Dialog::askRocket(){
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
     gotoButton->clicked.connect(
       std::bind(&Dialog::gotoButtonClicked, this, _1));
-}
-
-//no Signals caught here, so ScreenInterface has to catch them.
-void Dialog::msgDialog( std::string message, std::string extraString){
-    if( !windowManager ) {
-        std::cerr << "No window manager found.\n";
-        return;
-    }
-    //generate filename. foo.mes => gui/dialogs/foo.xml
-    std::string filename = "gui/dialogs/";
-    filename += message;
-    std::string::size_type pos = filename.rfind( ".mes" );
-    if( pos != std::string::npos ){
-        filename.replace( pos, 4 ,".xml");
-    }
-    std::unique_ptr<Window> myDialogComponent (dynamic_cast<Window *>(
-      loadGUIFile( filename )));
-
-    //set Extra-String
-    getParagraph( *myDialogComponent, "ExtraText" )->setText( extraString );
-
-    // connect signals
-    Button* noButton = getButton( *myDialogComponent, "Ok" );
-    noButton->clicked.connect(
-      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
-
-    this->myDialogComponent = myDialogComponent.release();
-    registerDialog();
-}
-
-void Dialog::askBulldozeMonument() {
-    if( !windowManager ) {
-        std::cerr << "No window manager found.\n";
-        return;
-    }
-    try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/bulldoze_monument_yn.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
-        blockingDialogIsOpen = true;
-        iAmBlocking = true;
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message 'bulldoze_monument_yn': "
-            << e.what() << "\n";
-        return;
-    }
-    // connect signals
-    Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect(
-      std::bind(&Dialog::okayBulldozeMonumentButtonClicked, this, _1));
-    Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect(
-      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
-}
-
-void Dialog::askBulldozeRiver() {
-    if( !windowManager ) {
-        std::cerr << "No window manager found.\n";
-        return;
-    }
-    try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/bulldoze_river_yn.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
-        blockingDialogIsOpen = true;
-        iAmBlocking = true;
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message 'bulldoze_river_yn.xml': "
-            << e.what() << "\n";
-        return;
-    }
-    // connect signals
-    Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect(
-      std::bind(&Dialog::okayBulldozeRiverButtonClicked, this, _1));
-    Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect(
-      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
-}
-
-void Dialog::askBulldozeShanty() {
-    if( !windowManager ) {
-        std::cerr << "No window manager found.\n";
-        return;
-    }
-    try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/bulldoze_shanty_yn.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
-        blockingDialogIsOpen = true;
-        iAmBlocking = true;
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message 'bulldoze_shanty_yn': "
-            << e.what() << "\n";
-        return;
-    }
-    // connect signals
-    Button* yesButton = getButton( *myDialogComponent, "Yes" );
-    yesButton->clicked.connect(
-      std::bind(&Dialog::okayBulldozeShantyButtonClicked, this, _1));
-    Button* noButton = getButton( *myDialogComponent, "No" );
-    noButton->clicked.connect(
-      std::bind(&Dialog::closeDialogButtonClicked, this, _1));
 }
 
 void Dialog::coalSurvey(){
@@ -402,49 +269,50 @@ void Dialog::gameStats(){
     }
 
     // Fill in Fields.
+    World& world = game.getWorld();
     int line = 1;
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
-    if (cheat_flag){
-        setParagraphN( "statistic_text", line++, _("----- IN TEST MODE -------") );
-    }
     snprintf (outf, maxlength,"%s %s", _("Game statistics from LinCity-NG Version"), PACKAGE_VERSION);
     setParagraphN( "statistic_text", line++, outf );
-    if (strlen (given_scene) > 3){
-        snprintf (outf, maxlength,"%s - %s", _("Initial loaded scene"), given_scene);
+    if(world.given_scene.length() > 3) {
+        snprintf (outf, maxlength,"%s - %s", _("Initial loaded scene"), world.given_scene);
         setParagraphN( "statistic_text", line++, outf );
     }
-    if (sustain_flag){
+    if(world.stats.sustainability.sustainable) {
         snprintf (outf, maxlength, "%s", _("Economy is sustainable"));
         setParagraphN( "statistic_text", line++, outf );
     }
     snprintf (outf, maxlength, "%s %d %s %d %s.",
-        _("Population"), population + people_pool, _("of which"),  people_pool, _("are not housed"));
+        _("Population"), world.stats.population.population_m,
+        _("of which"),  world.people_pool, _("are not housed"));
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, "%s %d %s %d %s %d",
-        _("Max population"), max_pop_ever,  _("Number evacuated"), total_evacuated, _("Total births"), total_births);
+    snprintf(outf, maxlength, "%s %d %s %d %s %d",
+      _("Max population"), world.stats.population.max_pop_ever,
+      _("Number evacuated"), world.stats.population.evacuated_t,
+      _("Total births"), world.stats.population.births_t);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %s %04d %s %8d %s %5.1f (%5.1f)",
-        _("Date"),  current_month(total_time), current_year(total_time),
-        _("Money"), total_money, _("Tech-level"),
-        (float) tech_level * 100.0 / MAX_TECH_LEVEL,
-        (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
+        _("Date"),  current_month(world.total_time), current_year(world.total_time),
+        _("Money"), world.total_money,
+        _("Tech-level"), (float) world.tech_level * 100.0 / MAX_TECH_LEVEL,
+        (float) world.stats.highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %7d %s %8.3f",
-        _("Deaths by starvation"), total_starve_deaths,
-        _("History"), starve_deaths_history);
+        _("Deaths by starvation"), world.stats.population.starve_deaths_t,
+        _("History"), world.stats.population.starve_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %7d   %s %8.3f",
-        _("Deaths from pollution"), total_pollution_deaths,
-        _("History"), pollution_deaths_history);
+        _("Deaths from pollution"), world.stats.population.pollution_deaths_t,
+        _("History"), world.stats.population.pollution_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %7d   %s %8.3f",
-        _("Years of unemployment"), total_unemployed_days / NUMOF_DAYS_IN_YEAR,
-        _("History"), unemployed_history);
+        _("Years of unemployment"), world.stats.population.unemployed_days_t / NUMOF_DAYS_IN_YEAR,
+        _("History"), world.stats.population.unemployed_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, "%s %2d  %s %2d",
-        _("Rockets launched"), rockets_launched,
-        _("Successful launches"), rockets_launched_success);
+        _("Rockets launched"), world.rockets_launched,
+        _("Successful launches"), world.rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
 
     while( line <= 11 ){ //clear remaining lines
@@ -542,52 +410,50 @@ void Dialog::saveGameStats(){
     std::ofstream results(getConfig()->userDataDir / RESULTS_FILENAME);
 
     // Fill in Fields.
+    World& world = game.getWorld();
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
     //int group_count[NUM_OF_GROUPS];
     //count_all_groups (group_count);
-    if (cheat_flag){
-        results << "----- IN TEST MODE -------"  << std::endl;
-    }
     snprintf (outf, maxlength, "Game statistics from LinCity-NG Version %s", PACKAGE_VERSION);
     results << outf << std::endl;
-    if (strlen (given_scene) > 3){
+    if (world.given_scene.length() > 3){
         #pragma GCC diagnostic push
         #pragma GCC diagnostic ignored "-Wformat-truncation"
-        snprintf (outf, maxlength, "Initial loaded scene - %s", given_scene);
+        snprintf (outf, maxlength, "Initial loaded scene - %s", world.given_scene.c_str());
         #pragma GCC diagnostic pop
         results << outf << std::endl;
     }
-    if (sustain_flag){
+    if(world.stats.sustainability.sustainable){
         snprintf (outf, maxlength, "%s", "Economy is sustainable");
         results << outf << std::endl;
     }
     snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed."
-         ,population + people_pool, people_pool);
+         , world.stats.population.population_m, world.people_pool);
     results << outf << std::endl;
     snprintf (outf, maxlength,
          "Max population %d  Number evacuated %d Total births %d"
-         ,max_pop_ever, total_evacuated, total_births);
+         , world.stats.population.max_pop_ever, world.stats.population.evacuated_t, world.stats.population.births_t);
     results << outf << std::endl;
     snprintf (outf, maxlength,
          "Date %02d/%04d  Money %8d   Tech-level %5.1f (%5.1f)",
-         1 + ((total_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH), current_year(total_time), total_money,
-         (float) tech_level * 100.0 / MAX_TECH_LEVEL,
-         (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
+         1 + ((world.total_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH), current_year(world.total_time), world.total_money,
+         (float) world.tech_level * 100.0 / MAX_TECH_LEVEL,
+         (float) world.stats.highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     results << outf << std::endl;
     snprintf (outf, maxlength,
          " Deaths by starvation %7d   History %8.3f",
-         total_starve_deaths, starve_deaths_history);
+         world.stats.population.starve_deaths_t, world.stats.population.starve_deaths_history);
     results << outf << std::endl;
     snprintf (outf, maxlength,
          "Deaths from pollution %7d   History %8.3f",
-         total_pollution_deaths, pollution_deaths_history);
+         world.stats.population.pollution_deaths_t, world.stats.population.pollution_deaths_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Years of unemployment %7d   History %8.3f",
-         total_unemployed_days / NUMOF_DAYS_IN_YEAR, unemployed_history);
+         world.stats.population.unemployed_days_t / NUMOF_DAYS_IN_YEAR, world.stats.population.unemployed_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Rockets launched %2d  Successful launches %2d",
-         rockets_launched, rockets_launched_success);
+         world.rockets_launched, world.rockets_launched_success);
     results << outf << std::endl;
     results << "" << std::endl;
 
@@ -681,7 +547,9 @@ void Dialog::editMarket(){
     std::stringstream title;
     title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
-    Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
+    Market *market = dynamic_cast<Market *>(
+      game.getWorld().map(pointX, pointY)->reportingConstruction);
+    assert(market);
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( market->commodityRuleCount[STUFF_LABOR].take ) cb->check(); else cb->uncheck();
@@ -743,7 +611,9 @@ void Dialog::editPort(){
     }
     // set Dialog to Port-Data
     //int port_flags = world(pointX, pointY)->reportingConstruction->flags;
-    Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
+    Port *port = dynamic_cast<Port *>(
+      game.getWorld().map(pointX, pointY)->reportingConstruction);
+    assert(port);
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
     title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
@@ -762,7 +632,7 @@ void Dialog::editPort(){
             << " SwitchComponent" << std::endl;
           continue;
         }
-        const CommodityRule &rule = portConstructionGroup.tradeRule[c];
+        const CommodityRule &rule = game.getWorld().tradeRule[c];
         sc->switchComponent((isGive ? rule.give : rule.take) ? "green" : "red");
         CheckButton *cb = dynamic_cast<CheckButton *>(sc->getActiveComponent());
         if(!cb) {
@@ -790,7 +660,8 @@ void Dialog::editPort(){
 
 void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
-    Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
+    Market * market = dynamic_cast<Market *>(
+      game.getWorld().map(pointX, pointY)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_LABOR].take = true;
@@ -887,14 +758,16 @@ void Dialog::applyMarketButtonClicked( Button* ){
     } else {
         market->commodityRuleCount[STUFF_WATER].give = false;
     }
-    mps_refresh();
+    game.getMpsMap().refresh();
     windowManager->removeWindow( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
 
 void Dialog::applyPortButtonClicked( Button* ){
-    Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
+    Port *port = dynamic_cast<Port *>(
+      game.getWorld().map(pointX, pointY)->reportingConstruction);
+    assert(port);
 
     for(Commodity c = STUFF_INIT; c != STUFF_COUNT; c++) {
       if(!port->commodityRuleCount[c].maxload) continue;
@@ -932,48 +805,25 @@ void Dialog::applyPortButtonClicked( Button* ){
     unRegisterDialog();
 }
 
-void Dialog::okayLaunchRocketButtonClicked( Button* )
-{
-    static_cast<RocketPad*> (world(pointX, pointY)->reportingConstruction)-> launch_rocket();
-    windowManager->removeWindow( myDialogComponent );
-    blockingDialogIsOpen = false;
-    unRegisterDialog();
+void Dialog::okayLaunchRocketButtonClicked(Button *) {
+  dynamic_cast<RocketPad*>(
+    game.getWorld().map(pointX, pointY)->reportingConstruction
+  )->launch_rocket();
+  windowManager->removeWindow(myDialogComponent);
+  blockingDialogIsOpen = false;
+  unRegisterDialog();
 }
 
 
 void Dialog::okayCoalSurveyButtonClicked( Button* ){
-    do_coal_survey();
+    game.getWorld().do_coal_survey();
     windowManager->removeWindow( myDialogComponent );
-    blockingDialogIsOpen = false;
-    unRegisterDialog();
-}
-
-void Dialog::okayBulldozeRiverButtonClicked( Button* ){
-    river_bul_flag = 1;
-    windowManager->removeWindow( myDialogComponent );
-    check_bulldoze_area( pointX, pointY );
-    blockingDialogIsOpen = false;
-    unRegisterDialog();
-}
-
-void Dialog::okayBulldozeShantyButtonClicked( Button* ){
-    shanty_bul_flag = 1;
-    windowManager->removeWindow( myDialogComponent );
-    check_bulldoze_area( pointX, pointY );
-    blockingDialogIsOpen = false;
-    unRegisterDialog();
-}
-
-void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
-    monument_bul_flag = 1;
-    windowManager->removeWindow( myDialogComponent );
-    check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
 
 void Dialog::gotoButtonClicked( Button* ){
-    getGameView()->show( MapPoint( pointX, pointY ) );
+  game.getGameView().show( MapPoint( pointX, pointY ) );
 }
 
 void Dialog::closeDialogButtonClicked( Button* ){

@@ -41,14 +41,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using namespace std::placeholders;
 
-HelpWindow::HelpWindow(Desktop* desktop)
-{
-    this->windowManager = dynamic_cast<WindowManager *>(
-      desktop->findComponent("windowManager"));
+HelpWindow::HelpWindow(WindowManager* wm) : windowManager(wm) {
+  assert(wm);
 }
 
-HelpWindow::~HelpWindow()
-{}
+HelpWindow::~HelpWindow() { }
 
 void
 HelpWindow::update()

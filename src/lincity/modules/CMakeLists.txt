@@ -63,8 +63,6 @@ add_library(lincity_lib_modules  STATIC
 		track_road_rail.h
 		university.cpp
 		university.h
-		water.cpp
-		water.h
 		waterwell.cpp
 		waterwell.h
 		windmill.cpp

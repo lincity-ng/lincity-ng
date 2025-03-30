@@ -1,21 +1,24 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/main.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "main.hpp"
 
@@ -157,52 +160,20 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
-void mainLoop()
-{
-    std::unique_ptr<MainMenu> menu;
-    std::unique_ptr<Game> game;
-    MainState state = MAINMENU;
-    MainState nextstate;
-
-    while(state != QUIT)
-    {
-        switch(state)
-        {
-            case MAINMENU:
-                {
-                    if(menu.get() == 0)
-                    {   menu.reset(new MainMenu(window));}
-                    nextstate = menu->run();
-                }
-                break;
-            case INGAME:
-                {
-                    if(game.get() == 0)
-                    {
-                        game.reset(new Game(window));
-
-                        while(!LCPBarPage1 || !LCPBarPage2)
-                        {//wait until PBars exist so they can be initalized
-                            printf(".");
-                            SDL_Delay(100);
-                        }
-                    }
-                    nextstate = game->run();
-                    if(menu.get() == 0)
-                    {    menu.reset(new MainMenu(window));}
-                    menu->gotoMainMenu();
-
-                }
-                break;
-            case RESTART:
-                restart = true;
-                nextstate = QUIT;
-                break;
-            default:
-                assert(false);
-        }
-        state = nextstate;
-    }
+void mainLoop() {
+  MainState state = MainMenu(window).run();
+  switch(state) {
+  case QUIT:
+    restart = false;
+    break;
+  case RESTART:
+    restart = true;
+    break;
+  case MAINMENU:
+  case INGAME:
+  default:
+    assert(false);
+  }
 }
 
 int main(int argc, char** argv)

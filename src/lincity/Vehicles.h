@@ -76,7 +76,7 @@ public:
     int map_idx;    //index of the maptile with the frame, NOT necessarily the current position
 
     int speed0, speed, anim;
-    void update();
+    void update(unsigned long real_time);
 
 
     static std::list<Vehicle*> vehicleList;
@@ -86,7 +86,7 @@ private:
     void getNewHeadings(); //plan ahead for 2 tiles
     bool acceptable_heading(int idx); //checks if a move would comply with the strategy
     void drive();          //advance position by 1 tile
-    void walk();           //change the offset of the sprite and evetually choose a tile to attach it to
+    void walk(unsigned long real_time);           //change the offset of the sprite and evetually choose a tile to attach it to
     void move_frame(int idx); //place the frame on the map aka *world(idx)
 
 

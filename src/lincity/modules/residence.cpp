@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -224,13 +224,11 @@ void Residence::update()
     if (commodityCount[STUFF_LOVOLT] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
         consumeStuff(STUFF_LOVOLT, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
-        flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
     }
     else
     {
-        flags &= ~(FLAG_POWERED);
         bad += 15;
         if ((flags & FLAG_HAD_POWER))
         {   bad += 50;}
@@ -385,18 +383,14 @@ void Residence::update()
     }
 }
 
-void Residence::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
-    mps_store_sd(i++, N_("Desireability"), desireability);
-    mps_store_sf(i++, N_("Births p.a."), (float)1200/births);
-    mps_store_sf(i++, N_("Death p.a."), (float)1200/deaths);
-    mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
-    // i++;
-    list_commodities(&i);
+void Residence::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sddp(N_("Tenants"), local_population, max_population);
+  mps.add_sd(N_("Desireability"), desireability);
+  mps.add_sf(N_("Births p.a."), (float)1200/births);
+  mps.add_sf(N_("Death p.a."), (float)1200/deaths);
+  mps.add_sfp(N_("Unnat. mortality"), (float)pol_deaths);
+  list_commodities(mps, production);
 }
 
 void Residence::save(xmlTextWriterPtr xmlWriter) const {
@@ -404,10 +398,10 @@ void Residence::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Residence::loadMember(xmlpp::TextReader& xmlReader) {
+bool Residence::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "local_population") local_population = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

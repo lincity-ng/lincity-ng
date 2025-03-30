@@ -31,8 +31,6 @@
 #include <numeric>
 #include <algorithm>
 
-#include "../lincity-ng/GameView.hpp"      // for getGameView, GameView
-#include "ConstructionManager.h"           // for ConstructionManager
 #include "Vehicles.h"                      // for Vehicle
 #include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
 #include "commodities.hpp"                 // for CommodityRule, Commodity
@@ -54,7 +52,6 @@
 extern void print_total_money(void);
 void setSimulationDelay( int speed );
 extern void ok_dial_box(const char *, int, const char *);
-extern GameView* GetGameView(void);
 
 /* AL1: they are all in engine.cpp */
 extern void do_daily_ecology(void);
@@ -79,10 +76,6 @@ World::do_time_step(void) {
     if(total_time % NUMOF_DAYS_IN_YEAR == 0)
       stats.yearly();
 
-    /* execute yesterdays requests OR treat loadgame requests*/
-    // TODO: use a separate manager for each World
-    ConstructionManager::executePendingRequests();
-
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
 
@@ -91,19 +84,17 @@ World::do_time_step(void) {
 }
 
 void
-World::do_animate() {
+World::do_animate(unsigned long real_time) {
   Construction *construction;
   for(Construction *cst : map.constructions) {
-    cst->animate();
+    if(cst->isDead()) continue;
+    cst->animate(real_time);
   }
   for(std::list<Vehicle*>::iterator it = vehicleList.begin();
     it != vehicleList.end();
-    std::advance(it,1)
   ) {
-    (*it)->update();
+    (*(it++))->update(real_time);
   }
-
-  getGameView()->setDirty();
 }
 
 /* ---------------------------------------------------------------------- *
@@ -145,12 +136,6 @@ World::end_of_month_update(void) {
   //update queque of polluted tiles
   scan_pollution();
 
-  //fetch remaining textures in order loader thread can exit
-  // TODO: move this to NG
-  if(getGameView()->textures_ready && getGameView()->remaining_images)
-    getGameView()->fetchTextures();
-
-
   if(people_pool > 100) {
     if(rand() % 1000 < people_pool)
       people_pool -= 10;
@@ -182,20 +167,29 @@ World::end_of_month_update(void) {
   try {
     expense(stats.population.unnat_deaths_m.acc * UNNAT_DEATHS_COST,
       stats.expenses.deaths);
-  } catch(OutOfMoneyException ex) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO
+  }
 
   try {
     expense(stats.population.unemployed_m.acc * money_rates.dole / 100,
       stats.expenses.unemployment);
-  } catch(OutOfMoneyException ex) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO
+  }
 
   for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
     cst->report_commodities();
   }
 
   stats.total_money = total_money;
 
-  update_pbars_monthly();
+  static bool noPeople = false;
+  if(stats.population.population_m.acc == 0 && !noPeople) {
+    pushMessage(NoPeopleLeftMessage::create(total_time));
+    noPeople = true;
+  }
 }
 
 void
@@ -236,14 +230,16 @@ World::end_of_year_update(void) {
     if(total_money < 0)
       expense(std::min((-total_money / 1000) * INTEREST_RATE, 1000000),
         stats.expenses.interest);
-  } catch(OutOfMoneyException ex) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO
+  }
 
   if(total_money > 2000000000)
     total_money = 2000000000;
   else if(total_money < -2000000000)
     total_money = -2000000000;
 
-  addEvent(new UpdateEvent(*this, UpdateEvent::Type::MONEY));
+  setUpdated(Updatable::MONEY);
 
   // change import/export ability
   for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
@@ -263,10 +259,16 @@ World::simulate_mappoints(void) {
     map.constructions.size());
   std::iota(ordering.begin(), ordering.end(), map.constructions.begin());
   std::shuffle(ordering.begin(), ordering.end(), LcUrbg::get());
-  for(auto cst : ordering) {
-    Construction *construction = *cst;
-    construction->trade();
-    construction->update();
+  for(auto cstIt : ordering) {
+    Construction *cst = *cstIt;
+    if(cst->isDead()) {
+      // TODO: Consider move pruning to its own function.
+      map.constructions.erase(cstIt);
+      delete cst;
+      continue;
+    }
+    cst->trade();
+    cst->update();
   }
 }
 
@@ -325,11 +327,25 @@ World::sustainability_test(void) {
     else
       stats.sustainability.fire_years = 0;
   }
+
+  if(stats.sustainability.mining_years >= SUST_ORE_COAL_YEARS_NEEDED
+    && stats.sustainability.trade_years >= SUST_PORT_YEARS_NEEDED
+    && stats.sustainability.money_years >= SUST_MONEY_YEARS_NEEDED
+    && stats.sustainability.population_years >= SUST_POP_YEARS_NEEDED
+    && stats.sustainability.tech_years >= SUST_TECH_YEARS_NEEDED
+    && stats.sustainability.fire_years >= SUST_FIRE_YEARS_NEEDED
+  ) {
+    if(!stats.sustainability.sustainable) {
+      pushMessage(SustainableEconomyMessage::create(total_time));
+    }
+    stats.sustainability.sustainable = true;
+  }
 }
 
 bool
 World::sust_fire_cover(void) {
   for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
     if(cst->flags & FLAG_IS_TRANSPORT)
       continue;
     unsigned short grp = cst->constructionGroup->group;
@@ -340,9 +356,7 @@ World::sust_fire_cover(void) {
       || grp == GROUP_POWER_LINE
     )
       continue;
-    int x = cst->x;
-    int y = cst->y;
-    if(!(map(x, y)->flags & FLAG_FIRE_COVER))
+    if(!(map(cst->point)->flags & FLAG_FIRE_COVER))
       return false;
   }
   return true;

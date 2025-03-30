@@ -48,7 +48,7 @@
 #define PHOUSE  14
 #define PBAR_DATA_SIZE 1
 
-template<typename T = unsigned int, T zero = 0>
+template<typename T = int, T zero = 0>
 class Stat {
 public:
 
@@ -106,7 +106,6 @@ public:
 
   struct {
     Stat<int> construction;
-    Stat<int> bulldoze;
     Stat<int> coalSurvey;
     Stat<int> import;
     Stat<int> unemployment;

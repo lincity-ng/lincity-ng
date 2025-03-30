@@ -1,20 +1,24 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/PBar.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "PBar.hpp"
 
@@ -36,24 +40,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Rect2D.hpp"                  // for Rect2D
 #include "gui/XmlReader.hpp"               // for XmlReader
 #include "gui_interface/pbar_interface.h"  // for PMONEY, PPOL, PPOP, PTECH
-
-//LCPBar* LCPBarInstance = 0;
-LCPBar* LCPBarPage1 = 0;
-LCPBar* LCPBarPage2 = 0;
-int pbarGlobalStyle = PBAR_GLOBAL_STYLES - 1;
-extern const char *commodityNames[];
+#include "Game.hpp"
+#include "lincity/lintypes.h"
 
 
-LCPBar::LCPBar()
-{
-    //LCPBarInstance = this;
-}
+LCPBar::LCPBar() { }
 
-LCPBar::~LCPBar()
-{
-/*    if(LCPBarInstance == this)
-        LCPBarInstance = 0;*/
-}
+LCPBar::~LCPBar() { }
 
 void
 LCPBar::parse(XmlReader& reader)
@@ -72,11 +65,15 @@ LCPBar::parse(XmlReader& reader)
     }
 
     if(getName() == "PBar")
-    {   LCPBarPage1 = this;}
+      bars = {Bar::POP, Bar::TECH, Bar::MONEY,
+        Bar::FOOD, Bar::LABOR, Bar::GOODS, Bar::COAL, Bar::ORE, Bar::STEEL};
     else if(getName() == "PBar2nd")
-    {   LCPBarPage2 = this;}
-     else
-     {  std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";}
+      bars = {Bar::POP, Bar::TECH, Bar::MONEY,
+        Bar::POL, Bar::LOVOLT, Bar::HIVOLT, Bar::WATER, Bar::WASTE, Bar::HOUSE};
+    else {
+      std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";
+      assert(false);
+    }
 
     Component* component = parseEmbeddedComponent(reader);
     addChild(component);
@@ -85,100 +82,169 @@ LCPBar::parse(XmlReader& reader)
     height = component->getHeight();
 }
 
-#define pbar_adjust_tech(diff) diff > 0 ? diff / 40 + 1 : -((-diff+1)/ 20)
-#define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
-
 void
-LCPBar::setValue(int num, int value, int diff)
-{
-    if ((num > 8) && (pbarGlobalStyle == 0))
-    {   return;}
-    if ((pbarGlobalStyle == 1) && (num > 2) && (num < 9))
-    {   return;}
+LCPBar::refresh() {
+  Stats& stats = game->getWorld().stats;
+  for(int b = 0; b < bars.size(); b++) {
+    Bar bar = bars[b];
 
-    std::ostringstream os;
-    int line_number = num+1;
-    if ( (pbarGlobalStyle == 1) && (num>8))
-    {   line_number -= PBAR_PAGE_SHIFT;}
-
-    os << "pbar_text" << line_number;
-    Paragraph* p = getParagraph(*this, os.str());
-    os.str("");
-    //compname << "pbar_title" << line_number;
-    //Paragraph* pt = getParagraph(*this, compname.str());
-
-    if(num==PTECH)
-    {
-        os<<std::fixed;
-        os<<std::setprecision(1);
-        os<<value/10000.0;
-    }
-    else if(num==PMONEY || num==PPOP || num==PPOL)
-    {
-        char s[12];
-        num_to_ansi (s, sizeof(s), value);
-        os<<s;
-    }
-    else if ((num >= PFOOD) && (num <= PHOUSE)) // millis displayed as %
-    {
-        os<<std::fixed;
-        os<<std::setprecision(1);
-        os<<value/10.0<<"%";
-    }
-    else
-    {   os<<"default";}
-    if (p)
-    {   p->setText(os.str());}
-
-    float sv=0;
-    switch(num)
-    {
-      case PPOP:
-        sv = 2 * diff;
-        break;
-      case PTECH:
-        sv = (diff > 0) ? (diff / 40 + 1) : -((-diff)/ 20);
-    case PPOL:
-        sv = value<5000?100*diff/(1+value):value<25000?500*diff/value:5000*diff/value;
-        break;
-    case PMONEY:
-        sv = pbar_adjust_money(diff);
-        break;
+    int val, diff, cap;
+    switch(bar) {
+    case Bar::POP:
+      val = stats.history.pop.at(0) / NUMOF_DAYS_IN_MONTH;
+      diff = val - stats.history.pop.at(11) / NUMOF_DAYS_IN_MONTH;
+      cap = 0;
+      break;
+    case Bar::TECH:
+      val = stats.history.tech.at(0);
+      diff = val - stats.history.tech.at(11);
+      cap = 0;
+      break;
+    case Bar::MONEY:
+      val = stats.history.money.at(0);
+      diff = val - stats.history.money.at(11);
+      cap = 0;
+      break;
+    case Bar::FOOD:
+      val = stats.history.inventory[STUFF_FOOD].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_FOOD].at(1).amount;
+      cap = stats.history.inventory[STUFF_FOOD].at(0).capacity;
+      break;
+    case Bar::LABOR:
+      val = stats.history.inventory[STUFF_LABOR].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_LABOR].at(1).amount;
+      cap = stats.history.inventory[STUFF_LABOR].at(0).capacity;
+      break;
+    case Bar::GOODS:
+      val = stats.history.inventory[STUFF_GOODS].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_GOODS].at(1).amount;
+      cap = stats.history.inventory[STUFF_GOODS].at(0).capacity;
+      break;
+    case Bar::COAL:
+      val = stats.history.inventory[STUFF_COAL].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_COAL].at(1).amount;
+      cap = stats.history.inventory[STUFF_COAL].at(0).capacity;
+      break;
+    case Bar::ORE:
+      val = stats.history.inventory[STUFF_ORE].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_ORE].at(1).amount;
+      cap = stats.history.inventory[STUFF_ORE].at(0).capacity;
+      break;
+    case Bar::STEEL:
+      val = stats.history.inventory[STUFF_STEEL].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_STEEL].at(1).amount;
+      cap = stats.history.inventory[STUFF_STEEL].at(0).capacity;
+      break;
+    case Bar::POL:
+      val = stats.history.pollution.at(0);
+      diff = val - stats.history.pollution.at(1);
+      cap = 0;
+      break;
+    case Bar::LOVOLT:
+      val = stats.history.inventory[STUFF_LOVOLT].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_LOVOLT].at(1).amount;
+      cap = stats.history.inventory[STUFF_LOVOLT].at(0).capacity;
+      break;
+    case Bar::HIVOLT:
+      val = stats.history.inventory[STUFF_HIVOLT].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_HIVOLT].at(1).amount;
+      cap = stats.history.inventory[STUFF_HIVOLT].at(0).capacity;
+      break;
+    case Bar::WATER:
+      val = stats.history.inventory[STUFF_WATER].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_WATER].at(1).amount;
+      cap = stats.history.inventory[STUFF_WATER].at(0).capacity;
+      break;
+    case Bar::WASTE:
+      val = stats.history.inventory[STUFF_WASTE].at(0).amount;
+      diff = val - stats.history.inventory[STUFF_WASTE].at(1).amount;
+      cap = stats.history.inventory[STUFF_WASTE].at(0).capacity;
+      break;
+    case Bar::HOUSE:
+      val = stats.history.tenants.at(0).amount;
+      diff = val - stats.history.tenants.at(11).amount;
+      cap = stats.history.tenants.at(0).capacity;
+      break;
     default:
-        sv = diff;
-        break;
-      };
-
-    sv/=10.0;
-
-
-     if(sv>1.0)
-      sv=1.0;
-     if(sv<-1.0)
-      sv=-1.0;
-
-    os.str("");
-    os<<"pbar_barview"<< line_number;
-    Component *c=findComponent(os.str()+"a");
-    if(c)
-    {
-        BarView *bv=dynamic_cast<BarView*>(c);
-        if(bv)
-        {   bv->setValue(sv);}
-    }
-    c=findComponent(os.str()+"b");
-    if(c)
-    {
-        BarView *bv=dynamic_cast<BarView*>(c);
-        if(bv)
-        {   bv->setValue(sv);}
+      assert(false);
     }
 
+    float diffNorm;
+    switch(bar)
+    {
+    case Bar::POP:
+      diffNorm = diff / std::max(std::sqrt((float)val), 1.0f);
+      break;
+    case Bar::TECH:
+      diffNorm = diff / (diff >= 0 ? 4.0f : 2.0f);
+      break;
+    case Bar::POL:
+      diffNorm = diff / std::max(std::sqrt((float)val), 1.0f);
+      break;
+    case Bar::MONEY:
+      diffNorm = diff / (diff >= 0 ? 100000.0f : 50000.0f);
+      break;
+    default:
+      diffNorm = diff / std::max(cap * 100.0f, 1.0f);
+      break;
+    };
+    if(diffNorm > 1.0f)
+      diffNorm = 1.0f;
+    if(diffNorm < -1.0f)
+      diffNorm = -1.0f;
+
+    std::ostringstream valStr;
+    valStr << std::fixed << std::setprecision(1);
+    switch(bar) {
+    case Bar::TECH:
+      valStr << val / 10000.0f;
+      break;
+
+    case Bar::MONEY:
+    case Bar::POP:
+    case Bar::POL:
+      valStr << num_to_ansi(val);
+      break;
+
+    case Bar::FOOD:
+    case Bar::LABOR:
+    case Bar::GOODS:
+    case Bar::COAL:
+    case Bar::ORE:
+    case Bar::STEEL:
+    case Bar::LOVOLT:
+    case Bar::HIVOLT:
+    case Bar::WATER:
+    case Bar::WASTE:
+    case Bar::HOUSE:
+      valStr << ((float)val / std::max(cap, 1) * 100) << "%";
+      break;
+
+    default:
+      assert(false);
+    }
+
+    Paragraph *valPar = getParagraph(*this,
+      "pbar_text" + std::to_string(b + 1));
+    BarView *barview1 = dynamic_cast<BarView *>(findComponent(
+      "pbar_barview" + std::to_string(b + 1) + "a"));
+    BarView *barview2 = dynamic_cast<BarView *>(findComponent(
+      "pbar_barview" + std::to_string(b + 1) + "b"));
+
+    valPar->setText(valStr.str());
+    barview1->setValue(diffNorm);
+    barview2->setValue(diffNorm);
+  }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
+void
+LCPBar::setGame(Game *game) {
+  this->game = game;
+}
+
+//////////////////////////////////////////////////////////////////////////////
 // BarView
-///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 BarView::BarView()
 {

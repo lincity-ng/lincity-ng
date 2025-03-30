@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,11 +61,11 @@ Coal_power::Coal_power(World& world, ConstructionGroup *cstgrp) :
 }
 
 Coal_power::~Coal_power() {
-  if(world.map(x,y)->framesptr) {
-    world.map(x,y)->framesptr->erase(fr_begin, fr_end);
-    if(world.map(x,y)->framesptr->empty()) {
-      delete world.map(x,y)->framesptr;
-      world.map(x,y)->framesptr = NULL;
+  if(world.map(point)->framesptr) {
+    world.map(point)->framesptr->erase(fr_begin, fr_end);
+    if(world.map(point)->framesptr->empty()) {
+      delete world.map(point)->framesptr;
+      world.map(point)->framesptr = NULL;
     }
   }
 }
@@ -92,7 +92,7 @@ void Coal_power::update()
         consumeStuff(STUFF_LABOR, labor_used);
         consumeStuff(STUFF_COAL, coal_used);
         produceStuff(STUFF_HIVOLT, hivolt_made);
-        world.map(x,y)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);
+        world.map(point)->pollution += POWERS_COAL_POLLUTION *(hivolt_made/100)/(hivolt_output/100);
         working_days += (hivolt_made/100);
     }
     //monthly update
@@ -103,7 +103,7 @@ void Coal_power::update()
     }
 }
 
-void Coal_power::animate() {
+void Coal_power::animate(unsigned long real_time) {
 
   if(real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(SMOKE_ANIM_SPEED);
@@ -135,21 +135,18 @@ void Coal_power::animate() {
   soundGroup = frameIt->resourceGroup;
 }
 
-void Coal_power::report()
-{
-    int i = 0;
-    mps_store_title(i++, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), hivolt_output);
-    // i++;
-    list_commodities(&i);
+void Coal_power::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sfp(N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
+  mps.add_sd(N_("Output"), hivolt_output);
+  list_commodities(mps, production);
 }
 
 void Coal_power::init_resources() {
   Construction::init_resources();
 
-  world.map(x,y)->framesptr->resize(world.map(x,y)->framesptr->size()+8);
+  world.map(point)->framesptr->resize(world.map(point)->framesptr->size()+8);
   std::list<ExtraFrame>::iterator frit = frameIt;
   std::advance(frit, 1);
   fr_begin = frit;
@@ -179,7 +176,7 @@ void Coal_power::init_resources() {
   std::advance(frit, 1);
   fr_end = frit;
   for(frit = fr_begin;
-    frit != world.map(x,y)->framesptr->end() && frit != fr_end;
+    frit != world.map(point)->framesptr->end() && frit != fr_end;
     std::advance(frit, 1)
   ) {
     frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
@@ -200,11 +197,13 @@ void Coal_power::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Coal_power::loadMember(xmlpp::TextReader& xmlReader) {
+bool
+Coal_power::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version
+) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "mwh_output");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

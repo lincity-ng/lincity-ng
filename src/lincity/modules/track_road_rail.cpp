@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "fire.h"                // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Sound.hpp"  // for getSound, Sound
 #include "modules.h"             // for Commodity, basic_string, ExtraFrame
+#include "lincity/ConstructionRequest.h"
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -126,6 +127,17 @@ Construction *TransportConstructionGroup::createConstruction(World& world) {
   return new Transport(world, this);
 }
 
+void
+TransportConstructionGroup::placeItem(World& world, int x, int y) {
+  MapTile& tile = *world.map(x, y);
+  unsigned short oldGrp = tile.getTransportGroup();
+  if(tile.is_transport() && oldGrp != group || oldGrp == GROUP_POWER_LINE) {
+    ConstructionDeletionRequest(tile.reportingConstruction).execute();
+  }
+
+  ConstructionGroup::placeItem(world, x, y);
+}
+
 Transport::Transport(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
@@ -180,7 +192,7 @@ void Transport::update()
       if(world.total_time % 100 == 0)
         world.expense(world.money_rates.transport_cost,
           world.stats.expenses.transport);
-    } catch(OutOfMoneyException ex) {
+    } catch(const OutOfMoneyMessage::Exception& ex) {
       // TODO: reduce transport capacity
       // maybe have a chance of converting to track or deleting
     }
@@ -199,7 +211,7 @@ void Transport::update()
       if(world.total_time % 100 == 0)
         world.expense(3 * world.money_rates.transport_cost,
           world.stats.expenses.transport);
-    } catch(OutOfMoneyException ex) {
+    } catch(const OutOfMoneyMessage::Exception& ex) {
       // TODO: reduce transport capacity
     }
     if(world.total_time % DAYS_PER_RAIL_POLLUTION == 0)
@@ -239,7 +251,7 @@ void Transport::update()
   }
 }
 
-void Transport::animate() {
+void Transport::animate(unsigned long real_time) {
   if(start_burning_waste) { // start fire
     start_burning_waste = false;
     anim = real_time + ANIM_THRESHOLD(WASTE_BURN_TIME);
@@ -255,31 +267,32 @@ void Transport::animate() {
   }
 }
 
-void Transport::list_traffic(int *i)
-{
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        if(*i < 14 && constructionGroup->commodityRuleCount[stuff].maxload)
-        {   mps_store_sfp((*i)++, commodityNames[stuff], (float) trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+void Transport::list_traffic(Mps& mps) const {
+  for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+    if(!constructionGroup->commodityRuleCount[stuff].maxload)
+      continue;
+    #ifdef DEBUG
+    if(mps.isFull()) {
+      std::cerr << "Transport overflowed MPS" << std::endl;
+      break;
     }
+    #endif
+    mps.add_sfp(commodityNames[stuff],
+      trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+  }
 }
 
-void Transport::report()
-{
-    int i = 0;
-
-    mps_store_title(i++, constructionGroup->name);
-    i++;
-    if(mps_map_page == 1)
-    {
-        mps_store_title(i++, _("Traffic") );
-        list_traffic(&i);
-    }
-    else
-    {
-        mps_store_title(i++, _("Commodities") );
-        list_inventory(&i);
-    }
+void Transport::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  if(production) {
+    mps.add_s(_("Traffic"));
+    list_traffic(mps);
+  }
+  else {
+    // mps.add_s(_("Commodities"));
+    list_commodities(mps, false);
+  }
 }
 
 void Transport::playSound()
@@ -333,8 +346,6 @@ void Transport::init_resources() {
 }
 
 void Transport::place(int x, int y) {
-  Construction::place(x, y);
-
   // set the constructionGroup to build bridges iff over water
   if(world.map(x,y)->is_water()) {
     switch (constructionGroup->group) {
@@ -362,6 +373,8 @@ void Transport::place(int x, int y) {
       break;
     }
   }
+
+  Construction::place(x, y);
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

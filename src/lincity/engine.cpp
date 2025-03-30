@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,14 +26,12 @@
 #include <deque>                           // for deque
 #include <set>                             // for set, _Rb_tree_const_iterator
 
-#include "ConstructionManager.h"           // for ConstructionManager
 #include "ConstructionRequest.h"           // for BurnDownRequest, Construct...
 #include "all_buildings.h"                 // for POL_DIV
-#include "engglobs.h"                      // for world, userOperation, tota...
+#include "engglobs.h"                      // for world, tota...
 #include "engine.h"
 #include "groups.h"                        // for GROUP_DESERT, GROUP_FIRE
 #include "gui_interface/mps.h"             // for mps_update
-#include "gui_interface/pbar_interface.h"  // for refresh_pbars, update_pbar
 #include "lctypes.h"                       // for CST_GREEN, CST_DESERT
 #include "lin-city.h"                      // for BAD, FLAG_FIRE_COVER, FLAG...
 #include "lintypes.h"                      // for ConstructionGroup, Constru...
@@ -41,8 +40,7 @@
 #include "tinygettext/gettext.hpp"         // for _
 #include "transport.h"                     // for connect_transport
 #include "world.h"                         // for Map, MapTile
-#include "events.hpp"
-#include "exceptions.hpp"
+#include "messages.hpp"
 
 #ifdef DEBUG
 #include <assert.h>                        // for assert
@@ -73,8 +71,7 @@ World::fire_area(MapPoint loc) {
       stats.population.unnat_deaths_m += casualities;
       stats.population.deaths_m += casualities;
     }
-    ConstructionManager::submitRequest(
-      new SetOnFire(cst));
+    SetOnFire(cst).execute();
   }
 }
 
@@ -86,79 +83,22 @@ World::income(int amt, Stat<int>& account) {
     newBal = INT_MAX;
   total_money = newBal;
   account -= amt;
-  addEvent(new UpdateEvent(*this, UpdateEvent::Type::MONEY));
+  setUpdated(Updatable::MONEY);
 }
 
 void
 World::expense(int amt, Stat<int>& account, bool allowCredit) {
   assert(amt >= 0);
   int newBal = total_money - amt;
-  if(allowCredit ? newBal > total_money : newBal < 0)
-    throw OutOfMoneyException("", allowCredit);
+  if(allowCredit ? newBal < -2000000000 || newBal > total_money : newBal < 0) {
+    throw OutOfMoneyMessage::create(allowCredit)->exception();
+  }
   total_money = newBal;
   account += amt;
-  addEvent(new UpdateEvent(*this, UpdateEvent::Type::MONEY));
-  if(total_money >= 0 && newBal < 0)
-    addEvent(new MessageEvent(*this,
-      _("You just spent all your money."), MessageEvent::Level::WARNING));
-}
-
-//CK place_item is only used once in MapEdit
-void
-World::place_item(ConstructionGroup& cstGrp, MapPoint loc) {
-  if(!cstGrp.is_allowed_here(*this, loc.x, loc.y, false))
-    throw IllegalActionException("build a "+cstGrp.name+" here");
-  expense(cstGrp.getCosts(*this), stats.expenses.construction,
-    !cstGrp.no_credit);
-  cstGrp.placeItem(*this, loc.x, loc.y);
-
-  connect_transport(loc.x - 2, loc.y - 2,
-    loc.x + cstGrp.size + 1, loc.y + cstGrp.size + 1);
-  desert_water_frontiers(loc.x - 1, loc.y - 1,
-    cstGrp.size + 2, cstGrp.size + 2);
-  //connect_rivers(x,y); //CK This should not apply here since water is not a construction
-}
-
-void
-World::bulldoze_item(MapPoint loc) {
-  if(!map(loc)->is_visible())
-    throw IllegalActionException("bulldoze outside the map");
-
-  Construction *cst = map(loc)->reportingConstruction;
-  unsigned short g = map(loc)->getGroup();
-
-  if(g == GROUP_DESERT)
-    /* Nothing to do. */
-    return;
-  else if (g == GROUP_FIRE)
-    throw IllegalActionException("bulldoze fire");
-
-  expense(map(loc)->getConstructionGroup()->bul_cost, stats.expenses.bulldoze);
-
-  if(g == GROUP_SHANTY)
-    ConstructionManager::executeRequest(new BurnDownRequest(cst));
-  else if (g == GROUP_OREMINE)
-    ConstructionManager::executeRequest(new OreMineDeletionRequest(cst));
-  else if(cst)
-    ConstructionManager::executeRequest(new ConstructionDeletionRequest(cst));
-  else {
-    map(loc)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-    if (map(loc)->is_water()) {
-      map(loc)->type = CST_GREEN;
-      map(loc)->group = GROUP_BARE;
-      map(loc)->flags &= ~(FLAG_IS_RIVER);
-    }
-    else {
-      map(loc)->type = CST_DESERT;
-      map(loc)->group = GROUP_DESERT;
-    }
-    //Here size is always 1
-    connect_transport(loc.x - 2, loc.y - 2, loc.x + 1 + 1, loc.y + 1 + 1);
-    connect_rivers(loc.x, loc.y);
-    desert_water_frontiers(loc.x - 1, loc.y - 1, 1 + 2, 1 + 2);
-  }
-
-  addEvent(new UpdateEvent(*this, UpdateEvent::Type::MAP));
+  setUpdated(Updatable::MONEY);
+  // TODO: move to ng
+  if(total_money > 0 && newBal <= 0)
+    pushMessage(OutOfMoneyMessage::create(false));
 }
 
 void
@@ -263,7 +203,8 @@ World::do_random_fire() {
     return;
 
   fire_area(loc);
-  addEvent(new FireStartedMessage(*this, *map(loc)));
+  pushMessage(FireStartedMessage::create(loc,
+    *map(loc)->getConstructionGroup()));
 }
 
 void
@@ -279,7 +220,7 @@ World::do_daily_ecology() //should be going to MapTile:: und handled during simu
             && (rand() % 300 == 1))
         {
             map(idx)->setTerrain(CST_GREEN);
-            desert_water_frontiers( (idx % len) - 1, (idx / len) - 1, 1 + 2, 1 + 2);
+            map.desert_water_frontiers( (idx % len) - 1, (idx / len) - 1, 1 + 2, 1 + 2);
         }
     }
     //TODO: depending on water, green can become trees
@@ -289,35 +230,22 @@ World::do_daily_ecology() //should be going to MapTile:: und handled during simu
 }
 
 int
-World::check_group(int x, int y) {
-  if(!map.is_inside(x, y))
+Map::check_group(int x, int y) {
+  if(!is_inside(x, y))
     return -1;
-  return map(x, y)->getGroup();
+  return (*this)(x, y)->getGroup();
 }
 
 int
-World::check_topgroup(int x, int y) {
-  if(!map.is_inside(x, y))
+Map::check_topgroup(int x, int y) {
+  if(!is_inside(x, y))
     return -1;
-  return map(x, y)->getTopGroup();
-}
-
-int
-World::check_lvgroup(int x, int y) {
-  if(!map.is_inside(x, y))
-    return -1;
-  return map(x, y)->getLowerstVisibleGroup();
-}
-
-bool
-World::check_water(int x, int y) {
-  if(!map.is_inside(x, y))
-    return false;
-  return map(x, y)->is_water();
+  return (*this)(x, y)->getTopGroup();
 }
 
 void
-World::connect_rivers(int x, int y) {
+Map::connect_rivers(int x, int y) {
+  Map& map = (*this);
   std::deque<int> line;
   const int len = map.len();
 
@@ -359,7 +287,8 @@ World::do_coal_survey() {
 }
 
 void
-World::desert_water_frontiers(int originx, int originy, int w, int h) {
+Map::desert_water_frontiers(int originx, int originy, int w, int h) {
+    Map& map = (*this);
     /* copied from connect_transport */
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     int mask;
@@ -398,27 +327,25 @@ World::desert_water_frontiers(int originx, int originy, int w, int h) {
         {
             if(map(x, y)->getLowerstVisibleGroup() == GROUP_DESERT) {
                 mask = 0;
-                if ( check_lvgroup(x, y - 1) == GROUP_DESERT )
+                if(map.is_visible(x,y-1) && map(x,y-1)->getLowerstVisibleGroup() == GROUP_DESERT)
                 {   mask |= 8;}
-                if ( check_lvgroup(x - 1, y) == GROUP_DESERT )
+                if(map.is_visible(x-1,y) && map(x-1,y)->getLowerstVisibleGroup() == GROUP_DESERT)
                 {   mask |= 4;}
-                if ( check_lvgroup(x + 1, y) == GROUP_DESERT )
+                if(map.is_visible(x+1,y) && map(x+1,y)->getLowerstVisibleGroup() == GROUP_DESERT)
                 {   mask |= 2;}
-                if ( check_lvgroup(x, y + 1) == GROUP_DESERT )
+                if(map.is_visible(x,y+1) && map(x,y+1)->getLowerstVisibleGroup() == GROUP_DESERT)
                 {   ++mask;}
                 map(x, y)->type = mask;
             }
             else if(map(x, y)->getLowerstVisibleGroup() == GROUP_WATER) {
                 mask = 0;
-                if (  check_water(x, y - 1)
-                  || (check_group(x, y - 1) == GROUP_PORT)  )
+                if(map.is_visible(x,y-1) && (map(x,y-1)->is_water() || check_group(x,y-1) == GROUP_PORT))
                 {   mask |= 8;}
-                if (  check_water(x - 1, y)
-                  || (check_group(x - 1, y) == GROUP_PORT)  )
+                if(map.is_visible(x-1,y) && (map(x-1,y)->is_water() || check_group(x-1,y) == GROUP_PORT))
                 {   mask |= 4;}
-                if (  check_water(x + 1, y)  )
+                if(map.is_visible(x+1,y) && map(x+1,y)->is_water())
                 {   mask |= 2;}
-                if (  check_water(x, y + 1)  )
+                if(map.is_visible(x,y+1) && map(x,y+1)->is_water())
                 {   ++mask;}
                 map(x, y)->type = mask;
             }

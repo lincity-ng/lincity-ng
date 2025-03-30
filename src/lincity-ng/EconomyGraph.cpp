@@ -1,20 +1,24 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/EconomyGraph.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "EconomyGraph.hpp"
 
@@ -51,18 +55,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/stats.h"                 // for tpopulation, tstarving_pop...
 #include "lincity/sustainable.h"           // for SUST_FIRE_YEARS_NEEDED
 #include "tinygettext/gettext.hpp"         // for _
-
-extern void ok_dial_box(const char *, int, const char *);
-
-EconomyGraph* economyGraphPtr = 0;
-
-EconomyGraph* getEconomyGraph()
-{
-    return economyGraphPtr;
-}
+#include "Game.hpp"
 
 EconomyGraph::EconomyGraph(){
-    economyGraphPtr = this;
     fps = (int*) malloc (sizeof(int) * getConfig()->monthgraphW );
     for ( int i = 0; i < getConfig()->monthgraphW; i++) {
         fps[i] = 0;
@@ -82,9 +77,6 @@ EconomyGraph::EconomyGraph(){
 }
 
 EconomyGraph::~EconomyGraph(){
-    if( economyGraphPtr == this ){
-        economyGraphPtr = 0;
-    }
     free( fps );
     delete labelTextureMIN;
     delete labelTexturePRT;
@@ -95,6 +87,11 @@ EconomyGraph::~EconomyGraph(){
     delete labelTextureEconomy;
     delete labelTextureSustainability;
     delete labelTextureFPS;
+}
+
+void
+EconomyGraph::setGame(Game *game) {
+  this->game = game;
 }
 
 void EconomyGraph::parse( XmlReader& reader ){
@@ -155,124 +152,6 @@ void EconomyGraph::parse( XmlReader& reader ){
     labelTextureFPS = texture_manager->create( labelXXX );
 }
 
-//see do_history_linegraph in oldgui/screen.cpp
-void EconomyGraph::updateData(){
-    int i;
-    float f;
-    int w = getConfig()->monthgraphW;
-    //thats the value oldgui uses, so saved data has same scale as new.
-    int h = 64; //MONTHGRAPH_H;
-
-    for (i = w - 1; i > 0; i--) {
-	    monthgraph_pop[i] = monthgraph_pop[i-1];
-	    monthgraph_ppool[i] = monthgraph_ppool[i-1];
-	    monthgraph_nojobs[i] = monthgraph_nojobs[i-1];
-	    monthgraph_starve[i] = monthgraph_starve[i-1];
-    }
-    if (tpopulation > 0) {
-        /* log scale 0 -> 200 000 = 10^5.3 */
-        float scale = h / (5.3 * log(10.));
-        float t = (total_time %NUMOF_DAYS_IN_MONTH + 1.f);
-
-        monthgraph_pop[0] = (int) (log (tpopulation / t) * scale);
-        if (monthgraph_pop[0] < 0)
-            monthgraph_pop[0] = 0;
-        if (monthgraph_pop[0] >= h)
-            monthgraph_pop[0] = h - 1;
-
-        monthgraph_starve[0] = (int) (log( tstarving_population  /  t) * scale);
-        if (monthgraph_starve[0] < 0)
-            monthgraph_starve[0] = 0;
-        if (monthgraph_starve[0] >= h)
-            monthgraph_starve[0] = h - 1;
-
-        monthgraph_nojobs[0] = (int) (log( tunemployed_population  / t) * scale);
-        if (monthgraph_nojobs[0] < 0)
-            monthgraph_nojobs[0] = 0;
-        if (monthgraph_nojobs[0] >= h)
-            monthgraph_nojobs[0] = h - 1;
-
-        /* percentage scale */
-        f = (float) people_pool / (float) (tpopulation / t + people_pool) * (float) h;
-        monthgraph_ppool[0] = (int) f;
-        if (monthgraph_ppool[0] < 0)
-            monthgraph_ppool[0] = 0;
-        if (monthgraph_ppool[0] >= h)
-            monthgraph_ppool[0] = h - 1;
-    }
-
-    //sustainability check from do_sust_barchart
-    if (sust_dig_ore_coal_count >= SUST_ORE_COAL_YEARS_NEEDED
-        && sust_port_count >= SUST_PORT_YEARS_NEEDED
-        && sust_money_count >= SUST_MONEY_YEARS_NEEDED
-        && sust_old_population_count >= SUST_POP_YEARS_NEEDED
-        && sust_old_tech_count >= SUST_TECH_YEARS_NEEDED
-        && sust_fire_count >= SUST_FIRE_YEARS_NEEDED)
-    {
-        if (sustain_flag == 0){
-	        ok_dial_box ("sustain.mes", GOOD, 0L);
-            sustain_flag = 1;
-        }
-    } else {
-        sustain_flag = 0;
-    }
-
-
-    //sustain_flag == 1 means player had a sustainable economy
-    //total_evacuated >0 means player evacuated at least some people
-    if( !housed_population && !people_pool ){ //no people left
-        if( !nobodyHomeDialogShown ){
-            std::string message;
-            if( sustain_flag == 1 || total_evacuated >0  ){
-                message ="";
-            } else {
-                message = _("You lose.");
-            }
-            try{
-                new Dialog( MSG_DIALOG, "allgone.xml", message );
-            } catch(std::exception& e) {
-                std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
-                // std::ostringstream text;
-                // text << "ok_dial_box:' allgone.xml" << "' + \"" << message << "\"\n";
-                // updateMessageText( text.str() );
-            }
-            nobodyHomeDialogShown = true;
-        }
-    } else if( nobodyHomeDialogShown ){ //reset flag if there are people
-        nobodyHomeDialogShown = false;
-    }
-
-
-    Component* root = this;
-    while( root->getParent() ){
-        root = root->getParent();
-    }
-
-    // Initialisation can not be done in constructor because the SwitchEconomyGraph-Button does not exist then.
-    if( switchEconomyGraphButton == NULL ){
-        switchEconomyGraphButton = getCheckButton( *root, "SwitchEconomyGraph" );
-        switchEconomyGraphText = switchEconomyGraphButton->getCaptionText();
-        switchEconomyGraphParagraph = dynamic_cast<Paragraph*>(switchEconomyGraphButton->getCaption());
-        redStyle = yellowStyle = normalStyle = switchEconomyGraphParagraph->getStyle();
-        yellowStyle.text_color.parse("yellow");
-        redStyle.text_color.parse("red");
-    }
-
-    // set tab Button colour
-    if( switchEconomyGraphParagraph ){
-        if( monthgraph_starve[0] > 0 ){ // people are starving: RED
-            switchEconomyGraphParagraph->setText(switchEconomyGraphText, redStyle);
-        } else if( monthgraph_nojobs[0] > 0 ){ // people are unemployed: YELLOW
-            switchEconomyGraphParagraph->setText(switchEconomyGraphText, yellowStyle);
-        } else {
-            switchEconomyGraphParagraph->setText(switchEconomyGraphText, normalStyle);
-        }
-    }
-
-    //redraw
-    setDirty();
-}
-
 void EconomyGraph::newFPS( int frame ){
     int w = getConfig()->monthgraphW;
     int h = getConfig()->monthgraphH;
@@ -285,54 +164,79 @@ void EconomyGraph::newFPS( int frame ){
 }
 
 void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
-    // see oldgui/screen.cpp do_history_linegraph
-    Vector2 a;
-    Vector2 b;
+  // see oldgui/screen.cpp do_history_linegraph
+  Vector2 a;
+  Vector2 b;
 
-    Color red, yellow, blue, brown, grey;
-    red.parse( "red");
-    yellow.parse( "yellow" );
-    blue.parse( "blue" );
-    brown.parse( "brown" );
-    grey.parse("#A9A9A9FF");
+  Color red, yellow, blue, brown, grey;
+  red.parse( "red");
+  yellow.parse( "yellow" );
+  blue.parse( "blue" );
+  brown.parse( "brown" );
+  grey.parse("#A9A9A9FF");
 
-    painter.setClipRectangle( mg );
-    painter.setFillColor( grey );
-    painter.fillRectangle( mg );
-    int mgX = (int) mg.p1.x;
-    int mgY = (int) mg.p1.y;
-    int mgW = (int) mg.getWidth();
-    int mgH = (int) mg.getHeight();
+  painter.setClipRectangle( mg );
+  painter.setFillColor( grey );
+  painter.fillRectangle( mg );
+  int mgX = (int) mg.p1.x;
+  int mgY = (int) mg.p1.y;
+  int mgW = (int) mg.getWidth();
+  int mgH = (int) mg.getHeight();
 
-    float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
+  float scale = (float) mgH / NUMOF_DAYS_IN_MONTH / (5.3 * log(10.));
+  float ppoolScale = (float) mgH / NUMOF_DAYS_IN_MONTH;
+  auto& history = game->getWorld().stats.history;
 
-    b.y = mgY + mgH;
-    for( int i = mgW - 1; i >= 0; i-- ){
-        painter.setLineColor( yellow );
-        a.x = mgX + mgW - i;
-        a.y = mgY + mgH - scale * monthgraph_nojobs[i];
+  b.y = mgY + mgH;
+  for( int i = mgW - 1; i >= 0; i-- ){
+    painter.setLineColor( yellow );
+    a.x = mgX + mgW - i;
+    a.y = mgY + mgH - scale * history.nojobs[i];
 
-        b.x = mgX + mgW - i;
-        painter.drawLine( a, b );
-        painter.setLineColor( red );
-        a.y = mgY + mgH - scale * monthgraph_starve[i];
-        painter.drawLine( a, b );
-    }
-    for( int i = mgW - 1; i > 0; i-- ){
-        painter.setLineColor( brown );
-        a.x = mgX + mgW - i;
-        a.y = mgY + mgH - scale * monthgraph_pop[ i ];
-        b.x = mgX + mgW - i-1;
-        b.y = mgY + mgH - scale * monthgraph_pop[ i-1 ];
-        painter.drawLine( a, b );
-        a.y = mgY + mgH - scale * monthgraph_ppool[ i ];
-        b.y = mgY + mgH - scale * monthgraph_ppool[ i-1 ];
-        painter.setLineColor( blue );
-        painter.drawLine( a, b );
-    }
-    painter.clearClipRectangle();
+    b.x = mgX + mgW - i;
+    painter.drawLine( a, b );
+    painter.setLineColor( red );
+    a.y = mgY + mgH - scale * history.starve[i];
+    painter.drawLine( a, b );
+  }
+  for( int i = mgW - 1; i > 0; i-- ){
+    painter.setLineColor( brown );
+    a.x = mgX + mgW - i;
+    a.y = mgY + mgH - scale * history.pop[i];
+    b.x = mgX + mgW - i-1;
+    b.y = mgY + mgH - scale * history.pop[i-1];
+    painter.drawLine( a, b );
+    a.y = mgY + mgH - ppoolScale * history.ppool[i] / history.pop[i];
+    b.y = mgY + mgH - ppoolScale * history.ppool[i-1] / history.pop[i-1];
+    painter.setLineColor( blue );
+    painter.drawLine( a, b );
+  }
+  painter.clearClipRectangle();
 
 
+  // set tab Button colour
+  Component* root = this;
+  while(root->getParent()) root = root->getParent();
+  if(switchEconomyGraphButton == NULL) {
+    // Initialisation can not be done in constructor because the
+    // SwitchEconomyGraph-Button does not exist then.
+    switchEconomyGraphButton = getCheckButton( *root, "SwitchEconomyGraph" );
+    switchEconomyGraphText = switchEconomyGraphButton->getCaptionText();
+    switchEconomyGraphParagraph = dynamic_cast<Paragraph*>(
+      switchEconomyGraphButton->getCaption());
+    redStyle = yellowStyle = normalStyle = switchEconomyGraphParagraph->getStyle();
+    yellowStyle.text_color.parse("yellow");
+    redStyle.text_color.parse("red");
+  }
+  if(history.starve[0] > 0) { // people are starving: RED
+    switchEconomyGraphParagraph->setText(switchEconomyGraphText, redStyle);
+  } else if(history.nojobs[0] > 0) { // people are unemployed: YELLOW
+    switchEconomyGraphParagraph->setText(switchEconomyGraphText, yellowStyle);
+  } else {
+    switchEconomyGraphParagraph->setText(switchEconomyGraphText, normalStyle);
+  }
+
+  setDirty();
 }
 
 void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
@@ -376,9 +280,11 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     int maxBarLen = mgW - 40;
     int newLen;
     int len;
+    auto& sustainability = game->getWorld().stats.sustainability;
 
 	/* ore coal */
-    newLen = maxBarLen * sust_dig_ore_coal_count / SUST_ORE_COAL_YEARS_NEEDED;
+    newLen = sustainability.mining_years *
+      maxBarLen / SUST_ORE_COAL_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( orange );
@@ -387,7 +293,7 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
 	/* import export */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = maxBarLen * sust_port_count / SUST_PORT_YEARS_NEEDED;
+    newLen = sustainability.trade_years * maxBarLen / SUST_PORT_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( black );
@@ -397,7 +303,7 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
 	/* money */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = maxBarLen * sust_old_money_count / SUST_MONEY_YEARS_NEEDED;
+    newLen = sustainability.money_years * maxBarLen / SUST_MONEY_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( green );
@@ -407,7 +313,8 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
 	/* population */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = maxBarLen * sust_old_population_count / SUST_POP_YEARS_NEEDED;
+    newLen = sustainability.population_years *
+      maxBarLen / SUST_POP_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( blue );
@@ -417,7 +324,7 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
 	/* tech */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = maxBarLen * sust_old_tech_count / SUST_TECH_YEARS_NEEDED;
+    newLen = sustainability.tech_years * maxBarLen / SUST_TECH_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( yellow );
@@ -427,7 +334,7 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
 	/* fire */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = maxBarLen * sust_fire_count / SUST_FIRE_YEARS_NEEDED;
+    newLen = sustainability.fire_years * maxBarLen / SUST_FIRE_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( red );

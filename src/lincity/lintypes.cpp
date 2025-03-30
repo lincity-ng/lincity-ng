@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionManager.h"          // for ConstructionManager
 #include "ConstructionRequest.h"          // for ConstructionDeletionRequest
 #include "Vehicles.h"                     // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
@@ -50,6 +49,7 @@
 #include "transport.h"                    // for TRANSPORT_QUANTA, TRANSPORT...
 #include "world.h"                        // for Map, MapTile
 #include "xmlloadsave.h"                  // for xmlStr
+#include "gui_interface/mps.h"
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
@@ -73,134 +73,34 @@ std::string Construction::getStuffName(Commodity stuff_id)
     return commodityNames[stuff_id];
 }
 
-void Construction::list_commodities(int *i) {
-    switch(mps_map_page) {
-    default:
-    case 0:
-        mps_store_title((*i)++, _("Inventory:"));
-        list_inventory(i);
-        break;
-    case 1:
-        mps_store_title((*i)++, _("Production:"));
-        list_production(i);
-        break;
+void Construction::list_commodities(Mps& mps, bool production) const {
+  mps.add_s(production ? _("Production:") : _("Inventory:"));
+  for(int r = 0; r < 4; r++) {
+    const char *arrow;
+    bool give, take;
+    switch(r) {
+      case 1: arrow = "--> "; give = false; take = true ; break;
+      case 0: arrow = "<-- "; give = true ; take = false; break;
+      case 2: arrow = "<-> "; give = true ; take = true ; break;
+      case 3: arrow = "--- "; give = false; take = false; break;
+      default: assert(false);
     }
-}
+    if(!production && (flags & FLAG_EVACUATE))
+      arrow = "<<< ";
 
-void Construction::list_inventory(int * i)
-{
-    /*
-        Lists all current commodities of a construction in MPS area
-        Groups commodities by incomming, outgoing, twoway and inactive
-    */
-
-    Commodity stuff;
-    if (! (flags & FLAG_EVACUATE))
-    {
-        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-        {
-            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && rule.take && !rule.give)
-            {
-                mps_store_ssddp(*i,"--> ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
-                ++*i;
-            }//endif
-        } //endfor
-        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-        {
-            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && !rule.take && rule.give)
-            {
-                mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
-                ++*i;
-            }//endif
-        } //endfor
-        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-        {
-            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && rule.take && rule.give)
-            {
-                mps_store_ssddp(*i,"<->", commodityNames[stuff], commodityCount[stuff], rule.maxload);
-                ++*i;
-            }//endif
-        } //endfor
-        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-        {
-            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload && !rule.take && !rule.give)
-            {
-                mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityCount[stuff], rule.maxload);
-                ++*i;
-            }//endif
-        } //endfor
+    for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+      const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
+      const int& maxprod = commodityMaxProd[stuff];
+      const int& maxcons = commodityMaxCons[stuff];
+      const bool thisgive = production ? maxprod : rule.give;
+      const bool thistake = production ? maxcons : rule.take;
+      if(rule.maxload && thisgive == give && thistake == take) {
+        int amt = (production ? commodityProdPrev : commodityCount)[stuff];
+        int max = production ? (amt >= 0 ? maxprod : -maxcons) : rule.maxload;
+        mps.add_tsddp(arrow, commodityNames[stuff], amt, max);
+      }
     }
-    else // FLAG_EVACUATE
-    {
-        for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-        {
-            const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-            if(rule.maxload) {
-                mps_store_ssddp(*i,"<< ",commodityNames[stuff], commodityCount[stuff], rule.maxload);
-                ++*i;
-            }
-        }//endfor
-    }
-}
-
-void Construction::list_production(int * i)
-{
-    /*
-        Lists all current commodities of a construction in MPS area
-        Groups commodities by incomming, outgoing, twoway and inactive
-    */
-
-    Commodity stuff;
-    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-    {
-        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-        const int& maxprod = commodityMaxProd[stuff];
-        const int& maxcons = commodityMaxCons[stuff];
-        if(rule.maxload && maxcons && !maxprod)
-        {
-            mps_store_ssddp(*i,"--> ", commodityNames[stuff], commodityProdPrev[stuff], -maxcons);
-            ++*i;
-        }//endif
-    } //endfor
-    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-    {
-        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-        const int& maxprod = commodityMaxProd[stuff];
-        const int& maxcons = commodityMaxCons[stuff];
-        if(rule.maxload && !maxcons && maxprod)
-        {
-            mps_store_ssddp(*i,"<-- ", commodityNames[stuff], commodityProdPrev[stuff], maxprod);
-            ++*i;
-        }//endif
-    } //endfor
-    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-    {
-        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-        const int& maxprod = commodityMaxProd[stuff];
-        const int& maxcons = commodityMaxCons[stuff];
-        if(rule.maxload && maxcons && maxprod)
-        {
-            int amt = commodityProdPrev[stuff];
-            int max = amt >= 0 ? maxprod : -maxcons;
-            mps_store_ssddp(*i,"<->", commodityNames[stuff], amt, max);
-            ++*i;
-        }//endif
-    } //endfor
-    for(stuff = STUFF_INIT ; stuff < STUFF_COUNT && *i < 14; stuff++)
-    {
-        const CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-        const int& maxprod = commodityMaxProd[stuff];
-        const int& maxcons = commodityMaxCons[stuff];
-        if(rule.maxload && !maxcons && !maxprod)
-        {
-            mps_store_ssddp(*i,"--- ", commodityNames[stuff], commodityProdPrev[stuff], 1);
-            ++*i;
-        }//endif
-    } //endfor
+  }
 }
 
 void Construction::reset_prod_counters(void) {
@@ -312,7 +212,8 @@ void Construction::save(xmlTextWriterPtr xmlWriter) const {
   }
 }
 
-void Construction::load(xmlpp::TextReader& xmlReader) {
+void
+Construction::load(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "Construction");
   int depth = xmlReader.get_depth();
@@ -324,7 +225,7 @@ void Construction::load(xmlpp::TextReader& xmlReader) {
       continue;
     }
 
-    if(!loadMember(xmlReader)) {
+    if(!loadMember(xmlReader, ldsv_version)) {
       unexpectedXmlElement(xmlReader);
     }
 
@@ -334,14 +235,27 @@ void Construction::load(xmlpp::TextReader& xmlReader) {
   assert(xmlReader.get_depth() == depth);
 }
 
-bool Construction::loadMember(xmlpp::TextReader& xmlReader) {
+bool
+Construction::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version
+) {
   std::string name = xmlReader.get_name();
   Commodity stuff = commodityFromStandardName(name.c_str());
   if(stuff != STUFF_COUNT) {
     commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
   }
-  else if(name == "flags")
+  else if(name == "flags") {
     flags = std::stoul(xmlReader.read_inner_xml(), NULL, 0) & ~VOLATILE_FLAGS;
+    if(ldsv_version <= 2130) {
+      flags = 0
+        | (flags & 0x00000020 ? FLAG_FED : 0)
+        | (flags & 0x00000040 ? FLAG_EMPLOYED : 0)
+        | (flags & 0x00000080 ? FLAG_IS_TRANSPORT : 0)
+        | (flags & 0x00000100 ? FLAG_NEVER_EVACUATE : 0)
+        | (flags & 0x00000200 ? FLAG_EVACUATE : 0)
+        | (flags & 0x01000000 ? FLAG_HAD_POWER : 0)
+        | (flags & 0x08000000 ? FLAG_TRANSPARENT : 0);
+    }
+  }
   else return false;
   return true;
 }
@@ -351,6 +265,7 @@ void Construction::place(int x, int y) {
   if(!world.map.is_inside(x, y) || !world.map.is_inside(x + size, y + size))
     throw std::runtime_error("cannot place a Construction outside the map");
 
+  this->point = MapPoint(x, y);
   this->x = x;
   this->y = y;
 
@@ -376,6 +291,7 @@ void Construction::place(int x, int y) {
   }// endfor i
   world.map(x, y)->construction = this;
   world.map.constructions.insert(this); //register for Simulation
+  world.map.recentPoint = MapPoint(x, y);
   constructionGroup->count++;
 
   //now look for neighbors
@@ -385,22 +301,36 @@ void Construction::place(int x, int y) {
 //use this before deleting a construction. Construction requests check independently against NULL
 void Construction::detach()
 {
-    //std::cout << "detaching: " << constructionGroup->name << std::endl;
-    world.map.constructions.erase(this);
-    if(world.map(x,y)->construction == this) {
-        world.map(x,y)->construction = NULL;
-        world.map(x,y)->killframe(frameIt);
-        constructionGroup->count--;
+  //std::cout << "detaching: " << constructionGroup->name << std::endl;
+  // world.map.constructions.erase(this);
+  if(world.map(x,y)->construction == this) {
+    world.map(x,y)->construction = NULL;
+    world.map(x,y)->killframe(frameIt);
+    constructionGroup->count--;
 /*
-        world.map(x,y)->framesptr->erase(frameIt);
-        if(world.map(x,y)->framesptr->empty())
-        {
-            delete world.map(x,y)->framesptr;
-            world.map(x,y)->framesptr = NULL;
-        }
+      world.map(x,y)->framesptr->erase(frameIt);
+      if(world.map(x,y)->framesptr->empty())
+      {
+          delete world.map(x,y)->framesptr;
+          world.map(x,y)->framesptr = NULL;
+      }
 */
-    }
-    deneighborize();
+  }
+
+  int size = constructionGroup->size;
+  for(int i = 0; i < size; i++)
+  for(unsigned short j = 0; j < size; j++) {
+    MapTile& tile = *world.map(point.e(i).s(j));
+    if(tile.reportingConstruction == this)
+      tile.reportingConstruction = nullptr;
+  }
+  world.setUpdated(World::Updatable::MAP);
+  deneighborize();
+}
+
+bool
+Construction::isDead() const {
+  return world.map(point)->construction != this;
 }
 
 void Construction::deneighborize()
@@ -805,7 +735,7 @@ void Construction::trade()
                 && (neighbors[i]->commodityCount[stuff_ID] > 0))
                 {   powerline->anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;}
                 if((powerline->flashing && (neighbors[i]->constructionGroup->group == GROUP_POWER_LINE)))
-                {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
+                {   PowerLineFlashRequest(neighbors[i]).execute();}
             }
         }
 
@@ -901,42 +831,31 @@ void Construction::playSound()
 
 //ConstructionGroup Declarations
 
-int ConstructionGroup::getCosts(World& world) {
+int ConstructionGroup::getCosts(const World& world) const {
   return static_cast<int>(cost *
     (1.0f + cost_mul * world.tech_level / static_cast<float>(MAX_TECH_LEVEL)));
 }
 
-int ConstructionGroup::placeItem(World& world, int x, int y)
-{
-
-    //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
-    //enforce empty site
-    //unsigned short size = tmpConstr->constructionGroup->size;
-    for (unsigned short i = 0; i < size; i++)
-    {
-        for (unsigned short j = 0; j < size; j++)
-        {
-            if(world.map(x+j, y+i)->reportingConstruction) {
-              ConstructionManager::executeRequest(
-                new ConstructionDeletionRequest(
-                  world.map(x+j, y+i)->reportingConstruction));
-            }
-        }
+void
+ConstructionGroup::placeItem(World& world, int x, int y) {
+  for(unsigned short i = 0; i < size; i++)
+  for(unsigned short j = 0; j < size; j++) {
+    Construction *cst = world.map(x+j, y+i)->reportingConstruction;
+    if(cst) {
+      throw std::logic_error("space occupied");
+      // ConstructionDeletionRequest(cst).execute();
     }
+  }
 
-
-    Construction *tmpConstr = createConstruction(world);
+  Construction *tmpConstr = createConstruction(world);
 #ifdef DEBUG
-    if (tmpConstr == NULL)
-    {
-        std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
-        return -1;
-    }
+  if(tmpConstr == NULL) {
+    std::cout << "failed to create " << name
+      << " at " << "(" << x << ", " << y << ")"
+      << std::endl;
+  }
 #endif
-
-    tmpConstr->place(x, y);
-
-    return 0;
+  tmpConstr->place(x, y);
 }
 
 std::string ConstructionGroup::getName(void){
@@ -945,109 +864,61 @@ std::string ConstructionGroup::getName(void){
 
 extern void ok_dial_box(const char *, int, const char *);
 
-bool ConstructionGroup::is_allowed_here(World& world, int x, int y, bool msg) {
-    //handle transport quickly
-    if(world.map.is_visible(x, y) && (
-      group == GROUP_TRACK ||
-      group == GROUP_ROAD ||
-      group == GROUP_RAIL)
-    )
-      return world.map(x,y)->is_bare() ||
-        world.map(x,y)->getGroup() == GROUP_POWER_LINE ||
-        world.map(x,y)->is_water() && !world.map(x,y)->is_transport() ||
-        world.map(x,y)->is_transport() &&
-          world.map(x,y)->getTransportGroup() != group;
+bool
+ConstructionGroup::can_build(const World& world, Message::ptr& message) const {
+  if(world.tech_level < tech) {
+    message = NotEnoughTechMessage::create(world.tech_level, tech);
+    return false;
+  }
 
-    //now check for special rules
-    switch (group) {
-    case GROUP_UNIVERSITY:
-        if(schoolConstructionGroup.count/4
-          - universityConstructionGroup.count < 1\
-        ) {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, _("Not enough students, build more schools."));
-            return false;
-        }
-        break;
+  if(no_credit && world.total_money < getCosts(world)) {
+    message = OutOfMoneyMessage::create(false);
+    return false;
+  }
 
-    //The Harbour needs a River on the East side.
-    //and relies on invisible tiles if attempted at edge
-    case GROUP_PORT:
-        for(int j = 0; j < size; j++ )
-        {
-            if (!( world.map(x + size, y + j)->flags & FLAG_IS_RIVER ) )
-            {
-                if (msg)
-                    ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
-                return false;
-            }
-        }
-        break;
+  return true;
+}
 
-    //Waterwell needs ... water :-)
-    case GROUP_WATERWELL:
-        {
-            bool has_ugw = false;
-            for (int i = 0; i < size; i++)
-                for (int j = 0; j < size; j++)
-                    has_ugw = has_ugw | (world.map(x + j,y + i)->flags & FLAG_HAS_UNDERGROUND_WATER);
-            if (!has_ugw)
-            {
-                if (msg)
-                    ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
-                return false;
-            }
-        }
-        break;
-    //Oremine
-    /* GCS: mines over old mines is OK if there is enough remaining
-     *  ore, as is the case when there is partial overlap. */
-    case GROUP_OREMINE:
-        {
-            int total_ore = 0;
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    total_ore += world.map(x+j, y+i)->ore_reserve;
-                }
-            }
-            if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
-                if (msg) ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
-                return false; // not enought ore
-            }
-        }
-    break;
+bool
+ConstructionGroup::can_build_here(const World& world, const MapPoint point,
+  Message::ptr& message
+) const {
+  assert(can_build(world, message)); // already checked in World::place_item
 
-    //Parkland
-    case GROUP_PARKLAND:
-        if (!(world.map(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
-        {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
-            return false;
-        }
-        break;
-    //Other cases
-    }
+  if(!world.map.is_visible(point) ||
+    !world.map.is_visible(point.s(size-1).e(size-1))
+  ) {
+    message = OutsideMapMessage::create(point);
+    return false;
+  }
 
-    if(no_credit && world.total_money < getCosts(world)) {
-      if(msg) {
-        world.addEvent(new CannotBuildOnCreditMessage(world));
+  //handle transport quickly
+  if(world.map.is_visible(point) && (
+    group == GROUP_TRACK ||
+    group == GROUP_ROAD ||
+    group == GROUP_RAIL)
+  ) {
+    bool open = world.map(point)->is_bare() ||
+      world.map(point)->getGroup() == GROUP_POWER_LINE ||
+      world.map(point)->is_water() && !world.map(point)->is_transport() ||
+      world.map(point)->is_transport() &&
+        world.map(point)->getTransportGroup() != group;
+
+    if(!open)
+      message = SpaceOccupiedMessage::create(point);
+    return open;
+  }
+
+  //At last check for bare building site
+  for(int j = 0; j<size; j++) {
+    for(int i = 0; i<size; i++) {
+      if(!world.map(point.e(i).s(j))->is_bare()) {
+        message = SpaceOccupiedMessage::create(point);
+        return false;
       }
-      return false;
     }
-
-    //At last check for bare building site
-    for(int j = 0; j<size; j++)
-    {
-        for(int i = 0; i<size; i++)
-        {
-            if(!world.map(x+i, y+j)->is_bare())
-            {   return false;}
-        }
-    }
-    return true;
+  }
+  return true;
 }
 
 

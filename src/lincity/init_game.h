@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,21 +37,21 @@ struct _CitySettings {
 };
 
 std::unique_ptr<World>
-create_new_city(int *originx, int *originy, city_settings *city, int mapSize,
+create_new_city(city_settings *city, int mapSize,
   int old_setup_ground, int climate);
 
 std::unique_ptr<World>
-new_city(int *originx, int *originy, city_settings *city, int mapSize);
+new_city(city_settings *city, int mapSize);
 
 std::unique_ptr<World>
-new_desert_city(int *originx, int *originy, city_settings *city, int mapSize);
+new_desert_city(city_settings *city, int mapSize);
 
 std::unique_ptr<World>
-new_temperate_city(int *originx, int *originy, city_settings *city, int mapSize
+new_temperate_city(city_settings *city, int mapSize
 );
 
 std::unique_ptr<World>
-new_swamp_city(int *originx, int *originy, city_settings *city, int mapSize);
+new_swamp_city(city_settings *city, int mapSize);
 
 #endif /* __init_game_h__ */
 

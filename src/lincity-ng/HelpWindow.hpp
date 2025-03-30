@@ -30,7 +30,7 @@ class WindowManager;
 class HelpWindow
 {
 public:
-    HelpWindow(Desktop* desktop);
+    HelpWindow(WindowManager* wm);
     ~HelpWindow();
 
     void showTopic(const std::string& topic);

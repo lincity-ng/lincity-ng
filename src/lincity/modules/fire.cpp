@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #include <map>                            // for map
 #include <vector>                         // for vector
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
 #include "modules.h"                      // for ExtraFrame, do_random_fire
 //#include "lincity-ng/Sound.hpp"
@@ -80,8 +79,7 @@ void Fire::update()
         if (world.map(x,y)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
         if(smoking_days > AFTER_FIRE_LENGTH)
-          ConstructionManager::submitRequest(
-            new ConstructionDeletionRequest(this));
+          ConstructionDeletionRequest(this).execute();
         return;
     }
 
@@ -123,7 +121,7 @@ void Fire::spread() {
     return;
 }
 
-void Fire::animate() {
+void Fire::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
 
   if(smoking_days) {
@@ -139,17 +137,14 @@ void Fire::animate() {
   }
 }
 
-void Fire::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sd(i++,N_("Air Pollution"), world.map(x,y)->pollution);
-    if (burning_days < FIRE_LENGTH)
-    {   mps_store_sddp(i++,N_("burnt down"), burning_days, FIRE_LENGTH);}
+void Fire::report(Mps& mps, bool production) const {
+    mps.add_s(constructionGroup->name);
+    mps.addBlank();
+    mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
+    if(burning_days < FIRE_LENGTH)
+      mps.add_sddp(N_("burnt down"), burning_days, FIRE_LENGTH);
     else
-    {   mps_store_sddp(i++,N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);}
+      mps.add_sddp(N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);
 }
 
 void Fire::save(xmlTextWriterPtr xmlWriter) const {
@@ -159,12 +154,12 @@ void Fire::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Fire::loadMember(xmlpp::TextReader& xmlReader) {
+bool Fire::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "burning_days")       burning_days       = std::stoi(xmlReader.read_inner_xml());
   else if(name == "smoking_days")       smoking_days       = std::stoi(xmlReader.read_inner_xml());
   else if(name == "days_before_spread") days_before_spread = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

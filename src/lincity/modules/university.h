@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,6 +70,9 @@ public:
     }
     // overriding method that creates a University
     virtual Construction *createConstruction(World& world);
+
+    virtual bool can_build(const World& world,
+      Message::ptr& message) const override;
 };
 
 extern UniversityConstructionGroup universityConstructionGroup;
@@ -79,10 +82,10 @@ public:
     University(World& world, ConstructionGroup *cstgrp);
     virtual ~University() { }
     virtual void update();
-    virtual void report();
+    virtual void report(Mps& mps, bool production) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
-    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
     int total_tech_made;
     int working_days, busy;

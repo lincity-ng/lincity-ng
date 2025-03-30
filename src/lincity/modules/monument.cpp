@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,8 +82,7 @@ void Monument::update()
         {
             completed = true;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-            if (mps_x == x && mps_y == y)
-            {   mps_set(x, y, MPS_MAP);}
+            world.setUpdated(World::Updatable::MAP);
             //don't clear commodiyCount for savegame compatability
         }
         /* inc tech level only if fully built and tech less
@@ -110,7 +109,7 @@ void Monument::update()
     }
 }
 
-void Monument::animate() {
+void Monument::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(completed) {
     frame = 0;
@@ -121,25 +120,21 @@ void Monument::animate() {
     frame = completion / 20;
 }
 
-void Monument::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    /* Display tech contribution only after monument is complete */
-    if (completion >= 100) {
-        i++;
-        mps_store_sfp(i++, N_("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
-    }
-    else
-    {
-        mps_store_sfp(i++, N_("busy"), (float) busy);
-        // i++;
-        list_commodities(&i);
-        i++;
-        mps_store_sfp(i++, N_("Completion"), completion);
-    }
+void Monument::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  /* Display tech contribution only after monument is complete */
+  if(completion >= 100) {
+    mps.addBlank();
+    mps.add_sfp(N_("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
+  }
+  else {
+    mps.add_sfp(N_("busy"), (float) busy);
+    // i++;
+    list_commodities(mps, production);
+    mps.addBlank();
+    mps.add_sfp(N_("Completion"), completion);
+  }
 }
 
 void Monument::save(xmlTextWriterPtr xmlWriter) const {
@@ -150,14 +145,14 @@ void Monument::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Monument::loadMember(xmlpp::TextReader& xmlReader) {
+bool Monument::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "tech_made")  tech_made      = std::stoi(xmlReader.read_inner_xml());
   else if(name == "tail_off")   tail_off       = std::stoi(xmlReader.read_inner_xml());
   else if(name == "completion") completion     = std::stoi(xmlReader.read_inner_xml());
   else if(name == "labor_consumed" || name == "jobs_consumed")
                                 labor_consumed = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

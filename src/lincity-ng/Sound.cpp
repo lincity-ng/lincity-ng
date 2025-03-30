@@ -1,21 +1,24 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/Sound.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "Sound.hpp"
 
@@ -38,6 +41,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engglobs.h"          // for tech_level
 #include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
 #include "lincity/resources.hpp"       // for ResourceGroup
+#include "lincity/lintypes.h"
 
 Sound* soundPtr = 0;
 
@@ -291,6 +295,18 @@ Sound::playSound(const std::string& name) {
     Mix_PlayChannel( 0, it->second, 0 );
 }
 
+void
+Sound::playSound(const MapTile& tile) {
+  ResourceGroup* resourceGroup;
+  if(tile.reportingConstruction)
+    resourceGroup = tile.reportingConstruction->soundGroup;
+  else
+    resourceGroup = tile.getTileResourceGroup();
+  int count = resourceGroup->chunks.size();
+  if(count)
+    playASound(resourceGroup->chunks[rand() % count]);
+}
+
 void Sound::playASound(Mix_Chunk *chunk)
 {
     if( !getConfig()->soundEnabled )
@@ -381,9 +397,9 @@ Sound::playMusic()
         float current_tech = tech_level * (float)100 / MAX_TECH_LEVEL;
         current_tech = round(current_tech*10)/10;
 
-        if( getGame() && (current_tech < currentTrack.lowestTechLevel
-            || current_tech > currentTrack.highestTechLevel)    )
-        {
+        if(current_tech < currentTrack.lowestTechLevel
+          || current_tech > currentTrack.highestTechLevel
+        ) {
             //std::cerr << "Next track is " << currentTrack.title
             //<< " and it's tech level prerequisites range from "
             //<< currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << "." << std::endl;

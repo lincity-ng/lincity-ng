@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +44,22 @@ Construction *WaterwellConstructionGroup::createConstruction(World& world) {
   return new Waterwell(world, this);
 }
 
+bool
+WaterwellConstructionGroup::can_build_here(const World& world,
+  const MapPoint point, Message::ptr& message
+) const {
+  for(int i = 0; i < size; i++)
+  for(int j = 0; j < size; j++)
+    if(world.map(point.e(j).s(i))->flags & FLAG_HAS_UNDERGROUND_WATER)
+      goto has_ugw;
+
+  message = DesertHereMessage::create(point);
+  return false;
+
+  has_ugw:
+  return ConstructionGroup::can_build_here(world, point, message);
+}
+
 Waterwell::Waterwell(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
@@ -69,21 +85,18 @@ void Waterwell::update() {
   }
 }
 
-void Waterwell::report() {
-  int i = 0;
-
-  const char *p;
-
-  mps_store_title(i, constructionGroup->name);
-  i++;
-  mps_store_sddp(i++, N_("Fertility"), ugwCount,
+void Waterwell::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sddp(N_("Fertility"), ugwCount,
     constructionGroup->size * constructionGroup->size);
-  mps_store_sfp(i++, N_("busy"), busy);
-  mps_store_sddp(i++, N_("Air Pollution"), world.map(x,y)->pollution,
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sddp(N_("Air Pollution"), world.map(x,y)->pollution,
     MAX_POLLUTION_AT_WATERWELL);
-  p = world.map(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?N_("No"):N_("Yes");
-  mps_store_ss(i++, N_("Drinkable"), p);
-  list_commodities(&i);
+  mps.add_ss(N_("Drinkable"),
+    world.map(x,y)->pollution > MAX_POLLUTION_AT_WATERWELL
+      ? N_("No") : N_("Yes"));
+  list_commodities(mps, production);
 }
 
 void Waterwell::place(int x, int y) {

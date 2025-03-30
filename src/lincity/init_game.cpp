@@ -34,7 +34,6 @@
 #include <random>
 #include <cassert>
 
-#include "ConstructionManager.h"           // for ConstructionManager
 #include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, global_mountainity
@@ -63,7 +62,7 @@
 //static void init_mappoint_array(void);
 static void setup_land(Map& map, int global_aridity, bool without_trees);
 static void nullify_mappoint(int x, int y);
-static void random_start(World& world, int *originx, int *originy,
+static void random_start(World& world,
   bool without_trees);
 static void coal_reserve_setup(Map& map);
 static void ore_reserve_setup(Map& map);
@@ -89,24 +88,24 @@ static int overfill_lake(Map& map, int xl, int yl);//, Shoreline *shore, int lak
  * ---------------------------------------------------------------------- */
 
 std::unique_ptr<World>
-new_city(int *originx, int *originy, city_settings *city, int mapSize) {
-  return create_new_city( originx, originy, city, mapSize, true, 0);
+new_city(city_settings *city, int mapSize) {
+  return create_new_city(city, mapSize, true, 0);
 }
 
 std::unique_ptr<World>
-new_desert_city(int *originx, int *originy, city_settings *city, int mapSize) {
-  return create_new_city( originx, originy, city, mapSize, false, 1);
+new_desert_city(city_settings *city, int mapSize) {
+  return create_new_city(city, mapSize, false, 1);
 }
 
 std::unique_ptr<World>
-new_temperate_city(int *originx, int *originy, city_settings *city, int mapSize
+new_temperate_city(city_settings *city, int mapSize
 ) {
-    return create_new_city( originx, originy, city, mapSize, false, 2);
+    return create_new_city(city, mapSize, false, 2);
 }
 
 std::unique_ptr<World>
-new_swamp_city(int *originx, int *originy, city_settings *city, int mapSize) {
-  return create_new_city( originx, originy, city, mapSize, false, 3);
+new_swamp_city(city_settings *city, int mapSize) {
+  return create_new_city(city, mapSize, false, 3);
 }
 
 template <class T>
@@ -230,8 +229,8 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   /*smooth all edges in fresh map*/
   //std::cout << "smoothing graphics edges ...";
   //std::cout.flush();
-  connect_transport(1, 1, map.len() - 2, map.len() - 2);
-  desert_water_frontiers(0, 0, map.len(), map.len());
+  map.connect_transport(1, 1, map.len() - 2, map.len() - 2);
+  map.desert_water_frontiers(0, 0, map.len(), map.len());
   //std::cout << " done" << std::endl;
 }
 
@@ -240,8 +239,8 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
  * ---------------------------------------------------------------------- */
 
 std::unique_ptr<World>
-create_new_city(int *originx, int *originy, city_settings *city, int mapSize,
-  int old_setup_ground, int climate
+create_new_city(city_settings *city, int mapSize, int old_setup_ground,
+  int climate
 ) {
   assert(city);
 
@@ -277,16 +276,12 @@ create_new_city(int *originx, int *originy, city_settings *city, int mapSize,
 
   setup_land(world.map, global_aridity, city && city->without_trees);
   ore_reserve_setup(world.map);
-  init_pbars(); // TODO: move to NG
 
   if(city->with_village)
-    random_start(world, originx, originy, city->without_trees);
-  else
-    *originx = *originy = world.map.len() / 2;
+    random_start(world, city->without_trees);
 
-  update_pbar(PPOP, world.stats.population.population_m, 1); // TODO: move to NG
-  connect_transport(1, 1, world.map.len() - 2, world.map.len() - 2);
-  desert_water_frontiers(0, 0, world.map.len(), world.map.len());
+  world.map.connect_transport(1, 1, world.map.len() - 2, world.map.len() - 2);
+  world.map.desert_water_frontiers(0, 0, world.map.len(), world.map.len());
 
   return worldPtr;
 }
@@ -1216,9 +1211,7 @@ static void remove_river(void)
 }
 */
 
-static void random_start(World& world, int *originx, int *originy,
-  bool without_trees
-) {
+static void random_start(World& world, bool without_trees) {
     Map& map = world.map;
     int x, y, xx, yy, flag, watchdog;
 
@@ -1253,10 +1246,6 @@ static void random_start(World& world, int *originx, int *originy,
 #ifdef DEBUG
     fprintf(stderr, "random village watchdog = %i\n", watchdog);
 #endif
-
-    /* These are going to be the main_screen_origin? vars */
-    *originx = xx;
-    *originy = yy;
 
     /*  Draw the start scene. */
 

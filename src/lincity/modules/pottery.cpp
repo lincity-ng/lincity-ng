@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ void Pottery::update()
     }
 }
 
-void Pottery::animate() {
+void Pottery::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if (animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(POTTERY_ANIM_SPEED);
@@ -111,15 +111,11 @@ void Pottery::animate() {
   }
 }
 
-void Pottery::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    // i++;
-    list_commodities(&i);
+void Pottery::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (float) busy);
+  list_commodities(mps, production);
 }
 
 /** @file lincity/modules/pottery.cpp */

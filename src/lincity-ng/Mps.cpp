@@ -1,20 +1,24 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/Mps.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "Mps.hpp"
 
@@ -22,6 +26,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdlib.h>                       // for rand
 #include <iostream>                       // for basic_ostream, operator<<
 #include <sstream>                        // for basic_ostringstream
+#include <algorithm>
+#include <numeric>
 
 #include "MapPoint.hpp"                   // for MapPoint
 #include "Sound.hpp"                      // for getSound, Sound
@@ -37,120 +43,441 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/all_modules.h"  // for Transport
 #include "lincity/resources.hpp"          // for ResourceGroup
 #include "lincity/world.h"                // for Map, MapTile
+#include "tinygettext/gettext.hpp"
+#include "Game.hpp"
+#include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
+#include "lincity/lclib.h"
 
-Mps* globalMPS = 0;
-Mps* mapMPS = 0;
-Mps* envMPS = 0;
+Mps::Mps() { }
 
-Mps::Mps()
-{
-}
-
-Mps::~Mps()
-{
-}
+Mps::~Mps() { }
 
 void
-Mps::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+Mps::parse(XmlReader& reader) {
+  XmlReader::AttributeIterator iter(reader);
+  while(iter.next()) {
+    const char* name = (const char*) iter.getName();
+    const char* value = (const char*) iter.getValue();
 
-        if(parseAttribute(name, value)) {
-            continue;
-        } else {
-            std::cerr << "Unknown attribute '" << name
-                      << "' skipped in Mps.\n";
-        }
-    }
-
-    if(getName() == "GlobalMPS") {
-        globalMPS = this;
-    } else if(getName() == "MapMPS") {
-        mapMPS = this;
-    } else if(getName() == "EnvMPS") {
-        envMPS = this;
+    if(parseAttribute(name, value)) {
+      continue;
     } else {
-        std::cerr << "Unknown MPS component '" << getName() << "' found.\n";
+      std::cerr << "Unknown attribute '" << name
+                << "' skipped in Mps.\n";
     }
+  }
 
-    Component* component = parseEmbeddedComponent(reader);
-    addChild(component);
-    width = component->getWidth();
-    height = component->getHeight();
+  Component* component = parseEmbeddedComponent(reader);
+  addChild(component);
+  width = component->getWidth();
+  height = component->getHeight();
 
-    for(int i = 0; i < MPS_PARAGRAPH_COUNT; ++i) {
-        std::ostringstream compname;
-        compname << "mps_text" << i;
-        Paragraph* p = getParagraph(*this, compname.str());
-        paragraphs.push_back(p);
-    }
-
-    setView(MapPoint(10,10));
+  for(int i = 0; i < PARAGRAPH_COUNT; ++i) {
+    std::ostringstream compname;
+    compname << "mps_text" << i;
+    Paragraph* p = getParagraph(*this, compname.str());
+    paragraphs.push_back(p);
+  }
 }
 
 void
-Mps::setText(int i, const std::string &s)
-{
-    assert(i >= 0 && i < MPS_PARAGRAPH_COUNT);
-    paragraphs[i]->setText(s);
+Mps::reset() {
+  i = 0;
 }
 
 void
-Mps::clear()
-{
-    for(Paragraphs::iterator i = paragraphs.begin(); i != paragraphs.end(); ++i)
-        (*i)->setText("");
+Mps::clear() {
+  for(auto it = paragraphs.begin(); it != paragraphs.end(); ++it)
+    (*it)->setText("");
+  reset();
 }
 
 void
-Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
-{
-    int x = point.x;
-    int y = point.y;
-    if( !world.is_inside(x, y)) {return;}
-    Construction *reportingConstruction = world(x,y)->reportingConstruction;
-    if (reportingConstruction) {
-        x = reportingConstruction->x;
-        y = reportingConstruction->y;
-    }
-
-    // Used with MPS_GLOBAL, MPS_ENV and MPS_MAP
-    clear();
-    mps_update(x, y, style);
+Mps::addText(const std::string &s) {
+  assert(i >= 0 && i < PARAGRAPH_COUNT);
+  paragraphs[i++]->setText(s);
 }
 
 void
-Mps::playBuildingSound(int mps_x, int mps_y)
-{
-    if(world(mps_x, mps_y)->reportingConstruction)
-    {
-        unsigned short group = world(mps_x, mps_y)->reportingConstruction->constructionGroup->group;
-        if( group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE)
-        {   dynamic_cast<Transport *>(world(mps_x, mps_y)->reportingConstruction)->playSound();}
-        else
-        {   world(mps_x, mps_y)->reportingConstruction->playSound();}
-    }
+Mps::addBlank() {
+  addText("");
+}
+
+void
+Mps::fillBlank() {
+  while(!isFull())
+    addBlank();
+}
+
+bool
+Mps::isFull() const {
+  return i >= PARAGRAPH_COUNT;
+}
+
+void
+Mps::add_s(const std::string &t) {
+  addText(_(t.c_str()));
+}
+
+void
+Mps::add_fp(int i, double f) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << f << "%"
+  ).str());
+}
+
+void
+Mps::add_f(double f) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << f
+  ).str());
+}
+
+void
+Mps::add_sf(const std::string& s, double fl) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s.c_str()) << "\t" << fl
+  ).str());
+}
+
+
+void
+Mps::add_d(int d) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << d
+  ).str());
+}
+
+void
+Mps::add_ss(const std::string& s1, const std::string& s2) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s1.c_str()) << "\t" << _(s2.c_str())
+  ).str());
+}
+
+void
+Mps::add_sd(const std::string& s, int d) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s.c_str()) << "\t" << d
+  ).str());
+}
+
+void
+Mps::add_ssd(const std::string& s1, const std::string& s2, int d) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s1.c_str()) << "\t" << _(s2.c_str()) << "\t" << d
+  ).str());
+}
+
+void
+Mps::add_sfp(const std::string& s, double fl) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s.c_str()) << "\t" << fl << "%"
+  ).str());
+}
+
+void
+Mps::add_sdd(const std::string& s, int d1, int d2) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s.c_str()) << "\t" << d1 << "\t" << d2
+  ).str());
+}
+
+void
+Mps::add_sddp(const std::string& s, int d, int max) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << _(s.c_str()) << "\t" << d << "\t" << (d*100.0/max) << "%"
+  ).str());
+}
+
+void
+Mps::add_tsddp(const std::string& t1, const std::string& s2, int d, int max) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << t1 << _(s2.c_str()) << "\t" << d << "\t" << (d*100.0/max) << "%"
+  ).str());
+}
+
+void
+Mps::add_ttt(const std::string& t1, const std::string& t2, const std::string& t3
+) {
+  addText((std::ostringstream() << std::setprecision(1) << std::fixed
+    << t1 << "\t" << t2 << "\t" << t3
+  ).str());
+}
+
+
+void
+MpsMap::refresh() {
+  if(!game->getWorld().map.is_visible(point))
+    return; // can happen before `point` is set the first time
+
+  clear();
+  switch(page) {
+  case Page::INVENTORY:
+    refreshInvProd(false);
+    break;
+  case Page::PRODUCTION:
+    refreshInvProd(true);
+    break;
+  case Page::GROUND:
+    refreshGround();
+    break;
+  }
+  fillBlank();
+}
+
+void
+MpsMap::refreshInvProd(bool production) {
+  MapTile& tile = *game->getWorld().map(point);
+  ConstructionGroup *tileCstGrp = tile.getTileConstructionGroup();
+  if(tile.reportingConstruction) {
+    tile.reportingConstruction->report(*this, production);
+  }
+  else if(tileCstGrp == &waterConstructionGroup) {
+    add_sdd(waterConstructionGroup.name, point.x, point.y);
+
+    addBlank();
+    const char *p;
+    if(tile.flags & FLAG_IS_LAKE)
+      p = N_("Lake");
+    else if(tile.flags & FLAG_IS_RIVER)
+      p = N_("River");
     else
-    {
-        ResourceGroup* resourceGroup = world(mps_x, mps_y)->getTileResourceGroup();
-        int s = resourceGroup->chunks.size();
-        if(s)
-        {   getSound()->playASound( resourceGroup->chunks[ rand()%s ] );}
+      p = N_("Pond");
+    add_s(p);
+  }
+  else {
+    add_sdd(tileCstGrp->name, point.x, point.y);
+    addBlank();
+    add_s(N_("no further information available"));
+
+    if(tile.is_bare()) {
+      addBlank();
+      addBlank();
+      addBlank();
+      addBlank();
+      add_s(N_("build something here"));
     }
-    std::cout.flush();
+  }
 }
 
-int mps_set_silent(int x, int y, int style);
+void
+MpsMap::refreshGround() {
+  MapTile& tile = *game->getWorld().map(point);
+  const char* p;
 
-void mps_update(int mps_x, int mps_y, int mps_style)
-{
-    mps_set_silent(mps_x, mps_y, mps_style);
+  add_sdd(tile.getTileConstructionGroup()->name, point.x, point.y);
+  add_ss(N_("Fertile"),
+    (tile.flags & FLAG_HAS_UNDERGROUND_WATER) ? N_("Yes") : N_("No"));
+
+  if(tile.group == GROUP_WATER) {
+    if(tile.flags & FLAG_IS_LAKE)
+      p = N_("Lake");
+    else if(tile.flags & FLAG_IS_RIVER)
+      p = N_("River");
+    else
+      p = N_("Pond");
+    add_s(p);
+  }
+  else {
+    addBlank();
+  }
+
+  add_ss(N_("Fire Protection"),
+    (tile.flags & FLAG_FIRE_COVER) ? N_("Yes") : N_("No"));
+
+  add_ss(N_("Health Care"),
+    (tile.flags & FLAG_HEALTH_COVER) ? N_("Yes") : N_("No"));
+
+  add_ss(N_("Public Sports"),
+    (tile.flags & FLAG_CRICKET_COVER) ? N_("Yes") : N_("No"));
+
+  add_ss(N_("Market Range"),
+    (tile.flags & FLAG_MARKET_COVER) ? N_("Yes") : N_("No"));
+
+  int pol = tile.pollution;
+  if(pol < 10)
+    p = N_("clear");
+  else if(pol < 25)
+    p = N_("good");
+  else if(pol < 70)
+    p = N_("fair");
+  else if(pol < 190)
+    p = N_("smelly");
+  else if(pol < 450)
+    p = N_("smokey");
+  else if(pol < 1000)
+    p = N_("smoggy");
+  else if(pol < 1700)
+    p = N_("bad");
+  else if(pol < 3000)
+    p = N_("very bad");
+  else
+    p = N_("death!");
+
+  add_ssd(N_("Air Pollution"), p, pol);
+
+  if(tile.getGroup() == GROUP_DESERT)
+    add_ss(N_("Bull. Cost"), N_("N/A"));
+  else
+    add_sd(N_("Bull. Cost"), tile.getConstructionGroup()->bul_cost);
+
+  add_sd(N_("Ore Reserve"), tile.ore_reserve);
+  add_sd(N_("Coal Reserve"), tile.coal_reserve);
+  add_sd(N_("ground level"), tile.ground.altitude);
+
+  if(game->getWorld().map.saddlepoint(point))
+    p = N_("saddle point");
+  else if(!tile.is_water() && game->getWorld().map.minimum(point))
+    p = N_("minimum");
+  else if(!tile.is_water() && game->getWorld().map.maximum(point))
+    p = N_("maximum");
+  else if(game->getWorld().map.checkEdgeMin(point))
+    p = N_("lowest edge");
+  else
+    p = "-";
+
+  add_s(p);
+}
+
+
+void
+MpsFinance::refresh() {
+  clear();
+  switch(page) {
+  case Page::CASH_FLOW:
+    refreshCashFlow();
+    break;
+  case Page::COSTS:
+    refreshCosts();
+    break;
+  case Page::POPULATION:
+    refreshPopulation();
+    break;
+  }
+  fillBlank();
+}
+
+void
+MpsFinance::refreshCashFlow() {
+  Stats& stats = game->getWorld().stats;
+  int amt;
+  int cashflow = 0;
+
+  add_s(N_("Tax Income"));
+
+  amt = stats.income.income_tax;
+  add_ss(N_("Income"), num_to_ansi(-amt));
+  cashflow -= amt;
+
+  amt = stats.income.coal_tax;
+  add_ss(Construction::getStuffName(STUFF_COAL), num_to_ansi(-amt));
+  cashflow -= amt;
+
+  amt = stats.income.goods_tax;
+  add_ss(Construction::getStuffName(STUFF_GOODS), num_to_ansi(-amt));
+  cashflow -= amt;
+
+  amt = stats.income.export_tax;
+  add_ss(N_("Export"), num_to_ansi(-amt));
+  cashflow -= amt;
+
+  addBlank();
+
+  add_s(N_("Expenses"));
+
+  amt = stats.expenses.unemployment;
+  add_ss(N_("Unemp."), num_to_ansi(amt));
+  cashflow -= amt;
+
+  amt = stats.expenses.transport;
+  add_ss(N_("Transport"), num_to_ansi(amt));
+  cashflow -= amt;
+
+  amt = stats.expenses.import;
+  add_ss(N_("Imports"), num_to_ansi(amt));
+  cashflow -= amt;
+
+  amt = stats.expenses.windmill
+    + stats.expenses.university
+    + stats.expenses.recycle
+    + stats.expenses.deaths
+    + stats.expenses.health
+    + stats.expenses.rockets
+    + stats.expenses.school
+    + stats.expenses.firestation
+    + stats.expenses.cricket
+    + stats.expenses.interest;
+  add_ss(N_("Others"), num_to_ansi(amt));
+  cashflow -= amt;
+
+  addBlank();
+
+  add_ss(N_("Net"), num_to_ansi(cashflow));
+}
+
+void
+MpsFinance::refreshCosts() {
+  Stats& stats = game->getWorld().stats;
+  add_s(N_("Other Costs"));
+  add_sd(N_("For year"), current_year(game->getWorld().total_time) - 1);
+  addBlank();
+  add_ss(N_("Interest"), num_to_ansi(stats.expenses.interest));
+  add_ss(N_("Schools") , num_to_ansi(stats.expenses.school));
+  add_ss(N_("Univers."), num_to_ansi(stats.expenses.university));
+  add_ss(N_("Deaths")  , num_to_ansi(stats.expenses.deaths));
+  add_ss(N_("Windmill"), num_to_ansi(stats.expenses.windmill));
+  add_ss(N_("Hospital"), num_to_ansi(stats.expenses.health));
+  add_ss(N_("Rockets") , num_to_ansi(stats.expenses.rockets));
+  add_ss(N_("Fire Stn"), num_to_ansi(stats.expenses.firestation));
+  add_ss(N_("Sport")   , num_to_ansi(stats.expenses.cricket));
+  add_ss(N_("Recycle") , num_to_ansi(stats.expenses.recycle));
+}
+
+void
+MpsFinance::refreshPopulation() {
+  Stats& stats = game->getWorld().stats;
+  add_s(N_("Population") );
+  addBlank();
+  add_sd(N_("Total"), stats.population.population_m / NUMOF_DAYS_IN_MONTH);
+  add_sd(N_("Housed"), stats.population.housed_m / NUMOF_DAYS_IN_MONTH);
+  add_sd(N_("Homeless"),
+    (stats.population.population_m - stats.population.housed_m)
+    / NUMOF_DAYS_IN_MONTH);
+  add_sd(N_("Shanties"), shantyConstructionGroup.count);
+
+  add_sddp(N_("Unemployment"),
+    stats.population.unemployed_m / NUMOF_DAYS_IN_MONTH,
+    stats.population.housed_m / NUMOF_DAYS_IN_MONTH);
+  add_sddp(N_("Starvation"),
+    stats.population.starving_m / NUMOF_DAYS_IN_MONTH,
+    stats.population.housed_m / NUMOF_DAYS_IN_MONTH);
+
+  assert(stats.history.births.size() >= 12);
+  auto birthsEnd = stats.history.births.begin();
+  std::advance(birthsEnd, 12);
+  add_sddp(N_("Births p.a."),
+    std::accumulate(stats.history.births.begin(), birthsEnd, 0),
+    stats.population.population_m);
+
+  assert(stats.history.deaths.size() >= 12);
+  auto deathsEnd = stats.history.deaths.begin();
+  std::advance(deathsEnd, 12);
+  int tdeaths = std::accumulate(stats.history.deaths.begin(), deathsEnd, 0);
+  add_sddp(N_("Deaths p.a."), tdeaths,
+    stats.population.population_m / NUMOF_DAYS_IN_MONTH);
+
+  assert(stats.history.unnat_deaths.size() >= 12);
+  auto unnatDeathsEnd = stats.history.unnat_deaths.begin();
+  std::advance(unnatDeathsEnd, 12);
+  add_sddp(N_("Unnat. Deaths"),
+    std::accumulate(stats.history.unnat_deaths.begin(), unnatDeathsEnd, 0),
+    std::max({tdeaths, 1}));
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Mps)
+IMPLEMENT_COMPONENT_FACTORY(MpsMap)
+IMPLEMENT_COMPONENT_FACTORY(MpsFinance)
 
 
 /** @file lincity-ng/Mps.cpp */

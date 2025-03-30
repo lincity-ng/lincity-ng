@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +25,8 @@
 #ifndef _LCLIB_H
 #define _LCLIB_H
 
+#include <string>
+
 // FIXME: is this necessary to export this?
 extern char *months[];
 
@@ -35,7 +38,7 @@ int current_year(int current_time);
 void *lcalloc(size_t size);
 int commify(char *str, size_t size, int argnum);
 void pad_with_blanks(char *str, int size);
-void num_to_ansi(char *s, size_t size, long num);
+std::string num_to_ansi(long num);
 
 int min_int(int i1, int i2);
 int max_int(int i1, int i2);

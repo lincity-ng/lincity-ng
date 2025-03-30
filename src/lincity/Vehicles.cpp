@@ -69,7 +69,6 @@ Vehicle::Vehicle(World& world, int x0, int y0, VehicleModel model0, VehicleStrat
     else
     {   this->initial_cargo = -1;}
 
-    vehicleList.push_back(this);
     frameIt = world.map(x,y)->createframe();
     frameIt->frame = -2; //special value to indicate fresh fast forward car
     map_idx = x + y * world.map.len();
@@ -163,7 +162,7 @@ void Vehicle::drive(void)
     }
 }
 
-void Vehicle::walk()
+void Vehicle::walk(unsigned long real_time)
 {
     double remaining = double(anim-real_time)/speed;
     double elapsed = 1 - remaining;
@@ -406,7 +405,7 @@ void Vehicle::getNewHeadings()
 
     //absolutely nowhere to go
     if (!sum) {
-      delete this;
+      death_counter = 0;
       return;
     }
 
@@ -436,7 +435,7 @@ void Vehicle::getNewHeadings()
 }
 
 
-void Vehicle::update()
+void Vehicle::update(unsigned long real_time)
 {
     //get a new heading
     if(x == xnext && y == ynext)
@@ -451,9 +450,9 @@ void Vehicle::update()
         {   anim = real_time + speed;}
     }
     //animate the sprite
-    walk();
+    walk(real_time);
     //cars have limited lifespan
-    if(death_counter < 0)
+    if(death_counter <= 0)
       delete this;
 
 }

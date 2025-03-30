@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ void Blacksmith::update()
     working_days++;
     if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH) {
       animate_enable = true;
-      world.map(x,y)->pollution++;
+      world.map(point)->pollution++;
       goods_made = 0;
     }
   }
@@ -99,7 +99,7 @@ void Blacksmith::update()
   }
 }
 
-void Blacksmith::animate() {
+void Blacksmith::animate(unsigned long real_time) {
   if(!animate_enable) {
     frameIt->frame = 0;
     anim = 0;
@@ -114,15 +114,10 @@ void Blacksmith::animate() {
   }
 }
 
-void Blacksmith::report()
-{
-  int i = 0;
-
-  mps_store_title(i++, constructionGroup->name);
-  i++;
-  mps_store_sfp(i++, N_("busy"), (float) busy);
-  // i++;
-    list_commodities(&i);
+void Blacksmith::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (float)busy);
+  list_commodities(mps, production);
 }
 
 /** @file lincity/modules/blacksmith.cpp */

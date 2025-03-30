@@ -1,21 +1,24 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/MiniMap.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "MiniMap.hpp"
 
@@ -123,6 +126,11 @@ MiniMap::~MiniMap()
         miniMapPtr = 0;
 }
 
+void
+MiniMap::setGame(Game *game) {
+  this->game = game;
+}
+
 Commodity
 MiniMap::getStuffID()
 {
@@ -155,7 +163,12 @@ MiniMap::toggleStuffID(int step)
         {   ++pos;}
         stuff_ID = commodities[pos+step];
     }
-    getGameView()->setMapMode( mMode );
+    game->getGameView().setMapMode( mMode );
+}
+
+World&
+MiniMap::getWorld() const {
+  return game->getWorld();
 }
 
 
@@ -213,19 +226,6 @@ MiniMap::parse(XmlReader& reader)
     alreadyAttached=false;
     inside = false;
 
-    mpsXOld = mps_x;
-    mpsYOld = mps_y;
-    mpsStyleOld = mps_style;
-    setGameViewCorners(
-        MapPoint(
-            main_screen_originx - width / tilesize / 2,
-            main_screen_originy - height / tilesize / 2
-        ),
-        MapPoint(
-            main_screen_originx + width / tilesize / 2,
-            main_screen_originy + height / tilesize / 2
-        )
-    );
     this->stuff_ID = STUFF_FOOD;
 }
 
@@ -297,46 +297,14 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
     if( !alreadyAttached )
     {   return;}
     if(mousebutton == SDL_BUTTON_RIGHT )
-    {   getGame()->showHelpWindow( "dialogs" );}
+    {   game->showHelpWindow( "dialogs" );}
     std::string active_button_name = "Switch" + getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
     std::string buttonName = button->getName();
-
-    if(buttonName == "SwitchGlobalMPS") {
-        //cycle through global styles
-        if (active_button_name == "SwitchGlobalMPS")
-        {   mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;}
-        mps_set(mps_x, mps_y, MPS_GLOBAL);
-    }
-    else if(buttonName == "SwitchMapMPS") {
-        //FIXME
-        //that would be nice but MAP_MPS is actually the minimap
-/*
-        if (active_button_name == "SwitchMapMPS")
-        {   mps_map_page = (mps_map_page + 1) % MPS_MAP_PAGES;}
-*/
-        mps_set(mps_x, mps_y, MPS_MAP);
-    } else if(buttonName == "SwitchPBar") {
-        //cycle through pbar styles
-      if ((active_button_name == "SwitchPBar")
-      ||  (active_button_name == "SwitchPBar2nd"))
-      { pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;}
-      if (pbarGlobalStyle == 1)
-      {   buttonName = "SwitchPBar2nd";}
-      refresh_pbars();
-    }
     // remove "Switch" prefix
-    std::string switchname = std::string(buttonName,
-            6, buttonName.size()-1);
-/*
-    if(switchname == "EconomyGraph")
-    {
-        if(f!getGameView()->textures_ready)
-        {   switchname = "MiniMap";}
-        else
-        {   getGameView()->economyGraph_open = true;}
-    }
-*/
+    std::string switchname = std::string(buttonName, 6, buttonName.size()-1);
     switchView(switchname);
+    if(buttonName == active_button_name)
+      scrollPageDown(true);
 }
 
 void
@@ -389,33 +357,6 @@ MiniMap::switchMapViewButton(const std::string &buttonName)
             = getSwitchComponent(*(findRoot(this)), switchName);
         switchComponent->switchComponent(buttonName);
     }
-}
-
-
-void MiniMap::hideMpsEnv(){
-    if( mps_style != MPS_ENV ){
-        return;
-    }
-    //restore saved stats
-    mps_x = mpsXOld;
-    mps_y = mpsYOld;
-    mps_style = mpsStyleOld;
-    mps_set( mps_x, mps_y, mps_style );
-    switchView(lastTabName);
-}
-
-void MiniMap::showMpsEnv( MapPoint tile ){
-    if(mps_style != MPS_ENV) {
-        SwitchComponent* switchComponent
-            = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-
-        //save old minimap and MPS setting
-        lastTabName = switchComponent->getActiveComponent()->getName();
-        mpsXOld = mps_x;
-        mpsYOld = mps_y;
-        mpsStyleOld = mps_style;
-    }
-    mps_set( tile.x, tile.y, MPS_ENV );//show basic info
 }
 
 MiniMap::DisplayMode getMode(const std::string &pName)
@@ -505,16 +446,15 @@ void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
     if (newMode==mMode && mMode == TRAFFIC)
     {   newMode = COMMODITIES;}
 
-    if(mMode==COAL)
-    {
-        if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
-        {    new Dialog( ASK_COAL_SURVEY );}
+    if(mMode == COAL) {
+      if(!game->getWorld().coal_survey_done)
+        new Dialog(*game, ASK_COAL_SURVEY);
     }
 
     mMode=newMode;
     //switchMapViewButton(name);
     switchView("MiniMap");
-    getGameView()->setMapMode( mMode );
+    game->getGameView().setMapMode( mMode );
     mFullRefresh=true;
 }
 
@@ -527,25 +467,25 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
         std::string pName=getNextButton(button->getName());
 
         if(pName=="MapViewNormal")
-            getGame()->showHelpWindow( "msb-normal" );
+          game->showHelpWindow("msb-normal");
         else if (pName=="MapViewUB40")
-        getGame()->showHelpWindow( "msb-ub40" );
+          game->showHelpWindow("msb-ub40");
         else if (pName=="MapViewPollution")
-        getGame()->showHelpWindow( "msb-pol" );
+          game->showHelpWindow("msb-pol");
         else if (pName=="MapViewFood")
-        getGame()->showHelpWindow( "msb-starve" );
+          game->showHelpWindow("msb-starve");
         else if (pName=="MapViewPower")
-        getGame()->showHelpWindow( "msb-power" );
+          game->showHelpWindow("msb-power");
         else if (pName=="MapViewFire")
-        getGame()->showHelpWindow( "msb-fire" );
+          game->showHelpWindow("msb-fire");
         else if (pName=="MapViewSport")
-        getGame()->showHelpWindow( "msb-cricket" );
+          game->showHelpWindow("msb-cricket");
         else if (pName=="MapViewHealth")
-        getGame()->showHelpWindow( "msb-health" );
+          game->showHelpWindow("msb-health");
         else if (pName=="MapViewCoal")
-        getGame()->showHelpWindow( "msb-coal" );
+          game->showHelpWindow("msb-coal");
         else if (pName=="MapViewTraffic")
-        getGame()->showHelpWindow( "msb-transport" );
+          game->showHelpWindow("msb-transport");
 
     return;
     }
@@ -605,15 +545,13 @@ MiniMap::speedButtonClicked(CheckButton* button, int)
 }
 
 void
-MiniMap::zoomInButtonClicked(Button* )
-{
-    getGameView()->zoomIn();
+MiniMap::zoomInButtonClicked(Button* ) {
+  game->getGameView().zoomIn();
 }
 
 void
-MiniMap::zoomOutButtonClicked(Button* )
-{
-    getGameView()->zoomOut();
+MiniMap::zoomOutButtonClicked(Button* ) {
+  game->getGameView().zoomOut();
 }
 
 void
@@ -629,53 +567,62 @@ MiniMap::scrollPageUpButtonClicked(Button* )
 }
 
 void
-MiniMap::scrollPageDown(bool down)
-{
-    std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
+MiniMap::scrollPageDown(bool down) {
+  std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
 
-    if(viewname == "MapMPS")
-    {
-        mps_map_page = (mps_map_page + (down?1:(MPS_MAP_PAGES-1)))%MPS_MAP_PAGES;
-        mps_refresh();
+  if(viewname == "MapMPS") {
+    MpsMap& mps = game->getMpsMap();
+    switch(mps.page) {
+    case MpsMap::Page::INVENTORY:
+      mps.page = MpsMap::Page::PRODUCTION;
+      break;
+    case MpsMap::Page::PRODUCTION:
+      mps.page = MpsMap::Page::INVENTORY;
+      break;
+    case MpsMap::Page::GROUND:
+      mps.page = MpsMap::Page::GROUND;
+      break;
     }
-    else if(viewname == "MiniMap")
-    {
-        //must either be -1 or 1
-        toggleStuffID((down?-1:1));
+    mps.refresh();
+  }
+  else if(viewname == "MiniMap") {
+    toggleStuffID(down ? -1 : 1);
+  }
+  else if(viewname == "PBar") {
+    switchView("PBar2nd");
+  }
+  else if(viewname == "PBar2nd") {
+    switchView("PBar");
+  }
+  else if(viewname == "GlobalMPS") {
+    MpsFinance& mps = game->getMpsFinance();
+    switch(mps.page) {
+    case MpsFinance::Page::CASH_FLOW:
+      mps.page = down
+        ? MpsFinance::Page::COSTS
+        : MpsFinance::Page::POPULATION;
+      break;
+    case MpsFinance::Page::COSTS:
+      mps.page = down
+        ? MpsFinance::Page::POPULATION
+        : MpsFinance::Page::CASH_FLOW;
+      break;
+    case MpsFinance::Page::POPULATION:
+      mps.page = down
+        ? MpsFinance::Page::CASH_FLOW
+        : MpsFinance::Page::COSTS;
+      break;
     }
-    else if(viewname == "PBar" || viewname == "PBar2nd")
-    {
-        pbarGlobalStyle = (pbarGlobalStyle + (down?1:(PBAR_GLOBAL_STYLES-1))) % PBAR_GLOBAL_STYLES;
-        if (pbarGlobalStyle == 0)
-        {     switchView("PBar");}
-        else if (pbarGlobalStyle == 1)
-        {     switchView("PBar2nd");}
-        else
-        {
-            std::cout << "unknown pbarGlobalStyle in MiniMap:turnpage(): " << pbarGlobalStyle << std::endl;
-            assert(false);
-        }
-        refresh_pbars();
-    }
-    else if(viewname == "GlobalMPS")
-    {
-        mps_global_style = (mps_global_style + (down?1:(MPS_GLOBAL_STYLES-1))) % MPS_GLOBAL_STYLES;
-        mps_set(mps_x, mps_y, MPS_GLOBAL);
-    }
+    mps.refresh();
+  }
 #ifdef DEBUG
-    else if(viewname == "EconomyGraph")
-    {
-        //has only one page for now
-    }
-    else if(viewname == "EnvMPS")
-    {
-        //has only one page for now
-    }
-    else
-    {
-        std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
-        assert(false);
-    }
+  else if(viewname == "EconomyGraph") {
+    //has only one page for now
+  }
+  else {
+      std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
+      assert(false);
+  }
 #endif
 }
 
@@ -688,9 +635,9 @@ MiniMap::mapPointToVector(MapPoint p)
 
 void MiniMap::constrainPosition() {
     int minLeft = 1 - 1;
-    int maxLeft = world.len()-1 - ((int)(width/tilesize)-1);
+    int maxLeft = game->getWorld().map.len()-1 - ((int)(width/tilesize)-1);
     int minTop = 1 - 1;
-    int maxTop = world.len()-1 - ((int)(height/tilesize)-1);
+    int maxTop = game->getWorld().map.len()-1 - ((int)(height/tilesize)-1);
 
     if(minLeft > maxLeft) {
         left = (minLeft + maxLeft) / 2;
@@ -728,8 +675,8 @@ void MiniMap::setGameViewCorners(
     setDirty();
 }
 
-void MiniMap::draw(Painter &painter)
-{
+void MiniMap::draw(Painter &painter) {
+    Map& map = game->getWorld().map;
     attachButtons();
     int x, y;
     unsigned short size;
@@ -754,17 +701,17 @@ void MiniMap::draw(Painter &painter)
             {
                 for(x=1;x<width/tilesize;x++)
                 {
-                    if (world.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
+                    if (map.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
                     {
-                        if( (world(left + x, top + y)->construction)) {
-                            size = world(left + x, top + y)->construction->constructionGroup->size;
+                        if(map(left + x, top + y)->construction) {
+                            size = map(left + x, top + y)->construction->constructionGroup->size;
                             mc = getColor(left + x,top + y);
                             painter.setFillColor(mc);
                             painter.fillRectangle(Rect2D((x)*tilesize,y*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
                         }
-                        else if( !world(left + x, top + y)->reportingConstruction)
+                        else if(!map(left + x, top + y)->reportingConstruction)
                         {
-                            size = world(left + x, top + y)->getTileConstructionGroup()->size;
+                            size = map(left + x, top + y)->getTileConstructionGroup()->size;
                             mc=getColor(left + x,top + y);
                             painter.setFillColor(mc);
                             painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
@@ -797,23 +744,21 @@ void MiniMap::draw(Painter &painter)
         {
             for(x=1;x<width/tilesize;x++)
             {
-                if (world.is_visible(left+x, top+y))
+                if (map.is_visible(left+x, top+y))
                 {
-                    if( (world(left + x, top + y)->construction)) {
-                        size = world(left + x, top + y)->construction->constructionGroup->size;
+                    if(map(left + x, top + y)->construction) {
+                        size = map(left + x, top + y)->construction->constructionGroup->size;
                         mc = getColor(left + x,top + y);
                         mpainter->setFillColor(mc);
                         mpainter->fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
                     }
-                    else if ( (!world(left + x, top + y)->reportingConstruction) )
-                    {
-                        size = world(left + x, top + y)->getTileConstructionGroup()->size;
+                    else if(!map(left + x, top + y)->reportingConstruction) {
+                        size = map(left + x, top + y)->getTileConstructionGroup()->size;
                         mc = getColor(left + x, top + y);
                         mpainter->setFillColor(mc);
                         mpainter->fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
                     }
-                    if( mMode == COAL )
-                    { //show coal under buildings, too
+                    if(mMode == COAL) { //show coal under buildings, too
                         mc=getColor(left + x,top + y);
                         mpainter->setFillColor(mc);
                         mpainter->fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+1)*tilesize+1,(y+1)*tilesize));
@@ -834,7 +779,7 @@ void MiniMap::draw(Painter &painter)
 
 Color MiniMap::getColorNormal(int x, int y) const
 {
-    int mc = world(x,y)->getConstructionGroup()->colour;
+    int mc = game->getWorld().map(x,y)->getConstructionGroup()->colour;
 
     int red = 0;
     int green = 0;
@@ -852,7 +797,8 @@ Color MiniMap::getColorNormal(int x, int y) const
 
 Color MiniMap::getColor(int x,int y) const
 {
-    if(!world.is_inside( x, y))
+    Map& map = game->getWorld().map;
+    if(!map.is_inside( x, y))
     {
         x = 0;
         y = 0;
@@ -861,27 +807,27 @@ Color MiniMap::getColor(int x,int y) const
     int yy = y;
     int conflags = 0;
     int mapflags = 0;
-    unsigned short g = world(x,y)->getGroup();
+    unsigned short g = map(x,y)->getGroup();
 
     // only needed to look up xx,yy for old style flags
-    if (world(x,y)->reportingConstruction)
+    if (map(x,y)->reportingConstruction)
     {
-        xx = world(x,y)->reportingConstruction->x;
-        yy = world(x,y)->reportingConstruction->y;
-        conflags = world(x,y)->reportingConstruction->flags;
+        xx = map(x,y)->reportingConstruction->x;
+        yy = map(x,y)->reportingConstruction->y;
+        conflags = map(x,y)->reportingConstruction->flags;
     }
 
-    mapflags = world(xx,yy)->flags;
+    mapflags = map(xx,yy)->flags;
     switch(mMode)
     {
         case NORMAL:
 #ifdef DEBUG
 //#define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
-            if (world(xx,yy)->is_bare())
+            if (map(xx,yy)->is_bare())
                 {
                 // show ground altitude
-                int alt = world(xx,yy)->ground.altitude;
+                int alt = map(xx,yy)->ground.altitude;
                 if (alt > alt_min + 9 * alt_step)
                     return Color(255,255,255);          // white
                 else if ( alt > alt_min + 8 * alt_step )
@@ -909,7 +855,7 @@ Color MiniMap::getColor(int x,int y) const
             {   return getColorNormal(xx,yy);}
         case POLLUTION:
         {
-            short p = world(x,y)->pollution;
+            short p = map(x,y)->pollution;
             float v = p/600.0;
             if(v < 0)
                 v = 0;
@@ -920,9 +866,9 @@ Color MiniMap::getColor(int x,int y) const
             return mc;
         }
         case FIRE:
-            if( world(xx,yy)->getGroup() == GROUP_FIRE )
+            if( map(xx,yy)->getGroup() == GROUP_FIRE )
             {
-                if( ! static_cast<Fire*>(world(xx,yy)->reportingConstruction)->smoking_days )
+                if( ! static_cast<Fire*>(map(xx,yy)->reportingConstruction)->smoking_days )
                 {
                     return Color(0xFF,0,0); //still burning (red)
                 } else  {
@@ -936,19 +882,19 @@ Color MiniMap::getColor(int x,int y) const
                 return Color(0xFF,0xFF,0); //(yellow)
             }
 */
-            if( world(xx,yy)->reportingConstruction && world(xx,yy)->reportingConstruction->constructionGroup == &fireStationConstructionGroup)
+            if( map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &fireStationConstructionGroup)
             {
                 return Color(0,0xFF,0); //green
             }
             //fall through
         case CRICKET:
-            if( (world(xx,yy)->reportingConstruction && world(xx,yy)->reportingConstruction->constructionGroup == &cricketConstructionGroup)  && mMode==CRICKET )
+            if( (map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &cricketConstructionGroup)  && mMode==CRICKET )
             {
                 return Color(0,0xFF,0); //green
             }
             //fall through
         case HEALTH:
-            if( (world(xx,yy)->reportingConstruction && world(xx,yy)->reportingConstruction->constructionGroup == &healthCentreConstructionGroup)  && mMode==HEALTH )
+            if( (map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &healthCentreConstructionGroup)  && mMode==HEALTH )
             {
                 return Color(0,0xFF,0); //green
             }
@@ -964,13 +910,13 @@ Color MiniMap::getColor(int x,int y) const
                 return makeGrey(getColorNormal(xx,yy));
         case UB40: {
             /* Display residence with un/employed people (red / green) == too many people here */
-            int job_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_LABOR, -1):-1;
+            int job_level = map(xx,yy)->reportingConstruction?
+            map(xx,yy)->reportingConstruction->tellstuff(STUFF_LABOR, -1):-1;
             if (job_level == -1) // Not a "jobby" place at all
             {
                 return makeGrey(getColorNormal(xx,yy));
             }
-            if ( world(xx,yy)->is_residence() )
+            if ( map(xx,yy)->is_residence() )
             {
                 if ( job_level > 95 * TRANSPORT_QUANTA / 100 )
                     return Color(0xFF,0,0);
@@ -997,28 +943,27 @@ Color MiniMap::getColor(int x,int y) const
         case COAL: //don't use xx and yy for coal deposits
         {
             Color c(0x77,0,0);
-            if( coal_survey_done == 0 )
-            {
-                return Color(0,0,0);
+            if(!game->getWorld().coal_survey_done) {
+              return Color(0,0,0);
             }
-            if(world(x,y)->coal_reserve==0)
+            if(map(x,y)->coal_reserve==0)
                 return makeGrey(getColorNormal(x,y));
-            else if (world(x,y)->coal_reserve >= COAL_RESERVE_SIZE / 2)
+            else if (map(x,y)->coal_reserve >= COAL_RESERVE_SIZE / 2)
                 return Color(0,0xFF,0);
-            else if (world(x,y)->coal_reserve < COAL_RESERVE_SIZE / 2)
+            else if (map(x,y)->coal_reserve < COAL_RESERVE_SIZE / 2)
                 return Color(0xFF,0,0);
 
             return c;
         }
         case STARVE:
         {
-            int food_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_FOOD, -1):1;
-            int water_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_WATER, -1):1;
+            int food_level = map(xx,yy)->reportingConstruction?
+            map(xx,yy)->reportingConstruction->tellstuff(STUFF_FOOD, -1):1;
+            int water_level = map(xx,yy)->reportingConstruction?
+            map(xx,yy)->reportingConstruction->tellstuff(STUFF_WATER, -1):1;
             int crit_level = water_level<food_level?water_level:food_level;
             //don't care about other eaters or drinkers
-            if ( world(xx,yy)->is_residence() )
+            if ( map(xx,yy)->is_residence() )
             {
                 if ( crit_level < 5 * TRANSPORT_QUANTA / 100 )
                     return Color(0xFF,0,0);
@@ -1036,10 +981,10 @@ Color MiniMap::getColor(int x,int y) const
             /* default color = grey */
             //mc = Color(0x3F,0x3F,0x3F);
             mc = makeGrey(getColorNormal(xx,yy));
-            int lovolt_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_LOVOLT, -1):-1;
-            int hivolt_level = world(xx,yy)->reportingConstruction?
-            world(xx,yy)->reportingConstruction->tellstuff(STUFF_HIVOLT, -1):-1;
+            int lovolt_level = map(xx,yy)->reportingConstruction?
+            map(xx,yy)->reportingConstruction->tellstuff(STUFF_LOVOLT, -1):-1;
+            int hivolt_level = map(xx,yy)->reportingConstruction?
+            map(xx,yy)->reportingConstruction->tellstuff(STUFF_HIVOLT, -1):-1;
             if (lovolt_level > -1 || hivolt_level > -1)
             {
                 /* not enough power */
@@ -1063,14 +1008,14 @@ Color MiniMap::getColor(int x,int y) const
                 if (conflags & FLAG_IS_TRANSPORT)
                 {
                     Transport *transport;
-                    transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
+                    transport = static_cast<Transport *>(map(xx,yy)->reportingConstruction);
                     if(transport->constructionGroup->commodityRuleCount[stuff_ID].maxload)
                     {   loc_lvl = transport->trafficCount[stuff_ID];}
                 }
                 else if (g == GROUP_POWER_LINE)
                 {
                     Powerline *powerline;
-                    powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
+                    powerline = static_cast<Powerline *>(map(xx,yy)->reportingConstruction);
                     if(powerline->constructionGroup->commodityRuleCount[stuff_ID].maxload)
                     {   loc_lvl = powerline->trafficCount[stuff_ID];}
                 }
@@ -1102,8 +1047,8 @@ Color MiniMap::getColor(int x,int y) const
             if (conflags & FLAG_IS_TRANSPORT)
                 return makeGrey(getColorNormal(xx,yy));
 */
-            float loc_lvl = world(xx,yy)->reportingConstruction?
-                 world(xx,yy)->reportingConstruction->tellstuff(stuff_ID, -1):-1;
+            float loc_lvl = map(xx,yy)->reportingConstruction?
+                 map(xx,yy)->reportingConstruction->tellstuff(stuff_ID, -1):-1;
             float red, green, blue;
 
             if (loc_lvl < 0)
@@ -1113,11 +1058,11 @@ Color MiniMap::getColor(int x,int y) const
             {   loc_lvl = 1 - loc_lvl;}
             red = 1 - 2.25 * loc_lvl;
             if (red < 0) red = 0;
-            if (!world(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
+            if (!map(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
             {   red = 0;}
             blue = 1 - 2.25 * (1 - loc_lvl);
             if (blue < 0) blue = 0;
-            if (!world(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
+            if (!map(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
             {   blue = 0;}
             green = 1 - red - blue;
             Color mc(static_cast<int>(0xFF*red), static_cast<int>(0xFF*green),static_cast<int>(0xFF*blue));
@@ -1143,7 +1088,7 @@ void MiniMap::event(const Event& event) {
             return;
         }
         if(!inside) { //mouse just enterd the minimap, show current mapmode
-            getGameView()->setMapMode( mMode );
+            game->getGameView().setMapMode(mMode);
             inside = true;
         }
         return;
@@ -1160,7 +1105,7 @@ void MiniMap::event(const Event& event) {
                 (int) ((event.mousepos.y - border ) / tilesize) + top);
 
         if(event.mousebutton == SDL_BUTTON_LEFT )
-        {   getGameView()->show(tile);} // move main-map
+        {   game->getGameView().show(tile);} // move main-map
 /*
         if(event.mousebutton == SDL_BUTTON_RIGHT ) {
 

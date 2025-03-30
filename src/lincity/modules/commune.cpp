@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #include <list>                           // for _List_iterator
 #include <vector>                         // for vector
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
 #include "modules.h"                      // for Commodity, N_, Construction...
 
@@ -61,21 +60,6 @@ Commune::Commune(World& world, ConstructionGroup *cstgrp) :
   this->last_month_output = 0;
   this->lazy_months = 0;
   initialize_commodities();
-  // Check underground water, and reduce coal production accordingly
-  int w = 0;
-  for (int i = 0; i < constructionGroup->size; i++) {
-    for (int j = 0; j < constructionGroup->size; j++) {
-      if (world.map(x+j, y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-        w++;
-    }// end j
-  }//end i
-  this->ugwCount = w;
-  if (w < 16 / 3)
-    this->coalprod = COMMUNE_COAL_MADE/3;
-  else if (w < (2 * 16) / 3)
-    this->coalprod = COMMUNE_COAL_MADE/2;
-  else
-    this->coalprod = COMMUNE_COAL_MADE;
 
   commodityMaxCons[STUFF_WATER] = 100 *
     constructionGroup->size * constructionGroup->size * WATER_FOREST;
@@ -154,14 +138,14 @@ void Commune::update()
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120) {
-                ConstructionManager::submitRequest(new CommuneDeletionRequest(this));
+                CommuneDeletionRequest(this).execute();
                 return;
             }
         }//end we are lazy
     }//end each month
 }
 
-void Commune::animate() {
+void Commune::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(COMMUNE_ANIM_SPEED - 25 + (rand() % 50));
@@ -185,18 +169,16 @@ void Commune::animate() {
   }
 }
 
-void Commune::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
-    mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
-    mps_store_sd(i++, N_("Pollution"), world.map(x,y)->pollution);
-    if(lazy_months)
-    {   mps_store_sddp(i++, N_("lazy months"), lazy_months, 120);}
-    else
-    {   mps_store_title(i++, "");}
-    list_commodities(&i);
+void Commune::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sddp(N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
+  mps.add_sfp(N_("busy"), (float)last_month_output / 3.05);
+  mps.add_sd(N_("Pollution"), world.map(x,y)->pollution);
+  if(lazy_months)
+    mps.add_sddp(N_("lazy months"), lazy_months, 120);
+  else
+    mps.addBlank();
+  list_commodities(mps, production);
 }
 
 void Commune::place(int x, int y) {

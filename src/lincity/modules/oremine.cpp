@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@
 
 #include <list>                           // for _List_iterator
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for OreMineDeletionRequest
 #include "modules.h"                      // for Commodity, ConstructionGroup
 
@@ -47,6 +46,22 @@ OremineConstructionGroup oremineConstructionGroup(
 
 Construction *OremineConstructionGroup::createConstruction(World& world) {
   return new Oremine(world, this);
+}
+
+bool
+OremineConstructionGroup::can_build_here(const World& world,
+  const MapPoint point, Message::ptr& message
+) const {
+  int total_ore = 0;
+  for(int i = 0; i < size; i++)
+  for(int j = 0; j < size; j++)
+    total_ore += world.map(point.e(j).s(i))->ore_reserve;
+  if(total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+    message = NoOreMessage::create();
+    return false;
+  }
+
+  return ConstructionGroup::can_build_here(world, point, message);
 }
 
 Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :
@@ -132,13 +147,14 @@ void Oremine::update()
     {   flags |= FLAG_EVACUATE;}
 
     //Abandon the Oremine if it is really empty
-    if ((total_ore_reserve == 0)
-      &&(commodityCount[STUFF_LABOR] == 0)
-      &&(commodityCount[STUFF_ORE] == 0) )
-    {   ConstructionManager::submitRequest(new OreMineDeletionRequest(this));}
+    if(total_ore_reserve == 0
+      && commodityCount[STUFF_LABOR] == 0
+      && commodityCount[STUFF_ORE] == 0
+    )
+      OreMineDeletionRequest(this).execute();
 }
 
-void Oremine::animate() {
+void Oremine::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
 
   if(animate_enable && real_time >= anim) {
@@ -155,14 +171,11 @@ void Oremine::animate() {
   }
 }
 
-void Oremine::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
-    // i++;
-    list_commodities(&i);
+void Oremine::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sddp(N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
+  list_commodities(mps, production);
 }
 
 void Oremine::place(int x, int y) {
@@ -182,10 +195,10 @@ void Oremine::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Oremine::loadMember(xmlpp::TextReader& xmlReader) {
+bool Oremine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

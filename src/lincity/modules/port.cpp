@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,21 @@ PortConstructionGroup portConstructionGroup(
 
 Construction *PortConstructionGroup::createConstruction(World& world) {
   return new Port(world, this);
+}
+
+bool
+PortConstructionGroup::can_build_here(const World& world, const MapPoint point,
+  Message::ptr& message
+) const {
+  MapPoint east = point.e(size);
+  for(int j = 0; j < size; j++) {
+    if(!world.map(east.s(j))->is_river()) {
+      message = PortRequiresRiverMessage::create();
+      return false;
+    }
+  }
+
+  return ConstructionGroup::can_build_here(world, point, message);
 }
 
 Port::Port(World& world, ConstructionGroup *cstgrp) :
@@ -106,7 +121,7 @@ int Port::buy_stuff(Commodity stuff)
         world.stats.expenses.import);
       produceStuff(stuff, i);
       return cost;
-    } catch(OutOfMoneyException ex) {
+    } catch(const OutOfMoneyMessage::Exception& ex) {
       return 0;
     }
 }
@@ -178,16 +193,13 @@ void Port::update()
     pence = daily_et % 100;
 }
 
-void Port::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sd(i++, N_("Export"),lastm_et/100);
-    mps_store_sd(i++, N_("Import"),lastm_ic/100);
-    mps_store_sfp(i++, N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void Port::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sd(N_("Export"),lastm_et/100);
+  mps.add_sd(N_("Import"),lastm_ic/100);
+  mps.add_sfp(N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
 void Port::save(xmlTextWriterPtr xmlWriter) const {
@@ -208,7 +220,7 @@ void Port::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Port::loadMember(xmlpp::TextReader& xmlReader) {
+bool Port::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   bool give;
   Commodity stuff;
@@ -220,7 +232,7 @@ bool Port::loadMember(xmlpp::TextReader& xmlReader) {
     give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
   else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

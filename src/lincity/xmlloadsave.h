@@ -28,7 +28,7 @@ namespace xmlpp {
 class TextReader;
 }  // namespace xmlpp
 
-#define LOADSAVE_VERSION_CURRENT 2131
+#define LOADSAVE_VERSION_CURRENT 2140
 #define LOADSAVE_VERSION_COMPAT 2130
 
 typedef const unsigned char *xmlStr;

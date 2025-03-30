@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ void Substation::update()
     }
 }
 
-void Substation::animate() {
+void Substation::animate(unsigned long real_time) {
   if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 2))
     frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];
   else if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 10))
@@ -91,14 +91,11 @@ void Substation::animate() {
   soundGroup = frameIt->resourceGroup;
 }
 
-void Substation::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), busy);
-    // i++;
-    list_commodities(&i);
+void Substation::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), busy);
+  list_commodities(mps, production);
 }
 
 /** @file lincity/modules/substation.cpp */

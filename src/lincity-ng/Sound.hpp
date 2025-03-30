@@ -1,20 +1,25 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/Sound.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __SOUND_HPP__
 #define __SOUND_HPP__
 
@@ -24,6 +29,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>        // for basic_string, string, operator<
 #include <vector>        // for vector
 #include <filesystem>
+
+class MapTile;
 
 //TODO make use for these:
 enum MusicState {
@@ -50,6 +57,7 @@ public:
     ~Sound();
 
     void playSound(const std::string& name);
+    void playSound(const MapTile& tile);
     void playASound(Mix_Chunk *chunk);
     void playMusic();
     void changeTrack(MusicTransport command);
@@ -63,6 +71,7 @@ public:
     /** information about currently playing track. Title, filename, track number, and tech levels allowed to play it. */
     song currentTrack;
 
+    void setTechLevel(int tech) { tech_level = tech; }
 
 private:
     static int soundThread(void* ptr);
@@ -76,8 +85,11 @@ private:
     Mix_Music* currentMusic;
     int totalTracks;
     std::vector<song> playlist;
+
+    int tech_level = 0;
 };
 
+//TODO: singleton
 Sound* getSound();
 
 #endif

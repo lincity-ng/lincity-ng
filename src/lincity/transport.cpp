@@ -39,7 +39,8 @@
 
 
 void
-World::connect_transport(int originx, int originy, int lastx, int lasty) {
+Map::connect_transport(int originx, int originy, int lastx, int lasty) {
+    Map& map = *this;
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     static const short power_table[16] = {
         0, 1, 0, 2,
@@ -278,17 +279,20 @@ World::connect_transport(int originx, int originy, int lastx, int lasty) {
                          check_group(x, y+1) == GROUP_TRACK &&
                          check_group(x, y-1) == GROUP_TRACK)
                 {
-                    railConstructionGroup.placeItem(*this, x,y);
-                    cstr = map(x,y)->construction;
-                    frame = &(cstr->frameIt->frame);
+                    // David: IDK why we're placing a rail, but we don't have
+                    //        access to the World instance from here
+                    // railConstructionGroup.placeItem(*this, x,y);
+                    // cstr = map(x,y)->construction;
+                    // frame = &(cstr->frameIt->frame);
+                    // //rewind the loops
+                    // x -= 2;
+                    // y -= 2;
+                    // if (x < originx)
+                    // {   x = originx;}
+                    // if (y < originy)
+                    // {   y = originy;}
+
                     *frame = 21;
-                    //rewind the loops
-                    x -= 2;
-                    y -= 2;
-                    if (x < originx)
-                    {   x = originx;}
-                    if (y < originy)
-                    {   y = originy;}
 
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
@@ -296,17 +300,20 @@ World::connect_transport(int originx, int originy, int lastx, int lasty) {
                          check_group(x+1, y) == GROUP_TRACK &&
                          check_group(x-1, y) == GROUP_TRACK)
                 {
-                    railConstructionGroup.placeItem(*this, x,y);
-                    cstr = map(x,y)->construction;
-                    frame = &(cstr->frameIt->frame);
+                    // David: IDK why we're placing a rail, but we don't have
+                    //        access to the World instance from here
+                    // railConstructionGroup.placeItem(*this, x,y);
+                    // cstr = map(x,y)->construction;
+                    // frame = &(cstr->frameIt->frame);
+                    // //rewind the loops
+                    // x -= 2;
+                    // y -= 2;
+                    // if (x < originx)
+                    // {   x = originx;}
+                    // if (y < originy)
+                    // {   y = originy;}
+
                     *frame = 22;
-                    //rewind the loops
-                    x -= 2;
-                    y -= 2;
-                    if (x < originx)
-                    {   x = originx;}
-                    if (y < originy)
-                    {   y = originy;}
                 }
                 else
                 {   *frame = table[mask];}
@@ -428,34 +435,40 @@ World::connect_transport(int originx, int originy, int lastx, int lasty) {
                          check_group(x, y+1) == GROUP_ROAD &&
                          check_group(x, y-1) == GROUP_ROAD)
                 {
-                    railConstructionGroup.placeItem(*this, x,y);
-                    cstr = map(x,y)->construction;
-                    frame = &(cstr->frameIt->frame);
+                    // David: IDK why we're placing a rail, but we don't have
+                    //        access to the World instance from here
+                    // railConstructionGroup.placeItem(*this, x,y);
+                    // cstr = map(x,y)->construction;
+                    // frame = &(cstr->frameIt->frame);
+                    // //rewind the loops
+                    // x -= 2;
+                    // y -= 2;
+                    // if (x < originx)
+                    // {   x = originx;}
+                    // if (y < originy)
+                    // {   y = originy;}
+
                     *frame = 23;
-                    //rewind the loops
-                    x -= 2;
-                    y -= 2;
-                    if (x < originx)
-                    {   x = originx;}
-                    if (y < originy)
-                    {   y = originy;}
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
                          check_group(x, y-1) == GROUP_RAIL &&
                          check_group(x+1, y) == GROUP_ROAD &&
                          check_group(x-1, y) == GROUP_ROAD)
                 {
-                    railConstructionGroup.placeItem(*this, x,y);
-                    cstr = map(x,y)->construction;
-                    frame = &(cstr->frameIt->frame);
+                    // David: IDK why we're placing a rail, but we don't have
+                    //        access to the World instance from here
+                    // railConstructionGroup.placeItem(*this, x,y);
+                    // cstr = map(x,y)->construction;
+                    // frame = &(cstr->frameIt->frame);
+                    // //rewind the loops
+                    // x -= 2;
+                    // y -= 2;
+                    // if (x < originx)
+                    // {   x = originx;}
+                    // if (y < originy)
+                    // {   y = originy;}
+
                     *frame = 24;
-                    //rewind the loops
-                    x -= 2;
-                    y -= 2;
-                    if (x < originx)
-                    {   x = originx;}
-                    if (y < originy)
-                    {   y = originy;}
                 }
                 else
                 {   *frame = table[mask];}

@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,24 +95,20 @@ void Tip::update()
     }
 }
 
-void Tip::animate() {
+void Tip::animate(unsigned long real_time) {
   int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
   if (total_waste > 0 && i < 8)
   {   i++;}
   frameIt->frame = i;
 }
 
-void Tip::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++,N_("busy"), busy);
-    mps_store_sd(i++, N_("Waste"), total_waste);
-    mps_store_sfp(i++, N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
-    // i++;
-    list_commodities(&i);
+void Tip::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sd(N_("Waste"), total_waste);
+  mps.add_sfp(N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
+  list_commodities(mps, production);
 }
 
 void Tip::save(xmlTextWriterPtr xmlWriter) const {
@@ -121,11 +117,11 @@ void Tip::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Tip::loadMember(xmlpp::TextReader& xmlReader) {
+bool Tip::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "total_waste")    total_waste    = std::stoi(xmlReader.read_inner_xml());
   else if(name == "degration_days") degration_days = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

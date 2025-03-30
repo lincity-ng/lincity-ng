@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -204,7 +204,7 @@ void Market::cover() {
     world.map(xx,yy)->flags |= FLAG_MARKET_COVER_CHECK;
 }
 
-void Market::animate() {
+void Market::animate(unsigned long real_time) {
   if (market_ratio < 10) {
       frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
   }
@@ -234,39 +234,38 @@ void Market::animate() {
   }
 }
 
-void Market::report()
-{
-    int i = 0;
+void Market::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (float)busy);
+  mps.addBlank();
+  //list_commodities(mps, production);
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    const CommodityRule& rule = commodityRuleCount[stuff];
+    if(!rule.maxload) continue;
+    char arrows[4]="---";
+    if (flags & FLAG_EVACUATE) {
+      arrows[0] = '<';
+      arrows[1] = '<';
+      arrows[2] = ' ';
+    }
+    else {
+      if(rule.take)
+        arrows[2] = '>';
+      if(rule.give)
+        arrows[0] = '<';
+    }
 
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
-    //list_commodities(&i);
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        CommodityRule& rule = commodityRuleCount[stuff];
-        if(!rule.maxload) continue;
-        char arrows[4]="---";
-        if (flags & FLAG_EVACUATE)
-        {
-            arrows[0] = '<';
-            arrows[1] = '<';
-            arrows[2] = ' ';
-        }
-        else
-        {
-            if (rule.take)
-            {   arrows[2] = '>';}
-            if (rule.give)
-            {   arrows[0] = '<';}
-        }
+    #ifdef DEBUG
+    if(mps.isFull()) {
+      std::cerr << "Market overflowed MPS" << std::endl;
+      break;
+    }
+    #endif
 
-        if(i < 14)
-        {
-            mps_store_ssddp(i++, arrows, getStuffName(stuff), commodityCount[stuff], rule.maxload);
-        }//endif
-    } //endfor
+    mps.add_tsddp(arrows, commodityName(stuff),
+      commodityCount[stuff], rule.maxload);
+  }
 }
 
 void Market::init_resources() {
@@ -324,7 +323,7 @@ void Market::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Market::loadMember(xmlpp::TextReader& xmlReader) {
+bool Market::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   bool give;
   Commodity stuff;
@@ -335,7 +334,7 @@ bool Market::loadMember(xmlpp::TextReader& xmlReader) {
     CommodityRule& rule = commodityRuleCount[stuff];
     give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

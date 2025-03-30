@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,6 +113,9 @@ public:
     std::map<Commodity, int> commodityRates;
     // overriding method that creates a Port
     virtual Construction *createConstruction(World& world);
+
+    virtual bool can_build_here(const World& world, const MapPoint point,
+      Message::ptr& message) const override;
 };
 
 extern PortConstructionGroup portConstructionGroup;
@@ -122,10 +125,10 @@ public:
     Port(World& world, ConstructionGroup *cstgrp);
     virtual ~Port() { }
     virtual void update();
-    virtual void report();
+    virtual void report(Mps& mps, bool production) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
-    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
     int buy_stuff(Commodity stuff_ID);
     int sell_stuff(Commodity stuff_ID);

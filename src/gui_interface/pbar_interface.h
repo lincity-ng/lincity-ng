@@ -7,6 +7,7 @@
 #ifndef _pbar_h
 #define _pbar_h
 
+#if 0
 void init_pbars (void);
 void draw_pbars (void);
 void refresh_pbars (void);
@@ -53,6 +54,8 @@ struct pbar_st
 };
 
 extern struct pbar_st pbars[NUM_PBARS];
+
+#endif
 
 #endif
 

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/tinygettext/gettext.hpp
+ * src/lincity/MapPoint.hpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
@@ -19,32 +19,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LINCITYNG_TINYGETTEXT_GETTEXT_HPP__
-#define __LINCITYNG_TINYGETTEXT_GETTEXT_HPP__
+#ifndef __LINCITYNG_LINCITY_MAPPOINT_HPP__
+#define __LINCITYNG_LINCITY_MAPPOINT_HPP__
 
-#include "tinygettext/tinygettext.hpp"
+#include <ostream>
 
-extern tinygettext::DictionaryManager* dictionaryManager;
+class MapPoint {
+public:
+  MapPoint(int x = 0, int y = 0);
 
-#ifdef NEED_GETTEXT_CHARHACK
-static inline char* _(const char* message)
-{
-    return const_cast<char*>
-        (dictionaryManager->get_dictionary().translate(message));
-}
-#else
-static inline const char* _(const char* message)
-{
-    return dictionaryManager->get_dictionary().translate(message);
-}
-#endif
+  bool operator==(const MapPoint other) const;
+  bool operator!=(const MapPoint other) const { return !(*this == other); }
 
-static inline std::string _(const std::string& message) {
-  return std::string(_(message.c_str()));
-}
+  MapPoint n(int dist = 1) const { return MapPoint(x, y - dist); }
+  MapPoint s(int dist = 1) const { return MapPoint(x, y + dist); }
+  MapPoint e(int dist = 1) const { return MapPoint(x + dist, y); }
+  MapPoint w(int dist = 1) const { return MapPoint(x - dist, y); }
+  MapPoint ne() const { return MapPoint(x + 1, y - 1); }
+  MapPoint nw() const { return MapPoint(x - 1, y - 1); }
+  MapPoint se() const { return MapPoint(x + 1, y + 1); }
+  MapPoint sw() const { return MapPoint(x - 1, y + 1); }
 
-#define N_(s)      s
+  int x, y;
 
-#endif // __LINCITYNG_TINYGETTEXT_GETTEXT_HPP__
+  friend std::ostream& operator<<(std::ostream& os, const MapPoint&);
+};
 
-/** @file tinygettext/gettext.hpp */
+#endif // __LINCITYNG_LINCITY_MAPPOINT_HPP__

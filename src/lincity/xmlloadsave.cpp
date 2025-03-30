@@ -70,7 +70,9 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
   unsigned int ldsv_version
 );
 static void saveMapTile(xmlTextWriterPtr xmlWriter, const MapTile& tile);
-static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile);
+static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
+  unsigned int ldsv_version
+);
 template<typename A>
 static void writeArray(xmlTextWriterPtr xmlWriter, const A& array,
   std::function<void(xmlTextWriterPtr, const typename A::value_type&)>
@@ -87,7 +89,7 @@ static void readPbar_old(xmlpp::TextReader& xmlReader,
 );
 
 void
-World::save(const std::filesystem::path& filename) {
+World::save(const std::filesystem::path& filename) const {
   std::string gz_name;
   gzFile gz_file = gzopen(filename.string().c_str(), "wb");
   if(!gz_file)
@@ -349,8 +351,6 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"expenses");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"construction_ly",         "%d", world.stats.expenses.construction.stat);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"construction_ytd",        "%d", world.stats.expenses.construction.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"bulldoze_ly",             "%d", world.stats.expenses.bulldoze.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"bulldoze_ytd",            "%d", world.stats.expenses.bulldoze.acc);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coalSurvey_ly",           "%d", world.stats.expenses.coalSurvey.stat);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coalSurvey_ytd",          "%d", world.stats.expenses.coalSurvey.acc);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_ly",               "%d", world.stats.expenses.import.stat);
@@ -628,8 +628,6 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
             const std::string xml_tag = xmlReader.get_name();
             if(xml_tag == "construction_ly")       world.stats.expenses.construction.stat = std::stoi(xmlReader.read_inner_xml());
             else if(xml_tag == "construction_ytd") world.stats.expenses.construction.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "bulldoze_ly")      world.stats.expenses.bulldoze.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "bulldoze_ytd")     world.stats.expenses.bulldoze.acc = std::stoi(xmlReader.read_inner_xml());
             else if(xml_tag == "coalSurvey_ly")    world.stats.expenses.coalSurvey.stat = std::stoi(xmlReader.read_inner_xml());
             else if(xml_tag == "coalSurvey_ytd")   world.stats.expenses.coalSurvey.acc = std::stoi(xmlReader.read_inner_xml());
             else if(xml_tag == "import_ly")        world.stats.expenses.import.stat = std::stoi(xmlReader.read_inner_xml());
@@ -738,7 +736,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
 
                     if(xmlReader.get_name() == "amount")
                       el.amount = std::stoi(xmlReader.read_inner_xml());
-                    if(xmlReader.get_name() == "capacity")
+                    else if(xmlReader.get_name() == "capacity")
                       el.capacity = std::stoi(xmlReader.read_inner_xml());
                     else
                       unexpectedXmlElement(xmlReader);
@@ -969,7 +967,7 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
     world.stats.expenses.firestation);
   world.expense(uncounted_cricket, world.stats.expenses.cricket);
 
-  modern_windmill_flag = world.tech_level > MODERN_WINDMILL_TECH;
+  world.stats.population.population_m.acc++; // don't lose the game immediately
 }
 
 static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
@@ -987,6 +985,7 @@ static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
   }
 
   for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"Construction");
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", cst->constructionGroup->group);
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->x);
@@ -1031,7 +1030,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
         throw std::runtime_error("a MapTile seems to be outside the map");
       MapTile& tile = *map(x, y);
       tile.group = group;
-      loadMapTile(xmlReader, tile);
+      loadMapTile(xmlReader, tile, ldsv_version);
     }
     else if(xmlReader.get_name() == "Construction") {
       int group = std::stoi(xmlReader.get_attribute("group"));
@@ -1042,7 +1041,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
       if(!cstgrp)
         throw std::runtime_error("invalid group");
       Construction *cst = cstgrp->createConstruction(world);
-      cst->load(xmlReader);
+      cst->load(xmlReader, ldsv_version);
       constructions.emplace_back(cst, std::pair(x, y));
     }
     else if(xmlReader.get_name() == "recentPoint" && ldsv_version > 2130) {
@@ -1087,8 +1086,8 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
   }
   map.alt_step = (map.alt_max - map.alt_min) / 10;
 
-  connect_transport(1, 1, map.len() - 2, map.len() - 2);
-  desert_water_frontiers(0, 0, map.len(), map.len());
+  map.connect_transport(1, 1, map.len() - 2, map.len() - 2);
+  map.desert_water_frontiers(0, 0, map.len(), map.len());
 }
 
 static void saveMapTile(xmlTextWriterPtr xmlWriter, const MapTile& tile) {
@@ -1112,7 +1111,9 @@ static void saveMapTile(xmlTextWriterPtr xmlWriter, const MapTile& tile) {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int4",       "%d", tile.ground.int4);
 }
 
-static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
+static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
+  unsigned int ldsv_version
+) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "MapTile");
   int depth = xmlReader.get_depth();
@@ -1126,7 +1127,19 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile) {
 
     std::string xml_tag = xmlReader.get_name();
     std::string xml_val = xmlReader.read_inner_xml();
-    if     (xml_tag == "flags")      tile.flags             = std::stoul(xml_val, NULL, 0) & ~VOLATILE_FLAGS;
+    if     (xml_tag == "flags") {    tile.flags             = std::stoul(xml_val, NULL, 0) & ~VOLATILE_FLAGS;
+      if(ldsv_version <= 2130) {
+        tile.flags = 0
+          | (tile.flags & 0x00000100 ? FLAG_MARKET_COVER | FLAG_MARKET_COVER_CHECK : 0)
+          | (tile.flags & 0x00100000 ? FLAG_FIRE_COVER | FLAG_FIRE_COVER_CHECK : 0)
+          | (tile.flags & 0x00200000 ? FLAG_HEALTH_COVER | FLAG_HEALTH_COVER_CHECK : 0)
+          | (tile.flags & 0x00400000 ? FLAG_CRICKET_COVER | FLAG_CRICKET_COVER_CHECK : 0)
+          | (tile.flags & 0x00800000 ? FLAG_IS_RIVER : 0)
+          | (tile.flags & 0x01000000 ? FLAG_IS_LAKE : 0)
+          | (tile.flags & 0x08000000 ? FLAG_INVISIBLE : 0)
+          | (tile.flags & 0x20000000 ? FLAG_HAS_UNDERGROUND_WATER : 0);
+      }
+    }
     else if(xml_tag == "type")       tile.type              = std::stoi(xml_val);
     else if(xml_tag == "air_pol")    tile.pollution         = std::stoi(xml_val);
     else if(xml_tag == "ore")        tile.ore_reserve       = std::stoi(xml_val);
@@ -1162,7 +1175,9 @@ static void writeArray(xmlTextWriterPtr xmlWriter, const A& array,
   xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"size", "%zu",
     array.size());
   for(int i = 0; i < array.size(); i++) {
-    xmlTextWriterStartElement(xmlWriter, (xmlStr)std::to_string(i).c_str());
+    xmlTextWriterStartElement(xmlWriter,
+      (xmlStr)(std::ostringstream() << "index_" << i).str().c_str()
+    );
       writeElement(xmlWriter, array.at(i));
     xmlTextWriterEndElement(xmlWriter);
   }
@@ -1172,7 +1187,7 @@ template<typename A>
 static void readArray(xmlpp::TextReader& xmlReader, A& array,
   std::function<void(xmlpp::TextReader&, typename A::value_type&)> readElement
 ) {
-  array.resize(std::stoull(xmlReader.get_attribute("size")));
+  // array.resize(std::stoull(xmlReader.get_attribute("size")));
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
@@ -1181,9 +1196,14 @@ static void readArray(xmlpp::TextReader& xmlReader, A& array,
       xmlReader.next();
       continue;
     }
+    if(xmlReader.get_name().substr(0, 6) != "index_") {
+      unexpectedXmlElement(xmlReader);
+      xmlReader.next();
+      continue;
+    }
     typename A::value_type *element = nullptr;
     try {
-      element = &array.at(std::stoull(xmlReader.get_name()));
+      element = &array.at(std::stoull(xmlReader.get_name().substr(6)));
     } catch(std::invalid_argument ex) {
       unexpectedXmlElement(xmlReader);
       xmlReader.next();
@@ -1213,6 +1233,7 @@ static void readArray_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) 
 }
 
 static void readPbar_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) {
+  size_t arraySize = array.size();
   int diff = 0;
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "pbar");
@@ -1248,11 +1269,13 @@ static void readPbar_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) {
 
   assert(!array.empty());
   array.push_back(array.front() - diff);
+  array.resize(arraySize);
 }
 
 static void readPbar_old(xmlpp::TextReader& xmlReader,
   std::deque<Stats::Inventory<>>& array
 ) {
+  size_t arraySize = array.size();
   int diff = 0;
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "pbar");
@@ -1294,4 +1317,5 @@ static void readPbar_old(xmlpp::TextReader& xmlReader,
     .amount = array.front().amount - diff,
     .capacity = 1000
   });
+  array.resize(arraySize);
 }

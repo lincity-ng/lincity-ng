@@ -39,6 +39,11 @@
 #include "lintypes.h"       // for Construction, ConstructionGroup
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
 #include "modules/tile.hpp"
+#include "modules/monument.h"
+#include "modules/tip.h"
+#include "modules/fire.h"
+#include "ConstructionRequest.h"
+#include "modules/market.h"
 
 #ifdef DEBUG
 #include <cassert>          // for assert
@@ -59,15 +64,6 @@ Ground::Ground() {
   int4 = 0;
 }
 Ground::~Ground() {}
-
-MapPoint::MapPoint(int x, int y)
-  : x(x), y(y)
-{}
-
-bool
-MapPoint::operator==(const MapPoint& other) const {
-    return x == other.x && y == other.y;
-}
 
 MapTile::MapTile() :
   ground()
@@ -280,7 +276,8 @@ void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 
 
 Map::Map(int map_len) :
-  side_len(map_len), maptile(map_len * map_len)
+  side_len(map_len), maptile(map_len * map_len),
+  recentPoint(map_len / 2, map_len / 2)
 {}
 
 Map::~Map() {
@@ -299,12 +296,25 @@ MapTile* Map::operator()(int index) {
   return &(maptile[index]);
 }
 
+const MapTile *Map::operator()(MapPoint point) const {
+  return &(maptile[point.x + point.y * side_len]);
+}
+
+MapTile *Map::operator()(MapPoint point) {
+  return &(maptile[point.x + point.y * side_len]);
+}
+
 bool Map::is_inside(int x, int y) const {
     return (x >= 0 && y >= 0 && x < side_len && y < side_len);
 }
 
 bool Map::is_inside(int index) const {
     return (index >= 0 && index < side_len * side_len);
+}
+
+bool Map::is_inside(MapPoint point) const {
+  return point.x >= 0 && point.y >= 0
+    && point.x < side_len && point.y < side_len;
 }
 
 bool Map::is_border(int x, int y) const {
@@ -315,12 +325,29 @@ bool Map::is_border(int index) const {
     return (index%side_len == side_len -1 || index%side_len == 0 || index/side_len == side_len-1 || index/side_len == 0);
 }
 
-bool Map::is_edge(int x, int y) const {
-    return (x == 1 || y == 1 || x == side_len-2 || y == side_len -2);
+bool Map::is_border(MapPoint point) const {
+  return (point.x == 0 || point.y == 0
+    || point.x == side_len-1 || point.y == side_len-1);
 }
 
-bool Map::is_visible(int x, int y) const {
-    return (x > 0 && y > 0 && x < side_len-1 && y < side_len -1);
+bool Map::is_edge(int x, int y) const {
+  return is_edge(MapPoint(x, y));
+}
+
+bool Map::is_edge(MapPoint point) const {
+  return (point.x == 1 || point.y == 1
+    || point.x == side_len-2 || point.y == side_len -2);
+}
+
+bool
+Map::is_visible(int x, int y) const {
+  return is_visible(MapPoint(x, y));
+}
+
+bool
+Map::is_visible(MapPoint point) const {
+  return (point.x > 0 && point.y > 0
+    && point.x < side_len-1 && point.y < side_len-1);
 }
 
 int Map::map_x(MapTile * tile)
@@ -342,8 +369,7 @@ int Map::len() const {
     return side_len;
 }
 
-bool Map::maximum(int x , int y)
-{
+bool Map::maximum(int x , int y) const {
     int alt = maptile[x + y * side_len].ground.altitude;
     bool is_max = true;
     for (int i=0; i<8; i++)
@@ -354,9 +380,11 @@ bool Map::maximum(int x , int y)
     }
     return is_max;
 }
+bool Map::maximum(MapPoint point) const {
+  return maximum(point.x, point.y);
+}
 
-bool Map::minimum(int x , int y)
-{
+bool Map::minimum(int x , int y) const {
     int alt = maptile[x + y * side_len].ground.altitude;
     bool is_min = true;
     for (int i=0; i<8; i++)
@@ -367,9 +395,11 @@ bool Map::minimum(int x , int y)
     }
     return is_min;
 }
+bool Map::minimum(MapPoint point) const {
+  return minimum(point.x, point.y);
+}
 
-bool Map::saddlepoint(int x , int y)
-{
+bool Map::saddlepoint(int x , int y) const {
     int alt = maptile[x + y * side_len].ground.altitude;
     int dips = 0;
     bool dip_new = alt > maptile[x + dxo[7] + (y + dyo[7])*side_len ].ground.altitude;
@@ -385,9 +415,11 @@ bool Map::saddlepoint(int x , int y)
     }
     return dips > 1;
 }
+bool Map::saddlepoint(MapPoint point) const {
+  return saddlepoint(point.x, point.y);
+}
 
-bool Map::checkEdgeMin(int x , int y)
-{
+bool Map::checkEdgeMin(int x , int y) const {
     int alt = maptile[x + y * side_len].ground.altitude;
     if (x==1 || x == side_len-2)
     {
@@ -401,6 +433,9 @@ bool Map::checkEdgeMin(int x , int y)
     }
     else
         return false;
+}
+bool Map::checkEdgeMin(MapPoint point) const {
+  return checkEdgeMin(point.x, point.y);
 }
 
 World::World() :
@@ -428,6 +463,136 @@ World::World(int mapSize) :
 }
 
 World::~World() {
+}
+
+void
+World::buildConstruction(ConstructionGroup& cstGrp, MapPoint point) {
+  Message::ptr message;
+  if(!cstGrp.can_build(*this, message))
+    CannotBuildMessage::create(cstGrp, message)->throwEx();
+  if(!cstGrp.can_build_here(*this, point, message))
+    CannotBuildHereMessage::create(cstGrp, point, message)->throwEx();
+  expense(cstGrp.getCosts(*this), stats.expenses.construction,
+    !cstGrp.no_credit);
+  cstGrp.placeItem(*this, point.x, point.y);
+
+  map.connect_transport(point.x - 2, point.y - 2,
+    point.x + cstGrp.size + 1, point.y + cstGrp.size + 1);
+  map.desert_water_frontiers(point.x - 1, point.y - 1,
+    cstGrp.size + 2, cstGrp.size + 2);
+}
+
+void
+World::bulldozeArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+
+  Construction *cst = map(point)->reportingConstruction;
+  unsigned short g = map(point)->getGroup();
+
+  // TODO: delegate check to the construction
+  if(g == GROUP_DESERT)
+    return; // nothing to do
+  else if (g == GROUP_FIRE)
+    CannotBulldozeThisMessage::create(point, fireConstructionGroup)->throwEx();
+  else if (g == GROUP_MONUMENT
+    && !dynamic_cast<Monument *>(cst)->completed
+  )
+    CannotBulldozeIncompleteMonumentMessage::create(point)->throwEx();
+  else if (g == GROUP_TIP
+    && !dynamic_cast<Tip *>(cst)->total_waste > 0
+  )
+    CannotBulldozeNonemptyTipMessage::create(point)->throwEx();
+
+  expense(map(point)->getConstructionGroup()->bul_cost,
+    stats.expenses.construction);
+
+  // TODO: delegate special cases to the construction
+  if(g == GROUP_SHANTY)
+    BurnDownRequest(cst).execute();
+  else if (g == GROUP_OREMINE)
+    OreMineDeletionRequest(cst).execute();
+  else if(cst)
+    ConstructionDeletionRequest(cst).execute();
+  else {
+    map(point)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+    if (map(point)->is_water()) {
+      map(point)->type = CST_GREEN;
+      map(point)->group = GROUP_BARE;
+      map(point)->flags &= ~(FLAG_IS_RIVER);
+    }
+    else {
+      map(point)->type = CST_DESERT;
+      map(point)->group = GROUP_DESERT;
+    }
+    //Here size is always 1
+    map.connect_transport(point.x - 2, point.y - 2, point.x + 2, point.y + 2);
+    map.connect_rivers(point.x, point.y);
+    map.desert_water_frontiers(point.x - 1, point.y - 1, 1 + 2, 1 + 2);
+  }
+
+  setUpdated(Updatable::MAP);
+}
+
+void
+World::evacuateArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+  Construction *cst = map(point)->reportingConstruction;
+  if(!cst)
+    NothingHereMessage::create(point)->throwEx();
+  if(cst->flags & FLAG_NEVER_EVACUATE)
+    CannotEvacuateThisMessage::create(point,
+      *cst->constructionGroup)->throwEx();
+
+  if(cst->constructionGroup->group == GROUP_MARKET) {
+    dynamic_cast<Market*>(cst)->toggleEvacuation();
+    return;
+  }
+  cst->flags ^= FLAG_EVACUATE;
+}
+
+void
+World::floodArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+  if(!map(point)->is_bare())
+    SpaceOccupiedMessage::create(point)->throwEx();
+  map(point)->setTerrain(GROUP_WATER);
+  expense(GROUP_WATER_COST, stats.expenses.construction);
+  map.connect_transport(point.x - 2, point.y - 2, point.x + 2, point.y + 2);
+  map.desert_water_frontiers(point.x - 1, point.y - 1, 3, 3);
+  map.connect_rivers(point.x, point.y);
+  setUpdated(Updatable::MAP);
+}
+
+void
+World::pushMessage(Message::ptr message) {
+  messageQueue.push_back(message);
+}
+
+Message::ptr
+World::popMessage() {
+  if(messageQueue.empty())
+    return Message::ptr();
+  Message::ptr message = messageQueue.front();
+  messageQueue.pop_front();
+  return message;
+}
+
+void
+World::setUpdated(Updatable what) {
+  updatedSet.insert(what);
+}
+
+void
+World::clearUpdated(Updatable what) {
+  updatedSet.erase(what);
+}
+
+bool
+World::isUpdated(Updatable what) {
+  return updatedSet.find(what) != updatedSet.end();
 }
 
 /** @file lincity/world.cpp */

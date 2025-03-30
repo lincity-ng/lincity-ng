@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ void Powerline::update()
     }
 }
 
-void Powerline::animate() {
+void Powerline::animate(unsigned long real_time) {
   switch(anim_counter) {
   case POWER_MODULUS - 2:
     if ( !(frameIt->frame >= 11) )
@@ -94,14 +94,10 @@ void Powerline::animate() {
   }
 }
 
-void Powerline::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
-    // i++;
-    list_commodities(&i);
+void Powerline::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+  list_commodities(mps, production);
 }
 
 

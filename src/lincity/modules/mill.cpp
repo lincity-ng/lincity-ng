@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,9 +70,8 @@ Mill::Mill(World& world, ConstructionGroup *cstgrp) :
 void Mill::update()
 {
     bool use_coal = (commodityCount[STUFF_COAL]*MAX_LOVOLT_AT_MILL > commodityCount[STUFF_LOVOLT]*MAX_COAL_AT_MILL);
-    flags &= ~(FLAG_POWERED);
     if ((use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_LOVOLT]) >= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL)
-    && (flags |= FLAG_POWERED, commodityCount[STUFF_FOOD] >= FOOD_USED_BY_MILL)
+    && (commodityCount[STUFF_FOOD] >= FOOD_USED_BY_MILL)
     && (commodityCount[STUFF_LABOR] >= MILL_LABOR)
     && (commodityCount[STUFF_GOODS] <= MAX_GOODS_AT_MILL - GOODS_MADE_BY_MILL))
     {
@@ -97,7 +96,7 @@ void Mill::update()
     }
 }
 
-void Mill::animate() {
+void Mill::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(MILL_ANIM_SPEED);
@@ -110,13 +109,10 @@ void Mill::animate() {
   }
 }
 
-void Mill::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    // i++;
-    list_commodities(&i);
+void Mill::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (float) busy);
+  list_commodities(mps, production);
 }
 
 

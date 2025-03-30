@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@
 #include <list>                           // for _List_iterator
 #include <map>                            // for map
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
 #include "modules.h"                      // for Commodity, ExtraFrame, MapTile
 
@@ -132,13 +131,14 @@ void Coalmine::update()
     {   flags |= FLAG_EVACUATE;}
 
     //Abandon the Coalmine if it is really empty
-    if ((current_coal_reserve == 0)
-      &&(commodityCount[STUFF_LABOR] == 0)
-      &&(commodityCount[STUFF_COAL] == 0) )
-    {   ConstructionManager::submitRequest(new ConstructionDeletionRequest(this));}
+    if(current_coal_reserve == 0
+      && commodityCount[STUFF_LABOR] == 0
+      && commodityCount[STUFF_COAL] == 0
+    )
+      ConstructionDeletionRequest(this).execute();
 }
 
-void Coalmine::animate() {
+void Coalmine::animate(unsigned long real_time) {
   //choose type depending on availabe coal
   // TODO: make sure case 'nothing' can actually happen
   if(commodityCount[STUFF_COAL] > MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE/4))//75%
@@ -152,14 +152,11 @@ void Coalmine::animate() {
   soundGroup = frameIt->resourceGroup;
 }
 
-void Coalmine::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
-    // i++;
-    list_commodities(&i);
+void Coalmine::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sddp(N_("Deposits"), current_coal_reserve, initial_coal_reserve);
+  list_commodities(mps, production);
 }
 
 void Coalmine::place(int x, int y) {
@@ -198,10 +195,11 @@ void Coalmine::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool Coalmine::loadMember(xmlpp::TextReader& xmlReader) {
+bool
+Coalmine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

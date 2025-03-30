@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@
 
 #include "commune.h"                      // for CommuneConstructionGroup
 #include "fire.h"                         // for FIRE_ANIMATION_SPEED
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
 #include "lincity/ConstructionRequest.h"  // for BurnDownRequest
 #include "modules.h"                      // for Commodity, ExtraFrame, basi...
 #include "modules_interfaces.h"           // for add_a_shanty, update_shanty
@@ -65,14 +64,14 @@ void add_a_shanty(World& world) {
     y = rand() % len;
     if (numof_shanties > 0 && rand() % 8 != 0)
     {
-        r = find_group(x, y, GROUP_SHANTY);
+        r = world.find_group(x, y, GROUP_SHANTY);
         if (r == -1) {
             printf("Looked for a shanty, without any! x=%d y=%d\n", x, y);
             return;
         }
         y = r / len;
         x = r % len;
-        r = find_bare_area(x, y, 2);
+        r = world.find_bare_area(x, y, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -85,13 +84,13 @@ void add_a_shanty(World& world) {
     }
     else
     {
-        r = find_group(x, y, GROUP_MARKET);
+        r = world.find_group(x, y, GROUP_MARKET);
         if (r == -1)
             return;             /* silently return, we havn't started yet. */
 
         y = r / len;
         x = r % len;
-        r = find_bare_area(x, y, 2);
+        r = world.find_bare_area(x, y, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -129,15 +128,14 @@ void update_shanty(World& world) {
       int x, y, r;
       x = rand() % len;
       y = rand() % len;
-      r = find_group(x, y, GROUP_SHANTY);
+      r = world.find_group(x, y, GROUP_SHANTY);
       if(r == -1) {
         fprintf(stderr, "Can't find a shanty to remove!\n");
         return;
       }
       y = r / len;
       x = r % len;
-      ConstructionManager::executeRequest(
-        new BurnDownRequest(world.map(x,y)->reportingConstruction));
+      BurnDownRequest(world.map(x,y)->reportingConstruction).execute();
     }
   }
 }
@@ -209,7 +207,7 @@ void Shanty::update()
     }
 }
 
-void Shanty::animate() {
+void Shanty::animate(unsigned long real_time) {
   if(start_burning_waste) { // start fire
     start_burning_waste = false;
     anim = real_time + ANIM_THRESHOLD(3 * WASTE_BURN_TIME);
@@ -225,13 +223,10 @@ void Shanty::animate() {
   }
 }
 
-void Shanty::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sd(i++, N_("Air Pollution"), world.map(x,y)->pollution);
-    // i++;
-    list_commodities(&i);
+void Shanty::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
+  list_commodities(mps, production);
 }
 
 void Shanty::init_resources() {

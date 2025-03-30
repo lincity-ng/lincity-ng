@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@
 #include "commodities.hpp"  // for Commodity, CommodityRule, operator++
 #include "resources.hpp"    // for ResourceGroup, ExtraFrame (ptr only)
 #include "world.h"
+#include "gui_interface/mps.h"
 
 class ConstructionGroup;
 namespace xmlpp {
@@ -63,8 +64,8 @@ public:
   virtual ~Construction() {}
 
   virtual void update() = 0;
-  virtual void report() = 0;
-  virtual void animate() {}
+  virtual void report(Mps& mps, bool production) const = 0;
+  virtual void animate(unsigned long real_time) {}
 
   /**
    * Initializes a new construction (i.e. one that is not loaded from a save
@@ -74,7 +75,7 @@ public:
   **/
   virtual void initialize() {}
 
-  void load(xmlpp::TextReader& xmlReader);
+  void load(xmlpp::TextReader& xmlReader, unsigned int ldsv_version);
 
 protected:
   /**
@@ -89,7 +90,8 @@ protected:
    * derived class, then the call must be forwarded to each direct base class
    * until it is recognized.
   **/
-  virtual bool loadMember(xmlpp::TextReader& xmlReader);
+  virtual bool loadMember(xmlpp::TextReader& xmlReader,
+    unsigned int ldsv_version);
 
 public:
   /**
@@ -144,9 +146,7 @@ public:
   std::list<ExtraFrame>::iterator frameIt;
   static std::string getStuffName(Commodity stuff_id); //translated name of a commodity
   virtual void init_resources(void);              //sets sounds and graphics according to constructionGroup
-  void list_commodities(int *);                   //prints a sorted list all commodities in report()
-  void list_inventory(int *);                     // prints list of commodity inventory in report()
-  void list_production(int *);                    // prints list of commodity production in report()
+  void list_commodities(Mps& mps, bool production) const;                   //prints a sorted list all commodities in report()
   void reset_prod_counters(void);                 // monthly update to production counters
   int produceStuff(Commodity stuff_id, int amt);  // increases inventory by amt and updates production counter
   int consumeStuff(Commodity stuff_id, int amt);  // decreases inventory by amt and updates production counter
@@ -165,6 +165,7 @@ public:
   int equilibrate_stuff(int *rem_lvl, CommodityRule rem_rule , int ratio, Commodity stuff_ID);
   //equilibrates stuff with an external reservoir (e.g. another construction invoking this method)
   void playSound();//plays random chunk from constructionGroup
+  bool isDead() const; // true if this construction is no longer on the map
 };
 
 class ConstructionGroup {
@@ -202,10 +203,23 @@ public:
     virtual ~ConstructionGroup() {}
 
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
-    int getCosts(World& world);
-    bool is_allowed_here(World& world, int x, int y, bool msg);//check if construction could be placed
+    int getCosts(const World& world) const;
 
-    virtual int placeItem(World& world, int x, int y);
+    virtual bool can_build(const World& world,
+      Message::ptr& message) const;
+    bool can_build(const World& world) const {
+      Message::ptr tmp;
+      return can_build(world, tmp);
+    }
+
+    virtual bool can_build_here(const World& world, const MapPoint point,
+      Message::ptr& message) const;
+    bool can_build_here(const World& world, const MapPoint point) const {
+      Message::ptr tmp;
+      return can_build_here(world, point, tmp);
+    }
+
+    virtual void placeItem(World& world, int x, int y);
 
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(World& world) = 0;

@@ -5,6 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,58 +74,49 @@ void format_number5(char *str, int num)
     }
 }
 */
-void num_to_ansi(char *s, size_t size, long num)
-{
-    int triplets = 0;
-    float numf = (float)num;
+std::string num_to_ansi(long num) {
+  int triplets = 0;
+  float numf = (float)num;
+  if(abs(numf) > 9999) do {
+    numf /= 1000;
+    triplets++;
+  } while(abs(numf) > 999);
 
-    if (numf > 9999 || numf < -9999)
-    {
-        while (numf > 999 || numf < -999)
-        {
-            numf /= 1000;
-            triplets++;
-        }
-    }
+  switch(triplets) {
+  case 0:
+    triplets = ' ';
+    break;
+  case 1:
+    triplets = 'k';
+    break;                  // kilo
+  case 2:
+    triplets = 'M';
+    break;                  // mega
+  case 3:
+    triplets = 'G';
+    break;                  // giga
+  case 4:
+    triplets = 'T';
+    break;                  // tera
+  case 5:
+    triplets = 'P';
+    break;                  // peta
+  default:
+    triplets = '?';
+    break;
+  }
 
-
-    switch (triplets) {
-    case 0:
-        triplets = ' ';
-        break;
-    case 1:
-        triplets = 'k';
-        break;                  // kilo
-    case 2:
-        triplets = 'M';
-        break;                  // mega
-    case 3:
-        triplets = 'G';
-        break;                  // giga
-    case 4:
-        triplets = 'T';
-        break;                  // tera
-    case 5:
-        triplets = 'P';
-        break;                  // peta
-    default:
-        triplets = '?';
-        break;
-    }
-
-    if (size == 4) {            /* to make up for format_pos_number4.  Eeewwwwwww. */
-        if (numf < 10) {
-            snprintf(s, size + 1, "%1.1f%c", numf, triplets);
-        } else {
-            snprintf(s, size + 1, "%3.0f%c", numf, triplets);
-        }
-    } else {
-        if (triplets == ' ') {
-            snprintf(s, size, "%4.0f", numf);
-        } else {
-            snprintf(s, size, "%3.1f%c", numf, triplets);
-        }
-    }
+  std::string str;
+  str.resize(7);
+  int size_old = str.size();
+  int size_new;
+  if(triplets == ' ') {
+    size_new = snprintf(str.data(), str.size()+1, "%4.0f", numf);
+  } else {
+    size_new = snprintf(str.data(), str.size()+1, "%3.1f%c", numf, triplets);
+  }
+  str.resize(std::min(size_old, size_new));
+  return str;
 }
 /*
 void num_to_ansi_unit(char *s, size_t size, long num, char unit)

@@ -35,15 +35,18 @@ Stats::Stats() {
   history.starve.resize(190);
   history.nojobs.resize(190);
   history.ppool.resize(190);
-  history.tech.resize(2);
-  history.money.resize(2);
+  history.tech.resize(12);
+  history.money.resize(12);
   history.pollution.resize(2);
   for(auto& i : history.inventory)
     i.resize(2);
   history.births.resize(12);
   history.deaths.resize(12);
   history.unnat_deaths.resize(12);
+  history.tenants.resize(12);
 }
+
+Stats::~Stats() { }
 
 void
 Stats::daily() {
@@ -53,6 +56,7 @@ void
 Stats::monthly() {
   population.population_m.finalize();
   population.housed_m.finalize();
+  population.housing_m.finalize();
   population.starving_m.finalize();
   population.unemployed_m.finalize();
   population.births_m.finalize();
@@ -108,7 +112,6 @@ Stats::yearly() {
   income.export_tax.finalize();
 
   expenses.construction.finalize();
-  expenses.bulldoze.finalize();
   expenses.coalSurvey.finalize();
   expenses.import.finalize();
   expenses.unemployment.finalize();

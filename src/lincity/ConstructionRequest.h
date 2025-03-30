@@ -26,14 +26,13 @@
 
 class Construction;
 
-class ConstructionRequest {
+class [[deprecated]] ConstructionRequest {
 public:
     ConstructionRequest(Construction *subject): subject(subject) { }
     virtual ~ConstructionRequest() { }
     virtual void execute() = 0;
 protected:
     Construction *subject;
-    friend class ConstructionManager;
 };
 
 class ConstructionDeletionRequest: public ConstructionRequest {

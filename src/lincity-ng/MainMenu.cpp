@@ -1,20 +1,24 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/MainMenu.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "MainMenu.hpp"
 
@@ -55,6 +59,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/world.h"                 // for Map
 #include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
 #include "tinygettext/tinygettext.hpp"     // for DictionaryManager
+#include "lincity/lintypes.h"
 
 using namespace std::placeholders;
 
@@ -139,7 +144,7 @@ void MainMenu::fillNewGameMenu()
       if(fName.substr(fName.size() - 7) == ".scn.gz"
         && dirIt->is_regular_file()
       ) {
-        file = *(++dirIt);
+        file = *(dirIt++);
         break;
       }
       dirIt++;
@@ -268,7 +273,7 @@ MainMenu::fillOptionsMenu() {
   }
   getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
   mode.str("");
-  mode << world.len();
+  mode << getConfig()->worldSize;
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
   languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
   currentLanguage = getConfig()->language;
@@ -478,7 +483,6 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         if( getConfig()->restartOnChangeScreen )
         {
             quitState = RESTART;
-            running = false;
         }
         else
         {
@@ -632,7 +636,6 @@ MainMenu::quitButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     quitState = QUIT;
-    running = false;
 }
 
 void
@@ -648,24 +651,34 @@ MainMenu::optionsButtonClicked(Button* ) {
 }
 
 void
-MainMenu::continueButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    quitState = INGAME;
-    running = false;
+MainMenu::continueButtonClicked(Button* ) {
+  getSound()->playSound( "Click" );
+  quitState = INGAME;
 
-    if (!world.dirty) // if a world doesn't exist yet (game freshly started)
-    {
-        //load current game if it exists
-        if(!loadCityNG("9_currentGameNG.scn.gz")) {
-            city_settings  city;
-            city.with_village  = true;
-            city.without_trees = false;
-
-            //by default create a new City
-            new_city( &main_screen_originx, &main_screen_originy, &city);
-        }
+  if(!game) {
+    std::unique_ptr<World> world;
+    std::filesystem::path file =
+      getConfig()->userDataDir / "9_currentGameNG.scn.gz";
+    if(std::filesystem::exists(file)) {
+      world = loadCityNG(file);
     }
+    else {
+      city_settings city;
+      city.with_village  = true;
+      city.without_trees = false;
+
+      //by default create a new City
+      world = new_city(&city, getConfig()->worldSize);
+    }
+
+    if(world) {
+      game.reset(new Game(window));
+      game->setWorld(std::move(world));
+    }
+    else {
+      quitState = MAINMENU;
+    }
+  }
 }
 
 void
@@ -683,7 +696,7 @@ MainMenu::loadGameButtonClicked(Button* ) {
 void
 MainMenu::saveGameButtonClicked(Button* ) {
   getSound()->playSound( "Click" );
-  if(getGame()) {
+  if(game) {
     switchMenu(saveGameMenu);
   }
 }
@@ -706,7 +719,6 @@ MainMenu::optionsBackButtonClicked(Button* )
         if( getConfig()->restartOnChangeScreen )
         {
             quitState = RESTART;
-            running = false;
         }
         else
         {
@@ -722,7 +734,6 @@ MainMenu::optionsBackButtonClicked(Button* )
         unsetenv("LINCITY_LANG");
 #endif
         quitState = RESTART;
-        running = false;
     }
     else
     {
@@ -734,46 +745,43 @@ MainMenu::optionsBackButtonClicked(Button* )
  * Either create selected random terrain or load a scenario.
  **/
 void
-MainMenu::newGameStartButtonClicked(Button* )
-{
-    if( mFilename.empty() ){
-        // std::cout << "nothing selected\n";
-        return;
+MainMenu::newGameStartButtonClicked(Button* ) {
+  if(mFilename.empty()) {
+    // std::cout << "nothing selected\n";
+    return;
+  }
+  getSound()->playSound("Click");
+
+  city_settings city_obj;
+  city_settings *city = &city_obj;
+
+  city->with_village =
+    getCheckButton(*newGameMenu, "WithVillage")->isChecked();
+  city->without_trees =
+    getCheckButton(*newGameMenu, "WithoutTrees")->isChecked();
+
+  std::unique_ptr<World> world;
+  if(baseName == "RiverDelta") {
+    world = new_city(city, getConfig()->worldSize);
+  } else if(baseName == "DesertArea") {
+    world = new_desert_city(city, getConfig()->worldSize);
+  } else if(baseName == "TemperateArea") {
+    world = new_temperate_city(city, getConfig()->worldSize);
+  } else if(baseName == "SwampArea") {
+    world = new_swamp_city(city, getConfig()->worldSize);
+  } else {
+    if(world = loadCityNG(mFilename)) {
+      world->given_scene = baseName; // TODO: move this to backend
     }
-    getSound()->playSound( "Click" );
+  }
 
-    city_settings city_obj;
-    city_settings *city = &city_obj;
+  if(world) {
+    if(!game)
+      game.reset(new Game(window));
+    game->setWorld(std::move(world));
 
-    city->with_village =
-      getCheckButton(*newGameMenu, "WithVillage")->isChecked();
-    city->without_trees =
-      getCheckButton(*newGameMenu, "WithoutTrees")->isChecked();
-
-    if( baseName == "RiverDelta" ){
-        new_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "DesertArea" ){
-        new_desert_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "TemperateArea" ){
-        new_temperate_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "SwampArea" ){
-        new_swamp_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else {
-        if( loadCityNG( mFilename ) ){
-            strcpy (given_scene, baseName.c_str());
-            quitState = INGAME;
-            running = false;
-        }
-    }
-    mFilename = "empty"; //don't erase scenarios later
+    quitState = INGAME;
+  }
 }
 
 void
@@ -799,9 +807,10 @@ MainMenu::loadGameLoadButtonClicked(Button *)
     getSound()->playSound( "Click" );
     if(mFilename.empty())
       return;
-    if( loadCityNG( mFilename ) ){
-        quitState = INGAME;
-        running = false;
+    if(std::unique_ptr<World> world = loadCityNG(mFilename)) {
+      if(!game) game.reset(new Game(window));
+      game->setWorld(std::move(world));
+      quitState = INGAME;
     }
 }
 
@@ -809,24 +818,26 @@ void
 MainMenu::loadGameSaveButtonClicked(Button *)
 {
     getSound()->playSound( "Click" );
+    assert(!!game);
+    World& world = game->getWorld();
     std::cout << "remove( " << mFilename << ")\n";
     std::filesystem::remove(mFilename);
     /* Build filename */
     std::stringstream newStart;
     newStart << slotNr << "_Y";
     newStart << std::setfill('0') << std::setw(5);
-    fprintf(stderr,"total_time %i\n",total_time);
-    newStart << total_time/1200;
+    fprintf(stderr,"total_time %i\n", world.total_time);
+    newStart << world.total_time/1200;
     newStart << "_Tech";
     newStart << std::setfill('0') << std::setw(3);
-    newStart << tech_level/10000;
+    newStart << world.tech_level/10000;
     newStart << "_Cash";
-    if (total_money >= 0)
+    if (world.total_money >= 0)
     {   newStart << "+";}
     else
     {   newStart << "-";}
     newStart << std::setfill('0') << std::setw(3);
-    int money = abs(total_money);
+    int money = abs(world.total_money);
     if (money > 1000000000)
     {   newStart << money/1000000000 << "G";}
     else if (money > 1000000)
@@ -838,9 +849,9 @@ MainMenu::loadGameSaveButtonClicked(Button *)
 
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
-    newStart << housed_population + people_pool;
+    newStart << world.stats.population.population_m / NUMOF_DAYS_IN_MONTH;
     std::string newFilename( newStart.str() + ".gz" );
-    saveCityNG( newFilename );
+    saveCityNG(world, getConfig()->userDataDir / newFilename);
     fillLoadMenu( true );
     gotoMainMenu();
 }
@@ -850,8 +861,7 @@ MainState
 MainMenu::run()
 {
     SDL_Event event;
-    running = true;
-    quitState = QUIT;
+    quitState = MAINMENU;
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       menu->findComponent("windowManager")));
     Uint32 fpsTicks = SDL_GetTicks();
@@ -862,8 +872,7 @@ MainMenu::run()
       SDL_GetWindowSize(window, &width, &height);
       menu->resize(width, height);
     }
-    while(running)
-    {
+    while(quitState == MAINMENU) {
         if(SDL_WaitEventTimeout(&event, 100))
         {
             switch(event.type) {
@@ -901,7 +910,6 @@ MainMenu::run()
                     //might come in handy if video-mode is not working as expected.
                     if( ( gui_event.keysym.sym == SDLK_ESCAPE ) ||
                         ( gui_event.keysym.sym == SDLK_c && ( gui_event.keysym.mod & KMOD_CTRL) ) ){
-                        running = false;
                         quitState = QUIT;
                         break;
                     }
@@ -909,7 +917,6 @@ MainMenu::run()
                     break;
                 }
                 case SDL_QUIT:
-                    running = false;
                     quitState = QUIT;
                     break;
                 default:
@@ -936,9 +943,20 @@ MainMenu::run()
             frame = 0;
             fpsTicks = ticks;
         }
+
+      while(quitState == INGAME) {
+        launchGame();
+      }
     }
 
     return quitState;
+}
+
+void
+MainMenu::launchGame() {
+  assert(!!game);
+  quitState = game->run();
+  switchMenu(mainMenu);
 }
 
 /** @file lincity-ng/MainMenu.cpp */

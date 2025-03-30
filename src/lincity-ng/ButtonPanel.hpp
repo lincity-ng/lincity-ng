@@ -1,21 +1,25 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-Copyright (c) 2024 David Bears <dbear4q@gmail.com>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/ButtonPanel.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __BUTTON_PANEL_HPP__
 #define __BUTTON_PANEL_HPP__
 
@@ -26,10 +30,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "gui/Component.hpp"         // for Component
 #include "gui/RadioButtonGroup.hpp"  // for RadioButtonGroup
-#include "lincity/UserOperation.h"   // for UserOperation
+#include "lincity-ng/UserOperation.hpp"   // for UserOperation
 
 class CheckButton;
 class XmlReader;
+class Game;
 
 class ButtonPanel : public Component {
 public:
@@ -41,29 +46,33 @@ public:
   virtual void draw(Painter &painter);
   virtual bool opaque(const Vector2& pos) const;
 
-  void checkTech(bool showInfo);
+  void updateTech(bool showInfo);
   void selectQueryTool();
   void toggleBulldozeTool();
+  void setGame(Game *game);
 
+  Signal<const UserOperation&> selected;
   RadioButtonGroup activeTool;
 
 private:
-  struct Tool;
+  Game *game = nullptr;
 
-  typedef struct Menu {
+  struct Tool;
+  struct Menu {
     CheckButton *button = NULL;
     Component *drawer = NULL;
-    std::vector<struct Tool *> tools;
+    std::vector<Tool *> tools;
     Tool *activeTool = NULL;
     void setActiveTool(Tool *tool);
-  } Menu;
-  typedef struct Tool {
+  };
+  struct Tool {
     CheckButton *button = NULL;
     Menu *menu = NULL;
     UserOperation operation;
     std::string upMessage;
     bool upShown = NULL;
-  } Tool;
+    std::string helpName;
+  };
   std::unordered_map<CheckButton *, Menu *> menus;
   std::unordered_map<CheckButton *, Tool *> tools;
 
@@ -81,6 +90,9 @@ private:
   void menuSelected(Menu *menu);
 
   bool bulldozeToggled;
+
+  std::string createTooltip(const Tool *tool);
+  void showUpMessage(const std::string& upMessage);
 };
 
 ButtonPanel *getButtonPanel();

@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -92,11 +92,11 @@ public:
 
     virtual ~Recycle() { }
     virtual void update() override;
-    virtual void report() override;
+    virtual void report(Mps& mps, bool production) const override;
     virtual void place(int x, int y) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
-    virtual bool loadMember(xmlpp::TextReader& xmlReader) override;
+    virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
     int  tech;
     int  make_ore;

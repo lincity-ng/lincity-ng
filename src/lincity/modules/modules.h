@@ -40,7 +40,6 @@
 #include "lincity/world.h"                // tally: 111111111111111111111111
 #include "lincity/xmlloadsave.h"
 #include "tinygettext/gettext.hpp"        // tally: 111111111111111111111111111111111
-#include "lincity/events.hpp"
-#include "lincity/exceptions.hpp"
+#include "lincity/messages.hpp"
 
 /** @file lincity/modules/modules.h */

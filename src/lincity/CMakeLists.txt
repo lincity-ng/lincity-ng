@@ -5,18 +5,11 @@ add_library(lincity_lib  STATIC
 		all_buildings.h
 		commodities.cpp
 		commodities.hpp
-		ConstructionManager.cpp
-		ConstructionManager.h
 		ConstructionRequest.cpp
 		ConstructionRequest.h
 		engglobs.cpp
 		engglobs.h
 		engine.cpp
-		engine.h
-		events.cpp
-		events.hpp
-		exceptions.cpp
-		exceptions.hpp
 		groups.h
 		init_game.cpp
 		init_game.h
@@ -30,10 +23,13 @@ add_library(lincity_lib  STATIC
 		lin-city.h
 		lintypes.cpp
 		lintypes.h
+		MapPoint.cpp
+		MapPoint.hpp
+		messages.cpp
+		messages.hpp
 		resources.cpp
 		resources.hpp
 		simulate.cpp
-		simulate.h
 		stats.cpp
 		stats.h
 		sustainable.h

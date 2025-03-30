@@ -38,9 +38,10 @@
 
 #include "resources.hpp"  // for ExtraFrame, ResourceGroup (ptr only)
 #include "stats.h"
-#include "events.hpp"
+#include "messages.hpp"
 #include "lctypes.h"
 #include "all_buildings.h"
+#include "MapPoint.hpp"
 
 class Construction;
 class ConstructionGroup;
@@ -66,24 +67,6 @@ public:
   int int4;
 };
 
-class MapPoint {
-public:
-  MapPoint(int x = 0, int y = 0);
-
-  bool operator==(const MapPoint& other) const;
-
-  MapPoint n(int dist = 1) const;
-  MapPoint s(int dist = 1) const;
-  MapPoint e(int dist = 1) const;
-  MapPoint w(int dist = 1) const;
-  MapPoint ne() const;
-  MapPoint nw() const;
-  MapPoint se() const;
-  MapPoint sw() const;
-
-  int x, y;
-};
-
 class MapTile {
 public:
   MapTile();
@@ -95,6 +78,7 @@ public:
   unsigned short type;                  //type of terrain (underneath constructions)
   unsigned short group;                 //group of the terrain (underneath constructions)
   int flags;                            //flags are defined in lin-city.h
+  // TODO: prevent access to coal_reserve when coal_survey_done == false
   unsigned short coal_reserve;          //underground coal
   unsigned short ore_reserve;           //underground ore
   int pollution;                        //air pollution (under ground pollution is in ground[][])
@@ -135,35 +119,49 @@ class Map
 public:
   Map(int map_len);
   ~Map();
-  MapTile* operator()(int x, int y);
-  const MapTile* operator()(int x, int y) const;
-  MapTile* operator()(int index);
-  MapTile* operator()(MapPoint loc);
-  bool is_inside(int x, int y) const;
-  bool is_inside(int index) const;
+  [[deprecated]] MapTile* operator()(int x, int y);
+  [[deprecated]] const MapTile* operator()(int x, int y) const;
+  [[deprecated]] MapTile* operator()(int index);
+  const MapTile* operator()(MapPoint point) const;
+  MapTile* operator()(MapPoint point);
+  [[deprecated]] bool is_inside(int x, int y) const;
+  [[deprecated]] bool is_inside(int index) const;
   bool is_inside(MapPoint loc) const;
-  bool is_border(int x, int y) const;
-  bool is_border(int index) const;
+  [[deprecated]] bool is_border(int x, int y) const;
+  [[deprecated]] bool is_border(int index) const;
   bool is_border(MapPoint loc) const;
-  bool is_edge(int x, int y) const;
-  bool is_visible(int x, int y) const;
+  [[deprecated]] bool is_edge(int x, int y) const;
+  bool is_edge(MapPoint point) const;
+  [[deprecated]] bool is_visible(int x, int y) const;
   bool is_visible(MapPoint loc) const;
-  int map_x(MapTile *tile);// returns x
-  int map_y(MapTile *tile);// returns y
-  int map_index(MapTile *tile);// returns index
+  [[deprecated]] int map_x(MapTile *tile);// returns x
+  [[deprecated]] int map_y(MapTile *tile);// returns y
+  [[deprecated]] int map_index(MapTile *tile);// returns index
   int len() const; //tells the actual world.side_len
-  bool maximum(int x, int y);
-  bool minimum(int x, int y);
-  bool saddlepoint(int x, int y);
-  bool checkEdgeMin(int x, int y);
-  int count_altered();
+  [[deprecated]] bool maximum(int x, int y) const;
+  bool maximum(MapPoint point) const;
+  [[deprecated]] bool minimum(int x, int y) const;
+  bool minimum(MapPoint point) const;
+  [[deprecated]] bool saddlepoint(int x, int y) const;
+  bool saddlepoint(MapPoint point) const;
+  [[deprecated]] bool checkEdgeMin(int x, int y) const;
+  bool checkEdgeMin(MapPoint point) const;
   std::vector<MapPoint> polluted;
 
   int alt_min, alt_max, alt_step;
 
-  std::unordered_set<Construction *> constructions;
+  // Using std::set instead of std::unordered_set so iterators remain valid
+  // after insertion.
+  std::set<Construction *> constructions;
 
   MapPoint recentPoint;
+
+
+  void connect_transport(int originx, int originy, int lastx, int lasty);
+  void desert_water_frontiers(int originx, int originy, int w, int h);
+  void connect_rivers(int x, int y);
+  [[deprecated]] int check_group(int x, int y);
+  [[deprecated]] int check_topgroup(int x, int y);
 
 protected:
   int side_len;
@@ -176,7 +174,43 @@ public:
   World(int mapSize);
   ~World();
 
-  void buildConstruction(ConstructionGroup& cstGrp, MapPoint loc);
+  void save(const std::filesystem::path& filename) const;
+  static std::unique_ptr<World> load(const std::filesystem::path& filename);
+
+  void do_time_step();
+  void do_animate(unsigned long real_time);
+  void buildConstruction(ConstructionGroup& cstGrp, MapPoint point);
+  void bulldozeArea(MapPoint point);
+  void evacuateArea(MapPoint point);
+  void floodArea(MapPoint point);
+
+  void pushMessage(Message::ptr message);
+  Message::ptr popMessage();
+
+  enum class Updatable {
+    POPULATION,
+    TECH,
+    MONEY,
+    FOOD,
+    LABOR,
+    GOODS,
+    COAL,
+    ORE,
+    STEEL,
+    POLLUTION,
+    LOVOLT,
+    HIVOLT,
+    WATER,
+    WASTE,
+    TIME,
+    MAP,
+    SUSTAINABILITY,
+  };
+  void setUpdated(Updatable what);
+  void clearUpdated(Updatable what);
+  bool isUpdated(Updatable what);
+
+// private: // planning to remove from public API
 
   Map map;
 
@@ -218,37 +252,26 @@ public:
 
   std::list<Vehicle*> vehicleList;
 
-  void addEvent(LincityEvent *event);
 
-  void do_time_step();
-  void do_animate();
 
   void fire_area(MapPoint loc);
   void income(int amt, Stat<int>& account);
   void expense(int amt, Stat<int>& account, bool allowCredit = true);
   void place_item(ConstructionGroup& cstGrp, MapPoint loc);
-  void bulldoze_item(MapPoint loc);
   void do_pollution();
   void scan_pollution();
   void do_fire_health_cricket_power_cover();
   void do_random_fire();
   void do_daily_ecology();
-  int check_group(int x, int y);
-  int check_topgroup(int x, int y);
-  int check_lvgroup(int x, int y);
-  bool check_water(int x, int y);
-  void connect_rivers(int x, int y);
   void do_coal_survey();
-  void desert_water_frontiers(int originx, int originy, int w, int h);
   int find_group(int x, int y, unsigned short group);
   bool is_bare_area(int x, int y, int size);
   int find_bare_area(int x, int y, int size);
-  void connect_transport(int originx, int originy, int lastx, int lasty);
-
-  void save(const std::filesystem::path& filename);
-  static std::unique_ptr<World> load(const std::filesystem::path& filename);
 
 private:
+  std::deque<Message::ptr> messageQueue;
+  std::unordered_set<Updatable> updatedSet;
+
   void do_periodic_events();
   void end_of_month_update();
   void start_of_year_update();

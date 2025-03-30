@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ void HealthCentre::update() {
       ++covercount;
       ++working_days;
     }
-  } catch(OutOfMoneyException ex) {}
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
 
   //TODO implement animation once graphics exist
   if(world.total_time % DAYS_BETWEEN_COVER == 75)
@@ -116,16 +116,11 @@ void HealthCentre::cover()
       world.map(xx,yy)->flags |= FLAG_HEALTH_COVER_CHECK;
 }
 
-void HealthCentre::report() {
-    int i = 0;
-    const char* p;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    // i++;
-    list_commodities(&i);
-    p = active?_("Yes"):_("No");
-    mps_store_ss(i++, N_("Health Care"), p);
+void HealthCentre::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (float) busy);
+  list_commodities(mps, production);
+  mps.add_ss(N_("Health Care"), active ? _("Yes") : _("No"));
 }
 
 void HealthCentre::save(xmlTextWriterPtr xmlWriter) const {
@@ -135,12 +130,12 @@ void HealthCentre::save(xmlTextWriterPtr xmlWriter) const {
   Construction::save(xmlWriter);
 }
 
-bool HealthCentre::loadMember(xmlpp::TextReader& xmlReader) {
+bool HealthCentre::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "active")     active     = std::stoi(xmlReader.read_inner_xml());
   else if(name == "daycount")   daycount   = std::stoi(xmlReader.read_inner_xml());
   else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

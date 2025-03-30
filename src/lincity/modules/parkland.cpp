@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,6 +59,18 @@ Construction *ParklandConstructionGroup::createConstruction(World& world) {
   return new Parkland(world, this);
 }
 
+bool
+ParklandConstructionGroup::can_build_here(const World& world,
+  const MapPoint point, Message::ptr& message
+) const {
+  if(!(world.map(point)->flags & FLAG_HAS_UNDERGROUND_WATER)) {
+    message = DesertHereMessage::create(point);
+    return false;
+  }
+
+  return ConstructionGroup::can_build_here(world, point, message);
+}
+
 Parkland::Parkland(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
@@ -72,13 +84,10 @@ void Parkland::update()
         world.map(x,y)->pollution --;
 }
 
-void Parkland::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sd(i++, N_("Air Pollution"), world.map(x,y)->pollution);
+void Parkland::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */
