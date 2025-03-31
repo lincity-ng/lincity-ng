@@ -22,10 +22,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef _LCLIB_H
-#define _LCLIB_H
+#ifndef __LINCITYNG_LINCITY_UTIL_HPP__
+#define __LINCITYNG_LINCITY_UTIL_HPP__
 
+#include <random>
 #include <string>
+
+#ifdef NDEBUG
+#define used_in_assert maybe_unused
+#else
+#define used_in_assert
+#endif
 
 // TODO: move to NG
 const char *current_month(int current_time);
@@ -35,12 +42,28 @@ int current_year(int current_time);
 //void format_power(char *str, size_t size, long power);
 std::string num_to_ansi(long num);
 
-#ifdef NDEBUG
-#define used_in_assert maybe_unused
-#else
-#define used_in_assert
-#endif
+class LcUrbg {
+private:
+  using base_engine = std::default_random_engine;
 
-#endif
+  LcUrbg();
+  ~LcUrbg();
+  LcUrbg(const LcUrbg&) = delete;
+  const LcUrbg& operator=(const LcUrbg&) = delete;
+
+public:
+  using result_type = base_engine::result_type;
+
+  result_type operator()();
+  static constexpr result_type min() { return base_engine::min(); }
+  static constexpr result_type max() { return base_engine::max(); }
+
+  static LcUrbg& get();
+
+private:
+  base_engine base_urbg;
+};
+
+#endif // __LINCITYNG_LINCITY_UTIL_HPP__
 
 /** @file lincity/lclib.h */

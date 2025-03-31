@@ -15,8 +15,6 @@ add_library(lincity_lib  STATIC
 		init_game.hpp
 		lc_locale.cpp
 		lc_locale.hpp
-		lc_random.cpp
-		lc_random.hpp
 		lctypes.hpp
 		lin-city.hpp
 		lintypes.cpp

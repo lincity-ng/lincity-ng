@@ -37,7 +37,7 @@
 #include "commodities.hpp"               // for CommodityRule, Commodity
 #include "engglobs.hpp"                    // for ex_tax_dis
 #include "groups.hpp"                      // for GROUP_FIRE, GROUP_MONUMENT
-#include "lc_random.hpp"                 // for LcUrbg
+#include "util.hpp"                 // for LcUrbg
 #include "lin-city.hpp"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
 #include "lintypes.hpp"                    // for Construction, NUMOF_DAYS_IN_...
 #include "messages.hpp"                  // for OutOfMoneyMessage, NoPeopleL...

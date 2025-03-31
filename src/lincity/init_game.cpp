@@ -35,7 +35,7 @@
 #include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
 #include "engglobs.hpp"             // for dx, dy, dxo, dyo
 #include "groups.hpp"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
-#include "lc_random.hpp"          // for LcUrbg
+#include "util.hpp"          // for LcUrbg
 #include "lctypes.hpp"              // for CST_WATER
 #include "lin-city.hpp"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_IS...
 #include "lintypes.hpp"             // for Construction, NUMOF_COAL_RESERVES

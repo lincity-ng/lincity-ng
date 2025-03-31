@@ -22,11 +22,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#include "util.hpp"
+
 #include <stdio.h>                  // for snprintf, size_t, printf
 #include <string.h>                 // for strdup
 #include <algorithm>                // for min
 #include <cstdlib>                  // for abs, exit, malloc, NULL
 #include <string>                   // for basic_string, string
+#include <time.h>     // for time
+#include <random>     // for random_device, seed_seq
+#include <vector>     // for vector
 
 #include "lintypes.hpp"               // for NUMOF_DAYS_IN_YEAR, NUMOF_DAYS_IN...
 #include "tinygettext/gettext.hpp"  // for N_, _
@@ -94,4 +99,26 @@ std::string num_to_ansi(long num) {
   }
   str.resize(std::min(size_old, size_new));
   return str;
+}
+
+
+LcUrbg::LcUrbg() {
+  std::vector<std::random_device::result_type> entropy(9);
+  std::generate(entropy.begin(), entropy.begin() + 8, std::random_device());
+  entropy[8] = time(nullptr);
+  std::seed_seq seed(entropy.begin(), entropy.end());
+  base_urbg.seed(seed);
+}
+
+LcUrbg::~LcUrbg() = default;
+
+LcUrbg&
+LcUrbg::get() {
+  static thread_local LcUrbg instance;
+  return instance;
+}
+
+LcUrbg::result_type
+LcUrbg::operator()() {
+  return base_urbg();
 }
