@@ -53,7 +53,6 @@
 #include "gui/Signal.hpp"                  // for Signal
 #include "gui/SwitchComponent.hpp"         // for SwitchComponent
 #include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/engglobs.h"              // for world, total_money, total_...
 #include "lincity/init_game.h"             // for _CitySettings, new_city
 #include "lincity/world.h"                 // for Map
@@ -163,7 +162,6 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
 {
   const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
 
-  char* curfile;
   CheckButton *button;
 
   for(int i=0;i<6;i++) {

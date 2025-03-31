@@ -48,7 +48,6 @@
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/Vector2.hpp"                 // for Vector2
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/shared_globals.h"  // for monthgraph_nojobs, monthgr...
 #include "lincity/engglobs.h"              // for sustain_flag, people_pool
 #include "lincity/lin-city.h"              // for GOOD
 #include "lincity/lintypes.h"              // for NUMOF_DAYS_IN_MONTH

@@ -34,7 +34,6 @@
 #include "TimerInterface.hpp"                // for reset_start_time
 #include "gui/DialogBuilder.hpp"             // for DialogBuilder
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
-#include "gui_interface/shared_globals.h"    // for update_avail_modules
 #include "lincity/lc_locale.h"               // for lincity_set_locale
 #include "lincity/lin-city.h"                // for SIM_DELAY_SLOW
 #include "lincity/modules/all_modules.h"     // for initializeModules

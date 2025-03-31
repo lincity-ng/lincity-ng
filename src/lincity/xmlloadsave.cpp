@@ -48,7 +48,6 @@
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, alt_min, alt_max
 #include "gui_interface/pbar_interface.h"  // for pbar_st, NUM_PBARS, PBAR_D...
-#include "gui_interface/shared_globals.h"  // for monthgraph_size, main_scre...
 #include "lin-city.h"                      // for VOLATILE_FLAGS
 #include "lintypes.h"                      // for xmlTextWriterPtr, Construc...
 #include "modules/port.h"                  // for PortConstructionGroup, por...
@@ -869,7 +868,7 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
     else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = std::stoi(xml_val);
 
     else if(xml_tag == "coal_survey_done")            world.coal_survey_done = std::stoi(xml_val);
-    else if(xml_tag == "cheat_flag")                  cheat_flag = std::stoi(xml_val);
+    else if(xml_tag == "cheat_flag")                  ;
     else if(xml_tag == "total_pollution_deaths")      world.stats.population.pollution_deaths_t = std::stoi(xml_val);
     else if(xml_tag == "pollution_deaths_history")    world.stats.population.pollution_deaths_history = std::stof(xml_val);
     else if(xml_tag == "total_starve_deaths")         world.stats.population.starve_deaths_t = std::stoi(xml_val);

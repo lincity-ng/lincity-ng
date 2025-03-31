@@ -56,8 +56,6 @@ class World;
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
 
-unsigned short get_group_of_type(unsigned short selected_type);
-
 class Construction {
 public:
   Construction(World& world);
@@ -130,7 +128,7 @@ public:
   ConstructionGroup *constructionGroup;
   ResourceGroup *soundGroup;
 
-  int x, y;
+  [[deprecated]] int x, y;
   MapPoint point;
   int flags;              //flags are defined in lin-city.h
   World& world;
@@ -176,7 +174,7 @@ public:
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
-        int cost, int tech, int range, int mps_pages
+        int cost, int tech, int range
     ) {
         this->name = name;
         this->no_credit = no_credit;
@@ -189,7 +187,6 @@ public:
         this->cost = cost;
         this->tech = tech;
         this->range = range;
-        this->mps_pages = mps_pages;
         this->count = 0;
 
         for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
@@ -239,7 +236,6 @@ public:
     int cost;                   /* group cost */
     int tech;                   /* group tech */
     int range;                  /* range beyond size*/
-    int mps_pages;
     int count;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)

@@ -55,7 +55,6 @@
 #include "gui/Texture.hpp"                 // for Texture
 #include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity-ng/UserOperation.hpp"         // for UserOperation
 #include "lincity/all_buildings.h"         // for TileConstructionGroup, GRO...
@@ -835,9 +834,6 @@ void GameView::event(const Event& event)
                       int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
                       int* s1 = ctrDrag ? &stepy: &stepx;
                       int* s2 = ctrDrag ? &stepx: &stepy;
-                      ConstructionGroup* cstgrp =
-                        getUserOperation()->constructionGroup;
-                      unsigned short size = cstgrp->size;
 
                       while(*v1 != *l1) {
                         if(getUserOperation()->isAllowedHere(

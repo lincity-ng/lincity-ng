@@ -63,7 +63,7 @@ public:
         int cost, int tech, int range
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range, 2/*mps_pages*/
+        cost, tech, range
     )
     {
         commodityRuleCount[STUFF_COAL].maxload = MAX_COAL_AT_COMMUNE;

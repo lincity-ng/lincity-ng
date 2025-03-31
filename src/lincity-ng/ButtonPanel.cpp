@@ -43,7 +43,6 @@
 #include "gui/Image.hpp"                   // for Image
 #include "gui/Signal.hpp"                  // for Signal
 #include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/shared_globals.h"  // for modern_windmill_flag
 #include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
 #include "lincity/engglobs.h"              // for tech_level
 #include "lincity/lin-city.h"              // for GOOD

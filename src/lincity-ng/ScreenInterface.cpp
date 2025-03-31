@@ -41,7 +41,6 @@
 #include "gui/Paragraph.hpp"                 // for Paragraph
 #include "gui_interface/mps.h"               // for mps_refresh
 #include "gui_interface/screen_interface.h"  // for initialize_monthgraph
-#include "gui_interface/shared_globals.h"    // for monthgraph_size, monthgr...
 #include "lc_error.h"                        // for lc_error
 #include "lincity/engglobs.h"                // for total_money, total_time
 #include "lincity/lclib.h"                   // for current_year

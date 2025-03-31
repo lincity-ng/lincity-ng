@@ -52,7 +52,6 @@
 #include "gui/XmlReader.hpp"               // for XmlReader
 #include "gui_interface/mps.h"             // for mps_set, mps_global_style
 #include "gui_interface/pbar_interface.h"  // for refresh_pbars
-#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
 #include "lincity/all_buildings.h"         // for COAL_RESERVE_SIZE
 #include "lincity/commodities.hpp"         // for Commodity, CommodityRule
 #include "lincity/engglobs.h"              // for world, coal_survey_done

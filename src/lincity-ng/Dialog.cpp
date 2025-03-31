@@ -52,7 +52,6 @@
 #include "gui/Window.hpp"                  // for Window
 #include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui_interface/mps.h"             // for mps_refresh
-#include "gui_interface/shared_globals.h"  // for cheat_flag
 #include "lincity/commodities.hpp"         // for CommodityRule, Commodity
 #include "lincity/engglobs.h"              // for world, given_scene, people...
 #include "lincity/lclib.h"                 // for current_year, current_month

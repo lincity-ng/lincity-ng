@@ -39,7 +39,6 @@
 #include "engglobs.h"                      // for world, global_mountainity
 #include "groups.h"                        // for GROUP_BARE, GROUP_TREE
 #include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
-#include "gui_interface/shared_globals.h"  // for update_avail_modules, mont...
 #include "lctypes.h"                       // for CST_GREEN, CST_WATER
 #include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
 #include "lintypes.h"                      // for Construction, Construction...
@@ -60,7 +59,6 @@
 
 //static void init_mappoint_array(void);
 static void setup_land(Map& map, int global_aridity, bool without_trees);
-static void nullify_mappoint(int x, int y);
 static void random_start(World& world,
   bool without_trees);
 static void coal_reserve_setup(Map& map);
