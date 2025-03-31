@@ -22,38 +22,39 @@
 
 #include "ButtonPanel.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_BUTT...
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for sscanf
-#include <string.h>                        // for strcmp
-#include <functional>                      // for _Bind, bind, _2, function, _1
-#include <iostream>                        // for basic_ostream, operator<<
-#include <list>                            // for list, _List_iterator
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <stdexcept>                       // for runtime_error
-#include <utility>                         // for pair
+#include <SDL.h>                          // for SDL_BUTTON_RIGHT, SDL_BUTTO...
+#include <assert.h>                       // for assert
+#include <stdio.h>                        // for sscanf
+#include <string.h>                       // for strcmp
+#include <filesystem>                     // for path, operator==
+#include <functional>                     // for _Bind, bind, function, _2, _1
+#include <iostream>                       // for basic_ostream, operator<<
+#include <list>                           // for list, _List_iterator
+#include <memory>                         // for unique_ptr, dynamic_pointer...
+#include <sstream>                        // for basic_stringstream, basic_o...
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
 
-#include "Game.hpp"                        // for getGame, Game
-#include "GameView.hpp"                    // for getGameView, GameView
-#include "Util.hpp"                        // for getCheckButton
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/Child.hpp"                   // for Childs, Child
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
-#include "gui/Image.hpp"                   // for Image
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
-#include "lincity/engglobs.h"              // for tech_level
-#include "lincity/lin-city.h"              // for GOOD
-#include "lincity/lintypes.h"              // for ConstructionGroup
-#include "lincity/modules/all_modules.h"   // for MODERN_WINDMILL_TECH, Wind...
-#include "tinygettext/gettext.hpp"         // for _
-#include "lincity/world.h"
-#include "UserOperation.hpp"
-#include "gui/Window.hpp"
-#include "gui/Button.hpp"
-#include "gui/WindowManager.hpp"
+#include "Game.hpp"                       // for Game
+#include "UserOperation.hpp"              // for UserOperation
+#include "Util.hpp"                       // for getCheckButton
+#include "gui/Button.hpp"                 // for Button
+#include "gui/CheckButton.hpp"            // for CheckButton
+#include "gui/Child.hpp"                  // for Childs, Child
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"        // for loadGUIFile, parseEmbeddedC...
+#include "gui/Image.hpp"                  // for Image
+#include "gui/Signal.hpp"                 // for Signal
+#include "gui/Window.hpp"                 // for Window
+#include "gui/WindowManager.hpp"          // for WindowManager
+#include "gui/XmlReader.hpp"              // for XmlReader
+#include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
+#include "lincity/groups.h"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lintypes.h"             // for ConstructionGroup
+#include "lincity/messages.hpp"           // for NotEnoughTechMessage, Message
+#include "lincity/modules/all_modules.h"  // for MODERN_WINDMILL_TECH, Windm...
+#include "lincity/world.h"                // for World
+#include "tinygettext/gettext.hpp"        // for _
 
 using namespace std::placeholders;
 

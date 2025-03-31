@@ -21,40 +21,41 @@
 
 #include "xmlloadsave.h"
 
-#include <libxml++/parsers/textreader.h>   // for TextReader
-#include <libxml/parser.h>                 // for XML_PARSE_NONET, xmlOutput...
-#include <libxml/xmlIO.h>                  // for xmlOutputBufferClose, xmlO...
-#include <libxml/xmlerror.h>               // for XML_ERR_OK
-#include <libxml/xmlreader.h>              // for xmlReaderForIO, xmlTextRea...
-#include <libxml/xmlversion.h>             // for LIBXML_VERSION
-#include <libxml/xmlwriter.h>              // for xmlTextWriterWriteFormatEl...
-#include <zlib.h>                          // for gzclose, gzFile, gzopen
-#include <algorithm>                       // for max, min
-#include <array>                           // for array
-#include <cassert>                         // for assert
-#include <cstring>                         // for NULL, strncpy
-#include <iostream>                        // for basic_ostream, operator<<
-#include <list>                            // for list, _List_iterator
-#include <memory>                          // for shared_ptr
-#include <sstream>                         // for basic_ostringstream
-#include <stdexcept>                       // for runtime_error
-#include <string>                          // for basic_string, char_traits
-#include <utility>                         // for pair
-#include <unordered_map>
-#include <functional>
-#include <sstream>
-#include <regex>
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/parser.h>                // for XML_PARSE_NONET
+#include <libxml/xmlIO.h>                 // for xmlOutputBufferClose, xmlOu...
+#include <libxml/xmlerror.h>              // for XML_ERR_OK
+#include <libxml/xmlreader.h>             // for xmlReaderForIO, xmlTextRead...
+#include <libxml/xmlversion.h>            // for LIBXML_VERSION
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <zlib.h>                         // for gzclose, gzFile, gzopen
+#include <algorithm>                      // for max, min
+#include <array>                          // for array
+#include <cassert>                        // for assert
+#include <cctype>                         // for isspace
+#include <cstring>                        // for NULL, size_t
+#include <deque>                          // for deque
+#include <filesystem>                     // for path
+#include <functional>                     // for function
+#include <iostream>                       // for operator<<, basic_ostream
+#include <list>                           // for list, _List_iterator
+#include <memory>                         // for unique_ptr, shared_ptr
+#include <regex>                          // for match_results, operator==
+#include <set>                            // for _Rb_tree_const_iterator, set
+#include <sstream>                        // for basic_stringstream, basic_o...
+#include <stdexcept>                      // for runtime_error, invalid_argu...
+#include <string>                         // for basic_string, operator==, stoi
+#include <unordered_map>                  // for unordered_map, operator!=
+#include <utility>                        // for pair
+#include <vector>                         // for vector
 
-#include "commodities.hpp"                 // for Commodity, CommodityRule
-#include "engglobs.h"                      // for world, alt_min, alt_max
-#include "gui_interface/pbar_interface.h"  // for pbar_st, NUM_PBARS, PBAR_D...
-#include "lin-city.h"                      // for VOLATILE_FLAGS
-#include "lintypes.h"                      // for xmlTextWriterPtr, Construc...
-#include "modules/port.h"                  // for PortConstructionGroup, por...
-#include "modules/windmill.h"              // for MODERN_WINDMILL_TECH
-#include "stats.h"                         // for ly_cricket_cost, ly_deaths...
-#include "transport.h"                     // for connect_transport
-#include "world.h"                         // for MapTile, Ground, Map
+#include "MapPoint.hpp"                   // for MapPoint
+#include "commodities.hpp"                // for Commodity, CommodityRule
+#include "lin-city.h"                     // for VOLATILE_FLAGS, FLAG_CRICKE...
+#include "lintypes.h"                     // for xmlTextWriterPtr, Construction
+#include "stats.h"                        // for Stats, Stat
+#include "world.h"                        // for World, MapTile, Map, Ground
+#include "lclib.h"
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world);
 static void loadGlobals(xmlpp::TextReader& xmlReader, World& World,
@@ -213,7 +214,7 @@ World::load(const std::filesystem::path& filename) {
   // parse sections
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "lc-game");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   assert(depth == 0);
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
@@ -455,7 +456,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
 
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "globals");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
@@ -783,7 +784,7 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
 
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "globals");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
@@ -1011,7 +1012,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
 
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "map");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
@@ -1114,7 +1115,7 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
 ) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "MapTile");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
@@ -1187,7 +1188,7 @@ static void readArray(xmlpp::TextReader& xmlReader, A& array,
 ) {
   // array.resize(std::stoull(xmlReader.get_attribute("size")));
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -1235,7 +1236,7 @@ static void readPbar_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) {
   int diff = 0;
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "pbar");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);
@@ -1277,7 +1278,7 @@ static void readPbar_old(xmlpp::TextReader& xmlReader,
   int diff = 0;
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "pbar");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);

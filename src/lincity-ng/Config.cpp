@@ -36,8 +36,7 @@
 #include <stdexcept>                      // for runtime_error
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
-#include "lincity/engglobs.h"             // for world
-#include "lincity/world.h"                // for Map, WORLD_SIDE_LEN
+#include "lincity/world.h"                // for WORLD_SIDE_LEN
 #include "lincity/xmlloadsave.h"          // for xmlStr, unexpectedXmlElement
 
 

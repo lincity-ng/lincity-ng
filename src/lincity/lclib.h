@@ -43,6 +43,12 @@ std::string num_to_ansi(long num);
 int min_int(int i1, int i2);
 int max_int(int i1, int i2);
 
+#ifdef NDEBUG
+#define used_in_assert maybe_unused
+#else
+#define used_in_assert
+#endif
+
 #endif
 
 /** @file lincity/lclib.h */

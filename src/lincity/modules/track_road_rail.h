@@ -22,11 +22,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <array>                // for array
-#include <list>                 // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "lincity/transport.h"  // for RAIL_GOODS_USED_MASK, RAIL_STEEL_USED...
-#include "modules.h"            // for CommodityRule, Commodity, Constructio...
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/groups.h"         // for GROUP_RAIL, GROUP_RAIL_BRIDGE
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/transport.h"      // for MAX_COAL_ON_RAIL, MAX_COAL_ON_ROAD
+
+class Mps;
+class World;
+struct ExtraFrame;
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:

@@ -51,10 +51,13 @@
 #define MIN_FOOD_SOLD_FOR_ANIM 200
 
 
-#include <stdlib.h>                 // for rand
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for green
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 
 class Organic_farmConstructionGroup: public ConstructionGroup {

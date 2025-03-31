@@ -23,18 +23,19 @@
 #ifndef __BUTTON_PANEL_HPP__
 #define __BUTTON_PANEL_HPP__
 
-#include <stddef.h>                  // for NULL
-#include <string>                    // for basic_string, string
-#include <unordered_map>             // for unordered_map
-#include <vector>                    // for vector
+#include <stddef.h>                      // for NULL
+#include <string>                        // for basic_string, string
+#include <unordered_map>                 // for unordered_map
+#include <vector>                        // for vector
 
-#include "gui/Component.hpp"         // for Component
-#include "gui/RadioButtonGroup.hpp"  // for RadioButtonGroup
-#include "lincity-ng/UserOperation.hpp"   // for UserOperation
+#include "gui/Component.hpp"             // for Component
+#include "gui/RadioButtonGroup.hpp"      // for RadioButtonGroup
+#include "gui/Signal.hpp"                // for Signal
+#include "lincity-ng/UserOperation.hpp"  // for UserOperation
 
 class CheckButton;
-class XmlReader;
 class Game;
+class XmlReader;
 
 class ButtonPanel : public Component {
 public:
@@ -58,6 +59,7 @@ private:
   Game *game = nullptr;
 
   struct Tool;
+
   struct Menu {
     CheckButton *button = NULL;
     Component *drawer = NULL;

@@ -23,17 +23,15 @@
 #ifndef __lc_mps_h__
 #define __lc_mps_h__
 
-#include <string>               // for string
-#include <vector>               // for vector
+#include <string>                // for string
+#include <vector>                // for vector
 
-#include "gui/Component.hpp"    // for Component
-#include "gui_interface/mps.h"  // for MPS_MAP
-#include "lincity/MapPoint.hpp"
+#include "gui/Component.hpp"     // for Component
+#include "lincity/MapPoint.hpp"  // for MapPoint
 
-class MapPoint;
-class XmlReader;
 class Game;
 class Paragraph;
+class XmlReader;
 
 /**
  * The MPS component is more or less a text component with 13 lines that

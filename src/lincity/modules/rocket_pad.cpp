@@ -24,16 +24,28 @@
 
 #include "rocket_pad.h"
 
-#include <assert.h>                        // for assert
-#include <stdlib.h>                        // for rand
-#include <iostream>                        // for operator<<, basic_ostream
-#include <list>                            // for _List_iterator
-#include <stdexcept>                       // for runtime_error
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <algorithm>                      // for min
+#include <iostream>                       // for char_traits, basic_ostream
+#include <list>                           // for _List_iterator
+#include <set>                            // for _Rb_tree_const_iterator, set
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, allocator
 
-#include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
-#include "lincity-ng/Sound.hpp"            // for getSound, Sound
-#include "modules.h"                       // for basic_string, char_traits
-#include "residence.h"                     // for Residence
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "residence.h"                    // for Residence
+#include "tinygettext/gettext.hpp"        // for N_
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),

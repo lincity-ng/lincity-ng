@@ -24,11 +24,7 @@
 
 #include "stats.h"
 
-#include <map>              // for map
-
-#include "commodities.hpp"  // for Commodity
-#include "engglobs.h"       // for housing, population, starving_population
-#include "lintypes.h"       // for tstat_capacities, tstat_census
+#include "commodities.hpp"  // for Commodity, operator++
 
 Stats::Stats() {
   history.pop.resize(190);

@@ -69,7 +69,12 @@
 #include <array>                    // for array
 #include <map>                      // for map
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+
+class World;
 
 class PortConstructionGroup: public ConstructionGroup {
 public:

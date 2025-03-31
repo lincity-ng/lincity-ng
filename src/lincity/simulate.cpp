@@ -22,28 +22,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <array>                           // for array
-#include <cstdlib>                         // for rand, abs
-#include <iterator>                        // for advance
-#include <list>                            // for list, _List_iterator, oper...
-#include <numeric>
-#include <algorithm>
+#include <assert.h>                      // for assert
+#include <algorithm>                     // for min, shuffle
+#include <array>                         // for array
+#include <cstdlib>                       // for rand, abs
+#include <list>                          // for list, operator!=, _List_iter...
+#include <numeric>                       // for iota
+#include <set>                           // for set, _Rb_tree_const_iterator
+#include <vector>                        // for vector
 
-#include "Vehicles.h"                      // for Vehicle
-#include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
-#include "commodities.hpp"                 // for CommodityRule, Commodity
-#include "engglobs.h"                      // for tech_level, total_money
-#include "groups.h"                        // for GROUP_FIRE, GROUP_MONUMENT
-#include "gui_interface/pbar_interface.h"  // for update_pbars_monthly
-#include "lin-city.h"                      // for MAX_TECH_LEVEL, TECH_LEVEL...
-#include "lintypes.h"                      // for Construction, NUMOF_DAYS_I...
-#include "modules/all_modules.h"           // for IMPORT_EXPORT_DISABLE_PERIOD
-#include "modules/modules_interfaces.h"    // for update_shanty
-#include "stats.h"                         // for export_tax, goods_tax, ly_...
-#include "sustainable.h"                   // for SUST_MIN_TECH_LEVEL, SUST_...
-#include "tinygettext/gettext.hpp"         // for _
-#include "world.h"                         // for Map, MapTile
-#include "lc_random.hpp"
+#include "MapPoint.hpp"                  // for MapPoint
+#include "Vehicles.h"                    // for Vehicle
+#include "all_buildings.h"               // for DAYS_BETWEEN_COVER, DAYS_PER...
+#include "commodities.hpp"               // for CommodityRule, Commodity
+#include "engglobs.h"                    // for ex_tax_dis
+#include "groups.h"                      // for GROUP_FIRE, GROUP_MONUMENT
+#include "lc_random.hpp"                 // for LcUrbg
+#include "lin-city.h"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
+#include "lintypes.h"                    // for Construction, NUMOF_DAYS_IN_...
+#include "messages.hpp"                  // for OutOfMoneyMessage, NoPeopleL...
+#include "modules/all_modules.h"         // for IMPORT_EXPORT_DISABLE_PERIOD
+#include "modules/modules_interfaces.h"  // for update_shanty
+#include "stats.h"                       // for Stats, Stat
+#include "sustainable.h"                 // for SUST_FIRE_YEARS_NEEDED, SUST...
+#include "world.h"                       // for World, Map, MapTile
 
 /* extern resources */
 extern void print_total_money(void);
@@ -82,7 +84,6 @@ World::do_time_step(void) {
 
 void
 World::do_animate(unsigned long real_time) {
-  Construction *construction;
   for(Construction *cst : map.constructions) {
     if(cst->isDead()) continue;
     cst->animate(real_time);

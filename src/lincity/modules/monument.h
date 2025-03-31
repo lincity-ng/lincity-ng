@@ -40,7 +40,11 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 class MonumentConstructionGroup: public ConstructionGroup {
 public:

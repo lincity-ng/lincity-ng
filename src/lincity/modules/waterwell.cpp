@@ -24,7 +24,14 @@
 
 #include "waterwell.h"
 
-#include "modules.h"
+#include <string>                   // for basic_string
+
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/MapPoint.hpp"     // for MapPoint
+#include "lincity/groups.h"         // for GROUP_WATERWELL
+#include "lincity/lin-city.h"       // for FLAG_HAS_UNDERGROUND_WATER, FALSE
+#include "lincity/world.h"          // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"  // for N_
 
 WaterwellConstructionGroup waterwellConstructionGroup(
   N_("Water tower"),

@@ -24,10 +24,20 @@
 
 #include "windpower.h"
 
-#include <list>                     // for _List_iterator
-#include <map>                      // for map
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <map>                            // for allocator, map
+#include <string>                         // for basic_string, char_traits
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_WIND_POWER
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stat, Stats
+#include "lincity/world.h"                // for World
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 WindpowerConstructionGroup windpowerConstructionGroup(
   N_("Wind Power"),

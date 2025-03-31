@@ -25,13 +25,12 @@
 #ifndef USER_OPERATION_H__
 #define USER_OPERATION_H__
 
-#include <string>  // for string, basic_string
-#include "lincity/messages.hpp"
+#include "lincity/messages.hpp"  // for Message
 
 class ConstructionGroup;
-class World;
-class MapPoint;
 class Game;
+class MapPoint;
+class World;
 
 class UserOperation {
 public:

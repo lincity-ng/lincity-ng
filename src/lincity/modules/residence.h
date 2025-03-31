@@ -104,9 +104,13 @@
 #endif /* __residence_h__ */
 
 #include <array>                    // for array
-#include <iostream>                 // for basic_ostream, operator<<, basic_...
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for cyan
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/groups.h"         // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 class ResidenceConstructionGroup: public ConstructionGroup {
 public:

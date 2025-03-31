@@ -36,7 +36,12 @@
 #define MAX_WATER_AT_WATERWELL (20 * WATER_PER_UGW * GROUP_WATERWELL_SIZE * GROUP_WATERWELL_SIZE)
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+
+class World;
 
 class WaterwellConstructionGroup: public ConstructionGroup {
 public:

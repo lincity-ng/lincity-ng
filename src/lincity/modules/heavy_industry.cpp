@@ -24,11 +24,20 @@
 
 #include "heavy_industry.h"
 
-#include <list>                     // for _List_iterator
-#include <map>                      // for map
-#include <vector>                   // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_INDUSTRY_H
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(

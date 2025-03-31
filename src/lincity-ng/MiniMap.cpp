@@ -22,45 +22,41 @@
 
 #include "MiniMap.hpp"
 
-#include <SDL.h>                           // for Uint16, Uint8, SDL_BUTTON_...
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for sscanf, size_t
-#include <string.h>                        // for strcmp, strlen
-#include <array>                           // for array
-#include <functional>                      // for bind, function, _1, _2
-#include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_stringstream
-#include <stdexcept>                       // for runtime_error
+#include <SDL.h>                          // for Uint16, Uint8, SDL_BUTTON_R...
+#include <assert.h>                       // for assert
+#include <stdio.h>                        // for sscanf, size_t
+#include <string.h>                       // for strlen, strcmp
+#include <array>                          // for array
+#include <functional>                     // for bind, _1, function, _2
+#include <iostream>                       // for basic_ostream, operator<<
+#include <sstream>                        // for basic_stringstream
+#include <stdexcept>                      // for runtime_error
 
-#include "Dialog.hpp"                      // for Dialog, ASK_COAL_SURVEY
-#include "Game.hpp"                        // for getGame, Game
-#include "GameView.hpp"                    // for getGameView, GameView
-#include "MainLincity.hpp"                 // for setSimulationDelay
-#include "Mps.hpp"                         // for mps_x, mps_y, mps_style
-#include "PBar.hpp"                        // for pbarGlobalStyle, PBAR_GLOB...
-#include "Util.hpp"                        // for getCheckButton, getSwitchC...
-#include "gui/Button.hpp"                  // for Button
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Rect2D.hpp"                  // for Rect2D
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/SwitchComponent.hpp"         // for SwitchComponent
-#include "gui/Texture.hpp"                 // for Texture
-#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/mps.h"             // for mps_set, mps_global_style
-#include "gui_interface/pbar_interface.h"  // for refresh_pbars
-#include "lincity/all_buildings.h"         // for COAL_RESERVE_SIZE
-#include "lincity/commodities.hpp"         // for Commodity, CommodityRule
-#include "lincity/engglobs.h"              // for world, coal_survey_done
-#include "lincity/groups.h"                // for GROUP_POWER_LINE, GROUP_FIRE
-#include "lincity/lin-city.h"              // for FLAG_IS_TRANSPORT, SLOW_TI...
-#include "lincity/lintypes.h"              // for Construction, Construction...
-#include "lincity/modules/all_modules.h"   // for Powerline, Transport, Fire
-#include "lincity/transport.h"             // for TRANSPORT_QUANTA, TRANSPOR...
-#include "lincity/world.h"                 // for Map, MapTile
+#include "Dialog.hpp"                     // for Dialog, ASK_COAL_SURVEY
+#include "Game.hpp"                       // for Game
+#include "GameView.hpp"                   // for GameView
+#include "MainLincity.hpp"                // for setSimulationDelay
+#include "Mps.hpp"                        // for MpsFinance, MpsMap
+#include "Util.hpp"                       // for getCheckButton, getButton
+#include "gui/Button.hpp"                 // for Button
+#include "gui/CheckButton.hpp"            // for CheckButton
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Event.hpp"                  // for Event
+#include "gui/Painter.hpp"                // for Painter
+#include "gui/Rect2D.hpp"                 // for Rect2D
+#include "gui/Signal.hpp"                 // for Signal
+#include "gui/SwitchComponent.hpp"        // for SwitchComponent
+#include "gui/Texture.hpp"                // for Texture
+#include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
+#include "gui/XmlReader.hpp"              // for XmlReader
+#include "lincity/all_buildings.h"        // for COAL_RESERVE_SIZE
+#include "lincity/commodities.hpp"        // for Commodity, CommodityRule
+#include "lincity/groups.h"               // for GROUP_POWER_LINE, GROUP_FIRE
+#include "lincity/lin-city.h"             // for FLAG_IS_TRANSPORT, FLAG_CRI...
+#include "lincity/lintypes.h"             // for Construction, ConstructionG...
+#include "lincity/modules/all_modules.h"  // for Powerline, Transport, Fire
+#include "lincity/transport.h"            // for TRANSPORT_QUANTA, TRANSPORT...
+#include "lincity/world.h"                // for Map, MapTile, World
 
 using namespace std::placeholders;
 

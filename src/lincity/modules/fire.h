@@ -39,7 +39,10 @@
 
 #include <stdlib.h>                 // for rand
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for red
+#include "lincity/lintypes.h"       // for NUMOF_DAYS_IN_YEAR, ConstructionG...
+
+class World;
 
 class FireConstructionGroup: public ConstructionGroup {
 public:

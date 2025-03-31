@@ -22,29 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stdlib.h>                        // for rand
-#include <deque>                           // for deque
-#include <set>                             // for set, _Rb_tree_const_iterator
+#include <cassert>                // for assert
+#include <deque>                  // for deque
+#include <limits.h>               // for INT_MAX
+#include <memory>                 // for __shared_ptr_access
+#include <stdlib.h>               // for rand
+#include <unordered_set>          // for unordered_set
+#include <vector>                 // for vector
 
-#include "ConstructionRequest.h"           // for BurnDownRequest, Construct...
-#include "all_buildings.h"                 // for POL_DIV
-#include "engglobs.h"                      // for world, tota...
-#include "groups.h"                        // for GROUP_DESERT, GROUP_FIRE
-#include "gui_interface/mps.h"             // for mps_update
-#include "lctypes.h"                       // for CST_GREEN, CST_DESERT
-#include "lin-city.h"                      // for BAD, FLAG_FIRE_COVER, FLAG...
-#include "lintypes.h"                      // for ConstructionGroup, Constru...
-#include "modules/all_modules.h"           // for Residence, GROUP_SHANTY_BU...
-#include "stats.h"                         // for ddeaths, tunnat_deaths
-#include "tinygettext/gettext.hpp"         // for _
-#include "transport.h"                     // for connect_transport
-#include "world.h"                         // for Map, MapTile
-#include "messages.hpp"
-
-#ifdef DEBUG
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for fprintf, stderr
-#endif
+#include "ConstructionRequest.h"  // for SetOnFire
+#include "MapPoint.hpp"           // for MapPoint
+#include "engglobs.h"             // for dx, dy
+#include "groups.h"               // for GROUP_DESERT, GROUP_PORT, GROUP_WATER
+#include "lctypes.h"              // for CST_GREEN
+#include "lin-city.h"             // for FLAG_FIRE_COVER, FLAG_CRICKET_COVER
+#include "lintypes.h"             // for Construction, ConstructionGroup
+#include "messages.hpp"           // for OutOfMoneyMessage, FireStartedMessage
+#include "modules/all_modules.h"  // for Residence
+#include "stats.h"                // for Stat, Stats
+#include "world.h"                // for Map, World, MapTile
 
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);

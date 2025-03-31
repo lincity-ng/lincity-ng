@@ -38,7 +38,11 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for yellow
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 
 class SolarPowerConstructionGroup: public ConstructionGroup {

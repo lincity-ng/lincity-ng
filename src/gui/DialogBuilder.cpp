@@ -22,6 +22,7 @@
 #include "DialogBuilder.hpp"
 
 #include <stddef.h>             // for NULL
+#include <filesystem>           // for path
 #include <map>                  // for map
 #include <memory>               // for unique_ptr
 #include <stdexcept>            // for runtime_error

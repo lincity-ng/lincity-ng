@@ -23,10 +23,12 @@
 #ifndef __lc_pbar_h__
 #define __lc_pbar_h__
 
+#include <vector>             // for vector
+
 #include "gui/Component.hpp"  // for Component
 
-class XmlReader;
 class Game;
+class XmlReader;
 
 class LCPBar : public Component
 {

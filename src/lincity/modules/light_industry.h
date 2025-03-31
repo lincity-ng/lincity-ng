@@ -22,11 +22,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stddef.h>   // for NULL
-#include <array>      // for array
-#include <list>       // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "modules.h"  // for CommodityRule, Commodity, MAX_TECH_LEVEL, Extra...
+#include "lincity/all_buildings.h"  // for cyan
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
+struct ExtraFrame;
 
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000

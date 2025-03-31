@@ -24,15 +24,23 @@
 
 #include "track_road_rail.h"
 
-#include <stdlib.h>              // for rand
-#include <map>                   // for map
-#include <vector>                // for vector
-#include <cassert>
+#include <stdlib.h>                       // for rand
+#include <cassert>                        // for assert
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for vector
 
-#include "fire.h"                // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Sound.hpp"  // for getSound, Sound
-#include "modules.h"             // for Commodity, basic_string, ExtraFrame
-#include "lincity/ConstructionRequest.h"
+#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity-ng/Sound.hpp"           // for getSound, Sound
+#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
+#include "lincity/all_buildings.h"        // for DAYS_PER_RAIL_POLLUTION
+#include "lincity/lin-city.h"             // for FALSE, ANIM_THRESHOLD, FLAG...
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, MapTile, Map
+#include "tinygettext/gettext.hpp"        // for N_, _
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -271,12 +279,6 @@ void Transport::list_traffic(Mps& mps) const {
   for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
     if(!constructionGroup->commodityRuleCount[stuff].maxload)
       continue;
-    #ifdef DEBUG
-    if(mps.isFull()) {
-      std::cerr << "Transport overflowed MPS" << std::endl;
-      break;
-    }
-    #endif
     mps.add_sfp(commodityNames[stuff],
       trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
   }

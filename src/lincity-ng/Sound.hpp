@@ -25,10 +25,10 @@
 
 #include <SDL.h>  // for SDL_Thread
 #include <SDL_mixer.h>   // for Mix_Chunk, Mix_Music
+#include <filesystem>
 #include <map>           // for multimap
 #include <string>        // for basic_string, string, operator<
 #include <vector>        // for vector
-#include <filesystem>
 
 class MapTile;
 

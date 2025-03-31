@@ -24,25 +24,33 @@
 
 #include "UserOperation.hpp"
 
-#include <stddef.h>                 // for NULL
-#include <iostream>                 // for basic_ostream, operator<<, cout
-#include <sstream>                  // for basic_stringstream
+#include <SDL.h>                         // for SDL_GetKeyboardState, SDL_Sc...
+#include <assert.h>                      // for assert
+#include <stddef.h>                      // for NULL
+#include <functional>                    // for function
+#include <iomanip>                       // for _Setprecision, setprecision
+#include <iostream>                      // for char_traits, basic_ostream
+#include <memory>                        // for allocator, __shared_ptr_access
+#include <sstream>                       // for basic_ostringstream
+#include <string>                        // for basic_string, operator+, ope...
+#include <typeinfo>                      // for type_info
 
-#include "lincity/engglobs.h"               // for world, tech_level
-#include "lincity/groups.h"                 // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
-#include "lincity/lin-city.h"               // for FLAG_NEVER_EVACUATE, MAX_TECH_LEVEL
-#include "lincity/lintypes.h"               // for ConstructionGroup, MapTile, Const...
-#include "tinygettext/gettext.hpp"  // for _
-#include "lincity/world.h"                  // for Map
-#include "Game.hpp"
-#include "Dialog.hpp"
-#include "lincity/modules/rocket_pad.h"
-#include "lincity/modules/windpower.h"
-#include "lincity/modules/windmill.h"
-#include "lincity/modules/parkland.h"
-#include "MiniMap.hpp"
-#include "Sound.hpp"
-#include "gui/DialogBuilder.hpp"
+#include "Dialog.hpp"                    // for Dialog, ASK_LAUNCH_ROCKET
+#include "Game.hpp"                      // for Game
+#include "MiniMap.hpp"                   // for MiniMap
+#include "Mps.hpp"                       // for MpsMap
+#include "Sound.hpp"                     // for getSound, Sound
+#include "gui/DialogBuilder.hpp"         // for DialogBuilder
+#include "lincity/MapPoint.hpp"          // for MapPoint
+#include "lincity/groups.h"              // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/lin-city.h"            // for FLAG_NEVER_EVACUATE, MAX_TEC...
+#include "lincity/lintypes.h"            // for ConstructionGroup, Construction
+#include "lincity/modules/parkland.h"    // for ParklandConstructionGroup
+#include "lincity/modules/rocket_pad.h"  // for RocketPad
+#include "lincity/modules/windmill.h"    // for WindmillConstructionGroup
+#include "lincity/modules/windpower.h"   // for WindpowerConstructionGroup
+#include "lincity/world.h"               // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"       // for _
 
 UserOperation::UserOperation() {
   constructionGroup = NULL;

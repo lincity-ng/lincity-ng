@@ -23,26 +23,24 @@
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
-#include <SDL.h>  // for SDL_Window
-#include <memory>       // for unique_ptr
-#include <string>       // for string
+#include <SDL.h>              // for SDL_Window
+#include <memory>             // for unique_ptr
+#include <string>             // for string
 
-#include "main.hpp"     // for MainState
-#include "lincity/world.h"
-#include "UserOperation.hpp"
+#include "UserOperation.hpp"  // for UserOperation
+#include "main.hpp"           // for MainState
 
-class Button;
-class Component;
-class HelpWindow;
-class UserOperation;
-class GameView;
-class MiniMap;
-class EconomyGraph;
-class MpsMap;
-class MpsFinance;
-class LCPBar;
-class WindowManager;
 class ButtonPanel;
+class Component;
+class EconomyGraph;
+class GameView;
+class HelpWindow;
+class LCPBar;
+class MiniMap;
+class MpsFinance;
+class MpsMap;
+class WindowManager;
+class World;
 
 class Game
 {

@@ -23,17 +23,15 @@
 
 #include "transport.h"
 
-#include <stdio.h>                // for NULL
-#include <list>                   // for _List_iterator
+#include <stdio.h>          // for NULL
+#include <list>             // for _List_iterator
 
-#include "commodities.hpp"        // for Commodity
-#include "engglobs.h"             // for world
-#include "groups.h"               // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_...
-#include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
-#include "lintypes.h"             // for Construction
-#include "modules/all_modules.h"  // for TransportConstructionGroup, railCon...
-#include "resources.hpp"          // for ExtraFrame
-#include "world.h"                // for Map, MapTile
+#include "commodities.hpp"  // for Commodity
+#include "groups.h"         // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_BRIDGE
+#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_INVISIBLE, FLAG_PO...
+#include "lintypes.h"       // for Construction
+#include "resources.hpp"    // for ExtraFrame
+#include "world.h"          // for Map, MapTile
 
 
 

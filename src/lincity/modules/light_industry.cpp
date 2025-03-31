@@ -24,12 +24,21 @@
 
 #include "light_industry.h"
 
-#include <stdlib.h>   // for rand
-#include <iterator>   // for advance
-#include <map>        // for map
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand, NULL
+#include <iterator>                       // for advance
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "modules.h"  // for Commodity, basic_string, ExtraFrame, allocator
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_INDUSTRY_L
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(

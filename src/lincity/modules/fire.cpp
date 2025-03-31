@@ -24,12 +24,22 @@
 
 #include "fire.h"
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
 #include <map>                            // for map
-#include <vector>                         // for vector
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
-#include "modules.h"                      // for ExtraFrame, do_random_fire
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_FIRE
+#include "lincity/lin-city.h"             // for FLAG_FIRE_COVER, ANIM_THRES...
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for Map, MapTile, World
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 //#include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(
@@ -65,7 +75,6 @@ Fire::Fire(World& world, ConstructionGroup *cstgrp) :
 
 void Fire::update()
 {
-    int i;
     /* this so we don't get whole blocks changing in one go. */
     if (burning_days == 0)
     {   burning_days = rand() % (FIRE_LENGTH / 5);}

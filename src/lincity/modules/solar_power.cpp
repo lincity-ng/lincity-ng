@@ -24,7 +24,16 @@
 
 #include "solar_power.h"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, allocator
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_SOLAR_POWER
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, TRUE
+#include "lincity/world.h"                // for World
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 // SolarPower:

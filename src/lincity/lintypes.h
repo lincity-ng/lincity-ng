@@ -25,25 +25,28 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#include <array>            // for array
-#include <cstring>          // for NULL
-#include <iostream>         // for basic_ostream, operator<<, cout, endl
-#include <list>             // for list
-#include <map>              // for map
-#include <string>           // for char_traits, string, basic_string, operat...
-#include <vector>           // for vector
+#include <libxml/xmlwriter.h>  // for _xmlTextWriter
+#include <array>               // for array
+#include <cstring>             // for NULL
+#include <iostream>            // for basic_ostream, operator<<, cout, endl
+#include <list>                // for list
+#include <map>                 // for map
+#include <string>              // for basic_string, char_traits, operator<<
+#include <vector>              // for vector
 
-#include "commodities.hpp"  // for Commodity, CommodityRule, operator++
-#include "resources.hpp"    // for ResourceGroup, ExtraFrame (ptr only)
-#include "world.h"
-#include "gui_interface/mps.h"
+#include "MapPoint.hpp"        // for MapPoint
+#include "commodities.hpp"     // for Commodity, CommodityRule, operator++
+#include "messages.hpp"        // for Message
+#include "resources.hpp"       // for ResourceGroup, ExtraFrame (ptr only)
+#include "world.h"             // for World
 
 class ConstructionGroup;
+class Mps;
+
 namespace xmlpp {
 class TextReader;
 }  // namespace xmlpp
 typedef struct _xmlTextWriter *xmlTextWriterPtr;
-class World;
 
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512

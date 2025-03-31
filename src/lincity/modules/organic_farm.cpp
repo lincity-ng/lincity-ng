@@ -24,9 +24,19 @@
 
 #include "organic_farm.h"
 
-#include <list>                     // for _List_iterator
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_ORGANIC_FARM
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(

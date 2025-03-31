@@ -24,10 +24,21 @@
 
 #include "oremine.h"
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/ConstructionRequest.h"  // for OreMineDeletionRequest
-#include "modules.h"                      // for Commodity, ConstructionGroup
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_OREMINE
+#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Oremine:
 OremineConstructionGroup oremineConstructionGroup(

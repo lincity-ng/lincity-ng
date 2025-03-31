@@ -24,9 +24,19 @@
 
 #include "tip.h"
 
-#include <list>                     // for _List_iterator
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_TIP
+#include "lincity/lin-city.h"             // for FALSE, FLAG_NEVER_EVACUATE
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Tip:
 TipConstructionGroup tipConstructionGroup(

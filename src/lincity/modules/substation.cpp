@@ -26,8 +26,14 @@
 
 #include <list>                     // for _List_iterator
 #include <map>                      // for map
+#include <string>                   // for basic_string, operator<
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/groups.h"         // for GROUP_SUBSTATION
+#include "lincity/lin-city.h"       // for FALSE
+#include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"          // for World
+#include "tinygettext/gettext.hpp"  // for N_
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),

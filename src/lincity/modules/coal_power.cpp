@@ -24,11 +24,22 @@
 
 #include "coal_power.h"
 
-#include <iterator>   // for advance
-#include <map>        // for map
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand, NULL
+#include <iterator>                       // for advance
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "modules.h"  // for ExtraFrame, basic_string, allocator, Commodity
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_COAL_POWER
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),

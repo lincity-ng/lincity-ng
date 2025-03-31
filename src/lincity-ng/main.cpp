@@ -29,21 +29,19 @@
 #include <assert.h>                              // for assert
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
-#include <stdio.h>                               // for NULL, printf
+#include <stdio.h>                               // for NULL
 #include <stdlib.h>                              // for setenv
 #include <unistd.h>                              // for execlp
 #include <filesystem>                            // for operator/, path
 #include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for unique_ptr, allocator
+#include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
 
 #include "Config.hpp"                            // for getConfig, Config
-#include "Game.hpp"                              // for Game
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
-#include "PBar.hpp"                              // for LCPBarPage1, LCPBarP...
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
@@ -52,7 +50,6 @@
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "lincity/init_game.h"                   // for destroy_game
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DEBUG

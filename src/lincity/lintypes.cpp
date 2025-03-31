@@ -29,26 +29,26 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand
 #include <iostream>                       // for basic_ostream, operator<<
-#include <stdexcept>                      // for runtime_error
+#include <set>                            // for set
+#include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionRequest.h"          // for ConstructionDeletionRequest
+#include "ConstructionRequest.h"          // for PowerLineFlashRequest
 #include "Vehicles.h"                     // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
-#include "engglobs.h"                     // for world, total_money, constru...
 #include "groups.h"                       // for GROUP_POWER_LINE, GROUP_FIRE
-#include "gui_interface/mps.h"            // for mps_store_ssddp, mps_store_...
-#include "lin-city.h"                     // for BAD, FLAG_EVACUATE, FLAG_IS...
+#include "lin-city.h"                     // for FLAG_EVACUATE, FLAG_IS_TRAN...
 #include "lincity-ng/Config.hpp"          // for getConfig, Config
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
 #include "modules/all_modules.h"          // for Powerline, GROUP_MARKET_RANGE
-#include "stats.h"                        // for coal_tax, goods_tax, income...
+#include "stats.h"                        // for Stats, Stat
 #include "tinygettext/gettext.hpp"        // for _
 #include "transport.h"                    // for TRANSPORT_QUANTA, TRANSPORT...
-#include "world.h"                        // for Map, MapTile
-#include "xmlloadsave.h"                  // for xmlStr
-#include "gui_interface/mps.h"
+#include "world.h"                        // for World, Map, MapTile
+#include "xmlloadsave.h"                  // for xmlStr, unexpectedXmlElement
+#include "lclib.h"
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
@@ -215,7 +215,7 @@ void
 Construction::load(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   assert(xmlReader.get_node_type() == xmlpp::TextReader::NodeType::Element);
   assert(xmlReader.get_name() == "Construction");
-  int depth = xmlReader.get_depth();
+  [[used_in_assert]] int depth = xmlReader.get_depth();
   if(!xmlReader.is_empty_element() && xmlReader.read())
   while(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     assert(xmlReader.get_depth() == depth + 1);

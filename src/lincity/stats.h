@@ -25,8 +25,8 @@
 #ifndef __stats_h__
 #define __stats_h__
 
-#include <deque>  // for deque
 #include <array>
+#include <deque>  // for deque
 
 #include "commodities.hpp"
 

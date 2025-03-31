@@ -21,12 +21,14 @@
 
 #include "messages.hpp"
 
-#include <sstream>
-#include <exception>
-#include <lintypes.h>
+#include <assert.h>            // for assert
+#include <lintypes.h>          // for ConstructionGroup
+#include <exception>           // for exception, rethrow_exception, exceptio...
+#include <sstream>             // for basic_stringstream, operator<<, basic_...
+#include <typeinfo>            // for type_info
 
-#include "modules/monument.h"
-#include "modules/tip.h"
+#include "modules/monument.h"  // for MonumentConstructionGroup, monumentCon...
+#include "modules/tip.h"       // for TipConstructionGroup, tipConstructionG...
 
 const char *
 Message::Exception::what() const noexcept {
@@ -178,5 +180,6 @@ RocketResultMessage::str() const {
     return "everyone has been evacuated from the city";
   default:
     assert(false);
+    return "unknown LaunchResult";
   }
 }

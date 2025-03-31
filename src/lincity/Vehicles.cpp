@@ -23,20 +23,18 @@
 
 #include "Vehicles.h"
 
-#include <stdlib.h>         // for NULL, rand
+#include <stdlib.h>         // for rand, NULL
 #include <cmath>            // for ceil
 #include <iostream>         // for basic_ostream, basic_ostream::operator<<
-#include <iterator>         // for advance
 #include <map>              // for map
-#include <string>           // for char_traits, basic_string, operator<
+#include <string>           // for basic_string, char_traits, operator<
 #include <vector>           // for vector
 
 #include "commodities.hpp"  // for Commodity
-#include "engglobs.h"       // for world
 #include "groups.h"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
 #include "lintypes.h"       // for Construction
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "world.h"          // for Map, MapTile
+#include "world.h"          // for World, Map, MapTile
 
 Vehicle::Vehicle(World& world, int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStrategy) :
   world(world)

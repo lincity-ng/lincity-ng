@@ -22,26 +22,25 @@
 
 #include "Sound.hpp"
 
-#include <SDL.h>                       // for SDL_GetError, SDL_CreateThread
-#include <SDL_mixer.h>                 // for Mix_Volume, Mix_FreeMusic, Mix...
-#include <cassert>                     // for assert
-#include <stdio.h>                     // for NULL, size_t, fprintf, stderr
-#include <stdlib.h>                    // for strtod, rand
-#include <string.h>                    // for strcmp
-#include <cmath>                       // for round
-#include <iostream>                    // for basic_ostream, operator<<, endl
-#include <utility>                     // for pair
-#include <vector>                      // for vector
-#include <stdexcept>                   // for runtime_error
+#include <SDL.h>                  // for SDL_GetError, SDL_CreateThread, SDL...
+#include <SDL_mixer.h>            // for Mix_Volume, Mix_FreeMusic, Mix_Play...
+#include <stdio.h>                // for NULL, size_t, fprintf, stderr
+#include <stdlib.h>               // for rand, strtod
+#include <string.h>               // for strcmp
+#include <cassert>                // for assert
+#include <cmath>                  // for round
+#include <iostream>               // for basic_ostream, operator<<, endl, cout
+#include <stdexcept>              // for runtime_error
+#include <utility>                // for pair
+#include <vector>                 // for vector
 
-#include "Config.hpp"                  // for getConfig, Config
-#include "Game.hpp"                    // for getGame
-#include "gui/XmlReader.hpp"           // for XmlReader
-#include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
-#include "lincity/engglobs.h"          // for tech_level
-#include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
-#include "lincity/resources.hpp"       // for ResourceGroup
-#include "lincity/lintypes.h"
+#include "Config.hpp"             // for getConfig, Config
+#include "gui/XmlReader.hpp"      // for XmlReader
+#include "libxml/xmlreader.h"     // for XML_READER_TYPE_ELEMENT
+#include "lincity/lin-city.h"     // for MAX_TECH_LEVEL
+#include "lincity/lintypes.h"     // for Construction
+#include "lincity/resources.hpp"  // for ResourceGroup
+#include "lincity/world.h"        // for MapTile
 
 Sound* soundPtr = 0;
 

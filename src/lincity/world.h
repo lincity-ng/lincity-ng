@@ -26,22 +26,23 @@
 #ifndef __world_h__
 #define __world_h__
 
-#include <iostream>       // for ostream
-#include <list>           // for list
-#include <set>            // for set
-#include <vector>         // for vector
-#include <unordered_set>
-#include <libxml++/parsers/textreader.h>
-#include <libxml/xmlwriter.h>
-#include <filesystem>
-#include <memory>
+#include <array>            // for array
+#include <deque>            // for deque
+#include <filesystem>       // for path
+#include <iostream>         // for ostream
+#include <list>             // for list
+#include <memory>           // for unique_ptr
+#include <set>              // for set
+#include <string>           // for basic_string, string
+#include <unordered_set>    // for unordered_set
+#include <vector>           // for vector
 
-#include "resources.hpp"  // for ExtraFrame, ResourceGroup (ptr only)
-#include "stats.h"
-#include "messages.hpp"
-#include "lctypes.h"
-#include "all_buildings.h"
-#include "MapPoint.hpp"
+#include "MapPoint.hpp"     // for MapPoint
+#include "all_buildings.h"  // for COAL_TAX_RATE, DOLE_RATE, GOODS_TAX_RATE
+#include "commodities.hpp"  // for Commodity, CommodityRule (ptr only)
+#include "messages.hpp"     // for Message
+#include "resources.hpp"    // for ExtraFrame, ResourceGroup (ptr only)
+#include "stats.h"          // for Stat, Stats
 
 class Construction;
 class ConstructionGroup;

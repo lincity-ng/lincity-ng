@@ -25,29 +25,25 @@
 
 #include "world.h"
 
-#include <stdlib.h>         // for NULL
-#include <iostream>         // for basic_ostream, char_traits, operator<<
-#include <iterator>         // for advance
-#include <map>              // for map
-#include <string>           // for basic_string, operator<
+#include <stdlib.h>               // for NULL
+#include <iostream>               // for basic_ostream, operator<<, basic_os...
+#include <iterator>               // for advance
+#include <map>                    // for map
+#include <string>                 // for basic_string, char_traits, operator<
 
-#include "all_buildings.h"  // for TileConstructionGroup, desertConstruction...
-#include "engglobs.h"       // for world, dxo, dyo, world_id
-#include "groups.h"         // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
-#include "init_game.h"      // for clear_game
-#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_HAS...
-#include "lintypes.h"       // for Construction, ConstructionGroup
-#include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "modules/tile.hpp"
-#include "modules/monument.h"
-#include "modules/tip.h"
-#include "modules/fire.h"
-#include "ConstructionRequest.h"
-#include "modules/market.h"
-
-#ifdef DEBUG
-#include <cassert>          // for assert
-#endif
+#include "ConstructionRequest.h"  // for BurnDownRequest, ConstructionDeleti...
+#include "all_buildings.h"        // for GROUP_WATER_COST
+#include "engglobs.h"             // for dxo, dyo
+#include "groups.h"               // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
+#include "lctypes.h"              // for CST_GREEN, CST_DESERT
+#include "lin-city.h"             // for FLAG_IS_RIVER, FLAG_TRANSPARENT
+#include "lintypes.h"             // for Construction, ConstructionGroup
+#include "modules/fire.h"         // for fireConstructionGroup
+#include "modules/market.h"       // for Market
+#include "modules/monument.h"     // for Monument
+#include "modules/tile.hpp"       // for TileConstructionGroup, desertConstr...
+#include "modules/tip.h"          // for Tip
+#include "resources.hpp"          // for ExtraFrame, ResourceGroup
 
 Ground::Ground() {
   altitude = 0;

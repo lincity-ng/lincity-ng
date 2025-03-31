@@ -27,7 +27,12 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "tinygettext/gettext.hpp"  // for N_
+
+class World;
 
 #define GROUP_BLACKSMITH_NAME N_("Blacksmith")
 #define GROUP_BLACKSMITH_COLOUR (white(15))

@@ -24,8 +24,18 @@
 
 #include "university.h"
 
-#include "modules.h"
-#include "school.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, allocator
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_UNIVERSITY
+#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, TRUE
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "school.h"                       // for SchoolConstructionGroup
+#include "tinygettext/gettext.hpp"        // for N_
 
 // university place:
 UniversityConstructionGroup universityConstructionGroup(

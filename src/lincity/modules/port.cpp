@@ -24,7 +24,18 @@
 
 #include "port.h"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, char_traits
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_PORT
+#include "lincity/lin-city.h"             // for FALSE, MAX_TECH_LEVEL
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Port:
 PortConstructionGroup portConstructionGroup(

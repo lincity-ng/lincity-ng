@@ -43,11 +43,15 @@
 #define SCHOOL_ANIMATION_BREAK 9500
 
 
-#include <stddef.h>   // for NULL
-#include <array>      // for array
-#include <list>       // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
+#include "lincity/all_buildings.h"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
+struct ExtraFrame;
 
 
 class SchoolConstructionGroup: public ConstructionGroup {

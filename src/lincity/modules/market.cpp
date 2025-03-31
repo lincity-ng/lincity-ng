@@ -24,13 +24,22 @@
 
 #include "market.h"
 
-#include <algorithm>  // for max, min
-#include <cstdlib>    // for size_t
-#include <map>        // for map
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <algorithm>                      // for max, min
+#include <cstdlib>                        // for size_t
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "fire.h"     // for FIRE_ANIMATION_SPEED
-#include "modules.h"  // for CommodityRule, basic_string, Commodity, ExtraFrame
+#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_MARKET
+#include "lincity/lin-city.h"             // for FLAG_EVACUATE, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -255,13 +264,6 @@ void Market::report(Mps& mps, bool production) const {
       if(rule.give)
         arrows[0] = '<';
     }
-
-    #ifdef DEBUG
-    if(mps.isFull()) {
-      std::cerr << "Market overflowed MPS" << std::endl;
-      break;
-    }
-    #endif
 
     mps.add_tsddp(arrows, commodityName(stuff),
       commodityCount[stuff], rule.maxload);

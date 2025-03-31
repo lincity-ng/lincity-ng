@@ -24,15 +24,13 @@
 
 #include "ConstructionRequest.h"
 
-#include "../gui_interface/mps.h"  // for mps_set, MPS_MAP
-#include "all_buildings.h"         // for ORE_RESERVE
-#include "engglobs.h"              // for world
-#include "groups.h"                // for GROUP_WATER
-#include "lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_POWER_CA...
-#include "lintypes.h"              // for Construction, MapTile, Constructio...
-#include "modules/all_modules.h"   // for FireConstructionGroup, Fire, Parkl...
-#include "transport.h"             // for connect_transport, POWER_MODULUS
-#include "world.h"                 // for Map
+#include "all_buildings.h"        // for ORE_RESERVE
+#include "groups.h"               // for GROUP_WATER
+#include "lin-city.h"             // for FLAG_POWER_CABLES_0, FLAG_POWER_CAB...
+#include "lintypes.h"             // for Construction, ConstructionGroup
+#include "modules/all_modules.h"  // for FireConstructionGroup, Fire, Parkla...
+#include "transport.h"            // for POWER_MODULUS
+#include "world.h"                // for World, Map, MapTile
 
 //#include "../lincity-ng/Mps.hpp"
 //FIXME cannot include mps.h because of differing paths for further dependencies

@@ -22,22 +22,35 @@
 #ifndef __LINCITYNG_LINCITY_MESSAGES_HPP__
 #define __LINCITYNG_LINCITY_MESSAGES_HPP__
 
-#include <exception>
-#include <string>
-#include <memory>
-#include <optional>
-#include <cassert>
+#include <exception>     // for exception_ptr, make_exception_ptr, current_e...
+#include <memory>        // for static_pointer_cast, shared_ptr, make_shared
+#include <string>        // for basic_string, string
+#include <utility>       // for forward
 
-#include "MapPoint.hpp"
+#include "MapPoint.hpp"  // for MapPoint
 
+class CannotBuildHereMessage;
+class CannotBuildMessage;
+class CannotBulldozeIncompleteMonumentMessage;
+class CannotBulldozeNonemptyTipMessage;
+class CannotBulldozeThisMessage;
+class CannotEvacuateThisMessage;
 class ConstructionGroup;
-class World;
-class MapTile;
-class MessageException;
+class DesertHereMessage;
 class ExceptionMessage;
-class MessageEvent;
-class MapPoint;
-
+class FireStartedMessage;
+class NoOreMessage;
+class NoPeopleLeftMessage;
+class NotEnoughStudentsMessage;
+class NotEnoughTechMessage;
+class NothingHereMessage;
+class OutOfMoneyMessage;
+class OutsideMapMessage;
+class PortRequiresRiverMessage;
+class RocketReadyMessage;
+class RocketResultMessage;
+class SpaceOccupiedMessage;
+class SustainableEconomyMessage;
 
 // This is solely to save the effort of const-qualifying dynamic casts.
 template<typename R, typename T>
@@ -136,6 +149,7 @@ protected:
 #define DEFINE_MESSAGE_BOILERPLATE(MESSAGE_TYPE, BASE_MESSAGE_TYPE) \
 public: \
   using ptr = std::shared_ptr<const MESSAGE_TYPE>; \
+  class Exception; \
   template<typename... A> \
   static ptr create(A&&... args) { \
     return std::make_shared<const MESSAGE_TYPE>(std::forward<A>(args)...); \

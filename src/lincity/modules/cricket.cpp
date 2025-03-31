@@ -24,11 +24,23 @@
 
 #include "cricket.h"
 
-#include <algorithm>  // for max, min
-#include <list>       // for _List_iterator
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <algorithm>                      // for max, min
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "modules.h"  // for basic_string, allocator, char_traits, Commodity
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.h"               // for GROUP_CRICKET
+#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
@@ -108,9 +120,6 @@ void Cricket::cover()
     covercount -= daycount;
     daycount = 0;
     animate_enable = true;
-
-    int tmp;
-    int lenm1 = world.map.len()-1;
 
     int xs = std::max(point.x - constructionGroup->range, 1);
     int xe = std::min(point.x + constructionGroup->range, world.map.len() - 1);

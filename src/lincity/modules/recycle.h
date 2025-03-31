@@ -48,7 +48,11 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for LABOR_LOAD_ORE, LABOR_LOAD_STEEL
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 class RecycleConstructionGroup: public ConstructionGroup {
 public:

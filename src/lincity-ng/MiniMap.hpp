@@ -27,17 +27,18 @@
 #include <string>                   // for string, basic_string
 #include <vector>                   // for vector
 
-#include "MapPoint.hpp"             // for MapPoint
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
 #include "gui/Vector2.hpp"          // for Vector2
+#include "lincity/MapPoint.hpp"     // for MapPoint
 #include "lincity/commodities.hpp"  // for Commodity
 
 class Button;
 class CheckButton;
-class Texture;
-class XmlReader;
 class Game;
+class Texture;
+class World;
+class XmlReader;
 
 class MiniMap : public Component
 {

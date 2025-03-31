@@ -24,9 +24,19 @@
 
 #include "health_centre.h"
 
-#include <algorithm>  // for max, min
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <algorithm>                      // for max, min
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"  // for basic_string, allocator, char_traits, Commodity
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_HEALTH
+#include "lincity/lin-city.h"             // for FALSE, FLAG_HEALTH_COVER_CHECK
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for _, N_
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(

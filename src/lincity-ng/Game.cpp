@@ -22,40 +22,44 @@
 
 #include "Game.hpp"
 
-#include <SDL.h>                           // for Uint32, SDL_GetTicks, SDL_...
-#include <algorithm>                       // for min
-#include <filesystem>                      // for path, directory_iterator
-#include <functional>                      // for bind, _1, function
-#include <iostream>                        // for basic_ostream, operator<<
-#include <stdexcept>                       // for runtime_error
+#include <SDL.h>                    // for SDL_KeyCode, Uint32, SDL_EventType
+#include <assert.h>                 // for assert
+#include <algorithm>                // for min
+#include <filesystem>               // for path, operator/, directory_iterator
+#include <functional>               // for bind, function, _1
+#include <iostream>                 // for basic_ostream, operator<<, cerr
+#include <sstream>                  // for basic_ostringstream
+#include <stdexcept>                // for runtime_error
+#include <utility>                  // for move
 
-#include "ButtonPanel.hpp"                 // for getButtonPanel, ButtonPanel
-#include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for closeAllDialogs, Dialog
-#include "EconomyGraph.hpp"                // for getEconomyGraph, EconomyGraph
-#include "GameView.hpp"                    // for getGameView, GameView
-#include "HelpWindow.hpp"                  // for HelpWindow
-#include "MainLincity.hpp"                 // for saveCityNG, loadCityNG
-#include "MiniMap.hpp"                     // for MiniMap, getMiniMap
-#include "ScreenInterface.hpp"             // for print_stats, updateDate
-#include "TimerInterface.hpp"              // for get_real_time_with
-#include "Util.hpp"                        // for getButton
-#include "gui/Button.hpp"                  // for Button
-#include "gui/Component.hpp"               // for Component
-#include "gui/ComponentLoader.hpp"         // for loadGUIFile
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/DialogBuilder.hpp"
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/WindowManager.hpp"
-#include "gui_interface/mps.h"             // for mps_refresh, mps_set, mps_...
-#include "lincity/engglobs.h"              // for constructionCount
-#include "lincity/lin-city.h"              // for ANIMATE_DELAY, SIM_DELAY_P...
-#include "lincity/lintypes.h"              // for Construction
-#include "PBar.hpp"
-#include "Sound.hpp"
-#include "tinygettext/gettext.hpp"
+#include "ButtonPanel.hpp"          // for ButtonPanel
+#include "Config.hpp"               // for getConfig, Config
+#include "Dialog.hpp"               // for closeAllDialogs, Dialog, GAME_STATS
+#include "EconomyGraph.hpp"         // for EconomyGraph
+#include "GameView.hpp"             // for GameView
+#include "HelpWindow.hpp"           // for HelpWindow
+#include "MainLincity.hpp"          // for saveCityNG, loadCityNG, simDelay
+#include "MiniMap.hpp"              // for MiniMap
+#include "Mps.hpp"                  // for MpsFinance, MpsMap
+#include "PBar.hpp"                 // for LCPBar
+#include "Sound.hpp"                // for getSound, Sound
+#include "TimerInterface.hpp"       // for get_real_time_with
+#include "Util.hpp"                 // for getButton
+#include "gui/Button.hpp"           // for Button
+#include "gui/Component.hpp"        // for Component
+#include "gui/ComponentLoader.hpp"  // for loadGUIFile
+#include "gui/Desktop.hpp"          // for Desktop
+#include "gui/DialogBuilder.hpp"    // for DialogBuilder
+#include "gui/Event.hpp"            // for Event
+#include "gui/Painter.hpp"          // for Painter
+#include "gui/Signal.hpp"           // for Signal
+#include "gui/WindowManager.hpp"    // for WindowManager
+#include "lincity/MapPoint.hpp"     // for MapPoint, operator<<
+#include "lincity/lin-city.h"       // for ANIMATE_DELAY, SIM_DELAY_PAUSE
+#include "lincity/lintypes.h"       // for ConstructionGroup, NUMOF_DAYS_IN_...
+#include "lincity/messages.hpp"     // for dynamic_message_cast, RocketResul...
+#include "lincity/world.h"          // for World, Map
+#include "tinygettext/gettext.hpp"  // for _
 
 using namespace std::placeholders;
 
@@ -590,11 +594,7 @@ Game::processMessageQueue() {
         .build();
     }
     else {
-#ifndef NDEBUG
-      std::cerr << "warning: unrecognized message in queue: "
-        << typeid(*message).name() << ": "
-        << message->str() << std::endl;
-#endif
+      assert(false);
     }
   }
 }

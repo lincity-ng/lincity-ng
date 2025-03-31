@@ -26,10 +26,16 @@
 
 #include <cstdlib>                        // for rand
 #include <list>                           // for _List_iterator
+#include <string>                         // for basic_string
 #include <vector>                         // for vector
 
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
-#include "modules.h"                      // for Commodity, N_, Construction...
+#include "lincity/groups.h"               // for GROUP_COMMUNE
+#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"        // for N_
 
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),

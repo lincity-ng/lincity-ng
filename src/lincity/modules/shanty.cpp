@@ -27,13 +27,20 @@
 #include <stdio.h>                        // for fprintf, stderr, printf
 #include <stdlib.h>                       // for rand
 #include <map>                            // for map
+#include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
 
 #include "commune.h"                      // for CommuneConstructionGroup
 #include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/ConstructionRequest.h"  // for BurnDownRequest
-#include "modules.h"                      // for Commodity, ExtraFrame, basi...
+#include "lincity/groups.h"               // for GROUP_SHANTY, GROUP_MARKET
+#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stat, Stats
+#include "lincity/world.h"                // for World, Map, MapTile
 #include "modules_interfaces.h"           // for add_a_shanty, update_shanty
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(

@@ -22,43 +22,42 @@
 
 #include "MainMenu.hpp"
 
-#include <SDL.h>                           // for SDL_GetWindowSize, SDL_Get...
-#include <stdio.h>                         // for fprintf, size_t, stderr
-#include <string.h>                        // for strcpy
-#include <algorithm>                       // for sort
-#include <cassert>
-#include <chrono>                          // for operator>
-#include <cstdlib>                         // for abs, unsetenv
-#include <functional>                      // for bind, _1, function, _2
-#include <iomanip>                         // for operator<<, setfill, setw
-#include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <utility>                         // for pair
-#include <vector>                          // for vector
+#include <SDL.h>                        // for SDL_EventType, Uint32, SDL_Ge...
+#include <stdio.h>                      // for fprintf, size_t, stderr
+#include <algorithm>                    // for min, sort
+#include <cassert>                      // for assert
+#include <chrono>                       // for operator>
+#include <cstdlib>                      // for abs, unsetenv
+#include <functional>                   // for bind, _1, function, _2
+#include <iomanip>                      // for operator<<, setfill, setw
+#include <iostream>                     // for basic_ostream, operator<<
+#include <sstream>                      // for basic_stringstream
+#include <utility>                      // for pair, move
+#include <vector>                       // for vector
 
-#include "Config.hpp"                      // for getConfig, Config
-#include "Game.hpp"                        // for getGame
-#include "MainLincity.hpp"                 // for loadCityNG, saveCityNG
-#include "Sound.hpp"                       // for getSound, Sound, MusicTran...
-#include "Util.hpp"                        // for getCheckButton, getButton
-#include "gui/Button.hpp"                  // for Button
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/Component.hpp"               // for Component
-#include "gui/ComponentLoader.hpp"         // for loadGUIFile
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/DialogBuilder.hpp"           // for DialogBuilder
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/SwitchComponent.hpp"         // for SwitchComponent
-#include "gui/WindowManager.hpp"           // for WindowManager
-#include "lincity/engglobs.h"              // for world, total_money, total_...
-#include "lincity/init_game.h"             // for _CitySettings, new_city
-#include "lincity/world.h"                 // for Map
-#include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
-#include "tinygettext/tinygettext.hpp"     // for DictionaryManager
-#include "lincity/lintypes.h"
+#include "Config.hpp"                   // for getConfig, Config
+#include "Game.hpp"                     // for Game
+#include "MainLincity.hpp"              // for loadCityNG, saveCityNG
+#include "Sound.hpp"                    // for getSound, Sound, MusicTransport
+#include "Util.hpp"                     // for getCheckButton, getButton
+#include "gui/Button.hpp"               // for Button
+#include "gui/CheckButton.hpp"          // for CheckButton
+#include "gui/Component.hpp"            // for Component
+#include "gui/ComponentLoader.hpp"      // for loadGUIFile
+#include "gui/Desktop.hpp"              // for Desktop
+#include "gui/DialogBuilder.hpp"        // for DialogBuilder
+#include "gui/Event.hpp"                // for Event
+#include "gui/Painter.hpp"              // for Painter
+#include "gui/Paragraph.hpp"            // for Paragraph
+#include "gui/Signal.hpp"               // for Signal
+#include "gui/SwitchComponent.hpp"      // for SwitchComponent
+#include "gui/WindowManager.hpp"        // for WindowManager
+#include "lincity/init_game.h"          // for _CitySettings, new_city, city...
+#include "lincity/lintypes.h"           // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.h"              // for Stat, Stats
+#include "lincity/world.h"              // for World
+#include "tinygettext/gettext.hpp"      // for _, N_, dictionaryManager
+#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 using namespace std::placeholders;
 

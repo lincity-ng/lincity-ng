@@ -27,18 +27,20 @@
 #include <filesystem>             // for path
 #include <string>                 // for basic_string, string
 
-#include "MapPoint.hpp"           // for MapPoint
 #include "MiniMap.hpp"            // for MiniMap
 #include "gui/Component.hpp"      // for Component
 #include "gui/Vector2.hpp"        // for Vector2
+#include "lincity/MapPoint.hpp"   // for MapPoint
 #include "lincity/resources.hpp"  // for GraphicsInfo
 
 class Button;
+class Game;
 class Painter;
 class Rect2D;
 class Texture;
-class XmlReader;
 class UserOperation;
+class World;
+class XmlReader;
 
 class GameView : public Component
 {

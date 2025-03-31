@@ -18,18 +18,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "HelpWindow.hpp"
 
+#include <cassert>                      // for assert
 #include <exception>                    // for exception
-#include <functional>                   // for bind, function, _1, _2
+#include <functional>                   // for bind, _1, function, _2
 #include <iostream>                     // for basic_ostream, operator<<, cerr
 #include <memory>                       // for unique_ptr
 #include <sstream>                      // for basic_ostringstream
 #include <stdexcept>                    // for runtime_error
 
+#include "Config.hpp"                   // for getConfig, Config
 #include "Util.hpp"                     // for getButton
 #include "gui/Button.hpp"               // for Button
 #include "gui/Component.hpp"            // for Component
 #include "gui/ComponentLoader.hpp"      // for loadGUIFile
-#include "gui/Desktop.hpp"              // for Desktop
 #include "gui/Document.hpp"             // for Document
 #include "gui/ScrollView.hpp"           // for ScrollView
 #include "gui/Signal.hpp"               // for Signal
@@ -37,7 +38,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/WindowManager.hpp"        // for WindowManager
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
-#include "Config.hpp"
 
 using namespace std::placeholders;
 

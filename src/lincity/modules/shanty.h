@@ -55,10 +55,15 @@
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
 #define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
 
-#include <array>      // for array
-#include <list>       // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "modules.h"  // for CommodityRule, Commodity, ConstructionGroup
+#include "lincity/all_buildings.h"  // for red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
+struct ExtraFrame;
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:

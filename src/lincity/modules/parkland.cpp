@@ -24,7 +24,14 @@
 
 #include "parkland.h"
 
-#include "modules.h"
+#include <string>                   // for basic_string
+
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/MapPoint.hpp"     // for MapPoint
+#include "lincity/groups.h"         // for GROUP_PARKLAND, GROUP_PARKPOND
+#include "lincity/lin-city.h"       // for TRUE, FLAG_HAS_UNDERGROUND_WATER
+#include "lincity/world.h"          // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"  // for N_
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(

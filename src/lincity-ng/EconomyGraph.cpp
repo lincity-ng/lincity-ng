@@ -22,39 +22,37 @@
 
 #include "EconomyGraph.hpp"
 
-#include <SDL.h>                           // for SDL_Surface
-#include <SDL_ttf.h>                       // for TTF_RenderUTF8_Blended
-#include <stdio.h>                         // for sscanf, NULL
-#include <stdlib.h>                        // for free, malloc
-#include <string.h>                        // for strcmp
-#include <cmath>                           // for log
-#include <exception>                       // for exception
-#include <iostream>                        // for operator<<, basic_ostream
-#include <sstream>                         // for basic_stringstream
-#include <stdexcept>                       // for runtime_error
+#include <SDL.h>                     // for SDL_Surface
+#include <SDL_ttf.h>                 // for TTF_RenderUTF8_Blended, TTF_Font
+#include <stdio.h>                   // for sscanf, NULL
+#include <stdlib.h>                  // for free, malloc
+#include <string.h>                  // for strcmp
+#include <cmath>                     // for log
+#include <deque>                     // for deque
+#include <iostream>                  // for basic_ostream, operator<<, strin...
+#include <sstream>                   // for basic_stringstream
+#include <stdexcept>                 // for runtime_error
 
-#include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for Dialog, MSG_DIALOG
-#include "Util.hpp"                        // for getCheckButton
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/Color.hpp"                   // for Color
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/FontManager.hpp"             // for FontManager, fontManager
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Rect2D.hpp"                  // for Rect2D
-#include "gui/Style.hpp"                   // for Style
-#include "gui/Texture.hpp"                 // for Texture
-#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
-#include "gui/Vector2.hpp"                 // for Vector2
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "lincity/engglobs.h"              // for sustain_flag, people_pool
-#include "lincity/lin-city.h"              // for GOOD
-#include "lincity/lintypes.h"              // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.h"                 // for tpopulation, tstarving_pop...
-#include "lincity/sustainable.h"           // for SUST_FIRE_YEARS_NEEDED
-#include "tinygettext/gettext.hpp"         // for _
-#include "Game.hpp"
+#include "Config.hpp"                // for getConfig, Config
+#include "Game.hpp"                  // for Game
+#include "Util.hpp"                  // for getCheckButton
+#include "gui/CheckButton.hpp"       // for CheckButton
+#include "gui/Color.hpp"             // for Color
+#include "gui/ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/FontManager.hpp"       // for FontManager, fontManager
+#include "gui/Painter.hpp"           // for Painter
+#include "gui/Paragraph.hpp"         // for Paragraph
+#include "gui/Rect2D.hpp"            // for Rect2D
+#include "gui/Style.hpp"             // for Style
+#include "gui/Texture.hpp"           // for Texture
+#include "gui/TextureManager.hpp"    // for TextureManager, texture_manager
+#include "gui/Vector2.hpp"           // for Vector2
+#include "gui/XmlReader.hpp"         // for XmlReader
+#include "lincity/lintypes.h"        // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.h"           // for Stats
+#include "lincity/sustainable.h"     // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
+#include "lincity/world.h"           // for World
+#include "tinygettext/gettext.hpp"   // for _
 
 EconomyGraph::EconomyGraph(){
     fps = (int*) malloc (sizeof(int) * getConfig()->monthgraphW );

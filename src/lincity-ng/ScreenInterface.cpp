@@ -22,31 +22,22 @@
 
 #include "ScreenInterface.hpp"
 
-#include <errno.h>                           // for errno
-#include <stdio.h>                           // for snprintf
-#include <cstdlib>                           // for abs, malloc
-#include <exception>                         // for exception
-#include <iomanip>                           // for operator<<, setfill, setw
-#include <iostream>                          // for basic_ostream, operator<<
-#include <sstream>                           // for basic_ostringstream
-#include <string>                            // for basic_string, char_traits
+#include <assert.h>                 // for assert
+#include <stdio.h>                  // for snprintf
+#include <cstdlib>                  // for abs
+#include <iomanip>                  // for operator<<, setfill, setw
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <memory>                   // for unique_ptr
+#include <sstream>                  // for basic_ostringstream
+#include <string>                   // for basic_string, char_traits, allocator
 
-#include "ButtonPanel.hpp"                   // for getButtonPanel, ButtonPanel
-#include "Config.hpp"                        // for getConfig, Config
-#include "Dialog.hpp"                        // for Dialog, MSG_DIALOG
-#include "EconomyGraph.hpp"                  // for getEconomyGraph, Economy...
-#include "GameView.hpp"                      // for getGameView, GameView
-#include "Util.hpp"                          // for getParagraph
-#include "gui/Component.hpp"                 // for Component
-#include "gui/Paragraph.hpp"                 // for Paragraph
-#include "gui_interface/mps.h"               // for mps_refresh
-#include "gui_interface/screen_interface.h"  // for initialize_monthgraph
-#include "lc_error.h"                        // for lc_error
-#include "lincity/engglobs.h"                // for total_money, total_time
-#include "lincity/lclib.h"                   // for current_year
-#include "lincity/lintypes.h"                // for NUMOF_DAYS_IN_MONTH
-#include "tinygettext/gettext.hpp"           // for _
-#include "Game.hpp"
+#include "Game.hpp"                 // for Game
+#include "gui/Component.hpp"        // for Component
+#include "gui/Paragraph.hpp"        // for Paragraph
+#include "lincity/lclib.h"          // for current_month, current_year
+#include "lincity/lintypes.h"       // for NUMOF_DAYS_IN_MONTH
+#include "lincity/world.h"          // for World
+#include "tinygettext/gettext.hpp"  // for _
 
 /* This is on in screen_full_refresh, used in *_refresh() */
 

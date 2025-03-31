@@ -24,10 +24,22 @@
 
 #include "school.h"
 
-#include <iterator>   // for advance
-#include <map>        // for map
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stddef.h>                       // for NULL
+#include <iterator>                       // for advance
+#include <map>                            // for allocator, map
+#include <string>                         // for basic_string, char_traits
 
-#include "modules.h"  // for basic_string, ExtraFrame, allocator, Commodity
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.h"               // for GROUP_SCHOOL
+#include "lincity/lin-city.h"             // for FALSE, MAX_TECH_LEVEL
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stat, Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 // school place:

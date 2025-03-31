@@ -24,11 +24,21 @@
 
 #include "coalmine.h"
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
-#include <map>                            // for map
+#include <map>                            // for allocator, map
+#include <string>                         // for basic_string, operator<
 
+#include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
-#include "modules.h"                      // for Commodity, ExtraFrame, MapTile
+#include "lincity/groups.h"               // for GROUP_COALMINE
+#include "lincity/lin-city.h"             // for FALSE, FLAG_EVACUATE
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.h"                // for Stats
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(

@@ -44,7 +44,12 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for LABOR_LOAD_ORE, ORE_RESERVE, red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+
+class World;
 
 class OremineConstructionGroup: public ConstructionGroup {
 public:

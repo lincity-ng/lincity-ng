@@ -24,9 +24,18 @@
 
 #include "residence.h"
 
-#include <stdlib.h>                 // for rand
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <iostream>                       // for basic_ostream, operator<<
+#include <string>                         // for basic_string, char_traits
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/lin-city.h"             // for FALSE, FLAG_EMPLOYED, FLAG_FED
+#include "lincity/stats.h"                // for Stats, Stat
+#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),

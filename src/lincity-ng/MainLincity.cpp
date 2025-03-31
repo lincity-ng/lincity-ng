@@ -22,22 +22,19 @@
 
 #include "MainLincity.hpp"
 
-#include <stdlib.h>                          // for srand
-#include <time.h>                            // for time
-#include <cassert>                           // for assert
-#include <iostream>                          // for char_traits, basic_ostream
-#include <stdexcept>                         // for runtime_error
+#include <stdlib.h>                       // for srand
+#include <time.h>                         // for time
+#include <cassert>                        // for assert
+#include <iostream>                       // for char_traits, basic_ostream
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator+
 
-#include "Config.hpp"                        // for getConfig, Config
-#include "Game.hpp"                          // for getGame
-#include "GameView.hpp"                      // for getGameView, GameView
-#include "TimerInterface.hpp"                // for reset_start_time
-#include "gui/DialogBuilder.hpp"             // for DialogBuilder
-#include "gui_interface/screen_interface.h"  // for initialize_monthgraph
-#include "lincity/lc_locale.h"               // for lincity_set_locale
-#include "lincity/lin-city.h"                // for SIM_DELAY_SLOW
-#include "lincity/modules/all_modules.h"     // for initializeModules
-#include "lincity/xmlloadsave.h"             // for loadGame, saveGame
+#include "TimerInterface.hpp"             // for reset_start_time
+#include "gui/DialogBuilder.hpp"          // for DialogBuilder
+#include "lincity/lc_locale.h"            // for lincity_set_locale
+#include "lincity/lin-city.h"             // for SIM_DELAY_SLOW
+#include "lincity/modules/all_modules.h"  // for initializeModules
+#include "lincity/world.h"                // for World
 
 extern void init_types(void);
 extern void initFactories(void);

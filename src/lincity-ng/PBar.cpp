@@ -22,26 +22,33 @@
 
 #include "PBar.hpp"
 
-#include <stdio.h>                         // for sscanf
-#include <string.h>                        // for strcmp
-#include <iomanip>                         // for operator<<, setprecision
-#include <iostream>                        // for cerr
-#include <sstream>                         // for basic_ostream, char_traits
-#include <stdexcept>                       // for runtime_error
-#include <string>                          // for basic_string, operator+
+#include <assert.h>                  // for assert
+#include <stdio.h>                   // for sscanf
+#include <string.h>                  // for strcmp
+#include <algorithm>                 // for max
+#include <array>                     // for array
+#include <cmath>                     // for sqrt
+#include <deque>                     // for deque
+#include <iomanip>                   // for operator<<, setprecision
+#include <iostream>                  // for basic_ostream, operator<<, cerr
+#include <sstream>                   // for basic_stringstream, basic_ostrin...
+#include <stdexcept>                 // for runtime_error
+#include <string>                    // for char_traits, basic_string, opera...
 
-#include "../lincity/lclib.h"              // for num_to_ansi
-#include "Util.hpp"                        // for getParagraph
-#include "gui/Color.hpp"                   // for Color
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Rect2D.hpp"                  // for Rect2D
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/pbar_interface.h"  // for PMONEY, PPOL, PPOP, PTECH
-#include "Game.hpp"
-#include "lincity/lintypes.h"
+#include "../lincity/lclib.h"        // for num_to_ansi
+#include "Game.hpp"                  // for Game
+#include "Util.hpp"                  // for getParagraph
+#include "gui/Color.hpp"             // for Color
+#include "gui/ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"   // for parseEmbeddedComponent
+#include "gui/Painter.hpp"           // for Painter
+#include "gui/Paragraph.hpp"         // for Paragraph
+#include "gui/Rect2D.hpp"            // for Rect2D
+#include "gui/XmlReader.hpp"         // for XmlReader
+#include "lincity/commodities.hpp"   // for Commodity
+#include "lincity/lintypes.h"        // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.h"           // for Stats
+#include "lincity/world.h"           // for World
 
 
 LCPBar::LCPBar() { }

@@ -40,11 +40,14 @@
 #define MAX_LABOR_AT_COALPS (20 * LABOR_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
 
-#include <array>      // for array
-#include <cstdlib>    // for NULL
-#include <list>       // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "modules.h"  // for CommodityRule, Commodity, ExtraFrame, MapTile
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
+struct ExtraFrame;
 
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:

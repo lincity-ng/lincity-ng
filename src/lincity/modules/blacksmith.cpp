@@ -24,10 +24,16 @@
 
 #include "blacksmith.h"
 
-#include <list>                     // for _List_iterator
-#include <vector>                   // for vector
+#include <list>                   // for _List_iterator
+#include <string>                 // for basic_string
+#include <vector>                 // for vector
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"     // for Mps
+#include "lincity/MapPoint.hpp"   // for MapPoint
+#include "lincity/groups.h"       // for GROUP_BLACKSMITH
+#include "lincity/lin-city.h"     // for ANIM_THRESHOLD
+#include "lincity/resources.hpp"  // for ExtraFrame, ResourceGroup
+#include "lincity/world.h"        // for World, Map, MapTile
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_NAME,

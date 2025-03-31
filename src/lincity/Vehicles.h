@@ -26,8 +26,7 @@
 
 #include <list>  // for list
 
-#include "world.h"
-
+class World;
 enum Commodity : int;
 struct ExtraFrame;
 

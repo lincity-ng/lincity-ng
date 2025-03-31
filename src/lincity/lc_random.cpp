@@ -21,9 +21,10 @@
 
 #include "lc_random.hpp"
 
-#include <algorithm>
-#include <random>
-#include <time.h>
+#include <time.h>     // for time
+#include <algorithm>  // for generate
+#include <random>     // for random_device, seed_seq
+#include <vector>     // for vector
 
 LcUrbg::LcUrbg() {
   std::vector<std::random_device::result_type> entropy(9);

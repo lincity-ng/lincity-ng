@@ -24,7 +24,11 @@
 
 #include <array>                    // for array
 
-#include "modules.h"
+#include "lincity/all_buildings.h"  // for LABOR_LOAD_COAL, LABOR_LOAD_ORE
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+
+class World;
 
 #define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
 #define GROUP_INDUSTRY_H_COST 50000

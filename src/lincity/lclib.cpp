@@ -23,8 +23,10 @@
 ** ---------------------------------------------------------------------- */
 
 #include <stdio.h>                  // for snprintf, size_t, printf
-#include <string.h>                 // for strdup, size_t
+#include <string.h>                 // for strdup
+#include <algorithm>                // for min
 #include <cstdlib>                  // for abs, exit, malloc, NULL
+#include <string>                   // for basic_string, string
 
 #include "lintypes.h"               // for NUMOF_DAYS_IN_YEAR, NUMOF_DAYS_IN...
 #include "tinygettext/gettext.hpp"  // for N_, _

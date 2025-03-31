@@ -23,30 +23,29 @@
 #include "Mps.hpp"
 
 #include <assert.h>                       // for assert
-#include <stdlib.h>                       // for rand
-#include <iostream>                       // for basic_ostream, operator<<
+#include <algorithm>                      // for max
+#include <deque>                          // for deque, operator!=
+#include <iomanip>                        // for setprecision, _Setprecision
+#include <iostream>                       // for operator<<, ostringstream
+#include <iterator>                       // for advance
+#include <numeric>                        // for accumulate
 #include <sstream>                        // for basic_ostringstream
-#include <algorithm>
-#include <numeric>
 
-#include "MapPoint.hpp"                   // for MapPoint
-#include "Sound.hpp"                      // for getSound, Sound
+#include "Game.hpp"                       // for Game
 #include "Util.hpp"                       // for getParagraph
 #include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/ComponentLoader.hpp"        // for parseEmbeddedComponent
 #include "gui/Paragraph.hpp"              // for Paragraph
 #include "gui/XmlReader.hpp"              // for XmlReader
-#include "gui_interface/mps.h"            // for MPS_PARAGRAPH_COUNT
-#include "lincity/engglobs.h"             // for world
-#include "lincity/groups.h"               // for GROUP_ROAD, GROUP_ROAD_BRIDGE
-#include "lincity/lintypes.h"             // for Construction, ConstructionG...
-#include "lincity/modules/all_modules.h"  // for Transport
-#include "lincity/resources.hpp"          // for ResourceGroup
-#include "lincity/world.h"                // for Map, MapTile
-#include "tinygettext/gettext.hpp"
-#include "Game.hpp"
-#include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
-#include "lincity/lclib.h"
+#include "lincity/commodities.hpp"        // for Commodity
+#include "lincity/groups.h"               // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lclib.h"                // for num_to_ansi, current_year
+#include "lincity/lin-city.h"             // for FLAG_IS_LAKE, FLAG_IS_RIVER
+#include "lincity/lintypes.h"             // for NUMOF_DAYS_IN_MONTH, Constr...
+#include "lincity/modules/all_modules.h"  // for TileConstructionGroup, Shan...
+#include "lincity/stats.h"                // for Stat, Stats
+#include "lincity/world.h"                // for MapTile, World, Map, Ground
+#include "tinygettext/gettext.hpp"        // for N_, _
 
 Mps::Mps() { }
 

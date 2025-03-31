@@ -22,10 +22,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <array>                // for array
+#include <array>                    // for array
 
-#include "lincity/transport.h"  // for MAX_HIVOLT_ON_POWERLINE
-#include "modules.h"            // for Commodity, CommodityRule, Constructio...
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/transport.h"      // for MAX_HIVOLT_ON_POWERLINE
+
+class World;
 
 #define POWER_LINE_FLASH_SPEED 100
 

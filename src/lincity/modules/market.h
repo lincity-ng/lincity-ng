@@ -38,11 +38,16 @@
 #define LABOR_MARKET_MED    12
 #define LABOR_MARKET_FULL   28
 
-#include <array>                // for array
-#include <list>                 // for list
+#include <array>                    // for array
+#include <list>                     // for list
 
-#include "lincity/transport.h"  // for MAX_WASTE_IN_MARKET, MAX_COAL_IN_MARKET
-#include "modules.h"            // for CommodityRule, Commodity, Constructio...
+#include "lincity/all_buildings.h"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.h"       // for ConstructionGroup, Construction
+#include "lincity/transport.h"      // for MAX_COAL_IN_MARKET, MAX_FOOD_IN_M...
+
+class World;
+struct ExtraFrame;
 
 class MarketConstructionGroup: public ConstructionGroup {
 public:

@@ -22,53 +22,53 @@
 
 #include "GameView.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_BUTTO...
-#include <SDL_image.h>                     // for IMG_Load_RW
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for size_t, sscanf, NULL
-#include <string.h>                        // for strcmp
-#include <cmath>                           // for sqrt, fabs, fabsf
-#include <exception>                       // for exception
-#include <functional>                      // for bind, function, _1
-#include <iostream>                        // for basic_ostream, operator<<
-#include <iterator>                        // for advance
-#include <list>                            // for _List_iterator, list, oper...
-#include <map>                             // for _Rb_tree_iterator, map
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <utility>                         // for pair
-#include <vector>                          // for vector
+#include <SDL.h>                         // for SDL_Scancode, SDL_BUTTON_LEFT
+#include <SDL_image.h>                   // for IMG_Load
+#include <assert.h>                      // for assert
+#include <stdio.h>                       // for size_t, sscanf, NULL
+#include <string.h>                      // for strcmp
+#include <cmath>                         // for sqrt, fabs, fabsf, floorf
+#include <exception>                     // for exception
+#include <functional>                    // for bind, _1, function
+#include <iostream>                      // for basic_ostream, operator<<
+#include <iterator>                      // for advance
+#include <list>                          // for _List_iterator, list, operat...
+#include <map>                           // for _Rb_tree_iterator, map, oper...
+#include <sstream>                       // for basic_stringstream
+#include <utility>                       // for pair
+#include <vector>                        // for vector
 
-#include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for blockingDialogIsOpen
-#include "MiniMap.hpp"                     // for MiniMap, getMiniMap
-#include "Mps.hpp"                         // for mps_x, mps_y
-#include "Util.hpp"                        // for getButton, getParagraph
-#include "gui/Button.hpp"                  // for Button
-#include "gui/Color.hpp"                   // for Color
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Rect2D.hpp"                  // for Rect2D
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/Texture.hpp"                 // for Texture
-#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
-#include "lincity-ng/UserOperation.hpp"         // for UserOperation
-#include "lincity/all_buildings.h"         // for TileConstructionGroup, GRO...
-#include "lincity/commodities.hpp"         // for commodityNames
-#include "lincity/engglobs.h"              // for world, alt_...
-#include "lincity/groups.h"                // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_...
-#include "lincity/lintypes.h"              // for ConstructionGroup, Constru...
-#include "lincity/transport.h"             // for connect_transport, BRIDGE_...
-#include "lincity/world.h"                 // for Map, MapTile, Ground
-#include "tinygettext/gettext.hpp"         // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
-#include "Game.hpp"
-#include "lincity/modules/tile.hpp"
+#include "Config.hpp"                    // for getConfig, Config
+#include "Dialog.hpp"                    // for blockingDialogIsOpen
+#include "Game.hpp"                      // for Game
+#include "MiniMap.hpp"                   // for MiniMap, getMiniMap
+#include "Mps.hpp"                       // for MpsMap
+#include "Util.hpp"                      // for getButton, getParagraph
+#include "gui/Button.hpp"                // for Button
+#include "gui/Color.hpp"                 // for Color
+#include "gui/ComponentFactory.hpp"      // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Desktop.hpp"               // for Desktop
+#include "gui/Event.hpp"                 // for Event
+#include "gui/Painter.hpp"               // for Painter
+#include "gui/Paragraph.hpp"             // for Paragraph
+#include "gui/Rect2D.hpp"                // for Rect2D
+#include "gui/Signal.hpp"                // for Signal
+#include "gui/Texture.hpp"               // for Texture
+#include "gui/TextureManager.hpp"        // for TextureManager, texture_manager
+#include "gui/XmlReader.hpp"             // for XmlReader
+#include "libxml/xmlreader.h"            // for XML_READER_TYPE_ELEMENT
+#include "lincity-ng/UserOperation.hpp"  // for UserOperation
+#include "lincity/all_buildings.h"       // for GROUP_WATER_BUL_COST, GROUP_...
+#include "lincity/commodities.hpp"       // for commodityNames
+#include "lincity/groups.h"              // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.h"            // for FLAG_POWER_CABLES_0, FLAG_PO...
+#include "lincity/lintypes.h"            // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"          // for Message
+#include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
+#include "lincity/transport.h"           // for BRIDGE_FACTOR
+#include "lincity/world.h"               // for Map, World, MapTile, Ground
+#include "tinygettext/gettext.hpp"       // for _, dictionaryManager
+#include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
 
 using namespace std::placeholders;
 

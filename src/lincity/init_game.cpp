@@ -23,35 +23,29 @@
 
 #include "init_game.h"
 
-#include <array>                           // for array
-#include <cmath>                           // for pow, exp
-#include <cstdlib>                         // for rand, NULL, srand, RAND_MAX
-#include <deque>                           // for deque
-#include <iostream>                        // for basic_ostream, operator<<
-#include <list>                            // for list
-#include <vector>                          // for vector
-#include <memory>
-#include <random>
-#include <cassert>
+#include <cassert>                // for assert
+#include <cmath>                  // for pow, exp
+#include <cstdlib>                // for rand, RAND_MAX
+#include <deque>                  // for deque
+#include <iostream>               // for basic_ostream, operator<<, char_traits
+#include <memory>                 // for unique_ptr
+#include <random>                 // for uniform_int_distribution
+#include <vector>                 // for vector
 
-#include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
-#include "commodities.hpp"                 // for Commodity, CommodityRule
-#include "engglobs.h"                      // for world, global_mountainity
-#include "groups.h"                        // for GROUP_BARE, GROUP_TREE
-#include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
-#include "lctypes.h"                       // for CST_GREEN, CST_WATER
-#include "lin-city.h"                      // for FLAG_HAS_UNDERGROUND_WATER
-#include "lintypes.h"                      // for Construction, Construction...
-#include "modules/all_modules.h"           // for CommuneConstructionGroup
-#include "resources.hpp"                   // for ExtraFrame
-#include "stats.h"                         // for init_inventory
-#include "transport.h"                     // for connect_transport
-#include "world.h"                         // for Map, MapTile, Array2D
-#include "lc_random.hpp"
+#include "all_buildings.h"        // for COAL_RESERVE_SIZE, ORE_RESERVE
+#include "engglobs.h"             // for dx, dy, dxo, dyo
+#include "groups.h"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
+#include "lc_random.hpp"          // for LcUrbg
+#include "lctypes.h"              // for CST_WATER
+#include "lin-city.h"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_IS...
+#include "lintypes.h"             // for Construction, NUMOF_COAL_RESERVES
+#include "modules/all_modules.h"  // for CommuneConstructionGroup, communeCo...
+#include "stats.h"                // for Stats
+#include "world.h"                // for Map, MapTile, Ground, World
 
 #ifdef DEBUG
 // #include <assert.h>                        // for assert
-#include <stdio.h>                         // for fprintf, stderr, size_t
+#include <stdio.h>                // for fprintf, size_t, stderr
 #endif
 
 

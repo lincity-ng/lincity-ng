@@ -28,10 +28,7 @@
  * ---------------------------------------------------------------------- */
 #include "engglobs.h"
 
-#include <stddef.h>             // for NULL
-#include <map>                  // for map
-
-#include "lin-city.h"           // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TR...\
+#include "lin-city.h"  // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TRIGGER_2
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
