@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/lclib.cpp
+ * src/lincity/util.cpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 1995-1997 I J Peters

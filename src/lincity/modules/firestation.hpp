@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/modules/firestation.h
+ * src/lincity/modules/firestation.hpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 1995-1997 I J Peters

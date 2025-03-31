@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/modules/waterwell.h
+ * src/lincity/modules/waterwell.hpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 1995-1997 I J Peters

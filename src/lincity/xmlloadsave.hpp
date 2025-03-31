@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/xmlloadsave.h
+ * src/lincity/xmlloadsave.hpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
