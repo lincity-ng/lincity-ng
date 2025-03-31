@@ -1,74 +1,74 @@
 add_library(lincity_lib_modules  STATIC
 		all_modules.cpp
-		all_modules.h
+		all_modules.hpp
 		blacksmith.cpp
-		blacksmith.h
+		blacksmith.hpp
 		coal_power.cpp
-		coal_power.h
+		coal_power.hpp
 		coalmine.cpp
-		coalmine.h
+		coalmine.hpp
 		commune.cpp
-		commune.h
+		commune.hpp
 		cricket.cpp
-		cricket.h
+		cricket.hpp
 		fire.cpp
-		fire.h
+		fire.hpp
 		firestation.cpp
-		firestation.h
+		firestation.hpp
 		health_centre.cpp
-		health_centre.h
+		health_centre.hpp
 		heavy_industry.cpp
-		heavy_industry.h
+		heavy_industry.hpp
 		light_industry.cpp
-		light_industry.h
+		light_industry.hpp
 		market.cpp
-		market.h
+		market.hpp
 		mill.cpp
-		mill.h
-		modules.h
-		modules_interfaces.h
+		mill.hpp
+		modules.hpp
+		modules_interfaces.hpp
 		monument.cpp
-		monument.h
+		monument.hpp
 		oremine.cpp
-		oremine.h
+		oremine.hpp
 		organic_farm.cpp
-		organic_farm.h
+		organic_farm.hpp
 		parkland.cpp
-		parkland.h
+		parkland.hpp
 		port.cpp
-		port.h
+		port.hpp
 		pottery.cpp
-		pottery.h
+		pottery.hpp
 		power_line.cpp
-		power_line.h
+		power_line.hpp
 		recycle.cpp
-		recycle.h
+		recycle.hpp
 		residence.cpp
-		residence.h
+		residence.hpp
 		rocket_pad.cpp
-		rocket_pad.h
+		rocket_pad.hpp
 		school.cpp
-		school.h
+		school.hpp
 		shanty.cpp
-		shanty.h
+		shanty.hpp
 		solar_power.cpp
-		solar_power.h
+		solar_power.hpp
 		substation.cpp
-		substation.h
+		substation.hpp
 		tile.cpp
 		tile.hpp
 		tip.cpp
-		tip.h
+		tip.hpp
 		track_road_rail.cpp
-		track_road_rail.h
+		track_road_rail.hpp
 		university.cpp
-		university.h
+		university.hpp
 		waterwell.cpp
-		waterwell.h
+		waterwell.hpp
 		windmill.cpp
-		windmill.h
+		windmill.hpp
 		windpower.cpp
-		windpower.h
+		windpower.hpp
 		)
 
 add_library(LinCity::lib_modules ALIAS lincity_lib_modules)

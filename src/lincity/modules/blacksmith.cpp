@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "blacksmith.h"
+#include "blacksmith.hpp"
 
 #include <list>                   // for _List_iterator
 #include <string>                 // for basic_string
@@ -30,10 +30,10 @@
 
 #include "lincity-ng/Mps.hpp"     // for Mps
 #include "lincity/MapPoint.hpp"   // for MapPoint
-#include "lincity/groups.h"       // for GROUP_BLACKSMITH
-#include "lincity/lin-city.h"     // for ANIM_THRESHOLD
+#include "lincity/groups.hpp"       // for GROUP_BLACKSMITH
+#include "lincity/lin-city.hpp"     // for ANIM_THRESHOLD
 #include "lincity/resources.hpp"  // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"        // for World, Map, MapTile
+#include "lincity/world.hpp"        // for World, Map, MapTile
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_NAME,

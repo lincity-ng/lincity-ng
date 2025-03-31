@@ -21,12 +21,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "all_modules.h"
+#include "all_modules.hpp"
 
 #include <map>                    // for map
 #include <string>                 // for basic_string, operator<
 
-#include "lincity/lintypes.h"     // for ConstructionGroup
+#include "lincity/lintypes.hpp"     // for ConstructionGroup
 #include "lincity/resources.hpp"  // for ResourceGroup
 
 void initializeModules() {

@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "light_industry.h"
+#include "light_industry.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
@@ -33,11 +33,11 @@
 #include <vector>                         // for allocator, vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.h"               // for GROUP_INDUSTRY_L
-#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/groups.hpp"               // for GROUP_INDUSTRY_L
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 // IndustryLight:

@@ -55,10 +55,10 @@
 #include "gui/Signal.hpp"           // for Signal
 #include "gui/WindowManager.hpp"    // for WindowManager
 #include "lincity/MapPoint.hpp"     // for MapPoint, operator<<
-#include "lincity/lin-city.h"       // for ANIMATE_DELAY, SIM_DELAY_PAUSE
-#include "lincity/lintypes.h"       // for ConstructionGroup, NUMOF_DAYS_IN_...
+#include "lincity/lin-city.hpp"       // for ANIMATE_DELAY, SIM_DELAY_PAUSE
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, NUMOF_DAYS_IN_...
 #include "lincity/messages.hpp"     // for dynamic_message_cast, RocketResul...
-#include "lincity/world.h"          // for World, Map
+#include "lincity/world.hpp"          // for World, Map
 #include "tinygettext/gettext.hpp"  // for _
 
 using namespace std::placeholders;

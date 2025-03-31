@@ -30,17 +30,17 @@
 #include <unordered_set>          // for unordered_set
 #include <vector>                 // for vector
 
-#include "ConstructionRequest.h"  // for SetOnFire
+#include "ConstructionRequest.hpp"  // for SetOnFire
 #include "MapPoint.hpp"           // for MapPoint
-#include "engglobs.h"             // for dx, dy
-#include "groups.h"               // for GROUP_DESERT, GROUP_PORT, GROUP_WATER
-#include "lctypes.h"              // for CST_GREEN
-#include "lin-city.h"             // for FLAG_FIRE_COVER, FLAG_CRICKET_COVER
-#include "lintypes.h"             // for Construction, ConstructionGroup
+#include "engglobs.hpp"             // for dx, dy
+#include "groups.hpp"               // for GROUP_DESERT, GROUP_PORT, GROUP_WATER
+#include "lctypes.hpp"              // for CST_GREEN
+#include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_CRICKET_COVER
+#include "lintypes.hpp"             // for Construction, ConstructionGroup
 #include "messages.hpp"           // for OutOfMoneyMessage, FireStartedMessage
-#include "modules/all_modules.h"  // for Residence
-#include "stats.h"                // for Stat, Stats
-#include "world.h"                // for Map, World, MapTile
+#include "modules/all_modules.hpp"  // for Residence
+#include "stats.hpp"                // for Stat, Stats
+#include "world.hpp"                // for Map, World, MapTile
 
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);

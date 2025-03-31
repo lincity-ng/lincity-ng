@@ -31,10 +31,10 @@
 
 #include "TimerInterface.hpp"             // for reset_start_time
 #include "gui/DialogBuilder.hpp"          // for DialogBuilder
-#include "lincity/lc_locale.h"            // for lincity_set_locale
-#include "lincity/lin-city.h"             // for SIM_DELAY_SLOW
-#include "lincity/modules/all_modules.h"  // for initializeModules
-#include "lincity/world.h"                // for World
+#include "lincity/lc_locale.hpp"            // for lincity_set_locale
+#include "lincity/lin-city.hpp"             // for SIM_DELAY_SLOW
+#include "lincity/modules/all_modules.hpp"  // for initializeModules
+#include "lincity/world.hpp"                // for World
 
 extern void init_types(void);
 extern void initFactories(void);

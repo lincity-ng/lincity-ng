@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "monument.h"
+#include "monument.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
@@ -31,11 +31,11 @@
 #include <string>                         // for basic_string, char_traits
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.h"               // for GROUP_MONUMENT
-#include "lincity/lin-city.h"             // for FALSE, FLAG_EVACUATE, FLAG_...
+#include "lincity/groups.hpp"               // for GROUP_MONUMENT
+#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE, FLAG_...
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"                // for World
-#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "lincity/world.hpp"                // for World
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 extern int mps_x, mps_y;

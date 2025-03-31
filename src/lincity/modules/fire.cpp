@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "fire.h"
+#include "fire.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
@@ -32,13 +32,13 @@
 #include <vector>                         // for allocator, vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
+#include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.h"               // for GROUP_FIRE
-#include "lincity/lin-city.h"             // for FLAG_FIRE_COVER, ANIM_THRES...
+#include "lincity/groups.hpp"               // for GROUP_FIRE
+#include "lincity/lin-city.hpp"             // for FLAG_FIRE_COVER, ANIM_THRES...
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"                // for Map, MapTile, World
-#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "lincity/world.hpp"                // for Map, MapTile, World
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 //#include "lincity-ng/Sound.hpp"
 

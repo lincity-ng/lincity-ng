@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "track_road_rail.h"
+#include "track_road_rail.hpp"
 
 #include <stdlib.h>                       // for rand
 #include <cassert>                        // for assert
@@ -30,16 +30,16 @@
 #include <string>                         // for basic_string, char_traits
 #include <vector>                         // for vector
 
-#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
-#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
-#include "lincity/all_buildings.h"        // for DAYS_PER_RAIL_POLLUTION
-#include "lincity/lin-city.h"             // for FALSE, ANIM_THRESHOLD, FLAG...
+#include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
+#include "lincity/all_buildings.hpp"        // for DAYS_PER_RAIL_POLLUTION
+#include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD, FLAG...
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.h"                // for Stats
-#include "lincity/world.h"                // for World, MapTile, Map
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, MapTile, Map
 #include "tinygettext/gettext.hpp"        // for N_, _
 
 // Track:

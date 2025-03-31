@@ -35,7 +35,7 @@
 #include <stdexcept>                 // for runtime_error
 #include <string>                    // for char_traits, basic_string, opera...
 
-#include "../lincity/lclib.h"        // for num_to_ansi
+#include "lincity/util.hpp"          // for num_to_ansi
 #include "Game.hpp"                  // for Game
 #include "Util.hpp"                  // for getParagraph
 #include "gui/Color.hpp"             // for Color
@@ -46,9 +46,9 @@
 #include "gui/Rect2D.hpp"            // for Rect2D
 #include "gui/XmlReader.hpp"         // for XmlReader
 #include "lincity/commodities.hpp"   // for Commodity
-#include "lincity/lintypes.h"        // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.h"           // for Stats
-#include "lincity/world.h"           // for World
+#include "lincity/lintypes.hpp"        // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"           // for Stats
+#include "lincity/world.hpp"           // for World
 
 
 LCPBar::LCPBar() { }

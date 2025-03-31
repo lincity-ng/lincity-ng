@@ -32,20 +32,20 @@
 #include <vector>                        // for vector
 
 #include "MapPoint.hpp"                  // for MapPoint
-#include "Vehicles.h"                    // for Vehicle
-#include "all_buildings.h"               // for DAYS_BETWEEN_COVER, DAYS_PER...
+#include "Vehicles.hpp"                    // for Vehicle
+#include "all_buildings.hpp"               // for DAYS_BETWEEN_COVER, DAYS_PER...
 #include "commodities.hpp"               // for CommodityRule, Commodity
-#include "engglobs.h"                    // for ex_tax_dis
-#include "groups.h"                      // for GROUP_FIRE, GROUP_MONUMENT
+#include "engglobs.hpp"                    // for ex_tax_dis
+#include "groups.hpp"                      // for GROUP_FIRE, GROUP_MONUMENT
 #include "lc_random.hpp"                 // for LcUrbg
-#include "lin-city.h"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
-#include "lintypes.h"                    // for Construction, NUMOF_DAYS_IN_...
+#include "lin-city.hpp"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
+#include "lintypes.hpp"                    // for Construction, NUMOF_DAYS_IN_...
 #include "messages.hpp"                  // for OutOfMoneyMessage, NoPeopleL...
-#include "modules/all_modules.h"         // for IMPORT_EXPORT_DISABLE_PERIOD
-#include "modules/modules_interfaces.h"  // for update_shanty
-#include "stats.h"                       // for Stats, Stat
-#include "sustainable.h"                 // for SUST_FIRE_YEARS_NEEDED, SUST...
-#include "world.h"                       // for World, Map, MapTile
+#include "modules/all_modules.hpp"         // for IMPORT_EXPORT_DISABLE_PERIOD
+#include "modules/modules_interfaces.hpp"  // for update_shanty
+#include "stats.hpp"                       // for Stats, Stat
+#include "sustainable.hpp"                 // for SUST_FIRE_YEARS_NEEDED, SUST...
+#include "world.hpp"                       // for World, Map, MapTile
 
 /* extern resources */
 extern void print_total_money(void);

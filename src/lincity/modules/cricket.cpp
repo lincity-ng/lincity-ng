@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "cricket.h"
+#include "cricket.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
@@ -33,13 +33,13 @@
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.h"               // for GROUP_CRICKET
-#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/groups.hpp"               // for GROUP_CRICKET
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.h"                // for Stats
-#include "lincity/world.h"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 // cricket place:

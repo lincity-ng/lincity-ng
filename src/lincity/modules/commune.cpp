@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "commune.h"
+#include "commune.hpp"
 
 #include <cstdlib>                        // for rand
 #include <list>                           // for _List_iterator
@@ -30,11 +30,11 @@
 #include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
-#include "lincity/groups.h"               // for GROUP_COMMUNE
-#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/ConstructionRequest.hpp"  // for CommuneDeletionRequest
+#include "lincity/groups.hpp"               // for GROUP_COMMUNE
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"                // for World, Map, MapTile
+#include "lincity/world.hpp"                // for World, Map, MapTile
 #include "tinygettext/gettext.hpp"        // for N_
 
 CommuneConstructionGroup communeConstructionGroup(

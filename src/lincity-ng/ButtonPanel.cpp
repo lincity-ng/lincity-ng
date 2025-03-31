@@ -49,11 +49,11 @@
 #include "gui/WindowManager.hpp"          // for WindowManager
 #include "gui/XmlReader.hpp"              // for XmlReader
 #include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
-#include "lincity/groups.h"               // for GROUP_RESIDENCE_HH, GROUP_R...
-#include "lincity/lintypes.h"             // for ConstructionGroup
+#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lintypes.hpp"             // for ConstructionGroup
 #include "lincity/messages.hpp"           // for NotEnoughTechMessage, Message
-#include "lincity/modules/all_modules.h"  // for MODERN_WINDMILL_TECH, Windm...
-#include "lincity/world.h"                // for World
+#include "lincity/modules/all_modules.hpp"  // for MODERN_WINDMILL_TECH, Windm...
+#include "lincity/world.hpp"                // for World
 #include "tinygettext/gettext.hpp"        // for _
 
 using namespace std::placeholders;

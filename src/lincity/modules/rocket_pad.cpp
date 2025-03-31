@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "rocket_pad.h"
+#include "rocket_pad.hpp"
 
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
@@ -37,14 +37,14 @@
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.h"               // for GROUP_RESIDENCE_HH, GROUP_R...
-#include "lincity/lin-city.h"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/stats.h"                // for Stats
-#include "lincity/world.h"                // for World, Map
-#include "lincity/xmlloadsave.h"          // for xmlStr
-#include "residence.h"                    // for Residence
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "residence.hpp"                    // for Residence
 #include "tinygettext/gettext.hpp"        // for N_
 
 RocketPadConstructionGroup rocketPadConstructionGroup(

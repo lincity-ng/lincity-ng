@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "health_centre.h"
+#include "health_centre.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
@@ -30,12 +30,12 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.h"               // for GROUP_HEALTH
-#include "lincity/lin-city.h"             // for FALSE, FLAG_HEALTH_COVER_CHECK
+#include "lincity/groups.hpp"               // for GROUP_HEALTH
+#include "lincity/lin-city.hpp"             // for FALSE, FLAG_HEALTH_COVER_CHECK
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
-#include "lincity/stats.h"                // for Stats
-#include "lincity/world.h"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.h"          // for xmlStr
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for _, N_
 
 // Health Centre:

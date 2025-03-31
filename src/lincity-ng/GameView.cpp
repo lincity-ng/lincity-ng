@@ -58,15 +58,15 @@
 #include "gui/XmlReader.hpp"             // for XmlReader
 #include "libxml/xmlreader.h"            // for XML_READER_TYPE_ELEMENT
 #include "lincity-ng/UserOperation.hpp"  // for UserOperation
-#include "lincity/all_buildings.h"       // for GROUP_WATER_BUL_COST, GROUP_...
+#include "lincity/all_buildings.hpp"       // for GROUP_WATER_BUL_COST, GROUP_...
 #include "lincity/commodities.hpp"       // for commodityNames
-#include "lincity/groups.h"              // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lin-city.h"            // for FLAG_POWER_CABLES_0, FLAG_PO...
-#include "lincity/lintypes.h"            // for ConstructionGroup, Construction
+#include "lincity/groups.hpp"              // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.hpp"            // for FLAG_POWER_CABLES_0, FLAG_PO...
+#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
 #include "lincity/messages.hpp"          // for Message
 #include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
-#include "lincity/transport.h"           // for BRIDGE_FACTOR
-#include "lincity/world.h"               // for Map, World, MapTile, Ground
+#include "lincity/transport.hpp"           // for BRIDGE_FACTOR
+#include "lincity/world.hpp"               // for Map, World, MapTile, Ground
 #include "tinygettext/gettext.hpp"       // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
 

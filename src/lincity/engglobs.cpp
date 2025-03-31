@@ -26,9 +26,9 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include "engglobs.h"
+#include "engglobs.hpp"
 
-#include "lin-city.h"  // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TRIGGER_2
+#include "lin-city.hpp"  // for EX_DISCOUNT_TRIGGER_1, EX_DISCOUNT_TRIGGER_2
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};

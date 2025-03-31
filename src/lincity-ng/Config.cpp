@@ -36,8 +36,8 @@
 #include <stdexcept>                      // for runtime_error
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
-#include "lincity/world.h"                // for WORLD_SIDE_LEN
-#include "lincity/xmlloadsave.h"          // for xmlStr, unexpectedXmlElement
+#include "lincity/world.hpp"                // for WORLD_SIDE_LEN
+#include "lincity/xmlloadsave.hpp"          // for xmlStr, unexpectedXmlElement
 
 
 static int parseInt(const std::string& value, int defaultValue,

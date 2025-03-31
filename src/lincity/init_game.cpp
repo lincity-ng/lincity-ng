@@ -21,7 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "init_game.h"
+#include "init_game.hpp"
 
 #include <cassert>                // for assert
 #include <cmath>                  // for pow, exp
@@ -32,16 +32,16 @@
 #include <random>                 // for uniform_int_distribution
 #include <vector>                 // for vector
 
-#include "all_buildings.h"        // for COAL_RESERVE_SIZE, ORE_RESERVE
-#include "engglobs.h"             // for dx, dy, dxo, dyo
-#include "groups.h"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
+#include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
+#include "engglobs.hpp"             // for dx, dy, dxo, dyo
+#include "groups.hpp"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
 #include "lc_random.hpp"          // for LcUrbg
-#include "lctypes.h"              // for CST_WATER
-#include "lin-city.h"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_IS...
-#include "lintypes.h"             // for Construction, NUMOF_COAL_RESERVES
-#include "modules/all_modules.h"  // for CommuneConstructionGroup, communeCo...
-#include "stats.h"                // for Stats
-#include "world.h"                // for Map, MapTile, Ground, World
+#include "lctypes.hpp"              // for CST_WATER
+#include "lin-city.hpp"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_IS...
+#include "lintypes.hpp"             // for Construction, NUMOF_COAL_RESERVES
+#include "modules/all_modules.hpp"  // for CommuneConstructionGroup, communeCo...
+#include "stats.hpp"                // for Stats
+#include "world.hpp"                // for Map, MapTile, Ground, World
 
 #ifdef DEBUG
 // #include <assert.h>                        // for assert

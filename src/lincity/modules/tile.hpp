@@ -25,7 +25,7 @@
 #ifndef __LINCITYNG_LINCITY_MODULES_TILE_HPP__
 #define __LINCITYNG_LINCITY_MODULES_TILE_HPP__
 
-#include "lincity/lintypes.h"
+#include "lincity/lintypes.hpp"
 
 /*
 * TileConstructionGroups hold information about inactive tiles

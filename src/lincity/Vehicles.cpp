@@ -21,7 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "Vehicles.h"
+#include "Vehicles.hpp"
 
 #include <stdlib.h>         // for rand, NULL
 #include <cmath>            // for ceil
@@ -31,10 +31,10 @@
 #include <vector>           // for vector
 
 #include "commodities.hpp"  // for Commodity
-#include "groups.h"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
-#include "lintypes.h"       // for Construction
+#include "groups.hpp"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
+#include "lintypes.hpp"       // for Construction
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "world.h"          // for World, Map, MapTile
+#include "world.hpp"          // for World, Map, MapTile
 
 Vehicle::Vehicle(World& world, int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStrategy) :
   world(world)

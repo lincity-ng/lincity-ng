@@ -34,9 +34,9 @@
 #include "Game.hpp"                 // for Game
 #include "gui/Component.hpp"        // for Component
 #include "gui/Paragraph.hpp"        // for Paragraph
-#include "lincity/lclib.h"          // for current_month, current_year
-#include "lincity/lintypes.h"       // for NUMOF_DAYS_IN_MONTH
-#include "lincity/world.h"          // for World
+#include "lincity/util.hpp"          // for current_month, current_year
+#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_MONTH
+#include "lincity/world.hpp"          // for World
 #include "tinygettext/gettext.hpp"  // for _
 
 void

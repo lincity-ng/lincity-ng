@@ -26,17 +26,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"                              // for getGame
 #include "MiniMap.hpp"                           // for getMiniMap, MiniMap
 #include "Mps.hpp"                               // for Mps, globalMPS, envMPS
-#include "gui_interface/mps.h"                   // for MPS_MAP, MPS_ENV
+#include "gui_interface/mps.hpp"                   // for MPS_MAP, MPS_ENV
 #include "lincity/commodities.hpp"               // for Commodity
-#include "lincity/engglobs.h"                    // for world, people_pool
-#include "lincity/groups.h"                      // for GROUP_WATER, GROUP_D...
-#include "lincity/lclib.h"                       // for num_to_ansi
-#include "lincity/lin-city.h"                    // for FLAG_CRICKET_COVER
-#include "lincity/lintypes.h"                    // for ConstructionGroup
-#include "lincity/modules/modules_interfaces.h"  // for mps_water
-#include "lincity/modules/shanty.h"              // for ShantyConstructionGroup
-#include "lincity/stats.h"                       // for ltdeaths, ly_coal_tax
-#include "lincity/world.h"                       // for Map, MapTile, Ground
+#include "lincity/engglobs.hpp"                    // for world, people_pool
+#include "lincity/groups.hpp"                      // for GROUP_WATER, GROUP_D...
+#include "lincity/lclib.hpp"                       // for num_to_ansi
+#include "lincity/lin-city.hpp"                    // for FLAG_CRICKET_COVER
+#include "lincity/lintypes.hpp"                    // for ConstructionGroup
+#include "lincity/modules/modules_interfaces.hpp"  // for mps_water
+#include "lincity/modules/shanty.hpp"              // for ShantyConstructionGroup
+#include "lincity/stats.hpp"                       // for ltdeaths, ly_coal_tax
+#include "lincity/world.hpp"                       // for Map, MapTile, Ground
 #include "tinygettext/gettext.hpp"               // for N_, _
 
 // this is the MPS-status display, which describes the cells

@@ -19,7 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "xmlloadsave.h"
+#include "xmlloadsave.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/parser.h>                // for XML_PARSE_NONET
@@ -51,11 +51,11 @@
 
 #include "MapPoint.hpp"                   // for MapPoint
 #include "commodities.hpp"                // for Commodity, CommodityRule
-#include "lin-city.h"                     // for VOLATILE_FLAGS, FLAG_CRICKE...
-#include "lintypes.h"                     // for xmlTextWriterPtr, Construction
-#include "stats.h"                        // for Stats, Stat
-#include "world.h"                        // for World, MapTile, Map, Ground
-#include "lclib.h"
+#include "lin-city.hpp"                     // for VOLATILE_FLAGS, FLAG_CRICKE...
+#include "lintypes.hpp"                     // for xmlTextWriterPtr, Construction
+#include "stats.hpp"                        // for Stats, Stat
+#include "world.hpp"                        // for World, MapTile, Map, Ground
+#include "util.hpp"
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world);
 static void loadGlobals(xmlpp::TextReader& xmlReader, World& World,

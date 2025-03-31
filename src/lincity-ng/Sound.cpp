@@ -37,10 +37,10 @@
 #include "Config.hpp"             // for getConfig, Config
 #include "gui/XmlReader.hpp"      // for XmlReader
 #include "libxml/xmlreader.h"     // for XML_READER_TYPE_ELEMENT
-#include "lincity/lin-city.h"     // for MAX_TECH_LEVEL
-#include "lincity/lintypes.h"     // for Construction
+#include "lincity/lin-city.hpp"     // for MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"     // for Construction
 #include "lincity/resources.hpp"  // for ResourceGroup
-#include "lincity/world.h"        // for MapTile
+#include "lincity/world.hpp"        // for MapTile
 
 Sound* soundPtr = 0;
 

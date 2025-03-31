@@ -52,10 +52,10 @@
 #include "gui/Signal.hpp"               // for Signal
 #include "gui/SwitchComponent.hpp"      // for SwitchComponent
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "lincity/init_game.h"          // for _CitySettings, new_city, city...
-#include "lincity/lintypes.h"           // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.h"              // for Stat, Stats
-#include "lincity/world.h"              // for World
+#include "lincity/init_game.hpp"          // for _CitySettings, new_city, city...
+#include "lincity/lintypes.hpp"           // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"              // for Stat, Stats
+#include "lincity/world.hpp"              // for World
 #include "tinygettext/gettext.hpp"      // for _, N_, dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 

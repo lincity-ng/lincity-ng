@@ -42,14 +42,14 @@
 #include "Sound.hpp"                     // for getSound, Sound
 #include "gui/DialogBuilder.hpp"         // for DialogBuilder
 #include "lincity/MapPoint.hpp"          // for MapPoint
-#include "lincity/groups.h"              // for GROUP_MARKET, GROUP_MONUMENT
-#include "lincity/lin-city.h"            // for FLAG_NEVER_EVACUATE, MAX_TEC...
-#include "lincity/lintypes.h"            // for ConstructionGroup, Construction
-#include "lincity/modules/parkland.h"    // for ParklandConstructionGroup
-#include "lincity/modules/rocket_pad.h"  // for RocketPad
-#include "lincity/modules/windmill.h"    // for WindmillConstructionGroup
-#include "lincity/modules/windpower.h"   // for WindpowerConstructionGroup
-#include "lincity/world.h"               // for World, Map, MapTile
+#include "lincity/groups.hpp"              // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/lin-city.hpp"            // for FLAG_NEVER_EVACUATE, MAX_TEC...
+#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
+#include "lincity/modules/parkland.hpp"    // for ParklandConstructionGroup
+#include "lincity/modules/rocket_pad.hpp"  // for RocketPad
+#include "lincity/modules/windmill.hpp"    // for WindmillConstructionGroup
+#include "lincity/modules/windpower.hpp"   // for WindpowerConstructionGroup
+#include "lincity/world.hpp"               // for World, Map, MapTile
 #include "tinygettext/gettext.hpp"       // for _
 
 UserOperation::UserOperation() {

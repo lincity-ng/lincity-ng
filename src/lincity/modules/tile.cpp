@@ -26,8 +26,8 @@
 
 #include <cassert>                  // for assert
 
-#include "lincity/all_buildings.h"  // for GROUP_BARE_BUL_COST, GROUP_BARE_C...
-#include "lincity/groups.h"         // for GROUP_BARE, GROUP_DESERT, GROUP_TREE
+#include "lincity/all_buildings.hpp"  // for GROUP_BARE_BUL_COST, GROUP_BARE_C...
+#include "lincity/groups.hpp"         // for GROUP_BARE, GROUP_DESERT, GROUP_TREE
 #include "tinygettext/gettext.hpp"  // for N_
 
 TileConstructionGroup waterConstructionGroup(

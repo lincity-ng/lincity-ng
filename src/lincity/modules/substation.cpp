@@ -22,17 +22,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "substation.h"
+#include "substation.hpp"
 
 #include <list>                     // for _List_iterator
 #include <map>                      // for map
 #include <string>                   // for basic_string, operator<
 
 #include "lincity-ng/Mps.hpp"       // for Mps
-#include "lincity/groups.h"         // for GROUP_SUBSTATION
-#include "lincity/lin-city.h"       // for FALSE
+#include "lincity/groups.hpp"         // for GROUP_SUBSTATION
+#include "lincity/lin-city.hpp"       // for FALSE
 #include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "lincity/world.h"          // for World
+#include "lincity/world.hpp"          // for World
 #include "tinygettext/gettext.hpp"  // for N_
 
 SubstationConstructionGroup substationConstructionGroup(

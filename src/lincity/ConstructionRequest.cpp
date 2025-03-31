@@ -22,15 +22,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "ConstructionRequest.h"
+#include "ConstructionRequest.hpp"
 
-#include "all_buildings.h"        // for ORE_RESERVE
-#include "groups.h"               // for GROUP_WATER
-#include "lin-city.h"             // for FLAG_POWER_CABLES_0, FLAG_POWER_CAB...
-#include "lintypes.h"             // for Construction, ConstructionGroup
-#include "modules/all_modules.h"  // for FireConstructionGroup, Fire, Parkla...
-#include "transport.h"            // for POWER_MODULUS
-#include "world.h"                // for World, Map, MapTile
+#include "all_buildings.hpp"        // for ORE_RESERVE
+#include "groups.hpp"               // for GROUP_WATER
+#include "lin-city.hpp"             // for FLAG_POWER_CABLES_0, FLAG_POWER_CAB...
+#include "lintypes.hpp"             // for Construction, ConstructionGroup
+#include "modules/all_modules.hpp"  // for FireConstructionGroup, Fire, Parkla...
+#include "transport.hpp"            // for POWER_MODULUS
+#include "world.hpp"                // for World, Map, MapTile
 
 //#include "../lincity-ng/Mps.hpp"
 //FIXME cannot include mps.h because of differing paths for further dependencies

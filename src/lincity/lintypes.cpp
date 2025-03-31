@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "lintypes.h"
+#include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
@@ -34,21 +34,21 @@
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionRequest.h"          // for PowerLineFlashRequest
-#include "Vehicles.h"                     // for Vehicle, VehicleStrategy
+#include "ConstructionRequest.hpp"          // for PowerLineFlashRequest
+#include "Vehicles.hpp"                     // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
-#include "groups.h"                       // for GROUP_POWER_LINE, GROUP_FIRE
-#include "lin-city.h"                     // for FLAG_EVACUATE, FLAG_IS_TRAN...
+#include "groups.hpp"                       // for GROUP_POWER_LINE, GROUP_FIRE
+#include "lin-city.hpp"                     // for FLAG_EVACUATE, FLAG_IS_TRAN...
 #include "lincity-ng/Config.hpp"          // for getConfig, Config
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
-#include "modules/all_modules.h"          // for Powerline, GROUP_MARKET_RANGE
-#include "stats.h"                        // for Stats, Stat
+#include "modules/all_modules.hpp"          // for Powerline, GROUP_MARKET_RANGE
+#include "stats.hpp"                        // for Stats, Stat
 #include "tinygettext/gettext.hpp"        // for _
-#include "transport.h"                    // for TRANSPORT_QUANTA, TRANSPORT...
-#include "world.h"                        // for World, Map, MapTile
-#include "xmlloadsave.h"                  // for xmlStr, unexpectedXmlElement
-#include "lclib.h"
+#include "transport.hpp"                    // for TRANSPORT_QUANTA, TRANSPORT...
+#include "world.hpp"                        // for World, Map, MapTile
+#include "xmlloadsave.hpp"                  // for xmlStr, unexpectedXmlElement
+#include "util.hpp"
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 

@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "shanty.h"
+#include "shanty.hpp"
 
 #include <stdio.h>                        // for fprintf, stderr, printf
 #include <stdlib.h>                       // for rand
@@ -30,16 +30,16 @@
 #include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
 
-#include "commune.h"                      // for CommuneConstructionGroup
-#include "fire.h"                         // for FIRE_ANIMATION_SPEED
+#include "commune.hpp"                      // for CommuneConstructionGroup
+#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.h"  // for BurnDownRequest
-#include "lincity/groups.h"               // for GROUP_SHANTY, GROUP_MARKET
-#include "lincity/lin-city.h"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/ConstructionRequest.hpp"  // for BurnDownRequest
+#include "lincity/groups.hpp"               // for GROUP_SHANTY, GROUP_MARKET
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.h"                // for Stat, Stats
-#include "lincity/world.h"                // for World, Map, MapTile
-#include "modules_interfaces.h"           // for add_a_shanty, update_shanty
+#include "lincity/stats.hpp"                // for Stat, Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "modules_interfaces.hpp"           // for add_a_shanty, update_shanty
 #include "tinygettext/gettext.hpp"        // for N_
 
 // Shanty:

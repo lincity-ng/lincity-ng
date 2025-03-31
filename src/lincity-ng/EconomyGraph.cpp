@@ -48,10 +48,10 @@
 #include "gui/TextureManager.hpp"    // for TextureManager, texture_manager
 #include "gui/Vector2.hpp"           // for Vector2
 #include "gui/XmlReader.hpp"         // for XmlReader
-#include "lincity/lintypes.h"        // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.h"           // for Stats
-#include "lincity/sustainable.h"     // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
-#include "lincity/world.h"           // for World
+#include "lincity/lintypes.hpp"        // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"           // for Stats
+#include "lincity/sustainable.hpp"     // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
+#include "lincity/world.hpp"           // for World
 #include "tinygettext/gettext.hpp"   // for _
 
 EconomyGraph::EconomyGraph(){

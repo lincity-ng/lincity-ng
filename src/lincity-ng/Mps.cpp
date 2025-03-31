@@ -38,13 +38,13 @@
 #include "gui/Paragraph.hpp"              // for Paragraph
 #include "gui/XmlReader.hpp"              // for XmlReader
 #include "lincity/commodities.hpp"        // for Commodity
-#include "lincity/groups.h"               // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lclib.h"                // for num_to_ansi, current_year
-#include "lincity/lin-city.h"             // for FLAG_IS_LAKE, FLAG_IS_RIVER
-#include "lincity/lintypes.h"             // for NUMOF_DAYS_IN_MONTH, Constr...
-#include "lincity/modules/all_modules.h"  // for TileConstructionGroup, Shan...
-#include "lincity/stats.h"                // for Stat, Stats
-#include "lincity/world.h"                // for MapTile, World, Map, Ground
+#include "lincity/groups.hpp"               // for GROUP_DESERT, GROUP_WATER
+#include "lincity/util.hpp"                // for num_to_ansi, current_year
+#include "lincity/lin-city.hpp"             // for FLAG_IS_LAKE, FLAG_IS_RIVER
+#include "lincity/lintypes.hpp"             // for NUMOF_DAYS_IN_MONTH, Constr...
+#include "lincity/modules/all_modules.hpp"  // for TileConstructionGroup, Shan...
+#include "lincity/stats.hpp"                // for Stat, Stats
+#include "lincity/world.hpp"                // for MapTile, World, Map, Ground
 #include "tinygettext/gettext.hpp"        // for N_, _
 
 Mps::Mps() { }

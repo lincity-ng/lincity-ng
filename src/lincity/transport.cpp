@@ -21,17 +21,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "transport.h"
+#include "transport.hpp"
 
 #include <stdio.h>          // for NULL
 #include <list>             // for _List_iterator
 
 #include "commodities.hpp"  // for Commodity
-#include "groups.h"         // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_BRIDGE
-#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_INVISIBLE, FLAG_PO...
-#include "lintypes.h"       // for Construction
+#include "groups.hpp"         // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_BRIDGE
+#include "lin-city.hpp"       // for FLAG_TRANSPARENT, FLAG_INVISIBLE, FLAG_PO...
+#include "lintypes.hpp"       // for Construction
 #include "resources.hpp"    // for ExtraFrame
-#include "world.h"          // for Map, MapTile
+#include "world.hpp"          // for Map, MapTile
 
 
 
