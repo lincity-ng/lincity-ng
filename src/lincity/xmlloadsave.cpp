@@ -47,7 +47,6 @@
 
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, alt_min, alt_max
-#include "engine.h"                        // for desert_water_frontiers
 #include "gui_interface/pbar_interface.h"  // for pbar_st, NUM_PBARS, PBAR_D...
 #include "gui_interface/shared_globals.h"  // for monthgraph_size, main_scre...
 #include "lin-city.h"                      // for VOLATILE_FLAGS

@@ -21,14 +21,12 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
-/* ---------------------------------------------------------------------- *
 
 #include "ConstructionRequest.h"
 
 #include "../gui_interface/mps.h"  // for mps_set, MPS_MAP
 #include "all_buildings.h"         // for ORE_RESERVE
 #include "engglobs.h"              // for world
-#include "engine.h"                // for desert_water_frontiers, connect_ri...
 #include "groups.h"                // for GROUP_WATER
 #include "lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_POWER_CA...
 #include "lintypes.h"              // for Construction, MapTile, Constructio...

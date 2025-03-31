@@ -31,7 +31,6 @@
 #include "lincity/all_buildings.h"        // tally: 1111111111111111111111111111111
 #include "lincity/commodities.hpp"
 #include "lincity/engglobs.h"             // tally:
-#include "lincity/engine.h"               // tally: 1111111111111111111
 #include "lincity/groups.h"               // tally: 11111111111111111111111111111111
 #include "lincity/lin-city.h"             // tally: 111111111111111111111111111111111
 #include "lincity/lintypes.h"             // tally: 111111111111111111111111111111111

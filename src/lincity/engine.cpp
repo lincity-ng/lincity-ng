@@ -29,7 +29,6 @@
 #include "ConstructionRequest.h"           // for BurnDownRequest, Construct...
 #include "all_buildings.h"                 // for POL_DIV
 #include "engglobs.h"                      // for world, tota...
-#include "engine.h"
 #include "groups.h"                        // for GROUP_DESERT, GROUP_FIRE
 #include "gui_interface/mps.h"             // for mps_update
 #include "lctypes.h"                       // for CST_GREEN, CST_DESERT

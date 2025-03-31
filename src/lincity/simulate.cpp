@@ -22,8 +22,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "simulate.h"
-
 #include <array>                           // for array
 #include <cstdlib>                         // for rand, abs
 #include <iterator>                        // for advance
@@ -35,7 +33,6 @@
 #include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
 #include "commodities.hpp"                 // for CommodityRule, Commodity
 #include "engglobs.h"                      // for tech_level, total_money
-#include "engine.h"                        // for do_random_fire, scan_pollu...
 #include "groups.h"                        // for GROUP_FIRE, GROUP_MONUMENT
 #include "gui_interface/pbar_interface.h"  // for update_pbars_monthly
 #include "lin-city.h"                      // for MAX_TECH_LEVEL, TECH_LEVEL...

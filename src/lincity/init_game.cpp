@@ -37,7 +37,6 @@
 #include "all_buildings.h"                 // for COAL_RESERVE_SIZE, COAL_TA...
 #include "commodities.hpp"                 // for Commodity, CommodityRule
 #include "engglobs.h"                      // for world, global_mountainity
-#include "engine.h"                        // for desert_water_frontiers
 #include "groups.h"                        // for GROUP_BARE, GROUP_TREE
 #include "gui_interface/pbar_interface.h"  // for init_pbars, refresh_pbars
 #include "gui_interface/shared_globals.h"  // for update_avail_modules, mont...

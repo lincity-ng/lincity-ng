@@ -54,7 +54,6 @@
 #include "lincity/engglobs.h"              // for constructionCount
 #include "lincity/lin-city.h"              // for ANIMATE_DELAY, SIM_DELAY_P...
 #include "lincity/lintypes.h"              // for Construction
-#include "lincity/simulate.h"              // for do_animate, do_time_step
 #include "PBar.hpp"
 #include "Sound.hpp"
 #include "tinygettext/gettext.hpp"

@@ -28,7 +28,6 @@
 
 #include "commodities.hpp"        // for Commodity
 #include "engglobs.h"             // for world
-#include "engine.h"               // for check_group, check_topgroup
 #include "groups.h"               // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_...
 #include "lin-city.h"             // for FLAG_TRANSPARENT, FLAG_INVISIBLE
 #include "lintypes.h"             // for Construction
