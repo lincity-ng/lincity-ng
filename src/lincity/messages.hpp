@@ -33,6 +33,7 @@ class CannotBuildHereMessage;
 class CannotBuildMessage;
 class CannotBulldozeIncompleteMonumentMessage;
 class CannotBulldozeNonemptyTipMessage;
+class CannotBulldozeThisEverMessage;
 class CannotBulldozeThisMessage;
 class CannotEvacuateThisMessage;
 class ConstructionGroup;
@@ -434,12 +435,8 @@ public:
 
   virtual std::string str() const override;
 
-  MapPoint getPoint() const { return point; }
-
-protected:
-  const MapPoint point;
-
   DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeIncompleteMonumentMessage,
+
     CannotBulldozeThisMessage);
 };
 
@@ -450,12 +447,22 @@ public:
 
   virtual std::string str() const override;
 
-  MapPoint getPoint() const { return point; }
-
-protected:
-  const MapPoint point;
-
   DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeNonemptyTipMessage,
+
+    CannotBulldozeThisMessage);
+};
+
+
+class CannotBulldozeThisEverMessage : public CannotBulldozeThisMessage {
+public:
+  CannotBulldozeThisEverMessage(const MapPoint point, ConstructionGroup &grp)
+    : CannotBulldozeThisMessage(point, grp)
+  { }
+
+  virtual std::string str() const override;
+
+  DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeThisEverMessage,
+
     CannotBulldozeThisMessage);
 };
 

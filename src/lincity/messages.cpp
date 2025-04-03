@@ -160,6 +160,14 @@ CannotBulldozeNonemptyTipMessage::str() const {
   ).str();
 }
 
+std::string
+CannotBulldozeThisEverMessage::str() const {
+  return (std::stringstream()
+    << "cannot bulldoze " << group.name
+    << ": " << point
+  ).str();
+}
+
 
 std::string
 RocketReadyMessage::str() const {

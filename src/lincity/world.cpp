@@ -490,7 +490,8 @@ World::bulldozeArea(MapPoint point) {
   if(g == GROUP_DESERT)
     return; // nothing to do
   else if (g == GROUP_FIRE)
-    CannotBulldozeThisMessage::create(point, fireConstructionGroup)->throwEx();
+    CannotBulldozeThisEverMessage::create(point, fireConstructionGroup)
+      ->throwEx();
   else if (g == GROUP_MONUMENT
     && !dynamic_cast<Monument *>(cst)->completed
   )

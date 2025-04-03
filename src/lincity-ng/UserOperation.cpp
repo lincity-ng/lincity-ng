@@ -341,6 +341,7 @@ UserOperation::handleMessage(Message::ptr message_) {
         << typeid(*message).name() << ": "
         << message->str() << std::endl;
 // #endif
+      assert(false);
     }
     else {
 // #ifdef DEBUG
@@ -351,6 +352,7 @@ UserOperation::handleMessage(Message::ptr message_) {
       dialog
         .messageAddText(_("unrecognized reason"))
         .imageFile("images/gui/dialogs/error.png");
+      assert(false);
     }
     dialog.build();
   }
@@ -379,16 +381,33 @@ UserOperation::handleMessage(Message::ptr message_) {
         .messageAddText(_("You cannot bulldoze a monument that under "
           "construction."));
     }
-    else {
-      // TODO: CannotBulldozeThisMessage should include a reason like
-      //       CannotBuildMessage does. This would allow explicitly giving the
-      //       reason that such a construction is never bulldozable.
-      assert(typeid(*message) == typeid(CannotBulldozeThisMessage));
+    else if(CannotBulldozeThisEverMessage::ptr message =
+      dynamic_message_cast<CannotBulldozeThisEverMessage>(message_)
+    ) {
       dialog
         .messageAddTextBold(_("You cannot bulldoze a ")
           + message->getGroup().name + ".")
         .messageAddText(_("You are not allowed to bulldoze this type of "
           "construction."));
+    }
+    else {
+// #ifdef DEBUG
+      std::cerr << "warning: unrecognized message derived from "
+        << "CannotBulldozeThisMessage: "
+        << typeid(*message_).name() << ": "
+        << message_->str() << std::endl;
+// #endif
+      {
+        CannotBulldozeThisMessage::ptr message =
+          dynamic_message_cast<CannotBulldozeThisMessage>(message_);
+        dialog
+          .messageAddTextBold(_("You cannot bulldoze this")
+            + message->getGroup().name + ".")
+          .messageAddText(_("You are not allowed to bulldoze this")
+            + message->getGroup().name
+            + _(", but we're not exactly sure why."));
+      }
+      assert(false);
     }
     dialog.build();
   }
