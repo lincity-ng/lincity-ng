@@ -224,7 +224,7 @@ public:
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(World& world) = 0;
 
-    std::string getName(void);
+    std::string getName(void) const;
 
     std::string resourceID;           /* name for matching resources from XML*/
     std::string name;           /* inGame name of group */

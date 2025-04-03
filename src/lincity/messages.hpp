@@ -249,17 +249,17 @@ protected:
 
 class FireStartedMessage : public Message {
 public:
-  FireStartedMessage(MapPoint point, ConstructionGroup& grp) :
+  FireStartedMessage(MapPoint point, const ConstructionGroup& grp) :
     point(point), group(grp) { }
 
   virtual std::string str() const override;
 
   MapPoint getPoint() const { return point; }
-  ConstructionGroup& getGroup() const { return group; }
+  const ConstructionGroup& getGroup() const { return group; }
 
 protected:
   MapPoint point;
-  ConstructionGroup& group;
+  const ConstructionGroup& group;
 
   DEFINE_MESSAGE_BOILERPLATE(FireStartedMessage, Message);
 };

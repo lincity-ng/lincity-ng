@@ -192,14 +192,14 @@ World::do_random_fire() {
   if(!map.is_visible(loc))
     return;
 
-  if(rand() % 100 >= map(loc)->getConstructionGroup()->fire_chance)
+  const ConstructionGroup& cstGrp = *map(loc)->getConstructionGroup();
+  if(rand() % 100 >= cstGrp.fire_chance)
     return;
   if(map(loc)->flags & FLAG_FIRE_COVER)
     return;
 
   fire_area(loc);
-  pushMessage(FireStartedMessage::create(loc,
-    *map(loc)->getConstructionGroup()));
+  pushMessage(FireStartedMessage::create(loc, cstGrp));
 }
 
 void

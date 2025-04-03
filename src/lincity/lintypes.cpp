@@ -857,8 +857,9 @@ ConstructionGroup::placeItem(World& world, int x, int y) {
   tmpConstr->place(x, y);
 }
 
-std::string ConstructionGroup::getName(void){
-    return _(name.c_str());
+std::string
+ConstructionGroup::getName(void) const {
+  return _(name.c_str());
 }
 
 extern void ok_dial_box(const char *, int, const char *);
