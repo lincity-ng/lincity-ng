@@ -67,12 +67,7 @@ Config::Config() {
   language = "autodetect";
   appDataDirIsDefault = false;
   userDataDirIsDefault = false;
-  // TODO: remove this. also see issue #225
   worldSize = WORLD_SIDE_LEN;
-  // TODO: Remove monthgraph size from config. Monthgraph size should be based
-  //       on available space in GUI.
-  monthgraphW = 190;
-  monthgraphH = 64;
 }
 
 Config::~Config() {}
@@ -174,11 +169,7 @@ void Config::load(std::filesystem::path configFile) {
 
         std::string xml_tag = xmlReader.get_name();
         std::string xml_val = xmlReader.read_inner_xml();
-        if(xml_tag == "monthgraphW")
-          monthgraphW = parseInt(xml_val, monthgraphW, 0);
-        else if(xml_tag == "monthgraphH")
-          monthgraphH = parseInt(xml_val, monthgraphH, 0);
-        else if(xml_tag == "language")
+        if(xml_tag == "language")
           language = xml_val;
         else if(xml_tag == "WorldSideLen")
           worldSize = parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000);

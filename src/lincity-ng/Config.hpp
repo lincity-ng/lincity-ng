@@ -42,7 +42,6 @@ public:
   bool useFullScreen;
   bool restartOnChangeScreen;
   int videoX, videoY;
-  int monthgraphW, monthgraphH;
 
   // sound volume 0..100 (0=silent)
   int soundVolume;

@@ -22,6 +22,7 @@
 #ifndef __EconomyGraph_HPP
 #define __EconomyGraph_HPP
 
+#include <deque>
 #include <string>             // for basic_string, string
 
 #include "gui/Component.hpp"  // for Component
@@ -49,12 +50,25 @@ public:
 private:
     Game *game;
 
+    std::deque<int> fps;
+
     static const int border = 5;
+    static const int headingVSpace = 10;
+    static const int headingVOffset = -1;
+    static const int headingHOffset = 5;
+    static const int sustHeight = 60;
+    static const int sustBarSpace = 10;
+    static const int sustBarHeight = 5;
+    static const int sustBarVOffset = 3;
+    static const int sustBarStart = 40;
+    static const int sustBarStub = 1;
+    static const int sustLabelVOffset = -1;
+    static const int fpsHeight = 40;
+
     void drawHistoryLineGraph( Painter& painter, Rect2D mg );
     void drawSustBarGraph( Painter& painter, Rect2D mg );
     void drawFPSGraph( Painter& painter, Rect2D fpsRect );
 
-    int* fps;
     Texture* labelTextureMIN;
     Texture* labelTexturePRT;
     Texture* labelTextureMNY;
@@ -65,8 +79,6 @@ private:
     Texture* labelTextureEconomy;
     Texture* labelTextureSustainability;
     Texture* labelTextureFPS;
-
-    bool nobodyHomeDialogShown;
 
     CheckButton* switchEconomyGraphButton;
     std::string switchEconomyGraphText;

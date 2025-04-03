@@ -23,17 +23,18 @@
 #include "EconomyGraph.hpp"
 
 #include <SDL.h>                     // for SDL_Surface
+#include <SDL_opengl.h>              // for glDisable, GL_LINE_SMOOTH
 #include <SDL_ttf.h>                 // for TTF_RenderUTF8_Blended, TTF_Font
 #include <stdio.h>                   // for sscanf, NULL
-#include <stdlib.h>                  // for free, malloc
 #include <string.h>                  // for strcmp
-#include <cmath>                     // for log
+#include <algorithm>                 // for min, max
+#include <cassert>                   // for assert
+#include <cmath>                     // for log, sqrt
 #include <deque>                     // for deque
 #include <iostream>                  // for basic_ostream, operator<<, strin...
 #include <sstream>                   // for basic_stringstream
 #include <stdexcept>                 // for runtime_error
 
-#include "Config.hpp"                // for getConfig, Config
 #include "Game.hpp"                  // for Game
 #include "Util.hpp"                  // for getCheckButton
 #include "gui/CheckButton.hpp"       // for CheckButton
@@ -48,17 +49,13 @@
 #include "gui/TextureManager.hpp"    // for TextureManager, texture_manager
 #include "gui/Vector2.hpp"           // for Vector2
 #include "gui/XmlReader.hpp"         // for XmlReader
-#include "lincity/lintypes.hpp"        // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"           // for Stats
-#include "lincity/sustainable.hpp"     // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
-#include "lincity/world.hpp"           // for World
+#include "lincity/lintypes.hpp"      // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"         // for Stats
+#include "lincity/sustainable.hpp"   // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
+#include "lincity/world.hpp"         // for World
 #include "tinygettext/gettext.hpp"   // for _
 
-EconomyGraph::EconomyGraph(){
-    fps = (int*) malloc (sizeof(int) * getConfig()->monthgraphW );
-    for ( int i = 0; i < getConfig()->monthgraphW; i++) {
-        fps[i] = 0;
-    }
+EconomyGraph::EconomyGraph() {
     labelTextureMIN = 0;
     labelTexturePRT = 0;
     labelTextureMNY = 0;
@@ -69,12 +66,10 @@ EconomyGraph::EconomyGraph(){
     labelTextureSustainability = 0;
     labelTextureFPS = 0;
 
-    nobodyHomeDialogShown = false;
     switchEconomyGraphButton = NULL;
 }
 
 EconomyGraph::~EconomyGraph(){
-    free( fps );
     delete labelTextureMIN;
     delete labelTexturePRT;
     delete labelTextureMNY;
@@ -149,66 +144,86 @@ void EconomyGraph::parse( XmlReader& reader ){
     labelTextureFPS = texture_manager->create( labelXXX );
 }
 
-void EconomyGraph::newFPS( int frame ){
-    int w = getConfig()->monthgraphW;
-    int h = getConfig()->monthgraphH;
+void
+EconomyGraph::newFPS(int frame) {
+  fps.push_front(frame);
+  fps.resize(getWidth() - border * 2);
 
-    for( int i = w - 1; i > 0; i--) {
-        fps[ i ] = fps[i-1];
-    }
-    fps[ 0 ] = h * frame / 100;
-    setDirty();
+  setDirty();
 }
 
-void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
-  // see oldgui/screen.cpp do_history_linegraph
-  Vector2 a;
-  Vector2 b;
-
+void
+EconomyGraph::drawHistoryLineGraph(Painter& painter, Rect2D space) {
   Color red, yellow, blue, brown, grey;
-  red.parse( "red");
-  yellow.parse( "yellow" );
-  blue.parse( "blue" );
-  brown.parse( "brown" );
+  red.parse("red");
+  yellow.parse("yellow");
+  blue.parse("blue");
+  brown.parse("brown");
   grey.parse("#A9A9A9FF");
 
-  painter.setClipRectangle( mg );
-  painter.setFillColor( grey );
-  painter.fillRectangle( mg );
-  int mgX = (int) mg.p1.x;
-  int mgY = (int) mg.p1.y;
-  int mgW = (int) mg.getWidth();
-  int mgH = (int) mg.getHeight();
+  painter.setFillColor(grey);
+  painter.fillRectangle(space);
 
-  float scale = (float) mgH / NUMOF_DAYS_IN_MONTH / (5.3 * log(10.));
-  float ppoolScale = (float) mgH / NUMOF_DAYS_IN_MONTH;
   auto& history = game->getWorld().stats.history;
+  const int w = (int)space.getWidth();
+  if(history.pop.size() < w) history.pop.resize(w);
+  if(history.ppool.size() < w) history.ppool.resize(w);
+  if(history.nojobs.size() < w) history.nojobs.resize(w);
+  if(history.starve.size() < w) history.starve.resize(w);
 
-  b.y = mgY + mgH;
-  for( int i = mgW - 1; i >= 0; i-- ){
-    painter.setLineColor( yellow );
-    a.x = mgX + mgW - i;
-    a.y = mgY + mgH - scale * history.nojobs[i];
+  // Half needs to be (.0,.0) to avoid gaps in the line from
+  // implementation-dependent tie-breaking. If half is (.5,.5) then lines will
+  // traverse exactly half way through the start/end pixels, and sometimes these
+  // "half-way" pixels are not draw as we want them to be. Setting half to
+  // (.0,.0) makes the lines traverse from one side of the pixel to the other,
+  // thus making sure the pixel is drawn.
+  const Vector2 half(.0, .0);
+  const float popScale0 = -log(100. * NUMOF_DAYS_IN_MONTH);
+  const float popScale1 = 1/log(1000.);
+  int pop = 0, popPrev;
+  float val, valP;
+  for(int i = 0; i < w; i++) {
+    popPrev = pop;
+    pop = history.pop[i];
 
-    b.x = mgX + mgW - i;
-    painter.drawLine( a, b );
-    painter.setLineColor( red );
-    a.y = mgY + mgH - scale * history.starve[i];
-    painter.drawLine( a, b );
+    if(!pop) continue;
+
+    val = 2 * sqrt((float)history.nojobs[i] / pop);
+    painter.setFillColor(yellow);
+    painter.fillRectangle(Rect2D(
+      space.p2 - Vector2(i+1, space.getHeight() * std::min(1.f, val)),
+      space.p2 - Vector2(i, 0)));
+
+    val = 2 * sqrt((float)history.starve[i] / pop);
+    painter.setFillColor(red);
+    painter.fillRectangle(Rect2D(
+      space.p2 - Vector2(i+1, space.getHeight() * std::min(1.f, val)),
+      space.p2 - Vector2(i, 0)));
+
+    // glEnable(GL_LINE_SMOOTH);
+    val = std::max(0.f, log((float)pop) + popScale0) * popScale1;
+    valP = !popPrev ? val :
+      std::max(0.f, log((float)popPrev) + popScale0) * popScale1;
+    painter.setLineColor(brown);
+    painter.drawLine(
+      space.p2 - half
+        - Vector2(i, (space.getHeight()-1) * std::min(1.f, val)),
+      space.p2 - half
+        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, valP)));
+
+    val = 2 * sqrt((float)history.ppool[i] / pop);
+    valP = !popPrev ? val :
+      2 * sqrt((float)history.ppool[i - 1] / popPrev);
+    painter.setLineColor(blue);
+    painter.drawLine(
+      space.p2 - half
+        - Vector2(i, (space.getHeight()-1) * std::min(1.f, val)),
+      space.p2 - half
+        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, valP)));
+
+    glDisable(GL_LINE_SMOOTH);
   }
-  for( int i = mgW - 1; i > 0; i-- ){
-    painter.setLineColor( brown );
-    a.x = mgX + mgW - i;
-    a.y = mgY + mgH - scale * history.pop[i];
-    b.x = mgX + mgW - i-1;
-    b.y = mgY + mgH - scale * history.pop[i-1];
-    painter.drawLine( a, b );
-    a.y = mgY + mgH - ppoolScale * history.ppool[i] / history.pop[i];
-    b.y = mgY + mgH - ppoolScale * history.ppool[i-1] / history.pop[i-1];
-    painter.setLineColor( blue );
-    painter.drawLine( a, b );
-  }
-  painter.clearClipRectangle();
+  // painter.clearClipRectangle();
 
 
   // set tab Button colour
@@ -232,182 +247,184 @@ void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
   } else {
     switchEconomyGraphParagraph->setText(switchEconomyGraphText, normalStyle);
   }
-
-  setDirty();
 }
 
-void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
-    // see oldgui/screen.cpp do_sust_barchart
-    Color grey,yellow,orange,black,green,blue,red;
-    grey.parse( "#A9A9A9FF" );
-    yellow.parse( "yellow" );
-    orange.parse( "orange" );
-    black.parse( "black" );
-    green.parse( "green" );
-    blue.parse( "blue" );
-    red.parse( "red" );
+void
+EconomyGraph::drawSustBarGraph(Painter& painter, Rect2D space) {
+  Color grey,yellow,orange,black,green,blue,red;
+  grey.parse( "#A9A9A9FF" );
+  yellow.parse( "yellow" );
+  orange.parse( "orange" );
+  black.parse( "black" );
+  green.parse( "green" );
+  blue.parse( "blue" );
+  red.parse( "red" );
 
-    painter.setFillColor( grey );
-    painter.fillRectangle( mg );
+  painter.setFillColor(grey);
+  painter.fillRectangle(space);
 
-    int mgX = (int) mg.p1.x;
-    int mgY = (int) mg.p1.y;
-    int mgW = (int) mg.getWidth();
-    int mgH = (int) mg.getHeight();
+  const auto& sustainability = game->getWorld().stats.sustainability;
+  const float startLine = space.p1.x + sustBarStart;
+  const float barLeft = startLine - sustBarStub;
+  const float lenMax = space.getWidth() - sustBarStart;
+  float y = space.p1.y;
+  float len;
 
-    Vector2 a, b, p;
+  /* draw the starting line */
+  painter.setLineColor(yellow);
+  painter.drawLine(
+    Vector2(startLine, space.p1.y),
+    Vector2(startLine, space.p2.y));
 
-#define SUST_BAR_H      5
-#define SUST_BAR_GAP_Y  5
+  // mining
+  len = sustainability.mining_years * lenMax / SUST_ORE_COAL_YEARS_NEEDED;
+  painter.setFillColor(orange);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTextureMIN,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-	/* draw the starting line */
-    a.x = mgX + 38;
-    a.y = mgY;
-    b.x = mgX + 38;
-    b.y = mgY + mgH;
-    p.x = mgX;
-    p.y = mgY;
-    painter.setLineColor( yellow );
-    painter.drawLine( a, b);
+  // trade
+  len = sustainability.trade_years * lenMax / SUST_PORT_YEARS_NEEDED;
+  painter.setFillColor(black);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTexturePRT,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-    Rect2D bar;
-    bar.p1.x = mgX + 36;
-    bar.p1.y = mgY + SUST_BAR_GAP_Y;
-    bar.setHeight( SUST_BAR_H );
-    int maxBarLen = mgW - 40;
-    int newLen;
-    int len;
-    auto& sustainability = game->getWorld().stats.sustainability;
+  // money
+  len = sustainability.money_years * lenMax / SUST_MONEY_YEARS_NEEDED;
+  painter.setFillColor(green);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTextureMNY,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-	/* ore coal */
-    newLen = sustainability.mining_years *
-      maxBarLen / SUST_ORE_COAL_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( orange );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureMIN, p );
+  // population
+  len = sustainability.population_years * lenMax / SUST_POP_YEARS_NEEDED;
+  painter.setFillColor(blue);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTexturePOP,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-	/* import export */
-    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = sustainability.trade_years * maxBarLen / SUST_PORT_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( black );
-    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTexturePRT, p );
+  // tech
+  len = sustainability.tech_years * lenMax / SUST_TECH_YEARS_NEEDED;
+  painter.setFillColor(yellow);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTextureTEC,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-	/* money */
-    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = sustainability.money_years * maxBarLen / SUST_MONEY_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( green );
-    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureMNY, p );
+  // fire
+  len = sustainability.fire_years * lenMax / SUST_FIRE_YEARS_NEEDED;
+  painter.setFillColor(red);
+  painter.fillRectangle(Rect2D(
+    Vector2(barLeft, y + sustBarVOffset),
+    Vector2(std::min(startLine + len, space.p2.x),
+      y + sustBarVOffset + sustBarHeight)));
+  painter.drawTexture(labelTextureFIR,
+    Vector2(space.p1.x, y + sustLabelVOffset));
+  y += sustBarSpace;
 
-	/* population */
-    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = sustainability.population_years *
-      maxBarLen / SUST_POP_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( blue );
-    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTexturePOP, p );
-
-	/* tech */
-    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = sustainability.tech_years * maxBarLen / SUST_TECH_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( yellow );
-    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureTEC, p );
-
-	/* fire */
-    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
-    newLen = sustainability.fire_years * maxBarLen / SUST_FIRE_YEARS_NEEDED;
-    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
-    bar.setWidth( len );
-    painter.setFillColor( red );
-    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
-    painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureFIR, p );
+  assert(y == space.p2.y);
 }
 
 
-void EconomyGraph::drawFPSGraph( Painter& painter, Rect2D fpsRect ){
-    Color grey, blue;
-    blue.parse( "blue" );
-    grey.parse("#A9A9A9FF");
-    int mgX = (int) fpsRect.p1.x;
-    int mgY = (int) fpsRect.p1.y;
-    int mgW = (int) fpsRect.getWidth();
-    int mgH = (int) fpsRect.getHeight();
+void
+EconomyGraph::drawFPSGraph(Painter& painter, Rect2D space) {
+  Color grey, blue;
+  blue.parse("blue");
+  grey.parse("#A9A9A9FF");
+  // painter.setClipRectangle(space);
 
+  painter.setFillColor(grey);
+  painter.fillRectangle(space);
 
-    painter.setFillColor( grey );
-    painter.fillRectangle( fpsRect );
+  painter.setFillColor(blue);
+  for(int i = 0; i < fps.size(); i++) {
+    assert(i < space.getWidth());
+    float val = std::min(fps[i] * space.getHeight() / 100, space.getHeight());
+    painter.fillRectangle(Rect2D(
+      space.p2 - Vector2(i+1, val),
+      space.p2 - Vector2(i, 0)
+    ));
+  }
 
-    painter.setClipRectangle( fpsRect );
-
-    Vector2 a;
-    Vector2 b;
-    painter.setLineColor( blue );
-
-    float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
-
-    b.y = mgY + mgH;
-    for( int i = mgW - 1; i >= 0; i-- ){
-        a.x = mgX + mgW - i;
-        a.y = mgY + mgH - scale * fps[i];
-
-        b.x = mgX + mgW - i;
-        painter.drawLine( a, b );
-    }
-    painter.clearClipRectangle();
+  // painter.clearClipRectangle();
 }
 
-void EconomyGraph::draw( Painter& painter ){
+void
+EconomyGraph::draw(Painter& painter) {
+  Color white;
+  white.parse("white");
+  Rect2D background(0, 0, getWidth(), getHeight());
+  painter.setFillColor( white );
+  painter.fillRectangle( background );
 
-    Color white;
-    white.parse( "white" );
+  // flex eco graph height
+  int ecoHeight = getHeight()
+    - border - border
+    - headingVSpace - headingVSpace - headingVSpace
+    - sustHeight - fpsHeight;
 
-    Rect2D background( 0, 0, getWidth(), getHeight() );
-    int mgX = border;
-    int mgY = 3*border;
-    int mgW = getConfig()->monthgraphW;
-    int mgH = getConfig()->monthgraphH;
+  int y = border;
 
-    painter.setFillColor( white );
-    painter.fillRectangle( background );
+  //Draw HistoryLineGraph
+  painter.drawTexture(labelTextureEconomy,
+    Vector2(border, y + headingVOffset));
+  y += headingVSpace;
+  drawHistoryLineGraph(painter,
+    Rect2D(border, y, getWidth() - border, y + ecoHeight));
+  y += ecoHeight;
 
-    Vector2 labelPos( 2 * border, border-1 );
+  //Draw Sustainability Bars
+  painter.drawTexture(labelTextureSustainability,
+    Vector2(border, y + headingVOffset));
+  y += headingVSpace;
+  drawSustBarGraph(painter,
+    Rect2D(border, y, getWidth() - border, y + sustHeight));
+  y += sustHeight;
 
-    //Draw HistoryLineGraph
-    painter.drawTexture( labelTextureEconomy, labelPos );
-    Rect2D currentGraph( mgX, mgY, mgX + mgW, mgY + mgH );
-    drawHistoryLineGraph( painter, currentGraph );
+  //Draw FPS-Window
+  painter.drawTexture(labelTextureFPS,
+    Vector2(border, y + headingVOffset));
+  y += headingVSpace;
+  drawFPSGraph(painter,
+    Rect2D(border, y, getWidth() - border, y + fpsHeight));
+  y += fpsHeight;
 
-    //Draw Sustainability Bars
-    labelPos.y += 2 * border + mgH;
-    painter.drawTexture( labelTextureSustainability, labelPos );
-    currentGraph.move( Vector2( 0, 2 * border + mgH ) );
-    drawSustBarGraph( painter, currentGraph);
-
-    //Draw FPS-Window
-    labelPos.y += 2 * border + mgH;
-    painter.drawTexture( labelTextureFPS, labelPos );
-    currentGraph.move( Vector2( 0, 2 * border + mgH ) );
-    currentGraph.setHeight( mgH/2 );
-    drawFPSGraph( painter, currentGraph );
+  y += border;
+  assert(y == getHeight());
 }
 
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph)
+
+/*
+Drawing lines is really weird. For some reason, they display on a different
+pixel than the coordinates indicate.
+A vertical line will display one pixel to the left of the x coordinate.
+A horizontal line will display one pixel above the y coordinate.
+
+    coord    |   display
+-------------+-------------
+(1,1)->(1,5) | (0,1)->(0,4)
+(1,1)->(5,1) | (1,0)->(4,0)
+*/
 
 /** @file lincity-ng/EconomyGraph.cpp */
