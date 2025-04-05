@@ -24,44 +24,32 @@
 
 #include "UserOperation.hpp"
 
-#include <SDL.h>                         // for SDL_GetKeyboardState, SDL_Sc...
-#include <assert.h>                      // for assert
-#include <stddef.h>                      // for NULL
-#include <functional>                    // for function
-#include <iomanip>                       // for _Setprecision, setprecision
-#include <iostream>                      // for char_traits, basic_ostream
-#include <memory>                        // for allocator, __shared_ptr_access
-#include <sstream>                       // for basic_ostringstream
-#include <string>                        // for basic_string, operator+, ope...
-#include <typeinfo>                      // for type_info
+#include <assert.h>                       // for assert
+#include <stddef.h>                       // for NULL
 
-#include "Dialog.hpp"                    // for Dialog, ASK_LAUNCH_ROCKET
-#include "Game.hpp"                      // for Game
-#include "MiniMap.hpp"                   // for MiniMap
-#include "Mps.hpp"                       // for MpsMap
-#include "Sound.hpp"                     // for getSound, Sound
-#include "gui/DialogBuilder.hpp"         // for DialogBuilder
-#include "lincity/MapPoint.hpp"          // for MapPoint
-#include "lincity/groups.hpp"              // for GROUP_MARKET, GROUP_MONUMENT
-#include "lincity/lin-city.hpp"            // for FLAG_NEVER_EVACUATE, MAX_TEC...
-#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
-#include "lincity/modules/parkland.hpp"    // for ParklandConstructionGroup
-#include "lincity/modules/rocket_pad.hpp"  // for RocketPad
-#include "lincity/modules/windmill.hpp"    // for WindmillConstructionGroup
-#include "lincity/modules/windpower.hpp"   // for WindpowerConstructionGroup
-#include "lincity/world.hpp"               // for World, Map, MapTile
-#include "tinygettext/gettext.hpp"       // for _
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/lin-city.hpp"           // for FLAG_NEVER_EVACUATE
+#include "lincity/lintypes.hpp"           // for ConstructionGroup, Construc...
+#include "lincity/modules/windmill.hpp"   // for WindmillConstructionGroup
+#include "lincity/modules/windpower.hpp"  // for WindpowerConstructionGroup
+#include "lincity/world.hpp"              // for World, Map, MapTile
 
 UserOperation::UserOperation() {
   constructionGroup = NULL;
   action = ACTION_QUERY;
-  dialogShown = false;
 }
 
 UserOperation::~UserOperation() { }
 
+UserOperation&
+UserOperation::operator=(const UserOperation& other) {
+  constructionGroup = other.constructionGroup;
+  action = other.action;
+  return *this;
+}
+
 bool
-UserOperation::isAllowed(World& world, Message::ptr& message) {
+UserOperation::isAllowed(World& world, Message::ptr& message) const {
   switch(action) {
   case ACTION_BUILD:
     return constructionGroup->can_build(world, message);
@@ -78,7 +66,7 @@ UserOperation::isAllowed(World& world, Message::ptr& message) {
 
 bool
 UserOperation::isAllowedHere(World& world, MapPoint point, Message::ptr& message
-) {
+) const {
   if(!world.map.is_visible(point)) {
     message = OutsideMapMessage::create(point);
     return false;
@@ -117,7 +105,7 @@ UserOperation::isAllowedHere(World& world, MapPoint point, Message::ptr& message
   }
 }
 
-unsigned short UserOperation::cursorSize(void) {
+unsigned short UserOperation::cursorSize(void) const {
     if( action == ACTION_QUERY )
     {   return 0;}
     else if(action == ACTION_BUILD)
@@ -126,65 +114,13 @@ unsigned short UserOperation::cursorSize(void) {
     {   return 1;}
 }
 
-bool
-UserOperation::execute(Game& game, MapPoint point) {
-  try {
-    do_execute(game, point);
-    return true;
-  }
-  catch(const Message::Exception& ex) {
-    handleMessage(ex.getMessage());
-    return false;
-  }
-}
-
 void
-UserOperation::do_execute(Game& game, MapPoint point) {
-  World& world = game.getWorld();
-  if(!world.map.is_visible(point))
-    OutsideMapMessage::create(point)->throwEx();
+UserOperation::execute(World& world, MapPoint point) {
+  assert(world.map.is_visible(point));
 
   switch(action) {
   case UserOperation::ACTION_QUERY: {
-    MpsMap& mps = game.getMpsMap();
-    if(mps.point == point) {
-      switch(mps.page) {
-      case MpsMap::Page::INVENTORY:
-        mps.page = MpsMap::Page::PRODUCTION;
-        break;
-      case MpsMap::Page::PRODUCTION:
-        mps.page = MpsMap::Page::INVENTORY;
-        break;
-      case MpsMap::Page::GROUND:
-        mps.page = MpsMap::Page::GROUND;
-        break;
-      default:
-        assert(false);
-      }
-
-      switch(world.map(point)->getGroup()) {
-      case GROUP_MARKET:
-        new Dialog(game, EDIT_MARKET, point.x, point.y);
-        break;
-      case GROUP_PORT:
-        new Dialog(game, EDIT_PORT, point.x, point.y);
-        break;
-      case GROUP_ROCKET:
-        RocketPad *rocket = dynamic_cast<RocketPad *>(
-          world.map(point)->reportingConstruction);
-        assert(rocket);
-        if(rocket->stage == RocketPad::AWAITING) {
-          new Dialog(game, ASK_LAUNCH_ROCKET, point.x, point.y);
-        }
-        break;
-      }
-    }
-    mps.point = point;
-    mps.refresh();
-    game.getMiniMap().switchView("MapMPS");
-    getSound()->playSound(*world.map(point));
-
-    return;
+    return; // query handled entirely by Game
   }
 
   case UserOperation::ACTION_BUILD: {
@@ -200,242 +136,27 @@ UserOperation::do_execute(Game& game, MapPoint point) {
         constructionGroup = &windmillConstructionGroup;
     }
 
-    // TODO: move dependence on SDL_GetKeyboardState elsewhere (GameView?)
-    if(constructionGroup == &parklandConstructionGroup
-      && SDL_GetKeyboardState(NULL)[SDL_SCANCODE_K]
-    )
-      constructionGroup = &parkpondConstructionGroup;
-
     world.buildConstruction(*constructionGroup, point);
-    getSound()->playSound(*world.map(point));
     break;
   }
 
   case UserOperation::ACTION_BULLDOZE: {
-    unsigned short grp = world.map(point)->getGroup();
-    bool *warnBull = nullptr;
-    switch(grp) {
-    case GROUP_MONUMENT:
-      warnBull = &game.warnBullMonument;
-      break;
-    case GROUP_RIVER:
-      warnBull = &game.warnBullWater;
-      break;
-    case GROUP_SHANTY:
-      warnBull = &game.warnBullShanty;
-      break;
-    }
-    if(!warnBull || !*warnBull) {
-      world.bulldozeArea(point);
-      getSound()->playSound("Raze");
-    }
-    else {
-      // TODO: avoid asking many times for area-bulldoze
-      Construction *cst = world.map(point)->reportingConstruction;
-      DialogBuilder()
-        .titleText("Warning")
-        .messageAddTextBold("Warning:")
-        .messageAddText(std::string(_("Bulldozing a ")) +
-          _(world.map(point)->getConstructionGroup()->getName().c_str()) +
-          _(" costs a lot of money."))
-          // TODO: make sure this is localized correctly
-        .messageAddText("Want to bulldoze?")
-        .imageFile("images/gui/dialogs/warning.png")
-        // TODO: use "Bulldoze"/"Leave It" buttons
-        .buttonSet(DialogBuilder::ButtonSet::YESNO)
-        .onYes([&world, point, cst, grp, warnBull]() {
-          // make sure things haven't changed
-          // TODO: cancel the dialog in the UserOperation deleter
-          // TODO: problems might happen if the user goes to the main menu
-          if(world.map(point)->reportingConstruction == cst
-            && world.map(point)->getGroup() == grp
-          ) {
-            *warnBull = false;
-            world.bulldozeArea(point);
-            getSound()->playSound("Raze");
-          }
-        })
-        .build();
-    }
-
+    world.bulldozeArea(point);
     break;
   }
 
   case UserOperation::ACTION_EVACUATE: {
     world.evacuateArea(point);
-    getSound()->playSound(*world.map(point));
     break;
   }
 
   case UserOperation::ACTION_FLOOD: {
     world.floodArea(point);
-    getSound()->playSound(*world.map(point));
     break;
   }
 
   default: {
     assert(false);
   }
-  }
-}
-
-void
-UserOperation::handleMessage(Message::ptr message_) {
-  if(OutsideMapMessage::ptr message =
-    dynamic_message_cast<OutsideMapMessage>(message_)
-  ) {
-    // silently ignore requests to do stuff outside the map
-  }
-  else if(CannotBuildMessage::ptr message =
-    dynamic_message_cast<CannotBuildMessage>(message_)
-  ) {
-    CannotBuildHereMessage::ptr hereMessage =
-      dynamic_message_cast<CannotBuildHereMessage>(message);
-    Message::ptr reason_ = message->getReason();
-    DialogBuilder dialog;
-    dialog
-      .titleText(_("Cannot Build"))
-      .messageAddTextBold(_("Cannot build a ") + message->getGroup().name
-        + (hereMessage ? _(" here.") : "."))
-      .imageFile("images/gui/dialogs/warning.png")
-      .buttonSet(DialogBuilder::ButtonSet::OK);
-    if(OutOfMoneyMessage::ptr reason =
-      dynamic_message_cast<OutOfMoneyMessage>(reason_)
-    ) {
-      if(reason->isOutOfCredit()) {
-        dialog.messageAddText(_("You do not have sufficient credit to build "
-          "this."));
-      }
-      else {
-        dialog.messageAddText(_("You cannot build this on credit."));
-      }
-    }
-    else if(NotEnoughTechMessage::ptr reason =
-      dynamic_message_cast<NotEnoughTechMessage>(reason_)
-    ) {
-      dialog.messageAddText((std::ostringstream()
-        << _("Tech level too low. Requires ")
-        << std::fixed << std::setprecision(1)
-        << (reason->getRequiredTech() * 100.0f / MAX_TECH_LEVEL)
-      ).str());
-    }
-    else if(SpaceOccupiedMessage::ptr reason =
-      dynamic_message_cast<SpaceOccupiedMessage>(reason_)
-    ) {
-      dialog.messageAddText(_("The space is occupied."));
-    }
-    else if(OutsideMapMessage::ptr reason =
-      dynamic_message_cast<OutsideMapMessage>(reason_)
-    ) {
-      dialog.messageAddText(_("You cannot build outside the map."));
-    }
-    else if(DesertHereMessage::ptr reason =
-      dynamic_message_cast<DesertHereMessage>(reason_)
-    ) {
-      dialog.messageAddText(_("A ") + message->getGroup().name
-        + _(" needs water, but this space is desert."));
-    }
-    else if(!reason_) {
-// #ifdef DEBUG
-      std::cerr << "warning: no reason given in CannotBuildMessage: "
-        << typeid(*message).name() << ": "
-        << message->str() << std::endl;
-// #endif
-      assert(false);
-    }
-    else {
-// #ifdef DEBUG
-      std::cerr << "warning: unrecognized reason in CannotBuildMessage: "
-        << typeid(*reason_).name() << ": "
-        << reason_->str() << std::endl;
-// #endif
-      dialog
-        .messageAddText(_("unrecognized reason"))
-        .imageFile("images/gui/dialogs/error.png");
-      assert(false);
-    }
-    dialog.build();
-  }
-  else if(CannotBulldozeThisMessage::ptr message =
-    dynamic_message_cast<CannotBulldozeThisMessage>(message_)
-  ) {
-    DialogBuilder dialog;
-    dialog
-      .titleText(_("Cannot Bulldoze"))
-      .imageFile("images/gui/dialogs/warning.png")
-      .buttonSet(DialogBuilder::ButtonSet::OK);
-    if(CannotBulldozeNonemptyTipMessage::ptr message =
-      dynamic_message_cast<CannotBulldozeNonemptyTipMessage>(message_)
-    ) {
-      dialog
-        .messageAddTextBold(_("Cannot bulldoze this ")
-          + message->getGroup().name)
-        .messageAddText(_("You cannot bulldoze a tip that is full of waste."));
-    }
-    else if(CannotBulldozeIncompleteMonumentMessage::ptr message =
-      dynamic_message_cast<CannotBulldozeIncompleteMonumentMessage>(message_)
-    ) {
-      dialog
-        .messageAddTextBold(_("Cannot bulldoze this ")
-          + message->getGroup().name)
-        .messageAddText(_("You cannot bulldoze a monument that under "
-          "construction."));
-    }
-    else if(CannotBulldozeThisEverMessage::ptr message =
-      dynamic_message_cast<CannotBulldozeThisEverMessage>(message_)
-    ) {
-      dialog
-        .messageAddTextBold(_("You cannot bulldoze a ")
-          + message->getGroup().name + ".")
-        .messageAddText(_("You are not allowed to bulldoze this type of "
-          "construction."));
-    }
-    else {
-// #ifdef DEBUG
-      std::cerr << "warning: unrecognized message derived from "
-        << "CannotBulldozeThisMessage: "
-        << typeid(*message_).name() << ": "
-        << message_->str() << std::endl;
-// #endif
-      {
-        CannotBulldozeThisMessage::ptr message =
-          dynamic_message_cast<CannotBulldozeThisMessage>(message_);
-        dialog
-          .messageAddTextBold(_("You cannot bulldoze this")
-            + message->getGroup().name + ".")
-          .messageAddText(_("You are not allowed to bulldoze this")
-            + message->getGroup().name
-            + _(", but we're not exactly sure why."));
-      }
-      assert(false);
-    }
-    dialog.build();
-  }
-  else if(CannotEvacuateThisMessage::ptr message =
-    dynamic_message_cast<CannotEvacuateThisMessage>(message_)
-  ) {
-    DialogBuilder()
-      .titleText(_("Cannot Bulldoze"))
-      .imageFile("images/gui/dialogs/warning.png")
-      .buttonSet(DialogBuilder::ButtonSet::OK)
-      .messageAddTextBold(_("You cannot evacuate a ")
-        + message->getGroup().name + ".")
-      .messageAddText(_("You are not allowed to evacuate this type of "
-        "construction."))
-      .build();
-  }
-  else {
-// #ifdef DEBUG
-    std::cerr << "warning: unrecognized message thrown while executing action: "
-      << typeid(*message_).name() << ": "
-      << message_->str() << std::endl;
-// #endif
-    DialogBuilder()
-      .titleText(_("Error!"))
-      .messageAddTextBold(_("The requested action failed for an unrecognized "
-        "reason."))
-      .imageFile("images/gui/dialogs/error.png")
-      .buttonSet(DialogBuilder::ButtonSet::OK)
-      .build();
   }
 }

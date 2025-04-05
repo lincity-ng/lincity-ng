@@ -28,7 +28,6 @@
 #include "lincity/messages.hpp"  // for Message
 
 class ConstructionGroup;
-class Game;
 class MapPoint;
 class World;
 
@@ -36,7 +35,7 @@ class UserOperation {
 public:
   UserOperation();
   ~UserOperation();
-  ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
+  UserOperation& operator=(const UserOperation& other);
 
   enum Action {
     ACTION_QUERY,
@@ -46,17 +45,13 @@ public:
     ACTION_BUILD,
     ACTION_UNKNOWN
   };
-
   Action action;
-  bool isAllowedHere(World& world, MapPoint point, Message::ptr& message);
-  bool isAllowed(World& world, Message::ptr& message);
-  bool execute(Game& game, MapPoint point);
-  unsigned short cursorSize();
+  ConstructionGroup *constructionGroup; // non-null for ACTION_BUILD
 
-private:
-  void do_execute(Game& game, MapPoint point);
-  void handleMessage(Message::ptr message);
-  bool dialogShown;
+  bool isAllowedHere(World& world, MapPoint point, Message::ptr& message) const;
+  bool isAllowed(World& world, Message::ptr& message) const;
+  void execute(World& world, MapPoint point);
+  unsigned short cursorSize() const;
 };
 
 

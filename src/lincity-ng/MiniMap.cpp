@@ -566,19 +566,7 @@ MiniMap::scrollPageDown(bool down) {
   std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
 
   if(viewname == "MapMPS") {
-    MpsMap& mps = game->getMpsMap();
-    switch(mps.page) {
-    case MpsMap::Page::INVENTORY:
-      mps.page = MpsMap::Page::PRODUCTION;
-      break;
-    case MpsMap::Page::PRODUCTION:
-      mps.page = MpsMap::Page::INVENTORY;
-      break;
-    case MpsMap::Page::GROUND:
-      mps.page = MpsMap::Page::GROUND;
-      break;
-    }
-    mps.refresh();
+    game->getMpsMap().scroll();
   }
   else if(viewname == "MiniMap") {
     toggleStuffID(down ? -1 : 1);
@@ -590,6 +578,7 @@ MiniMap::scrollPageDown(bool down) {
     switchView("PBar");
   }
   else if(viewname == "GlobalMPS") {
+    // TODO: move to MpsFinance::scroll
     MpsFinance& mps = game->getMpsFinance();
     switch(mps.page) {
     case MpsFinance::Page::CASH_FLOW:

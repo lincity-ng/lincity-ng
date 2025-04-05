@@ -157,8 +157,8 @@ DialogBuilder::build() {
   if(!_windowManager)
     throw std::runtime_error("no window manager to display dialog");
 
-  std::function<void(Button *)> closeAction = std::bind(&WindowManager::removeWindow,
-    _windowManager, dialog.get());
+  std::function<void(Button *)> closeAction =
+    std::bind(&WindowManager::removeWindow, _windowManager, dialog.get());
 
   switch(_buttonSet) {
   case DialogBuilder::ButtonSet::OK: {

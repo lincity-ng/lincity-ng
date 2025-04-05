@@ -724,9 +724,7 @@ void GameView::event(const Event& event)
               && getUserOperation()->action == UserOperation::ACTION_BULLDOZE
             ) {
               if(tile != startRoad) {
-                getUserOperation()->execute(*game, startRoad);
-                game->getMpsMap().point = startRoad;
-                game->getMpsMap().refresh();
+                game->executeUserOperation(startRoad);
                 startRoad = tile;
               }
             }
@@ -736,7 +734,11 @@ void GameView::event(const Event& event)
                 setDirty();
                 //update mps target
                 if(getUserOperation()->action == UserOperation::ACTION_EVACUATE)
-                  game->getMpsMap().point = tile;
+                  game->getMpsMap().setTile(
+                    game->getWorld().map.is_visible(tile)
+                    ? game->getWorld().map(tile)
+                    : nullptr
+                  );
             }
 
             break;
@@ -802,7 +804,7 @@ void GameView::event(const Event& event)
                     if(getUserOperation()->isAllowedHere(
                       game->getWorld(), endRoad, dummyMsg)
                     ) {
-                      getUserOperation()->execute(*game, endRoad);
+                      game->executeUserOperation(endRoad);
                     }
                     MapPoint currentTile = startRoad;
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
@@ -821,7 +823,7 @@ void GameView::event(const Event& event)
                         if(getUserOperation()->isAllowedHere(
                           game->getWorld(), currentTile, dummyMsg)
                         ) {
-                          getUserOperation()->execute(*game, currentTile);
+                          game->executeUserOperation(currentTile);
                         }
                       }
                     }
@@ -839,7 +841,7 @@ void GameView::event(const Event& event)
                         if(getUserOperation()->isAllowedHere(
                           game->getWorld(), currentTile, dummyMsg)
                         ) {
-                          getUserOperation()->execute(*game, currentTile);
+                          game->executeUserOperation(currentTile);
                         }
                         *v1 += *s1;
                       }
@@ -847,13 +849,11 @@ void GameView::event(const Event& event)
                         if(getUserOperation()->isAllowedHere(
                           game->getWorld(), currentTile, dummyMsg)
                         ) {
-                          getUserOperation()->execute(*game, currentTile);
+                          game->executeUserOperation(currentTile);
                         }
                         *v2 += *s2;
                       }
                     }
-                    game->getMpsMap().point = endRoad;
-                    game->getMpsMap().refresh();
                     break;
                 }
                 roadDragging = false;
@@ -867,21 +867,14 @@ void GameView::event(const Event& event)
 
             if(event.mousebutton == SDL_BUTTON_LEFT) {
               if(!blockingDialogIsOpen) {
-                MapPoint point = getTile(event.mousepos);
-                if(getUserOperation()->execute(*game, point)) {
-                  // TODO: consider moving mps update to
-                  //       UserOperation::do_execute
-                  game->getMpsMap().point = point;
-                  game->getMpsMap().refresh();
-                }
+                game->executeUserOperation(getTile(event.mousepos));
               }
             }
             else if(event.mousebutton == SDL_BUTTON_RIGHT) {
                 // show info on the clicked thing
                 MapPoint point = getTile(event.mousepos);
                 if(!inCity(point)) break;
-                game->getMpsMap().point = point;
-                game->getMpsMap().refresh();
+                game->getMpsMap().query(game->getWorld().map(point));
             }
             break;
         case Event::MOUSEWHEEL:
@@ -1482,7 +1475,8 @@ void GameView::markTile(Painter& painter, MapPoint point) {
     {
       MapPoint upperLeft = realTile(point);
       Construction *cst;
-      if(upperLeft == game->getMpsMap().point
+      if(game->getMpsMap().tile
+        && upperLeft == game->getMpsMap().tile->point
         && getUserOperation()->action == UserOperation::ACTION_QUERY
         && (cst = getWorld().map(point)->reportingConstruction)
       ) {

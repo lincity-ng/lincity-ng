@@ -22,30 +22,31 @@
 
 #include "Mps.hpp"
 
-#include <assert.h>                       // for assert
-#include <algorithm>                      // for max
-#include <deque>                          // for deque, operator!=
-#include <iomanip>                        // for setprecision, _Setprecision
-#include <iostream>                       // for operator<<, ostringstream
-#include <iterator>                       // for advance
-#include <numeric>                        // for accumulate
-#include <sstream>                        // for basic_ostringstream
+#include <assert.h>                         // for assert
+#include <algorithm>                        // for max
+#include <deque>                            // for deque, operator!=
+#include <iomanip>                          // for setprecision, _Setprecision
+#include <iostream>                         // for operator<<, ostringstream
+#include <iterator>                         // for advance
+#include <numeric>                          // for accumulate
+#include <sstream>                          // for basic_ostringstream
 
-#include "Game.hpp"                       // for Game
-#include "Util.hpp"                       // for getParagraph
-#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"        // for parseEmbeddedComponent
-#include "gui/Paragraph.hpp"              // for Paragraph
-#include "gui/XmlReader.hpp"              // for XmlReader
-#include "lincity/commodities.hpp"        // for Commodity
+#include "Game.hpp"                         // for Game
+#include "Util.hpp"                         // for getParagraph
+#include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"          // for parseEmbeddedComponent
+#include "gui/Paragraph.hpp"                // for Paragraph
+#include "gui/XmlReader.hpp"                // for XmlReader
+#include "lincity/MapPoint.hpp"             // for MapPoint
+#include "lincity/commodities.hpp"          // for Commodity
 #include "lincity/groups.hpp"               // for GROUP_DESERT, GROUP_WATER
-#include "lincity/util.hpp"                // for num_to_ansi, current_year
 #include "lincity/lin-city.hpp"             // for FLAG_IS_LAKE, FLAG_IS_RIVER
-#include "lincity/lintypes.hpp"             // for NUMOF_DAYS_IN_MONTH, Constr...
-#include "lincity/modules/all_modules.hpp"  // for TileConstructionGroup, Shan...
+#include "lincity/lintypes.hpp"             // for NUMOF_DAYS_IN_MONTH, Cons...
+#include "lincity/modules/all_modules.hpp"  // for TileConstructionGroup
 #include "lincity/stats.hpp"                // for Stat, Stats
-#include "lincity/world.hpp"                // for MapTile, World, Map, Ground
-#include "tinygettext/gettext.hpp"        // for N_, _
+#include "lincity/util.hpp"                 // for num_to_ansi, current_year
+#include "lincity/world.hpp"                // for MapTile, World, Ground
+#include "tinygettext/gettext.hpp"          // for N_, _
 
 Mps::Mps() { }
 
@@ -207,10 +208,8 @@ Mps::add_ttt(const std::string& t1, const std::string& t2, const std::string& t3
 
 void
 MpsMap::refresh() {
-  if(!game->getWorld().map.is_visible(point))
-    return; // can happen before `point` is set the first time
-
   clear();
+  if(!tile) return;
   switch(page) {
   case Page::INVENTORY:
     refreshInvProd(false);
@@ -226,31 +225,65 @@ MpsMap::refresh() {
 }
 
 void
+MpsMap::setTile(MapTile *tile) {
+  this->tile = tile;
+  refresh();
+}
+
+void
+MpsMap::scroll() {
+  if(!tile) return;
+  switch(page) {
+  case MpsMap::Page::INVENTORY:
+    page = MpsMap::Page::PRODUCTION;
+    break;
+  case MpsMap::Page::PRODUCTION:
+    page = MpsMap::Page::INVENTORY;
+    break;
+  case MpsMap::Page::GROUND:
+    page = MpsMap::Page::GROUND;
+    break;
+  default:
+    assert(false);
+  }
+  refresh();
+}
+
+void
+MpsMap::query(MapTile *tile) {
+  if(tile == this->tile) {
+    scroll();
+  }
+  else {
+    setTile(tile);
+  }
+}
+
+void
 MpsMap::refreshInvProd(bool production) {
-  MapTile& tile = *game->getWorld().map(point);
-  ConstructionGroup *tileCstGrp = tile.getTileConstructionGroup();
-  if(tile.reportingConstruction) {
-    tile.reportingConstruction->report(*this, production);
+  ConstructionGroup *tileCstGrp = tile->getTileConstructionGroup();
+  if(tile->reportingConstruction) {
+    tile->reportingConstruction->report(*this, production);
   }
   else if(tileCstGrp == &waterConstructionGroup) {
-    add_sdd(waterConstructionGroup.name, point.x, point.y);
+    add_sdd(waterConstructionGroup.name, tile->point.x, tile->point.y);
 
     addBlank();
     const char *p;
-    if(tile.flags & FLAG_IS_LAKE)
+    if(tile->flags & FLAG_IS_LAKE)
       p = N_("Lake");
-    else if(tile.flags & FLAG_IS_RIVER)
+    else if(tile->flags & FLAG_IS_RIVER)
       p = N_("River");
     else
       p = N_("Pond");
     add_s(p);
   }
   else {
-    add_sdd(tileCstGrp->name, point.x, point.y);
+    add_sdd(tileCstGrp->name, tile->point.x, tile->point.y);
     addBlank();
     add_s(N_("no further information available"));
 
-    if(tile.is_bare()) {
+    if(tile->is_bare()) {
       addBlank();
       addBlank();
       addBlank();
@@ -262,17 +295,16 @@ MpsMap::refreshInvProd(bool production) {
 
 void
 MpsMap::refreshGround() {
-  MapTile& tile = *game->getWorld().map(point);
   const char* p;
 
-  add_sdd(tile.getTileConstructionGroup()->name, point.x, point.y);
+  add_sdd(tile->getTileConstructionGroup()->name, tile->point.x, tile->point.y);
   add_ss(N_("Fertile"),
-    (tile.flags & FLAG_HAS_UNDERGROUND_WATER) ? N_("Yes") : N_("No"));
+    (tile->flags & FLAG_HAS_UNDERGROUND_WATER) ? N_("Yes") : N_("No"));
 
-  if(tile.group == GROUP_WATER) {
-    if(tile.flags & FLAG_IS_LAKE)
+  if(tile->group == GROUP_WATER) {
+    if(tile->flags & FLAG_IS_LAKE)
       p = N_("Lake");
-    else if(tile.flags & FLAG_IS_RIVER)
+    else if(tile->flags & FLAG_IS_RIVER)
       p = N_("River");
     else
       p = N_("Pond");
@@ -283,18 +315,18 @@ MpsMap::refreshGround() {
   }
 
   add_ss(N_("Fire Protection"),
-    (tile.flags & FLAG_FIRE_COVER) ? N_("Yes") : N_("No"));
+    (tile->flags & FLAG_FIRE_COVER) ? N_("Yes") : N_("No"));
 
   add_ss(N_("Health Care"),
-    (tile.flags & FLAG_HEALTH_COVER) ? N_("Yes") : N_("No"));
+    (tile->flags & FLAG_HEALTH_COVER) ? N_("Yes") : N_("No"));
 
   add_ss(N_("Public Sports"),
-    (tile.flags & FLAG_CRICKET_COVER) ? N_("Yes") : N_("No"));
+    (tile->flags & FLAG_CRICKET_COVER) ? N_("Yes") : N_("No"));
 
   add_ss(N_("Market Range"),
-    (tile.flags & FLAG_MARKET_COVER) ? N_("Yes") : N_("No"));
+    (tile->flags & FLAG_MARKET_COVER) ? N_("Yes") : N_("No"));
 
-  int pol = tile.pollution;
+  int pol = tile->pollution;
   if(pol < 10)
     p = N_("clear");
   else if(pol < 25)
@@ -316,27 +348,32 @@ MpsMap::refreshGround() {
 
   add_ssd(N_("Air Pollution"), p, pol);
 
-  if(tile.getGroup() == GROUP_DESERT)
+  if(tile->getGroup() == GROUP_DESERT)
     add_ss(N_("Bull. Cost"), N_("N/A"));
   else
-    add_sd(N_("Bull. Cost"), tile.getConstructionGroup()->bul_cost);
+    add_sd(N_("Bull. Cost"), tile->getConstructionGroup()->bul_cost);
 
-  add_sd(N_("Ore Reserve"), tile.ore_reserve);
-  add_sd(N_("Coal Reserve"), tile.coal_reserve);
-  add_sd(N_("ground level"), tile.ground.altitude);
+  add_sd(N_("Ore Reserve"), tile->ore_reserve);
+  add_sd(N_("Coal Reserve"), tile->coal_reserve);
+  add_sd(N_("ground level"), tile->ground.altitude);
 
-  if(game->getWorld().map.saddlepoint(point))
+  // TODO: the Map is unreachable from here
+  //       MapTile should hold a reference to the container Map
+  //       MapTile should have methods getMap, isSaddle, isMinimum, etc.
+#if 0
+  const Map& map = tile->getMap();
+  if(map.saddlepoint(point))
     p = N_("saddle point");
-  else if(!tile.is_water() && game->getWorld().map.minimum(point))
+  else if(!tile.is_water() && map.minimum(point))
     p = N_("minimum");
-  else if(!tile.is_water() && game->getWorld().map.maximum(point))
+  else if(!tile.is_water() && map.maximum(point))
     p = N_("maximum");
-  else if(game->getWorld().map.checkEdgeMin(point))
+  else if(map.checkEdgeMin(point))
     p = N_("lowest edge");
   else
     p = "-";
-
   add_s(p);
+#endif
 }
 
 

@@ -23,12 +23,14 @@
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
-#include <SDL.h>              // for SDL_Window
-#include <memory>             // for unique_ptr
-#include <string>             // for string
+#include <SDL.h>                 // for SDL_Window
+#include <memory>                // for unique_ptr
+#include <string>                // for string
 
-#include "UserOperation.hpp"  // for UserOperation
-#include "main.hpp"           // for MainState
+#include "UserOperation.hpp"     // for UserOperation
+#include "gui/Signal.hpp"        // for Signal
+#include "lincity/messages.hpp"  // for Message
+#include "main.hpp"              // for MainState
 
 class ButtonPanel;
 class Component;
@@ -36,14 +38,14 @@ class EconomyGraph;
 class GameView;
 class HelpWindow;
 class LCPBar;
+class MapPoint;
 class MiniMap;
 class MpsFinance;
 class MpsMap;
 class WindowManager;
 class World;
 
-class Game
-{
+class Game {
 public:
     Game(SDL_Window *window);
     ~Game();
@@ -56,6 +58,7 @@ public:
     void setWorld(std::unique_ptr<World>&& world);
     UserOperation& getUserOperation();
     const UserOperation& getUserOperation() const;
+    void executeUserOperation(MapPoint point);
 
     Component& getGui() const;
     WindowManager& getWindowManager() const;
@@ -67,8 +70,6 @@ public:
     LCPBar& getPBar1() const;
     LCPBar& getPBar2() const;
     ButtonPanel& getButtonPanel() const;
-
-    bool warnBullWater, warnBullShanty, warnBullMonument;
 
 private:
     std::unique_ptr<World> world;
@@ -88,7 +89,7 @@ private:
     void setUserOperation(const UserOperation& op);
 
     void loadGui();
-    void processMessageQueue();
+    void handleMessage(Message::ptr message);
 
     bool running;
     MainState quitState;
@@ -101,6 +102,12 @@ private:
 
     void updateDate() const;
     void updateMoney() const;
+
+    struct {
+      Signal<> onAccept;
+      bool accepted = false;
+      bool pending = false;
+    } warnBullWater, warnBullShanty, warnBullMonument;
 };
 
 #endif

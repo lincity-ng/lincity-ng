@@ -525,7 +525,7 @@ World::bulldozeArea(MapPoint point) {
   )
     CannotBulldozeIncompleteMonumentMessage::create(point)->throwEx();
   else if (g == GROUP_TIP
-    && !dynamic_cast<Tip *>(cst)->total_waste > 0
+    && dynamic_cast<Tip *>(cst)->total_waste > 0
   )
     CannotBulldozeNonemptyTipMessage::create(point)->throwEx();
 

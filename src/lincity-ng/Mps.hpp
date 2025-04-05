@@ -23,13 +23,13 @@
 #ifndef __lc_mps_h__
 #define __lc_mps_h__
 
-#include <string>                // for string
-#include <vector>                // for vector
+#include <string>             // for string
+#include <vector>             // for vector
 
-#include "gui/Component.hpp"     // for Component
-#include "lincity/MapPoint.hpp"  // for MapPoint
+#include "gui/Component.hpp"  // for Component
 
 class Game;
+class MapTile;
 class Paragraph;
 class XmlReader;
 
@@ -83,13 +83,14 @@ public:
   ~MpsMap() { }
 
   void refresh();
-  void setGame(Game *game) { this->game = game; }
+  void setTile(MapTile *tile);
+  void scroll();
+  void query(MapTile *tile);
 
   Page page = Page::INVENTORY;
-  MapPoint point;
+  MapTile *tile = nullptr;
 
 private:
-  Game *game = nullptr;
 
   void refreshInvProd(bool production);
   void refreshGround();

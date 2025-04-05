@@ -22,44 +22,51 @@
 
 #include "Game.hpp"
 
-#include <SDL.h>                    // for SDL_KeyCode, Uint32, SDL_EventType
-#include <assert.h>                 // for assert
-#include <algorithm>                // for min
-#include <filesystem>               // for path, operator/, directory_iterator
-#include <functional>               // for bind, function, _1
-#include <iostream>                 // for basic_ostream, operator<<, cerr
-#include <sstream>                  // for basic_ostringstream
-#include <stdexcept>                // for runtime_error
-#include <utility>                  // for move
+#include <SDL.h>                           // for SDL_KeyCode, Uint32, SDL_E...
+#include <assert.h>                        // for assert
+#include <stddef.h>                        // for NULL
+#include <algorithm>                       // for min
+#include <filesystem>                      // for path, operator/, directory...
+#include <functional>                      // for function, bind, _1
+#include <initializer_list>                // for initializer_list
+#include <iomanip>                         // for _Setprecision, setprecision
+#include <iostream>                        // for basic_ostream, operator<<
+#include <sstream>                         // for basic_ostringstream
+#include <stdexcept>                       // for runtime_error
+#include <typeinfo>                        // for type_info
+#include <utility>                         // for move
 
-#include "ButtonPanel.hpp"          // for ButtonPanel
-#include "Config.hpp"               // for getConfig, Config
-#include "Dialog.hpp"               // for closeAllDialogs, Dialog, GAME_STATS
-#include "EconomyGraph.hpp"         // for EconomyGraph
-#include "GameView.hpp"             // for GameView
-#include "HelpWindow.hpp"           // for HelpWindow
-#include "MainLincity.hpp"          // for saveCityNG, loadCityNG, simDelay
-#include "MiniMap.hpp"              // for MiniMap
-#include "Mps.hpp"                  // for MpsFinance, MpsMap
-#include "PBar.hpp"                 // for LCPBar
-#include "Sound.hpp"                // for getSound, Sound
-#include "TimerInterface.hpp"       // for get_real_time_with
-#include "Util.hpp"                 // for getButton
-#include "gui/Button.hpp"           // for Button
-#include "gui/Component.hpp"        // for Component
-#include "gui/ComponentLoader.hpp"  // for loadGUIFile
-#include "gui/Desktop.hpp"          // for Desktop
-#include "gui/DialogBuilder.hpp"    // for DialogBuilder
-#include "gui/Event.hpp"            // for Event
-#include "gui/Painter.hpp"          // for Painter
-#include "gui/Signal.hpp"           // for Signal
-#include "gui/WindowManager.hpp"    // for WindowManager
-#include "lincity/MapPoint.hpp"     // for MapPoint, operator<<
-#include "lincity/lin-city.hpp"       // for ANIMATE_DELAY, SIM_DELAY_PAUSE
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, NUMOF_DAYS_IN_...
-#include "lincity/messages.hpp"     // for dynamic_message_cast, RocketResul...
-#include "lincity/world.hpp"          // for World, Map
-#include "tinygettext/gettext.hpp"  // for _
+#include "ButtonPanel.hpp"                 // for ButtonPanel
+#include "Config.hpp"                      // for getConfig, Config
+#include "Dialog.hpp"                      // for Dialog, closeAllDialogs
+#include "EconomyGraph.hpp"                // for EconomyGraph
+#include "GameView.hpp"                    // for GameView
+#include "HelpWindow.hpp"                  // for HelpWindow
+#include "MainLincity.hpp"                 // for saveCityNG, loadCityNG
+#include "MiniMap.hpp"                     // for MiniMap
+#include "Mps.hpp"                         // for MpsMap, MpsFinance
+#include "PBar.hpp"                        // for LCPBar
+#include "Sound.hpp"                       // for getSound, Sound
+#include "TimerInterface.hpp"              // for get_real_time_with
+#include "Util.hpp"                        // for getButton
+#include "gui/Button.hpp"                  // for Button
+#include "gui/Component.hpp"               // for Component
+#include "gui/ComponentLoader.hpp"         // for loadGUIFile
+#include "gui/Desktop.hpp"                 // for Desktop
+#include "gui/DialogBuilder.hpp"           // for DialogBuilder
+#include "gui/Event.hpp"                   // for Event
+#include "gui/Painter.hpp"                 // for Painter
+#include "gui/Signal.hpp"                  // for Signal
+#include "gui/WindowManager.hpp"           // for WindowManager
+#include "lincity/MapPoint.hpp"            // for MapPoint, operator<<
+#include "lincity/groups.hpp"              // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/lin-city.hpp"            // for ANIMATE_DELAY, MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"            // for ConstructionGroup, Constru...
+#include "lincity/messages.hpp"            // for dynamic_message_cast, Message
+#include "lincity/modules/parkland.hpp"    // for ParklandConstructionGroup
+#include "lincity/modules/rocket_pad.hpp"  // for RocketPad
+#include "lincity/world.hpp"               // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"         // for _
 
 using namespace std::placeholders;
 
@@ -133,7 +140,6 @@ Game::loadGui() {
   minimap->setGame(this);
   buttonpanel->setGame(this);
   economygraph->setGame(this);
-  mpsmap->setGame(this);
   mpsfinance->setGame(this);
   pbar1->setGame(this);
   pbar2->setGame(this);
@@ -170,8 +176,11 @@ void
 Game::setWorld(std::unique_ptr<World>&& world) {
   this->world = std::move(world);
 
+  for(auto w : {&warnBullWater, &warnBullShanty, &warnBullMonument})
+    w->onAccept.clear();
   getButtonPanel().selectQueryTool();
   getButtonPanel().updateTech(false);
+  getMpsMap().query(nullptr);
   gameview->show(this->world->map.recentPoint);
   getSound()->setTechLevel(this->world->tech_level);
 }
@@ -189,10 +198,134 @@ Game::getUserOperation() const {
 void
 Game::setUserOperation(const UserOperation& op) {
   userOperation = op;
-  warnBullWater = warnBullShanty = warnBullMonument = true;
 
+  for(auto w : {&warnBullWater, &warnBullShanty, &warnBullMonument})
+    w->accepted = false;;
   getGameView().setCursorSize(userOperation.cursorSize());
   getGameView().showToolInfo();
+}
+
+void
+Game::executeUserOperation(MapPoint point) {
+  try {
+    if(!world->map.is_visible(point))
+      OutsideMapMessage::create(point)->throwEx();
+
+    switch(userOperation.action) {
+    case UserOperation::ACTION_QUERY: {
+      // TODO: do dialogs on double-click, not 'second-click'
+      if(getMpsMap().tile == world->map(point)) {
+        switch(world->map(point)->getGroup()) {
+        case GROUP_MARKET:
+          new Dialog(*this, EDIT_MARKET, point.x, point.y);
+          break;
+        case GROUP_PORT:
+          new Dialog(*this, EDIT_PORT, point.x, point.y);
+          break;
+        case GROUP_ROCKET:
+          RocketPad *rocket = dynamic_cast<RocketPad *>(
+            world->map(point)->reportingConstruction);
+          assert(rocket);
+          if(rocket->stage == RocketPad::AWAITING) {
+            new Dialog(*this, ASK_LAUNCH_ROCKET, point.x, point.y);
+          }
+          break;
+        }
+      }
+
+      getMpsMap().query(world->map(point));
+      getMiniMap().switchView("MapMPS");
+
+      break;
+    }
+
+    case UserOperation::ACTION_BUILD: {
+      // TODO: move dependence on SDL_GetKeyboardState elsewhere (GameView?)
+      if(userOperation.constructionGroup == &parklandConstructionGroup
+        && SDL_GetKeyboardState(NULL)[SDL_SCANCODE_K]
+      )
+        userOperation.constructionGroup = &parkpondConstructionGroup;
+
+      break;
+    }
+
+    case UserOperation::ACTION_BULLDOZE: {
+      unsigned short grp = world->map(point)->getGroup();
+      decltype(warnBullWater) *warnStatus = nullptr;
+      switch(grp) {
+      case GROUP_MONUMENT:
+        warnStatus = &warnBullMonument;
+        break;
+      case GROUP_RIVER:
+        warnStatus = &warnBullWater;
+        break;
+      case GROUP_SHANTY:
+        warnStatus = &warnBullShanty;
+        break;
+      }
+      if(!warnStatus || warnStatus->accepted)
+        break;
+
+      Construction *cst = world->map(point)->reportingConstruction;
+      warnStatus->onAccept.connect([this, point, cst, grp]() {
+        // make sure things haven't changed
+        // there must be a better way to do this
+        if(world->map(point)->reportingConstruction == cst
+          && world->map(point)->getGroup() == grp
+        ) {
+          userOperation.execute(*world, point);
+          getMpsMap().setTile(world->map(point));
+          getSound()->playSound("Raze");
+        }
+      });
+
+      if(warnStatus->pending)
+        return;
+
+      DialogBuilder()
+        .titleText("Warning")
+        .messageAddTextBold("Warning:")
+        .messageAddText(std::string(_("Bulldozing a ")) +
+          _(world->map(point)->getConstructionGroup()->name) +
+          _(" costs a lot of money."))
+        .messageAddText("Want to bulldoze?")
+        .imageFile("images/gui/dialogs/warning.png")
+        // TODO: use "Bulldoze"/"Leave It" buttons
+        .buttonSet(DialogBuilder::ButtonSet::YESNO)
+        .onYes([warnStatus]() {
+          warnStatus->pending = false;
+          warnStatus->accepted = true;
+          warnStatus->onAccept();
+        })
+        .onNo([warnStatus]() {
+          warnStatus->pending = false;
+          warnStatus->onAccept.clear();
+        })
+        .build();
+      warnStatus->pending = true;
+
+      return;
+    }
+
+    case UserOperation::ACTION_EVACUATE:
+    case UserOperation::ACTION_FLOOD:
+      break;
+
+    default: {
+      assert(false);
+    }
+    }
+
+    userOperation.execute(*world, point);
+
+    getMpsMap().setTile(world->map(point));
+    if(userOperation.action != UserOperation::ACTION_BULLDOZE)
+      getSound()->playSound(*world->map(point));
+    else
+      getSound()->playSound("Raze");
+  } catch(const Message::Exception& ex) {
+    handleMessage(ex.getMessage());
+  }
 }
 
 Component&
@@ -373,7 +506,8 @@ Game::run()
             gui->event(Event((tick - prev_gui) / 1000.0f));
 
             // show any pending dialogs
-            processMessageQueue();
+            while(Message::ptr message = world->popMessage())
+              handleMessage(message);
 
             // update the help window
             // TODO: Why is this not triggered by the gui update?
@@ -462,140 +596,293 @@ Game::run()
 }
 
 void
-Game::processMessageQueue() {
-  while(Message::ptr message_ = world->popMessage()) {
-    if(FireStartedMessage::ptr message =
-      dynamic_message_cast<FireStartedMessage>(message_)
-    ) {
-      DialogBuilder()
-        .titleText(_("Fire!"))
-        .messageAddTextBold(_("A Fire has Started"))
-        .messageAddText(_("A fire has broken out in a ")
-          + _(message->getGroup().name) + "! " + _("You should address this "
-          "promptly before the whole city burns down."))
-        .imageFile("images/gui/dialogs/warning.png") // TODO: fire icon
-        .buttonSet(DialogBuilder::ButtonSet::OK)
-        .build();
-    }
-    else if(OutOfMoneyMessage::ptr message =
-      dynamic_message_cast<OutOfMoneyMessage>(message_)
-    ) {
-      if(message->isOutOfCredit()) {
-          DialogBuilder()
-            .titleText(_("Warning!"))
-            .messageAddTextBold(_("Out of Credit"))
-            .messageAddText(_("You are deep in debt and at the end of your"
-              "credit line. You are about to find out what happens when "
-              "government checks bounce."))
-            .imageFile("images/gui/dialogs/warning.png") // TODO: money icon
-            .buttonSet(DialogBuilder::ButtonSet::OK)
-            .build();
-      }
-      else {
+Game::handleMessage(Message::ptr message_) {
+  if(FireStartedMessage::ptr message =
+    dynamic_message_cast<FireStartedMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("Fire!"))
+      .messageAddTextBold(_("A Fire has Started"))
+      .messageAddText(_("A fire has broken out in a ")
+        + _(message->getGroup().name) + "! " + _("You should address this "
+        "promptly before the whole city burns down."))
+      .imageFile("images/gui/dialogs/warning.png") // TODO: fire icon
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+  }
+  else if(OutOfMoneyMessage::ptr message =
+    dynamic_message_cast<OutOfMoneyMessage>(message_)
+  ) {
+    if(message->isOutOfCredit()) {
         DialogBuilder()
           .titleText(_("Warning!"))
-          .messageAddTextBold(_("Out of Money"))
-          .messageAddText(_("You just spent all your money. Further spending "
-            "will require you to take out a loan which you must pay interest "
-            "on. And certain projects you are not allowed to pay for with "
-            "credit. The legislative council strongly advises you learn to "
-            "budget."))
+          .messageAddTextBold(_("Out of Credit"))
+          .messageAddText(_("You are deep in debt and at the end of your"
+            "credit line. You are about to find out what happens when "
+            "government checks bounce."))
           .imageFile("images/gui/dialogs/warning.png") // TODO: money icon
           .buttonSet(DialogBuilder::ButtonSet::OK)
           .build();
-      }
-    }
-    else if(RocketReadyMessage::ptr message =
-      dynamic_message_cast<RocketReadyMessage>(message_)
-    ) {
-      DialogBuilder()
-        .titleText(_("Rocket Ready"))
-        .messageAddTextBold(_("A Rocket is Ready for Launch"))
-        .messageAddText((std::ostringstream() << _("The rocket at ")
-          << message->getPoint() << _(" has finished construction and is ready "
-            "for takeoff. You may choose to launch now or later. If you choose "
-            "to wait, beware it costs money to keep the rocket in tip-top "
-            "shape until launch day.")).str())
-        .messageAddText("Launch now?")
-        .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
-        .buttonSet(DialogBuilder::ButtonSet::YESNO)
-        // TODO: onYes
-        .build();
-    }
-    else if(RocketResultMessage::ptr message =
-      dynamic_message_cast<RocketResultMessage>(message_)
-    ) {
-      DialogBuilder dialog;
-      dialog
-        .titleText(_("Rocket Launched"))
-        .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
-        .buttonSet(DialogBuilder::ButtonSet::OK);
-      switch(message->getResult()) {
-      case RocketResultMessage::LaunchResult::FAIL:
-        dialog
-          .messageAddTextBold(_("The Rocket Crashed"))
-          .messageAddText(_("Looks like your rocket technology leaves some to "
-            "be desired. Thankfully there were no people on board this test "
-            "flight. The scientists say they have identified the cause of the"
-            "crash and are confident future launches will go smoothly."))
-          .imageFile("images/gui/dialogs/warning.png");
-        break;
-      case RocketResultMessage::LaunchResult::SUCCESS:
-        dialog
-          .messageAddTextBold(_("Test Launch Successful"))
-          .messageAddText(_("The rocket successfully completed a test flight."));
-          // TODO: Add information about # of successful test launches so far
-          //       and/or # of remaining successful test launches before
-          //       evacuating people.
-        break;
-      case RocketResultMessage::LaunchResult::EVAC:
-        dialog
-          .messageAddTextBold(_("Evacuation Launch Successful"))
-          .messageAddText(_("You have successfully evacuated 1000 people. You "
-            "may consider reducing the size of your economy appropriately."));
-        break;
-      case RocketResultMessage::LaunchResult::EVAC_WIN:
-        dialog
-          .titleText("You Won!")
-          .messageAddTextBold(_("You Evacuated Everyone!"))
-          .messageAddText(_("Congradulations! You have successfully evacuated "
-            "everyone from the city and won the game."));
-        break;
-      default:
-        assert(false);
-      }
-      dialog.build();
-    }
-    else if(NoPeopleLeftMessage::ptr message =
-      dynamic_message_cast<NoPeopleLeftMessage>(message_)
-    ) {
-      DialogBuilder()
-        .titleText(_("You Lost!"))
-        .messageAddTextBold(_("Everyone Died!"))
-        .messageAddText(_("Your leadership drove the city to ruin, and "
-          "all the people died."))
-        .imageFile("images/gui/dialogs/warning.png")
-        .buttonSet(DialogBuilder::ButtonSet::OK)
-        .build();
-    }
-    else if(SustainableEconomyMessage::ptr message =
-      dynamic_message_cast<SustainableEconomyMessage>(message_)
-    ) {
-      DialogBuilder()
-        .titleText(_("You Won!"))
-        .messageAddTextBold(_("Economy Sustainable"))
-        .messageAddText(_("Well done! Thanks to your excellent leadership, the "
-          "city council has determined the economy is sustainable and "
-          "(at least theoretically) may continue indefinitely in prosperity. "
-          "Therefore, you may retire from your position -- of course with a "
-          "substantial pension."))
-        .imageFile("images/gui/dialogs/info.png")
-        .buttonSet(DialogBuilder::ButtonSet::OK)
-        .build();
     }
     else {
+      DialogBuilder()
+        .titleText(_("Warning!"))
+        .messageAddTextBold(_("Out of Money"))
+        .messageAddText(_("You just spent all your money. Further spending "
+          "will require you to take out a loan which you must pay interest "
+          "on. And certain projects you are not allowed to pay for with "
+          "credit. The legislative council strongly advises you learn to "
+          "budget."))
+        .imageFile("images/gui/dialogs/warning.png") // TODO: money icon
+        .buttonSet(DialogBuilder::ButtonSet::OK)
+        .build();
+    }
+  }
+  else if(RocketReadyMessage::ptr message =
+    dynamic_message_cast<RocketReadyMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("Rocket Ready"))
+      .messageAddTextBold(_("A Rocket is Ready for Launch"))
+      .messageAddText((std::ostringstream() << _("The rocket at ")
+        << message->getPoint() << _(" has finished construction and is ready "
+          "for takeoff. You may choose to launch now or later. If you choose "
+          "to wait, beware it costs money to keep the rocket in tip-top "
+          "shape until launch day.")).str())
+      .messageAddText("Launch now?")
+      .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
+      .buttonSet(DialogBuilder::ButtonSet::YESNO)
+      // TODO: onYes
+      .build();
+  }
+  else if(RocketResultMessage::ptr message =
+    dynamic_message_cast<RocketResultMessage>(message_)
+  ) {
+    DialogBuilder dialog;
+    dialog
+      .titleText(_("Rocket Launched"))
+      .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
+      .buttonSet(DialogBuilder::ButtonSet::OK);
+    switch(message->getResult()) {
+    case RocketResultMessage::LaunchResult::FAIL:
+      dialog
+        .messageAddTextBold(_("The Rocket Crashed"))
+        .messageAddText(_("Looks like your rocket technology leaves some to "
+          "be desired. Thankfully there were no people on board this test "
+          "flight. The scientists say they have identified the cause of the"
+          "crash and are confident future launches will go smoothly."))
+        .imageFile("images/gui/dialogs/warning.png");
+      break;
+    case RocketResultMessage::LaunchResult::SUCCESS:
+      dialog
+        .messageAddTextBold(_("Test Launch Successful"))
+        .messageAddText(_("The rocket successfully completed a test flight."));
+        // TODO: Add information about # of successful test launches so far
+        //       and/or # of remaining successful test launches before
+        //       evacuating people.
+      break;
+    case RocketResultMessage::LaunchResult::EVAC:
+      dialog
+        .messageAddTextBold(_("Evacuation Launch Successful"))
+        .messageAddText(_("You have successfully evacuated 1000 people. You "
+          "may consider reducing the size of your economy appropriately."));
+      break;
+    case RocketResultMessage::LaunchResult::EVAC_WIN:
+      dialog
+        .titleText("You Won!")
+        .messageAddTextBold(_("You Evacuated Everyone!"))
+        .messageAddText(_("Congradulations! You have successfully evacuated "
+          "everyone from the city and won the game."));
+      break;
+    default:
       assert(false);
     }
+    dialog.build();
+  }
+  else if(NoPeopleLeftMessage::ptr message =
+    dynamic_message_cast<NoPeopleLeftMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("You Lost!"))
+      .messageAddTextBold(_("Everyone Died!"))
+      .messageAddText(_("Your leadership drove the city to ruin, and "
+        "all the people died."))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+  }
+  else if(SustainableEconomyMessage::ptr message =
+    dynamic_message_cast<SustainableEconomyMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("You Won!"))
+      .messageAddTextBold(_("Economy Sustainable"))
+      .messageAddText(_("Well done! Thanks to your excellent leadership, the "
+        "city council has determined the economy is sustainable and "
+        "(at least theoretically) may continue indefinitely in prosperity. "
+        "Therefore, you may retire from your position -- of course with a "
+        "substantial pension."))
+      .imageFile("images/gui/dialogs/info.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+  }
+  if(OutsideMapMessage::ptr message =
+    dynamic_message_cast<OutsideMapMessage>(message_)
+  ) {
+    // silently ignore requests to do stuff outside the map
+  }
+  else if(CannotBuildMessage::ptr message =
+    dynamic_message_cast<CannotBuildMessage>(message_)
+  ) {
+    CannotBuildHereMessage::ptr hereMessage =
+      dynamic_message_cast<CannotBuildHereMessage>(message);
+    Message::ptr reason_ = message->getReason();
+    DialogBuilder dialog;
+    dialog
+      .titleText(_("Cannot Build"))
+      .messageAddTextBold(_("Cannot build a ") + message->getGroup().name
+        + (hereMessage ? _(" here.") : "."))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK);
+    if(OutOfMoneyMessage::ptr reason =
+      dynamic_message_cast<OutOfMoneyMessage>(reason_)
+    ) {
+      if(reason->isOutOfCredit()) {
+        dialog.messageAddText(_("You do not have sufficient credit to build "
+          "this."));
+      }
+      else {
+        dialog.messageAddText(_("You cannot build this on credit."));
+      }
+    }
+    else if(NotEnoughTechMessage::ptr reason =
+      dynamic_message_cast<NotEnoughTechMessage>(reason_)
+    ) {
+      dialog.messageAddText((std::ostringstream()
+        << _("Tech level too low. Requires ")
+        << std::fixed << std::setprecision(1)
+        << (reason->getRequiredTech() * 100.0f / MAX_TECH_LEVEL)
+      ).str());
+    }
+    else if(SpaceOccupiedMessage::ptr reason =
+      dynamic_message_cast<SpaceOccupiedMessage>(reason_)
+    ) {
+      dialog.messageAddText(_("The space is occupied."));
+    }
+    else if(OutsideMapMessage::ptr reason =
+      dynamic_message_cast<OutsideMapMessage>(reason_)
+    ) {
+      dialog.messageAddText(_("You cannot build outside the map."));
+    }
+    else if(DesertHereMessage::ptr reason =
+      dynamic_message_cast<DesertHereMessage>(reason_)
+    ) {
+      dialog.messageAddText(_("A ") + message->getGroup().name
+        + _(" needs water, but this space is desert."));
+    }
+    else if(!reason_) {
+// #ifdef DEBUG
+      std::cerr << "warning: no reason given in CannotBuildMessage: "
+        << typeid(*message).name() << ": "
+        << message->str() << std::endl;
+// #endif
+      assert(false);
+    }
+    else {
+// #ifdef DEBUG
+      std::cerr << "warning: unrecognized reason in CannotBuildMessage: "
+        << typeid(*reason_).name() << ": "
+        << reason_->str() << std::endl;
+// #endif
+      dialog
+        .messageAddText(_("unrecognized reason"))
+        .imageFile("images/gui/dialogs/error.png");
+      assert(false);
+    }
+    dialog.build();
+  }
+  else if(CannotBulldozeThisMessage::ptr message =
+    dynamic_message_cast<CannotBulldozeThisMessage>(message_)
+  ) {
+    DialogBuilder dialog;
+    dialog
+      .titleText(_("Cannot Bulldoze"))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK);
+    if(CannotBulldozeNonemptyTipMessage::ptr message =
+      dynamic_message_cast<CannotBulldozeNonemptyTipMessage>(message_)
+    ) {
+      dialog
+        .messageAddTextBold(_("Cannot bulldoze this ")
+          + message->getGroup().name)
+        .messageAddText(_("You cannot bulldoze a tip that is full of waste."));
+    }
+    else if(CannotBulldozeIncompleteMonumentMessage::ptr message =
+      dynamic_message_cast<CannotBulldozeIncompleteMonumentMessage>(message_)
+    ) {
+      dialog
+        .messageAddTextBold(_("Cannot bulldoze this ")
+          + message->getGroup().name)
+        .messageAddText(_("You cannot bulldoze a monument that under "
+          "construction."));
+    }
+    else if(CannotBulldozeThisEverMessage::ptr message =
+      dynamic_message_cast<CannotBulldozeThisEverMessage>(message_)
+    ) {
+      dialog
+        .messageAddTextBold(_("You cannot bulldoze a ")
+          + message->getGroup().name + ".")
+        .messageAddText(_("You are not allowed to bulldoze this type of "
+          "construction."));
+    }
+    else {
+// #ifdef DEBUG
+      std::cerr << "warning: unrecognized message derived from "
+        << "CannotBulldozeThisMessage: "
+        << typeid(*message_).name() << ": "
+        << message_->str() << std::endl;
+// #endif
+      {
+        CannotBulldozeThisMessage::ptr message =
+          dynamic_message_cast<CannotBulldozeThisMessage>(message_);
+        dialog
+          .messageAddTextBold(_("You cannot bulldoze this")
+            + message->getGroup().name + ".")
+          .messageAddText(_("You are not allowed to bulldoze this")
+            + message->getGroup().name
+            + _(", but we're not exactly sure why."));
+      }
+      assert(false);
+    }
+    dialog.build();
+  }
+  else if(CannotEvacuateThisMessage::ptr message =
+    dynamic_message_cast<CannotEvacuateThisMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("Cannot Bulldoze"))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .messageAddTextBold(_("You cannot evacuate a ")
+        + message->getGroup().name + ".")
+      .messageAddText(_("You are not allowed to evacuate this type of "
+        "construction."))
+      .build();
+  }
+  else {
+// #ifdef DEBUG
+    std::cerr << "warning: encountered unrecognized message: "
+      << typeid(*message_).name() << ": "
+      << message_->str() << std::endl;
+// #endif
+    // DialogBuilder()
+    //   .titleText(_("Error!"))
+    //   .messageAddTextBold(_("The requested action failed for an unrecognized "
+    //     "reason."))
+    //   .imageFile("images/gui/dialogs/error.png")
+    //   .buttonSet(DialogBuilder::ButtonSet::OK)
+    //   .build();
+    assert(false);
   }
 }
 
