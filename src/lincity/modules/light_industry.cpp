@@ -27,7 +27,6 @@
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand, NULL
-#include <iterator>                       // for advance
 #include <map>                            // for map
 #include <string>                         // for basic_string, char_traits
 #include <vector>                         // for allocator, vector
@@ -39,6 +38,7 @@
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
+#include "lincity/MapPoint.hpp"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
@@ -108,12 +108,9 @@ IndustryLight::IndustryLight(World& world, ConstructionGroup *cstgrp) :
 }
 
 IndustryLight::~IndustryLight() {
-  if(world.map(x,y)->framesptr) {
-    world.map(x,y)->framesptr->erase(fr_begin, fr_end);
-    if(world.map(x,y)->framesptr->empty()) {
-      delete world.map(x,y)->framesptr;
-      world.map(x,y)->framesptr = NULL;
-    }
+  MapTile& tile = *world.map(point);
+  for(const auto& frit : frits) {
+    tile.killframe(frit);
   }
 }
 
@@ -208,18 +205,17 @@ void IndustryLight::animate(unsigned long real_time) {
     int active = 0;
     if(busy > 70)
       active = 2;
-    else if (busy > 5)
+    else if (busy > 10)
       active = 1;
-    std::list<ExtraFrame>::iterator frit = fr_begin;
-    for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1)) {
+    for(int i = 0; i < frits.size(); i++) {
+      auto& frit = frits[i];
       int s = frit->resourceGroup->graphicsInfoVector.size();
       int& smoke = frit->frame;
       if (i >= active) {
         smoke = -1;
       }
-      else if(!s) ;
-      else if(smoke < 0 || rand() % 1600) {
-        // always randomize new plumes and sometimes existing ones
+      else if(smoke < 0 || !(rand() % 1600)) {
+        // randomize new plumes and sometimes existing ones
         smoke = rand() % s;
       }
       else if(goods_today && ++smoke >= s) {
@@ -245,26 +241,16 @@ void IndustryLight::report(Mps& mps, bool production) const {
 void IndustryLight::init_resources() {
   Construction::init_resources();
 
-  world.map(x,y)->framesptr->resize(world.map(x,y)->framesptr->size()+2);
-  std::list<ExtraFrame>::iterator frit = frameIt;
-  std::advance(frit, 1);
-  fr_begin = frit;
-  frit = frameIt;
-  std::advance(frit, 1);
-  frit->move_x = -113;
-  frit->move_y = -210;
-  std::advance(frit, 1);
-  frit->move_x = -84;
-  frit->move_y = -198;
-  std::advance(frit, 1);
-  fr_end = frit;
-  for(frit = fr_begin;
-    frit != world.map(x,y)->framesptr->end() && frit != fr_end;
-    std::advance(frit, 1)
-  ) {
+  MapTile& tile = *world.map(point);
+  for(auto& frit : frits) {
+    frit = tile.createframe();
     frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
     frit->frame = -1; // hide smoke
   }
+  frits[0]->move_x = -113;
+  frits[0]->move_y = -210;
+  frits[1]->move_x = -84;
+  frits[1]->move_y = -198;
 }
 
 void IndustryLight::place(int x, int y) {

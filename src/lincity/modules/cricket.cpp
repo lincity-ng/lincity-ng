@@ -65,7 +65,7 @@ Cricket::Cricket(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
   this->constructionGroup = cstgrp;
-  // this->anim = 0;
+  this->anim = 0;
   this->animate_enable = false;
   this->active = false;
   this->busy = 0;

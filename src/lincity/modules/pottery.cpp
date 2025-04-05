@@ -57,7 +57,7 @@ Pottery::Pottery(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
   this->constructionGroup = cstgrp;
-  // this->anim = 0; // or real_time?
+  this->anim = 0; // or real_time?
   this->pauseCounter = 0;
   this->busy = 0;
   this->working_days = 0;

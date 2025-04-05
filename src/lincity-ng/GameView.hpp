@@ -183,7 +183,7 @@ private:
     static const int overlayOnly = 2;
     static const int overlayMAX = 2;
 
-    void markTile( Painter& painter, const MapPoint &tile );
+    void markTile(Painter& painter, MapPoint tile);
 
     int cursorSize;
     bool buttonsConnected;

@@ -1477,15 +1477,14 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 /*
  * Mark a tile with current cursor
  */
-void GameView::markTile( Painter& painter, const MapPoint &point )
-{
+void GameView::markTile(Painter& painter, MapPoint point) {
     Vector2 tileOnScreenPoint = getScreenPoint(point);
     {
       MapPoint upperLeft = realTile(point);
-      Construction *cst = getWorld().map(point)->reportingConstruction;
+      Construction *cst;
       if(upperLeft == game->getMpsMap().point
         && getUserOperation()->action == UserOperation::ACTION_QUERY
-        && cst
+        && (cst = getWorld().map(point)->reportingConstruction)
       ) {
         ConstructionGroup *constructionGroup = cst->constructionGroup;
         int range = constructionGroup->range;
@@ -1623,7 +1622,7 @@ void GameView::draw(Painter& painter)
       game->getMiniMap().switchView("MapMPS");
     }
     //Mark Tile under Mouse // TODO: handle showTerrainHeight
-    if( mouseInGameView  && !blockingDialogIsOpen ) {
+    if(mouseInGameView && !blockingDialogIsOpen) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
         if( roadDragging && ( cursorSize == 1 ) &&

@@ -27,7 +27,6 @@
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand, NULL
-#include <iterator>                       // for advance
 #include <map>                            // for map
 #include <string>                         // for basic_string, char_traits
 #include <vector>                         // for allocator, vector
@@ -72,12 +71,9 @@ Coal_power::Coal_power(World& world, ConstructionGroup *cstgrp) :
 }
 
 Coal_power::~Coal_power() {
-  if(world.map(point)->framesptr) {
-    world.map(point)->framesptr->erase(fr_begin, fr_end);
-    if(world.map(point)->framesptr->empty()) {
-      delete world.map(point)->framesptr;
-      world.map(point)->framesptr = NULL;
-    }
+  MapTile& tile = *world.map(point);
+  for(const auto& frit : frits) {
+    tile.killframe(frit);
   }
 }
 
@@ -119,10 +115,10 @@ void Coal_power::animate(unsigned long real_time) {
   if(real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(SMOKE_ANIM_SPEED);
     int active = 9*busy/100;
-    std::list<ExtraFrame>::iterator frit = fr_begin;
-    for(int i = 0; frit != fr_end; std::advance(frit, 1), ++i) {
+    for(int i = 0; i < frits.size(); i++) {
+      auto& frit = frits[i];
       const int s = frit->resourceGroup->graphicsInfoVector.size();
-      if(i >= active || !s) {
+      if(i >= active) {
         frit->frame = -1;
       }
       else if(frit->frame < 0 || rand() % 1600 != 0) {
@@ -157,42 +153,28 @@ void Coal_power::report(Mps& mps, bool production) const {
 void Coal_power::init_resources() {
   Construction::init_resources();
 
-  world.map(point)->framesptr->resize(world.map(point)->framesptr->size()+8);
-  std::list<ExtraFrame>::iterator frit = frameIt;
-  std::advance(frit, 1);
-  fr_begin = frit;
-  frit->move_x = 5;
-  frit->move_y = -378;
-  std::advance(frit, 1);
-  frit->move_x = 29;
-  frit->move_y = -390;
-  std::advance(frit, 1);
-  frit->move_x = 52;
-  frit->move_y = -397;
-  std::advance(frit, 1);
-  frit->move_x = 76;
-  frit->move_y = -409;
-  std::advance(frit, 1);
-  frit->move_x = 65;
-  frit->move_y = -348;
-  std::advance(frit, 1);
-  frit->move_x = 89;
-  frit->move_y = -360;
-  std::advance(frit, 1);
-  frit->move_x = 112;
-  frit->move_y = -371;
-  std::advance(frit, 1);
-  frit->move_x = 136;
-  frit->move_y = -383;
-  std::advance(frit, 1);
-  fr_end = frit;
-  for(frit = fr_begin;
-    frit != world.map(point)->framesptr->end() && frit != fr_end;
-    std::advance(frit, 1)
-  ) {
+  MapTile& tile = *world.map(point);
+  for(auto& frit : frits) {
+    frit = tile.createframe();
     frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
     frit->frame = -1; // hide smoke
   }
+  frits[0]->move_x = 5;
+  frits[0]->move_y = -378;
+  frits[1]->move_x = 29;
+  frits[1]->move_y = -390;
+  frits[2]->move_x = 52;
+  frits[2]->move_y = -397;
+  frits[3]->move_x = 76;
+  frits[3]->move_y = -409;
+  frits[4]->move_x = 65;
+  frits[4]->move_y = -348;
+  frits[5]->move_x = 89;
+  frits[5]->move_y = -360;
+  frits[6]->move_x = 112;
+  frits[6]->move_y = -371;
+  frits[7]->move_x = 136;
+  frits[7]->move_y = -383;
 }
 
 void Coal_power::place(int x, int y) {

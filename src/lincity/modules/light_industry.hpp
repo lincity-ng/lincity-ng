@@ -124,7 +124,7 @@ public:
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
-    std::list<ExtraFrame>::iterator fr_begin, fr_end;
+    std::array<std::list<ExtraFrame>::iterator, 2> frits;
     int  tech;
     double bonus, extra_bonus;
     int  working_days;

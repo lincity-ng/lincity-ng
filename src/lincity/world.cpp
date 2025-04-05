@@ -30,6 +30,7 @@
 #include <iterator>               // for advance
 #include <map>                    // for map
 #include <string>                 // for basic_string, char_traits, operator<
+#include <cassert>
 
 #include "ConstructionRequest.hpp"  // for BurnDownRequest, ConstructionDeleti...
 #include "all_buildings.hpp"        // for GROUP_WATER_COST
@@ -61,8 +62,8 @@ Ground::Ground() {
 }
 Ground::~Ground() {}
 
-MapTile::MapTile() :
-  ground()
+MapTile::MapTile(MapPoint point) :
+  point(point), ground()
 {
     construction = NULL;
     reportingConstruction = NULL;
@@ -258,7 +259,7 @@ std::list<ExtraFrame>::iterator MapTile::createframe(void)
     return frit; //the last position
 }
 
-void MapTile::killframe(std::list<ExtraFrame>::iterator it)
+void MapTile::killframe(const std::list<ExtraFrame>::iterator& it)
 {
     //what would actually happen if "it" belongs to another maptile?
     framesptr->erase(it);
@@ -272,31 +273,38 @@ void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 
 
 Map::Map(int map_len) :
-  side_len(map_len), maptile(map_len * map_len),
-  recentPoint(map_len / 2, map_len / 2)
-{}
+  side_len(map_len), recentPoint(map_len / 2, map_len / 2)
+{
+  maptile.reserve(map_len * map_len);
+  for(MapPoint p; p.y < map_len; p.y++)
+  for(p.x = 0; p.x < map_len; p.x++) {
+    maptile.emplace_back(p);
+  }
+}
 
 Map::~Map() {
   maptile.clear();
 }
 
 MapTile* Map::operator()(int x, int y) {
-  return &(maptile[x + y * side_len]);
+  return this->operator()(MapPoint(x,y));
 }
 
 const MapTile* Map::operator()(int x, int y) const {
-  return &(maptile[x + y * side_len]);
+  return this->operator()(MapPoint(x,y));
 }
 
 MapTile* Map::operator()(int index) {
-  return &(maptile[index]);
+  return this->operator()(MapPoint(index%side_len,index/side_len));
 }
 
 const MapTile *Map::operator()(MapPoint point) const {
+  assert(is_inside(point));
   return &(maptile[point.x + point.y * side_len]);
 }
 
 MapTile *Map::operator()(MapPoint point) {
+  assert(is_inside(point));
   return &(maptile[point.x + point.y * side_len]);
 }
 
@@ -432,6 +440,26 @@ bool Map::checkEdgeMin(int x , int y) const {
 }
 bool Map::checkEdgeMin(MapPoint point) const {
   return checkEdgeMin(point.x, point.y);
+}
+
+Map::iterator
+Map::begin() {
+  return maptile.begin();
+}
+
+Map::iterator
+Map::end() {
+  return maptile.end();
+}
+
+Map::riterator
+Map::rbegin() {
+  return maptile.rbegin();
+}
+
+Map::riterator
+Map::rend() {
+  return maptile.rend();
 }
 
 World::World() :

@@ -133,7 +133,7 @@ public:
 
   [[deprecated]] int x, y;
   MapPoint point;
-  int flags;              //flags are defined in lin-city.h
+  int flags = 0;              //flags are defined in lin-city.h
   World& world;
 
   // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff

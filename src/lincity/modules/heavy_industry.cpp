@@ -70,7 +70,7 @@ IndustryHeavy::IndustryHeavy(World& world, ConstructionGroup *cstgrp) :
   this->tech = world.tech_level;
   this->output_level = 0;
   this->steel_this_month = 0;
-  // this->anim = 0;
+  this->anim = 0;
   initialize_commodities();
    //check for pollution bonus
   this->bonus = 0;

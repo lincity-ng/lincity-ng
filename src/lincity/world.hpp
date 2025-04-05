@@ -70,8 +70,14 @@ public:
 
 class MapTile {
 public:
-  MapTile();
+  MapTile(MapPoint point);
   ~MapTile();
+
+  // TODO: make point const. Attention to map_len assignment in load/save.
+  //       Option 1: refactor load/save so World::map needn't be assigned.
+  //       Option 2: mess with the allocator for the Map::maptile vector.
+  //       see https://en.cppreference.com/w/cpp/container/vector/operator=
+  //       Option 3: convert Map::maptile to a vector<unique_ptr<MapTile>>
   MapPoint point;
   Ground ground;                        //the Ground associated to an instance of MapTile
   Construction *construction;           //the actual construction (e.g. for simulation)
@@ -89,7 +95,7 @@ public:
   void setTerrain(unsigned short group); //places type & group at MapTile
   std::list<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
                                                   //to be used by Contstructions and Vehicles
-  void killframe(std::list<ExtraFrame>::iterator it); //kills an extraframe
+  void killframe(const std::list<ExtraFrame>::iterator& it); //kills an extraframe
 
   unsigned short getType() const;          //type of bare land or the covering construction
   unsigned short getTopType() const;       //type of bare land or the actual construction
@@ -115,8 +121,7 @@ public:
   void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
 };
 
-class Map
-{
+class Map {
 public:
   Map(int map_len);
   ~Map();
@@ -148,6 +153,12 @@ public:
   [[deprecated]] bool checkEdgeMin(int x, int y) const;
   bool checkEdgeMin(MapPoint point) const;
   std::vector<MapPoint> polluted;
+  using iterator = std::vector<MapTile>::iterator;
+  using riterator = std::vector<MapTile>::reverse_iterator;
+  iterator begin();
+  iterator end();
+  riterator rbegin();
+  riterator rend();
 
   int alt_min, alt_max, alt_step;
 

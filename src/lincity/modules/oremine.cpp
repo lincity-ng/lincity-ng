@@ -79,7 +79,7 @@ Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :
   Construction(world)
 {
   this->constructionGroup = cstgrp;
-  // this->anim = 0;
+  this->anim = 0;
   this->animate_enable = false;
   this->working_days = 0;
   this->busy = 0;

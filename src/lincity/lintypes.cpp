@@ -306,14 +306,6 @@ void Construction::detach()
     world.map(x,y)->construction = NULL;
     world.map(x,y)->killframe(frameIt);
     constructionGroup->count--;
-/*
-      world.map(x,y)->framesptr->erase(frameIt);
-      if(world.map(x,y)->framesptr->empty())
-      {
-          delete world.map(x,y)->framesptr;
-          world.map(x,y)->framesptr = NULL;
-      }
-*/
   }
 
   int size = constructionGroup->size;
