@@ -273,9 +273,13 @@ Game::executeUserOperation(MapPoint point) {
         if(world->map(point)->reportingConstruction == cst
           && world->map(point)->getGroup() == grp
         ) {
-          userOperation.execute(*world, point);
-          getMpsMap().setTile(world->map(point));
-          getSound()->playSound("Raze");
+          try{
+            userOperation.execute(*world, point);
+            getMpsMap().setTile(world->map(point));
+            getSound()->playSound("Raze");
+          } catch(const Message::Exception& ex) {
+            handleMessage(ex.getMessage());
+          }
         }
       });
 
@@ -814,7 +818,7 @@ Game::handleMessage(Message::ptr message_) {
     ) {
       dialog
         .messageAddTextBold(_("Cannot bulldoze this ")
-          + message->getGroup().name)
+          + _(message->getGroup().name))
         .messageAddText(_("You cannot bulldoze a tip that is full of waste."));
     }
     else if(CannotBulldozeIncompleteMonumentMessage::ptr message =
@@ -822,8 +826,8 @@ Game::handleMessage(Message::ptr message_) {
     ) {
       dialog
         .messageAddTextBold(_("Cannot bulldoze this ")
-          + message->getGroup().name)
-        .messageAddText(_("You cannot bulldoze a monument that under "
+          + _(message->getGroup().name))
+        .messageAddText(_("You cannot bulldoze a monument that is under "
           "construction."));
     }
     else if(CannotBulldozeThisEverMessage::ptr message =
@@ -831,7 +835,7 @@ Game::handleMessage(Message::ptr message_) {
     ) {
       dialog
         .messageAddTextBold(_("You cannot bulldoze a ")
-          + message->getGroup().name + ".")
+          + _(message->getGroup().name) + ".")
         .messageAddText(_("You are not allowed to bulldoze this type of "
           "construction."));
     }
@@ -847,9 +851,9 @@ Game::handleMessage(Message::ptr message_) {
           dynamic_message_cast<CannotBulldozeThisMessage>(message_);
         dialog
           .messageAddTextBold(_("You cannot bulldoze this")
-            + message->getGroup().name + ".")
+            + _(message->getGroup().name) + ".")
           .messageAddText(_("You are not allowed to bulldoze this")
-            + message->getGroup().name
+            + _(message->getGroup().name)
             + _(", but we're not exactly sure why."));
       }
       assert(false);
@@ -864,7 +868,7 @@ Game::handleMessage(Message::ptr message_) {
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .messageAddTextBold(_("You cannot evacuate a ")
-        + message->getGroup().name + ".")
+        + _(message->getGroup().name) + ".")
       .messageAddText(_("You are not allowed to evacuate this type of "
         "construction."))
       .build();

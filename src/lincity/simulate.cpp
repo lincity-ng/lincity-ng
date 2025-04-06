@@ -166,14 +166,14 @@ World::end_of_month_update(void) {
     expense(stats.population.unnat_deaths_m.acc * UNNAT_DEATHS_COST,
       stats.expenses.deaths);
   } catch(const OutOfMoneyMessage::Exception& ex) {
-    // TODO
+    // TODO: penalty for being bankrupt
   }
 
   try {
     expense(stats.population.unemployed_m.acc * money_rates.dole / 100,
       stats.expenses.unemployment);
   } catch(const OutOfMoneyMessage::Exception& ex) {
-    // TODO
+    // TODO:  penalty for being bankrupt
   }
 
   for(Construction *cst : map.constructions) {
@@ -229,7 +229,7 @@ World::end_of_year_update(void) {
       expense(std::min((-total_money / 1000) * INTEREST_RATE, 1000000),
         stats.expenses.interest);
   } catch(const OutOfMoneyMessage::Exception& ex) {
-    // TODO
+    // TODO: penalty for being bankrupt
   }
 
   if(total_money > 2000000000)

@@ -798,7 +798,7 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
     if(xml_tag == "given_scene")                      world.given_scene = xml_val;
     else if(xml_tag == "global_aridity")              ; // removed
     else if(xml_tag == "global_mountainity")          ; // removed
-    else if(xml_tag == "world_side_len")              world.map = Map(std::stoi(xml_val)); // TODO: move to loadMap
+    else if(xml_tag == "world_side_len")              world.map = Map(std::stoi(xml_val));
     else if(xml_tag == "world_id")                    ; // removed
     else if(xml_tag == "old_setup_ground")            ; // removed
     else if(xml_tag == "climate")                     ; // removed

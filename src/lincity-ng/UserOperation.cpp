@@ -78,6 +78,8 @@ UserOperation::isAllowedHere(World& world, MapPoint point, Message::ptr& message
     return constructionGroup->can_build(world, message)
       && constructionGroup->can_build_here(world, point, message);
   case ACTION_BULLDOZE: {
+    // TODO: actually report whether the item may be bulldozed or not and why.
+    //       Currently, the backend does not facilitate querying this info.
     return true;
     // bool bare = world.map(point)->is_bare();
     // if(bare) message = NothingHereMessage::create(point);
