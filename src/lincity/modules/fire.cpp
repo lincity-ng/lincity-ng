@@ -85,7 +85,7 @@ void Fire::update()
         if (smoking_days == 0)   /* rand length here also */
         {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
         smoking_days++;
-        if (world.map(x,y)->flags & FLAG_FIRE_COVER)
+        if (world.map(point)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
         if(smoking_days > AFTER_FIRE_LENGTH)
           ConstructionDeletionRequest(this).execute();
@@ -93,10 +93,10 @@ void Fire::update()
     }
 
     burning_days++;
-    if (world.map(x,y)->flags & FLAG_FIRE_COVER)
+    if (world.map(point)->flags & FLAG_FIRE_COVER)
     {   burning_days += 4;}
     days_before_spread--;
-    world.map(x,y)->pollution++;
+    world.map(point)->pollution++;
     if(days_before_spread == 0) {
       days_before_spread = FIRE_DAYS_PER_SPREAD;
       spread();
@@ -149,7 +149,7 @@ void Fire::animate(unsigned long real_time) {
 void Fire::report(Mps& mps, bool production) const {
     mps.add_s(constructionGroup->name);
     mps.addBlank();
-    mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
+    mps.add_sd(N_("Air Pollution"), world.map(point)->pollution);
     if(burning_days < FIRE_LENGTH)
       mps.add_sddp(N_("burnt down"), burning_days, FIRE_LENGTH);
     else

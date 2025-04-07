@@ -161,8 +161,6 @@ World::scan_pollution() {
 
 void
 World::do_fire_health_cricket_power_cover() {
-  const int len = map.len();
-  const int area = len * len;
   const int coverFlags[] = {
     FLAG_FIRE_COVER,
     FLAG_HEALTH_COVER,
@@ -176,8 +174,8 @@ World::do_fire_health_cricket_power_cover() {
     FLAG_MARKET_COVER_CHECK
   };
   const int flagNum = 4;
-  for(int index = 0; index < area; ++index) {
-    int& tileFlags = map(index)->flags;
+  for(MapTile& tile : map) {
+    int& tileFlags = tile.flags;
     for(int fi = 0; fi < flagNum; fi++) {
       tileFlags =
         (tileFlags & ~coverFlags[fi] & ~checkFlags[fi]) |  // clear
@@ -203,39 +201,36 @@ World::do_random_fire() {
 }
 
 void
-World::do_daily_ecology() //should be going to MapTile:: und handled during simulation
-{
-    const int len = map.len();
-    const int area = len * len;
-    for (int idx = 0; idx < area; ++idx)
-    {
-        /* approximately 3 monthes needed to turn bulldoze area into green */
-        if ((map(idx)->getLowerstVisibleGroup() == GROUP_DESERT)
-            && (map(idx)->flags & FLAG_HAS_UNDERGROUND_WATER)
-            && (rand() % 300 == 1))
-        {
-            map(idx)->setTerrain(CST_GREEN);
-            map.desert_water_frontiers( (idx % len) - 1, (idx / len) - 1, 1 + 2, 1 + 2);
-        }
+World::do_daily_ecology() {
+  for(MapTile& tile : map) {
+    /* approximately 3 monthes needed to turn bulldoze area into green */
+    if(tile.getLowerstVisibleGroup() == GROUP_DESERT
+      && (tile.flags & FLAG_HAS_UNDERGROUND_WATER)
+      && (rand() % 300 == 1)
+    ) {
+      tile.setTerrain(CST_GREEN);
+      map.desert_water_frontiers(tile.point.x - 1, tile.point.y - 1, 1 + 2, 1 + 2);
     }
-    //TODO: depending on water, green can become trees
-    //      pollution can make desert
-    //      etc ...
-    /*TODO incorporate do_daily_ecology to simulate_mappoints. */
+  }
+
+  //TODO: depending on water, green can become trees
+  //      pollution can make desert
+  //      etc ...
+  /*TODO incorporate do_daily_ecology to simulate_mappoints. */
 }
 
 int
 Map::check_group(int x, int y) {
-  if(!is_inside(x, y))
+  if(!is_inside(MapPoint(x,y)))
     return -1;
-  return (*this)(x, y)->getGroup();
+  return (*this)(MapPoint(x,y))->getGroup();
 }
 
 int
 Map::check_topgroup(int x, int y) {
-  if(!is_inside(x, y))
+  if(!is_inside(MapPoint(x,y)))
     return -1;
-  return (*this)(x, y)->getTopGroup();
+  return (*this)(MapPoint(x,y))->getTopGroup();
 }
 
 void

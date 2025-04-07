@@ -31,11 +31,12 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_ORGANIC_FARM
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, FALSE, FLAG...
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_ORGANIC_FARM
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, FALSE, FLAG...
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 
@@ -162,14 +163,14 @@ void Organic_farm::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Organic_farm::place(int x, int y) {
-  Construction::place(x, y);
+void Organic_farm::place(MapPoint point) {
+  Construction::place(point);
 
   // Check underground water, and reduce food production accordingly
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world.map(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if(world.map(point.s(i).e(j))->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   this->tech_bonus = (int)((long long int)this->tech

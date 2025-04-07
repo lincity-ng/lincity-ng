@@ -177,8 +177,8 @@ void Coal_power::init_resources() {
   frits[7]->move_y = -383;
 }
 
-void Coal_power::place(int x, int y) {
-  Construction::place(x, y);
+void Coal_power::place(MapPoint point) {
+  Construction::place(point);
 
   this->hivolt_output = (int)(POWERS_COAL_OUTPUT +
     (((double)tech * POWERS_COAL_OUTPUT) / MAX_TECH_LEVEL));

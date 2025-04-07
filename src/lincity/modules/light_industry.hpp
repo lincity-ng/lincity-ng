@@ -119,7 +119,7 @@ public:
     virtual void animate(unsigned long real_time) override;
 
     virtual void init_resources() override;
-    virtual void place(int x, int y) override;
+    virtual void place(MapPoint point) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;

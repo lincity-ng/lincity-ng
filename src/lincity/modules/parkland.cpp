@@ -85,16 +85,15 @@ Parkland::Parkland(World& world, ConstructionGroup *cstgrp) :
   this->flags |= FLAG_NEVER_EVACUATE;
 }
 
-void Parkland::update()
-{
-    if (world.map(x,y)->pollution > 10 && (world.total_time & 1) == 0)
-        world.map(x,y)->pollution --;
+void Parkland::update() {
+  if(world.map(point)->pollution > 10 && (world.total_time & 1) == 0)
+    world.map(point)->pollution--;
 }
 
 void Parkland::report(Mps& mps, bool production) const {
   mps.add_s(constructionGroup->name);
   mps.addBlank();
-  mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
+  mps.add_sd(N_("Air Pollution"), world.map(point)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */

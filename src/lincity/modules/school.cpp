@@ -27,18 +27,18 @@
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stddef.h>                       // for NULL
-#include <iterator>                       // for advance
-#include <map>                            // for allocator, map
-#include <string>                         // for basic_string, char_traits
+#include <map>                            // for map
+#include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_SCHOOL
-#include "lincity/lin-city.hpp"             // for FALSE, MAX_TECH_LEVEL
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_SCHOOL
+#include "lincity/lin-city.hpp"           // for FALSE, MAX_TECH_LEVEL
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.hpp"                // for Stat, Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stat, Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 
@@ -79,11 +79,11 @@ School::School(World& world, ConstructionGroup *cstgrp) :
 }
 
 School::~School() {
-  if(world.map(x,y)->framesptr) {
-    world.map(x,y)->framesptr->erase(frit);
-    if(world.map(x,y)->framesptr->empty()) {
-      delete world.map(x,y)->framesptr;
-      world.map(x,y)->framesptr = NULL;
+  if(world.map(point)->framesptr) {
+    world.map(point)->framesptr->erase(frit);
+    if(world.map(point)->framesptr->empty()) {
+      delete world.map(point)->framesptr;
+      world.map(point)->framesptr = NULL;
     }
   }
 }
@@ -150,9 +150,7 @@ void School::report(Mps& mps, bool production) const {
 void School::init_resources() {
   Construction::init_resources();
 
-  world.map(x,y)->framesptr->resize(world.map(x,y)->framesptr->size()+1);
-  frit = frameIt;
-  std::advance(frit, 1);
+  frit = world.map(point)->createframe();
   frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
   frit->frame = -1; //hide the swing
 }

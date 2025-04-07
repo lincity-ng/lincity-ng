@@ -987,8 +987,8 @@ static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
     if(cst->isDead()) continue;
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"Construction");
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", cst->constructionGroup->group);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->x);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", cst->y);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->point.x);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", cst->point.y);
       cst->save(xmlWriter);
     xmlTextWriterEndElement(xmlWriter);
   }
@@ -1003,7 +1003,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
   unsigned int ldsv_version
 ) {
   Map& map = world.map;
-  std::list<std::pair<Construction *, std::pair<int, int>>> constructions;
+  std::list<std::pair<Construction *, MapPoint>> constructions;
 
   if(ldsv_version > 2130) {
     int mapSize = std::stoi(xmlReader.get_attribute("size"));
@@ -1041,7 +1041,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
         throw std::runtime_error("invalid group");
       Construction *cst = cstgrp->createConstruction(world);
       cst->load(xmlReader, ldsv_version);
-      constructions.emplace_back(cst, std::pair(x, y));
+      constructions.emplace_back(cst, MapPoint(x, y));
     }
     else if(xmlReader.get_name() == "recentPoint" && ldsv_version > 2130) {
       bool found_x = false, found_y = false;
@@ -1075,7 +1075,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
   assert(xmlReader.get_depth() == depth);
 
   for(auto& cst : constructions) {
-    cst.first->place(cst.second.first, cst.second.second);
+    cst.first->place(cst.second);
   }
 
   map.alt_min = map.alt_max = map(0, 0)->ground.altitude;

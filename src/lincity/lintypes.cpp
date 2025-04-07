@@ -28,27 +28,28 @@
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand
+#include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionRequest.hpp"          // for PowerLineFlashRequest
-#include "Vehicles.hpp"                     // for Vehicle, VehicleStrategy
+#include "ConstructionRequest.hpp"        // for PowerLineFlashRequest
+#include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
-#include "groups.hpp"                       // for GROUP_POWER_LINE, GROUP_FIRE
-#include "lin-city.hpp"                     // for FLAG_EVACUATE, FLAG_IS_TRAN...
+#include "groups.hpp"                     // for GROUP_POWER_LINE, GROUP_FIRE
+#include "lin-city.hpp"                   // for FLAG_EVACUATE, FLAG_IS_TRAN...
 #include "lincity-ng/Config.hpp"          // for getConfig, Config
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
-#include "modules/all_modules.hpp"          // for Powerline, GROUP_MARKET_RANGE
-#include "stats.hpp"                        // for Stats, Stat
+#include "modules/all_modules.hpp"        // for Powerline, GROUP_MARKET_RANGE
+#include "stats.hpp"                      // for Stats, Stat
 #include "tinygettext/gettext.hpp"        // for _
-#include "transport.hpp"                    // for TRANSPORT_QUANTA, TRANSPORT...
-#include "world.hpp"                        // for World, Map, MapTile
-#include "xmlloadsave.hpp"                  // for xmlStr, unexpectedXmlElement
-#include "util.hpp"
+#include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
+#include "util.hpp"                       // for used_in_assert
+#include "world.hpp"                      // for World, Map, MapTile
+#include "xmlloadsave.hpp"                // for xmlStr, unexpectedXmlElement
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
@@ -164,7 +165,7 @@ void Construction::initialize_commodities(void)
 
 void Construction::init_resources()
 {
-    frameIt = world.map(x,y)->createframe();
+    frameIt = world.map(point)->createframe();
     ResourceGroup *resGroup = ResourceGroup::resMap[constructionGroup->resourceID];
     if (resGroup)
     {
@@ -259,38 +260,36 @@ Construction::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version
   return true;
 }
 
-void Construction::place(int x, int y) {
+void Construction::place(MapPoint point) {
   unsigned short size = constructionGroup->size;
-  if(!world.map.is_inside(x, y) || !world.map.is_inside(x + size, y + size))
+  if(!world.map.is_inside(point) || !world.map.is_inside(point.s(size).e(size)))
     throw std::runtime_error("cannot place a Construction outside the map");
 
-  this->point = MapPoint(x, y);
-  this->x = x;
-  this->y = y;
+  this->point = point;
 
   init_resources();
 
-  for (unsigned short i = 0; i < size; i++) {
-    for (unsigned short j = 0; j < size; j++) {
-      //never change water upon building something
-      if(!world.map(x + j, y + i)->is_water()) {
-        if(!(flags & FLAG_TRANSPARENT)) {
-          world.map(x + j, y + i)->setTerrain(GROUP_DESERT);
-          world.map(x + j, y + i)->flags |= FLAG_INVISIBLE; // hide maptiles
-        }
-        else {
-          world.map(x + j, y + i)->flags &= ~FLAG_INVISIBLE; // show maptiles
-          if(world.map(x + j, y + i)->group != GROUP_DESERT)
-            world.map(x + j, y + i)->setTerrain(GROUP_BARE);
-        }
+  for(MapPoint p = point; p.y < point.y + size; p.y++)
+  for(p.x = 0; p.x < point.x + size; p.x++) {
+    MapTile& tile = *world.map(p);
+    //never change water upon building something
+    if(!tile.is_water()) {
+      if(flags & FLAG_TRANSPARENT) {
+        tile.flags &= ~FLAG_INVISIBLE; // show maptiles
+        if(tile.group != GROUP_DESERT)
+          tile.setTerrain(GROUP_BARE);
       }
-      assert(!world.map(x+j, y+i)->reportingConstruction);
-      world.map(x + j, y + i)->reportingConstruction = this;
-    } //endfor j
-  }// endfor i
-  world.map(x, y)->construction = this;
+      else {
+        tile.setTerrain(GROUP_DESERT);
+        tile.flags |= FLAG_INVISIBLE; // hide maptiles
+      }
+    }
+    assert(!tile.reportingConstruction);
+    tile.reportingConstruction = this;
+  }
+  world.map(point)->construction = this;
   world.map.constructions.insert(this); //register for Simulation
-  world.map.recentPoint = MapPoint(x, y);
+  world.map.recentPoint = MapPoint(point);
   constructionGroup->count++;
 
   //now look for neighbors
@@ -302,9 +301,9 @@ void Construction::detach()
 {
   //std::cout << "detaching: " << constructionGroup->name << std::endl;
   // world.map.constructions.erase(this);
-  if(world.map(x,y)->construction == this) {
-    world.map(x,y)->construction = NULL;
-    world.map(x,y)->killframe(frameIt);
+  if(world.map(point)->construction == this) {
+    world.map(point)->construction = NULL;
+    world.map(point)->killframe(frameIt);
     constructionGroup->count--;
   }
 
@@ -352,10 +351,10 @@ void Construction::deneighborize()
     partners.clear();
     if (constructionGroup->group == GROUP_POWER_LINE)
     {
-        world.map(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
-        world.map(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
-        world.map(x, y + 1)->flags &= ~FLAG_POWER_CABLES_0;
-        world.map(x, y - 1)->flags &= ~FLAG_POWER_CABLES_0;
+        world.map(point.e())->flags &= ~FLAG_POWER_CABLES_90;
+        world.map(point.w())->flags &= ~FLAG_POWER_CABLES_90;
+        world.map(point.s())->flags &= ~FLAG_POWER_CABLES_0;
+        world.map(point.n())->flags &= ~FLAG_POWER_CABLES_0;
     }
 }
 
@@ -376,25 +375,25 @@ void Construction::neighborize()
             unsigned short size = constructionGroup->size;
             for(unsigned short edge = 0; edge < size; ++edge) {
               //here we rely on invisible edge tiles
-              cst = world.map(x - 1,y + edge)->reportingConstruction;
+              cst = world.map(point.w().s(edge))->reportingConstruction;
               if(cst && cst != cst1
                 && cst->constructionGroup->group != GROUP_FIRE
                 && cst->constructionGroup->group != GROUP_POWER_LINE
               )
                 link_to(cst1 = cst);
-              cst = world.map(x + edge,y - 1)->reportingConstruction;
+              cst = world.map(point.w(edge).n())->reportingConstruction;
               if(cst && cst != cst2
                 && cst->constructionGroup->group != GROUP_FIRE
                 && cst->constructionGroup->group != GROUP_POWER_LINE
               )
                 link_to(cst2 = cst);
-              cst = world.map(x + size,y + edge)->reportingConstruction;
+              cst = world.map(point.e(size).s(edge))->reportingConstruction;
               if(cst && cst != cst3
                 && cst->constructionGroup->group != GROUP_FIRE
                 && cst->constructionGroup->group != GROUP_POWER_LINE
               )
                 link_to(cst3 = cst);
-              cst = world.map(x + edge,y + size)->reportingConstruction;
+              cst = world.map(point.e(edge).s(size))->reportingConstruction;
               if(cst && cst != cst4
                 && cst->constructionGroup->group != GROUP_FIRE
                 && cst->constructionGroup->group != GROUP_POWER_LINE
@@ -402,38 +401,26 @@ void Construction::neighborize()
                 link_to(cst4 = cst);
             }
         }
-        else // search full market range for constructions
-        {
-            int tmp;
-            int lenm1 = world.map.len()-1;
-            tmp = x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
-            int xs = (tmp < 1) ? 1 : tmp;
-            tmp = y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
-            int ys = (tmp < 1)? 1 : tmp;
-            tmp = x + GROUP_MARKET_RANGE + 1;
-            int xe = (tmp > lenm1) ? lenm1 : tmp;
-            tmp = y + GROUP_MARKET_RANGE + 1;
-            int ye = (tmp > lenm1)? lenm1 : tmp;
+        else { // search full market range for constructions
+          MapPoint nw(
+            std::max(1, point.x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1),
+            std::max(1, point.y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1)
+          );
+          MapPoint se(
+            std::min(world.map.len()-1, point.x + GROUP_MARKET_RANGE + 1),
+            std::min(world.map.len()-1, point.y + GROUP_MARKET_RANGE + 1)
+          );
+          for(MapPoint p = nw; p.y < se.y; p.y++)
+          for(p.x = nw.x; p.x < se.x; p.x++) {
+            if(p == point) continue;
+            Construction *cst = world.map(p)->construction;
+            if(!cst) continue;
+            if(cst->constructionGroup->group == GROUP_FIRE
+              || cst->constructionGroup->group == GROUP_POWER_LINE
+            ) continue;
 
-            for(int yy = ys; yy < ye; ++yy)
-            {
-                for(int xx = xs; xx < xe; ++xx)
-                {
-                    //don't search at home
-                    if(((xx == x )  && (yy == y)))
-                    {   continue;}
-                    if(world.map(xx,yy)->construction) //be unique
-                    {
-                        Construction *cst = world.map(xx,yy)->reportingConstruction; //stick with reporting
-                        if((cst->constructionGroup->group == GROUP_FIRE)
-                        || (cst->constructionGroup->group == GROUP_POWER_LINE)  )
-                        {   continue;}
-                        //will attempt to make a link
-                        link_to(cst);
-                    }
-                }
-
-            }
+            link_to(cst);
+          }
         }
     }
 }
@@ -498,8 +485,8 @@ void Construction::link_to(Construction* other)
             //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
             return;
         }
-        int vec_x = other->x - x;
-        int vec_y = other->y - y;
+        int vec_x = other->point.x - point.x;
+        int vec_y = other->point.y - point.y;
         int ns = other->constructionGroup->size;
         int s = constructionGroup->size;
         //Check if *this is adjacent to *other
@@ -547,19 +534,19 @@ int Construction::countPowercables(int mask)
     for(unsigned short i = 0; i < size; ++i)
     {
         if( (mask & 8) &&
-            world.map(x + i, y - 1)->flags & FLAG_POWER_CABLES_0 )
+            world.map(point.n().e(i))->flags & FLAG_POWER_CABLES_0 )
         {++count;}
 
         if( (mask & 4) &&
-            world.map(x - 1, y + i)->flags & FLAG_POWER_CABLES_90 )
+            world.map(point.s(i).w())->flags & FLAG_POWER_CABLES_90 )
         {   ++count;}
 
         if( (mask & 2)
-            && world.map(x + size, y + i)->flags & FLAG_POWER_CABLES_90 )
+            && world.map(point.s(i).e(size))->flags & FLAG_POWER_CABLES_90 )
         {   ++count;}
 
         if( (mask & 1) &&
-            world.map(x + i, y + size)->flags & FLAG_POWER_CABLES_0 )
+            world.map(point.s(size).e(i))->flags & FLAG_POWER_CABLES_0 )
         {   ++count;}
 
     } //end for size
@@ -691,7 +678,7 @@ void Construction::trade()
             if(simDelay != SIM_DELAY_FAST
             && getConfig()->carsEnabled
             && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
-            && world.map(x,y)->getTransportGroup() == GROUP_ROAD)
+            && world.map(point)->getTransportGroup() == GROUP_ROAD)
             {
                 int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
                 if(simDelay == SIM_DELAY_MED) // compensate for overall animation
@@ -703,9 +690,10 @@ void Construction::trade()
                           && transport->canPlaceVehicle()
                         ) {
                           world.vehicleList.push_back(
-                            new Vehicle(world, x, y, VEHICLE_BLUECAR, (flow > 0)
-                              ? VEHICLE_STRATEGY_MAXIMIZE
-                              : VEHICLE_STRATEGY_MINIMIZE
+                            new Vehicle(world, point.x, point.y,
+                              VEHICLE_BLUECAR, (flow > 0)
+                                ? VEHICLE_STRATEGY_MAXIMIZE
+                                : VEHICLE_STRATEGY_MINIMIZE
                             )
                           );
                         }
@@ -828,10 +816,10 @@ int ConstructionGroup::getCosts(const World& world) const {
 }
 
 void
-ConstructionGroup::placeItem(World& world, int x, int y) {
+ConstructionGroup::placeItem(World& world, MapPoint point) {
   for(unsigned short i = 0; i < size; i++)
   for(unsigned short j = 0; j < size; j++) {
-    Construction *cst = world.map(x+j, y+i)->reportingConstruction;
+    Construction *cst = world.map(point.s(i).e(j))->reportingConstruction;
     if(cst) {
       throw std::logic_error("space occupied");
       // ConstructionDeletionRequest(cst).execute();
@@ -842,11 +830,11 @@ ConstructionGroup::placeItem(World& world, int x, int y) {
 #ifdef DEBUG
   if(tmpConstr == NULL) {
     std::cout << "failed to create " << name
-      << " at " << "(" << x << ", " << y << ")"
+      << " at " << point
       << std::endl;
   }
 #endif
-  tmpConstr->place(x, y);
+  tmpConstr->place(point);
 }
 
 std::string

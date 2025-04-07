@@ -182,8 +182,8 @@ void RocketPad::compute_launch_result() {
           point, RocketResultMessage::LaunchResult::FAIL));
         // TODO: getSound()->playSound( "RocketExplosion" );
         world.rockets_launched_success = 0;
-        xx = ((rand() % 40) - 20) + x;
-        yy = ((rand() % 40) - 20) + y;
+        xx = ((rand() % 40) - 20) + point.x;
+        yy = ((rand() % 40) - 20) + point.y;
         for (i = 0; i < 20; i++)
         {
             xxx = ((rand() % 20) - 10) + xx;
@@ -192,8 +192,10 @@ void RocketPad::compute_launch_result() {
                 && yyy > 0 && yyy < (world.map.len() - 1))
             {
                 /* don't crash on it's own area */
-                if (xxx >= x && xxx < (x + constructionGroup->size) && yyy >= y && yyy < (y + constructionGroup->size))
-                {   continue;}
+                if(xxx >= point.x && xxx < point.x + constructionGroup->size
+                  && yyy >= point.y && yyy < point.y + constructionGroup->size
+                )
+                  continue;
                 world.fire_area(MapPoint(xxx, yyy));
                 /* make a sound perhaps */
             }

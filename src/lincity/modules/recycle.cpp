@@ -29,12 +29,13 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_RECYCLE
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, FALSE
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_RECYCLE
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, FALSE
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 RecycleConstructionGroup recycleConstructionGroup(
@@ -116,8 +117,8 @@ void Recycle::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Recycle::place(int x, int y) {
-  Construction::place(x, y);
+void Recycle::place(MapPoint point) {
+  Construction::place(point);
 
   int efficiency =
     (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;

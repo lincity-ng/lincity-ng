@@ -42,10 +42,11 @@
 
 #define TARGET_COAL_LEVEL 80
 
-#include <array>                    // for array
+#include <array>                      // for array
 
+#include "lincity/MapPoint.hpp"       // for MapPoint
 #include "lincity/all_buildings.hpp"  // for COAL_PER_RESERVE, LABOR_LOAD_COAL
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
 
 class World;
@@ -83,15 +84,15 @@ public:
     virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
     virtual void animate(unsigned long real_time) override;
-    virtual void place(int x, int y) override;
+    virtual void place(MapPoint point) override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader,
       unsigned int ldsv_version) override;
 
-    int xs, ys, xe, ye;
-    int initial_coal_reserve;
-    int current_coal_reserve;
+    MapPoint mine_nw, mine_se;
+    MapPoint mine_cur;
+    int initial_coal_reserve, current_coal_reserve;
     int working_days, busy;
 };
 

@@ -27,16 +27,17 @@
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
-#include <map>                            // for allocator, map
-#include <string>                         // for basic_string, char_traits
+#include <map>                            // for map
+#include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_WIND_POWER
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_WIND_POWER
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.hpp"                // for Stat, Stats
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stat, Stats
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 WindpowerConstructionGroup windpowerConstructionGroup(
@@ -124,8 +125,8 @@ void Windpower::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Windpower::place(int x, int y) {
-  Construction::place(x, y);
+void Windpower::place(MapPoint point) {
+  Construction::place(point);
 
   this->hivolt_output = (int)(WIND_POWER_HIVOLT +
     (((double)tech * WIND_POWER_HIVOLT) / MAX_TECH_LEVEL));

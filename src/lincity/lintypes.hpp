@@ -109,7 +109,7 @@ public:
    *
    * Note: Overloads are required to forward the call the base-class method.
   **/
-  virtual void place(int x, int y);
+  virtual void place(MapPoint point);
 
   /**
    * Saves all persistent, non-derived members as XML elements to the provided
@@ -131,7 +131,6 @@ public:
   ConstructionGroup *constructionGroup;
   ResourceGroup *soundGroup;
 
-  [[deprecated]] int x, y;
   MapPoint point;
   int flags = 0;              //flags are defined in lin-city.h
   World& world;
@@ -219,7 +218,7 @@ public:
       return can_build_here(world, point, tmp);
     }
 
-    virtual void placeItem(World& world, int x, int y);
+    virtual void placeItem(World& world, MapPoint point);
 
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(World& world) = 0;

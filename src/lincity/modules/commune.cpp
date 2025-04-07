@@ -24,18 +24,19 @@
 
 #include "commune.hpp"
 
-#include <cstdlib>                        // for rand
-#include <list>                           // for _List_iterator
-#include <string>                         // for basic_string
-#include <vector>                         // for vector
+#include <cstdlib>                          // for rand
+#include <list>                             // for _List_iterator
+#include <string>                           // for basic_string
+#include <vector>                           // for vector
 
-#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity-ng/Mps.hpp"               // for Mps
 #include "lincity/ConstructionRequest.hpp"  // for CommuneDeletionRequest
+#include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_COMMUNE
-#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
-#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
+#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "tinygettext/gettext.hpp"        // for N_
+#include "tinygettext/gettext.hpp"          // for N_
 
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),
@@ -76,79 +77,71 @@ Commune::Commune(World& world, ConstructionGroup *cstgrp) :
   commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
 }
 
-void Commune::update()
-{
-    int tmpUgwCount = ugwCount;
-    int tmpCoalprod = coalprod;
-    const unsigned short s = constructionGroup->size;
-    const unsigned short a = s*s;
-    if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST)
-    {
-        tmpUgwCount = a;
-        tmpCoalprod = COMMUNE_COAL_MADE;
-        consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
+void
+Commune::update() {
+  int tmpUgwCount = ugwCount;
+  int tmpCoalprod = coalprod;
+  const unsigned short s = constructionGroup->size;
+  const unsigned short a = s*s;
+  if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST) {
+    tmpUgwCount = a;
+    tmpCoalprod = COMMUNE_COAL_MADE;
+    consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
+  }
+  if(/* (total_time & 1) && */ //make coal every second day
+    tmpCoalprod > 0
+    && commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE
+  ) {
+    produceStuff(STUFF_COAL, tmpCoalprod);
+    monthly_stuff_made++;
+    animate_enable = true;
+  }
+  if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE) {
+    produceStuff(STUFF_ORE, COMMUNE_ORE_MADE);
+    monthly_stuff_made++;
+    animate_enable = true;
+  }
+  /* recycle a bit of waste if there is plenty*/
+  if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET) {
+    consumeStuff(STUFF_WASTE, COMMUNE_WASTE_GET);
+    monthly_stuff_made++;
+    animate_enable = true;
+    if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
+      produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);
+  }
+  if (world.total_time % 10 == 0) {
+    int modulus = world.total_time % 20 >= 10 ? 1 : 0;
+    for(MapPoint p(point); p.y < point.y + s; p.y++)
+    for(p.x = point.x + (p.y + modulus) % 2; p.x < point.x + s; p.x++) {
+      int& pol = world.map(p)->pollution;
+      if(pol) --pol;
     }
-    if(//(total_time & 1) && //make coal every second day
-       (tmpCoalprod > 0)
-    && (commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE ))
-    {
-         produceStuff(STUFF_COAL, tmpCoalprod);
-         monthly_stuff_made++;
-         animate_enable = true;
+    if(modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE) {
+      monthly_stuff_made++;
+      animate_enable = true;
+      steel_made = true;
+      produceStuff(STUFF_STEEL, COMMUNE_STEEL_MADE);
     }
-    if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
-    {
-        produceStuff(STUFF_ORE, COMMUNE_ORE_MADE);
-        monthly_stuff_made++;
-        animate_enable = true;
-    }
-    /* recycle a bit of waste if there is plenty*/
-    if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
-    {
-        consumeStuff(STUFF_WASTE, COMMUNE_WASTE_GET);
-        monthly_stuff_made++;
-        animate_enable = true;
-        if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
-        {   produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);}
-    }
-    if (world.total_time % 10 == 0)
-    {
-        int modulus = ((world.total_time%20)?1:0);
-        for(int idx = 0; idx < tmpUgwCount; idx++)
-        {
-            int i = x + idx % s;
-            int j = y + idx / s;
-            if((i+j)%2==modulus && world.map(i,j)->pollution)
-            {   --world.map(i,j)->pollution;}
-        }
-        if (modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
-        {
-            monthly_stuff_made++;
-            animate_enable = true;
-            steel_made = true;
-            produceStuff(STUFF_STEEL, COMMUNE_STEEL_MADE);
-        }
-    }
+  }
 
-    if (world.total_time % 100 == 99) { //each month
-        reset_prod_counters();
-        last_month_output = monthly_stuff_made;
-        monthly_stuff_made = 0;
-        if (last_month_output)
-        {//we were busy
-            if (lazy_months > 0)
-            {   --lazy_months;}
-        }
-        else
-        {//we are lazy
-            lazy_months++;
-            /* Communes without production only last 10 years */
-            if (lazy_months > 120) {
-                CommuneDeletionRequest(this).execute();
-                return;
-            }
-        }//end we are lazy
-    }//end each month
+  if(world.total_time % 100 == 99) { //each month
+    reset_prod_counters();
+    last_month_output = monthly_stuff_made;
+    monthly_stuff_made = 0;
+
+    if(last_month_output) { //we were busy
+      if (lazy_months > 0)
+        --lazy_months;
+    }
+    else { //we are lazy
+      lazy_months++;
+      /* Communes without production only last 10 years */
+      if(lazy_months > 120) {
+        CommuneDeletionRequest(this).execute();
+        return;
+      }
+    }
+  }
 }
 
 void Commune::animate(unsigned long real_time) {
@@ -179,7 +172,7 @@ void Commune::report(Mps& mps, bool production) const {
   mps.add_s(constructionGroup->name);
   mps.add_sddp(N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
   mps.add_sfp(N_("busy"), (float)last_month_output / 3.05);
-  mps.add_sd(N_("Pollution"), world.map(x,y)->pollution);
+  mps.add_sd(N_("Pollution"), world.map(point)->pollution);
   if(lazy_months)
     mps.add_sddp(N_("lazy months"), lazy_months, 120);
   else
@@ -187,13 +180,14 @@ void Commune::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Commune::place(int x, int y) {
-  Construction::place(x, y);
+void
+Commune::place(MapPoint point) {
+  Construction::place(point);
 
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world.map(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if (world.map(point.s(i).e(j))->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   if (this->ugwCount < 16 / 3)

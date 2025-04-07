@@ -98,21 +98,21 @@ void Waterwell::report(Mps& mps, bool production) const {
   mps.add_sddp(N_("Fertility"), ugwCount,
     constructionGroup->size * constructionGroup->size);
   mps.add_sfp(N_("busy"), busy);
-  mps.add_sddp(N_("Air Pollution"), world.map(x,y)->pollution,
+  mps.add_sddp(N_("Air Pollution"), world.map(point)->pollution,
     MAX_POLLUTION_AT_WATERWELL);
   mps.add_ss(N_("Drinkable"),
-    world.map(x,y)->pollution > MAX_POLLUTION_AT_WATERWELL
+    world.map(point)->pollution > MAX_POLLUTION_AT_WATERWELL
       ? N_("No") : N_("Yes"));
   list_commodities(mps, production);
 }
 
-void Waterwell::place(int x, int y) {
-  Construction::place(x, y);
+void Waterwell::place(MapPoint point) {
+  Construction::place(point);
 
   this->ugwCount = 0;
-  for(int yy = y; yy < y + constructionGroup->size; yy++)
-  for(int xx = x; xx < x + constructionGroup->size; xx++)
-    if(world.map(xx, yy)->flags & FLAG_HAS_UNDERGROUND_WATER)
+  for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+  for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++)
+    if(world.map(p)->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
   this->water_output = this->ugwCount * WATER_PER_UGW;
 }

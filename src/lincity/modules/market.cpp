@@ -29,16 +29,17 @@
 #include <algorithm>                      // for max, min
 #include <cstdlib>                        // for size_t
 #include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for allocator, vector
+#include <string>                         // for basic_string, allocator
+#include <vector>                         // for vector
 
-#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
+#include "fire.hpp"                       // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_MARKET
-#include "lincity/lin-city.hpp"             // for FLAG_EVACUATE, ANIM_THRESHOLD
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_MARKET
+#include "lincity/lin-city.hpp"           // for FLAG_EVACUATE, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 MarketConstructionGroup marketConstructionGroup(
@@ -85,7 +86,7 @@ Market::Market(World& world, ConstructionGroup *cstgrp) :
 }
 
 Market::~Market() {
-  world.map(x,y)->killframe(waste_fire_frit);
+  world.map(point)->killframe(waste_fire_frit);
 }
 
 void Market::update()
@@ -162,7 +163,7 @@ void Market::update()
     if(world.total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
         start_burning_waste = true;
-        world.map(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
+        world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
         consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
     }
 
@@ -204,13 +205,17 @@ void Market::update()
 }
 
 void Market::cover() {
-  int xs = std::max(x - constructionGroup->range, 1);
-  int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
-  int ys = std::max(y - constructionGroup->range, 1);
-  int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
-  for(int yy = ys; yy < ye; yy++)
-  for(int xx = xs; xx < xe; xx++)
-    world.map(xx,yy)->flags |= FLAG_MARKET_COVER_CHECK;
+  MapPoint nw(
+    std::max(point.x - constructionGroup->range, 1),
+    std::max(point.y - constructionGroup->range, 1)
+  );
+  MapPoint se(
+    std::min(point.x + constructionGroup->range, world.map.len() - 1),
+    std::min(point.y + constructionGroup->range, world.map.len() - 1)
+  );
+  for(MapPoint p(nw); p.y < se.y; p.y++)
+  for(p.x = nw.x; p.x < se.x; p.x++)
+    world.map(p)->flags |= FLAG_MARKET_COVER_CHECK;
 }
 
 void Market::animate(unsigned long real_time) {
@@ -273,15 +278,16 @@ void Market::report(Mps& mps, bool production) const {
 void Market::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world.map(x, y)->createframe();
+  waste_fire_frit = world.map(point)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
   waste_fire_frit->frame = -1;
 }
 
-void Market::place(int x, int y) {
-  Construction::place(x, y);
+void
+Market::place(MapPoint point) {
+  Construction::place(point);
   cover();
 }
 

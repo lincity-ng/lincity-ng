@@ -28,15 +28,16 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
 #include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for allocator, vector
+#include <string>                         // for basic_string, allocator
+#include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_INDUSTRY_H
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_INDUSTRY_H
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 // IndustryHeavy:
@@ -145,12 +146,12 @@ void IndustryHeavy::update()
             produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;
             //cause some pollution and waste depending on bonuses
-            world.map(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
+            world.map(point)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
             produceStuff(STUFF_WASTE, (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus)));
             // if the trash bin is full reburn the filterd pollution
             if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
             {
-                world.map(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
+                world.map(point)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
                 levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_H);
             }
         }//endif steel still > 0
@@ -192,8 +193,9 @@ void IndustryHeavy::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void IndustryHeavy::place(int x, int y) {
-  Construction::place(x, y);
+void
+IndustryHeavy::place(MapPoint point) {
+  Construction::place(point);
 
   if (tech > MAX_TECH_LEVEL) {
     bonus = (tech - MAX_TECH_LEVEL);

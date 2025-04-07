@@ -29,10 +29,11 @@
 #include <vector>                   // for vector
 
 #include "lincity-ng/Mps.hpp"       // for Mps
-#include "lincity/groups.hpp"         // for GROUP_MILL
-#include "lincity/lin-city.hpp"       // for ANIM_THRESHOLD, FALSE
+#include "lincity/MapPoint.hpp"     // for MapPoint
+#include "lincity/groups.hpp"       // for GROUP_MILL
+#include "lincity/lin-city.hpp"     // for ANIM_THRESHOLD, FALSE
 #include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"          // for World, Map, MapTile
+#include "lincity/world.hpp"        // for World, Map, MapTile
 #include "tinygettext/gettext.hpp"  // for N_
 
 
@@ -90,8 +91,8 @@ void Mill::update()
         produceStuff(STUFF_GOODS, GOODS_MADE_BY_MILL);
         ++working_days;
         animate_enable = true;
-        if ((++pol_count %= 7) == 0)
-        {   world.map(x,y)->pollution++;}
+        if((++pol_count %= 7) == 0)
+          world.map(point)->pollution++;
     }
 
     //monthly update

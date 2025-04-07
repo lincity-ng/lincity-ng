@@ -1253,18 +1253,13 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
  * If the current Tile is Part of a Building, return the
  * Coordinates of the tile that contains the real informations.
  */
-MapPoint GameView::realTile( MapPoint tile )
-{
-    MapPoint real = tile;
-    if( ! inCity( tile ) )
-        return real;
-    if(getWorld().map(tile.x, tile.y)->reportingConstruction)
-    {
-        real.x = getWorld().map(tile.x, tile.y)->reportingConstruction->x;
-        real.y = getWorld().map(tile.x, tile.y)->reportingConstruction->y;
-        return real;
-    }
-    return real;
+MapPoint GameView::realTile(MapPoint point) {
+  if(!inCity(point))
+    return point;
+  else if(getWorld().map(point)->reportingConstruction)
+    return getWorld().map(point)->reportingConstruction->point;
+  else
+    return point;
 }
 
 void GameView::fetchTextures()

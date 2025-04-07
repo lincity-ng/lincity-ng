@@ -498,7 +498,7 @@ World::buildConstruction(ConstructionGroup& cstGrp, MapPoint point) {
     CannotBuildHereMessage::create(cstGrp, point, message)->throwEx();
   expense(cstGrp.getCosts(*this), stats.expenses.construction,
     !cstGrp.no_credit);
-  cstGrp.placeItem(*this, point.x, point.y);
+  cstGrp.placeItem(*this, point);
 
   map.connect_transport(point.x - 2, point.y - 2,
     point.x + cstGrp.size + 1, point.y + cstGrp.size + 1);

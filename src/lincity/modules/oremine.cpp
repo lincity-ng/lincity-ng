@@ -94,7 +94,6 @@ Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :
 
 void Oremine::update()
 {
-    int xx,yy;
     animate_enable = false;
 
     // see if we can/need to extract some underground ore
@@ -102,47 +101,41 @@ void Oremine::update()
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
     && (commodityCount[STUFF_LABOR] >= OREMINE_LABOR))
     {
-        for (yy = y; (yy < y + constructionGroup->size); yy++)
-        {
-            for (xx = x; (xx < x + constructionGroup->size); xx++)
-            {
-                if (world.map(xx,yy)->ore_reserve > 0)
-                {
-                    world.map(xx,yy)->ore_reserve--;
-                    total_ore_reserve--;
-                    produceStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
-                    //FIXME ore_tax should be handled upon delivery
-                    //ore_made += ORE_PER_RESERVE;
-                    if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
-                      world.stats.sustainability.mining_flag = false;
-                    animate_enable = true;
-                    working_days++;
-                    goto end_mining;
-                }
-            }
+      for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+      for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++) {
+        if(world.map(p)->ore_reserve > 0) {
+          world.map(p)->ore_reserve--;
+          total_ore_reserve--;
+          produceStuff(STUFF_ORE, ORE_PER_RESERVE);
+          consumeStuff(STUFF_LABOR, OREMINE_LABOR);
+          //FIXME ore_tax should be handled upon delivery
+          //ore_made += ORE_PER_RESERVE;
+          if(total_ore_reserve <
+            (constructionGroup->size * constructionGroup->size * ORE_RESERVE)
+          )
+            world.stats.sustainability.mining_flag = false;
+          animate_enable = true;
+          working_days++;
+          goto end_mining;
         }
+      }
     }
     // return the ore to ore_reserve if there is enough sustainable ore available
     else if ((commodityCount[STUFF_ORE] - ORE_PER_RESERVE > ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE )/100)
     && (commodityCount[STUFF_LABOR] >= LABOR_DIG_ORE))
     {
-        for (yy = y; (yy < y + constructionGroup->size); yy++)
-        {
-            for (xx = x; (xx < x + constructionGroup->size); xx++)
-            {
-                if (world.map(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
-                {
-                    world.map(xx,yy)->ore_reserve++;
-                    total_ore_reserve++;
-                    consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
-                    animate_enable = true;
-                    working_days++;
-                    goto end_mining;
-                }
-            }
+      for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+      for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++) {
+        if(world.map(p)->ore_reserve < 3 * ORE_RESERVE / 2) {
+          world.map(p)->ore_reserve++;
+          total_ore_reserve++;
+          consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
+          consumeStuff(STUFF_LABOR, OREMINE_LABOR);
+          animate_enable = true;
+          working_days++;
+          goto end_mining;
         }
+      }
     }
     end_mining:
 
@@ -189,13 +182,14 @@ void Oremine::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Oremine::place(int x, int y) {
-  Construction::place(x, y);
+void
+Oremine::place(MapPoint point) {
+  Construction::place(point);
 
   int ore = 0;
-  for(int yy = y; yy < y + constructionGroup->size; yy++)
-  for(int xx = x; xx < x + constructionGroup->size; xx++)
-    ore += world.map(xx,yy)->ore_reserve;
+  for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+  for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++)
+    ore += world.map(p)->ore_reserve;
   if(ore < 1)
     ore = 1;
   this->total_ore_reserve = ore;

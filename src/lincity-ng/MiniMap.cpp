@@ -779,284 +779,261 @@ Color MiniMap::getColorNormal(int x, int y) const
     return Color( red, green, blue );
 }
 
-Color MiniMap::getColor(int x,int y) const
-{
-    Map& map = game->getWorld().map;
-    if(!map.is_inside( x, y))
-    {
-        x = 0;
-        y = 0;
-    }
-    int xx = x;
-    int yy = y;
-    int conflags = 0;
-    int mapflags = 0;
-    unsigned short g = map(x,y)->getGroup();
+Color
+MiniMap::getColor(int x, int y) const {
+  MapPoint point(x, y);
+  Map& map = game->getWorld().map;
+  if(!map.is_inside(point))
+    point = MapPoint(0,0);
+  MapTile& tile = *map(point);
+  MapPoint p = point;
+  int conflags = 0;
+  if(tile.reportingConstruction) {
+    p = tile.reportingConstruction->point;
+    conflags = tile.reportingConstruction->flags;
+  }
+  MapTile& t = *map(p);
 
-    // only needed to look up xx,yy for old style flags
-    if (map(x,y)->reportingConstruction)
-    {
-        xx = map(x,y)->reportingConstruction->x;
-        yy = map(x,y)->reportingConstruction->y;
-        conflags = map(x,y)->reportingConstruction->flags;
-    }
-
-    mapflags = map(xx,yy)->flags;
-    switch(mMode)
-    {
-        case NORMAL:
+  switch(mMode)
+  {
+  case NORMAL:
 #ifdef DEBUG
 //#define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
-            if (map(xx,yy)->is_bare())
-                {
-                // show ground altitude
-                int alt = map(xx,yy)->ground.altitude;
-                if (alt > alt_min + 9 * alt_step)
-                    return Color(255,255,255);          // white
-                else if ( alt > alt_min + 8 * alt_step )
-                    return Color(173,173,173);          // bright grey
-                else if ( alt > alt_min + 7 * alt_step )
-                    return Color(130,130,130);          // grey
-                else if ( alt > alt_min + 6 * alt_step )
-                    return Color(197,170,74);           // bright brown
-                else if ( alt > alt_min + 5 * alt_step )
-                    return Color(106,97,41);            // brown
-                else if ( alt > alt_min + 4 * alt_step )
-                    return Color(0,198,0);              // bright green
-                else if ( alt > alt_min + 3 * alt_step )
-                    return Color(16,125,8);             // green
-                else if ( alt > alt_min + 2 * alt_step )
-                    return Color(248,229,30);           // yellow
-                else if ( alt > alt_min + 1 * alt_step )
-                    return Color(8,93,255);             // bright blue
-                else
-                    return Color(0,0,0x9F);             // dark blue
-            }
-            else
+    if(t.is_bare()) {
+      // show ground altitude
+      int alt = t.ground.altitude;
+      if(alt > alt_min + 9 * alt_step)
+        return Color(255,255,255);          // white
+      else if(alt > alt_min + 8 * alt_step)
+        return Color(173,173,173);          // bright grey
+      else if(alt > alt_min + 7 * alt_step)
+        return Color(130,130,130);          // grey
+      else if(alt > alt_min + 6 * alt_step)
+        return Color(197,170,74);           // bright brown
+      else if(alt > alt_min + 5 * alt_step)
+        return Color(106,97,41);            // brown
+      else if(alt > alt_min + 4 * alt_step)
+        return Color(0,198,0);              // bright green
+      else if(alt > alt_min + 3 * alt_step)
+        return Color(16,125,8);             // green
+      else if(alt > alt_min + 2 * alt_step)
+        return Color(248,229,30);           // yellow
+      else if(alt > alt_min + 1 * alt_step)
+        return Color(8,93,255);             // bright blue
+      else
+        return Color(0,0,0x9F);             // dark blue
+    }
+    else
 #endif
 #endif  //DEBUG
-            {   return getColorNormal(xx,yy);}
-        case POLLUTION:
-        {
-            short p = map(x,y)->pollution;
-            float v = p/600.0;
-            if(v < 0)
-                v = 0;
-            if(v > 1)
-                v = 1;
-            Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
-            mc = light(mc,brightness(getColorNormal(xx,yy)));
-            return mc;
-        }
-        case FIRE:
-            if( map(xx,yy)->getGroup() == GROUP_FIRE )
-            {
-                if( ! static_cast<Fire*>(map(xx,yy)->reportingConstruction)->smoking_days )
-                {
-                    return Color(0xFF,0,0); //still burning (red)
-                } else  {
-                    return Color(0xFF,0x99,0); //unbulldozable (orange)
-                }
-            }
+      return getColorNormal(p.x,p.y);
+  case POLLUTION: {
+    short pol = tile.pollution;
+    float v = pol/600.0;
+    if(v < 0)
+      v = 0;
+    if(v > 1)
+      v = 1;
+    Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
+    mc = light(mc,brightness(getColorNormal(p.x, p.y)));
+    return mc;
+  }
+  case FIRE:
+    if(tile.getGroup() == GROUP_FIRE) {
+      if(!static_cast<Fire*>(t.reportingConstruction)->smoking_days) {
+        return Color(0xFF,0,0); //still burning (red)
+      } else  {
+        return Color(0xFF,0x99,0); //unbulldozable (orange)
+      }
+    }
 /*
-            //FIXME Does that group still exist?
-            if( world(xx,yy)->getGroup() == GROUP_BURNT )
-            {
-                return Color(0xFF,0xFF,0); //(yellow)
-            }
+    //FIXME Does that group still exist?
+    if(world(xx,yy)->getGroup() == GROUP_BURNT) {
+      return Color(0xFF,0xFF,0); // (yellow)
+    }
 */
-            if( map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &fireStationConstructionGroup)
-            {
-                return Color(0,0xFF,0); //green
-            }
-            //fall through
-        case CRICKET:
-            if( (map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &cricketConstructionGroup)  && mMode==CRICKET )
-            {
-                return Color(0,0xFF,0); //green
-            }
-            //fall through
-        case HEALTH:
-            if( (map(xx,yy)->reportingConstruction && map(xx,yy)->reportingConstruction->constructionGroup == &healthCentreConstructionGroup)  && mMode==HEALTH )
-            {
-                return Color(0,0xFF,0); //green
-            }
-            if( ((mapflags & FLAG_FIRE_COVER) && mMode==FIRE) ||
-                    ((mapflags & FLAG_CRICKET_COVER) && mMode==CRICKET) ||
-                    ((mapflags & FLAG_HEALTH_COVER) && mMode==HEALTH))
-            {
-                Color mc(0,0xFF,0);
-                mc = light(mc,brightness(getColorNormal(xx,yy)));
-                return mc;
-            }
-            else
-                return makeGrey(getColorNormal(xx,yy));
-        case UB40: {
-            /* Display residence with un/employed people (red / green) == too many people here */
-            int job_level = map(xx,yy)->reportingConstruction?
-            map(xx,yy)->reportingConstruction->tellstuff(STUFF_LABOR, -1):-1;
-            if (job_level == -1) // Not a "jobby" place at all
-            {
-                return makeGrey(getColorNormal(xx,yy));
-            }
-            if ( map(xx,yy)->is_residence() )
-            {
-                if ( job_level > 95 * TRANSPORT_QUANTA / 100 )
-                    return Color(0xFF,0,0);
-                else if ( job_level > 90 * TRANSPORT_QUANTA / 100 )
-                    return Color(0x7F,0,0);
-                else
-                   return makeGrey(getColorNormal(xx,yy));
-                    //return Color(0,0xFF,0);
-            }
+    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &fireStationConstructionGroup) {
+      return Color(0,0xFF,0); //green
+    }
+    //fall through
+  case CRICKET:
+    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &cricketConstructionGroup && mMode==CRICKET) {
+      return Color(0,0xFF,0); //green
+    }
+      //fall through
+  case HEALTH:
+    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &healthCentreConstructionGroup && mMode==HEALTH) {
+      return Color(0,0xFF,0); //green
+    }
+    if((t.flags & FLAG_FIRE_COVER) && mMode==FIRE
+      || (t.flags & FLAG_CRICKET_COVER) && mMode==CRICKET
+      || (t.flags & FLAG_HEALTH_COVER) && mMode==HEALTH
+    ) {
+      Color mc(0,0xFF,0);
+      mc = light(mc,brightness(getColorNormal(p.x,p.y)));
+      return mc;
+    }
+    else
+      return makeGrey(getColorNormal(p.x,p.y));
+  case UB40: {
+    /* Display residence with un/employed people (red / green) == too many people here */
+    int job_level = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(STUFF_LABOR, -1)
+      : -1;
+    if(job_level == -1) { // Not a "jobby" place at all
+      return makeGrey(getColorNormal(p.x,p.y));
+    }
+    if(t.is_residence()) {
+      if(job_level > 95 * TRANSPORT_QUANTA / 100)
+        return Color(0xFF,0,0);
+      else if(job_level > 90 * TRANSPORT_QUANTA / 100)
+        return Color(0x7F,0,0);
+      else
+        return makeGrey(getColorNormal(p.x,p.y));
+        //return Color(0,0xFF,0);
+    }
 
-            /* display buildings with unsatisfied requests for labor (yellow) == too few people here */
+    /* display buildings with unsatisfied requests for labor (yellow) == too few people here */
 
-            else //not a residence
-            {
-                if ( job_level < 5 * TRANSPORT_QUANTA / 100)
-                    return Color(0xFF,0xFF,0); // yellow
-                else if ( job_level < 10 * TRANSPORT_QUANTA / 100)
-                    return Color(0xFF,0x99,0); // orange
-                else
-                    return makeGrey(getColorNormal(xx,yy));
-            }
+    else { //not a residence
+      if(job_level < 5 * TRANSPORT_QUANTA / 100)
+        return Color(0xFF,0xFF,0); // yellow
+      else if(job_level < 10 * TRANSPORT_QUANTA / 100)
+        return Color(0xFF,0x99,0); // orange
+      else
+        return makeGrey(getColorNormal(p.x,p.y));
+    }
+  }
+  case COAL: {
+    Color c(0x77,0,0);
+    if(!game->getWorld().coal_survey_done) {
+      return Color(0,0,0);
+    }
+    if(tile.coal_reserve==0)
+        return makeGrey(getColorNormal(point.x,point.y));
+    else if (tile.coal_reserve >= COAL_RESERVE_SIZE / 2)
+        return Color(0,0xFF,0);
+    else if (tile.coal_reserve < COAL_RESERVE_SIZE / 2)
+        return Color(0xFF,0,0);
 
-        }
-        case COAL: //don't use xx and yy for coal deposits
-        {
-            Color c(0x77,0,0);
-            if(!game->getWorld().coal_survey_done) {
-              return Color(0,0,0);
-            }
-            if(map(x,y)->coal_reserve==0)
-                return makeGrey(getColorNormal(x,y));
-            else if (map(x,y)->coal_reserve >= COAL_RESERVE_SIZE / 2)
-                return Color(0,0xFF,0);
-            else if (map(x,y)->coal_reserve < COAL_RESERVE_SIZE / 2)
-                return Color(0xFF,0,0);
-
-            return c;
-        }
-        case STARVE:
-        {
-            int food_level = map(xx,yy)->reportingConstruction?
-            map(xx,yy)->reportingConstruction->tellstuff(STUFF_FOOD, -1):1;
-            int water_level = map(xx,yy)->reportingConstruction?
-            map(xx,yy)->reportingConstruction->tellstuff(STUFF_WATER, -1):1;
-            int crit_level = water_level<food_level?water_level:food_level;
-            //don't care about other eaters or drinkers
-            if ( map(xx,yy)->is_residence() )
-            {
-                if ( crit_level < 5 * TRANSPORT_QUANTA / 100 )
-                    return Color(0xFF,0,0);
-                else if ( crit_level < 10 * TRANSPORT_QUANTA / 100 )
-                    return Color(0x7F,0,0);
-                else
-                    return Color(0,0xFF,0);
-            }
-            else
-            {   return makeGrey(getColorNormal(xx,yy));}
-        }
-        case POWER:
-        {
-            Color mc;
-            /* default color = grey */
-            //mc = Color(0x3F,0x3F,0x3F);
-            mc = makeGrey(getColorNormal(xx,yy));
-            int lovolt_level = map(xx,yy)->reportingConstruction?
-            map(xx,yy)->reportingConstruction->tellstuff(STUFF_LOVOLT, -1):-1;
-            int hivolt_level = map(xx,yy)->reportingConstruction?
-            map(xx,yy)->reportingConstruction->tellstuff(STUFF_HIVOLT, -1):-1;
-            if (lovolt_level > -1 || hivolt_level > -1)
-            {
-                /* not enough power */
-                mc = Color(0xFF,0,0);
-                /* kW powered */
-                if (lovolt_level > 5 * TRANSPORT_QUANTA / 100)
-                    mc = Color(0,0x7F,0);
-                /* MW powered */
-                if (hivolt_level > 5 * TRANSPORT_QUANTA / 100)
-                        mc = Color(0,0xFF,0);
-            }
-            if (g == GROUP_POWER_LINE)
-            {   mc = Color(0xFF,0xFF,0);} //yellow
-            return mc;
-        }
-        case TRAFFIC:
-        {
-            if ( (conflags & FLAG_IS_TRANSPORT) || (g == GROUP_POWER_LINE))
-            {
-                float loc_lvl = -1;
-                if (conflags & FLAG_IS_TRANSPORT)
-                {
-                    Transport *transport;
-                    transport = static_cast<Transport *>(map(xx,yy)->reportingConstruction);
-                    if(transport->constructionGroup->commodityRuleCount[stuff_ID].maxload)
-                    {   loc_lvl = transport->trafficCount[stuff_ID];}
-                }
-                else if (g == GROUP_POWER_LINE)
-                {
-                    Powerline *powerline;
-                    powerline = static_cast<Powerline *>(map(xx,yy)->reportingConstruction);
-                    if(powerline->constructionGroup->commodityRuleCount[stuff_ID].maxload)
-                    {   loc_lvl = powerline->trafficCount[stuff_ID];}
-                }
-                if (loc_lvl < 0)
-                {   return makeGrey(getColorNormal(xx,yy));}
-                loc_lvl = loc_lvl * TRANSPORT_RATE / TRANSPORT_QUANTA;
+    return c;
+  }
+  case STARVE: {
+    int food_level = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(STUFF_FOOD, -1)
+      : 1;
+    int water_level = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(STUFF_WATER, -1)
+      : 1;
+    int crit_level = water_level < food_level ? water_level : food_level;
+    //don't care about other eaters or drinkers
+    if(t.is_residence()) {
+      if(crit_level < 5 * TRANSPORT_QUANTA / 100)
+        return Color(0xFF,0,0);
+      else if(crit_level < 10 * TRANSPORT_QUANTA / 100)
+        return Color(0x7F,0,0);
+      else
+        return Color(0,0xFF,0);
+    }
+    else
+      return makeGrey(getColorNormal(p.x,p.y));
+  }
+  case POWER: {
+    Color mc;
+    /* default color = grey */
+    //mc = Color(0x3F,0x3F,0x3F);
+    mc = makeGrey(getColorNormal(p.x,p.y));
+    int lovolt_level = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(STUFF_LOVOLT, -1)
+      : -1;
+    int hivolt_level = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(STUFF_HIVOLT, -1)
+      : -1;
+    if(lovolt_level > -1 || hivolt_level > -1) {
+      /* not enough power */
+      mc = Color(0xFF,0,0);
+      /* kW powered */
+      if(lovolt_level > 5 * TRANSPORT_QUANTA / 100)
+          mc = Color(0,0x7F,0);
+      /* MW powered */
+      if(hivolt_level > 5 * TRANSPORT_QUANTA / 100)
+        mc = Color(0,0xFF,0);
+    }
+    if(tile.getGroup() == GROUP_POWER_LINE)
+      mc = Color(0xFF,0xFF,0); //yellow
+    return mc;
+  }
+  case TRAFFIC: {
+    if((conflags & FLAG_IS_TRANSPORT) || (tile.getGroup() == GROUP_POWER_LINE)) {
+      float loc_lvl = -1;
+      if (conflags & FLAG_IS_TRANSPORT) {
+        Transport *transport =
+          static_cast<Transport *>(t.reportingConstruction);
+        if(transport->constructionGroup->commodityRuleCount[stuff_ID].maxload)
+          loc_lvl = transport->trafficCount[stuff_ID];
+      }
+      else if(tile.getGroup() == GROUP_POWER_LINE) {
+        Powerline *powerline =
+          static_cast<Powerline *>(t.reportingConstruction);
+        if(powerline->constructionGroup->commodityRuleCount[stuff_ID].maxload)
+          loc_lvl = powerline->trafficCount[stuff_ID];
+      }
+      if (loc_lvl < 0)
+        return makeGrey(getColorNormal(p.x,p.y));
+      loc_lvl = loc_lvl * TRANSPORT_RATE / TRANSPORT_QUANTA;
 
 #ifdef DEBUG
-                assert(!(loc_lvl > 0.928)); //should be limit from fluctuations
+      assert(!(loc_lvl > 0.928)); //should be limit from fluctuations
 #endif
-                loc_lvl = 2-2/(1+((loc_lvl>0.928)?1:loc_lvl/0.928));
-                //more contrast for small loads
-                Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);
-                return mc;
-            }
-            else
-            { //not a Transport, make bluish if in range of a markt
-                if ((mapflags & FLAG_MARKET_COVER) &&
-                    marketConstructionGroup.commodityRuleCount[stuff_ID].maxload)
-                {
-                    return makeBlue(getColorNormal(x,y));
-                }
-                return makeGrey(getColorNormal(xx,yy));
-            }
-        }
-        case COMMODITIES:
+      loc_lvl = 2-2/(1+((loc_lvl>0.928)?1:loc_lvl/0.928));
+      //more contrast for small loads
+      Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);
+      return mc;
+    }
+    else
+    { //not a Transport, make bluish if in range of a markt
+        if ((t.flags & FLAG_MARKET_COVER) &&
+            marketConstructionGroup.commodityRuleCount[stuff_ID].maxload)
         {
-/*
-            if (conflags & FLAG_IS_TRANSPORT)
-                return makeGrey(getColorNormal(xx,yy));
-*/
-            float loc_lvl = map(xx,yy)->reportingConstruction?
-                 map(xx,yy)->reportingConstruction->tellstuff(stuff_ID, -1):-1;
-            float red, green, blue;
-
-            if (loc_lvl < 0)
-            {   return makeGrey(getColorNormal(xx,yy));}
-            loc_lvl /= TRANSPORT_QUANTA;
-            if (stuff_ID == STUFF_WASTE) //so far waste is the only bad commodity
-            {   loc_lvl = 1 - loc_lvl;}
-            red = 1 - 2.25 * loc_lvl;
-            if (red < 0) red = 0;
-            if (!map(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
-            {   red = 0;}
-            blue = 1 - 2.25 * (1 - loc_lvl);
-            if (blue < 0) blue = 0;
-            if (!map(xx,yy)->reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
-            {   blue = 0;}
-            green = 1 - red - blue;
-            Color mc(static_cast<int>(0xFF*red), static_cast<int>(0xFF*green),static_cast<int>(0xFF*blue));
-            return mc;
+            return makeBlue(getColorNormal(point.x,point.y));
         }
-        case MAX:
-            std::cerr<<"Undefined MiniMap-Display-type!"<<std::endl;
-    };
-    // default coloor is a nasty looking pink
-    return Color(0xFF,0,0xFF);
+        return makeGrey(getColorNormal(p.x,p.y));
+    }
+  }
+  case COMMODITIES:
+  {
+/*
+    if(conflags & FLAG_IS_TRANSPORT)
+      return makeGrey(getColorNormal(p.x,p.y));
+*/
+    float loc_lvl = t.reportingConstruction
+      ? t.reportingConstruction->tellstuff(stuff_ID, -1)
+      : -1;
+    float red, green, blue;
+
+    if(loc_lvl < 0)
+      return makeGrey(getColorNormal(p.x,p.y));
+    loc_lvl /= TRANSPORT_QUANTA;
+    if(stuff_ID == STUFF_WASTE) //so far waste is the only bad commodity
+      loc_lvl = 1 - loc_lvl;
+    red = 1 - 2.25 * loc_lvl;
+    if(red < 0) red = 0;
+    if(!t.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
+      red = 0;
+    blue = 1 - 2.25 * (1 - loc_lvl);
+    if(blue < 0) blue = 0;
+    if(!t.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
+      blue = 0;
+    green = 1 - red - blue;
+    Color mc(static_cast<int>(0xFF*red), static_cast<int>(0xFF*green),static_cast<int>(0xFF*blue));
+    return mc;
+  }
+  case MAX:
+    std::cerr<<"Undefined MiniMap-Display-type!"<<std::endl;
+  };
+  // default coloor is a nasty looking pink
+  return Color(0xFF,0,0xFF);
 }
 
 void MiniMap::event(const Event& event) {

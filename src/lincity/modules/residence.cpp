@@ -28,13 +28,14 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand
 #include <iostream>                       // for basic_ostream, operator<<
-#include <string>                         // for basic_string, char_traits
+#include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EMPLOYED, FLAG_FED
-#include "lincity/stats.hpp"                // for Stats, Stat
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/MapPoint.hpp"           // for MapPoint, operator<<
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_EMPLOYED, FLAG_FED
+#include "lincity/stats.hpp"              // for Stats, Stat
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
@@ -149,7 +150,8 @@ Residence::Residence(World& world, ConstructionGroup *cstgrp) :
     this->max_population = GROUP_RESIDENCE_HH_MAX_POP;
   else {
     this->max_population = 50;
-    std::cout << "unknown ConstructionGroup in new Residence at (" << x << "," << y << ")" << std::endl;
+    std::cout << "unknown ConstructionGroup in new Residence at "
+      << point << std::endl;
   }
 
   initialize_commodities();
@@ -185,16 +187,16 @@ void Residence::update()
     //int pol_death = 0;             //sometimes pollution kills
 
     /*Determine Health,Fire,Cricket cover*/
-    if ((hc = world.map(x,y)->flags & FLAG_HEALTH_COVER))
+    if ((hc = world.map(point)->flags & FLAG_HEALTH_COVER))
     {
         brm = RESIDENCE_BRM_HEALTH;
         good += 15;
     }
-    if (world.map(x,y)->flags & FLAG_FIRE_COVER)
+    if (world.map(point)->flags & FLAG_FIRE_COVER)
     {   good += 15;}
     else
     {   bad += 5;}
-    if (cc = world.map(x,y)->flags & FLAG_CRICKET_COVER)
+    if (cc = world.map(point)->flags & FLAG_CRICKET_COVER)
     {
         good += 20;
     }
@@ -323,7 +325,7 @@ void Residence::update()
     if (drm > RESIDENCE_BASE_DR - 1)
     {   drm = RESIDENCE_BASE_DR - 1;}
     /* normal deaths + pollution deaths */
-    po = ((world.map(x,y)->pollution / 16) + 1);
+    po = ((world.map(point)->pollution / 16) + 1);
     pol_deaths = po>100?95:po-5>0?po-5:1;
     deaths = (RESIDENCE_BASE_DR - drm - 3*po);
     if (deaths < 1) deaths = 1;
@@ -365,7 +367,7 @@ void Residence::update()
 
     /* people_pool stuff */
     //bad += local_population / 2;
-    bad += world.map(x,y)->pollution / 20;
+    bad += world.map(point)->pollution / 20;
     good += world.people_pool / 27; //27
     desireability = good-bad;
     r = rand() % ((good + bad) * RESIDENCE_PPM);

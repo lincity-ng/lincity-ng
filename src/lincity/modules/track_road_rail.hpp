@@ -108,7 +108,7 @@ public:
     }
     // overriding method that creates a transport tile
     virtual Construction *createConstruction(World& world) override;
-    virtual void placeItem(World& world, int x, int y) override;
+    virtual void placeItem(World& world, MapPoint point) override;
 };
 
 extern TransportConstructionGroup trackConstructionGroup, roadConstructionGroup, railConstructionGroup;
@@ -132,7 +132,7 @@ public:
     virtual void playSound(); //override random sound
     virtual bool canPlaceVehicle();
     virtual void init_resources() override;
-    virtual void place(int x, int y) override;
+    virtual void place(MapPoint point) override;
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic(Mps& mps) const;
     int anim;

@@ -177,7 +177,7 @@ void Port::update()
         if (daily_ic || daily_et)
         {
             consumeStuff(STUFF_LABOR, PORT_LABOR);
-            world.map(x,y)->pollution += PORT_POLLUTION;
+            world.map(point)->pollution += PORT_POLLUTION;
             world.stats.sustainability.trade_flag = false;
             tech_made++;
             world.tech_level++;

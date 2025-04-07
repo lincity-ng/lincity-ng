@@ -23,29 +23,30 @@
 
 #include "init_game.hpp"
 
-#include <cassert>                // for assert
-#include <cmath>                  // for pow, exp
-#include <cstdlib>                // for rand, RAND_MAX
-#include <deque>                  // for deque
-#include <iostream>               // for basic_ostream, operator<<, char_traits
-#include <memory>                 // for unique_ptr
-#include <random>                 // for uniform_int_distribution
-#include <vector>                 // for vector
+#include <cassert>                  // for assert
+#include <cmath>                    // for pow, exp
+#include <cstdlib>                  // for rand, RAND_MAX
+#include <deque>                    // for deque
+#include <iostream>                 // for basic_ostream, operator<<, char_t...
+#include <memory>                   // for unique_ptr
+#include <random>                   // for uniform_int_distribution
+#include <vector>                   // for vector
 
+#include "MapPoint.hpp"             // for MapPoint
 #include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
 #include "engglobs.hpp"             // for dx, dy, dxo, dyo
 #include "groups.hpp"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
-#include "util.hpp"          // for LcUrbg
 #include "lctypes.hpp"              // for CST_WATER
-#include "lin-city.hpp"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_IS...
+#include "lin-city.hpp"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_...
 #include "lintypes.hpp"             // for Construction, NUMOF_COAL_RESERVES
-#include "modules/all_modules.hpp"  // for CommuneConstructionGroup, communeCo...
+#include "modules/all_modules.hpp"  // for CommuneConstructionGroup, commune...
 #include "stats.hpp"                // for Stats
+#include "util.hpp"                 // for LcUrbg
 #include "world.hpp"                // for Map, MapTile, Ground, World
 
 #ifdef DEBUG
 // #include <assert.h>                        // for assert
-#include <stdio.h>                // for fprintf, size_t, stderr
+#include <stdio.h>                  // for fprintf, size_t, stderr
 #endif
 
 
@@ -1247,49 +1248,49 @@ static void random_start(World& world, bool without_trees) {
             {
                 map(xx + 6 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
-    organic_farmConstructionGroup.placeItem(world, xx + 6, yy + 5); //first Farm
+    organic_farmConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 5));
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4 ; j++)
             if (rand() > RAND_MAX/2)
             {
                 map(xx + 17 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
-    organic_farmConstructionGroup.placeItem(world, xx + 17, yy + 5); //second Farm
-    residenceMLConstructionGroup.placeItem(world, xx + 10, yy + 6);
+    organic_farmConstructionGroup.placeItem(world, MapPoint(xx + 17, yy + 5));
+    residenceMLConstructionGroup.placeItem(world, MapPoint(xx + 10, yy + 6));
     dynamic_cast < Residence * > (map(xx + 10, yy + 6)->construction) ->local_population = 50;
-    potteryConstructionGroup.placeItem(world, xx + 9, yy + 9);
+    potteryConstructionGroup.placeItem(world, MapPoint(xx + 9, yy + 9));
 
     map(xx + 16, yy + 9 )->flags |= FLAG_HAS_UNDERGROUND_WATER;
-    waterwellConstructionGroup.placeItem(world, xx + 16, yy + 9);
+    waterwellConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 9));
 
-    residenceMLConstructionGroup.placeItem(world, xx + 14, yy + 6);
+    residenceMLConstructionGroup.placeItem(world, MapPoint(xx + 14, yy + 6));
     dynamic_cast < Residence * > (map(xx + 14, yy + 6)->construction) ->local_population = 50;
 
-    marketConstructionGroup.placeItem(world, xx + 14, yy + 9);
+    marketConstructionGroup.placeItem(world, MapPoint(xx + 14, yy + 9));
     /* build tracks */
     for (x = 2; x < 23; x++)
     {
         map(xx + x, yy + 11)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, xx + x, yy + 11);
+        trackConstructionGroup.placeItem(world, MapPoint(xx + x, yy + 11));
     }
     for (y = 2; y < 11; y++)
     {
         map(xx + 13, yy + y)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, xx + 13, yy + y);
+        trackConstructionGroup.placeItem(world, MapPoint(xx + 13, yy + y));
     }
     for (y = 12; y < 23; y++)
     {
         map(xx + 15, yy + y)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, xx + 15, yy + y);
+        trackConstructionGroup.placeItem(world, MapPoint(xx + 15, yy + y));
     }
 
     /* build communes */
-    communeConstructionGroup.placeItem(world, xx + 6, yy + 12);
-    communeConstructionGroup.placeItem(world, xx + 6, yy + 17);
-    communeConstructionGroup.placeItem(world, xx + 11, yy + 12);
-    communeConstructionGroup.placeItem(world, xx + 11, yy + 17);
-    communeConstructionGroup.placeItem(world, xx + 16, yy + 12);
-    communeConstructionGroup.placeItem(world, xx + 16, yy + 17);
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 12));
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 17));
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 11, yy + 12));
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 11, yy + 17));
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 12));
+    communeConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 17));
 
     world.stats.sustainability.old_population = world.people_pool;
 }

@@ -30,12 +30,13 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_HEALTH
-#include "lincity/lin-city.hpp"             // for FALSE, FLAG_HEALTH_COVER_CHECK
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_HEALTH
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_HEALTH_COVER_CHECK
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for _, N_
 
 // Health Centre:
@@ -117,13 +118,17 @@ void HealthCentre::cover()
     covercount -= daycount;
     daycount = 0;
 
-    int xs = std::max(x - constructionGroup->range, 1);
-    int xe = std::min(x + constructionGroup->range, world.map.len() - 1);
-    int ys = std::max(y - constructionGroup->range, 1);
-    int ye = std::min(y + constructionGroup->range, world.map.len() - 1);
-    for(int yy = ys; yy < ye; ++yy)
-    for(int xx = xs; xx < xe; ++xx)
-      world.map(xx,yy)->flags |= FLAG_HEALTH_COVER_CHECK;
+    MapPoint nw(
+      std::max(point.x - constructionGroup->range, 1),
+      std::max(point.y - constructionGroup->range, 1)
+    );
+    MapPoint se(
+      std::min(point.x + constructionGroup->range, world.map.len() - 1),
+      std::min(point.y + constructionGroup->range, world.map.len() - 1)
+    );
+    for(MapPoint p(nw); p.y < se.y; p.y++)
+    for(p.x = nw.x; p.x < se.x; p.x++)
+      world.map(p)->flags |= FLAG_HEALTH_COVER_CHECK;
 }
 
 void HealthCentre::report(Mps& mps, bool production) const {

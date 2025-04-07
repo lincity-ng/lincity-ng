@@ -30,13 +30,14 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_WINDMILL
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_WINDMILL
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
 
@@ -122,8 +123,8 @@ void Windmill::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
-void Windmill::place(int x, int y) {
-  Construction::place(x, y);
+void Windmill::place(MapPoint point) {
+  Construction::place(point);
 
   this->lovolt_output = (int)(WINDMILL_LOVOLT +
     (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));

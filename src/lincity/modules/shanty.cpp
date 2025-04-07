@@ -24,23 +24,24 @@
 
 #include "shanty.hpp"
 
-#include <stdio.h>                        // for fprintf, stderr, printf
-#include <stdlib.h>                       // for rand
-#include <map>                            // for map
-#include <string>                         // for basic_string, operator<
-#include <vector>                         // for vector
+#include <stdio.h>                          // for fprintf, stderr, printf
+#include <stdlib.h>                         // for rand
+#include <map>                              // for map
+#include <string>                           // for basic_string, operator<
+#include <vector>                           // for vector
 
 #include "commune.hpp"                      // for CommuneConstructionGroup
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity-ng/Mps.hpp"               // for Mps
 #include "lincity/ConstructionRequest.hpp"  // for BurnDownRequest
+#include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_SHANTY, GROUP_MARKET
-#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
-#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
+#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/stats.hpp"                // for Stat, Stats
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "modules_interfaces.hpp"           // for add_a_shanty, update_shanty
-#include "tinygettext/gettext.hpp"        // for N_
+#include "tinygettext/gettext.hpp"          // for N_
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
@@ -64,21 +65,22 @@ Construction *ShantyConstructionGroup::createConstruction(World& world) {
 //TODO remove_a_shanty() and update_shanty() should go to ConstructionRequest
 
 void add_a_shanty(World& world) {
-    int r, x, y;
+    MapPoint p;
+    int r;
     int numof_shanties = shantyConstructionGroup.count;
     const int len = world.map.len();
-    x = rand() % len;
-    y = rand() % len;
+    p.x = rand() % len;
+    p.y = rand() % len;
     if (numof_shanties > 0 && rand() % 8 != 0)
     {
-        r = world.find_group(x, y, GROUP_SHANTY);
+        r = world.find_group(p.x, p.y, GROUP_SHANTY);
         if (r == -1) {
-            printf("Looked for a shanty, without any! x=%d y=%d\n", x, y);
+            printf("Looked for a shanty, without any! x=%d y=%d\n", p.x, p.y);
             return;
         }
-        y = r / len;
-        x = r % len;
-        r = world.find_bare_area(x, y, 2);
+        p.y = r / len;
+        p.x = r % len;
+        r = world.find_bare_area(p.x, p.y, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -86,18 +88,18 @@ void add_a_shanty(World& world) {
 #endif
             return;
         }
-        y = r / len;
-        x = r % len;
+        p.y = r / len;
+        p.x = r % len;
     }
     else
     {
-        r = world.find_group(x, y, GROUP_MARKET);
+        r = world.find_group(p.x, p.y, GROUP_MARKET);
         if (r == -1)
             return;             /* silently return, we havn't started yet. */
 
-        y = r / len;
-        x = r % len;
-        r = world.find_bare_area(x, y, 2);
+        p.y = r / len;
+        p.x = r % len;
+        r = world.find_bare_area(p.x, p.y, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -105,10 +107,10 @@ void add_a_shanty(World& world) {
 #endif
             return;
         }
-        y = r / len;
-        x = r % len;
+        p.y = r / len;
+        p.x = r % len;
     }
-    shantyConstructionGroup.placeItem(world, x, y);
+    shantyConstructionGroup.placeItem(world, p);
 }
 
 void update_shanty(World& world) {
@@ -140,9 +142,8 @@ void update_shanty(World& world) {
         fprintf(stderr, "Can't find a shanty to remove!\n");
         return;
       }
-      y = r / len;
-      x = r % len;
-      BurnDownRequest(world.map(x,y)->reportingConstruction).execute();
+      MapPoint p(r % len, r / len);
+      BurnDownRequest(world.map(p)->reportingConstruction).execute();
     }
   }
 }
@@ -170,7 +171,7 @@ Shanty::Shanty(World& world, ConstructionGroup *cstgrp) :
 }
 
 Shanty::~Shanty() {
-  world.map(x,y)->killframe(waste_fire_frit);
+  world.map(point)->killframe(waste_fire_frit);
 }
 
 void Shanty::update()
@@ -204,7 +205,7 @@ void Shanty::update()
     {   consumeStuff(STUFF_STEEL, SHANTY_GET_STEEL);}
     produceStuff(STUFF_WASTE, SHANTY_PUT_WASTE);
     if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY) {
-        world.map(x+1,y+1)->pollution += commodityCount[STUFF_WASTE];
+        world.map(point.s().e())->pollution += commodityCount[STUFF_WASTE];
         levelStuff(STUFF_WASTE, 0);
         start_burning_waste = true;
     }
@@ -232,14 +233,14 @@ void Shanty::animate(unsigned long real_time) {
 
 void Shanty::report(Mps& mps, bool production) const {
   mps.add_s(constructionGroup->name);
-  mps.add_sd(N_("Air Pollution"), world.map(x,y)->pollution);
+  mps.add_sd(N_("Air Pollution"), world.map(point)->pollution);
   list_commodities(mps, production);
 }
 
 void Shanty::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world.map(x, y)->createframe();
+  waste_fire_frit = world.map(point)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;

@@ -75,7 +75,7 @@ public:
     virtual ~Waterwell() {}
     virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
-    virtual void place(int x, int y) override;
+    virtual void place(MapPoint point) override;
 
     int water_output;
     int ugwCount;

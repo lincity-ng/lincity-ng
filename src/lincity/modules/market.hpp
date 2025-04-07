@@ -105,7 +105,7 @@ public:
     virtual void report(Mps& mps, bool production) const override;
     virtual void animate(unsigned long real_time) override;
     virtual void init_resources() override;
-    virtual void place(int x, int y) override;
+    virtual void place(MapPoint point) override;
     void cover();
     void toggleEvacuation();
 

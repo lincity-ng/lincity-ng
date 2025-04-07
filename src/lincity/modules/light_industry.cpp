@@ -136,13 +136,13 @@ void IndustryLight::update()
         consumeStuff(STUFF_ORE, INDUSTRY_L_ORE_USED);
         goods_today = INDUSTRY_L_MAKE_GOODS;
         //make some pollution and waste
-        world.map(x,y)->pollution += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * (1 - bonus)));
+        world.map(point)->pollution += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * (1 - bonus)));
         produceStuff(STUFF_WASTE, (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * bonus)*(1-extra_bonus)));
         // if the trash bin is full reburn the filterd pollution
         if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_L)
         {
             int excess = -levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_L);
-            world.map(x,y)->pollution += excess;
+            world.map(point)->pollution += excess;
         }
         //now double goods_today if there are more labor and steel
         if ((commodityCount[STUFF_LABOR] >= (INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL))
@@ -253,8 +253,9 @@ void IndustryLight::init_resources() {
   frits[1]->move_y = -198;
 }
 
-void IndustryLight::place(int x, int y) {
-  Construction::place(x, y);
+void
+IndustryLight::place(MapPoint point) {
+  Construction::place(point);
 
   if (tech > MAX_TECH_LEVEL) {
     bonus = (tech - MAX_TECH_LEVEL);

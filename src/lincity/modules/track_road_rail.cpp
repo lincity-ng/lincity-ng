@@ -24,23 +24,24 @@
 
 #include "track_road_rail.hpp"
 
-#include <stdlib.h>                       // for rand
-#include <cassert>                        // for assert
-#include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for vector
+#include <stdlib.h>                         // for rand
+#include <cassert>                          // for assert
+#include <map>                              // for map
+#include <string>                           // for basic_string, operator<
+#include <vector>                           // for vector
 
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity-ng/Sound.hpp"           // for getSound, Sound
+#include "lincity-ng/Mps.hpp"               // for Mps
+#include "lincity-ng/Sound.hpp"             // for getSound, Sound
 #include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
+#include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/all_buildings.hpp"        // for DAYS_PER_RAIL_POLLUTION
-#include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD, FLAG...
-#include "lincity/messages.hpp"           // for OutOfMoneyMessage
-#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD
+#include "lincity/messages.hpp"             // for OutOfMoneyMessage
+#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/stats.hpp"                // for Stats
 #include "lincity/world.hpp"                // for World, MapTile, Map
-#include "tinygettext/gettext.hpp"        // for N_, _
+#include "tinygettext/gettext.hpp"          // for N_, _
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -136,14 +137,14 @@ Construction *TransportConstructionGroup::createConstruction(World& world) {
 }
 
 void
-TransportConstructionGroup::placeItem(World& world, int x, int y) {
-  MapTile& tile = *world.map(x, y);
+TransportConstructionGroup::placeItem(World& world, MapPoint point) {
+  MapTile& tile = *world.map(point);
   unsigned short oldGrp = tile.getTransportGroup();
   if(tile.is_transport() && oldGrp != group || oldGrp == GROUP_POWER_LINE) {
     ConstructionDeletionRequest(tile.reportingConstruction).execute();
   }
 
-  ConstructionGroup::placeItem(world, x, y);
+  ConstructionGroup::placeItem(world, point);
 }
 
 Transport::Transport(World& world, ConstructionGroup *cstgrp) :
@@ -184,7 +185,7 @@ Transport::Transport(World& world, ConstructionGroup *cstgrp) :
   commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
 }
 Transport::~Transport() {
-  world.map(x,y)->killframe(waste_fire_frit);
+  world.map(point)->killframe(waste_fire_frit);
 }
 
 void Transport::update()
@@ -205,7 +206,7 @@ void Transport::update()
       // maybe have a chance of converting to track or deleting
     }
     if(world.total_time % DAYS_PER_ROAD_POLLUTION == 0)
-      world.map(x,y)->pollution += ROAD_POLLUTION;
+      world.map(point)->pollution += ROAD_POLLUTION;
     if(!(world.total_time & ROAD_GOODS_USED_MASK)
       && commodityCount[STUFF_GOODS] > 0
     ) {
@@ -223,7 +224,7 @@ void Transport::update()
       // TODO: reduce transport capacity
     }
     if(world.total_time % DAYS_PER_RAIL_POLLUTION == 0)
-      world.map(x,y)->pollution += RAIL_POLLUTION;
+      world.map(point)->pollution += RAIL_POLLUTION;
     if(!(world.total_time & RAIL_GOODS_USED_MASK)
       && commodityCount[STUFF_GOODS] > 0
     ) {
@@ -250,7 +251,7 @@ void Transport::update()
   int wasteMax = constructionGroup->commodityRuleCount[STUFF_WASTE].maxload;
   if(commodityCount[STUFF_WASTE] > wasteMax * 9 / 10) {
     consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
-    world.map(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
+    world.map(point)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
     start_burning_waste = true;
   }
 
@@ -329,9 +330,9 @@ void Transport::playSound()
 }
 
 bool Transport::canPlaceVehicle() {
-  if(!world.map(x, y)->framesptr)
+  if(!world.map(point)->framesptr)
     return false;
-  for(ExtraFrame& exfr : *world.map(x, y)->framesptr)
+  for(ExtraFrame& exfr : *world.map(point)->framesptr)
     if(exfr.resourceGroup->is_vehicle)
       return false;
   return true;
@@ -340,16 +341,16 @@ bool Transport::canPlaceVehicle() {
 void Transport::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world.map(x, y)->createframe();
+  waste_fire_frit = world.map(point)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
   waste_fire_frit->frame = -1;
 }
 
-void Transport::place(int x, int y) {
+void Transport::place(MapPoint point) {
   // set the constructionGroup to build bridges iff over water
-  if(world.map(x,y)->is_water()) {
+  if(world.map(point)->is_water()) {
     switch (constructionGroup->group) {
       case GROUP_TRACK:
         constructionGroup = &trackbridgeConstructionGroup;
@@ -376,7 +377,7 @@ void Transport::place(int x, int y) {
     }
   }
 
-  Construction::place(x, y);
+  Construction::place(point);
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */
