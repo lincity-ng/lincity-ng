@@ -1,3 +1,9 @@
+## Unreleased
+
+###### User Interface
+- Fixed duplicate click events in the new-game menu.
+
+
 ## LinCity-NG 2.13.1
 
 date: 2025-02-15
