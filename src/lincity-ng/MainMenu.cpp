@@ -137,7 +137,6 @@ void MainMenu::fillNewGameMenu()
   {
     button = getCheckButton(*newGameMenu, buttonNames[i]);
 
-    button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
     while(*fptr)
     {
       if(std::string(*fptr).find(".scn.gz")!=std::string::npos)
@@ -255,6 +254,24 @@ MainMenu::loadNewGameMenu() {
 
   button = getCheckButton(*newGameMenu,"SwampArea");
   button->setCaptionText(_("swamp"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File0");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File1");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File2");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File3");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File4");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File5");
   button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 }
 
