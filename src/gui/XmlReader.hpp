@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <libxml/xmlreader.h>  // for xmlTextReaderConstName, xmlTextReaderC...
 #include <libxml/xmlstring.h>  // for xmlChar
+#include <filesystem>
 #include <sstream>             // for basic_stringstream, basic_ostream, ope...
 #include <stdexcept>           // for runtime_error
 #include <string>              // for char_traits, allocator, basic_string
@@ -34,7 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader
 {
 public:
-    XmlReader(const std::string& filename);
+    XmlReader(const std::filesystem::path& filename);
     ~XmlReader();
 
     int getDepth()
@@ -158,9 +159,6 @@ public:
 
 private:
     xmlTextReaderPtr reader;
-
-    static int readCallback(void* context, char* buffer, int len);
-    static int closeCallback(void* context);
 };
 
 #endif

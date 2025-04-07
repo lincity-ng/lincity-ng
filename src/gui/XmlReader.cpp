@@ -24,31 +24,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "./XmlReader.hpp"
 
-#include <libxml/parser.h>               // for XML_PARSE_NONET
-#include <physfs.h>                      // for PHYSFS_file, PHYSFS_close
-#include <iostream>                      // for basic_ostream, char_traits
-
-#include "PhysfsStream/PhysfsError.hpp"  // for getPhysfsLastError
+#include <libxml/parser.h>  // for XML_PARSE_NONET
+#include <cstddef>         // for NULL
+#include <filesystem>       // for operator<<, path
 
 /**
  * Class constructor: parses a given XML file and parse it with libxml2.
- * 
+ *
  * @param filename XML file to parse.
  */
-XmlReader::XmlReader(const std::string& filename)
-{
-    PHYSFS_file* file = PHYSFS_openRead(filename.c_str());
-    if(file == 0) {
-        std::stringstream msg;
-        msg << "Couldn't open file '" << filename << "': "
-            << getPhysfsLastError();
-        throw std::runtime_error(msg.str());
-    }
-    
-    reader = xmlReaderForIO(readCallback, closeCallback, file,
-            0, 0, XML_PARSE_NONET);
+XmlReader::XmlReader(const std::filesystem::path& filename) {
+    reader = xmlReaderForFile(filename.string().c_str(), NULL, XML_PARSE_NONET);
     if(reader == 0) {
-        PHYSFS_close(file);
         std::stringstream msg;
         msg << "Couldn't parse file '" << filename << "'";
         throw std::runtime_error(msg.str());
@@ -63,40 +50,6 @@ XmlReader::XmlReader(const std::string& filename)
 XmlReader::~XmlReader()
 {
     xmlFreeTextReader(reader);
-}
-
-/**
- * Read callback: read a given file and handles errors.
- * 
- * @param context Pointer to a PHYSFS_file object representing the XML file.
- * @param buffer Destination buffers.
- * @param len Buffer lenght.
- */
-int
-XmlReader::readCallback(void* context, char* buffer, int len)
-{
-    PHYSFS_file* file = (PHYSFS_file*) context;
-    PHYSFS_sint64 result = PHYSFS_readBytes(file, buffer, len);
-    if(result < 0) {
-        std::cerr << "Read error: " << getPhysfsLastError() << "\n";
-    }
-    return (int) result;
-}
-
-/**
- * Close callback, called whem closing a XML file we were parsing.
- * 
- * @param context Pointer to a PHYSFS_file object representing the XML file.
- */
-int
-XmlReader::closeCallback(void* context)
-{
-    PHYSFS_file* file = (PHYSFS_file*) context;
-    int res = PHYSFS_close(file);
-    if(res < 0) {
-        std::cerr << "Close error: " << getPhysfsLastError() << "\n";
-    }
-    return res;
 }
 
 

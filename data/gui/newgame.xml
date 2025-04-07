@@ -69,7 +69,7 @@
                 </TableLayout>
             </cell>
             <cell row="2" col="2">
-            <CheckButton name="RiverDelta">
+            <CheckButton name="RiverDelta" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
@@ -78,7 +78,7 @@
             </CheckButton>
             </cell>
             <cell row="3" col="2">
-            <CheckButton name="DesertArea">
+            <CheckButton name="DesertArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
@@ -87,7 +87,7 @@
             </CheckButton>
             </cell>
             <cell row="4" col="2">
-            <CheckButton name="TemperateArea">
+            <CheckButton name="TemperateArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
@@ -96,7 +96,7 @@
             </CheckButton>
             </cell>
             <cell row="5" col="2">
-            <CheckButton name="SwampArea">
+            <CheckButton name="SwampArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
@@ -108,7 +108,7 @@
             <!-- row 6 is the gap between random and static scenarios-->
 
             <cell row="7" col="2">
-            <CheckButton name="File0">
+            <CheckButton name="File0" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -117,7 +117,7 @@
             </CheckButton>
             </cell>
             <cell row="8" col="2">
-            <CheckButton name="File1">
+            <CheckButton name="File1" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -126,7 +126,7 @@
             </CheckButton>
             </cell>
             <cell row="9" col="2">
-            <CheckButton name="File2">
+            <CheckButton name="File2" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -135,7 +135,7 @@
             </CheckButton>
             </cell>
             <cell row="10" col="2">
-            <CheckButton name="File3">
+            <CheckButton name="File3" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -144,7 +144,7 @@
             </CheckButton>
             </cell>
             <cell row="11" col="2">
-            <CheckButton name="File4">
+            <CheckButton name="File4" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -153,7 +153,7 @@
             </CheckButton>
             </cell>
             <cell row="12" col="2">
-            <CheckButton name="File5">
+            <CheckButton name="File5" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
             <image src="images/gui/buttons/savebutton.png"/>
             <image-hover src="images/gui/buttons/savebutton-hover.png"/>

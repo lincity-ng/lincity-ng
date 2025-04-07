@@ -41,10 +41,6 @@ for a different version than what you are building can cause build failures.
 
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
-* PhysicsFS 2.1.0 or later (use stable, not development branch)
-
-  http://www.icculus.org/physfs/
-
 * zlib 1.0 or later
 
   https://zlib.net/
@@ -90,22 +86,50 @@ To clone, configure, build, and install:
 ```
 git clone https://github.com/lincity-ng/lincity-ng.git
 cd lincity-ng
-cmake -B build
-cmake --build build --parallel
-sudo cmake --install build  # optional
+cmake -B build                  # configure
+cmake --build build --parallel  # build
+sudo cmake --install build      # install
 ```
 
-To create a package (currently tar.gz and zip):
+To create a package:
 ```
-cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install path>
 cmake --build build --parallel --target package
 ```
+
+#### CMAKE_BUILD_TYPE
+The `-DCMAKE_BUILD_TYPE=<build-type>` option at configure time selects which
+debug features and optimization level to use.
+
+Allowed values are:
+- `RELEASE`: This is for regular users or anyone not interested in debugging.
+  This enables the highest optimization level (-O3), and disables all features
+  that are only for development and/or testing.
+- `MINSIZEREL`: This tries to make the binary as small as possible.
+  It is the same as `RELEASE` except the -Os optimization level is used.
+- `RELWITHDEBINFO`: This is for debugging issues in the `RELEASE` build type
+  that may not be present with lower optimization levels. It is also useful for
+  running performance analysis. It is the same as `RELEASE` except debug symbols
+  are included in the binary and compile-time warnings are enabled.
+- `BETATEST`: This is for beta-testing.
+  This enables the highest optimization level (-O3), includes debug symbols in
+  the binary, and enables runtime assertions. Use this only if you intend to
+  report issues that you find. The runtime assertions will cause the game
+  to crash when they fail, so this is just unnecessary inconvenience if you
+  don't report the failed assertion anyway.
+- `DEBUG`: This is for general development.
+  This enables the lowest optimization level (-O0) and all development and testing
+  features. This includes debug symbols, runtime-assertions, and debug logging
+  to the console. The low optimization level is used to shorten build times as
+  much as possible
+- `DEBUGOPT`: This is for development when a faster binary is useful.
+  This is the same as `DEBUG` except the -O2 optimization level is used.
 
 ### Running
 
 To run the game from the source directory without installing:
 ```
-./build/bin/lincity-ng
+./build/bin/lincity-ng --app-data build/share/lincity-ng
 ```
 
 When the game is installed, you may run it with:

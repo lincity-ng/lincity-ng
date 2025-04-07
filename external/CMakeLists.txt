@@ -1,1 +1,1 @@
-add_subdirectory(physfsrwops)
+add_subdirectory(cfgpath)

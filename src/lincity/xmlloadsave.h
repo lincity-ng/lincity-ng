@@ -22,7 +22,7 @@
 #ifndef __xmlloadsave_h__
 #define __xmlloadsave_h__
 
-#include <string>  // for string
+#include <filesystem>  // for path
 
 namespace xmlpp {
 class TextReader;
@@ -34,8 +34,8 @@ class TextReader;
 typedef const unsigned char *xmlStr;
 typedef unsigned char *xmlMStr;
 
-extern void saveGame(std::string xml_file_name);
-extern void loadGame(std::string xml_file_name);
+extern void saveGame(const std::filesystem::path& xml_file_name);
+extern void loadGame(const std::filesystem::path& xml_file_name);
 
 extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
 

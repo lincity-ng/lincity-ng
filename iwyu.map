@@ -1,5 +1,6 @@
 [
-{ symbol: [abs, private, <stdlib.h>, public] },
+{ symbol: [abs, private, <cstdlib>, public] },
+{ symbol: [std::pair, private, <utility>, public] },
 
 # { include: [ <SDL2_framerate.h>, private, <SDL.h>, public ] },
 # { include: [ <SDL2_gfxPrimitives.h>, private, <SDL.h>, public ] },

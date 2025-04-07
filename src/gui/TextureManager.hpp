@@ -24,11 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TEXTUREMANAGER_HPP__
 #define __TEXTUREMANAGER_HPP__
 
-#include <SDL.h>  // for SDL_Surface
-#include <map>            // for map
-#include <string>         // for basic_string, operator<, operator==, operator>
+#include <SDL.h>        // for SDL_Surface
+#include <filesystem>   // for path, operator<, operator==, operator>
+#include <map>          // for map
 
-#include "Texture.hpp"    // for Texture
+#include "Texture.hpp"  // for Texture
 
 /**
  * @class TextureManager
@@ -53,7 +53,7 @@ public:
      * Load an image file from disk and create a texture. The texture will be
      * cached so don't delete it.
      */
-    Texture* load(const std::string& filename, Filter filter = NO_FILTER);
+    Texture* load(const std::filesystem::path& filename, Filter filter = NO_FILTER);
 
     /**
      * Create a texture from an SDL_Surface. This function takes ownership of
@@ -63,7 +63,7 @@ public:
 
 private:
     struct TextureInfo {
-        std::string filename;
+        std::filesystem::path filename;
         Filter filter;
 
         TextureInfo()

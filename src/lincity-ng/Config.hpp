@@ -18,40 +18,42 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
-#include <limits.h>  // for INT_MAX, INT_MIN
-#include <string>    // for string, basic_string
+#include <filesystem>  // for path
+#include <string>      // for basic_string, string
 
 class Config
 {
 public:
-    Config();
-    ~Config();
+  Config();
+  ~Config();
 
-    bool useOpenGL;
-    bool useFullScreen;
-    bool restartOnChangeScreen;
-    int videoX, videoY;
-    int monthgraphW, monthgraphH;
+  std::filesystem::path configFile;
+  std::filesystem::path appDataDir;
+  std::filesystem::path userDataDir;
+  bool appDataDirIsDefault;
+  bool userDataDirIsDefault;
 
-    // sound volume 0..100 (0=silent)
-    int soundVolume;
-    // music volume 0..100
-    int musicVolume;
-    bool soundEnabled;
-    bool musicEnabled;
-    bool carsEnabled;
-    //std::string lincityHome;
-    int skipMonthsFast;
+  bool useOpenGL;
+  bool useFullScreen;
+  bool restartOnChangeScreen;
+  int videoX, videoY;
+  int monthgraphW, monthgraphH;
 
-    std::string language;
-    std::string musicTheme;
+  // sound volume 0..100 (0=silent)
+  int soundVolume;
+  // music volume 0..100
+  int musicVolume;
+  bool soundEnabled;
+  bool musicEnabled;
+  bool carsEnabled;
 
-    void save();
-private:
-    void load( const std::string& filename );
-    int parseInt(const char* value, int defaultValue, int minValue = INT_MIN,
-            int maxValue = INT_MAX );
-    bool parseBool(const char* value, bool defaultvalue);
+  std::string language;
+  std::string musicTheme;
+
+  void load(std::filesystem::path configPath = std::filesystem::path());
+  void save(std::filesystem::path configPath = std::filesystem::path());
+
+  void parseCommandLine(int argc, char** argv);
 };
 
 Config* getConfig();

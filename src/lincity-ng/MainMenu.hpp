@@ -19,12 +19,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __MAINMENU_HPP__
 
 #include <SDL.h>     // for SDL_Window, Uint32
+#include <filesystem>
 #include <map>       // for map
 #include <memory>    // for unique_ptr
 #include <set>       // for set
 #include <string>    // for string, basic_string
 
 #include "main.hpp"  // for MainState
+#include "gui/RadioButtonGroup.hpp"
 
 class Button;
 class CheckButton;
@@ -52,12 +54,9 @@ private:
     void loadCreditsMenu();
     void loadOptionsMenu();
 
-    void fillLoadMenu( bool save = false );
-    void fillNewGameMenu();
-    void fillOptionsMenu();
-
-    void creditsBackButtonClicked(Button* );
-    void optionsBackButtonClicked(Button* );
+    void updateLoadSaveMenus();
+    void updateNewGameMenu();
+    void updateOptionsMenu();
 
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
@@ -74,11 +73,14 @@ private:
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
 
-    void selectLoadGameButtonClicked(CheckButton*,int i);
-    void selectSaveGameButtonClicked(CheckButton*,int i);
-    void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
+    void optionsBackButtonClicked(Button* );
 
+    void creditsBackButtonClicked(Button* );
+
+    void launchGame();
+
+    SDL_Window* window;
     std::unique_ptr<Desktop> menu;
     SwitchComponent *menuSwitch;
     Component *mainMenu;
@@ -88,15 +90,20 @@ private:
     Component *creditsMenu;
     Component *optionsMenu;
 
-    bool running;
-    MainState quitState;
-    int slotNr;
+    RadioButtonGroup newGameSelection;
+    RadioButtonGroup loadGameSelection;
+    RadioButtonGroup saveGameSelection;
+    std::unordered_map<CheckButton *, std::filesystem::path> loadFiles;
 
-    std::string mFilename;
-    std::string baseName;
+    enum class State {
+      MENU, GAME, QUIT, RESTART
+    };
+    State state;
+
     static const Uint32 doubleClickTime = 1000;
-    Uint32 lastClickTick;
-    std::string doubleClickButtonName;
+    Uint32 doubleClickTick = 0;
+    Component *doubleClickButton = nullptr;
+    void doubleClick(Component *button, std::function<void()> action);
 
     Paragraph* musicParagraph;
     void changeTrack( bool next);
@@ -108,10 +115,6 @@ private:
     void changeLanguage( bool next);
     std::string currentLanguage;
     std::set<std::string> languages;
-
-    std::map<std::string, std::string> fileMap;
-
-    SDL_Window* window;
 };
 
 #endif
