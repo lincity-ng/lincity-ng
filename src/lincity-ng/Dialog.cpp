@@ -21,13 +21,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <assert.h>                        // for assert
 #include <config.h>                        // for PACKAGE_VERSION
-#include <errno.h>                         // for errno
-#include <physfs.h>                        // for PHYSFS_getDirSeparator
-#include <stdio.h>                         // for snprintf, sprintf
+#include <stdio.h>                         // for snprintf
 #include <stdlib.h>                        // for free, malloc
 #include <string.h>                        // for strlen
 #include <array>                           // for array
 #include <exception>                       // for exception
+#include <filesystem>                      // for path, operator/
 #include <fstream>                         // for basic_ostream, operator<<
 #include <functional>                      // for bind, _1, function
 #include <iostream>                        // for cerr
@@ -36,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>                       // for runtime_error
 #include <vector>                          // for vector
 
+#include "Config.hpp"                      // for getConfig, Config
 #include "GameView.hpp"                    // for getGameView, GameView
 #include "MapEdit.hpp"                     // for check_bulldoze_area, monum...
 #include "MapPoint.hpp"                    // for MapPoint
@@ -51,7 +51,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/WindowManager.hpp"           // for WindowManager
 #include "gui_interface/mps.h"             // for mps_refresh
 #include "gui_interface/shared_globals.h"  // for cheat_flag
-#include "lc_error.h"                      // for lc_error
 #include "lincity/commodities.hpp"         // for CommodityRule, Commodity
 #include "lincity/engglobs.h"              // for world, given_scene, people...
 #include "lincity/engine.h"                // for do_coal_survey
@@ -540,17 +539,7 @@ void Dialog::gameStats(){
  * That way the files can be used for highscores.
  */
 void Dialog::saveGameStats(){
-    //open File
-    const char *lc_save_dir = PHYSFS_getWriteDir();
-    char *s = (char *)malloc(
-        strlen(lc_save_dir) + strlen(RESULTS_FILENAME) + 2);
-    if(!s)
-        lc_error(-1, errno, "malloc");
-    sprintf(s, "%s%s%s",
-        lc_save_dir, PHYSFS_getDirSeparator(), RESULTS_FILENAME);
-
-    std::ofstream results( s );
-    free( s );
+    std::ofstream results(getConfig()->userDataDir / RESULTS_FILENAME);
 
     // Fill in Fields.
     int maxlength = 567;
@@ -666,9 +655,6 @@ void Dialog::saveGameStats(){
       communeConstructionGroup.count);
     results << outf << std::endl;
     results << "" << std::endl;
-
-    //close File
-    results.close();
 
     free( outf );
 }

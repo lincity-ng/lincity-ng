@@ -26,13 +26,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "MapPoint.hpp"             // for MapPoint
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
-#include "gui/Event.hpp"            // for Event
 #include "gui/Vector2.hpp"          // for Vector2
 #include "lincity/commodities.hpp"  // for Commodity
 
 class Button;
 class CheckButton;
-class Painter;
 class Texture;
 class XmlReader;
 

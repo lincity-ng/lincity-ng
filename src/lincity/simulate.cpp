@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stdlib.h>                        // for rand, abs
 #include <array>                           // for array
+#include <cstdlib>                         // for rand, abs
 #include <iterator>                        // for advance
 #include <list>                            // for list, _List_iterator, oper...
 //#include "common.h"

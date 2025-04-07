@@ -24,13 +24,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DOCUMENT_HPP__
 #define __DOCUMENT_HPP__
 
-#include <string>               // for string
+#include <string>         // for string
 
-#include "Component.hpp"        // for Component
-#include "Signal.hpp"  // for Signal
-#include "Style.hpp"            // for Style
+#include "Component.hpp"  // for Component
+#include "Signal.hpp"     // for Signal
+#include "Style.hpp"      // for Style
 
-class Painter;
 class Paragraph;
 class XmlReader;
 

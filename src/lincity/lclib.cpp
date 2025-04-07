@@ -21,9 +21,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <stdio.h>                  // for snprintf, size_t, printf, NULL
-#include <stdlib.h>                 // for abs, exit, malloc
-#include <string.h>                 // for strdup
+#include <stdio.h>                  // for snprintf, size_t, printf
+#include <string.h>                 // for strdup, size_t
+#include <cstdlib>                  // for abs, exit, malloc, NULL
 
 #include "lintypes.h"               // for NUMOF_DAYS_IN_YEAR, NUMOF_DAYS_IN...
 #include "tinygettext/gettext.hpp"  // for N_, _

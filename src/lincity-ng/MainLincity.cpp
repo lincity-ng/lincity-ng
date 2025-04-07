@@ -18,15 +18,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainLincity.hpp"
 
-#include <physfs.h>                          // for PHYSFS_getDirSeparator
-#include <stdio.h>                           // for fclose, fopen, FILE
 #include <stdlib.h>                          // for srand
 #include <time.h>                            // for time
 #include <cassert>                           // for assert
-#include <exception>                         // for exception
-#include <iostream>                          // for basic_ostream, operator<<
+#include <iostream>                          // for char_traits, basic_ostream
 #include <stdexcept>                         // for runtime_error
 
+#include "Config.hpp"                        // for getConfig, Config
 #include "Game.hpp"                          // for getGame
 #include "GameView.hpp"                      // for getGameView, GameView
 #include "TimerInterface.hpp"                // for reset_start_time
@@ -52,14 +50,14 @@ void setSimulationDelay( int speed )
 /*
  * get Data form Lincity NG and Save City
  */
-void saveCityNG( std::string newFilename ){
+void saveCityNG(const std::filesystem::path& filename){
     if (getGame())
     {
         GameView* gv = getGameView();
         if( gv ){ gv->writeOrigin(); }
-        std::string fullname = PHYSFS_getWriteDir();
-        fullname += PHYSFS_getDirSeparator();
-        fullname += newFilename;
+        std::filesystem::path fullname = filename;
+        if(!filename.has_parent_path())
+          fullname = getConfig()->userDataDir / filename;
         try {
           saveGame(fullname);
           std::cout << "saved game to '" << fullname << "'" << std::endl;
@@ -74,61 +72,31 @@ void saveCityNG( std::string newFilename ){
 /*
  * Load City and do setup for Lincity NG.
  */
-bool loadCityNG( std::string filename ){
-    // FIXME: Follow symlinks if able. symlink target may be directory
-    // FIXME: What to do with PHYSFS_FILETYPE_OTHER? Should we instead make
-    //        sure the filetype is PHYSFS_FILETYPE_REGULAR?
-    PHYSFS_Stat statFilename;
-    int errorCode = PHYSFS_stat(filename.c_str(), &statFilename);
-    if(errorCode == 0) {
-        std::cerr << "could not stat file: " << filename << std::endl;
-    }
-    else if(statFilename.filetype == PHYSFS_FILETYPE_DIRECTORY)
-    {   return false;}
-
-
-        const char* directory = PHYSFS_getRealDir(filename.c_str());
-    if (directory)
-    {
-        //FIXME PHYSFS_getWriteDir() does not work for built in scenarios
-        std::string dir = directory;//PHYSFS_getWriteDir();
-        filename = dir + PHYSFS_getDirSeparator() + filename;
-        FILE *fp;
-        fclose(fp = fopen(filename.c_str(), "r"));
-        if( fp )
-        {
-            try {
-              loadGame(filename);
-              std::cout << "loaded game from '" << filename << "'" << std::endl;
-            } catch(std::exception& err) {
-              std::cerr << "error: failed to load game from '" << filename
-                << "': " << err.what() << std::endl;
-              DialogBuilder()
-                .titleText("Error!")
-                .messageAddTextBold("Error: Failed to load game.")
-                .messageAddText(std::string("Could not load '") + filename +
-                  "'.")
-                .messageAddText(err.what())
-                .imageFile("images/gui/dialogs/error.png")
-                .buttonSet(DialogBuilder::ButtonSet::OK)
-                .build();
-              return false;
-            }
-            update_avail_modules(0);
-            // GameView* gv = getGameView();
-            // if( gv ){ gv->readOrigin(); }
-            return true;
-        }
-        else
-        {
-            std::cout << "could not locate: " << filename << std::endl;
-        }
-    }
-    else
-    {
-        std::cout << "could not find: " << filename << std::endl;
-    }
+bool loadCityNG(const std::filesystem::path& filename){
+  try {
+    std::filesystem::path fullname = filename;
+    if(!filename.has_parent_path())
+      fullname = getConfig()->userDataDir / filename;
+    loadGame(fullname);
+    std::cout << "loaded game from " << filename << std::endl;
+  } catch(std::runtime_error& err) {
+    std::cerr << "error: failed to load game from " << filename
+      << ": " << err.what() << std::endl;
+    DialogBuilder()
+      .titleText("Error!")
+      .messageAddTextBold("Error: Failed to load game.")
+      .messageAddText(std::string("Could not load '") + filename.string() +
+        "'.")
+      .messageAddText(err.what())
+      .imageFile("images/gui/dialogs/error.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
     return false;
+  }
+  update_avail_modules(0);
+  // GameView* gv = getGameView();
+  // if( gv ){ gv->readOrigin(); }
+  return true;
 }
 
 void initLincity()

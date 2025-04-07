@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <map>           // for multimap
 #include <string>        // for basic_string, string, operator<
 #include <vector>        // for vector
+#include <filesystem>
 
 //TODO make use for these:
 enum MusicState {
@@ -36,7 +37,7 @@ enum MusicTransport {
 
 struct song {
     std::string title;
-    std::string filename;
+    std::filesystem::path filename;
     int trackNumber;
     float lowestTechLevel;
     float highestTechLevel;

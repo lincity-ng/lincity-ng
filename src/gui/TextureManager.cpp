@@ -23,18 +23,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "TextureManager.hpp"
 
-#include <SDL.h>                 // for SDL_GetError
-#include <SDL_image.h>                 // for IMG_Load_RW
-#include <iostream>                    // for basic_ostream, operator<<, cerr
-#include <sstream>                     // for basic_stringstream
-#include <stdexcept>                   // for runtime_error
-#include <utility>                     // for pair, make_pair
+#include <SDL.h>                  // for SDL_GetError, SDL_Surface
+#include <SDL_image.h>            // for IMG_Load
+#include <cassert>                // for assert
+#include <filesystem>             // for path, operator/
+#include <iostream>               // for char_traits, basic_ostream, operator<<
+#include <sstream>                // for basic_stringstream
+#include <stdexcept>              // for runtime_error
+#include <string>                 // for basic_string
+#include <utility>                // for pair, make_pair
 
-#include "Filter.hpp"                  // for color2Grey
-#include "physfsrwops.h"
-#ifdef DEBUG
-#include <cassert>
-#endif
+#include "Filter.hpp"             // for color2Grey
+#include "lincity-ng/Config.hpp"  // for getConfig, Config
 
 TextureManager* texture_manager = 0;
 
@@ -45,10 +45,10 @@ TextureManager::~TextureManager()
 }
 
 Texture*
-TextureManager::load(const std::string& filename, Filter filter)
+TextureManager::load(const std::filesystem::path& filename, Filter filter)
 {
     TextureInfo info;
-    info.filename = filename;
+    info.filename = getConfig()->appDataDir / filename;
     info.filter = filter;
 
     Textures::iterator i = textures.find(info);
@@ -56,11 +56,10 @@ TextureManager::load(const std::string& filename, Filter filter)
         return i->second;
     }
 
-    SDL_Surface* image = IMG_Load_RW(PHYSFSRWOPS_openRead(filename.c_str()), 1);
+    SDL_Surface* image = IMG_Load(info.filename.string().c_str());
     if(!image) {
         std::stringstream msg;
-        msg << "Couldn't load image '" << filename
-            << "' :" << SDL_GetError();
+        msg << "couldn't load image: " << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
 
@@ -71,10 +70,8 @@ TextureManager::load(const std::string& filename, Filter filter)
         case NO_FILTER:
             break;
         default:
-#ifdef DEBUG
-            assert(false);
-#endif
             std::cerr << "Unknown filter specified for image.\n";
+            assert(false);
             break;
     }
 

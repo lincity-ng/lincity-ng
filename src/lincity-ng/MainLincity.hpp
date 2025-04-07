@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __main_lincity_hpp__
 #define __main_lincity_hpp__
 
-#include <string>
+#include <filesystem>  // for path
 
 extern int simDelay;
 
@@ -31,10 +31,10 @@ void doLincityStep();
 void setSimulationDelay( int speed );
 
 //get Data form Lincity NG and Save City
-void saveCityNG( std::string newFilename );
+void saveCityNG(const std::filesystem::path& newFilename);
 
 //Load City and do setup for Lincity NG.
-bool loadCityNG( std::string filename );
+bool loadCityNG(const std::filesystem::path& filename);
 
 #endif
 
