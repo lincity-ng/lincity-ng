@@ -41,7 +41,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   error(STATUS, ERRNO, FORMAT)
 #endif
 
-#ifdef UNIX
+#ifdef UNIXX
 #include <error.h>
 #else
 #define error(STATUS, ERRNO, FORMAT...) \
