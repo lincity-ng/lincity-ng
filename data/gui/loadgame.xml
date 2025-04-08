@@ -22,7 +22,7 @@
 			</cell>
 			-->
 			<cell row="2" col="2">
-			<CheckButton name="File0">
+			<CheckButton name="File0" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -31,7 +31,7 @@
 			</CheckButton>
 			</cell>
 			<cell row="3" col="2">
-			<CheckButton name="File1">
+			<CheckButton name="File1" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -40,7 +40,7 @@
 			</CheckButton>
 			</cell>
 			<cell row="4" col="2">
-			<CheckButton name="File2">
+			<CheckButton name="File2" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -49,7 +49,7 @@
 			</CheckButton>
 			</cell>
 			<cell row="5" col="2">
-			<CheckButton name="File3">
+			<CheckButton name="File3" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -58,7 +58,7 @@
 			</CheckButton>
 			</cell>
 			<cell row="6" col="2">
-			<CheckButton name="File4">
+			<CheckButton name="File4" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
@@ -67,7 +67,7 @@
 			</CheckButton>
 			</cell>
 			<cell row="7" col="2">
-			<CheckButton name="File5">
+			<CheckButton name="File5" auto-uncheck="false">
 				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>

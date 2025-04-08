@@ -71,8 +71,8 @@ std::unique_ptr<World> loadCityNG(const std::filesystem::path& filename) {
     world = World::load(filename);
     std::cout << "loaded game from " << filename << std::endl;
   } catch(std::runtime_error& err) {
-    std::cerr << "error: failed to load game from '" << filename
-      << "': " << err.what() << std::endl;
+    std::cerr << "error: failed to load game from " << filename
+      << ": " << err.what() << std::endl;
     DialogBuilder()
       .titleText("Error!")
       .messageAddTextBold("Error: Failed to load game.")

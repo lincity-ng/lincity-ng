@@ -30,6 +30,7 @@
 #include <string>    // for string, basic_string
 
 #include "main.hpp"  // for MainState
+#include "gui/RadioButtonGroup.hpp"
 
 class Button;
 class CheckButton;
@@ -58,12 +59,9 @@ private:
     void loadCreditsMenu();
     void loadOptionsMenu();
 
-    void fillLoadMenu( bool save = false );
-    void fillNewGameMenu();
-    void fillOptionsMenu();
-
-    void creditsBackButtonClicked(Button* );
-    void optionsBackButtonClicked(Button* );
+    void updateLoadSaveMenus();
+    void updateNewGameMenu();
+    void updateOptionsMenu();
 
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
@@ -80,13 +78,15 @@ private:
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
 
-    void selectLoadSaveGameButtonClicked(CheckButton*, int, bool save,
-      std::filesystem::path file);
     void optionsMenuButtonClicked(CheckButton* button, int );
+    void optionsBackButtonClicked(Button* );
+
+    void creditsBackButtonClicked(Button* );
 
     std::unique_ptr<Game> game;
     void launchGame();
 
+    SDL_Window* window;
     std::unique_ptr<Desktop> menu;
     SwitchComponent *menuSwitch;
     Component *mainMenu;
@@ -96,14 +96,20 @@ private:
     Component *creditsMenu;
     Component *optionsMenu;
 
-    MainState quitState;
-    int slotNr;
+    RadioButtonGroup newGameSelection;
+    RadioButtonGroup loadGameSelection;
+    RadioButtonGroup saveGameSelection;
+    std::unordered_map<CheckButton *, std::filesystem::path> loadFiles;
 
-    std::filesystem::path mFilename;
-    std::string baseName;
+    enum class State {
+      MENU, GAME, QUIT, RESTART
+    };
+    State state;
+
     static const Uint32 doubleClickTime = 1000;
-    Uint32 lastClickTick;
-    CheckButton *doubleClickButton;
+    Uint32 doubleClickTick = 0;
+    Component *doubleClickButton = nullptr;
+    void doubleClick(Component *button, std::function<void()> action);
 
     Paragraph* musicParagraph;
     void changeTrack( bool next);
@@ -115,10 +121,6 @@ private:
     void changeLanguage( bool next);
     std::string currentLanguage;
     std::set<std::string> languages;
-
-    std::map<std::string, std::string> fileMap;
-
-    SDL_Window* window;
 };
 
 #endif
