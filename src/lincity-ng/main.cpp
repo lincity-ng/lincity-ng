@@ -63,7 +63,7 @@ SDL_GLContext window_context = NULL;
 SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
-bool restart = false;
+// bool restart = false;
 const char *appdatadir;
 
 void musicHalted() {
@@ -158,19 +158,7 @@ void initVideo(int width, int height)
 }
 
 void mainLoop() {
-  MainState state = MainMenu(window).run();
-  switch(state) {
-  case QUIT:
-    restart = false;
-    break;
-  case RESTART:
-    restart = true;
-    break;
-  case MAINMENU:
-  case INGAME:
-  default:
-    assert(false);
-  }
+  MainMenu(window).run();
 }
 
 int main(int argc, char** argv)
@@ -264,18 +252,18 @@ int main(int argc, char** argv)
     xmlCleanupParser();
     delete dictionaryManager;
     dictionaryManager = 0;
-    if( restart ){
-#ifdef WIN32
-        //Windows has a Problem with Whitespaces.
-        std::string fixWhiteSpaceInPathnameProblem;
-        fixWhiteSpaceInPathnameProblem="\"";
-        fixWhiteSpaceInPathnameProblem+=argv[0];
-        fixWhiteSpaceInPathnameProblem+="\"";
-        execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
-#else
-        execlp( argv[0], argv[0], (char *) NULL );
-#endif
-    }
+//     if( restart ){
+// #ifdef WIN32
+//         //Windows has a Problem with Whitespaces.
+//         std::string fixWhiteSpaceInPathnameProblem;
+//         fixWhiteSpaceInPathnameProblem="\"";
+//         fixWhiteSpaceInPathnameProblem+=argv[0];
+//         fixWhiteSpaceInPathnameProblem+="\"";
+//         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
+// #else
+//         execlp( argv[0], argv[0], (char *) NULL );
+// #endif
+//     }
     return result;
 }
 

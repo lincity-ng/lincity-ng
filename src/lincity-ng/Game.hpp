@@ -50,7 +50,7 @@ public:
     Game(SDL_Window *window);
     ~Game();
 
-    MainState run();
+    void run();
 
     void showHelpWindow(std::string topic);
 
@@ -92,7 +92,6 @@ private:
     void handleMessage(Message::ptr message);
 
     bool running;
-    MainState quitState;
     void backToMainMenu();
     void testAllHelpFiles();
     void quickLoad();

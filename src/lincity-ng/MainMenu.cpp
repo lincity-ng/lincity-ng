@@ -477,21 +477,14 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen;
         getConfig()->save();
-        if( getConfig()->restartOnChangeScreen )
-        {
-            quitState = RESTART;
-        }
-        else
-        {
-            resizeVideo(
-              getConfig()->videoX,
-              getConfig()->videoY,
-              getConfig()->useFullScreen
-            );
-            // switching to/from fullscreen may change the window size
-            // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
-            loadOptionsMenu();
-        }
+        resizeVideo(
+          getConfig()->videoX,
+          getConfig()->videoY,
+          getConfig()->useFullScreen
+        );
+        // switching to/from fullscreen may change the window size
+        // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
+        loadOptionsMenu();
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
@@ -707,35 +700,29 @@ MainMenu::creditsBackButtonClicked(Button* ) {
 void
 MainMenu::optionsBackButtonClicked(Button* )
 {
-    getSound()->playSound( "Click" );
-    getConfig()->save();
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    if( getConfig()->videoX != width || getConfig()->videoY != height )
-    {
-        if( getConfig()->restartOnChangeScreen )
-        {
-            quitState = RESTART;
-        }
-        else
-        {
-            resizeVideo( getConfig()->videoX, getConfig()->videoY, getConfig()->useFullScreen);
-            gotoMainMenu();
-        }
-    }
-    else if( currentLanguage != getConfig()->language )
-    {
-#if defined (WIN32)
-        _putenv_s("LINCITY_LANG", "");
-#else
-        unsetenv("LINCITY_LANG");
-#endif
-        quitState = RESTART;
-    }
-    else
-    {
-        gotoMainMenu();
-    }
+  getSound()->playSound("Click");
+  getConfig()->save();
+  int width = 0, height = 0;
+  SDL_GetWindowSize(window, &width, &height);
+  if( getConfig()->videoX != width || getConfig()->videoY != height )
+  {
+    resizeVideo(getConfig()->videoX, getConfig()->videoY,
+      getConfig()->useFullScreen);
+  }
+  else if( currentLanguage != getConfig()->language )
+  {
+    // TODO: implement changing the language on the go
+    //       For now, show warning in a language the user may not understand.
+    DialogBuilder()
+      .titleText(_("Warning"))
+      .messageAddTextBold(_("Restart Required"))
+      .messageAddText(_("Changing the language requires restarting LinCity"
+        "for changes to take effect."))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+  }
+  gotoMainMenu();
 }
 
 /**
@@ -854,7 +841,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
 }
 
 
-MainState
+void
 MainMenu::run()
 {
     SDL_Event event;
@@ -958,18 +945,17 @@ MainMenu::run()
             painter->updateScreen();
         }
 
-        while(quitState == INGAME) {
+        if(quitState == INGAME) {
           launchGame();
         }
     }
-
-    return quitState;
 }
 
 void
 MainMenu::launchGame() {
-  assert(!!game);
-  quitState = game->run();
+  assert(game);
+  game->run();
+  quitState = MAINMENU;
   switchMenu(mainMenu);
 }
 

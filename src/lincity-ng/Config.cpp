@@ -55,7 +55,6 @@ Config::Config() {
   useFullScreen = true;
   videoX = 1024;
   videoY = 768;
-  restartOnChangeScreen = false;
 
   soundVolume = 100;
   musicVolume = 50;
@@ -121,8 +120,6 @@ void Config::load(std::filesystem::path configFile) {
           videoY = parseInt(xml_val, videoY, 480);
         else if(xml_tag == "fullscreen")
           useFullScreen = parseBool(xml_val, useFullScreen);
-        else if(xml_tag == "restartOnChangeScreen")
-          restartOnChangeScreen = parseBool(xml_val, restartOnChangeScreen);
         else
           unexpectedXmlElement(xmlReader);
 
@@ -231,9 +228,6 @@ Config::save(std::filesystem::path configFile) {
         useOpenGL?"yes":"no");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"fullscreen", "%s",
         useFullScreen?"yes":"no");
-      xmlTextWriterWriteFormatElement(xmlWriter,
-        (xmlStr)"restartOnChangeScreen", "%s",
-        restartOnChangeScreen?"yes":"no");
     xmlTextWriterEndElement(xmlWriter);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"audio");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"soundEnabled", "%s",

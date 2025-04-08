@@ -45,7 +45,7 @@ public:
     MainMenu(SDL_Window* window);
     ~MainMenu();
 
-    MainState run();
+    void run();
     void gotoMainMenu();
 
 private:

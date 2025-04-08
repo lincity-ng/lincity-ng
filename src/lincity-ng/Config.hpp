@@ -40,7 +40,6 @@ public:
 
   bool useOpenGL;
   bool useFullScreen;
-  bool restartOnChangeScreen;
   int videoX, videoY;
 
   // sound volume 0..100 (0=silent)

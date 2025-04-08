@@ -84,7 +84,6 @@ void Game::backToMainMenu(){
     closeAllDialogs();
     saveCityNG(*world, getConfig()->userDataDir / "9_currentGameNG.scn.gz");
     running = false;
-    quitState = MAINMENU;
 }
 
 void Game::quickLoad(){
@@ -386,30 +385,34 @@ Game::getButtonPanel() const {
 }
 
 
-MainState
-Game::run()
-{
+void
+Game::run() {
     assert(world);
-    SDL_Event event;
-    running = true;
+    if(!world) return;
+
+    // init GUI
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
-    {   throw std::runtime_error("Toplevel component is not a Desktop");}
+      throw std::runtime_error("Toplevel component is not a Desktop");
     gui->resize(getConfig()->videoX, getConfig()->videoY);
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
-    getButtonPanel().selectQueryTool();
-    int frame = 0;
 
+    getButtonPanel().selectQueryTool();
+
+    int frame = 0;
     bool new_day = true, new_month = true, new_year = true;
     Uint32 next_execute = ~0, next_animate = ~0, next_gui = 0, next_fps = 0;
-    __attribute__((unused))
+    [[maybe_unused]]
     Uint32 prev_execute = 0, prev_animate = 0, prev_gui = 0, prev_fps = 0;
     Uint32 next_task;
-    Uint32 tick = 0;
-    while(running) {
+
+    running = true;
+    while(true) {
         next_task = std::min({next_execute, next_animate, next_gui, next_fps});
         while(true) {
+            if(!running) return;
+            SDL_Event event;
             int event_timeout = next_task - SDL_GetTicks();
             if(event_timeout < 0) event_timeout = 0;
             int status = SDL_WaitEventTimeout(&event, event_timeout);
@@ -488,20 +491,22 @@ Game::run()
                     gui->event(gui_event);
                     break;
                 }
-                case SDL_QUIT:
+                case SDL_QUIT: {
                     saveCityNG(*world, getConfig()->userDataDir / "9_currentGameNG.scn.gz");
-                    running = false;
-                    quitState = QUIT;
-                    break;
+                    // push the QUIT event back for main menu to handle
+                    int s = SDL_PushEvent(&event);
+                    assert(s == 1);
+                    return;
+                }
                 default:
                     break;
             }
 
             if(desktop->needsRedraw())
-              next_task = tick;
+              next_task = 0;
         }
 
-        tick = SDL_GetTicks();
+        Uint32 tick = SDL_GetTicks();
         get_real_time_with(tick);
         frame++;
 
@@ -596,7 +601,6 @@ Game::run()
             next_animate = tick;
         }
     }
-    return quitState;
 }
 
 void
