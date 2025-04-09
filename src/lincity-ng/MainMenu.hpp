@@ -22,23 +22,23 @@
 #ifndef __MAINMENU_HPP__
 #define __MAINMENU_HPP__
 
-#include <SDL.h>     // for SDL_Window, Uint32
-#include <filesystem>
-#include <map>       // for map
-#include <memory>    // for unique_ptr
-#include <set>       // for set
-#include <string>    // for string, basic_string
+#include <SDL.h>                     // for SDL_Window, Uint32
+#include <filesystem>                // for path
+#include <functional>                // for function
+#include <memory>                    // for unique_ptr
+#include <set>                       // for set
+#include <string>                    // for basic_string, string
+#include <unordered_map>             // for unordered_map
 
-#include "main.hpp"  // for MainState
-#include "gui/RadioButtonGroup.hpp"
+#include "gui/RadioButtonGroup.hpp"  // for RadioButtonGroup
 
 class Button;
 class CheckButton;
 class Component;
 class Desktop;
+class Game;
 class Paragraph;
 class SwitchComponent;
-class Game;
 
 class MainMenu
 {

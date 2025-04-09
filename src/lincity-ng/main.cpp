@@ -26,12 +26,10 @@
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <assert.h>                              // for assert
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
 #include <stdio.h>                               // for NULL
 #include <stdlib.h>                              // for setenv
-#include <unistd.h>                              // for execlp
 #include <filesystem>                            // for operator/, path
 #include <iostream>                              // for basic_ostream, opera...
 #include <memory>                                // for allocator, unique_ptr

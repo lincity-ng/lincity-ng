@@ -26,12 +26,13 @@
 #include <stdio.h>          // for NULL
 #include <list>             // for _List_iterator
 
+#include "MapPoint.hpp"     // for MapPoint
 #include "commodities.hpp"  // for Commodity
-#include "groups.hpp"         // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_BRIDGE
-#include "lin-city.hpp"       // for FLAG_TRANSPARENT, FLAG_INVISIBLE, FLAG_PO...
-#include "lintypes.hpp"       // for Construction
+#include "groups.hpp"       // for GROUP_RAIL, GROUP_ROAD, GROUP_RAIL_BRIDGE
+#include "lin-city.hpp"     // for FLAG_TRANSPARENT, FLAG_INVISIBLE, FLAG_PO...
+#include "lintypes.hpp"     // for Construction
 #include "resources.hpp"    // for ExtraFrame
-#include "world.hpp"          // for Map, MapTile
+#include "world.hpp"        // for Map, MapTile
 
 
 

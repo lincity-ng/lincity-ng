@@ -30,7 +30,6 @@
 #include "UserOperation.hpp"     // for UserOperation
 #include "gui/Signal.hpp"        // for Signal
 #include "lincity/messages.hpp"  // for Message
-#include "main.hpp"              // for MainState
 
 class ButtonPanel;
 class Component;

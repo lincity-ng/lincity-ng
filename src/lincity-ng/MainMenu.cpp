@@ -25,13 +25,16 @@
 #include <SDL.h>                        // for SDL_EventType, Uint32, SDL_Ge...
 #include <stdio.h>                      // for fprintf, size_t, stderr
 #include <algorithm>                    // for min, sort
+#include <array>                        // for array
 #include <cassert>                      // for assert
-#include <chrono>                       // for operator>
-#include <cstdlib>                      // for abs, unsetenv
-#include <functional>                   // for bind, _1, function, _2
+#include <chrono>                       // for operator<, time_point
+#include <cstdlib>                      // for abs
+#include <functional>                   // for function, bind, _1, _2
+#include <initializer_list>             // for initializer_list
 #include <iomanip>                      // for operator<<, setfill, setw
 #include <iostream>                     // for basic_ostream, operator<<
 #include <sstream>                      // for basic_stringstream
+#include <stdexcept>                    // for invalid_argument, out_of_range
 #include <utility>                      // for pair, move
 #include <vector>                       // for vector
 
@@ -52,11 +55,12 @@
 #include "gui/Signal.hpp"               // for Signal
 #include "gui/SwitchComponent.hpp"      // for SwitchComponent
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "lincity/init_game.hpp"          // for _CitySettings, new_city, city...
-#include "lincity/lintypes.hpp"           // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"              // for Stat, Stats
-#include "lincity/world.hpp"              // for World
-#include "tinygettext/gettext.hpp"      // for _, N_, dictionaryManager
+#include "lincity/init_game.hpp"        // for _CitySettings, new_city, city...
+#include "lincity/lintypes.hpp"         // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"            // for Stat, Stats
+#include "lincity/world.hpp"            // for World
+#include "main.hpp"                     // for resizeVideo, painter, videoSi...
+#include "tinygettext/gettext.hpp"      // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 using namespace std::placeholders;
