@@ -29,6 +29,7 @@
 #include <stdlib.h>               // for rand
 #include <unordered_set>          // for unordered_set
 #include <vector>                 // for vector
+#include <optional>
 
 #include "ConstructionRequest.hpp"  // for SetOnFire
 #include "MapPoint.hpp"           // for MapPoint
@@ -235,35 +236,31 @@ Map::check_topgroup(int x, int y) {
 
 void
 Map::connect_rivers(int x, int y) {
+  MapPoint point(x,y);
   Map& map = (*this);
-  std::deque<int> line;
-  const int len = map.len();
+  assert(map.is_visible(point));
 
-  line.clear();
-  //only act on lakes
-  if(map(x,y)->is_lake())
-    line.push_back(y*len+x);
+  std::deque<MapPoint> line;
 
-  while(line.size()>0) {
-    int x = line.front() % len;
-    int y = line.front() / len;
+  if(map(point)->is_lake() && (
+    map(point.n())->is_river() ||
+    map(point.s())->is_river() ||
+    map(point.e())->is_river() ||
+    map(point.w())->is_river()
+  )) {
+    map(point)->flags |= FLAG_IS_RIVER;
+    line.push_back(point);
+  }
+
+  while(!line.empty()) {
+    MapPoint p = line.front();
     line.pop_front();
-    //check for close by river
-    for(unsigned int i = 0;i<4;++i) {
-      int xx = x + dx[i];
-      int yy = y + dy[i];
-      if(map(xx,yy)->is_river()) {
-        map(x, y)->flags |= FLAG_IS_RIVER;
-        i = 4;
-        //now check for more close by lakes
-        for(unsigned int j = 0;j<4;++j) {
-          int x3 = x + dx[j];
-          int y3 = y + dy[j];
-          if(map(x3,y3)->is_lake())
-            line.push_back(y3*len+x3);
-        }
+    // TODO: make sure we don't go outside the map
+    for(MapPoint p1 : {p.n(), p.s(), p.e(), p.w()})
+      if(map(p1)->is_lake()) {
+        map(p1)->flags |= FLAG_IS_RIVER;
+        line.push_back(p1);
       }
-    }
   }
 }
 
@@ -277,70 +274,60 @@ World::do_coal_survey() {
 }
 
 void
-Map::desert_water_frontiers(int originx, int originy, int w, int h) {
-    Map& map = (*this);
-    /* copied from connect_transport */
-    // sets the correct TYPE depending on neighbours, => gives the correct tile to display
-    int mask;
+Map::desert_water_frontiers(int x, int y, int w, int h) {
+  desert_water_frontiers(MapPoint(x+1,y+1), MapPoint(x+w,y+h));
+}
+
+void
+Map::desert_water_frontiers(MapPoint p0, MapPoint p1) {
+  assert(p0.x <= p1.x && p0.y <= p1.y);
+  assert(is_visible(p0) && is_inside(p1));
+  Map& map = (*this);
+  /* copied from connect_transport */
+  // sets the correct TYPE depending on neighbours, => gives the correct tile to display
 /*
-    static const short desert_table[16] = {
-        CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
-        CST_DESERT_1L, CST_DESERT_2LD, CST_DESERT_2LR, CST_DESERT_3LRD,
-        CST_DESERT_1U, CST_DESERT_2UD, CST_DESERT_2RU, CST_DESERT_3RUD,
-        CST_DESERT_2LU, CST_DESERT_3LUD, CST_DESERT_3LRU, CST_DESERT
-    };
+  static const short desert_table[16] = {
+      CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
+      CST_DESERT_1L, CST_DESERT_2LD, CST_DESERT_2LR, CST_DESERT_3LRD,
+      CST_DESERT_1U, CST_DESERT_2UD, CST_DESERT_2RU, CST_DESERT_3RUD,
+      CST_DESERT_2LU, CST_DESERT_3LUD, CST_DESERT_3LRU, CST_DESERT
+  };
 
 #if FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
 #error  desert_frontier(): you loose
 #error  the algorithm depends on proper flag settings -- (ThMO)
 #endif
 */
-    /* Adjust originx,originy,w,h to proper range */
-    if (originx <= 0)
-    {
-        w -= 1 - originx;
-        originx = 1;
-    }
-    if (originy <= 0)
-    {
-        h -= 1 - originy;
-        originy = 1;
-    }
-    if(originx + w >= map.len())
-      w = map.len() - originx;
-    if(originy + h >= map.len())
-      h = map.len() - originy;
+  /* Adjust originx,originy,w,h to proper range */
+  for(MapPoint p(0, std::max(p0.y-1, 1)); p.y < p1.y; p.y++)
+  for(p.x = std::max(p0.x-1, 1); p.x < p1.x; p.x++) {
+    unsigned short grp = map(p)->getLowerstVisibleGroup();
+    if(grp != GROUP_DESERT && grp != GROUP_WATER) continue;
 
-    for (int x = originx; x < originx + w; x++)
-    {
-        for (int y = originy; y < originy + h; y++)
-        {
-            if(map(x, y)->getLowerstVisibleGroup() == GROUP_DESERT) {
-                mask = 0;
-                if(map.is_visible(x,y-1) && map(x,y-1)->getLowerstVisibleGroup() == GROUP_DESERT)
-                {   mask |= 8;}
-                if(map.is_visible(x-1,y) && map(x-1,y)->getLowerstVisibleGroup() == GROUP_DESERT)
-                {   mask |= 4;}
-                if(map.is_visible(x+1,y) && map(x+1,y)->getLowerstVisibleGroup() == GROUP_DESERT)
-                {   mask |= 2;}
-                if(map.is_visible(x,y+1) && map(x,y+1)->getLowerstVisibleGroup() == GROUP_DESERT)
-                {   ++mask;}
-                map(x, y)->type = mask;
-            }
-            else if(map(x, y)->getLowerstVisibleGroup() == GROUP_WATER) {
-                mask = 0;
-                if(map.is_visible(x,y-1) && (map(x,y-1)->is_water() || check_group(x,y-1) == GROUP_PORT))
-                {   mask |= 8;}
-                if(map.is_visible(x-1,y) && (map(x-1,y)->is_water() || check_group(x-1,y) == GROUP_PORT))
-                {   mask |= 4;}
-                if(map.is_visible(x+1,y) && map(x+1,y)->is_water())
-                {   mask |= 2;}
-                if(map.is_visible(x,y+1) && map(x,y+1)->is_water())
-                {   ++mask;}
-                map(x, y)->type = mask;
-            }
-        }
+    MapPoint q = p.e();
+    if(p.y >= p0.y && q.x < map.len()-1) {
+      if(map(q)->getLowerstVisibleGroup() == grp) {
+        map(p)->type |= 4;
+        map(q)->type |= 1;
+      }
+      else {
+        map(p)->type &= ~4;
+        map(q)->type &= ~1;
+      }
     }
+
+    q = p.s();
+    if(p.x >= p0.x && q.y < map.len()-1) {
+      if(map(q)->getLowerstVisibleGroup() == grp) {
+        map(p)->type |= 8;
+        map(q)->type |= 2;
+      }
+      else {
+        map(p)->type &= ~8;
+        map(q)->type &= ~2;
+      }
+    }
+  }
 }
 
 /*
@@ -348,36 +335,18 @@ Map::desert_water_frontiers(int originx, int originy, int w, int h) {
    // return the x y coords encoded as x+y*world.len()
    // return -1 if we don't find one.
  */
-int
-World::find_group(int x, int y, unsigned short group) {
-    int i, j;
-    for(i = 1; i < (2 * map.len()); i++) {
-        for (j = 0; j < i; j++)
-        {
-            x--;
-            if(map.is_visible(x, y) && map(x, y)->getTopGroup() == group)
-              return (x + y * map.len());
-        }
-        for (j = 0; j < i; j++) {
-            y--;
-            if(map.is_visible(x, y) && map(x, y)->getTopGroup() == group)
-              return (x + y * map.len());
-        }
-        i++;
-        for (j = 0; j < i; j++)
-        {
-            x++;
-            if(map.is_visible(x, y) && map(x, y)->getTopGroup() == group)
-              return (x + y * map.len());
-        }
-        for (j = 0; j < i; j++)
-        {
-            y++;
-            if(map.is_visible(x, y) && map(x, y)->getTopGroup() == group)
-              return (x + y * map.len());
-        }
+std::optional<MapPoint>
+Map::find_group(MapPoint p, unsigned short group) {
+  for(unsigned int i = 2; i < len() * 4; i++) {
+    int& c = i & 1 ? p.y : p.x;
+    int d = i & 2 ? -1 : 1;
+    for(int j = i / 2; j > 0; j--) {
+      if(is_visible(p) && operator()(p)->getTopGroup() == group)
+        return p;
+      c += d;
     }
-    return (-1);
+  }
+  return std::nullopt;
 }
 
 /*
@@ -386,46 +355,28 @@ World::find_group(int x, int y, unsigned short group) {
    // return -1 if we don't find one.
  */
 bool
-World::is_bare_area(int x, int y, int size) {
-    for(int j = 0; j<size; j++)
-    {
-        for(int i = 0; i<size; i++)
-        {
-            if(!map.is_visible(x+i, y+j) || !map(x+i, y+j)->is_bare())
-              return false;
-        }
-    }
-    return true;
+Map::is_bare_area(MapPoint point, int size) {
+  for(int i = 0; i < size; i++)
+  for(int j = 0; j < size; j++) {
+    MapPoint p = point.s(i).e(j);
+    if(!is_visible(p) || !operator()(p)->is_bare())
+      return false;
+  }
+  return true;
 }
 
-int
-World::find_bare_area(int x, int y, int size) {
-    int i, j;
-    for(i = 1; i < (2 * map.len()); i++) {
-        for (j = 0; j < i; j++)
-        {
-            x--;
-            if(map.is_visible(x, y) && is_bare_area(x, y, size))
-              return x + y * map.len();
-        }
-        for (j = 0; j < i; j++) {
-            y--;
-            if(map.is_visible(x, y) && is_bare_area(x, y, size))
-              return x + y * map.len();
-        }
-        i++;
-        for (j = 0; j < i; j++) {
-            x++;
-            if(map.is_visible(x, y) && is_bare_area(x, y, size))
-              return x + y * map.len();
-        }
-        for (j = 0; j < i; j++) {
-            y++;
-            if(map.is_visible(x, y) && is_bare_area(x, y, size))
-              return x + y * map.len();
-        }
+std::optional<MapPoint>
+Map::find_bare_area(MapPoint p, int size) {
+  for(int i = 2; i < len() * 4; i++) {
+    int& c = i & 1 ? p.y : p.x;
+    int d = i & 2 ? -1 : 1;
+    for(int j = i / 2; j > 0; j--) {
+      if(is_visible(p) && is_bare_area(p, size))
+        return p;
+      c += d;
     }
-    return (-1);
+  }
+  return std::nullopt;
 }
 
 /** @file lincity/engine.cpp */

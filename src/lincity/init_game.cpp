@@ -31,6 +31,7 @@
 #include <memory>                   // for unique_ptr
 #include <random>                   // for uniform_int_distribution
 #include <vector>                   // for vector
+#include <optional>
 
 #include "MapPoint.hpp"             // for MapPoint
 #include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
@@ -67,12 +68,12 @@ static void new_setup_river_ground(Map& map,
 static void new_setup_river(Map& map, int global_aridity);
 //static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *taby);
 //static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
-static int quick_river(Map& map, int x, int y);
+static std::optional<MapPoint> quick_river(Map& map, MapPoint start);
 static void set_river_tile(MapTile& tile); //also used in loadsave.cpp
-static void do_rand_ecology(Map& map, int x, int y, int r, bool without_trees);
+static void do_rand_ecology(Map& map, MapPoint p, int r, bool without_trees);
 //static Shoreline * init_shore(void);
 //static void free_shore(Shoreline *shore);
-static int overfill_lake(Map& map, int xl, int yl);//, Shoreline *shore, int lake_id);
+static std::optional<MapPoint> overfill_lake(Map& map, MapPoint start);//, Shoreline *shore, int lake_id);
 
 
 /* ---------------------------------------------------------------------- *
@@ -139,70 +140,63 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   std::cout.flush();
   const int len = map.len();
   const int area = len * len;
-  std::deque<int> line;
+  std::deque<MapPoint> line;
   Array2D<int> dist(len,len);
   Array2D<int> water(len,len);
   int arid = global_aridity;
 
   std::cout << ".";
   std::cout.flush();
-  for(int index = 0; index < area; index++) {
-    int xx = index % len;
-    int yy = index / len;
-    if(!map.is_visible(xx,yy))
+  for(MapPoint p; p.y < len; p.y++)
+  for(p.x = 0; p.x < len; p.x++) {
+    if(!map.is_visible(p))
       continue;
-    if(map(xx,yy)->is_water()) {
-      *dist(xx,yy) = 0;
-      *water(xx,yy) = map(xx,yy)->ground.water_alt;
-      line.push_back(xx + yy * len);
+    if(map(p)->is_water()) {
+      *dist(p.x,p.y) = 0;
+      *water(p.x,p.y) = map(p)->ground.water_alt;
+      line.push_back(p);
     }
     else {
-      *dist(xx,yy) = 50;
-      *water(xx,yy) = 3*map(xx,yy)->ground.altitude/4;
+      *dist(p.x,p.y) = 50;
+      *water(p.x,p.y) = 3*map(p)->ground.altitude/4;
     }
   }
   //std::cout << "detected " << line.size() << " river tiles" << std::endl;
   std::cout << ".";
   std::cout.flush();
   while(line.size()) {
-    int index = line.front();
+    MapPoint p = line.front();
     line.pop_front();
-    int xx = index % len;
-    int yy = index / len;
-    int next_dist = *dist(xx,yy) + 1;
-    int water_alt = *water(xx,yy);
-    for(int i = 0; i < 4; i++) {
-      int xt = xx + dx[i];
-      int yt = yy + dy[i];
-      if(!map.is_visible(xt,yt))
-        continue;
-      int old_eco = (*dist(xt,yt) * *dist(xt,yt)/5 + 1) + arid +
-        (map(xt, yt)->ground.altitude - *water(xt,yt)) * 50 / map.alt_step;
+    int next_dist = *dist(p.x,p.y) + 1;
+    int water_alt = *water(p.x,p.y);
+    for(MapPoint pt : {p.w(), p.n(), p.e(), p.s()}) {
+      if(!map.is_visible(pt)) continue;
+      int old_eco = (*dist(pt.x,pt.y) * *dist(pt.x,pt.y)/5 + 1) + arid +
+        (map(pt)->ground.altitude - *water(pt.x,pt.y)) * 50 / map.alt_step;
       int next_eco = (next_dist * next_dist/5 + 1) + arid +
-          (map(xt, yt)->ground.altitude - water_alt) * 50 / map.alt_step;
-      if(map.is_visible(xt,yt) && next_eco < old_eco) {
-        *dist(xt,yt) = next_dist;
-        *water(xt,yt) = water_alt;
-        line.push_back(xt + yt * len);
+          (map(pt)->ground.altitude - water_alt) * 50 / map.alt_step;
+      if(map.is_visible(pt) && next_eco < old_eco) {
+        *dist(pt.x,pt.y) = next_dist;
+        *water(pt.x,pt.y) = water_alt;
+        line.push_back(pt);
       }
     }
   }
 
   std::cout << ".";
   std::cout.flush();
-  for(int index = 0; index < area; index++) {
-    int xx = index % len;
-    int yy = index / len;
+  for(MapPoint p; p.y < len; p.y++)
+  for(p.x = 0; p.x < len; p.x++) {
     int d2w_min = 2 * area;
     int r;
     int alt0 = 0;
 
     /* test against IS_RIVER to prevent terrible recursion */
-    if((map(xx, yy)->flags & FLAG_IS_RIVER) || !map(xx, yy)->is_bare())
+    if((map(p)->flags & FLAG_IS_RIVER) || !map(p)->is_bare())
       continue;
-    r = *dist(xx,yy);
+    r = *dist(p.x,p.y);
     d2w_min = r * r;
-    alt0 = *water(xx,yy);
+    alt0 = *water(p.x,p.y);
 
     /* near river lower aridity */
     if (arid > 0) {
@@ -213,8 +207,8 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     }
     /* Altitude has same effect as distance */
     r = rand()%(d2w_min/5 + 1) + arid +
-      (map(xx, yy)->ground.altitude - alt0) * 50 / map.alt_step;
-    do_rand_ecology(map, xx, yy, r, without_trees);
+      (map(p)->ground.altitude - alt0) * 50 / map.alt_step;
+    do_rand_ecology(map, p, r, without_trees);
   }
 
   std::cout << " done" << std::endl;
@@ -279,28 +273,28 @@ create_new_city(city_settings *city, int mapSize, int old_setup_ground,
 }
 
 static void coal_reserve_setup(Map& map) {
-  int i, j, x, y, xx, yy;
+  int i, j, xx, yy;
+  MapPoint p;
   const int len = map.len();
   for(i = 0; i < NUMOF_COAL_RESERVES; i++) {
-    x = (rand() % (len - 12)) + 6;
-    y = (rand() % (len - 10)) + 6;
+    p.x = (rand() % (len - 12)) + 6;
+    p.y = (rand() % (len - 10)) + 6;
     do {
       xx = (rand() % 3) - 1;
       yy = (rand() % 3) - 1;
     }
     while(xx == 0 && yy == 0);
     for (j = 0; j < 5; j++) {
-      map(x, y)->coal_reserve += rand() % COAL_RESERVE_SIZE;
-      x += xx;
-      y += yy;
+      map(p)->coal_reserve += rand() % COAL_RESERVE_SIZE;
+      p.x += xx;
+      p.y += yy;
     }
   }
 }
 
 static void ore_reserve_setup(Map& map) {
-  const int area = map.len() * map.len();
-  for(int index=0; index < area; index++)
-    map(index)->ore_reserve = ORE_RESERVE;
+  for(MapTile& t : map)
+    t.ore_reserve = ORE_RESERVE;
 }
 
 static void new_setup_river_ground(Map& map,
@@ -587,15 +581,12 @@ static void new_setup_river_ground(Map& map,
     sea_level -= map.alt_min;
     map.alt_max = 0;
     // pick our map in the fractal one
-    for (int index=0; index < area ; index++ )
-    {
-        i = index % len;
-        j = index / len;
-        map(i, j)->ground.altitude +=
-          (int)*f1(SHIFT + i, SHIFT + j) - map.alt_min + 1;
-          // + (len-j*j/len)*global_mountainity/2;
-        if(map(i, j)->ground.altitude > map.alt_max)
-          map.alt_max =  map(i, j)->ground.altitude;
+    for(MapTile& t : map) {
+      t.ground.altitude +=
+        (int)*f1(SHIFT + t.point.x, SHIFT + t.point.y) - map.alt_min + 1;
+        // + (len-j*j/len)*global_mountainity/2;
+      if(t.ground.altitude > map.alt_max)
+        map.alt_max =  t.ground.altitude;
     }
 
     // take visible value for maximum color dynamic
@@ -610,98 +601,86 @@ static void new_setup_river_ground(Map& map,
     if (sea_level > map.alt_max/3)
     {   sea_level = map.alt_max/3;}
     //now flood everything below sea_level
-    for (int index=0; index < area ; index++ )
-    {
-        i = index % len;
-        j = index / len;
-        if (  map.is_visible(i,j) && map(i, j)->ground.altitude < sea_level)
-        {
-            map(i, j)->ground.altitude = sea_level;
-            set_river_tile(*map(i,j));
-        }
-    }
-    //put water at invisible borders in the sea
-    for (int index=1; index < area ; index++ )
-    //always skip (0,0) ensures brown background
-    {
-        i = index % len;
-        j = index / len;
-        if (((i == 0) && map(1,j)->is_river())
-        || (i == len-1 && map(len-2,j)->is_river())
-        || (j == 0 && map(1,j)->is_river())
-        || (j == len-1 && map(i,len-2)->is_river()))
-        {   set_river_tile(*map(i,j));}
-    }
-
-}
-
-static void new_setup_river(Map& map, int global_aridity)
-{
-    // brute search of local minimum
-    const int len = map.len();
-    const int area = len * len;
-    std::vector <int> lkidx;
-
-    int i, j, k, l, m;
-    // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
-    for ( i = 0; i < len; i++) {
-      map(i, 0)->ground.altitude = map.alt_min;
-      map(i, map.len() - 1)->ground.altitude = map.alt_min;
-      map(0, i)->ground.altitude = map.alt_min;
-      map(map.len() - 1, i)->ground.altitude = map.alt_min;
-    }
-
-    l = 0;
-    for(int index=0; index < area; index++) {
-      int x = index % len;
-      int y = index / len;
-      if (map.is_visible(x,y) && map.minimum(x,y)) {
-        l++;
-        lkidx.push_back(x + y * len);
+    for(MapTile& t : map) {
+      if(map.is_visible(t.point) && t.ground.altitude < sea_level) {
+        t.ground.altitude = sea_level;
+        set_river_tile(t);
       }
     }
 
-    // fill lake until it overfills and creates a river
-    m = ((100 - global_aridity/4)*l) / len; // ugly hardcoded values correpsonding to "climate" switch in create_new_city
-    if (m==0)
-        m=1;
-
-    if (m>l)
-        m = l;
-
-    if (m>area/400)
-        m = area/400;
-
-    /*
-    //In case we want extra random rivers instead of connected lakes
-    for(i=0;i<m;++i)
-    {
-        lkidx[i]=rand()%len + rand()%len * len;
+    // put water at invisible borders in the sea
+    // skiping (0,0) ensures brown background (TODO: is this needed)
+    for(MapPoint n(1,0), s(1,len-1), e(len-1,1), w(0,1); n.x < len;) {
+      if(map(n.s())->is_river()) set_river_tile(*map(n));
+      if(map(s.n())->is_river()) set_river_tile(*map(s));
+      if(map(e.w())->is_river()) set_river_tile(*map(e));
+      if(map(w.e())->is_river()) set_river_tile(*map(w));
+      n.x++; s.x++; e.y++; w.y++;
     }
-    */
-    std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
-    std::cout.flush();
-    //sort_by_altitude(m, &lakx, &laky);
-    for (i = 0; i < m; i++) {
-      j = std::uniform_int_distribution((size_t)0, lkidx.size() - 1)(
-        LcUrbg::get());
-      k = lkidx[j];
-      do {
-        int kx = k % len;
-        int ky = k / len;
-        if(map.minimum(kx, ky)) {
-          k = overfill_lake(map, kx, ky);
-        }
-        else {
-          k = quick_river(map, kx, ky);
-          set_river_tile(*map(kx, ky));
-        }
-      } while(k != -1 && map(k)->is_visible() && map(k)->is_river());
+}
 
-      lkidx[j] = lkidx.back();
-      lkidx.pop_back();
+static void new_setup_river(Map& map, int global_aridity) {
+  // brute search of local minimum
+  const int len = map.len();
+  const int area = len * len;
+  std::vector<MapPoint> lkidx;
+
+  // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
+  for(i = 0; i < len; i++) {
+    map(MapPoint(i,0))->ground.altitude = map.alt_min;
+    map(MapPoint(i,map.len()-1))->ground.altitude = map.alt_min;
+    map(MapPoint(0,i))->ground.altitude = map.alt_min;
+    map(MapPoint(map.len()-1,i))->ground.altitude = map.alt_min;
+  }
+
+  int l = 0;
+  for(MapPoint p(1,1); p.y < map.len()-1; p.y++)
+  for(p.x = 1; p.x < map.len()-1; p.x++) {
+    if(map.minimum(p)) {
+      l++;
+      lkidx.push_back(p);
     }
-    std::cout << " done" << std::endl;
+  }
+
+  // fill lake until it overfills and creates a river
+  int m = ((100 - global_aridity/4)*l) / len; // ugly hardcoded values correpsonding to "climate" switch in create_new_city
+  if (m==0)
+      m=1;
+
+  if (m>l)
+      m = l;
+
+  if (m>area/400)
+      m = area/400;
+
+  /*
+  //In case we want extra random rivers instead of connected lakes
+  for(i=0;i<m;++i)
+  {
+      lkidx[i]=rand()%len + rand()%len * len;
+  }
+  */
+  std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
+  std::cout.flush();
+  //sort_by_altitude(m, &lakx, &laky);
+  for(int i = 0; i < m; i++) {
+    int j = std::uniform_int_distribution((size_t)0, lkidx.size() - 1)(
+      LcUrbg::get());
+    std::optional<MapPoint> k(lkidx[j]);
+    do {
+      if(map.minimum(*k)) {
+        k = overfill_lake(map, *k);
+      }
+      else {
+        k = quick_river(map, *k);
+        set_river_tile(*map(*k));
+      }
+    } while(k && map(*k)->is_visible() && map(*k)->is_river());
+
+    lkidx[j] = lkidx.back();
+    lkidx.pop_back();
+  }
+  std::cout << " done" << std::endl;
 }
 
 static int overfill_lake(Map& map, int start_x, int start_y)//, Shoreline *shore, int lake_id)

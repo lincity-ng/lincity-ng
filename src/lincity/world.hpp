@@ -36,6 +36,7 @@
 #include <string>           // for basic_string, string
 #include <unordered_set>    // for unordered_set
 #include <vector>           // for vector
+#include <optional>
 
 #include "MapPoint.hpp"     // for MapPoint
 #include "all_buildings.hpp"  // for COAL_TAX_RATE, DOLE_RATE, GOODS_TAX_RATE
@@ -169,7 +170,10 @@ public:
   MapPoint recentPoint;
 
 
+  std::optional<MapPoint> find_group(MapPoint p, unsigned short group);
+  std::optional<MapPoint> find_bare_area(MapPoint p, int size);
   void connect_transport(int originx, int originy, int lastx, int lasty);
+  void desert_water_frontiers(MapPoint p0, MapPoint p1);
   void desert_water_frontiers(int originx, int originy, int w, int h);
   void connect_rivers(int x, int y);
   [[deprecated]] int check_group(int x, int y);
@@ -178,6 +182,10 @@ public:
 protected:
   int side_len;
   std::vector<MapTile> maptile;
+
+private:
+
+  bool is_bare_area(MapPoint point, int size);
 };
 
 class World {
@@ -276,9 +284,6 @@ public:
   void do_random_fire();
   void do_daily_ecology();
   void do_coal_survey();
-  int find_group(int x, int y, unsigned short group);
-  bool is_bare_area(int x, int y, int size);
-  int find_bare_area(int x, int y, int size);
 
 private:
   std::deque<Message::ptr> messageQueue;

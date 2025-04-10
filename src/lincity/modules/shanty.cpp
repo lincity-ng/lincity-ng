@@ -29,6 +29,7 @@
 #include <map>                              // for map
 #include <string>                           // for basic_string, operator<
 #include <vector>                           // for vector
+#include <optional>
 
 #include "commune.hpp"                      // for CommuneConstructionGroup
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
@@ -66,21 +67,20 @@ Construction *ShantyConstructionGroup::createConstruction(World& world) {
 
 void add_a_shanty(World& world) {
     MapPoint p;
-    int r;
+    std::optional<MapPoint> r;
     int numof_shanties = shantyConstructionGroup.count;
     const int len = world.map.len();
     p.x = rand() % len;
     p.y = rand() % len;
     if (numof_shanties > 0 && rand() % 8 != 0)
     {
-        r = world.find_group(p.x, p.y, GROUP_SHANTY);
-        if (r == -1) {
+        r = world.map.find_group(p, GROUP_SHANTY);
+        if (!r) {
             printf("Looked for a shanty, without any! x=%d y=%d\n", p.x, p.y);
             return;
         }
-        p.y = r / len;
-        p.x = r % len;
-        r = world.find_bare_area(p.x, p.y, 2);
+        p = *r;
+        r = world.map.find_bare_area(p, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -88,18 +88,16 @@ void add_a_shanty(World& world) {
 #endif
             return;
         }
-        p.y = r / len;
-        p.x = r % len;
+        p = *r;
     }
     else
     {
-        r = world.find_group(p.x, p.y, GROUP_MARKET);
-        if (r == -1)
+        r = world.map.find_group(p, GROUP_MARKET);
+        if (!r)
             return;             /* silently return, we havn't started yet. */
 
-        p.y = r / len;
-        p.x = r % len;
-        r = world.find_bare_area(p.x, p.y, 2);
+        p = *r;
+        r = world.map.find_bare_area(p, 2);
         if (r == -1)
         {
 #ifdef DEBUG
@@ -107,8 +105,7 @@ void add_a_shanty(World& world) {
 #endif
             return;
         }
-        p.y = r / len;
-        p.x = r % len;
+        p = *r;
     }
     shantyConstructionGroup.placeItem(world, p);
 }
@@ -134,15 +131,13 @@ void update_shanty(World& world) {
   }
   else if(numof_shanties > 0 && i < numof_shanties - 1) {
     for(int n = 0; n < 1 + (numof_shanties - i) / 10; n++) {
-      int x, y, r;
-      x = rand() % len;
-      y = rand() % len;
-      r = world.find_group(x, y, GROUP_SHANTY);
-      if(r == -1) {
+      MapPoint p(rand() % len, rand() % len);
+      std::optional<MapPoint> r = world.map.find_group(p, GROUP_SHANTY);
+      if(!r) {
         fprintf(stderr, "Can't find a shanty to remove!\n");
         return;
       }
-      MapPoint p(r % len, r / len);
+      p = *r;
       BurnDownRequest(world.map(p)->reportingConstruction).execute();
     }
   }
