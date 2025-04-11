@@ -96,16 +96,12 @@ target_link_libraries(lincity_gui
 		OpenGL::GL
 		PRIVATE
 		tinygettext
-		physfsrwops
 		SDL2::SDL2_gfx
-		${PHYSFS_LIBRARY}
 )
 
 target_include_directories(lincity_gui
-		PRIVATE
-		${PHYSFS_INCLUDE_DIR}
 		PUBLIC
-		${LIBXML2_INCLUDE_DIR})
-target_link_libraries(lincity_gui PRIVATE ${PHYSFS_LIBRARY})
+		${LIBXML2_INCLUDE_DIR}
+)
 
 include_directories(.)

@@ -24,19 +24,13 @@ add_executable(lincity-ng
 		MainLincity.hpp
 		MainMenu.cpp
 		MainMenu.hpp
-		MapEdit.cpp
-		MapEdit.hpp
 		MapPoint.hpp
 		MiniMap.cpp
 		MiniMap.hpp
 		Mps.cpp
 		Mps.hpp
-		MpsInterface.cpp
 		PBar.cpp
 		PBar.hpp
-		PbarInterface.cpp
-		Permutator.cpp
-		Permutator.hpp
 		readdir.cpp
 		readdir.hpp
 		ScreenInterface.cpp
@@ -45,6 +39,8 @@ add_executable(lincity-ng
 		Sound.hpp
 		TimerInterface.cpp
 		TimerInterface.hpp
+		UserOperation.cpp
+		UserOperation.hpp
 		Util.cpp
 		Util.hpp
 )
@@ -62,13 +58,9 @@ target_link_libraries(lincity-ng
 	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
 	PRIVATE
 	tinygettext
-	physfsrwops
-	LinCity::physfsstream
+	cfgpath
 	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 )
-
-target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
-target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})
 
 include_directories(.)

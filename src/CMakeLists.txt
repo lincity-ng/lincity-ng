@@ -5,7 +5,6 @@ configure_file(config.h.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(tinygettext)
-add_subdirectory(PhysfsStream)
 add_subdirectory(gui)
 add_subdirectory(lincity)
 add_subdirectory(lincity-ng)

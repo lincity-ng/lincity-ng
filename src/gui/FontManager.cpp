@@ -26,14 +26,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>                  // for SDL_GetError
 #include <SDL_ttf.h>                    // for TTF_OpenFontRW, _TTF_Font
 #include <exception>                    // for exception
+#include <filesystem>
 #include <sstream>                      // for char_traits, basic_ostream
 #include <stdexcept>                    // for runtime_error
 #include <utility>                      // for pair, make_pair
 
-#include "physfsrwops.h"
 #include "Style.hpp"                    // for Style
 #include "tinygettext/gettext.hpp"      // for dictionaryManager
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
+#include "lincity-ng/Config.hpp"
 
 FontManager* fontManager = 0;
 
@@ -67,10 +68,11 @@ FontManager::getFont(Style style)
 
     // If there a special font for the current language use it.
     std::string language = dictionaryManager->get_language();
-    std::string fontfile = "fonts/" + info.name + "-" + language + ".ttf";
+    std::filesystem::path fontsDir = getConfig()->appDataDir / "fonts";
+    std::filesystem::path fontfile = fontsDir /
+      (info.name + "-" + language + ".ttf");
     try{
-        font = TTF_OpenFontRW(
-          PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
+        font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
     } catch(std::exception& ){
         font = 0;
     }
@@ -79,10 +81,9 @@ FontManager::getFont(Style style)
         std::string::size_type pos = language.find("_");
         if(pos != std::string::npos) {
             language = std::string(language, 0, pos);
-            fontfile = "fonts/" + info.name + "-" + language + ".ttf";
+            fontfile = fontsDir / (info.name + "-" + language + ".ttf");
             try{
-                font = TTF_OpenFontRW(
-                  PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
+                font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
             } catch(std::exception& ){
                 font = 0;
             }
@@ -90,10 +91,9 @@ FontManager::getFont(Style style)
     }
     if(!font){
         // No special font found? Use default font then.
-        fontfile = "fonts/" + info.name + ".ttf";
+        fontfile = fontsDir / (info.name + ".ttf");
         try{
-            font = TTF_OpenFontRW(
-              PHYSFSRWOPS_openRead(fontfile.c_str()), 1, info.fontsize);
+            font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
         } catch(std::exception& ){
             font = 0;
         }

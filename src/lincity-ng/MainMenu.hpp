@@ -1,35 +1,42 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/MainMenu.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __MAINMENU_HPP__
 #define __MAINMENU_HPP__
 
-#include <SDL.h>     // for SDL_Window, Uint32
-#include <map>       // for map
-#include <memory>    // for unique_ptr
-#include <set>       // for set
-#include <string>    // for string, basic_string
+#include <SDL.h>                     // for SDL_Window, Uint32
+#include <filesystem>                // for path
+#include <functional>                // for function
+#include <memory>                    // for unique_ptr
+#include <set>                       // for set
+#include <string>                    // for basic_string, string
+#include <unordered_map>             // for unordered_map
 
-#include "main.hpp"  // for MainState
+#include "gui/RadioButtonGroup.hpp"  // for RadioButtonGroup
 
 class Button;
 class CheckButton;
 class Component;
 class Desktop;
+class Game;
 class Paragraph;
 class SwitchComponent;
 
@@ -39,7 +46,7 @@ public:
     MainMenu(SDL_Window* window);
     ~MainMenu();
 
-    MainState run();
+    void run();
     void gotoMainMenu();
 
 private:
@@ -52,12 +59,9 @@ private:
     void loadCreditsMenu();
     void loadOptionsMenu();
 
-    void fillLoadMenu( bool save = false );
-    void fillNewGameMenu();
-    void fillOptionsMenu();
-
-    void creditsBackButtonClicked(Button* );
-    void optionsBackButtonClicked(Button* );
+    void updateLoadSaveMenus();
+    void updateNewGameMenu();
+    void updateOptionsMenu();
 
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
@@ -74,11 +78,15 @@ private:
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
 
-    void selectLoadGameButtonClicked(CheckButton*,int i);
-    void selectSaveGameButtonClicked(CheckButton*,int i);
-    void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
+    void optionsBackButtonClicked(Button* );
 
+    void creditsBackButtonClicked(Button* );
+
+    std::unique_ptr<Game> game;
+    void launchGame();
+
+    SDL_Window* window;
     std::unique_ptr<Desktop> menu;
     SwitchComponent *menuSwitch;
     Component *mainMenu;
@@ -88,15 +96,20 @@ private:
     Component *creditsMenu;
     Component *optionsMenu;
 
-    bool running;
-    MainState quitState;
-    int slotNr;
+    RadioButtonGroup newGameSelection;
+    RadioButtonGroup loadGameSelection;
+    RadioButtonGroup saveGameSelection;
+    std::unordered_map<CheckButton *, std::filesystem::path> loadFiles;
 
-    std::string mFilename;
-    std::string baseName;
+    enum class State {
+      MENU, GAME, QUIT, RESTART
+    };
+    State state;
+
     static const Uint32 doubleClickTime = 1000;
-    Uint32 lastClickTick;
-    std::string doubleClickButtonName;
+    Uint32 doubleClickTick = 0;
+    Component *doubleClickButton = nullptr;
+    void doubleClick(Component *button, std::function<void()> action);
 
     Paragraph* musicParagraph;
     void changeTrack( bool next);
@@ -108,10 +121,6 @@ private:
     void changeLanguage( bool next);
     std::string currentLanguage;
     std::set<std::string> languages;
-
-    std::map<std::string, std::string> fileMap;
-
-    SDL_Window* window;
 };
 
 #endif

@@ -25,7 +25,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <iostream>              // for operator<<, basic_ostream, basic_ios
+#include <filesystem>            // for path
+#include <iostream>              // for basic_ostream, operator<<, cerr, str...
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
 

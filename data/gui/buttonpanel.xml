@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
-<ButtonPanel width="348" height="376">
+<ButtonPanel name="ButtonPanel" width="348" height="376">
 	<!-- Tooltips for the Button Pannel are created in ButtonPanel.cpp -->
 	<menu button-name="BPPointerButton" drawer-name="BPPointerMenu"
 			default="BPMPointerButton">

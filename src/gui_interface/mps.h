@@ -9,6 +9,10 @@
 
 #include <string>
 
+#include "lincity-ng/Mps.hpp"
+
+#if 0
+
 static const int MPS_PARAGRAPH_COUNT = 13;
 
 /* New, simplified mps routines */
@@ -75,6 +79,7 @@ void mps_right (int x, int y);
 #ifdef _generic_mps
 #endif
 
+#endif
 
 #endif /* __mps_h__ */
 

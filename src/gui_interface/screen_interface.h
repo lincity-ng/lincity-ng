@@ -33,7 +33,6 @@ int getMainWindowHeight();
 /* This is on in screen_full_refresh, used in *_refresh() */
 extern char screen_refreshing;
 
-void draw_cb_box (int row, int col, int checked);
 int ask_launch_rocket_click (int x, int y);
 int ask_launch_rocket_now (int x, int y);
 void display_rocket_result_dialog (int result);
@@ -67,4 +66,3 @@ void mini_aux_handler(int x, int y, int button);
 
 
 /** @file gui_interface/screen_interface.h */
-

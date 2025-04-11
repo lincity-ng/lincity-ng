@@ -1,60 +1,67 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/MainMenu.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "MainMenu.hpp"
 
-#include <SDL.h>                           // for SDL_GetTicks, SDL_GetWindo...
-#include <assert.h>                        // for assert
-#include <physfs.h>                        // for PHYSFS_enumerateFiles, PHY...
-#include <stdio.h>                         // for fprintf, remove, size_t
-#include <stdlib.h>                        // for abs, atoi, unsetenv
-#include <string.h>                        // for strcpy
-#include <algorithm>                       // for sort
-#include <functional>                      // for bind, _1, function, _2
-#include <iomanip>                         // for operator<<, setfill, setw
-#include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <utility>                         // for pair
-#include <vector>                          // for vector
+#include <SDL.h>                        // for SDL_EventType, Uint32, SDL_Ge...
+#include <stdio.h>                      // for fprintf, size_t, stderr
+#include <algorithm>                    // for min, sort
+#include <array>                        // for array
+#include <cassert>                      // for assert
+#include <chrono>                       // for operator<, time_point
+#include <cstdlib>                      // for abs
+#include <functional>                   // for function, bind, _1, _2
+#include <initializer_list>             // for initializer_list
+#include <iomanip>                      // for operator<<, setfill, setw
+#include <iostream>                     // for basic_ostream, operator<<
+#include <sstream>                      // for basic_stringstream
+#include <stdexcept>                    // for invalid_argument, out_of_range
+#include <utility>                      // for pair, move
+#include <vector>                       // for vector
 
-#include "Config.hpp"                      // for getConfig, Config
-#include "Game.hpp"                        // for getGame
-#include "MainLincity.hpp"                 // for loadCityNG, saveCityNG
-#include "Sound.hpp"                       // for getSound, Sound, MusicTran...
-#include "Util.hpp"                        // for getCheckButton, getButton
-#include "gui/Button.hpp"                  // for Button
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/Component.hpp"               // for Component
-#include "gui/ComponentLoader.hpp"         // for loadGUIFile
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/DialogBuilder.hpp"           // for DialogBuilder
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/SwitchComponent.hpp"         // for SwitchComponent
-#include "gui/WindowManager.hpp"           // for WindowManager
-#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-#include "lincity/engglobs.h"              // for world, total_money, total_...
-#include "lincity/init_game.h"             // for new_city, city_settings
-#include "lincity/world.h"                 // for World
-#include "tinygettext/gettext.hpp"         // for _, N_, dictionaryManager
-#include "tinygettext/tinygettext.hpp"     // for DictionaryManager
+#include "Config.hpp"                   // for getConfig, Config
+#include "Game.hpp"                     // for Game
+#include "MainLincity.hpp"              // for loadCityNG, saveCityNG
+#include "Sound.hpp"                    // for getSound, Sound, MusicTransport
+#include "Util.hpp"                     // for getCheckButton, getButton
+#include "gui/Button.hpp"               // for Button
+#include "gui/CheckButton.hpp"          // for CheckButton
+#include "gui/Component.hpp"            // for Component
+#include "gui/ComponentLoader.hpp"      // for loadGUIFile
+#include "gui/Desktop.hpp"              // for Desktop
+#include "gui/DialogBuilder.hpp"        // for DialogBuilder
+#include "gui/Event.hpp"                // for Event
+#include "gui/Painter.hpp"              // for Painter
+#include "gui/Paragraph.hpp"            // for Paragraph
+#include "gui/Signal.hpp"               // for Signal
+#include "gui/SwitchComponent.hpp"      // for SwitchComponent
+#include "gui/WindowManager.hpp"        // for WindowManager
+#include "lincity/init_game.hpp"        // for _CitySettings, new_city, city...
+#include "lincity/lintypes.hpp"         // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"            // for Stat, Stats
+#include "lincity/world.hpp"            // for World
+#include "main.hpp"                     // for resizeVideo, painter, videoSi...
+#include "tinygettext/gettext.hpp"      // for _, dictionaryManager
+#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 using namespace std::placeholders;
 
@@ -70,12 +77,6 @@ MainMenu::MainMenu(SDL_Window* _window)
     loadCreditsMenu();
     loadOptionsMenu();
     switchMenu(mainMenu);
-
-    baseName = "";
-    lastClickTick = 0;
-    doubleClickButtonName = "";
-    mFilename = "";
-    baseName = "";
 }
 
 MainMenu::~MainMenu()
@@ -107,120 +108,68 @@ MainMenu::loadMainMenu() {
   optionsButton->clicked.connect(std::bind(&MainMenu::optionsButtonClicked, this, _1));
 }
 
-void MainMenu::fillNewGameMenu()
-{
-#if 1
-  //Do not remove it!
-  //It is need for localization
-  //
-  // If you going to remove this, you must
-  // get names from data/opening/*scn files,
-  // and update messages.pot from script.
-  (void)N_("Rocket_98");
-  (void)N_("Beach");
-  (void)N_("bad_times");
-  (void)N_("extreme_arid");
-  (void)N_("extreme_wetland");
-  (void)N_("good_times");
-#endif
-  const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-
-  char **files= PHYSFS_enumerateFiles("opening");
-
-  char **fptr=files;
-
+void
+MainMenu::updateNewGameMenu() {
+  std::filesystem::path scenarioDir = getConfig()->appDataDir / "opening";
   CheckButton *button;
 
-  fileMap.clear();
+  button = getCheckButton(*newGameMenu, "File0");
+  loadFiles.insert_or_assign(button, scenarioDir / "good_times.scn.gz");
+  button->setCaptionText(_("Good Times"));
 
-  for(int i=0;i<6;i++)
-  {
-    button = getCheckButton(*newGameMenu, buttonNames[i]);
+  button = getCheckButton(*newGameMenu, "File1");
+  loadFiles.insert_or_assign(button, scenarioDir / "bad_times.scn.gz");
+  button->setCaptionText(_("Bad Times"));
 
-    while(*fptr)
-    {
-      if(std::string(*fptr).find(".scn.gz")!=std::string::npos)
-        break;
-      fptr++;
-    }
-    if(*fptr)
-    {
-      std::string f=*fptr;
-      if(f.length()>7){
-        f=f.substr(0,f.length()-7); // truncate .scn.gz
-      }
-      // save real name
-      fileMap.insert(std::pair<std::string, std::string>(buttonNames[i], f ));
-      // use translated name for caption
-      button->setCaptionText(_(f.c_str()));
-      fptr++;
-    }
-    else
-      button->setCaptionText("");
-  }
-  PHYSFS_freeList(files);
+  button = getCheckButton(*newGameMenu, "File2");
+  loadFiles.insert_or_assign(button, scenarioDir / "extreme_arid.scn.gz");
+  button->setCaptionText(_("Extreme Arid"));
 
-  return;
+  button = getCheckButton(*newGameMenu, "File3");
+  loadFiles.insert_or_assign(button, scenarioDir / "extreme_wetland.scn.gz");
+  button->setCaptionText(_("Extreme Wetland"));
+
+  button = getCheckButton(*newGameMenu, "File4");
+  loadFiles.insert_or_assign(button, scenarioDir / "Beach.scn.gz");
+  button->setCaptionText(_("Beach"));
+
+  button = getCheckButton(*newGameMenu, "File5");
+  loadFiles.insert_or_assign(button, scenarioDir / "Rocket_98.scn.gz");
+  button->setCaptionText(_("Rocket 98"));
 }
 
-void MainMenu::fillLoadMenu( bool save /*= false*/ )
-{
-    const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
+void MainMenu::updateLoadSaveMenus() {
+  static const int buttonCount = 6;
+  static const std::array<std::string, buttonCount> buttonNames = {
+    "File0", "File1", "File2", "File3", "File4", "File5"
+  };
+  std::array<std::filesystem::file_time_type, buttonCount> fileTimes;
+  for(auto& t : fileTimes) t = std::filesystem::file_time_type::min();
 
-    char** rc = PHYSFS_enumerateFiles("/");
+  for(const std::string& name : buttonNames) {
+    getCheckButton(*loadGameMenu, name)->setCaptionText(_("empty"));
+    getCheckButton(*saveGameMenu, name)->setCaptionText(_("empty"));
+  }
 
-    char* curfile;
-    CheckButton *button;
+  std::filesystem::path dir = getConfig()->userDataDir;
+  for(auto& dirEnt : std::filesystem::directory_iterator(dir)) {
+    std::string fName = dirEnt.path().filename().string();
+    if(fName.substr(1, 1) != "_") continue;
+    unsigned long i = 0;
+    try { i = std::stoul(fName.substr(0,1)) - 1; }
+      catch(const std::invalid_argument& ex) { continue; }
+      catch(const std::out_of_range& ex) { continue; }
+    if(i >= buttonCount) continue;
+    if(!dirEnt.is_regular_file()) continue;
+    if(dirEnt.last_write_time() < fileTimes[i]) continue;
 
-    for(int i=0;i<6;i++) {
-        char* recentfile = NULL;
-        PHYSFS_sint64 t = 0;
-
-        std::stringstream filestart;
-        filestart << i+1 << "_";
-        if( save ){
-            button = getCheckButton(*saveGameMenu, buttonNames[i]);
-        } else {
-            button = getCheckButton(*loadGameMenu, buttonNames[i]);
-        }
-        //make sure Button is connected only once
-        button->clicked.clear();
-        if( save )
-            button->clicked.connect(std::bind(&MainMenu::selectSaveGameButtonClicked, this, _1, _2));
-        else {
-            button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-        }
-        for(char** i = rc; *i != 0; i++){
-            curfile = *i;
-            if(std::string( curfile ).find( filestart.str() ) != 0 ) {
-                // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
-                // don't create a directoy named 2_ in a savegame-directory or
-                // you can no longer load from slot 2.
-                continue;
-            }
-            PHYSFS_Stat stat;
-            int err = PHYSFS_stat(curfile, &stat);
-            if(!err) {
-                std::cerr << "could not stat file: " <<
-                    curfile << std::endl;
-                continue;
-            }
-            if (!recentfile || stat.modtime > t) {
-                recentfile = curfile;
-                t = stat.modtime;
-            }
-        }
-#ifdef DEBUG
-        fprintf(stderr,"Most recent file: %s\n\n",recentfile);
-#endif
-
-        if(recentfile) {
-            std::string f = recentfile;
-            button->setCaptionText(f);
-        } else {
-            button->setCaptionText(_("empty"));
-        }
-    }
+    CheckButton *button = getCheckButton(*loadGameMenu, buttonNames[i]);
+    loadFiles.insert_or_assign(button, dirEnt.path());
+    button->setCaptionText(fName.c_str());
+    getCheckButton(*saveGameMenu, buttonNames[i])
+      ->setCaptionText(fName.c_str());
+    fileTimes[i] = dirEnt.last_write_time();
+  }
 }
 
 void
@@ -240,39 +189,41 @@ MainMenu::loadNewGameMenu() {
   //button->setCaptionText(_("random empty board"));
   //button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 
-  button = getCheckButton(*newGameMenu,"RiverDelta");
+  button = getCheckButton(*newGameMenu, "RiverDelta");
   button->setCaptionText(_("river delta"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+    [this](){ newGameStartButtonClicked(nullptr); }));
+  newGameSelection.registerButton(button);
 
-  button = getCheckButton(*newGameMenu,"DesertArea");
+  button = getCheckButton(*newGameMenu, "DesertArea");
   button->setCaptionText(_("semi desert"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+    [this](){ newGameStartButtonClicked(nullptr); }));
+  newGameSelection.registerButton(button);
 
-  button = getCheckButton(*newGameMenu,"TemperateArea");
+  button = getCheckButton(*newGameMenu, "TemperateArea");
   button->setCaptionText(_("temperate"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+    [this](){ newGameStartButtonClicked(nullptr); }));
+  newGameSelection.registerButton(button);
 
-  button = getCheckButton(*newGameMenu,"SwampArea");
+  button = getCheckButton(*newGameMenu, "SwampArea");
   button->setCaptionText(_("swamp"));
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+    [this](){ newGameStartButtonClicked(nullptr); }));
+  newGameSelection.registerButton(button);
 
-  button = getCheckButton(*newGameMenu, "File0");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  for(const std::string& bName :
+    {"File0", "File1", "File2", "File3", "File4", "File5"}
+  ) {
+    CheckButton *button = getCheckButton(*newGameMenu, bName);
+    button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+      [this](){ newGameStartButtonClicked(nullptr); }));
+    newGameSelection.registerButton(button);
+  }
 
-  button = getCheckButton(*newGameMenu, "File1");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-
-  button = getCheckButton(*newGameMenu, "File2");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-
-  button = getCheckButton(*newGameMenu, "File3");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-
-  button = getCheckButton(*newGameMenu, "File4");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
-
-  button = getCheckButton(*newGameMenu, "File5");
-  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+  // starting scenarios don't change, so we need only do this once
+  updateNewGameMenu();
 }
 
 void
@@ -283,7 +234,7 @@ MainMenu::loadCreditsMenu() {
 }
 
 void
-MainMenu::fillOptionsMenu() {
+MainMenu::updateOptionsMenu() {
   //adjust checkbutton-states
   if( getConfig()->musicEnabled ){
     getCheckButton(*optionsMenu, "BackgroundMusic")->check();
@@ -316,7 +267,7 @@ MainMenu::fillOptionsMenu() {
   }
   getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
   mode.str("");
-  mode << world.len();
+  mode << getConfig()->worldSize;
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
   languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
   currentLanguage = getConfig()->language;
@@ -377,6 +328,15 @@ MainMenu::loadLoadGameMenu() {
   loadButton->clicked.connect(std::bind(&MainMenu::loadGameLoadButtonClicked, this, _1));
   Button* backButton = getButton(*loadGameMenu, "BackButton");
   backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
+
+  for(const std::string& bName :
+    {"File0", "File1", "File2", "File3", "File4", "File5"}
+  ) {
+    CheckButton *button = getCheckButton(*loadGameMenu, bName);
+    button->clicked.connect(std::bind(&MainMenu::doubleClick, this, _1,
+      [this](){ loadGameLoadButtonClicked(nullptr); }));
+    loadGameSelection.registerButton(button);
+  }
 }
 
 void
@@ -388,128 +348,42 @@ MainMenu::loadSaveGameMenu() {
   saveButton->clicked.connect(std::bind(&MainMenu::loadGameSaveButtonClicked, this, _1));
   Button* backButton = getButton(*saveGameMenu, "BackButton");
   backButton->clicked.connect(std::bind(&MainMenu::loadGameBackButtonClicked, this, _1));
+
+  for(const std::string& bName :
+    {"File0", "File1", "File2", "File3", "File4", "File5"}
+  ) {
+    CheckButton *button = getCheckButton(*saveGameMenu, bName);
+    saveGameSelection.registerButton(button);
+  }
 }
 
 void
 MainMenu::switchMenu(Component *newMenu) {
   if(newMenu == newGameMenu) {
-    fillNewGameMenu();
+    // updateNewGameMenu();
   }
   else if(newMenu == loadGameMenu) {
-    fillLoadMenu();
+    updateLoadSaveMenus();
   }
   else if(newMenu == saveGameMenu) {
-    fillLoadMenu(true);
+    updateLoadSaveMenus();
   }
   else if(newMenu == optionsMenu) {
-    fillOptionsMenu();
+    updateOptionsMenu();
   }
   menuSwitch->switchComponent(newMenu->getName());
 }
 
 void
-MainMenu::selectLoadGameButtonClicked(CheckButton* button, int i){
-    selectLoadSaveGameButtonClicked( button , i,  false );
-}
-
-void
-MainMenu::selectSaveGameButtonClicked(CheckButton* button, int i){
-    selectLoadSaveGameButtonClicked( button , i, true );
-}
-
-/**
- * Handle RadioButtons in load, save and new game dialog
- */
-void
-MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
-{
-    Component *currentMenu = menuSwitch->getActiveComponent();
-    std::string fc=button->getCaptionText();
-    if(newGameMenu == currentMenu) {
-        std::map<std::string, std::string>::iterator iter;
-        iter = fileMap.find( button->getName() );
-        if( iter != fileMap.end() ){
-            fc = iter->second;
-        }
-    }
-
-    std::string file="";
-
-    /* I guess this should be the proper way of selecting in the menu.
-       Everytime we check a new button the last one gets unchecked.
-       If the button checked is an empty one, nothing should be opened
-       Could be done the other way around: the first time an existing item
-       is selected in the menu, an empty one could never be checked again.
-       Anyway I don't think both should be checked, when an empty is checked
-       after an existing one.
-    */
-
-    const std::string bs[]={"File0","File1","File2","File3","File4","File5",""};
-    for(int i=0;std::string(bs[i]).length();i++) {
-        CheckButton *b=getCheckButton(*currentMenu,bs[i]);
-        if(b->getName()!=button->getName()){
-            b->uncheck();
-        } else {
-            b->check();
-        }
-    }
-
-    if(newGameMenu == currentMenu) {
-        const std::string rnd[]={"RiverDelta","DesertArea","TemperateArea","SwampArea",""};
-        for(int i=0;std::string(rnd[i]).length();i++) {
-            CheckButton *b=getCheckButton(*currentMenu,rnd[i]);
-            if(b->getName()!=button->getName()){
-                b->uncheck();
-            } else {
-                b->check();
-                fc = rnd[i];
-            }
-        }
-    }
-
-
-    if( !fc.length()) {
-        mFilename = "";
-        return;
-    }
-
-    baseName = fc;
-    if(newGameMenu == currentMenu) {
-        file=std::string("opening/")+fc+".scn.gz";
-    } else {
-        file=fc;
-    }
-
-    mFilename="";
-    if(newGameMenu != currentMenu) {
-        slotNr = 1 + atoi(
-                const_cast<char*>(button->getName().substr(4).c_str()) );
-        if( file.length() == 0){
-            mFilename = "";
-            return;
-        }
-    }
-
-    mFilename+=file;
-    Uint32 now = SDL_GetTicks();
-
-    //doubleclick on Filename loads File
-    if( ( fc == doubleClickButtonName ) &&  ( !save ) &&
-            ( now - lastClickTick < doubleClickTime ) ) {
-
-        lastClickTick = 0;
-        doubleClickButtonName = "";
-        if(newGameMenu == currentMenu) {
-            //load scenario
-            newGameStartButtonClicked( 0 );
-        } else {
-            //load game
-            loadGameLoadButtonClicked( 0 );
-        }
-    } else {
-        lastClickTick = now;
-        doubleClickButtonName = fc;
-    }
+MainMenu::doubleClick(Component *button, std::function<void()> action) {
+  Uint32 now = SDL_GetTicks();
+  if(button == doubleClickButton && now - doubleClickTick < doubleClickTime) {
+    doubleClickButton = nullptr;
+    action();
+  } else {
+    doubleClickTick = now;
+    doubleClickButton = button;
+  }
 }
 
 void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
@@ -572,22 +446,14 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen;
         getConfig()->save();
-        if( getConfig()->restartOnChangeScreen )
-        {
-            quitState = RESTART;
-            running = false;
-        }
-        else
-        {
-            resizeVideo(
-              getConfig()->videoX,
-              getConfig()->videoY,
-              getConfig()->useFullScreen
-            );
-            // switching to/from fullscreen may change the window size
-            // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
-            loadOptionsMenu();
-        }
+        resizeVideo(
+          getConfig()->videoX,
+          getConfig()->videoY,
+          getConfig()->useFullScreen
+        );
+        // switching to/from fullscreen may change the window size
+        // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
+        loadOptionsMenu();
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
@@ -682,14 +548,10 @@ void MainMenu::changeResolution(bool next) {
 }
 
 void
-MainMenu::changeWorldLen(bool next)
-{
-    std::ostringstream os;
-    int new_len;
-    new_len = world.len()+(next?25:-25);
-    world.len(new_len);
-    os << world.len();
-    getParagraph( *optionsMenu, "WorldLenParagraph")->setText(os.str());
+MainMenu::changeWorldLen(bool next) {
+  getConfig()->worldSize += (next?25:-25);
+  getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
+    std::to_string(getConfig()->worldSize));
 }
 
 void
@@ -729,11 +591,9 @@ MainMenu::changeLanguage( bool next)
 }
 
 void
-MainMenu::quitButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    quitState = QUIT;
-    running = false;
+MainMenu::quitButtonClicked(Button *) {
+  getSound()->playSound( "Click" );
+  state = State::QUIT;
 }
 
 void
@@ -749,24 +609,34 @@ MainMenu::optionsButtonClicked(Button* ) {
 }
 
 void
-MainMenu::continueButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    quitState = INGAME;
-    running = false;
-    //only act if world is still clean
-    if (!world.dirty)
-    {
-        //load current game if it exists
-        if(!loadCityNG("9_currentGameNG.scn.gz")) {
-            city_settings  city;
-            city.with_village  = true;
-            city.without_trees = false;
+MainMenu::continueButtonClicked(Button* ) {
+  getSound()->playSound( "Click" );
+  state = State::GAME;
 
-            //by default create a new City
-            new_city( &main_screen_originx, &main_screen_originy, &city);
-        }
+  if(!game) {
+    std::unique_ptr<World> world;
+    std::filesystem::path file =
+      getConfig()->userDataDir / "9_currentGameNG.scn.gz";
+    if(std::filesystem::exists(file)) {
+      world = loadCityNG(file);
     }
+    else {
+      city_settings city;
+      city.with_village  = true;
+      city.without_trees = false;
+
+      //by default create a new City
+      world = new_city(&city, getConfig()->worldSize);
+    }
+
+    if(world) {
+      game.reset(new Game(window));
+      game->setWorld(std::move(world));
+    }
+    else {
+      state = State::MENU;
+    }
+  }
 }
 
 void
@@ -784,7 +654,7 @@ MainMenu::loadGameButtonClicked(Button* ) {
 void
 MainMenu::saveGameButtonClicked(Button* ) {
   getSound()->playSound( "Click" );
-  if(getGame()) {
+  if(game) {
     switchMenu(saveGameMenu);
   }
 }
@@ -796,84 +666,72 @@ MainMenu::creditsBackButtonClicked(Button* ) {
 }
 
 void
-MainMenu::optionsBackButtonClicked(Button* )
-{
-    getConfig()->save();
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    if( getConfig()->videoX != width || getConfig()->videoY != height )
-    {
-        if( getConfig()->restartOnChangeScreen )
-        {
-            quitState = RESTART;
-            running = false;
-        }
-        else
-        {
-            resizeVideo( getConfig()->videoX, getConfig()->videoY, getConfig()->useFullScreen);
-            gotoMainMenu();
-        }
-    }
-    else if( currentLanguage != getConfig()->language )
-    {
-#if defined (WIN32)
-        _putenv_s("LINCITY_LANG", "");
-#else
-        unsetenv("LINCITY_LANG");
-#endif
-        quitState = RESTART;
-        running = false;
-    }
-    else
-    {
-        gotoMainMenu();
-    }
+MainMenu::optionsBackButtonClicked(Button *) {
+  getSound()->playSound("Click");
+  getConfig()->save();
+  int width = 0, height = 0;
+  SDL_GetWindowSize(window, &width, &height);
+  if( getConfig()->videoX != width || getConfig()->videoY != height )
+  {
+    resizeVideo(getConfig()->videoX, getConfig()->videoY,
+      getConfig()->useFullScreen);
+  }
+  else if( currentLanguage != getConfig()->language )
+  {
+    // TODO: implement changing the language on the go
+    //       For now, show warning in a language the user may not understand.
+    DialogBuilder()
+      .titleText(_("Warning"))
+      .messageAddTextBold(_("Restart Required"))
+      .messageAddText(_("Changing the language requires restarting LinCity"
+        "for changes to take effect."))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+  }
+  gotoMainMenu();
 }
 
 /**
  * Either create selected random terrain or load a scenario.
  **/
 void
-MainMenu::newGameStartButtonClicked(Button* )
-{
-    if( mFilename.empty() ){
-        // std::cout << "nothing selected\n";
-        return;
-    }
-    getSound()->playSound( "Click" );
+MainMenu::newGameStartButtonClicked(Button *) {
+  CheckButton *sel = newGameSelection.getSelection();
+  if(!sel) return;
 
-    city_settings city_obj;
-    city_settings *city = &city_obj;
+  getSound()->playSound("Click");
 
-    city->with_village =
+  std::unique_ptr<World> world;
+  auto fileIt = loadFiles.find(sel);
+  if(fileIt == loadFiles.end()) {
+    const std::string& bName = sel->getName();
+    city_settings settings;
+    settings.with_village =
       getCheckButton(*newGameMenu, "WithVillage")->isChecked();
-    city->without_trees =
+    settings.without_trees =
       getCheckButton(*newGameMenu, "WithoutTrees")->isChecked();
-
-    if( baseName == "RiverDelta" ){
-        new_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "DesertArea" ){
-        new_desert_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "TemperateArea" ){
-        new_temperate_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "SwampArea" ){
-        new_swamp_city( &main_screen_originx, &main_screen_originy, city);
-        quitState = INGAME;
-        running = false;
-    } else {
-        if( loadCityNG( mFilename ) ){
-            strcpy (given_scene, baseName.c_str());
-            quitState = INGAME;
-            running = false;
-        }
+    if(bName == "RiverDelta") {
+      world = new_city(&settings, getConfig()->worldSize);
+    } else if(bName == "DesertArea") {
+      world = new_desert_city(&settings, getConfig()->worldSize);
+    } else if(bName == "TemperateArea") {
+      world = new_temperate_city(&settings, getConfig()->worldSize);
+    } else if(bName == "SwampArea") {
+      world = new_swamp_city(&settings, getConfig()->worldSize);
     }
-    mFilename = "empty"; //don't erase scenarios later
+    assert(world);
+  }
+  else {
+    world = loadCityNG(fileIt->second);
+  }
+
+  if(world) {
+    if(!game)
+      game.reset(new Game(window));
+    game->setWorld(std::move(world));
+    state = State::GAME;
+  }
 }
 
 void
@@ -890,67 +748,80 @@ MainMenu::loadGameBackButtonClicked(Button* ) {
 
 void
 MainMenu::gotoMainMenu() {
-  getSound()->playSound("Click");
   switchMenu(mainMenu);
 }
 
 void
-MainMenu::loadGameLoadButtonClicked(Button *)
-{
-    getSound()->playSound( "Click" );
-    if( loadCityNG( mFilename ) ){
-        quitState = INGAME;
-        running = false;
-    }
+MainMenu::loadGameLoadButtonClicked(Button *) {
+  CheckButton *sel = loadGameSelection.getSelection();
+  if(!sel) return;
+  auto fileIt = loadFiles.find(sel);
+  if(fileIt == loadFiles.end()) return; // empty slot selected
+  getSound()->playSound("Click");
+  if(std::unique_ptr<World> world = loadCityNG(fileIt->second)) {
+    if(!game) game.reset(new Game(window));
+    game->setWorld(std::move(world));
+    state = State::GAME;
+  }
 }
 
 void
-MainMenu::loadGameSaveButtonClicked(Button *)
-{
-    getSound()->playSound( "Click" );
-    std::cout << "remove( " << mFilename << ")\n";
-    remove( mFilename.c_str() );
-    /* Build filename */
-    std::stringstream newStart;
-    newStart << slotNr << "_Y";
-    newStart << std::setfill('0') << std::setw(5);
-    fprintf(stderr,"total_time %i\n",total_time);
-    newStart << total_time/1200;
-    newStart << "_Tech";
-    newStart << std::setfill('0') << std::setw(3);
-    newStart << tech_level/10000;
-    newStart << "_Cash";
-    if (total_money >= 0)
-    {   newStart << "+";}
-    else
-    {   newStart << "-";}
-    newStart << std::setfill('0') << std::setw(3);
-    int money = abs(total_money);
-    if (money > 1000000000)
-    {   newStart << money/1000000000 << "G";}
-    else if (money > 1000000)
-    {   newStart << money/1000000 << "M";}
-    else  if(money > 1000)
-    {   newStart << money/1000 << "K";}
-    else
-    {   newStart << money << "_";}
+MainMenu::loadGameSaveButtonClicked(Button *) {
+  static const std::array<std::string, 6> buttonNames = {
+    "File0", "File1", "File2", "File3", "File4", "File5"
+  };
 
-    newStart << "_P";
-    newStart << std::setfill('0') << std::setw(5);
-    newStart << housed_population + people_pool;
-    std::string newFilename( newStart.str() + ".gz" );
-    saveCityNG( newFilename );
-    fillLoadMenu( true );
-    gotoMainMenu();
+  CheckButton *sel = saveGameSelection.getSelection();
+  if(!sel) return;
+
+  int i;
+  for(i = 0; buttonNames[i] != sel->getName(); i++)
+    if(i == buttonNames.size() - 1) { assert(false); return; }
+
+  assert(!!game);
+  World& world = game->getWorld();
+
+  getSound()->playSound( "Click" );
+
+  /* Build filename */
+  std::stringstream filename;
+  filename << (i + 1) << "_Y";
+  filename << std::setfill('0') << std::setw(5);
+  fprintf(stderr,"total_time %i\n", world.total_time);
+  filename << world.total_time/1200;
+  filename << "_Tech";
+  filename << std::setfill('0') << std::setw(3);
+  filename << world.tech_level/10000;
+  filename << "_Cash";
+  if(world.total_money >= 0)
+    filename << "+";
+  else
+    filename << "-";
+  filename << std::setfill('0') << std::setw(3);
+  int money = abs(world.total_money);
+  if (money > 1000000000)
+    filename << money/1000000000 << "G";
+  else if (money > 1000000)
+    filename << money/1000000 << "M";
+  else  if(money > 1000)
+    filename << money/1000 << "K";
+  else
+    filename << money << "_";
+
+  filename << "_P";
+  filename << std::setfill('0') << std::setw(5);
+  filename << world.stats.population.population_m / NUMOF_DAYS_IN_MONTH;
+  filename << ".gz";
+
+  saveCityNG(world, getConfig()->userDataDir / filename.str());
+
+  // TODO: remove the old save file, but only if the save was successful
+
+  gotoMainMenu();
 }
 
-
-MainState
-MainMenu::run()
-{
-    SDL_Event event;
-    running = true;
-    quitState = QUIT;
+void
+MainMenu::run() {
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       menu->findComponent("windowManager")));
 
@@ -965,9 +836,11 @@ MainMenu::run()
     Uint32 prev_gui = 0, prev_fps = 0;
     Uint32 next_task;
     Uint32 tick = 0;
-    while(running) {
+    state = State::MENU;
+    while(state == State::MENU) {
         next_task = std::min({next_gui, next_fps});
         while(true) {
+            SDL_Event event;
             int event_timeout = next_task - SDL_GetTicks();
             if(event_timeout < 0) event_timeout = 0;
             int status = SDL_WaitEventTimeout(&event, event_timeout);
@@ -1008,16 +881,14 @@ MainMenu::run()
                     //might come in handy if video-mode is not working as expected.
                     if( ( gui_event.keysym.sym == SDLK_ESCAPE ) ||
                         ( gui_event.keysym.sym == SDLK_c && ( gui_event.keysym.mod & KMOD_CTRL) ) ){
-                        running = false;
-                        quitState = QUIT;
+                        state = State::QUIT;
                         break;
                     }
                     menu->event(gui_event);
                     break;
                 }
                 case SDL_QUIT:
-                    running = false;
-                    quitState = QUIT;
+                    state = State::QUIT;
                     break;
                 default:
                     break;
@@ -1051,9 +922,19 @@ MainMenu::run()
             menu->draw(*painter);
             painter->updateScreen();
         }
-    }
 
-    return quitState;
+        if(state == State::GAME) {
+          launchGame();
+        }
+    }
+}
+
+void
+MainMenu::launchGame() {
+  assert(game);
+  game->run();
+  state = State::MENU;
+  switchMenu(mainMenu);
 }
 
 /** @file lincity-ng/MainMenu.cpp */

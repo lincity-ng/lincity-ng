@@ -18,18 +18,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __HELPWINDOW_HPP__
 #define __HELPWINDOW_HPP__
 
-#include <stack>   // for stack
-#include <string>  // for string, basic_string
+#include <filesystem>  // for path
+#include <stack>       // for stack
+#include <string>      // for string, basic_string
 
 class Button;
-class Desktop;
 class Paragraph;
 class WindowManager;
 
 class HelpWindow
 {
 public:
-    HelpWindow(Desktop* desktop);
+    HelpWindow(WindowManager* wm);
     ~HelpWindow();
 
     void showTopic(const std::string& topic);
@@ -38,7 +38,7 @@ public:
 private:
     void linkClicked(Paragraph* paragraph, const std::string& href);
     void historyBackClicked(Button*);
-    std::string getHelpFile(const std::string& topic);
+    std::filesystem::path getHelpFile(const std::string& topic);
 
     WindowManager* windowManager;
     std::string nextTopic;
