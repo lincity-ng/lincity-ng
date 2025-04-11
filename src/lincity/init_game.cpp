@@ -60,9 +60,9 @@ static void random_start(World& world,
   bool without_trees);
 static void coal_reserve_setup(Map& map);
 static void ore_reserve_setup(Map& map);
-static void setup_river(Map& map, int global_mountainity);
+static void setup_river(Map& map);
 //static void remove_river(void);
-static void setup_river2(Map& map, MapPoint p, int d, int alt, int mountain);
+static void setup_river2(Map& map, MapPoint p, int d);
 static void setup_ground(Map& map, int global_mountainity);
 static void new_setup_river_ground(Map& map,
   int global_mountainity, int global_aridity);
@@ -258,7 +258,7 @@ create_new_city(city_settings *city, int mapSize, int old_setup_ground,
   }
 
   if(old_setup_ground) {
-    setup_river(world.map, global_mountainity);
+    setup_river(world.map);
     setup_ground(world.map, global_mountainity);
   }
   else
@@ -749,14 +749,12 @@ static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *
 */
 
 
-static void setup_river(Map& map, int global_mountainity)
+static void setup_river(Map& map)
 {
-    std::cout << "carving river ...";
+    std::cout << "carving river ..." << std::endl;
     std::cout.flush();
     const int len = map.len();
-    int alt = 1; //lowest altitude in the map = surface of the river at mouth.
     MapPoint p((1 * len + rand() % len) / 3, len - 1);
-    map(p)->ground.water_alt = alt; // 1 unit = 1 cm ,
                         //for rivers .water_alt = .altitude = surface of the water
                         //for "earth tile" .water_alt = alt of underground water
                         //                 .altitude = alt of the ground
@@ -771,57 +769,50 @@ static void setup_river(Map& map, int global_mountainity)
         p.y--;
     }
 #ifdef DEBUG
-    std::cerr << "river first fork: " << p << " alt " << alt << std::endl;
+    std::cerr << "river first fork end at " << p << std::endl;
 #endif
-    setup_river2(map, p.w(), -1, alt, global_mountainity); /* left tributary */
-    setup_river2(map, p.e(), 1, alt, global_mountainity);  /* right tributary */
+    setup_river2(map, p.w(), -1); /* left tributary */
+    setup_river2(map, p, 1);  /* right tributary */
     std::cout << " done" << std::endl;
 }
 
-static void setup_river2(Map& map, MapPoint p, int d, int alt, int mountain)
-{
-    const int len = map.len();
-    int i, j, r;
-    i = (rand() % (len/2)) + len/6;
-    for (j = 0; j < i; j++) {
-        r = (rand() % 3) - 1 + (d * (rand() % 3));
-        if (r < -1) {
-            //alt += rand() % (mountain / 10);
-            r = -1;
-        } else if (r > 1) {
-            //alt += rand() % (mountain / 10);
-            r = 1;
-        }
-        p.x += r;
-        if(map.is_inside(p.e(2*d)) && !map(p.e(2*d))->is_bare()
-          || map.is_inside(p.e(3*d)) && !map(p.e(3*d))->is_bare()
-        ) return;
-        if(p.x > 5 && p.x < map.len() - 5) {
-            set_river_tile(*map(p));
-            alt += rand() % (mountain / 10);
-            set_river_tile(*map(p.e(d)));
-        }
-        if(--p.y < 10 || p.x < 5 || p.x > len - 5)
-            break;
-    }
+static void setup_river2(Map& map, MapPoint p, int d) {
+  int l = std::uniform_int_distribution(map.len()/6, map.len()/2)(
+    LcUrbg::get());
 #ifdef DEBUG
-    std::cerr << "river end seg: " << p << " alt " << alt << std::endl;
+  std::cerr << "starting river seg at " << p
+    << " with length " << l << std::endl;
+#endif
+  for(int j = 0; j < l; j++) {
+    double slant = p.y < map.len()/2 ? 5 : 7;
+    p.x += (std::discrete_distribution({1, 2, slant})(LcUrbg::get()) - 1) * d;
+    if(p.x < 4 || p.x >= map.len() - 5) return;
+    if((j >= 5 || d == -1) && map(p.w(2))->is_river()) return;
+    if(d == -1 && map.is_inside(p.w(10)) && map(p.w(10))->is_river()) return;
+
+    set_river_tile(*map(p));
+    set_river_tile(*map(p.e()));
+
+    if(--p.y < 10) break;
+  }
+#ifdef DEBUG
+  std::cerr << "river seg end at " << p << std::endl;
 #endif
 
-    if(p.y > 20) {
-      if(p.x > 5) {
+  if(p.y > 20) {
+    if(p.x >= 6) {
 #ifdef DEBUG
-        std::cerr << "river left fork: " << p << " alt " << alt << std::endl;
+      std::cerr << "forking left at " << p << std::endl;
 #endif
-        setup_river2(map, p, -1, alt, mountain * 3/2);
-      }
-      if(p.x < len - 5) {
-#ifdef DEBUG
-        std::cerr << "river right fork: " << p << " alt " << alt << std::endl;
-#endif
-        setup_river2(map, p, 1, alt, mountain * 3/2);
-      }
+      setup_river2(map, p, -1);
     }
+    if(p.x < map.len() - 7) {
+#ifdef DEBUG
+      std::cerr << "forking right at " << p << std::endl;
+#endif
+      setup_river2(map, p, 1);
+    }
+  }
 }
 
 static void setup_ground(Map& map, int global_mountainity)
@@ -871,10 +862,10 @@ static void setup_ground(Map& map, int global_mountainity)
     int ty = tile.point.y;
     float dist = *i1(tile.point);
     tile.ground.altitude = (int)(slope * (
-      len
-      - ty * ty / len
-      + 4.5f * dist
-      - 2 * dist * dist / len
+      (len-ty) * (len-ty) / len // higher in the north
+      + 8.f * dist // steepness of slopes with rivers at the bottom
+      - 6.5f * dist * ty / len // less steep in the south
+      - 1.3f * dist * dist / len // makes plains somewhat convex
     ));
     map.alt_min = std::min(map.alt_min, tile.ground.altitude);
     map.alt_max = std::max(map.alt_max, tile.ground.altitude);
