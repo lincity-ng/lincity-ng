@@ -819,10 +819,14 @@ void
 ConstructionGroup::placeItem(World& world, MapPoint point) {
   for(unsigned short i = 0; i < size; i++)
   for(unsigned short j = 0; j < size; j++) {
-    Construction *cst = world.map(point.s(i).e(j))->reportingConstruction;
+    MapTile& tile = *world.map(point.s(i).e(j));
+    Construction *cst = tile.reportingConstruction;
     if(cst) {
       throw std::logic_error("space occupied");
       // ConstructionDeletionRequest(cst).execute();
+    }
+    if(tile.is_water() && !dynamic_cast<TransportConstructionGroup *>(this)) {
+      throw std::logic_error("water here");
     }
   }
 

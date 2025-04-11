@@ -62,7 +62,7 @@ static void coal_reserve_setup(Map& map);
 static void ore_reserve_setup(Map& map);
 static void setup_river(Map& map, int global_mountainity);
 //static void remove_river(void);
-static void setup_river2(Map& map, int x, int y, int d, int alt, int mountain);
+static void setup_river2(Map& map, MapPoint p, int d, int alt, int mountain);
 static void setup_ground(Map& map, int global_mountainity);
 static void new_setup_river_ground(Map& map,
   int global_mountainity, int global_aridity);
@@ -102,7 +102,7 @@ new_swamp_city(city_settings *city, int mapSize) {
   return create_new_city(city, mapSize, false, 3);
 }
 
-template <class T>
+template<class T>
 class Array2D {
 public:
   Array2D(int lenx, int leny) {
@@ -117,6 +117,9 @@ public:
     for(int index = 0; index < lenx * leny; index++) {
       matrix[index] = init;
     }
+  }
+  T* operator()(MapPoint p) {
+    return &(matrix[p.x + p.y * lenx]);
   }
   T* operator()(int x, int y) {
     return &(matrix[x + y * lenx]);
@@ -751,37 +754,31 @@ static void setup_river(Map& map, int global_mountainity)
     std::cout << "carving river ...";
     std::cout.flush();
     const int len = map.len();
-    int x, y, i, j;
     int alt = 1; //lowest altitude in the map = surface of the river at mouth.
-    x = (1 * len + rand() % len) / 3;
-    y = len - 1;
-    map(x, y)->ground.water_alt = alt; // 1 unit = 1 cm ,
+    MapPoint p((1 * len + rand() % len) / 3, len - 1);
+    map(p)->ground.water_alt = alt; // 1 unit = 1 cm ,
                         //for rivers .water_alt = .altitude = surface of the water
                         //for "earth tile" .water_alt = alt of underground water
                         //                 .altitude = alt of the ground
                         //            so .water_alt <= .altitude
 
     /* Mouth of the river, 3 tiles wide, 6 + %12 long */
-    i = (rand() % (len/8)) + len/18;
-    for (j = 0; j < i; j++) {
-        x += (rand() % 3) - 1;
-        set_river_tile(*map(x, y));
-        set_river_tile(*map(x + 1, y));
-        set_river_tile(*map(x - 1, y));
-        y--;
+    for (int j = 1 + len/18 + rand() % (len/8); j > 0; j--) {
+        set_river_tile(*map(p));
+        set_river_tile(*map(p.e()));
+        set_river_tile(*map(p.w()));
+        p.x += j <= 2 ? 0 : (rand() % 3) - 1;
+        p.y--;
     }
-    set_river_tile(*map(x, y));
-    set_river_tile(*map(x + 1, y));
-    set_river_tile(*map(x - 1, y));
 #ifdef DEBUG
-    fprintf(stderr," x= %d, y=%d, altitude = %d, mountainity = %d\n", x, y, alt, global_mountainity);
+    std::cerr << "river first fork: " << p << " alt " << alt << std::endl;
 #endif
-    setup_river2(map, x - 1, y, -1, alt, global_mountainity); /* left tributary */
-    setup_river2(map, x + 1, y, 1, alt, global_mountainity);  /* right tributary */
+    setup_river2(map, p.w(), -1, alt, global_mountainity); /* left tributary */
+    setup_river2(map, p.e(), 1, alt, global_mountainity);  /* right tributary */
     std::cout << " done" << std::endl;
 }
 
-static void setup_river2(Map& map, int x, int y, int d, int alt, int mountain)
+static void setup_river2(Map& map, MapPoint p, int d, int alt, int mountain)
 {
     const int len = map.len();
     int i, j, r;
@@ -795,112 +792,95 @@ static void setup_river2(Map& map, int x, int y, int d, int alt, int mountain)
             //alt += rand() % (mountain / 10);
             r = 1;
         }
-        x += r;
-        if ( (map.is_inside(x + 2*d,y) && !map(x + 2*d, y)->is_bare())
-         || (map.is_inside(x + 3*d,y) && !map(x + 3*d, y)->is_bare()) )
-            return;
-        if (x > 5 && x < map.len() - 5)
-        {
-            set_river_tile(*map(x , y));
+        p.x += r;
+        if(map.is_inside(p.e(2*d)) && !map(p.e(2*d))->is_bare()
+          || map.is_inside(p.e(3*d)) && !map(p.e(3*d))->is_bare()
+        ) return;
+        if(p.x > 5 && p.x < map.len() - 5) {
+            set_river_tile(*map(p));
             alt += rand() % (mountain / 10);
-            set_river_tile(*map(x + d, y));
+            set_river_tile(*map(p.e(d)));
         }
-        if (--y < 10 || x < 5 || x > len - 5)
+        if(--p.y < 10 || p.x < 5 || p.x > len - 5)
             break;
     }
 #ifdef DEBUG
-    fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+    std::cerr << "river end seg: " << p << " alt " << alt << std::endl;
 #endif
 
-    if (y > 20) {
-        if (x > 5 && x < len - 5) {
+    if(p.y > 20) {
+      if(p.x > 5) {
 #ifdef DEBUG
-            fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+        std::cerr << "river left fork: " << p << " alt " << alt << std::endl;
 #endif
-            setup_river2(map, x, y, -1, alt, (mountain * 3)/2 );
-        }
-        if (x > 5 && x < len - 5) {
+        setup_river2(map, p, -1, alt, mountain * 3/2);
+      }
+      if(p.x < len - 5) {
 #ifdef DEBUG
-            fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+        std::cerr << "river right fork: " << p << " alt " << alt << std::endl;
 #endif
-            setup_river2(map, x, y, 1, alt, (mountain *3)/2 );
-        }
+        setup_river2(map, p, 1, alt, mountain * 3/2);
+      }
     }
 }
 
 static void setup_ground(Map& map, int global_mountainity)
 {
-    const int len = map.len();
-    const int area = len * len;
+  //std::cout << "creating topology ";
+  std::cout.flush();
+  Array2D<float> i1(map.len(),map.len());
+  auto minDist = [](
+    std::pair<MapPoint, float> a, std::pair<MapPoint, float> b
+  ) {
+    return a.second > b.second;
+  };
+  std::priority_queue<std::pair<MapPoint, float>,
+    std::vector<std::pair<MapPoint, float>>, decltype(minDist)
+  > line(minDist);
 
-    int slope = global_mountainity/10;
-    if (slope == 0)
-    {   slope = 1;}
-    //std::cout << "creating topology ";
-    std::cout.flush();
-    Array2D <int> i1(len,len);
-    std::deque<int> line;
-    for (int index=0; index<area; index++)
-    {
-        int x = index % len;
-        int y = index / len;
-        if (!map.is_visible(x,y))
-        {   continue;}
-        if ( map(x, y)->is_river())
-        {
-            *i1(x,y) = 0;
-            map(x,y)->ground.water_alt = map(x,y)->ground.altitude = (len-y*y/len) * slope;
-            line.push_back(index);
-        }
-        else
-        {
-            *i1(x,y) = len;
-        }
+  for(MapTile& tile : map) {
+    if(tile.is_river()) {
+      line.push({tile.point, 0});
     }
-    //std::cout << ".";
-    //std::cout.flush();
-    while (line.size())
-    {
-        int index = line.front();
-        line.pop_front();
-        int x = index % len;
-        int y = index / len;
-        int dist = *i1(x,y)+1;
-        for (int i=0; i<8 ; ++i)
-        {
-            int tx = x + dx[i];
-            int ty = y + dy[i];
-            int new_dist = *i1(tx,ty);
-            if ( !map.is_visible(tx,ty) || map(tx,ty)->is_river() || new_dist <= dist)
-            {   continue;}
-            map(tx,ty)->ground.altitude = ((len-ty*ty/len + dist/2 + 2*(len*len - (len-dist)*(len-dist))/len) * slope);
-            *i1(tx,ty) = dist;
-            line.push_back(tx + ty * len);
-        }
+    *i1(tile.point) = map.len() * 2;
+  }
 
+  //std::cout << ".";
+  //std::cout.flush();
+  while(line.size()) {
+    MapPoint p = line.top().first;
+    float dist = line.top().second;
+    line.pop();
+    if(dist >= *i1(p)) continue;
+    *i1(p) = dist;
+    dist += 1.f;
+    for(MapPoint q :
+      {p.n(), p.s(), p.w(), p.e(), p.nw(), p.ne(), p.sw(), p.se()}
+    ) {
+      if(q == p.nw()) dist += .41421356237f; // processing diagonal from now
+      if(!map.is_inside(q)) continue;
+      line.push({q, dist});
     }
+  }
 
-    //std::cout << ".";
-    //std::cout.flush();
-    map.alt_min = 2000000000;
-    map.alt_max = -map.alt_min;
-    for (int index=0; index<area; index++)
-    {
-        int x = index % len;
-        int y = index / len;
-
-        if (!map.is_visible(x,y))
-        {
-            continue;
-        }
-        if (map.alt_min > map(x, y)->ground.altitude)
-        {   map.alt_min = map(x, y)->ground.altitude;}
-        if (map.alt_max < map(x, y)->ground.altitude)
-        {   map.alt_max = map(x, y)->ground.altitude;}
-
-    }
-    map.alt_step = (map.alt_max - map.alt_min) /10;
-    //std::cout << ". done" << std::endl;
+  const int len = map.len();
+  const int slope = global_mountainity / 10;
+  map.alt_min = INT_MAX;
+  map.alt_max = INT_MIN;
+  for(MapTile& tile : map) {
+    int ty = tile.point.y;
+    float dist = *i1(tile.point);
+    tile.ground.altitude = (int)(slope * (
+      len
+      - ty * ty / len
+      + 4.5f * dist
+      - 2 * dist * dist / len
+    ));
+    map.alt_min = std::min(map.alt_min, tile.ground.altitude);
+    map.alt_max = std::max(map.alt_max, tile.ground.altitude);
+  }
+  map.alt_step = (map.alt_max - map.alt_min) / 10;
+  //std::cout << ". done" << std::endl;
 }
 /*
 static void remove_river(void)
@@ -926,6 +906,7 @@ static void random_start(World& world, bool without_trees) {
     int x, y, xx, yy, flag, watchdog;
 
     /* first find a place that has some water. */
+    // TODO: optimize this
     watchdog = 500;              /* if too many tries, random placement. */
     do {
         do {
@@ -934,7 +915,7 @@ static void random_start(World& world, bool without_trees) {
             flag = 0;
             for (y = yy + 2; y < yy + 23; y++)
                 for (x = xx + 2; x < xx + 23; x++)
-                    if (map(x, y)->flags & FLAG_IS_RIVER)
+                    if (map(MapPoint(x,y))->flags & FLAG_IS_RIVER)
                     {
                         flag = 1;
                         x = xx + 23;    /* break out of loop */
@@ -946,7 +927,7 @@ static void random_start(World& world, bool without_trees) {
                 /* Don't put the village on a river, but don't care of
                  * isolated random water tiles putted by setup_land
                  */
-                if (map(x, y)->flags & FLAG_IS_RIVER)
+                if (map(MapPoint(x,y))->flags & FLAG_IS_RIVER)
                 {
                     flag = 0;
                     x = xx + 22;        /* break out of loop */
@@ -957,60 +938,61 @@ static void random_start(World& world, bool without_trees) {
     fprintf(stderr, "random village watchdog = %i\n", watchdog);
 #endif
 
-    /*  Draw the start scene. */
+  /*  Draw the start scene. */
+  MapPoint p(xx, yy);
 
-    /* The first two farms have more underground water */
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
-            if (rand() > RAND_MAX/2)
-            {
-                map(xx + 6 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
-            }
-    organic_farmConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 5));
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4 ; j++)
-            if (rand() > RAND_MAX/2)
-            {
-                map(xx + 17 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
-            }
-    organic_farmConstructionGroup.placeItem(world, MapPoint(xx + 17, yy + 5));
-    residenceMLConstructionGroup.placeItem(world, MapPoint(xx + 10, yy + 6));
-    dynamic_cast < Residence * > (map(xx + 10, yy + 6)->construction) ->local_population = 50;
-    potteryConstructionGroup.placeItem(world, MapPoint(xx + 9, yy + 9));
+  // erase random water tiles in our way
+  for(int y = 5; y < 21; y++)
+  for(int x = 6; x < 21; x++) {
+    MapTile& t = *map(p.e(x).s(y));
+    if(t.is_water())
+      t.setTerrain(GROUP_BARE);
+  }
 
-    map(xx + 16, yy + 9 )->flags |= FLAG_HAS_UNDERGROUND_WATER;
-    waterwellConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 9));
+  /* The first two farms have more underground water */
+  for(int j = 5; j < 9; j++)
+  for(int i = 6; i < 10; i++)
+    if(rand() > RAND_MAX/2)
+      map(p.e(i).s(j))->flags |= FLAG_HAS_UNDERGROUND_WATER;
+  organic_farmConstructionGroup.placeItem(world, p.e(6).s(5));
 
-    residenceMLConstructionGroup.placeItem(world, MapPoint(xx + 14, yy + 6));
-    dynamic_cast < Residence * > (map(xx + 14, yy + 6)->construction) ->local_population = 50;
+  for(int j = 5; j < 9; j++)
+  for(int i = 17; i < 21; i++)
+    if(rand() > RAND_MAX/2)
+      map(p.e(i).s(j))->flags |= FLAG_HAS_UNDERGROUND_WATER;
+  organic_farmConstructionGroup.placeItem(world, p.e(17).s(5));
 
-    marketConstructionGroup.placeItem(world, MapPoint(xx + 14, yy + 9));
-    /* build tracks */
-    for (x = 2; x < 23; x++)
-    {
-        map(xx + x, yy + 11)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, MapPoint(xx + x, yy + 11));
-    }
-    for (y = 2; y < 11; y++)
-    {
-        map(xx + 13, yy + y)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, MapPoint(xx + 13, yy + y));
-    }
-    for (y = 12; y < 23; y++)
-    {
-        map(xx + 15, yy + y)->setTerrain(GROUP_DESERT);
-        trackConstructionGroup.placeItem(world, MapPoint(xx + 15, yy + y));
-    }
+  residenceMLConstructionGroup.placeItem(world, p.e(10).s(6));
+  dynamic_cast<Residence *>(map(p.e(10).s(6))->construction)->local_population = 50;
 
-    /* build communes */
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 12));
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 6, yy + 17));
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 11, yy + 12));
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 11, yy + 17));
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 12));
-    communeConstructionGroup.placeItem(world, MapPoint(xx + 16, yy + 17));
+  potteryConstructionGroup.placeItem(world, p.e(9).s(9));
 
-    world.stats.sustainability.old_population = world.people_pool;
+  map(p.e(16).s(9))->flags |= FLAG_HAS_UNDERGROUND_WATER;
+  waterwellConstructionGroup.placeItem(world, p.e(16).s(9));
+
+  residenceMLConstructionGroup.placeItem(world, p.e(14).s(6));
+  dynamic_cast<Residence *>(map(p.e(14).s(6))->construction)->local_population = 50;
+
+  marketConstructionGroup.placeItem(world, p.e(14).s(9));
+
+  /* build tracks */
+  for(int x = 2; x < 23; x++) {
+    trackConstructionGroup.placeItem(world, p.e(x).s(11));
+  }
+  for(int y = 2; y < 11; y++) {
+    trackConstructionGroup.placeItem(world, p.e(13).s(y));
+  }
+  for(int y = 12; y < 23; y++) {
+    trackConstructionGroup.placeItem(world, p.e(15).s(y));
+  }
+
+  /* build communes */
+  communeConstructionGroup.placeItem(world, p.e(6).s(12));
+  communeConstructionGroup.placeItem(world, p.e(6).s(17));
+  communeConstructionGroup.placeItem(world, p.e(11).s(12));
+  communeConstructionGroup.placeItem(world, p.e(11).s(17));
+  communeConstructionGroup.placeItem(world, p.e(16).s(12));
+  communeConstructionGroup.placeItem(world, p.e(16).s(17));
 }
 
 static void do_rand_ecology(MapTile& tile, int r, bool without_trees) {
