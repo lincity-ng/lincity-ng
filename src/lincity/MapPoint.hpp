@@ -23,6 +23,7 @@
 #define __LINCITYNG_LINCITY_MAPPOINT_HPP__
 
 #include <ostream>
+#include <vector>
 
 class MapPoint {
 public:
@@ -43,6 +44,11 @@ public:
   int x, y;
 
   friend std::ostream& operator<<(std::ostream& os, const MapPoint&);
+};
+
+template<>
+struct std::hash<MapPoint> {
+  std::size_t operator()(MapPoint point) const;
 };
 
 #endif // __LINCITYNG_LINCITY_MAPPOINT_HPP__

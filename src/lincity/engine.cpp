@@ -307,24 +307,24 @@ Map::desert_water_frontiers(MapPoint p0, MapPoint p1) {
     MapPoint q = p.e();
     if(p.y >= p0.y && q.x < map.len()-1) {
       if(map(q)->getLowerstVisibleGroup() == grp) {
-        map(p)->type |= 4;
-        map(q)->type |= 1;
+        map(p)->type |= 2;
+        map(q)->type |= 4;
       }
       else {
-        map(p)->type &= ~4;
-        map(q)->type &= ~1;
+        map(p)->type &= ~2;
+        map(q)->type &= ~4;
       }
     }
 
     q = p.s();
     if(p.x >= p0.x && q.y < map.len()-1) {
       if(map(q)->getLowerstVisibleGroup() == grp) {
-        map(p)->type |= 8;
-        map(q)->type |= 2;
+        map(p)->type |= 1;
+        map(q)->type |= 8;
       }
       else {
-        map(p)->type &= ~8;
-        map(q)->type &= ~2;
+        map(p)->type &= ~1;
+        map(q)->type &= ~8;
       }
     }
   }

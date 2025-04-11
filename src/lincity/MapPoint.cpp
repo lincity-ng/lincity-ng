@@ -21,6 +21,8 @@
 
 #include "MapPoint.hpp"
 
+#include <vector>
+
 MapPoint::MapPoint(int x, int y)
   : x(x), y(y)
 {}
@@ -32,4 +34,10 @@ MapPoint::operator==(const MapPoint other) const {
 
 std::ostream& operator<<(std::ostream& os, const MapPoint& point) {
   return os << "(" << point.x << "," << point.y << ")";
+}
+
+std::size_t std::hash<MapPoint>::operator()(MapPoint point) const {
+  const std::size_t hx = std::hash<int>()(point.x);
+  const std::size_t hy = std::hash<int>()(point.y);
+  return hx ^ hy + 0x9e3779b9 + (hx << 6) + (hx >> 2);
 }

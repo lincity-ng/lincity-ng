@@ -357,13 +357,13 @@ ButtonPanel::updateTech(bool showInfo) {
       }
       tool->upShown = true;
     }
-    else if(NotEnoughTechMessage::ptr msg =
+    else if(NotEnoughTechMessage::ptr net =
       std::dynamic_pointer_cast<const NotEnoughTechMessage>(msg)
     ) {
       if(tool->button->isEnabled()) {
         std::ostringstream os;
         os << createTooltip(tool) << " ("
-          << _("Techlevel") << " " << msg->getRequiredTech()
+          << _("Techlevel") << " " << net->getRequiredTech()
           << " " << _("required") << ")";
         tool->button->setTooltip(os.str());
         tool->button->enable(false);
@@ -380,8 +380,7 @@ ButtonPanel::updateTech(bool showInfo) {
       }
     }
     else {
-      // operation not allowed and we have no idea why
-      assert(false);
+      // operation not allowed because of some other reason
       std::ostringstream os;
       os << createTooltip(tool);
       tool->button->setTooltip(os.str());

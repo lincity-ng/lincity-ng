@@ -270,7 +270,7 @@ void Construction::place(MapPoint point) {
   init_resources();
 
   for(MapPoint p = point; p.y < point.y + size; p.y++)
-  for(p.x = 0; p.x < point.x + size; p.x++) {
+  for(p.x = point.x; p.x < point.x + size; p.x++) {
     MapTile& tile = *world.map(p);
     //never change water upon building something
     if(!tile.is_water()) {

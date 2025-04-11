@@ -69,7 +69,7 @@ MapTile::MapTile(MapPoint point) :
     reportingConstruction = NULL;
     framesptr = NULL;
     flags = 0;
-    type = CST_GREEN;
+    type = 0;
     group = GROUP_BARE;
     pollution = 0;
     ore_reserve = 0;
@@ -542,12 +542,12 @@ World::bulldozeArea(MapPoint point) {
   else {
     map(point)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
     if (map(point)->is_water()) {
-      map(point)->type = CST_GREEN;
+      map(point)->type = 0;
       map(point)->group = GROUP_BARE;
       map(point)->flags &= ~(FLAG_IS_RIVER);
     }
     else {
-      map(point)->type = CST_DESERT;
+      map(point)->type = 0;
       map(point)->group = GROUP_DESERT;
     }
     //Here size is always 1

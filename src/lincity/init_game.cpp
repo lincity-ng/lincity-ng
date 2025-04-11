@@ -32,6 +32,7 @@
 #include <random>                   // for uniform_int_distribution
 #include <vector>                   // for vector
 #include <optional>
+#include <queue>
 
 #include "MapPoint.hpp"             // for MapPoint
 #include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
@@ -70,7 +71,7 @@ static void new_setup_river(Map& map, int global_aridity);
 //static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static std::optional<MapPoint> quick_river(Map& map, MapPoint start);
 static void set_river_tile(MapTile& tile); //also used in loadsave.cpp
-static void do_rand_ecology(Map& map, MapPoint p, int r, bool without_trees);
+static void do_rand_ecology(MapTile& tile, int r, bool without_trees);
 //static Shoreline * init_shore(void);
 //static void free_shore(Shoreline *shore);
 static std::optional<MapPoint> overfill_lake(Map& map, MapPoint start);//, Shoreline *shore, int lake_id);
@@ -208,7 +209,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     /* Altitude has same effect as distance */
     r = rand()%(d2w_min/5 + 1) + arid +
       (map(p)->ground.altitude - alt0) * 50 / map.alt_step;
-    do_rand_ecology(map, p, r, without_trees);
+    do_rand_ecology(*map(p), r, without_trees);
   }
 
   std::cout << " done" << std::endl;
@@ -216,7 +217,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   //std::cout << "smoothing graphics edges ...";
   //std::cout.flush();
   map.connect_transport(1, 1, map.len() - 2, map.len() - 2);
-  map.desert_water_frontiers(0, 0, map.len(), map.len());
+  map.desert_water_frontiers(0, 0, map.len()-1, map.len()-1);
   //std::cout << " done" << std::endl;
 }
 
@@ -266,8 +267,9 @@ create_new_city(city_settings *city, int mapSize, int old_setup_ground,
   if(city->with_village)
     random_start(world, city->without_trees);
 
+  // TODO: this was already done in setup_land. Need it be done again?
   world.map.connect_transport(1, 1, world.map.len() - 2, world.map.len() - 2);
-  world.map.desert_water_frontiers(0, 0, world.map.len(), world.map.len());
+  world.map.desert_water_frontiers(0, 0, world.map.len()-1, world.map.len()-1);
 
   return worldPtr;
 }
@@ -620,303 +622,99 @@ static void new_setup_river_ground(Map& map,
 }
 
 static void new_setup_river(Map& map, int global_aridity) {
-  // brute search of local minimum
-  const int len = map.len();
-  const int area = len * len;
-  std::vector<MapPoint> lkidx;
+  int r = 5 + std::binomial_distribution(10, 0.5)(LcUrbg::get());
+  int c = (100 - global_aridity/4) * r * map.len()*map.len() / 1000000;
 
-  // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
-  for(i = 0; i < len; i++) {
-    map(MapPoint(i,0))->ground.altitude = map.alt_min;
-    map(MapPoint(i,map.len()-1))->ground.altitude = map.alt_min;
-    map(MapPoint(0,i))->ground.altitude = map.alt_min;
-    map(MapPoint(map.len()-1,i))->ground.altitude = map.alt_min;
-  }
-
-  int l = 0;
-  for(MapPoint p(1,1); p.y < map.len()-1; p.y++)
-  for(p.x = 1; p.x < map.len()-1; p.x++) {
-    if(map.minimum(p)) {
-      l++;
-      lkidx.push_back(p);
-    }
-  }
-
-  // fill lake until it overfills and creates a river
-  int m = ((100 - global_aridity/4)*l) / len; // ugly hardcoded values correpsonding to "climate" switch in create_new_city
-  if (m==0)
-      m=1;
-
-  if (m>l)
-      m = l;
-
-  if (m>area/400)
-      m = area/400;
-
-  /*
-  //In case we want extra random rivers instead of connected lakes
-  for(i=0;i<m;++i)
-  {
-      lkidx[i]=rand()%len + rand()%len * len;
-  }
-  */
-  std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
+  std::cout << "pooring " << c << " lakes ..." << std::endl;
   std::cout.flush();
-  //sort_by_altitude(m, &lakx, &laky);
-  for(int i = 0; i < m; i++) {
-    int j = std::uniform_int_distribution((size_t)0, lkidx.size() - 1)(
-      LcUrbg::get());
-    std::optional<MapPoint> k(lkidx[j]);
-    do {
-      if(map.minimum(*k)) {
-        k = overfill_lake(map, *k);
+
+  for(int i = c; i > 0; i--) {
+    MapPoint start(
+      std::uniform_int_distribution(0, map.len()-1)(LcUrbg::get()),
+      std::uniform_int_distribution(0, map.len()-1)(LcUrbg::get())
+    );
+    #ifdef DEBUG
+    std::cerr << "river starting at " << start << std::endl;
+    #endif
+    auto cmpLower = [](const MapTile *a, const MapTile *b) {
+      return a->ground.altitude > b->ground.altitude;
+    };
+    std::priority_queue<MapTile *, std::vector<MapTile *>, decltype(cmpLower)>
+      edge(cmpLower); // will always give us the lowest-altitude tile
+    edge.push(map(start));
+    edge.push(map(start)); // need to push twice so we have a runner up
+    int level = map(start)->ground.altitude - 1; // previous altitude
+    std::unordered_set<MapPoint> visited;
+    std::vector<MapTile *> downstream; // for backtracking later
+
+    // follow the water flow downhill
+    while(true) {
+      // get the lowest tile and make sure it's not already visited
+      MapTile *next;
+      do {
+        next = edge.top();
+        edge.pop();
+      } while(visited.count(next->point));
+      // get the runner up (second lowest) because we use it to move diagonal
+      MapTile *runnerUp = edge.top();
+      while(visited.count(runnerUp->point)) {
+        edge.pop();
+        runnerUp = edge.top();
+      }
+
+      // this helps with going down hills that are not straight
+      int d1 = level - next->ground.altitude;
+      int d2 = level - runnerUp->ground.altitude;
+      if(d2 >= 0 && std::bernoulli_distribution(
+        !d1 ? .5 : (double)d2 / (d1 + d2))(LcUrbg::get())
+      ) {
+        edge.pop();
+        edge.push(next);
+        next = runnerUp;
+      }
+
+      MapTile& t = *next;
+      MapPoint p = t.point;
+      // check for being done
+      if(map.is_border(p) || t.is_river()) {
+        #ifdef DEBUG
+        std::cerr << "river ending at " << p
+          << " alt " << t.ground.altitude
+          << (t.is_river() ? " at river" : "") << std::endl;
+        #endif
+        break; // reached map edge or another river/lake
+      }
+
+      // river flows through this tile
+      set_river_tile(t);
+      visited.insert(p);
+      downstream.push_back(&t);
+      level = t.ground.altitude;
+
+      // add adjacent tiles to the queue
+      for(MapPoint q : {p.n(), p.s(), p.e(), p.w()})
+        if(!visited.count(q))
+          edge.push(map(q));
+    }
+
+    // now backtrack upstream to compute the water level of lakes
+    level = INT_MIN;
+    for(auto it = downstream.rbegin(); it != downstream.rend(); it++) {
+      MapTile& t = **it;
+      if(t.ground.altitude <= level) {
+        t.ground.altitude = level;
+        t.flags |= FLAG_IS_LAKE;
       }
       else {
-        k = quick_river(map, *k);
-        set_river_tile(*map(*k));
+        level = t.ground.altitude;
       }
-    } while(k && map(*k)->is_visible() && map(*k)->is_river());
-
-    lkidx[j] = lkidx.back();
-    lkidx.pop_back();
+    }
   }
   std::cout << " done" << std::endl;
 }
 
-static int overfill_lake(Map& map, int start_x, int start_y)//, Shoreline *shore, int lake_id)
-{
-    // Starting point is a local minimum
-
-    if ( !map.is_visible(start_x, start_y) )
-    {   return -1;}
-    const int len = map.len();
-    int index, level;
-    int flooding_level;
-    std::vector<int> river_dests;
-    std::vector<int> river_starts;
-    Array2D <int> i1(len,len);
-    std::deque<int> line;
-    std::vector<int> lake;
-    river_dests.clear();
-    river_starts.clear();
-    line.clear();
-    lake.clear();
-    //make sure a shallow min is an actual min
-    level = --map(start_x,start_y)->ground.altitude;
-    //int level0 = level;
-    *i1(start_x,start_y) = 1;
-    line.push_back(start_x + start_y * len);
-    lake.push_back(start_x + start_y * len);
-    int new_level = map.alt_max + 1;
-    int lowest_exit_level = map.alt_max + 1;
-    //int max_back_flooding = 10;
-    //int back_flooding = max_back_flooding;
-    //std::cout << std::endl;
-    //std::cout << "new lake x, y = " << start_x << ", "<< start_y <<  " alt : " << level << std::endl;
-    while (line.size())
-    {
-        bool reset_lake = false;
-        index = line.front();
-        line.pop_front();
-        int xx = index % len;
-        int yy = index / len;
-        //assert(*i1(xx,yy) == 1);
-        level = map(xx,yy)->ground.altitude;
-/*      /Not needed if altitude == flooding level
-        if (map(xx,yy)->ground.water_alt > level)
-        {
-            level = map(xx,yy)->ground.water_alt;
-        }
-*/
-        //dont grow lakes in diagonal steps,
-        //it might result in disconnected rivers
-        for (int i=0; i<8; i++)
-        {
-            int x = xx + dx[i];
-            int y = yy + dy[i];
-            if (!map.is_visible(x,y) || *i1(x,y)==1)
-            {
-                continue;
-            }
-            new_level = map(x,y)->ground.altitude;
-/*          //Not needed if altitude == flooding level
-            if (map(x,y)->ground.water_alt > new_level)
-            {
-                new_level = map(x,y)->ground.water_alt;
-            }
-*/
-            if ((new_level >= level && new_level < lowest_exit_level))
-            {
-                //rain drop test
-                int min_alt = new_level;
-                int loc_x = x;
-                int loc_y = y;
-                int s = 0;
-                bool done = false;
-
-                // Let the drop run downhill a bit
-                while (map.is_visible(loc_x,loc_y) && (s < 16) && !done)
-                {
-                    s++;
-                    int x_min = loc_x;
-                    int y_min = loc_y;
-                    for (int ii=0; ii<8; ii++)
-                    {
-                        int tx = x_min + dxo[ii];
-                        int ty = y_min + dyo[ii];
-                        if (!map.is_inside(tx,ty))
-                        {   continue;}
-                        //Allow a little walking along edge of a plateau
-                        if(min_alt >= map(tx, ty)->ground.altitude)
-                        {
-                            //dont go back into lake at first step i.e test if there is any second exit
-                            if ( s == 1 && *i1(tx,ty))
-                            {   continue;}
-                            min_alt = map(tx, ty)->ground.altitude;
-                            x_min = tx;
-                            y_min = ty;
-                        }
-                    }
-                    done = ((s>1 && (loc_x == x_min) && (loc_y == y_min)) || *i1(loc_x,loc_y));
-                    loc_x = x_min;
-                    loc_y = y_min;
-/*
-                    if (done && *i1(loc_x,loc_y) && (s > 5))
-                    {
-                        std::cout << "rain drop reached lake (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s-1;
-                        std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
-                    }
-                    if (done && !*i1(loc_x,loc_y))
-                    {
-                        std::cout << "rain drop runs away (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s;
-                        std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
-                    }
-
-                    if (!map.is_visible(loc_x,loc_y))
-                    {
-                        std::cout << "rain drop reached edge (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s;
-                        std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
-                    }
-*/
-                }
-
-                // Now test if we reached the same or a different lake
-                if (!(*i1(loc_x,loc_y))) // overspill detected
-                {
-                    reset_lake = true;
-                    lowest_exit_level = new_level;
-                }
-                else // no overspill add tile to lake
-                {
-                    *i1(x,y) = 1;
-                    line.push_back(x + y * len);
-                    lake.push_back(x + y * len);
-                }
-            }
-            else if (new_level == lowest_exit_level)
-            {
-                river_starts.push_back(x + y * len);
-                if (i>3 && !*i1(xx,y) && !*i1(x,yy)) //we went diagonal
-                {
-                    int xt = x;
-                    int yt = y;
-                    if (map(xx,y)->ground.altitude > map(x,yy)->ground.altitude)
-                    {
-                        yt = yy;
-                    }
-                    else
-                    {
-                        xt = xx;
-                    }
-                    map(xt,yt)->ground.altitude = map(x,y)->ground.altitude;
-                    set_river_tile(*map(xt,yt));
-                }
-            }
-        } //end for
-        if (reset_lake)
-        {
-            //std::cout << "new water level: " << lowest_exit_level << std::endl;
-            line.clear();
-            i1.initialize(0);
-            river_starts.clear();
-            for (size_t i = 0; i < lake.size() ;i++)
-            {
-                int idx = lake[i];
-                if (idx == -1)
-                {   continue;}
-                int tx = idx % len;
-                int ty = idx / len;
-                if (map(tx,ty)->ground.altitude < lowest_exit_level)
-                {
-                    line.push_back(tx + ty * len);
-                    *i1(tx,ty) = 1;
-                }
-                else
-                {   lake[i] = -1;}
-            }
-        }
-    } //endwhile
-    if (lowest_exit_level == map.alt_max+1)
-    {
-        std::cout << std::endl << "cancelled lake x, y = " << start_x << ", "<< start_y <<  " alt : " << level << std::endl;
-        return -1;
-    }
-    flooding_level = lowest_exit_level;
-
-    for (size_t it=0; it<lake.size(); it++)
-    {
-        index = lake[it];
-        if(index==-1)
-        {   continue;}
-        int x = index % len;
-        int y = index / len;
-        map(x,y)->ground.altitude = flooding_level;
-        set_river_tile(*map(x,y));
-        //mark as lake
-        map(x,y)->flags |= FLAG_IS_LAKE;
-    } //end for lake.size()
-    //last_lake = start_x + start_y * len;
-    for (size_t i=0; i<river_starts.size(); i++)
-    {
-        index = river_starts[i];
-        int x = index % len;
-        int y = index / len;
-        if (!map(x,y)->is_river())
-        {
-            river_dests.push_back(quick_river(map, x,y));
-            set_river_tile(*map(x,y));
-        }
-        //else
-        //std::cout << "useless river start encountered" << std::endl;
-    }
-
-    if (river_dests.size())
-    {
-        lowest_exit_level = map.alt_max + 1;
-        size_t i_min = 0;
-        for(size_t i = 0; i < river_dests.size(); i++)
-        {
-            if (river_dests[i] != -1)
-            {
-                int index = river_dests[i];
-                int x = index % len;
-                int y = index / len;
-
-                if(lowest_exit_level > map(x,y)->ground.altitude)
-                //lowest naked river end
-                {
-                    lowest_exit_level = map(x,y)->ground.altitude;
-                    i_min = i;
-                }
-            }
-        }
-        return river_dests[i_min];
-    }
-    return -1;
-}
-
 static void set_river_tile(MapTile& tile) {
-  tile.type = CST_WATER;
+  tile.type = 0;
   tile.group = GROUP_WATER;
   tile.flags |= FLAG_IS_RIVER;
   tile.flags |= FLAG_HAS_UNDERGROUND_WATER;
@@ -946,65 +744,6 @@ static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *
     }
 }
 */
-static int quick_river(Map& map, int xx, int yy) {
-    int  x_now, y_now, x_new, y_new, new_alt;
-    // start a river from point (xx, yy)
-    int max_len = 2 * map.len();
-    int river_len = 0;
-    x_now = xx;
-    y_now = yy;
-    x_new = xx;
-    y_new = yy;
-    new_alt = map(x_now,y_now)->ground.altitude;
-    //std::cout << "new river: " << x_now << ", " << y_now;// << " alt = " <<  new_alt;
-    do
-    {
-        x_now = x_new;
-        y_now = y_new;
-        ++river_len;
-        int j = 0;
-        for(int i=0; i < 8; i++)
-        {
-            int x = x_now + dx[i];
-            int y = y_now + dy[i];
-            if (map.is_inside(x,y) && map(x,y)->ground.altitude < new_alt && !map(x,y)->is_river())
-            {
-                new_alt = map(x,y)->ground.altitude;
-                x_new = x;
-                y_new = y;
-                j = i;
-
-            }
-        }
-        if (j>3) //we moved in the diagonal
-        {
-            //std::cout << ".";
-            if (map(x_now + dx[j], y_now)->ground.altitude > map(x_now, y_now + dy[j])->ground.altitude)
-                set_river_tile(*map(x_now, y_now + dy[j]));
-            else
-                set_river_tile(*map(x_now + dx[j], y_now));
-
-        }
-        //std::cout << ".";
-        set_river_tile(*map(x_new, y_new));
-        //std::cout << "next water: "<< x_new << ", " << y_new << " alt = " <<  new_alt << std::endl;
-    }
-    while ((x_new != x_now || y_new != y_now) && river_len < max_len);
-    //std::cout << x_new << ", " << y_new << std::endl;
-    //look for minimum around end (maybe the second last tile)
-    for(int i=0; i < 8; i++)
-    {
-        int x = x_now + dx[i];
-        int y = y_now + dy[i];
-        if (map.is_visible(x,y) && map(x,y)->ground.altitude < new_alt)
-        {
-            new_alt = map(x,y)->ground.altitude;
-            x_new = x;
-            y_new = y;
-        }
-    }
-    return map.is_visible(x_new,y_new)? x_new + y_new * map.len(): -1;
-}
 
 
 static void setup_river(Map& map, int global_mountainity)
@@ -1274,129 +1013,119 @@ static void random_start(World& world, bool without_trees) {
     world.stats.sustainability.old_population = world.people_pool;
 }
 
-static void do_rand_ecology(Map& map, int x, int y, int r, bool without_trees)
-{
-    int r3 = rand();
-    if (r >= 300)
-    {
-        /* very dry land */
-        int r2 = r3 % 10;
-        if (r2 <= 6)
-            map(x, y)->setTerrain(GROUP_DESERT);
-        else if ((r2 <= 8) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else
-            map(x, y)->setTerrain(GROUP_TREE);
-    }
-    else if (r >= 160)
-    {
-        int r2 = r3 % 10;
-        if (r2 <= 2)
-            map(x, y)->setTerrain(GROUP_DESERT);
-        else if ((r2 <= 6) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else
-            map(x, y)->setTerrain(GROUP_TREE);
-    }
-    else if (r >= 80)
-    {
-        int r2 = r3 % 10;
-        if       (r2 <= 1)
-            map(x, y)->setTerrain(GROUP_DESERT);
-        else if ((r2 <= 4) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if  (r2 <= 6)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else
-            map(x, y)->setTerrain(GROUP_TREE2);
-    }
-    else if (r >= 40)
-    {
-        int r2 = r3 % 40;
-        if (r2 == 0)
-            map(x, y)->setTerrain(GROUP_DESERT);
-        else if ((r2 <= 12) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 24)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 36)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
-    else if (r >= 0)
-    {
-        /* normal land */
-        int r2 = r3 % 40;
-        if     ((r2 <= 10) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 20)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 30)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
-    else if (r >= -40)
-    {
-        /* forest */
-        int r2 = r3 % 40;
-        if     ((r2 <= 5) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 10)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 25)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
-    else if (r >= -80)
-    {
-        int r2 = r3 % 40;
-        if       (r2 <= 0)
-            map(x, y)->setTerrain(GROUP_WATER);
-        else if ((r2 <= 6) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if  (r2 <= 15)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if  (r2 <= 28)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
-    else if (r >= -120)
-    {
-        int r2 = r3 % 40;
-        if       (r2 <= 1)
-            map(x, y)->setTerrain(GROUP_WATER);
-        else if ((r2 <= 6) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if  (r2 <= 16)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if  (r2 <= 30)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
+static void do_rand_ecology(MapTile& tile, int r, bool without_trees) {
+  int r3 = rand();
+  if(r >= 300) {
+    /* very dry land */
+    int r2 = r3 % 10;
+    if(r2 <= 6)
+      tile.setTerrain(GROUP_DESERT);
+    else if(r2 <= 8 || without_trees)
+      tile.setTerrain(GROUP_BARE);
     else
-    {
-        /* wetland */
-        int r2 = r3 % 40;
-        if       (r2 <= 3)
-            map(x, y)->setTerrain(GROUP_WATER);
-        else if ((r2 <= 8) || without_trees)
-            map(x, y)->setTerrain(GROUP_BARE);
-        else if  (r2 <= 20)
-            map(x, y)->setTerrain(GROUP_TREE);
-        else if  (r2 <= 35)
-            map(x, y)->setTerrain(GROUP_TREE2);
-        else
-            map(x, y)->setTerrain(GROUP_TREE3);
-    }
-    if (map(x, y)->getGroup() != GROUP_DESERT)
-    {
-        map(x, y)->flags |= FLAG_HAS_UNDERGROUND_WATER;
-    }
+      tile.setTerrain(GROUP_TREE);
+  }
+  else if(r >= 160) {
+    int r2 = r3 % 10;
+    if(r2 <= 2)
+      tile.setTerrain(GROUP_DESERT);
+    else if(r2 <= 6 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else
+      tile.setTerrain(GROUP_TREE);
+  }
+  else if (r >= 80) {
+    int r2 = r3 % 10;
+    if     (r2 <= 1)
+      tile.setTerrain(GROUP_DESERT);
+    else if(r2 <= 4 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 6)
+      tile.setTerrain(GROUP_TREE);
+    else
+      tile.setTerrain(GROUP_TREE2);
+  }
+  else if (r >= 40) {
+    int r2 = r3 % 40;
+    if     (r2 == 0)
+      tile.setTerrain(GROUP_DESERT);
+    else if(r2 <= 12 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 24)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 36)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+  else if (r >= 0) {
+    /* normal land */
+    int r2 = r3 % 40;
+    if     (r2 <= 10 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 20)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 30)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+  else if (r >= -40) {
+    /* forest */
+    int r2 = r3 % 40;
+    if     (r2 <= 5 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 10)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 25)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+  else if (r >= -80) {
+    int r2 = r3 % 40;
+    if     (r2 <= 0)
+      tile.setTerrain(GROUP_WATER);
+    else if(r2 <= 6 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 15)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 28)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+  else if (r >= -120) {
+    int r2 = r3 % 40;
+    if     (r2 <= 1)
+      tile.setTerrain(GROUP_WATER);
+    else if(r2 <= 6 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 16)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 30)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+  else {
+    /* wetland */
+    int r2 = r3 % 40;
+    if     (r2 <= 3)
+      tile.setTerrain(GROUP_WATER);
+    else if(r2 <= 8 || without_trees)
+      tile.setTerrain(GROUP_BARE);
+    else if(r2 <= 20)
+      tile.setTerrain(GROUP_TREE);
+    else if(r2 <= 35)
+      tile.setTerrain(GROUP_TREE2);
+    else
+      tile.setTerrain(GROUP_TREE3);
+  }
+
+  if(tile.getGroup() != GROUP_DESERT) {
+    tile.flags |= FLAG_HAS_UNDERGROUND_WATER;
+  }
 }
 
 /** @file lincity/init_game.cpp */
