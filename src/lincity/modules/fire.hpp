@@ -64,7 +64,6 @@ public:
 };
 
 extern FireConstructionGroup fireConstructionGroup;
-//extern FireConstructionGroup fireWasteLandConstructionGroup;
 
 class Fire: public Construction {
 public:

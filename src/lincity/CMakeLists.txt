@@ -1,14 +1,11 @@
 add_subdirectory(modules)
 
 add_library(lincity_lib  STATIC
-		all_buildings.cpp
 		all_buildings.hpp
 		commodities.cpp
 		commodities.hpp
 		ConstructionRequest.cpp
 		ConstructionRequest.hpp
-		engglobs.cpp
-		engglobs.hpp
 		engine.cpp
 		groups.hpp
 		init_game.cpp

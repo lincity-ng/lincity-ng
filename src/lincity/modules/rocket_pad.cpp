@@ -65,8 +65,6 @@ Construction *RocketPadConstructionGroup::createConstruction(World& world) {
   return new RocketPad(world, this);
 }
 
-extern void ok_dial_box(const char *, int, const char *);
-
 RocketPad::RocketPad(World& world, ConstructionGroup* cstgrp) :
   Construction(world)
 {

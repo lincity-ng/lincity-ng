@@ -77,9 +77,6 @@ public:
 };
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
-//extern Coal_powerConstructionGroup coal_power_low_ConstructionGroup;
-//extern Coal_powerConstructionGroup coal_power_med_ConstructionGroup;
-//extern Coal_powerConstructionGroup coal_power_full_ConstructionGroup;
 
 
 class Coal_power: public Construction {

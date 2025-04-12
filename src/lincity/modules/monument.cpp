@@ -38,8 +38,6 @@
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
 
-extern int mps_x, mps_y;
-
 MonumentConstructionGroup monumentConstructionGroup(
     N_("Monument"),
     FALSE,                     /* need credit? */

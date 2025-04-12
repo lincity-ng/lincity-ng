@@ -30,12 +30,12 @@
 #include <numeric>                       // for iota
 #include <set>                           // for set, _Rb_tree_const_iterator
 #include <vector>                        // for vector
+#include <initializer_list>
 
 #include "MapPoint.hpp"                  // for MapPoint
 #include "Vehicles.hpp"                    // for Vehicle
 #include "all_buildings.hpp"               // for DAYS_BETWEEN_COVER, DAYS_PER...
 #include "commodities.hpp"               // for CommodityRule, Commodity
-#include "engglobs.hpp"                    // for ex_tax_dis
 #include "groups.hpp"                      // for GROUP_FIRE, GROUP_MONUMENT
 #include "util.hpp"                 // for LcUrbg
 #include "lin-city.hpp"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
@@ -46,19 +46,6 @@
 #include "stats.hpp"                       // for Stats, Stat
 #include "sustainable.hpp"                 // for SUST_FIRE_YEARS_NEEDED, SUST...
 #include "world.hpp"                       // for World, Map, MapTile
-
-/* extern resources */
-extern void print_total_money(void);
-void setSimulationDelay( int speed );
-extern void ok_dial_box(const char *, int, const char *);
-
-/* AL1: they are all in engine.cpp */
-extern void do_daily_ecology(void);
-extern void do_pollution(void);
-extern void do_fire_health_cricket_power_cover(void);
-
-/* Flag to warn users that they have 10 years to put waterwell everywhere */
-int flag_warning = false;
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -210,18 +197,10 @@ World::end_of_year_update(void) {
      The exporters have to discount there wares, therefore the
      tax take is less.
    */
-  if(taxable.trade_ex > ex_tax_dis[0]) {
-    int discount, disi;
-    discount = 0;
-    for(disi = 0;
-      disi < NUMOF_DISCOUNT_TRIGGERS
-        && taxable.trade_ex > ex_tax_dis[disi];
-      disi++
-    )
-      discount += (taxable.trade_ex - ex_tax_dis[disi]) / 10;
-    taxable.trade_ex -= discount;
-  }
-  income(taxable.trade_ex, stats.income.export_tax);
+  int exDiscount = 0;
+  for(int trigger : {25000, 50000, 100000, 200000, 400000, 800000})
+    exDiscount += std::max(0, taxable.trade_ex - trigger) / 10;
+  income(taxable.trade_ex - exDiscount, stats.income.export_tax);
   taxable.trade_ex = 0;
 
   try {

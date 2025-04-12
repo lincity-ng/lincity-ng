@@ -285,18 +285,6 @@ Map::~Map() {
   maptile.clear();
 }
 
-MapTile* Map::operator()(int x, int y) {
-  return this->operator()(MapPoint(x,y));
-}
-
-const MapTile* Map::operator()(int x, int y) const {
-  return this->operator()(MapPoint(x,y));
-}
-
-MapTile* Map::operator()(int index) {
-  return this->operator()(MapPoint(index%side_len,index/side_len));
-}
-
 const MapTile *Map::operator()(MapPoint point) const {
   assert(is_inside(point));
   return &(maptile[point.x + point.y * side_len]);
@@ -307,34 +295,14 @@ MapTile *Map::operator()(MapPoint point) {
   return &(maptile[point.x + point.y * side_len]);
 }
 
-bool Map::is_inside(int x, int y) const {
-    return (x >= 0 && y >= 0 && x < side_len && y < side_len);
-}
-
-bool Map::is_inside(int index) const {
-    return (index >= 0 && index < side_len * side_len);
-}
-
 bool Map::is_inside(MapPoint point) const {
   return point.x >= 0 && point.y >= 0
     && point.x < side_len && point.y < side_len;
 }
 
-bool Map::is_border(int x, int y) const {
-    return (x == 0 || y == 0 || x == side_len-1 || y == side_len -1);
-}
-
-bool Map::is_border(int index) const {
-    return (index%side_len == side_len -1 || index%side_len == 0 || index/side_len == side_len-1 || index/side_len == 0);
-}
-
 bool Map::is_border(MapPoint point) const {
   return (point.x == 0 || point.y == 0
     || point.x == side_len-1 || point.y == side_len-1);
-}
-
-bool Map::is_edge(int x, int y) const {
-  return is_edge(MapPoint(x, y));
 }
 
 bool Map::is_edge(MapPoint point) const {
@@ -343,29 +311,9 @@ bool Map::is_edge(MapPoint point) const {
 }
 
 bool
-Map::is_visible(int x, int y) const {
-  return is_visible(MapPoint(x, y));
-}
-
-bool
 Map::is_visible(MapPoint point) const {
   return (point.x > 0 && point.y > 0
     && point.x < side_len-1 && point.y < side_len-1);
-}
-
-int Map::map_x(MapTile * tile)
-{
-    return (tile-&maptile[0]) % side_len;
-}
-
-int Map::map_y(MapTile * tile)
-{
-    return (tile-&maptile[0]) / side_len;
-}
-
-int Map::map_index(MapTile * tile)
-{
-    return (tile-&maptile[0]);
 }
 
 int Map::len() const {
@@ -378,18 +326,12 @@ bool Map::maximum(MapPoint p) const {
     if(alt < operator()(q)->ground.altitude) return false;
   return true;
 }
-bool Map::maximum(int x, int y) const {
-  return maximum(MapPoint(x,y));
-}
 
 bool Map::minimum(MapPoint p) const {
   int alt = operator()(p)->ground.altitude;
   for(MapPoint q : {p.n(),p.s(),p.w(),p.e(),p.nw(),p.ne(),p.sw(),p.se()})
     if(alt > operator()(q)->ground.altitude) return false;
   return true;
-}
-bool Map::minimum(int x, int y) const {
-  return minimum(MapPoint(x,y));
 }
 
 bool Map::saddlepoint(MapPoint p) const {
@@ -403,9 +345,6 @@ bool Map::saddlepoint(MapPoint p) const {
     prevLower = lower;
   }
   return dips > 1;
-}
-bool Map::saddlepoint(int x, int y) const {
-  return saddlepoint(MapPoint(x,y));
 }
 
 bool Map::checkEdgeMin(MapPoint point) const {
@@ -434,9 +373,6 @@ bool Map::checkEdgeMin(MapPoint point) const {
   int alt = operator()(point)->ground.altitude;
   return alt < operator()(q1)->ground.altitude
     && alt < operator()(q2)->ground.altitude;
-}
-bool Map::checkEdgeMin(int x, int y) const {
-  return checkEdgeMin(MapPoint(x,y));
 }
 
 Map::  iterator Map::  begin()       { return maptile.  begin(); }

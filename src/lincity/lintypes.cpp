@@ -846,8 +846,6 @@ ConstructionGroup::getName(void) const {
   return _(name.c_str());
 }
 
-extern void ok_dial_box(const char *, int, const char *);
-
 bool
 ConstructionGroup::can_build(const World& world, Message::ptr& message) const {
   if(world.tech_level < tech) {

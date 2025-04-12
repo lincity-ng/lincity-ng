@@ -25,7 +25,6 @@ add_library(lincity_lib_modules  STATIC
 		market.hpp
 		mill.cpp
 		mill.hpp
-		modules.hpp
 		modules_interfaces.hpp
 		monument.cpp
 		monument.hpp

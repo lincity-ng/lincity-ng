@@ -59,7 +59,7 @@ Game::updateDate() const {
   dateParagraph->setText(dateText);
 }
 
-void string_begadd_number(std::string &str, int number, bool fill) {
+static void string_begadd_number(std::string &str, int number, bool fill) {
   std::ostringstream result;
   if (fill) result << std::setw(3) << std::setfill('0');
   result << number;

@@ -126,32 +126,16 @@ class Map {
 public:
   Map(int map_len);
   ~Map();
-  [[deprecated]] MapTile* operator()(int x, int y);
-  [[deprecated]] const MapTile* operator()(int x, int y) const;
-  [[deprecated]] MapTile* operator()(int index);
   const MapTile* operator()(MapPoint point) const;
   MapTile* operator()(MapPoint point);
-  [[deprecated]] bool is_inside(int x, int y) const;
-  [[deprecated]] bool is_inside(int index) const;
   bool is_inside(MapPoint loc) const;
-  [[deprecated]] bool is_border(int x, int y) const;
-  [[deprecated]] bool is_border(int index) const;
   bool is_border(MapPoint loc) const;
-  [[deprecated]] bool is_edge(int x, int y) const;
   bool is_edge(MapPoint point) const;
-  [[deprecated]] bool is_visible(int x, int y) const;
   bool is_visible(MapPoint loc) const;
-  [[deprecated]] int map_x(MapTile *tile);// returns x
-  [[deprecated]] int map_y(MapTile *tile);// returns y
-  [[deprecated]] int map_index(MapTile *tile);// returns index
   int len() const; //tells the actual world.side_len
-  [[deprecated]] bool maximum(int x, int y) const;
   bool maximum(MapPoint point) const;
-  [[deprecated]] bool minimum(int x, int y) const;
   bool minimum(MapPoint point) const;
-  [[deprecated]] bool saddlepoint(int x, int y) const;
   bool saddlepoint(MapPoint point) const;
-  [[deprecated]] bool checkEdgeMin(int x, int y) const;
   bool checkEdgeMin(MapPoint point) const;
   std::vector<MapPoint> polluted;
   using iterator = std::vector<MapTile>::iterator;

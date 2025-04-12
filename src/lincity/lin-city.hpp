@@ -27,25 +27,6 @@
 
 #define RESULTS_FILENAME "results.txt"
 
-#define LC_X11
-
-/*
-  When your money reaches 1 million or more, to make it easier to
-  read, it is split into two parts; a millions part, and the rest.
-   For example  12,355232    You can choose any character you like,
-   but I have given some other examples. Just comment out the one
-   above, and uncomment one below. IT MUST NOT BE NULL.
-  #define MONEY_SEPARATOR '.'
-  #define MONEY_SEPARATOR ' '
-  #define MONEY_SEPARATOR ':'
-*/
-#define MONEY_SEPARATOR ',' // AL1 unsused in 2.x , but it would be very good to use it => TODO
-
-/*
-       ************************************************
-        NO USER CONFIGURABLE OPTIONS BEYOND THIS POINT
-       ************************************************
-*/
 #if defined (_MSC_VER)
 #   define snprintf _snprintf
 #endif
@@ -60,13 +41,6 @@
 #ifndef FALSE
 #   define FALSE 0
 #endif
-
-/* comment out the the next three lines for _slightly_ faster X drawing. */
-/* AL1 : unused in 2.x
-#if defined LC_X11 || defined WIN32
-#   define ALLOW_PIX_DOUBLING
-#endif
-*/
 
 // MapTile flags
 #define FLAG_POWER_CABLES_0        (0x00000001) // TODO: use extraFrame instead
@@ -95,9 +69,6 @@
 
 //volatile flags from savegames are ignorred, and will be reset at loading
 #define VOLATILE_FLAGS  (FLAG_POWER_CABLES_0 |  FLAG_POWER_CABLES_90 )
-#define GOOD 1
-#define BAD (-1)
-#define RESULTS 0
 
 //#define SHUFFLE_MAPPOINT_COUNT 4
 
@@ -126,15 +97,6 @@
 #define TECH_LEVEL_LOSS_START 11000
 #define TECH_LEVEL_LOSS    500
 #define TECH_LEVEL_UNAIDED 2
-
-
-#define NUMOF_DISCOUNT_TRIGGERS 6
-#define EX_DISCOUNT_TRIGGER_1   25000
-#define EX_DISCOUNT_TRIGGER_2   50000
-#define EX_DISCOUNT_TRIGGER_3  100000
-#define EX_DISCOUNT_TRIGGER_4  200000
-#define EX_DISCOUNT_TRIGGER_5  400000
-#define EX_DISCOUNT_TRIGGER_6  800000
 
 #endif /* __lin_city_h__ */
 

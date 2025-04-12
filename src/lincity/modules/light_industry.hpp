@@ -102,10 +102,6 @@ public:
 };
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
-//extern IndustryLightConstructionGroup industryLight_Q_ConstructionGroup;
-//extern IndustryLightConstructionGroup industryLight_L_ConstructionGroup;
-//extern IndustryLightConstructionGroup industryLight_M_ConstructionGroup;
-//extern IndustryLightConstructionGroup industryLight_H_ConstructionGroup;
 
 
 class IndustryLight: public Construction {

@@ -71,8 +71,6 @@ public:
 };
 
 extern SubstationConstructionGroup substationConstructionGroup;
-//extern SubstationConstructionGroup substation_RG_ConstructionGroup;
-//extern SubstationConstructionGroup substation_G_ConstructionGroup;
 
 class Substation: public Construction {
 public:

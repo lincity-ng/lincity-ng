@@ -43,14 +43,6 @@
 #include "stats.hpp"                // for Stat, Stats
 #include "world.hpp"                // for Map, World, MapTile
 
-extern void ok_dial_box(const char *, int, const char *);
-extern void print_total_money(void);
-
-/****** Private functions prototypes *****/
-//static void bulldoze_mappoint(short fill, int x, int y);
-//static int is_real_river(int x, int y);
-
-/*************** Global functions ********************/
 void
 World::fire_area(MapPoint loc) {
   /* this happens when a rocket crashes or on random_fire. */
