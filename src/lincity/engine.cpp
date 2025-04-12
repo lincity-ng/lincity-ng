@@ -36,7 +36,6 @@
 #include "ConstructionRequest.hpp"  // for SetOnFire
 #include "MapPoint.hpp"             // for MapPoint, hash
 #include "groups.hpp"               // for GROUP_DESERT, GROUP_WATER, GROUP_...
-#include "lctypes.hpp"              // for CST_GREEN
 #include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_IS_RIVER
 #include "lintypes.hpp"             // for Construction, ConstructionGroup
 #include "messages.hpp"             // for OutOfMoneyMessage, FireStartedMes...
@@ -210,7 +209,7 @@ World::do_daily_ecology() {
       && (tile.flags & FLAG_HAS_UNDERGROUND_WATER)
       && (rand() % 300 == 1)
     ) {
-      tile.setTerrain(CST_GREEN);
+      tile.setTerrain(GROUP_BARE);
       map.desert_water_frontiers(tile.point.x - 1, tile.point.y - 1, 1 + 2, 1 + 2);
     }
   }
