@@ -1143,18 +1143,18 @@ void GameView::viewportUpdated()
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-Vector2 GameView::getScreenPoint(MapPoint map)
+Vector2 GameView::getScreenPoint(MapPoint mp)
 {
     Vector2 point;
-    point.x = (map.x - map.y) * ( tileWidth / 2 );
-    point.y = (map.x + map.y) * ( tileHeight / 2 );
+    point.x = (mp.x - mp.y) * ( tileWidth / 2 );
+    point.y = (mp.x + mp.y) * ( tileHeight / 2 );
 
     //we want the lower right corner
     point.y += tileHeight;
 
-    if ((showTerrainHeight) && (inCity(map))){
+    if ((showTerrainHeight) && (inCity(mp))){
         // shift the tile upward to show altitude
-        point.y -= (float) ( (getWorld().map(map.x, map.y)->ground.altitude) * scale3d) * zoom  / (float) getWorld().map.alt_step ;
+        point.y -= (float) ( (getWorld().map(mp)->ground.altitude) * scale3d) * zoom  / (float) getWorld().map.alt_step ;
     }
 
     //on Screen
@@ -1240,7 +1240,7 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
     if( !inCity( tile ) ) {
             painter.setFillColor( black );
     } else {
-        miniMapColor = getMiniMap()->getColor( tile.x, tile.y );
+        miniMapColor = getMiniMap()->getColor(tile);
         if( mapOverlay == overlayOn ){
             miniMapColor.a = 200;  //Transparent
         }
@@ -1327,20 +1327,19 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 
     //Texture* texture = 0;
     MapPoint upperLeft = realTile(tile);
-    int x = upperLeft.x;
-    int y = upperLeft.y;
 
-    ConstructionGroup *cstgrp = getWorld().map(x,y)->getTopConstructionGroup();
+    ConstructionGroup *cstgrp =
+      getWorld().map(upperLeft)->getTopConstructionGroup();
     ResourceGroup *resgrp;
     unsigned short size = cstgrp->size;
 
     //Attention map is rotated for displaying
-    if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
+    if(tile.n(size-1) == upperLeft) //Signs are tested
     {
-        resgrp = getWorld().map(x, y)->getTileResourceGroup();
+        resgrp = getWorld().map(upperLeft)->getTileResourceGroup();
         //adjust OnScreenPoint of big Tiles
-        MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
-        unsigned short textureType = getWorld().map(x, y)->getTopType();
+        MapPoint lowerRightTile(tile.e(size-1));
+        unsigned short textureType = getWorld().map(upperLeft)->getTopType();
 
         // if we hide high buildings, hide trees as well
         if (hideHigh && (cstgrp == &treeConstructionGroup
@@ -1352,7 +1351,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         }
         GraphicsInfo *graphicsInfo = 0;
         //draw visible tiles underneath constructions
-        if( (getWorld().map(x, y)->reportingConstruction || getWorld().map(x,y)->framesptr) && !(getWorld().map(x,y)->flags & FLAG_INVISIBLE) )
+        if( (getWorld().map(upperLeft)->reportingConstruction || getWorld().map(upperLeft)->framesptr) && !(getWorld().map(upperLeft)->flags & FLAG_INVISIBLE) )
         {
             if (resgrp->images_loaded)
             {
@@ -1360,7 +1359,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 if (s)
                 {
                     graphicsInfo = &resgrp->graphicsInfoVector
-                        [ getWorld().map(x, y)->type  % s];
+                        [ getWorld().map(upperLeft)->type  % s];
                     drawTexture(painter, lowerRightTile, graphicsInfo);
                 }
             }
@@ -1370,10 +1369,10 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         if( (size==1 || !hideHigh) )
         {
             draw_colored_site = false;
-            if (getWorld().map(x,y)->framesptr)
+            if (getWorld().map(upperLeft)->framesptr)
             {
-                for(std::list<ExtraFrame>::iterator frit = getWorld().map(x, y)->framesptr->begin();
-                    frit != getWorld().map(x,y)->framesptr->end(); std::advance(frit, 1))
+                for(std::list<ExtraFrame>::iterator frit = getWorld().map(upperLeft)->framesptr->begin();
+                    frit != getWorld().map(upperLeft)->framesptr->end(); std::advance(frit, 1))
                 {
                     if(frit->resourceGroup && frit->resourceGroup->images_loaded)
                     {
@@ -1441,19 +1440,19 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
             tileOnScreenPoint.y -= tileHeight*size;
             tilerect.move( tileOnScreenPoint );
-            painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
+            painter.setFillColor(getMiniMap()->getColorNormal(tile));
             fillDiamond( painter, tilerect );
         }
         //last draw suspended power cables on top
         //only works for size == 1
-        if (getWorld().map(x, y)->flags & (FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90))
+        if (getWorld().map(upperLeft)->flags & (FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90))
         {
             resgrp = ResourceGroup::resMap["PowerLine"];
             if(resgrp->images_loaded)
             {
-                if (getWorld().map(x, y)->flags & FLAG_POWER_CABLES_0)
+                if (getWorld().map(upperLeft)->flags & FLAG_POWER_CABLES_0)
                 {   drawTexture(painter, upperLeft, &resgrp->graphicsInfoVector[23]);}
-                if (getWorld().map(x, y)->flags & FLAG_POWER_CABLES_90)
+                if (getWorld().map(upperLeft)->flags & FLAG_POWER_CABLES_90)
                 {   drawTexture(painter, upperLeft, &resgrp->graphicsInfoVector[22]);}
             }
         }

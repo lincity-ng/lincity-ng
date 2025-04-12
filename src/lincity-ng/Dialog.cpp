@@ -59,6 +59,7 @@
 #include "lincity/stats.hpp"                // for Stats, Stat
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "tinygettext/gettext.hpp"        // for _
+#include "lincity/MapPoint.hpp"
 
 using namespace std::placeholders;
 
@@ -74,7 +75,9 @@ void closeAllDialogs(){
     }
 }
 
-Dialog::Dialog(Game& game, int type) : game(game) {
+Dialog::Dialog(Game& game, int type)
+  : game(game), point(MapPoint(-1,-1))
+{
     initDialog();
     switch( type ){
         case ASK_COAL_SURVEY:
@@ -90,8 +93,10 @@ Dialog::Dialog(Game& game, int type) : game(game) {
     }
 }
 
-Dialog::Dialog(Game& game, int type, int x, int y) : game(game) {
-    initDialog( x, y );
+Dialog::Dialog(Game& game, int type, MapPoint point)
+  : game(game), point(point)
+{
+    initDialog();
     switch( type ) {
         case EDIT_MARKET:
             editMarket();
@@ -109,11 +114,9 @@ Dialog::Dialog(Game& game, int type, int x, int y) : game(game) {
     }
 }
 
-void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
+void Dialog::initDialog() {
     windowManager = 0;
     myDialogComponent = 0;
-    pointX = x;
-    pointY = y;
     iAmBlocking = false;
     windowManager = dynamic_cast<WindowManager*>(
       game.getGui().findComponent("windowManager"));
@@ -160,7 +163,7 @@ void Dialog::askRocket(){
     }
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-    title << _("Launchsite") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Launchsite") << point;
     p->setText( title.str() );
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
@@ -541,10 +544,10 @@ void Dialog::editMarket(){
     // set Dialog to Market-Data
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-    title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Market") << point;
     p->setText( title.str() );
     Market *market = dynamic_cast<Market *>(
-      game.getWorld().map(pointX, pointY)->reportingConstruction);
+      game.getWorld().map(point)->reportingConstruction);
     assert(market);
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
@@ -606,13 +609,13 @@ void Dialog::editPort(){
         return;
     }
     // set Dialog to Port-Data
-    //int port_flags = world(pointX, pointY)->reportingConstruction->flags;
+    //int port_flags = world(point)->reportingConstruction->flags;
     Port *port = dynamic_cast<Port *>(
-      game.getWorld().map(pointX, pointY)->reportingConstruction);
+      game.getWorld().map(point)->reportingConstruction);
     assert(port);
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-    title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Port") << point;
     p->setText( title.str() );
 
     for(Commodity c = STUFF_INIT; c != STUFF_COUNT; c++) {
@@ -657,7 +660,7 @@ void Dialog::editPort(){
 void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
     Market * market = dynamic_cast<Market *>(
-      game.getWorld().map(pointX, pointY)->construction);
+      game.getWorld().map(point)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_LABOR].take = true;
@@ -762,7 +765,7 @@ void Dialog::applyMarketButtonClicked( Button* ){
 
 void Dialog::applyPortButtonClicked( Button* ){
     Port *port = dynamic_cast<Port *>(
-      game.getWorld().map(pointX, pointY)->reportingConstruction);
+      game.getWorld().map(point)->reportingConstruction);
     assert(port);
 
     for(Commodity c = STUFF_INIT; c != STUFF_COUNT; c++) {
@@ -803,7 +806,7 @@ void Dialog::applyPortButtonClicked( Button* ){
 
 void Dialog::okayLaunchRocketButtonClicked(Button *) {
   dynamic_cast<RocketPad*>(
-    game.getWorld().map(pointX, pointY)->reportingConstruction
+    game.getWorld().map(point)->reportingConstruction
   )->launch_rocket();
   windowManager->removeWindow(myDialogComponent);
   blockingDialogIsOpen = false;
@@ -819,7 +822,7 @@ void Dialog::okayCoalSurveyButtonClicked( Button* ){
 }
 
 void Dialog::gotoButtonClicked( Button* ){
-  game.getGameView().show( MapPoint( pointX, pointY ) );
+  game.getGameView().show(point);
 }
 
 void Dialog::closeDialogButtonClicked( Button* ){

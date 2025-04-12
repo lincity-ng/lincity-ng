@@ -217,17 +217,17 @@ Game::executeUserOperation(MapPoint point) {
       if(getMpsMap().tile == world->map(point)) {
         switch(world->map(point)->getGroup()) {
         case GROUP_MARKET:
-          new Dialog(*this, EDIT_MARKET, point.x, point.y);
+          new Dialog(*this, EDIT_MARKET, point);
           break;
         case GROUP_PORT:
-          new Dialog(*this, EDIT_PORT, point.x, point.y);
+          new Dialog(*this, EDIT_PORT, point);
           break;
         case GROUP_ROCKET:
           RocketPad *rocket = dynamic_cast<RocketPad *>(
             world->map(point)->reportingConstruction);
           assert(rocket);
           if(rocket->stage == RocketPad::AWAITING) {
-            new Dialog(*this, ASK_LAUNCH_ROCKET, point.x, point.y);
+            new Dialog(*this, ASK_LAUNCH_ROCKET, point);
           }
           break;
         }

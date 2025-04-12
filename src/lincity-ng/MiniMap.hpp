@@ -57,8 +57,8 @@ public:
         const MapPoint& upperLeft, const MapPoint& lowerRight
     );
 
-    Color getColor(int x,int y) const;
-    Color getColorNormal(int x,int y) const;
+    Color getColor(MapPoint p) const;
+    Color getColorNormal(MapPoint p) const;
 
     void switchView(const std::string& viewname);
     void scrollPageDown(bool down);
@@ -98,7 +98,7 @@ private:
     Commodity stuff_ID;
     int tilesize;
     int border;
-    int left, top; //Positioning of minimap
+    MapPoint anchor; //Positioning of minimap
 
     std::vector<CheckButton*> switchButtons;
     std::unique_ptr<Texture> mTexture;

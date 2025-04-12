@@ -25,6 +25,8 @@
 
 #include <string>  // for string
 
+#include "lincity/MapPoint.hpp"
+
 class Button;
 class Window;
 class WindowManager;
@@ -44,7 +46,7 @@ void closeAllDialogs();
 class Dialog
 {
     public:
-        Dialog(Game& game, int type, int x, int y);
+        Dialog(Game& game, int type, MapPoint point);
         Dialog(Game& game, int type);
         ~Dialog();
         void closeDialog();
@@ -58,11 +60,10 @@ class Dialog
         void gameStats();
         void saveGameStats();
 
-        void initDialog( int x = -1 , int y = -1 );
+        void initDialog();
         WindowManager* windowManager;
         Window* myDialogComponent;
-        int pointX;
-        int pointY;
+        MapPoint point;
         Game& game;
 
         template<typename T> void setTableRC( const std::string basename, const int row, const int column, const std::string text, const T value );
