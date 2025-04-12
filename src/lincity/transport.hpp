@@ -23,25 +23,8 @@
 
 #include "all_buildings.hpp"  // for magenta, white, yellow
 
-#ifndef __TRANSPORT_H__
-#define __TRANSPORT_H__
-
-#endif
-
-
-//int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio);
-/*
-    returns the relative load TRANSPORT_QUANTA = 100% if the construction would
-tentatively participate want traffic or -1 if there is no such stuff known at mapTile[x][y]. center_ratio == -1 ignores tentative traffic
-*/
-
-//int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap, int ratio, Construction::Commodities stuff_ID);
-/*
-    Handles the flow of stuff between the central and the remote tile. takes care of  paying taxes.
-*/
-
-void connect_transport(int originx, int originy, int w, int h);
-
+#ifndef __LINCITYNG_LINCITY_TRANSPORT_HPP__
+#define __LINCITYNG_LINCITY_TRANSPORT_HPP__
 
 #define GROUP_TRACK_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_COST   1
@@ -157,6 +140,4 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_RAIL_BRIDGE_TECH    GROUP_RAIL_TECH
 #define GROUP_RAIL_BRIDGE_FIREC   0
 
-
-
-/** @file lincity/transport.h */
+#endif // __LINCITYNG_LINCITY_TRANSPORT_HPP__

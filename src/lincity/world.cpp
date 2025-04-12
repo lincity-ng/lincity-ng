@@ -373,94 +373,85 @@ int Map::len() const {
     return side_len;
 }
 
-bool Map::maximum(int x , int y) const {
-    int alt = maptile[x + y * side_len].ground.altitude;
-    bool is_max = true;
-    for (int i=0; i<8; i++)
-    {
-        int tx = x + dxo[i];
-        int ty = y + dyo[i];
-        is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);
-    }
-    return is_max;
+bool Map::maximum(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  for(MapPoint q : {p.n(),p.s(),p.w(),p.e(),p.nw(),p.ne(),p.sw(),p.se()})
+    if(alt < operator()(q)->ground.altitude) return false;
+  return true;
 }
-bool Map::maximum(MapPoint point) const {
-  return maximum(point.x, point.y);
+bool Map::maximum(int x, int y) const {
+  return maximum(MapPoint(x,y));
 }
 
-bool Map::minimum(int x , int y) const {
-    int alt = maptile[x + y * side_len].ground.altitude;
-    bool is_min = true;
-    for (int i=0; i<8; i++)
-    {
-        int tx = x + dxo[i];
-        int ty = y + dyo[i];
-        is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);
-    }
-    return is_min;
+bool Map::minimum(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  for(MapPoint q : {p.n(),p.s(),p.w(),p.e(),p.nw(),p.ne(),p.sw(),p.se()})
+    if(alt > operator()(q)->ground.altitude) return false;
+  return true;
 }
-bool Map::minimum(MapPoint point) const {
-  return minimum(point.x, point.y);
+bool Map::minimum(int x, int y) const {
+  return minimum(MapPoint(x,y));
 }
 
-bool Map::saddlepoint(int x , int y) const {
-    int alt = maptile[x + y * side_len].ground.altitude;
-    int dips = 0;
-    bool dip_new = alt > maptile[x + dxo[7] + (y + dyo[7])*side_len ].ground.altitude;
-    bool dip_old = dip_new;
-    for (int i=0; i<8; i++)
-    {
-        dip_new = alt > maptile[x + dxo[i]+ (y + dyo[i])*side_len].ground.altitude;
-        if (dip_new && !dip_old) //We just stepped into a valley
-        {
-                dips++;
-        }
-        dip_old = dip_new;
-    }
-    return dips > 1;
+bool Map::saddlepoint(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  int dips = 0;
+  bool prevLower = true;
+  for(MapPoint q : {p.w(),p.nw(),p.n(),p.ne(),p.e(),p.se(),p.s(),p.sw(),p.w()}){
+    bool lower = alt > operator()(q)->ground.altitude;
+    if(lower && !prevLower)
+      dips++;
+    prevLower = lower;
+  }
+  return dips > 1;
 }
-bool Map::saddlepoint(MapPoint point) const {
-  return saddlepoint(point.x, point.y);
+bool Map::saddlepoint(int x, int y) const {
+  return saddlepoint(MapPoint(x,y));
 }
 
-bool Map::checkEdgeMin(int x , int y) const {
-    int alt = maptile[x + y * side_len].ground.altitude;
-    if (x==1 || x == side_len-2)
-    {
-        return alt < maptile[x+1 + y * side_len].ground.altitude
-            && alt < maptile[x-1 + y * side_len].ground.altitude;
-    }
-    else if (y==1 || y == side_len-2)
-    {
-        return alt < maptile[x + (y+1) * side_len].ground.altitude
-            && alt < maptile[x + (y-1) * side_len].ground.altitude;
-    }
-    else
-        return false;
-}
 bool Map::checkEdgeMin(MapPoint point) const {
-  return checkEdgeMin(point.x, point.y);
+  MapPoint q1,q2;
+  if(point.x == 1 || point.x == side_len-2) {
+    q1 = point.w();
+    q2 = point.e();
+  }
+  else if(point.y == 1 || point.y == side_len-2) {
+    q1 = point.n();
+    q2 = point.s();
+  }
+  else
+    return false;
+
+  // handle corners
+  if(point == MapPoint(1,1))
+    q1 = point.s();
+  else if(point == MapPoint(1,side_len-2))
+    q2 = point.s();
+  else if(point == MapPoint(side_len-2,1))
+    q1 = point.n();
+  else if(point == MapPoint(side_len-2,side_len-2))
+    q2 = point.n();
+
+  int alt = operator()(point)->ground.altitude;
+  return alt < operator()(q1)->ground.altitude
+    && alt < operator()(q2)->ground.altitude;
+}
+bool Map::checkEdgeMin(int x, int y) const {
+  return checkEdgeMin(MapPoint(x,y));
 }
 
-Map::iterator
-Map::begin() {
-  return maptile.begin();
-}
-
-Map::iterator
-Map::end() {
-  return maptile.end();
-}
-
-Map::riterator
-Map::rbegin() {
-  return maptile.rbegin();
-}
-
-Map::riterator
-Map::rend() {
-  return maptile.rend();
-}
+Map::  iterator Map::  begin()       { return maptile.  begin(); }
+Map::  iterator Map::  end()         { return maptile.  end();   }
+Map:: riterator Map:: rbegin()       { return maptile. rbegin(); }
+Map:: riterator Map:: rend()         { return maptile. rend();   }
+Map:: citerator Map:: cbegin() const { return maptile. cbegin(); }
+Map:: citerator Map:: cend()   const { return maptile. cend();   }
+Map::criterator Map::crbegin() const { return maptile.crbegin(); }
+Map::criterator Map::crend()   const { return maptile.crend();   }
+Map:: citerator Map::  begin() const { return maptile.  begin(); }
+Map:: citerator Map::  end()   const { return maptile.  end();   }
+Map::criterator Map:: rbegin() const { return maptile. rbegin(); }
+Map::criterator Map:: rend()   const { return maptile. rend();   }
 
 World::World() :
   World(WORLD_SIDE_LEN)

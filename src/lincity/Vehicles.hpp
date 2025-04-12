@@ -26,6 +26,8 @@
 
 #include <list>  // for list
 
+#include "MapPoint.hpp"
+
 class World;
 enum Commodity : int;
 struct ExtraFrame;
@@ -36,59 +38,53 @@ struct ExtraFrame;
 
 #define COMMUTER_TRAFFIC_RATE 1024
 
-enum VehicleModel
-{
-    VEHICLE_BLUECAR,
-    VEHICLE_DEFAULT
+enum VehicleModel {
+  VEHICLE_BLUECAR,
+  VEHICLE_DEFAULT
 };
 
-enum VehicleStrategy
-{
-    VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_LABOR
-    VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_LABOR
-    VEHICLE_STRATEGY_RANDOM    //just do a random walk
+enum VehicleStrategy {
+  VEHICLE_STRATEGY_MAXIMIZE, //go towards more stuff eg. morning commute for STUFF_LABOR
+  VEHICLE_STRATEGY_MINIMIZE, //go towards less stuff eg. evening commute for STUFF_LABOR
+  VEHICLE_STRATEGY_RANDOM    //just do a random walk
 };
 
-class Vehicle
-{
+class Vehicle {
 public:
+  Vehicle(World& world, MapPoint point, VehicleModel model0,
+    VehicleStrategy vehicleStrategy = VEHICLE_STRATEGY_RANDOM);
 
-    Vehicle(World& world, int x0, int y0, VehicleModel model0, VehicleStrategy vehicleStrategy = VEHICLE_STRATEGY_RANDOM );
+  ~Vehicle(void);
 
-    ~Vehicle(void);
+  World& world;
+  //location, heading and comming from
+  MapPoint point, next, prev, old1, old2;
+  float xr, yr;
+  int death_counter;
+  bool turn_left;
+  unsigned int headings;
+  int direction;
 
-    World& world;
-    //location, heading and comming from
-    int x, xnext, xprev, xold1, xold2;
-    int y, ynext, yprev, yold1, yold2;
-    float xr, yr;
-    int death_counter;
-    bool turn_left;
-    unsigned int headings;
-    int direction;
+  VehicleModel model; //different vehicles
+  Commodity stuff_id; //cargo
+  int initial_cargo;
+  VehicleStrategy strategy; // delivery, pickup, random
+  std::list<ExtraFrame>::iterator frameIt; //the particular extraframe at the host
+  MapPoint framePt; //index of the maptile with the frame, NOT necessarily the current position
 
-    VehicleModel model; //different vehicles
-    Commodity stuff_id; //cargo
-    int initial_cargo;
-    VehicleStrategy strategy; // delivery, pickup, random
-    std::list<ExtraFrame>::iterator frameIt; //the particular extraframe at the host
-    int map_idx;    //index of the maptile with the frame, NOT necessarily the current position
-
-    int speed0, speed, anim;
-    void update(unsigned long real_time);
+  int speed0, speed, anim;
+  void update(unsigned long real_time);
 
 
-    static std::list<Vehicle*> vehicleList;
+  static std::list<Vehicle*> vehicleList;
 
-    static void cleanVehicleList(); //kill vehicles with deathcounter < 0
+  static void cleanVehicleList(); //kill vehicles with deathcounter < 0
 private:
-    void getNewHeadings(); //plan ahead for 2 tiles
-    bool acceptable_heading(int idx); //checks if a move would comply with the strategy
-    void drive();          //advance position by 1 tile
-    void walk(unsigned long real_time);           //change the offset of the sprite and evetually choose a tile to attach it to
-    void move_frame(int idx); //place the frame on the map aka *world(idx)
-
-
+  void getNewHeadings(); //plan ahead for 2 tiles
+  bool acceptable_heading(MapPoint dest); //checks if a move would comply with the strategy
+  void drive();          //advance position by 1 tile
+  void walk(unsigned long real_time);           //change the offset of the sprite and evetually choose a tile to attach it to
+  void move_frame(MapPoint newPoint); //place the frame on the map aka *world(idx)
 };
 
 #endif

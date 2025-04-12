@@ -220,20 +220,6 @@ World::do_daily_ecology() {
   /*TODO incorporate do_daily_ecology to simulate_mappoints. */
 }
 
-int
-Map::check_group(int x, int y) {
-  if(!is_inside(MapPoint(x,y)))
-    return -1;
-  return (*this)(MapPoint(x,y))->getGroup();
-}
-
-int
-Map::check_topgroup(int x, int y) {
-  if(!is_inside(MapPoint(x,y)))
-    return -1;
-  return (*this)(MapPoint(x,y))->getTopGroup();
-}
-
 void
 Map::connect_rivers(int x, int y) {
   MapPoint point(x,y);

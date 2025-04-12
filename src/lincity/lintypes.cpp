@@ -690,7 +690,7 @@ void Construction::trade()
                           && transport->canPlaceVehicle()
                         ) {
                           world.vehicleList.push_back(
-                            new Vehicle(world, point.x, point.y,
+                            new Vehicle(world, point,
                               VEHICLE_BLUECAR, (flow > 0)
                                 ? VEHICLE_STRATEGY_MAXIMIZE
                                 : VEHICLE_STRATEGY_MINIMIZE

@@ -34,7 +34,18 @@
 #include "resources.hpp"    // for ExtraFrame
 #include "world.hpp"        // for Map, MapTile
 
-
+// I don't really like the use of these functions because bounds checks should
+// be done by the caller, but alas this is the way connect_transport was
+// originally coded and it would be too much effort to change. So this is why
+// these two functions are static.
+static unsigned short check_group(Map& map, MapPoint point) {
+  if(!map.is_inside(point)) return 0;
+  else return map(point)->getGroup();
+}
+static unsigned short check_topgroup(Map& map, MapPoint point) {
+  if(!map.is_inside(point)) return 0;
+  else return map(point)->getTopGroup();
+}
 
 void
 Map::connect_transport(int originx, int originy, int lastx, int lasty) {
@@ -197,21 +208,21 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           break;
       }
       case GROUP_TRACK:
-          if (check_group(p.x, p.y - 1) == GROUP_TRACK
-          ||  check_group(p.x, p.y - 1) == GROUP_ROAD
-          || (check_group(p.x, p.y - 1) == GROUP_RAIL && //rail crossing
-              check_group(p.x, p.y - 2) == GROUP_TRACK))
+          if (check_group(map, p.n()) == GROUP_TRACK
+          ||  check_group(map, p.n()) == GROUP_ROAD
+          || (check_group(map, p.n()) == GROUP_RAIL && //rail crossing
+              check_group(map, p.n(2)) == GROUP_TRACK))
           {   mask |= 2;}
-          if (check_group(p.x - 1, p.y) == GROUP_TRACK
-          ||  check_group(p.x - 1, p.y) == GROUP_ROAD
-          || (check_group(p.x - 1, p.y) == GROUP_RAIL && //rail crossing
-              check_group(p.x - 2, p.y) == GROUP_TRACK))
+          if (check_group(map, p.w()) == GROUP_TRACK
+          ||  check_group(map, p.w()) == GROUP_ROAD
+          || (check_group(map, p.w()) == GROUP_RAIL && //rail crossing
+              check_group(map, p.w(2)) == GROUP_TRACK))
           {   mask |= 1;}
 
-          switch (check_topgroup(p.x + 1, p.y))
+          switch (check_topgroup(map, p.e()))
           {
               case GROUP_RAIL:
-                  if(check_group(p.x + 2, p.y) != GROUP_TRACK)
+                  if(check_group(map, p.e(2)) != GROUP_TRACK)
                   {   break;}
               case GROUP_ROAD:
               case GROUP_TRACK:
@@ -229,10 +240,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
                   break;
           }
 
-          switch (check_topgroup(p.x, p.y + 1))
+          switch (check_topgroup(map, p.s()))
           {
               case GROUP_RAIL:
-                  if(check_group(p.x, p.y + 2) != GROUP_TRACK)
+                  if(check_group(map, p.s(2)) != GROUP_TRACK)
                   {   break;}
               case GROUP_ROAD:
               case GROUP_TRACK:
@@ -251,29 +262,29 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           }
           // A track section between 2 bridge sections
           // in this special case we use a pillar bridge section with green
-          if ((check_group(p.x, p.y-1) == GROUP_TRACK_BRIDGE && (
-                  check_group(p.x, p.y+1) == GROUP_TRACK_BRIDGE || check_group(p.x, p.y+2) == GROUP_TRACK_BRIDGE))
-                  || (check_group(p.x, p.y+1) == GROUP_TRACK_BRIDGE && (
-                  check_group(p.x, p.y-1) == GROUP_TRACK_BRIDGE || check_group(p.x, p.y-2) == GROUP_TRACK_BRIDGE)))
+          if ((check_group(map, p.n()) == GROUP_TRACK_BRIDGE && (
+                  check_group(map, p.s()) == GROUP_TRACK_BRIDGE || check_group(map, p.s(2)) == GROUP_TRACK_BRIDGE))
+                  || (check_group(map, p.s()) == GROUP_TRACK_BRIDGE && (
+                  check_group(map, p.n()) == GROUP_TRACK_BRIDGE || check_group(map, p.n(2)) == GROUP_TRACK_BRIDGE)))
           {   *frame = 11;}
-          else if ((check_group(p.x-1, p.y) == GROUP_TRACK_BRIDGE && (
-                  check_group(p.x+1, p.y) == GROUP_TRACK_BRIDGE || check_group(p.x+2, p.y) == GROUP_TRACK_BRIDGE))
-                  || (check_group(p.x+1, p.y) == GROUP_TRACK_BRIDGE && (
-                  check_group(p.x-1, p.y) == GROUP_TRACK_BRIDGE || check_group(p.x-2, p.y) == GROUP_TRACK_BRIDGE)))
+          else if ((check_group(map, p.w()) == GROUP_TRACK_BRIDGE && (
+                  check_group(map, p.e()) == GROUP_TRACK_BRIDGE || check_group(map, p.e(2)) == GROUP_TRACK_BRIDGE))
+                  || (check_group(map, p.e()) == GROUP_TRACK_BRIDGE && (
+                  check_group(map, p.w()) == GROUP_TRACK_BRIDGE || check_group(map, p.w(2)) == GROUP_TRACK_BRIDGE)))
           {   *frame = 12;}
           // Set according bridge entrance if any
-          else if (check_group(p.x, p.y-1) == GROUP_TRACK_BRIDGE)
+          else if (check_group(map, p.n()) == GROUP_TRACK_BRIDGE)
           {   *frame = 13;}
-          else if (check_group(p.x-1, p.y) == GROUP_TRACK_BRIDGE)
+          else if (check_group(map, p.w()) == GROUP_TRACK_BRIDGE)
           {   *frame = 14;}
-          else if (check_group(p.x, p.y+1) == GROUP_TRACK_BRIDGE)
+          else if (check_group(map, p.s()) == GROUP_TRACK_BRIDGE)
           {   *frame = 15;}
-          else if (check_group(p.x+1, p.y) == GROUP_TRACK_BRIDGE)
+          else if (check_group(map, p.e()) == GROUP_TRACK_BRIDGE)
           {   *frame = 16;}
-          else if (check_group(p.x+1, p.y) == GROUP_RAIL &&
-                   check_group(p.x-1, p.y) == GROUP_RAIL &&
-                   check_group(p.x, p.y+1) == GROUP_TRACK &&
-                   check_group(p.x, p.y-1) == GROUP_TRACK)
+          else if (check_group(map, p.e()) == GROUP_RAIL &&
+                   check_group(map, p.w()) == GROUP_RAIL &&
+                   check_group(map, p.s()) == GROUP_TRACK &&
+                   check_group(map, p.n()) == GROUP_TRACK)
           {
               // David: IDK why we're placing a rail, but we don't have
               //        access to the World instance from here
@@ -291,10 +302,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
               *frame = 21;
 
           }
-          else if (check_group(p.x, p.y+1) == GROUP_RAIL &&
-                   check_group(p.x, p.y-1) == GROUP_RAIL &&
-                   check_group(p.x+1, p.y) == GROUP_TRACK &&
-                   check_group(p.x-1, p.y) == GROUP_TRACK)
+          else if (check_group(map, p.s()) == GROUP_RAIL &&
+                   check_group(map, p.n()) == GROUP_RAIL &&
+                   check_group(map, p.e()) == GROUP_TRACK &&
+                   check_group(map, p.w()) == GROUP_TRACK)
           {
               // David: IDK why we're placing a rail, but we don't have
               //        access to the World instance from here
@@ -328,14 +339,14 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
 
       case GROUP_TRACK_BRIDGE:
           // Bridge neighbour priority
-          if (check_group(p.x, p.y-1) == GROUP_TRACK_BRIDGE || check_group(p.x, p.y+1) == GROUP_TRACK_BRIDGE
-             || check_group(p.x, p.y-1) == GROUP_TRACK || check_group(p.x, p.y+1) == GROUP_TRACK)
+          if (check_group(map, p.n()) == GROUP_TRACK_BRIDGE || check_group(map, p.s()) == GROUP_TRACK_BRIDGE
+             || check_group(map, p.n()) == GROUP_TRACK || check_group(map, p.s()) == GROUP_TRACK)
           {
               mask |= 2;
               *frame = 0;
           }
-          else if (check_group(p.x-1, p.y) == GROUP_TRACK_BRIDGE || check_group(p.x+1, p.y) == GROUP_TRACK_BRIDGE
-              || check_group(p.x-1, p.y) == GROUP_TRACK || check_group(p.x+1, p.y) == GROUP_TRACK)
+          else if (check_group(map, p.w()) == GROUP_TRACK_BRIDGE || check_group(map, p.e()) == GROUP_TRACK_BRIDGE
+              || check_group(map, p.w()) == GROUP_TRACK || check_group(map, p.e()) == GROUP_TRACK)
           {
               mask |= 1;
               *frame = 1;
@@ -347,21 +358,21 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           break;
 
       case GROUP_ROAD:
-          if (check_group(p.x, p.y - 1) == GROUP_ROAD
-          ||  check_group(p.x, p.y - 1) == GROUP_TRACK
-          || (check_group(p.x, p.y - 1) == GROUP_RAIL && //rail crossing
-              check_group(p.x, p.y - 2) == GROUP_ROAD))
+          if (check_group(map, p.n()) == GROUP_ROAD
+          ||  check_group(map, p.n()) == GROUP_TRACK
+          || (check_group(map, p.n()) == GROUP_RAIL && //rail crossing
+              check_group(map, p.n(2)) == GROUP_ROAD))
           {   mask |= 2;}
-          if (check_group(p.x - 1, p.y) == GROUP_ROAD
-          ||  check_group(p.x - 1, p.y) == GROUP_TRACK
-          || (check_group(p.x - 1, p.y) == GROUP_RAIL && //rail crossing
-              check_group(p.x - 2, p.y) == GROUP_ROAD))
+          if (check_group(map, p.w()) == GROUP_ROAD
+          ||  check_group(map, p.w()) == GROUP_TRACK
+          || (check_group(map, p.w()) == GROUP_RAIL && //rail crossing
+              check_group(map, p.w(2)) == GROUP_ROAD))
           {   mask |= 1;}
 
-          switch (check_topgroup(p.x + 1, p.y))
+          switch (check_topgroup(map, p.e()))
           {
               case GROUP_RAIL:
-                  if(check_group(p.x + 2, p.y) != GROUP_ROAD)
+                  if(check_group(map, p.e(2)) != GROUP_ROAD)
                   {   break;}
               case GROUP_TRACK:
               case GROUP_ROAD:
@@ -377,10 +388,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
                   mask |= 4;
                   break;
           }
-          switch (check_topgroup(p.x, p.y + 1))
+          switch (check_topgroup(map, p.s()))
           {
               case GROUP_RAIL:
-                  if(check_group(p.x, p.y + 2) != GROUP_ROAD)
+                  if(check_group(map, p.s(2)) != GROUP_ROAD)
                   {   break;}
               case GROUP_TRACK:
               case GROUP_ROAD:
@@ -398,38 +409,38 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           }
           // A road section between 2 bridge sections
           // in this special case we use a pillar bridge section with green
-          if ((check_group(p.x, p.y-1) == GROUP_ROAD_BRIDGE && (
-                  check_group(p.x, p.y+1) == GROUP_ROAD_BRIDGE || check_group(p.x, p.y+2) == GROUP_ROAD_BRIDGE))
-                  || (check_group(p.x, p.y+1) == GROUP_ROAD_BRIDGE && (
-                  check_group(p.x, p.y-1) == GROUP_ROAD_BRIDGE || check_group(p.x, p.y-2) == GROUP_ROAD_BRIDGE)))
+          if ((check_group(map, p.n()) == GROUP_ROAD_BRIDGE && (
+                  check_group(map, p.s()) == GROUP_ROAD_BRIDGE || check_group(map, p.s(2)) == GROUP_ROAD_BRIDGE))
+                  || (check_group(map, p.s()) == GROUP_ROAD_BRIDGE && (
+                  check_group(map, p.n()) == GROUP_ROAD_BRIDGE || check_group(map, p.n(2)) == GROUP_ROAD_BRIDGE)))
           {   *frame = 11;}
-          else if ((check_group(p.x-1, p.y) == GROUP_ROAD_BRIDGE && (
-                  check_group(p.x+1, p.y) == GROUP_ROAD_BRIDGE || check_group(p.x+2, p.y) == GROUP_ROAD_BRIDGE))
-                  || (check_group(p.x+1, p.y) == GROUP_ROAD_BRIDGE && (
-                  check_group(p.x-1, p.y) == GROUP_ROAD_BRIDGE || check_group(p.x-2, p.y) == GROUP_ROAD_BRIDGE)))
+          else if ((check_group(map, p.w()) == GROUP_ROAD_BRIDGE && (
+                  check_group(map, p.e()) == GROUP_ROAD_BRIDGE || check_group(map, p.e(2)) == GROUP_ROAD_BRIDGE))
+                  || (check_group(map, p.e()) == GROUP_ROAD_BRIDGE && (
+                  check_group(map, p.w()) == GROUP_ROAD_BRIDGE || check_group(map, p.w(2)) == GROUP_ROAD_BRIDGE)))
           {   *frame = 12;}
           // Build bridge entrance2
-          else if (check_group(p.x, p.y-1) == GROUP_ROAD_BRIDGE)
+          else if (check_group(map, p.n()) == GROUP_ROAD_BRIDGE)
           {   *frame = 13;}
-          else if (check_group(p.x-1, p.y) == GROUP_ROAD_BRIDGE)
+          else if (check_group(map, p.w()) == GROUP_ROAD_BRIDGE)
           {   *frame = 14;}
-          else if (check_group(p.x, p.y+1) == GROUP_ROAD_BRIDGE)
+          else if (check_group(map, p.s()) == GROUP_ROAD_BRIDGE)
           {   *frame = 15;}
-          else if (check_group(p.x+1, p.y) == GROUP_ROAD_BRIDGE)
+          else if (check_group(map, p.e()) == GROUP_ROAD_BRIDGE)
           {   *frame = 16;}
           // Build bridge entrance1
-          else if (check_group(p.x, p.y-2) == GROUP_ROAD_BRIDGE && check_group(p.x, p.y-1) == GROUP_ROAD)
+          else if (check_group(map, p.n(2)) == GROUP_ROAD_BRIDGE && check_group(map, p.n()) == GROUP_ROAD)
           {   *frame = 17;}
-          else if (check_group(p.x-2, p.y) == GROUP_ROAD_BRIDGE && check_group(p.x-1, p.y) == GROUP_ROAD)
+          else if (check_group(map, p.w(2)) == GROUP_ROAD_BRIDGE && check_group(map, p.w()) == GROUP_ROAD)
           {   *frame = 18;}
-          else if (check_group(p.x, p.y+2) == GROUP_ROAD_BRIDGE && check_group(p.x, p.y+1) == GROUP_ROAD)
+          else if (check_group(map, p.s(2)) == GROUP_ROAD_BRIDGE && check_group(map, p.s()) == GROUP_ROAD)
           {   *frame = 19;}
-          else if (check_group(p.x+2, p.y) == GROUP_ROAD_BRIDGE && check_group(p.x+1, p.y) == GROUP_ROAD)
+          else if (check_group(map, p.e(2)) == GROUP_ROAD_BRIDGE && check_group(map, p.e()) == GROUP_ROAD)
           {   *frame = 20;}
-          else if (check_group(p.x+1, p.y) == GROUP_RAIL &&
-                   check_group(p.x-1, p.y) == GROUP_RAIL &&
-                   check_group(p.x, p.y+1) == GROUP_ROAD &&
-                   check_group(p.x, p.y-1) == GROUP_ROAD)
+          else if (check_group(map, p.e()) == GROUP_RAIL &&
+                   check_group(map, p.w()) == GROUP_RAIL &&
+                   check_group(map, p.s()) == GROUP_ROAD &&
+                   check_group(map, p.n()) == GROUP_ROAD)
           {
               // David: IDK why we're placing a rail, but we don't have
               //        access to the World instance from here
@@ -446,10 +457,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
 
               *frame = 23;
           }
-          else if (check_group(p.x, p.y+1) == GROUP_RAIL &&
-                   check_group(p.x, p.y-1) == GROUP_RAIL &&
-                   check_group(p.x+1, p.y) == GROUP_ROAD &&
-                   check_group(p.x-1, p.y) == GROUP_ROAD)
+          else if (check_group(map, p.s()) == GROUP_RAIL &&
+                   check_group(map, p.n()) == GROUP_RAIL &&
+                   check_group(map, p.e()) == GROUP_ROAD &&
+                   check_group(map, p.w()) == GROUP_ROAD)
           {
               // David: IDK why we're placing a rail, but we don't have
               //        access to the World instance from here
@@ -482,13 +493,13 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
 
       case GROUP_ROAD_BRIDGE:
           // Bridge neighbour priority
-          if (check_group(p.x, p.y-1) == GROUP_ROAD_BRIDGE || check_group(p.x, p.y+1) == GROUP_ROAD_BRIDGE)
+          if (check_group(map, p.n()) == GROUP_ROAD_BRIDGE || check_group(map, p.s()) == GROUP_ROAD_BRIDGE)
           {   *frame = 0;}
-          else if (check_group(p.x-1, p.y) == GROUP_ROAD_BRIDGE || check_group(p.x+1, p.y) == GROUP_ROAD_BRIDGE)
+          else if (check_group(map, p.w()) == GROUP_ROAD_BRIDGE || check_group(map, p.e()) == GROUP_ROAD_BRIDGE)
           {   *frame = 1;}
-          else if (check_group(p.x, p.y-1) == GROUP_ROAD || check_group(p.x, p.y+1) == GROUP_ROAD)
+          else if (check_group(map, p.n()) == GROUP_ROAD || check_group(map, p.s()) == GROUP_ROAD)
           {   *frame = 0;}//2
-          else if (check_group(p.x-1, p.y) == GROUP_ROAD || check_group(p.x+1, p.y) == GROUP_ROAD)
+          else if (check_group(map, p.w()) == GROUP_ROAD || check_group(map, p.e()) == GROUP_ROAD)
           {   *frame = 1;}//3
           else
           {  *frame = 1;}
@@ -496,12 +507,12 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           break;
 
       case GROUP_RAIL:
-          if (check_group(p.x, p.y - 1) == GROUP_RAIL)
+          if (check_group(map, p.n()) == GROUP_RAIL)
           {   mask |= 2;}
-          if (check_group(p.x - 1, p.y) == GROUP_RAIL)
+          if (check_group(map, p.w()) == GROUP_RAIL)
           {   mask |= 1;}
 
-          switch (check_topgroup(p.x + 1, p.y)) {
+          switch (check_topgroup(map, p.e())) {
               case GROUP_RAIL:
               case GROUP_COMMUNE:
               case GROUP_COALMINE:
@@ -515,7 +526,7 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
                   mask |= 4;
                   break;
           }
-          switch (check_topgroup(p.x, p.y + 1)) {
+          switch (check_topgroup(map, p.s())) {
               case GROUP_RAIL:
               case GROUP_COMMUNE:
               case GROUP_COALMINE:
@@ -531,46 +542,46 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           }
           // A rail section between 2 bridge sections
           // in this special case we use a pillar bridge section with green
-          if ((check_group(p.x, p.y-1) == GROUP_RAIL_BRIDGE && (
-                  check_group(p.x, p.y+1) == GROUP_RAIL_BRIDGE || check_group(p.x, p.y+2) == GROUP_RAIL_BRIDGE))
-                  || (check_group(p.x, p.y+1) == GROUP_RAIL_BRIDGE && (
-                  check_group(p.x, p.y-1) == GROUP_RAIL_BRIDGE || check_group(p.x, p.y-2) == GROUP_RAIL_BRIDGE)))
+          if ((check_group(map, p.n()) == GROUP_RAIL_BRIDGE && (
+                  check_group(map, p.s()) == GROUP_RAIL_BRIDGE || check_group(map, p.s(2)) == GROUP_RAIL_BRIDGE))
+                  || (check_group(map, p.s()) == GROUP_RAIL_BRIDGE && (
+                  check_group(map, p.n()) == GROUP_RAIL_BRIDGE || check_group(map, p.n(2)) == GROUP_RAIL_BRIDGE)))
           {   *frame = 11;}
-          else if ((check_group(p.x-1, p.y) == GROUP_RAIL_BRIDGE && (
-                  check_group(p.x+1, p.y) == GROUP_RAIL_BRIDGE || check_group(p.x+2, p.y) == GROUP_RAIL_BRIDGE))
-                  || (check_group(p.x+1, p.y) == GROUP_RAIL_BRIDGE && (
-                  check_group(p.x-1, p.y) == GROUP_RAIL_BRIDGE || check_group(p.x-2, p.y) == GROUP_RAIL_BRIDGE)))
+          else if ((check_group(map, p.w()) == GROUP_RAIL_BRIDGE && (
+                  check_group(map, p.e()) == GROUP_RAIL_BRIDGE || check_group(map, p.e(2)) == GROUP_RAIL_BRIDGE))
+                  || (check_group(map, p.e()) == GROUP_RAIL_BRIDGE && (
+                  check_group(map, p.w()) == GROUP_RAIL_BRIDGE || check_group(map, p.w(2)) == GROUP_RAIL_BRIDGE)))
           {   *frame = 12;}
           // Build bridge entrance2
-          else if (check_group(p.x, p.y-1) == GROUP_RAIL_BRIDGE)
+          else if (check_group(map, p.n()) == GROUP_RAIL_BRIDGE)
           {   *frame = 13;}
-          else if (check_group(p.x-1, p.y) == GROUP_RAIL_BRIDGE)
+          else if (check_group(map, p.w()) == GROUP_RAIL_BRIDGE)
           {   *frame = 14;}
-          else if (check_group(p.x, p.y+1) == GROUP_RAIL_BRIDGE)
+          else if (check_group(map, p.s()) == GROUP_RAIL_BRIDGE)
           {   *frame = 15;}
-          else if (check_group(p.x+1, p.y) == GROUP_RAIL_BRIDGE)
+          else if (check_group(map, p.e()) == GROUP_RAIL_BRIDGE)
           {   *frame = 16;}
           // Build bridge entrance1
-          else if (check_group(p.x, p.y-2) == GROUP_RAIL_BRIDGE && check_group(p.x, p.y-1) == GROUP_RAIL)
+          else if (check_group(map, p.n(2)) == GROUP_RAIL_BRIDGE && check_group(map, p.n()) == GROUP_RAIL)
           {   *frame = 17;}
-          else if (check_group(p.x-2, p.y) == GROUP_RAIL_BRIDGE && check_group(p.x-1, p.y) == GROUP_RAIL)
+          else if (check_group(map, p.w(2)) == GROUP_RAIL_BRIDGE && check_group(map, p.w()) == GROUP_RAIL)
           {   *frame = 18;}
-          else if (check_group(p.x, p.y+2) == GROUP_RAIL_BRIDGE && check_group(p.x, p.y+1) == GROUP_RAIL)
+          else if (check_group(map, p.s(2)) == GROUP_RAIL_BRIDGE && check_group(map, p.s()) == GROUP_RAIL)
           {   *frame = 19;}
-          else if (check_group(p.x+2, p.y) == GROUP_RAIL_BRIDGE && check_group(p.x+1, p.y) == GROUP_RAIL)
+          else if (check_group(map, p.e(2)) == GROUP_RAIL_BRIDGE && check_group(map, p.e()) == GROUP_RAIL)
           {   *frame = 20;}
           //railroad crossings
-          else if (check_group(p.x+1, p.y) == GROUP_TRACK &&
-                   check_group(p.x-1, p.y) == GROUP_TRACK)
+          else if (check_group(map, p.e()) == GROUP_TRACK &&
+                   check_group(map, p.w()) == GROUP_TRACK)
           {   *frame = 22; }
-          else if (check_group(p.x, p.y+1) == GROUP_TRACK &&
-                   check_group(p.x, p.y-1) == GROUP_TRACK)
+          else if (check_group(map, p.s()) == GROUP_TRACK &&
+                   check_group(map, p.n()) == GROUP_TRACK)
           {   *frame = 21; }
-          else if (check_group(p.x+1, p.y) == GROUP_ROAD &&
-                   check_group(p.x-1, p.y) == GROUP_ROAD)
+          else if (check_group(map, p.e()) == GROUP_ROAD &&
+                   check_group(map, p.w()) == GROUP_ROAD)
           {   *frame = 24; }
-          else if (check_group(p.x, p.y+1) == GROUP_ROAD &&
-                   check_group(p.x, p.y-1) == GROUP_ROAD)
+          else if (check_group(map, p.s()) == GROUP_ROAD &&
+                   check_group(map, p.n()) == GROUP_ROAD)
           {   *frame = 23; }
 
           else
@@ -589,11 +600,11 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
 
       case GROUP_RAIL_BRIDGE:
           // Bridge neighbour priority
-          if (check_group(p.x, p.y-1) == GROUP_RAIL_BRIDGE || check_group(p.x, p.y+1) == GROUP_RAIL_BRIDGE
-             || check_group(p.x, p.y-1) == GROUP_RAIL || check_group(p.x, p.y+1) == GROUP_RAIL)
+          if (check_group(map, p.n()) == GROUP_RAIL_BRIDGE || check_group(map, p.s()) == GROUP_RAIL_BRIDGE
+             || check_group(map, p.n()) == GROUP_RAIL || check_group(map, p.s()) == GROUP_RAIL)
           {   *frame = 0;}
-          else if (check_group(p.x-1, p.y) == GROUP_RAIL_BRIDGE || check_group(p.x+1, p.y) == GROUP_RAIL_BRIDGE
-              || check_group(p.x-1, p.y) == GROUP_RAIL || check_group(p.x+1, p.y) == GROUP_RAIL)
+          else if (check_group(map, p.w()) == GROUP_RAIL_BRIDGE || check_group(map, p.e()) == GROUP_RAIL_BRIDGE
+              || check_group(map, p.w()) == GROUP_RAIL || check_group(map, p.e()) == GROUP_RAIL)
           {   *frame = 1;}
           else
           {   *frame = 1;}

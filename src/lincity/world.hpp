@@ -156,10 +156,20 @@ public:
   std::vector<MapPoint> polluted;
   using iterator = std::vector<MapTile>::iterator;
   using riterator = std::vector<MapTile>::reverse_iterator;
+  using citerator = std::vector<MapTile>::const_iterator;
+  using criterator = std::vector<MapTile>::const_reverse_iterator;
   iterator begin();
   iterator end();
   riterator rbegin();
   riterator rend();
+  citerator cbegin() const;
+  citerator cend() const;
+  criterator crbegin() const;
+  criterator crend() const;
+  citerator begin() const;
+  citerator end() const;
+  criterator rbegin() const;
+  criterator rend() const;
 
   int alt_min, alt_max, alt_step;
 
@@ -176,8 +186,6 @@ public:
   void desert_water_frontiers(MapPoint p0, MapPoint p1);
   void desert_water_frontiers(int originx, int originy, int w, int h);
   void connect_rivers(int x, int y);
-  [[deprecated]] int check_group(int x, int y);
-  [[deprecated]] int check_topgroup(int x, int y);
 
 protected:
   int side_len;

@@ -972,13 +972,11 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
 static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
   xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"size", "%d", map.len());
 
-  for(int y = 0; y < map.len(); y++)
-  for(int x = 0; x < map.len(); x++) {
-    const MapTile& tile = *map(x, y);
+  for(const MapTile& tile : map) {
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"MapTile");
       xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", tile.group);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", x);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", y);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", tile.point.x);
+      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", tile.point.y);
       saveMapTile(xmlWriter, tile);
     xmlTextWriterEndElement(xmlWriter);
   }
@@ -1023,25 +1021,29 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
 
     if(xmlReader.get_name() == "MapTile") {
       unsigned short group = std::stoi(xmlReader.get_attribute("group"));
-      int x = std::stoi(xmlReader.get_attribute("map-x"));
-      int y = std::stoi(xmlReader.get_attribute("map-y"));
-      if(!map.is_inside(x, y))
+      MapPoint point(
+        std::stoi(xmlReader.get_attribute("map-x")),
+        std::stoi(xmlReader.get_attribute("map-y"))
+      );
+      if(!map.is_inside(point))
         throw std::runtime_error("a MapTile seems to be outside the map");
-      MapTile& tile = *map(x, y);
+      MapTile& tile = *map(point);
       tile.group = group;
       loadMapTile(xmlReader, tile, ldsv_version);
     }
     else if(xmlReader.get_name() == "Construction") {
       int group = std::stoi(xmlReader.get_attribute("group"));
-      int x = std::stoi(xmlReader.get_attribute("map-x"));
-      int y = std::stoi(xmlReader.get_attribute("map-y"));
+      MapPoint point(
+        std::stoi(xmlReader.get_attribute("map-x")),
+        std::stoi(xmlReader.get_attribute("map-y"))
+      );
       ConstructionGroup *cstgrp =
         ConstructionGroup::getConstructionGroup(group);
       if(!cstgrp)
         throw std::runtime_error("invalid group");
       Construction *cst = cstgrp->createConstruction(world);
       cst->load(xmlReader, ldsv_version);
-      constructions.emplace_back(cst, MapPoint(x, y));
+      constructions.emplace_back(cst, point);
     }
     else if(xmlReader.get_name() == "recentPoint" && ldsv_version > 2130) {
       bool found_x = false, found_y = false;
@@ -1078,10 +1080,10 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
     cst.first->place(cst.second);
   }
 
-  map.alt_min = map.alt_max = map(0, 0)->ground.altitude;
-  for (int i = 0; i < map.len() * map.len(); i++) {
-    map.alt_min = std::min(map.alt_min, map(i)->ground.altitude);
-    map.alt_max = std::max(map.alt_max, map(i)->ground.altitude);
+  map.alt_min = map.alt_max = map(MapPoint(0,0))->ground.altitude;
+  for(const MapTile& tile : map) {
+    map.alt_min = std::min(map.alt_min, tile.ground.altitude);
+    map.alt_max = std::max(map.alt_max, tile.ground.altitude);
   }
   map.alt_step = (map.alt_max - map.alt_min) / 10;
 
