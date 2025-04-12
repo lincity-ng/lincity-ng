@@ -441,7 +441,7 @@ void
 ButtonPanel::showUpMessage(const std::string& upMessage) {
   std::filesystem::path msgFile("gui/dialogs/");
   msgFile /= upMessage;
-  if(msgFile.extension() == ".msg")
+  if(msgFile.extension() == ".mes")
     msgFile.replace_extension(".xml");
 
   std::unique_ptr<Window> dialog(dynamic_cast<Window *>(loadGUIFile(msgFile)));
