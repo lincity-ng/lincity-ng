@@ -22,8 +22,10 @@
 #ifndef __LINCITYNG_LINCITY_MAPPOINT_HPP__
 #define __LINCITYNG_LINCITY_MAPPOINT_HPP__
 
-#include <ostream>
-#include <vector>
+#include <cstddef>      // for size_t
+#include <ostream>      // for ostream
+
+namespace std { template<class Key> struct hash; }  // IWYU pragma: keep
 
 class MapPoint {
 public:

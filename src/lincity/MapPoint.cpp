@@ -21,7 +21,7 @@
 
 #include "MapPoint.hpp"
 
-#include <vector>
+#include <functional>  // for hash
 
 MapPoint::MapPoint(int x, int y)
   : x(x), y(y)

@@ -22,23 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <cassert>                // for assert
-#include <deque>                  // for deque
-#include <limits.h>               // for INT_MAX
-#include <memory>                 // for __shared_ptr_access
-#include <stdlib.h>               // for rand
-#include <unordered_set>          // for unordered_set
-#include <vector>                 // for vector
-#include <optional>
+#include <algorithm>                // for max
+#include <cassert>                  // for assert
+#include <climits>                  // for INT_MAX
+#include <cstdlib>                  // for rand
+#include <deque>                    // for deque
+#include <initializer_list>         // for initializer_list
+#include <memory>                   // for __shared_ptr_access
+#include <optional>                 // for optional, nullopt, nullopt_t
+#include <unordered_set>            // for unordered_set
+#include <vector>                   // for vector
 
 #include "ConstructionRequest.hpp"  // for SetOnFire
-#include "MapPoint.hpp"           // for MapPoint
-#include "engglobs.hpp"             // for dx, dy
-#include "groups.hpp"               // for GROUP_DESERT, GROUP_PORT, GROUP_WATER
+#include "MapPoint.hpp"             // for MapPoint, hash
+#include "groups.hpp"               // for GROUP_DESERT, GROUP_WATER, GROUP_...
 #include "lctypes.hpp"              // for CST_GREEN
-#include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_CRICKET_COVER
+#include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_IS_RIVER
 #include "lintypes.hpp"             // for Construction, ConstructionGroup
-#include "messages.hpp"           // for OutOfMoneyMessage, FireStartedMessage
+#include "messages.hpp"             // for OutOfMoneyMessage, FireStartedMes...
 #include "modules/all_modules.hpp"  // for Residence
 #include "stats.hpp"                // for Stat, Stats
 #include "world.hpp"                // for Map, World, MapTile

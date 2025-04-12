@@ -23,21 +23,21 @@
 
 #include "Vehicles.hpp"
 
-#include <stdlib.h>         // for rand, NULL
+#include <stdlib.h>         // for NULL
+#include <bitset>           // for bitset
+#include <cassert>          // for assert
 #include <cmath>            // for ceil
-#include <iostream>         // for basic_ostream, basic_ostream::operator<<
 #include <map>              // for map
-#include <string>           // for basic_string, char_traits, operator<
+#include <random>           // for discrete_distribution
+#include <string>           // for basic_string, operator<
 #include <vector>           // for vector
-#include <cassert>
-#include <bitset>
 
 #include "commodities.hpp"  // for Commodity
-#include "groups.hpp"         // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
-#include "lintypes.hpp"       // for Construction
+#include "groups.hpp"       // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
+#include "lintypes.hpp"     // for Construction
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "world.hpp"          // for World, Map, MapTile
-#include "util.hpp"
+#include "util.hpp"         // for LcUrbg
+#include "world.hpp"        // for World, Map, MapTile
 
 Vehicle::Vehicle(World& world, MapPoint point, VehicleModel model0,
   VehicleStrategy vehicleStrategy

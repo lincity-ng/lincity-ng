@@ -22,44 +22,43 @@
 
 #include "Dialog.hpp"
 
-#include <assert.h>                       // for assert
-#include <config.h>                       // for PACKAGE_VERSION
-#include <stdio.h>                        // for snprintf
-#include <stdlib.h>                       // for free, malloc
-#include <array>                          // for array
-#include <exception>                      // for exception
-#include <filesystem>                     // for path, operator/
-#include <fstream>                        // for basic_ostream, operator<<
-#include <functional>                     // for bind, _1, function
-#include <iostream>                       // for cerr
-#include <sstream>                        // for basic_stringstream
-#include <stdexcept>                      // for runtime_error
-#include <vector>                         // for vector
+#include <assert.h>                         // for assert
+#include <config.h>                         // for PACKAGE_VERSION
+#include <stdio.h>                          // for snprintf
+#include <stdlib.h>                         // for free, malloc
+#include <array>                            // for array
+#include <exception>                        // for exception
+#include <filesystem>                       // for path, operator/
+#include <fstream>                          // for basic_ostream, operator<<
+#include <functional>                       // for bind, _1, function
+#include <iostream>                         // for cerr
+#include <sstream>                          // for basic_stringstream
+#include <stdexcept>                        // for runtime_error
+#include <vector>                           // for vector
 
-#include "Config.hpp"                     // for getConfig, Config
-#include "Game.hpp"                       // for Game
-#include "GameView.hpp"                   // for GameView
-#include "Mps.hpp"                        // for MpsMap
-#include "Util.hpp"                       // for getCheckButton, getButton
-#include "gui/Button.hpp"                 // for Button
-#include "gui/CheckButton.hpp"            // for CheckButton
-#include "gui/Component.hpp"              // for Component
-#include "gui/ComponentLoader.hpp"        // for loadGUIFile
-#include "gui/Paragraph.hpp"              // for Paragraph
-#include "gui/Signal.hpp"                 // for Signal
-#include "gui/SwitchComponent.hpp"        // for SwitchComponent
-#include "gui/Window.hpp"                 // for Window
-#include "gui/WindowManager.hpp"          // for WindowManager
-#include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/commodities.hpp"        // for CommodityRule, Commodity
-#include "lincity/util.hpp"                // for current_year, current_month
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, RESULTS_FIL...
-#include "lincity/lintypes.hpp"             // for Construction, NUMOF_DAYS_IN...
-#include "lincity/modules/all_modules.hpp"  // for Market, ResidenceConstructi...
+#include "Config.hpp"                       // for getConfig, Config
+#include "Game.hpp"                         // for Game
+#include "GameView.hpp"                     // for GameView
+#include "Mps.hpp"                          // for MpsMap
+#include "Util.hpp"                         // for getCheckButton, getButton
+#include "gui/Button.hpp"                   // for Button
+#include "gui/CheckButton.hpp"              // for CheckButton
+#include "gui/Component.hpp"                // for Component
+#include "gui/ComponentLoader.hpp"          // for loadGUIFile
+#include "gui/Paragraph.hpp"                // for Paragraph
+#include "gui/Signal.hpp"                   // for Signal
+#include "gui/SwitchComponent.hpp"          // for SwitchComponent
+#include "gui/Window.hpp"                   // for Window
+#include "gui/WindowManager.hpp"            // for WindowManager
+#include "lincity/MapPoint.hpp"             // for MapPoint, operator<<
+#include "lincity/commodities.hpp"          // for CommodityRule, Commodity
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, RESULTS_F...
+#include "lincity/lintypes.hpp"             // for Construction, NUMOF_DAYS_...
+#include "lincity/modules/all_modules.hpp"  // for Market, ResidenceConstruc...
 #include "lincity/stats.hpp"                // for Stats, Stat
+#include "lincity/util.hpp"                 // for current_year, current_month
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "tinygettext/gettext.hpp"        // for _
-#include "lincity/MapPoint.hpp"
+#include "tinygettext/gettext.hpp"          // for _
 
 using namespace std::placeholders;
 

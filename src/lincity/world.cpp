@@ -25,26 +25,25 @@
 
 #include "world.hpp"
 
-#include <stdlib.h>               // for NULL
-#include <iostream>               // for basic_ostream, operator<<, basic_os...
-#include <iterator>               // for advance
-#include <map>                    // for map
-#include <string>                 // for basic_string, char_traits, operator<
-#include <cassert>
+#include <stdlib.h>                 // for NULL
+#include <cassert>                  // for assert
+#include <initializer_list>         // for initializer_list
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <iterator>                 // for advance
+#include <map>                      // for map
+#include <string>                   // for basic_string, char_traits, operator<
 
-#include "ConstructionRequest.hpp"  // for BurnDownRequest, ConstructionDeleti...
+#include "ConstructionRequest.hpp"  // for BurnDownRequest, ConstructionDele...
 #include "all_buildings.hpp"        // for GROUP_WATER_COST
-#include "engglobs.hpp"             // for dxo, dyo
-#include "groups.hpp"               // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
-#include "lctypes.hpp"              // for CST_GREEN, CST_DESERT
+#include "groups.hpp"               // for GROUP_WATER, GROUP_BARE, GROUP_DE...
 #include "lin-city.hpp"             // for FLAG_IS_RIVER, FLAG_TRANSPARENT
 #include "lintypes.hpp"             // for Construction, ConstructionGroup
 #include "modules/fire.hpp"         // for fireConstructionGroup
 #include "modules/market.hpp"       // for Market
 #include "modules/monument.hpp"     // for Monument
-#include "modules/tile.hpp"       // for TileConstructionGroup, desertConstr...
+#include "modules/tile.hpp"         // for TileConstructionGroup, desertCons...
 #include "modules/tip.hpp"          // for Tip
-#include "resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "resources.hpp"            // for ExtraFrame, ResourceGroup
 
 Ground::Ground() {
   altitude = 0;

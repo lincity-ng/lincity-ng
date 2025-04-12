@@ -23,32 +23,34 @@
 
 #include "init_game.hpp"
 
+#include <algorithm>                // for max, min
 #include <cassert>                  // for assert
+#include <climits>                  // for INT_MIN, INT_MAX
 #include <cmath>                    // for pow, exp
 #include <cstdlib>                  // for rand, RAND_MAX
 #include <deque>                    // for deque
+#include <initializer_list>         // for initializer_list
 #include <iostream>                 // for basic_ostream, operator<<, char_t...
 #include <memory>                   // for unique_ptr
-#include <random>                   // for uniform_int_distribution
+#include <optional>                 // for optional
+#include <queue>                    // for priority_queue
+#include <random>                   // for uniform_int_distribution, bernoul...
+#include <unordered_set>            // for unordered_set
+#include <utility>                  // for pair
 #include <vector>                   // for vector
-#include <optional>
-#include <queue>
 
-#include "MapPoint.hpp"             // for MapPoint
+#include "MapPoint.hpp"             // for MapPoint, operator<<, hash
 #include "all_buildings.hpp"        // for COAL_RESERVE_SIZE, ORE_RESERVE
-#include "engglobs.hpp"             // for dx, dy, dxo, dyo
-#include "groups.hpp"               // for GROUP_BARE, GROUP_TREE, GROUP_DESERT
-#include "lctypes.hpp"              // for CST_WATER
+#include "groups.hpp"               // for GROUP_BARE, GROUP_TREE, GROUP_TREE2
 #include "lin-city.hpp"             // for FLAG_HAS_UNDERGROUND_WATER, FLAG_...
 #include "lintypes.hpp"             // for Construction, NUMOF_COAL_RESERVES
 #include "modules/all_modules.hpp"  // for CommuneConstructionGroup, commune...
-#include "stats.hpp"                // for Stats
 #include "util.hpp"                 // for LcUrbg
-#include "world.hpp"                // for Map, MapTile, Ground, World
+#include "world.hpp"                // for MapTile, Map, Ground, World
 
 #ifdef DEBUG
 // #include <assert.h>                        // for assert
-#include <stdio.h>                  // for fprintf, size_t, stderr
+#include <stdio.h>                  // for fprintf, stderr
 #endif
 
 

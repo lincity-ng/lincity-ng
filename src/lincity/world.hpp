@@ -32,11 +32,11 @@
 #include <iostream>         // for ostream
 #include <list>             // for list
 #include <memory>           // for unique_ptr
+#include <optional>
 #include <set>              // for set
 #include <string>           // for basic_string, string
 #include <unordered_set>    // for unordered_set
 #include <vector>           // for vector
-#include <optional>
 
 #include "MapPoint.hpp"     // for MapPoint
 #include "all_buildings.hpp"  // for COAL_TAX_RATE, DOLE_RATE, GOODS_TAX_RATE
