@@ -661,7 +661,12 @@ Game::handleMessage(Message::ptr message_) {
       .messageAddText("Launch now?")
       .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
       .buttonSet(DialogBuilder::ButtonSet::YESNO)
-      // TODO: onYes
+      .onYes([this, point = message->getPoint()]() {
+        RocketPad *rocket = dynamic_cast<RocketPad *>(
+          getWorld().map(point)->construction);
+        if(!rocket) return; // it must have been deleted
+        rocket->launch_rocket();
+      })
       .build();
   }
   else if(RocketResultMessage::ptr message =
