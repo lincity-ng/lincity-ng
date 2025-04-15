@@ -1,5 +1,5 @@
 
-#ifdef __APPLE__
+#ifdef __APPLEEE__
 
  /*
  Function : getBundleSharePath()
