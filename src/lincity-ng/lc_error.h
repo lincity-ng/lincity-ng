@@ -33,21 +33,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #endif
 
 
+#ifdef UNIXXX
+#include <error.h>
+#else
+#define error(STATUS, ERRNO, FORMAT...) { \
+    printf("error code: %s\n", strerror(ERRNO)); \
+    if (STATUS != 0) {exit(STATUS);}}
+#endif
+
 #ifdef DEBUG
 #define lc_error(STATUS, ERRNO, FORMAT...) \
-  error_at_line(STATUS, ERRNO, __FILE__, __LINE__, FORMAT)
+  error(STATUS, ERRNO, FORMAT)
 #else
 #define lc_error(STATUS, ERRNO, FORMAT...) \
   error(STATUS, ERRNO, FORMAT)
-#endif
-
-#ifdef UNIXX
-#include <error.h>
-#else
-#define error(STATUS, ERRNO, FORMAT...) \
-  error_at_line(STATUS, ERRNO, NULL, 0, FORMAT)
-EXTERN_C void error_at_line(int status, int errnum, const char *fname,
-  unsigned int lineno, const char *format, ...);
 #endif
 
 #define HANDLE_ERRNO(COMMAND, CONDITION, STATUS, FORMAT...) do { \
