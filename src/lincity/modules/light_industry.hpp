@@ -22,12 +22,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_LIGHTINDUSTRY_HPP__
+#define __LINCITYNG_LINCITY_MODULES_LIGHTINDUSTRY_HPP__
+
 #include <array>                    // for array
 #include <list>                     // for list
 
 #include "lincity/all_buildings.hpp"  // for cyan
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
 
 class World;
 struct ExtraFrame;
@@ -36,7 +40,7 @@ struct ExtraFrame;
 #define GROUP_INDUSTRY_L_COST 20000
 #define GROUP_INDUSTRY_L_COST_MUL 25
 #define GROUP_INDUSTRY_L_BUL_COST 20000
-#define GROUP_INDUSTRY_L_TECH 160
+#define GROUP_INDUSTRY_L_TECH (160 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_INDUSTRY_L_FIREC 70
 #define GROUP_INDUSTRY_L_RANGE 0
 #define GROUP_INDUSTRY_L_SIZE 3
@@ -130,5 +134,6 @@ public:
     int  goods_today;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_LIGHTINDUSTRY_HPP__
 
 /** @file lincity/modules/light_industry.h */

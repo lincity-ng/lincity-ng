@@ -363,7 +363,8 @@ ButtonPanel::updateTech(bool showInfo) {
       if(tool->button->isEnabled()) {
         std::ostringstream os;
         os << createTooltip(tool) << " ("
-          << _("Techlevel") << " " << net->getRequiredTech()
+          << _("Techlevel") << " "
+          << (net->getRequiredTech() * 100.f / MAX_TECH_LEVEL)
           << " " << _("required") << ")";
         tool->button->setTooltip(os.str());
         tool->button->enable(false);

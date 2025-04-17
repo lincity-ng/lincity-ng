@@ -22,15 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __cricket_h__
-#define __cricket_h__
+#ifndef __LINCITYNG_LINCITY_MODULES_CRICKET_HPP__
+#define __LINCITYNG_LINCITY_MODULES_CRICKET_HPP__
 
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
 
 #define GROUP_CRICKET_COLOUR (white(20))
 #define GROUP_CRICKET_COST   2000
 #define GROUP_CRICKET_COST_MUL 3
 #define GROUP_CRICKET_BUL_COST 1000
-#define GROUP_CRICKET_TECH     12
+#define GROUP_CRICKET_TECH     (12 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_CRICKET_FIREC 20
 #define GROUP_CRICKET_RANGE 9
 #define GROUP_CRICKET_SIZE 2
@@ -42,14 +50,6 @@
 #define MAX_WASTE_AT_CRICKET (20 * CRICKET_GOODS / 3)
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class CricketConstructionGroup: public ConstructionGroup {
 public:
@@ -99,5 +99,6 @@ public:
     int working_days, busy;
 };
 
-#endif /* __cricket_h__ */
+#endif // __LINCITYNG_LINCITY_MODULES_CRICKET_HPP__
+
 /** @file lincity/modules/cricket.h */

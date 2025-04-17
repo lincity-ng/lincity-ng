@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LINCITY_MODULES_BLACKSMITH_H__
-#define __LINCITY_MODULES_BLACKSMITH_H__
+#ifndef __LINCITYNG_LINCITY_MODULES_BLACKSMITH_H__
+#define __LINCITYNG_LINCITY_MODULES_BLACKSMITH_H__
 
 #include <array>                    // for array
 
@@ -31,6 +31,7 @@
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
 #include "tinygettext/gettext.hpp"  // for N_
+#include "lincity/lin-city.hpp"
 
 class World;
 
@@ -39,7 +40,7 @@ class World;
 #define GROUP_BLACKSMITH_COST   5000
 #define GROUP_BLACKSMITH_COST_MUL 25
 #define GROUP_BLACKSMITH_BUL_COST   1000
-#define GROUP_BLACKSMITH_TECH   3
+#define GROUP_BLACKSMITH_TECH   (3 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_BLACKSMITH_FIREC 60
 #define GROUP_BLACKSMITH_RANGE 0
 #define GROUP_BLACKSMITH_SIZE 2
@@ -108,5 +109,6 @@ public:
     bool animate_enable;
 };
 
-#endif // __LINCITY_MODULES_BLACKSMITH_H__
+#endif // __LINCITYNG_LINCITY_MODULES_BLACKSMITH_H__
+
 /** @file lincity/modules/blacksmith.h */

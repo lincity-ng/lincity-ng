@@ -55,6 +55,8 @@ bool
 WaterwellConstructionGroup::can_build_here(const World& world,
   const MapPoint point, Message::ptr& message
 ) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
   for(int i = 0; i < size; i++)
   for(int j = 0; j < size; j++)
     if(world.map(point.e(j).s(i))->flags & FLAG_HAS_UNDERGROUND_WATER)
@@ -64,7 +66,7 @@ WaterwellConstructionGroup::can_build_here(const World& world,
   return false;
 
   has_ugw:
-  return ConstructionGroup::can_build_here(world, point, message);
+  return true;
 }
 
 Waterwell::Waterwell(World& world, ConstructionGroup *cstgrp) :

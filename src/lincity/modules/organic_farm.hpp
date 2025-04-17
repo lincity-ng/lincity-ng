@@ -22,17 +22,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_ORGANICFARM_HPP__
+#define __LINCITYNG_LINCITY_MODULES_ORGANICFARM_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for green
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_ORGANIC_FARM_COLOUR (green(30))
 #define GROUP_ORGANIC_FARM_COST 1000
 #define GROUP_ORGANIC_FARM_COST_MUL 20
 #define GROUP_ORGANIC_FARM_BUL_COST 100
-#define GROUP_ORGANIC_FARM_TECH 0
+#define GROUP_ORGANIC_FARM_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_ORGANIC_FARM_FIREC 20
 #define GROUP_ORGANIC_FARM_RANGE 0
 #define GROUP_ORGANIC_FARM_SIZE 4
 
 #define ORGANIC_FARM_FOOD_OUTPUT 550
 #define ORG_FARM_POWER_REC 50
+/* gets waste only when powered */
 #define ORG_FARM_WASTE_GET 6
 #define FARM_LABOR_USED 13
 #define WATER_FARM 50
@@ -43,22 +56,7 @@
 #define MAX_ORG_FARM_POWER (ORG_FARM_POWER_REC * 20)
 #define MAX_ORG_FARM_WASTE (ORG_FARM_WASTE_GET * 20)
 #define MAX_FARM_LABOR (FARM_LABOR_USED * 20)
-
-
-
-/* gets waste only when powered */
-
 #define MIN_FOOD_SOLD_FOR_ANIM 200
-
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for green
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
-
 
 class Organic_farmConstructionGroup: public ConstructionGroup {
 public:
@@ -119,6 +117,6 @@ public:
     int  tech_bonus;
 };
 
-
+#endif // __LINCITYNG_LINCITY_MODULES_ORGANICFARM_HPP__
 
 /** @file lincity/modules/organic_farm.h */

@@ -22,11 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_UNIVERSITY_HPP__
+#define __LINCITYNG_LINCITY_MODULES_UNIVERSITY_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_UNIVERSITY_COLOUR (blue(22))
 #define GROUP_UNIVERSITY_COST 20000
 #define GROUP_UNIVERSITY_COST_MUL 25
 #define GROUP_UNIVERSITY_BUL_COST 20000
-#define GROUP_UNIVERSITY_TECH 150
+#define GROUP_UNIVERSITY_TECH (150 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_UNIVERSITY_FIREC 40
 #define GROUP_UNIVERSITY_RANGE 0
 #define GROUP_UNIVERSITY_SIZE 3
@@ -39,15 +52,6 @@
 #define MAX_LABOR_AT_UNIVERSITY (20 * UNIVERSITY_LABOR)
 #define MAX_GOODS_AT_UNIVERSITY (20 * UNIVERSITY_GOODS)
 #define MAX_WASTE_AT_UNIVERSITY (20 * UNIVERSITY_GOODS / 3)
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"     // for Message
-
-class World;
 
 
 class UniversityConstructionGroup: public ConstructionGroup {
@@ -96,5 +100,6 @@ public:
     int working_days, busy;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_UNIVERSITY_HPP__
 
 /** @file lincity/modules/university.h */

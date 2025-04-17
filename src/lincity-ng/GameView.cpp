@@ -1470,7 +1470,7 @@ void GameView::markTile(Painter& painter, MapPoint point) {
       MapPoint upperLeft = realTile(point);
       Construction *cst;
       if(game->getMpsMap().tile
-        && upperLeft == game->getMpsMap().tile->point
+        && upperLeft == realTile(game->getMpsMap().tile->point)
         && getUserOperation()->action == UserOperation::ACTION_QUERY
         && (cst = getWorld().map(point)->reportingConstruction)
       ) {

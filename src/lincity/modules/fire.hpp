@@ -22,6 +22,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
+
+#include <stdlib.h>                 // for rand
+
+#include "lincity/all_buildings.hpp"  // for red
+#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, ConstructionG...
+
+class World;
+
 #define GROUP_FIRE_COLOUR    (red(30))
 #define GROUP_FIRE_COST   0     /* Unused */
 #define GROUP_FIRE_COST_MUL   1 /* Unused */
@@ -36,13 +46,6 @@
 #define FIRE_DAYS_PER_SPREAD (NUMOF_DAYS_IN_YEAR/8)
 #define FIRE_LENGTH (NUMOF_DAYS_IN_YEAR*5)
 #define AFTER_FIRE_LENGTH (NUMOF_DAYS_IN_YEAR*10)
-
-#include <stdlib.h>                 // for rand
-
-#include "lincity/all_buildings.hpp"  // for red
-#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, ConstructionG...
-
-class World;
 
 class FireConstructionGroup: public ConstructionGroup {
 public:
@@ -83,5 +86,7 @@ public:
 private:
   void spread();
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
 
 /** @file lincity/modules/fire.h */

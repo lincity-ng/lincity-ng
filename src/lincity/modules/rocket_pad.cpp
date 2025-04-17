@@ -94,7 +94,8 @@ void RocketPad::update() {
       int stepsLabor = commodityCount[STUFF_LABOR] / ROCKET_PAD_LABOR;
       int stepsGoods = commodityCount[STUFF_GOODS] / ROCKET_PAD_GOODS;
       int stepsSteel = commodityCount[STUFF_STEEL] / ROCKET_PAD_STEEL;
-      int stepsWaste = commodityCount[STUFF_WASTE] / ROCKET_PAD_GOODS;
+      int stepsWaste = (MAX_WASTE_AT_ROCKET_PAD - commodityCount[STUFF_WASTE])
+        / ROCKET_PAD_WASTE;
       stepsToday = stepsRemaining;
       if(stepsLabor < stepsToday) stepsToday = stepsLabor;
       if(stepsGoods < stepsToday) stepsToday = stepsGoods;
@@ -105,7 +106,7 @@ void RocketPad::update() {
       consumeStuff(STUFF_LABOR, stepsToday * ROCKET_PAD_LABOR);
       consumeStuff(STUFF_GOODS, stepsToday * ROCKET_PAD_GOODS);
       consumeStuff(STUFF_STEEL, stepsToday * ROCKET_PAD_STEEL);
-      consumeStuff(STUFF_WASTE, stepsToday * ROCKET_PAD_WASTE);
+      produceStuff(STUFF_WASTE, stepsToday * ROCKET_PAD_WASTE);
       steps += stepsToday;
       if(stepsToday)
         working_days++;
@@ -260,7 +261,7 @@ void RocketPad::report(Mps& mps, bool production) const {
   mps.add_s(constructionGroup->name);
   mps.add_sfp(N_("busy"), (busy));
   mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-  mps.add_sfp(N_("Completion"), (double)steps / ROCKET_PAD_STEPS);
+  mps.add_sfp(N_("Completion"), steps * 100.0 / ROCKET_PAD_STEPS);
   list_commodities(mps, production);
 }
 

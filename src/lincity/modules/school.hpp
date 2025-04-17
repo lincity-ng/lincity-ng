@@ -22,11 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_SCHOOL_HPP__
+#define __LINCITYNG_LINCITY_MODULES_SCHOOL_HPP__
+
+#include <array>                    // for array
+#include <list>                     // for list
+
+#include "lincity/all_buildings.hpp"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+struct ExtraFrame;
+
 #define GROUP_SCHOOL_COLOUR (white(15))
 #define GROUP_SCHOOL_COST   10000
 #define GROUP_SCHOOL_COST_MUL 25
 #define GROUP_SCHOOL_BUL_COST   10000
-#define GROUP_SCHOOL_TECH   1
+#define GROUP_SCHOOL_TECH   (1 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_SCHOOL_FIREC 40
 #define GROUP_SCHOOL_RANGE 0
 #define GROUP_SCHOOL_SIZE 2
@@ -41,17 +55,6 @@
 
 #define SCHOOL_ANIMATION_SPEED 80
 #define SCHOOL_ANIMATION_BREAK 9500
-
-
-#include <array>                    // for array
-#include <list>                     // for list
-
-#include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
-struct ExtraFrame;
 
 
 class SchoolConstructionGroup: public ConstructionGroup {
@@ -104,5 +107,6 @@ public:
     int working_days, busy;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_SCHOOL_HPP__
 
 /** @file lincity/modules/school.h */

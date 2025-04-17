@@ -22,9 +22,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_PARKLAND_HPP__
+#define __LINCITYNG_LINCITY_MODULES_PARKLAND_HPP__
+
 #include "lincity/all_buildings.hpp"  // for green
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
 #include "lincity/messages.hpp"     // for Message
+#include "lincity/lin-city.hpp"
 
 class World;
 
@@ -32,7 +36,7 @@ class World;
 #define GROUP_PARKLAND_COST   1000
 #define GROUP_PARKLAND_COST_MUL 25
 #define GROUP_PARKLAND_BUL_COST   1000
-#define GROUP_PARKLAND_TECH   2
+#define GROUP_PARKLAND_TECH   (2 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_PARKLAND_FIREC 1
 #define GROUP_PARKLAND_RANGE 0
 #define GROUP_PARKLAND_SIZE 1
@@ -68,5 +72,7 @@ public:
     virtual void update();
     virtual void report(Mps& mps, bool production) const override;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_PARKLAND_HPP__
 
 /** @file lincity/modules/parkland.h */

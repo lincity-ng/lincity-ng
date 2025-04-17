@@ -70,12 +70,14 @@ bool
 ParklandConstructionGroup::can_build_here(const World& world,
   const MapPoint point, Message::ptr& message
 ) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
   if(!(world.map(point)->flags & FLAG_HAS_UNDERGROUND_WATER)) {
     message = DesertHereMessage::create(point);
     return false;
   }
 
-  return ConstructionGroup::can_build_here(world, point, message);
+  return true;
 }
 
 Parkland::Parkland(World& world, ConstructionGroup *cstgrp) :

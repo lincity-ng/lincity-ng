@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_SUBSTATION_HPP__
+#define __LINCITYNG_LINCITY_MODULES_SUBSTATION_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for yellow
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_SUBSTATION_COLOUR (yellow(18))
 #define GROUP_SUBSTATION_COST 500
 #define GROUP_SUBSTATION_COST_MUL 2
 #define GROUP_SUBSTATION_BUL_COST 100
-#define GROUP_SUBSTATION_TECH 200
+#define GROUP_SUBSTATION_TECH (200 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_SUBSTATION_FIREC 50
 #define GROUP_SUBSTATION_RANGE 0
 #define GROUP_SUBSTATION_SIZE 2
@@ -36,14 +48,6 @@
 #define SUBSTATION_LOVOLT            (2 * SUBSTATION_HIVOLT)
 #define MAX_LOVOLT_AT_SUBSTATION    (20 * SUBSTATION_LOVOLT)
 
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for yellow
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class SubstationConstructionGroup: public ConstructionGroup {
 public:
@@ -82,5 +86,7 @@ public:
 
     int  working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_SUBSTATION_HPP__
 
 /** @file lincity/modules/substation.h */

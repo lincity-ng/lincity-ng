@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_RECYCLE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_RECYCLE_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for LABOR_LOAD_ORE, LABOR_LOAD_STEEL
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_RECYCLE_COLOUR   (green(28))
 #define GROUP_RECYCLE_COST    100000
 #define GROUP_RECYCLE_COST_MUL 5
 #define GROUP_RECYCLE_BUL_COST    1000
-#define GROUP_RECYCLE_TECH    232
+#define GROUP_RECYCLE_TECH    (232 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RECYCLE_FIREC 10
 #define GROUP_RECYCLE_RANGE 0
 #define GROUP_RECYCLE_SIZE 2
@@ -44,15 +56,6 @@
 
 #define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
 
-
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for LABOR_LOAD_ORE, LABOR_LOAD_STEEL
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class RecycleConstructionGroup: public ConstructionGroup {
 public:
@@ -107,5 +110,7 @@ public:
     int  make_steel;
     int  working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_RECYCLE_HPP__
 
 /** @file lincity/modules/recycle.h */

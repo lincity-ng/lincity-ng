@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_ROCKETPAD_HPP__
+#define __LINCITYNG_LINCITY_MODULES_ROCKETPAD_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for magenta
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_ROCKET_COLOUR   (magenta(20))
 #define GROUP_ROCKET_COST     700000
 #define GROUP_ROCKET_COST_MUL 2
 #define GROUP_ROCKET_BUL_COST     1
-#define GROUP_ROCKET_TECH     750
+#define GROUP_ROCKET_TECH     (750 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_ROCKET_FIREC 0
 #define GROUP_ROCKET_RANGE 0
 #define GROUP_ROCKET_SIZE 4
@@ -42,14 +54,6 @@
 #define ROCKET_PAD_RUNNING_COST 200
 #define ROCKET_PAD_STEPS        5000
 #define ROCKET_ANIMATION_SPEED  800
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for magenta
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 
 class RocketPadConstructionGroup: public ConstructionGroup {
@@ -113,5 +117,6 @@ public:
   enum Stage stage;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_ROCKETPAD_HPP__
 
 /** @file lincity/modules/rocket_pad.h */

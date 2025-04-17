@@ -97,7 +97,7 @@ World::do_periodic_events(void) {
     do_pollution();
 
   int fire_rate = DAYS_BETWEEN_FIRES*100/map.len()*100/map.len();
-  int fire_tech = GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000;
+  int fire_tech = GROUP_FIRESTATION_TECH;
   if(total_time % fire_rate == 9 && tech_level > fire_tech)
     do_random_fire();
 
@@ -105,7 +105,7 @@ World::do_periodic_events(void) {
     do_fire_health_cricket_power_cover();
 
   if(total_time % DAYS_BETWEEN_SHANTY == 15
-    && tech_level > GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000
+    && tech_level > GROUP_HEALTH_TECH
   )
     update_shanty(*this);
 

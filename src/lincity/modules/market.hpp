@@ -22,11 +22,26 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_MARKET_HPP__
+#define __LINCITYNG_LINCITY_MODULES_MARKET_HPP__
+
+#include <array>                    // for array
+#include <list>                     // for list
+
+#include "lincity/all_buildings.hpp"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/transport.hpp"      // for MAX_COAL_IN_MARKET, MAX_FOOD_IN_M...
+#include "lincity/lin-city.hpp"
+
+class World;
+struct ExtraFrame;
+
 #define GROUP_MARKET_COLOUR (blue(28))
 #define GROUP_MARKET_COST 100
 #define GROUP_MARKET_COST_MUL 25
 #define GROUP_MARKET_BUL_COST 100
-#define GROUP_MARKET_TECH 0
+#define GROUP_MARKET_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_MARKET_FIREC 80
 #define GROUP_MARKET_RANGE 9
 #define GROUP_MARKET_SIZE 2
@@ -37,17 +52,6 @@
 #define LABOR_MARKET_LOW     5
 #define LABOR_MARKET_MED    12
 #define LABOR_MARKET_FULL   28
-
-#include <array>                    // for array
-#include <list>                     // for list
-
-#include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/transport.hpp"      // for MAX_COAL_IN_MARKET, MAX_FOOD_IN_M...
-
-class World;
-struct ExtraFrame;
 
 class MarketConstructionGroup: public ConstructionGroup {
 public:
@@ -119,5 +123,7 @@ public:
     std::list<ExtraFrame>::iterator waste_fire_frit;
     int waste_fire_anim;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_MARKET_HPP__
 
 /** @file lincity/modules/market.h */

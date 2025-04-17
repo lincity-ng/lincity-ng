@@ -22,11 +22,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_HEAVYINDUSTRY_HPP__
+#define __LINCITYNG_LINCITY_MODULES_HEAVYINDUSTRY_HPP__
+
 #include <array>                    // for array
 
 #include "lincity/all_buildings.hpp"  // for LABOR_LOAD_COAL, LABOR_LOAD_ORE
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
 
 class World;
 
@@ -34,7 +38,7 @@ class World;
 #define GROUP_INDUSTRY_H_COST 50000
 #define GROUP_INDUSTRY_H_COST_MUL 20
 #define GROUP_INDUSTRY_H_BUL_COST 70000
-#define GROUP_INDUSTRY_H_TECH 170
+#define GROUP_INDUSTRY_H_TECH (170 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_INDUSTRY_H_FIREC 80
 #define GROUP_INDUSTRY_H_RANGE 0
 #define GROUP_INDUSTRY_H_SIZE 4
@@ -120,6 +124,6 @@ public:
     int  steel_this_month;
 };
 
-
+#endif //__LINCITYNG_LINCITY_MODULES_HEAVYINDUSTRY_HPP__
 
 /** @file lincity/modules/heavy_industry.h */

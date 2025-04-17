@@ -551,7 +551,7 @@ void Dialog::editMarket(){
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyLabor" );
     if( market->commodityRuleCount[STUFF_LABOR].take ) cb->check(); else cb->uncheck();
-    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    cb = getCheckButton( *myDialogComponent, "SellLabor" );
     if( market->commodityRuleCount[STUFF_LABOR].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( market->commodityRuleCount[STUFF_FOOD].take ) cb->check(); else cb->uncheck();
@@ -666,7 +666,7 @@ void Dialog::applyMarketButtonClicked( Button* ){
     } else {
         market->commodityRuleCount[STUFF_LABOR].take = false;
     }
-    cb = getCheckButton( *myDialogComponent, "BuyLabor" );
+    cb = getCheckButton( *myDialogComponent, "SellLabor" );
     if(cb->isChecked()) {
         market->commodityRuleCount[STUFF_LABOR].give = true;
     } else {

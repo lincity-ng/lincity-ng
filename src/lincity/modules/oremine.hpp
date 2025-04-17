@@ -22,11 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_OREMINE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_OREMINE_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for LABOR_LOAD_ORE, ORE_RESERVE, red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_OREMINE_COLOUR (red(18))
 #define GROUP_OREMINE_COST 500
 #define GROUP_OREMINE_COST_MUL 10
 #define GROUP_OREMINE_BUL_COST 500000
-#define GROUP_OREMINE_TECH 0
+#define GROUP_OREMINE_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_OREMINE_FIREC 0
 #define GROUP_OREMINE_RANGE 0
 #define GROUP_OREMINE_SIZE 4
@@ -41,15 +54,6 @@
 
 #define ORE_LEVEL_TARGET 80 //mine will only supply so much
 #define OREMINE_ANIMATION_SPEED 200
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for LABOR_LOAD_ORE, ORE_RESERVE, red
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"     // for Message
-
-class World;
 
 class OremineConstructionGroup: public ConstructionGroup {
 public:
@@ -99,5 +103,7 @@ public:
     unsigned int anim_count;
     // int days_offset;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_OREMINE_HPP__
 
 /** @file lincity/modules/oremine.h */

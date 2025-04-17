@@ -22,11 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_COALMINE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_COALMINE_HPP__
+
+#include <array>                      // for array
+
+#include "lincity/MapPoint.hpp"       // for MapPoint
+#include "lincity/all_buildings.hpp"  // for COAL_PER_RESERVE, LABOR_LOAD_COAL
+#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_COALMINE_COLOUR 0
 #define GROUP_COALMINE_COST   10000
 #define GROUP_COALMINE_COST_MUL 25
 #define GROUP_COALMINE_BUL_COST   10000
-#define GROUP_COALMINE_TECH   85
+#define GROUP_COALMINE_TECH   (85 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_COALMINE_FIREC  85
 #define GROUP_COALMINE_RANGE  6
 #define GROUP_COALMINE_SIZE  4
@@ -41,15 +54,6 @@
 
 
 #define TARGET_COAL_LEVEL 80
-
-#include <array>                      // for array
-
-#include "lincity/MapPoint.hpp"       // for MapPoint
-#include "lincity/all_buildings.hpp"  // for COAL_PER_RESERVE, LABOR_LOAD_COAL
-#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class CoalmineConstructionGroup: public ConstructionGroup {
 public:
@@ -95,5 +99,7 @@ public:
     int initial_coal_reserve, current_coal_reserve;
     int working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_COALMINE_HPP__
 
 /** @file lincity/modules/coalmine.h */

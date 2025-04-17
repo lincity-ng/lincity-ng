@@ -60,6 +60,8 @@ bool
 PortConstructionGroup::can_build_here(const World& world, const MapPoint point,
   Message::ptr& message
 ) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
   MapPoint east = point.e(size);
   for(int j = 0; j < size; j++) {
     if(!world.map(east.s(j))->is_river()) {
@@ -68,7 +70,7 @@ PortConstructionGroup::can_build_here(const World& world, const MapPoint point,
     }
   }
 
-  return ConstructionGroup::can_build_here(world, point, message);
+  return true;
 }
 
 Port::Port(World& world, ConstructionGroup *cstgrp) :

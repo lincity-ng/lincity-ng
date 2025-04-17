@@ -113,15 +113,15 @@ World::do_pollution() {
     case 3:
     case 4:
     case 5:
-      neighbor = it->n();
+      neighbor = it->w();
       break;
     case 6:
     case 7:
-      neighbor = it->n();
+      neighbor = it->s();
       break;
     case 8:
     case 9:
-      neighbor = it->n();
+      neighbor = it->e();
       break;
     case 10:
       neighbor = *it;
@@ -245,7 +245,7 @@ Map::connect_rivers(int x, int y) {
 /* Feature: coal survey should vary in price and accuracy with technology */
 void
 World::do_coal_survey() {
-  if(coal_survey_done == 0)
+  if(coal_survey_done)
     return;
   expense(1000000, stats.expenses.coalSurvey);
   coal_survey_done = 1;
@@ -253,7 +253,7 @@ World::do_coal_survey() {
 
 void
 Map::desert_water_frontiers(int x, int y, int w, int h) {
-  desert_water_frontiers(MapPoint(x+1,y+1), MapPoint(x+w,y+h));
+  desert_water_frontiers(MapPoint(x+1,y+1), MapPoint(x+w-1,y+h-1));
 }
 
 void

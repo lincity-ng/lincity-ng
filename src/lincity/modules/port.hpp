@@ -22,11 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_PORT_HPP__
+#define __LINCITYNG_LINCITY_MODULES_PORT_HPP__
+
+#include <array>                    // for array
+#include <map>                      // for map
+
+#include "lincity/all_buildings.hpp"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_PORT_COLOUR (blue(28))
 #define GROUP_PORT_COST 100000
 #define GROUP_PORT_COST_MUL 2
 #define GROUP_PORT_BUL_COST 1000
-#define GROUP_PORT_TECH 35
+#define GROUP_PORT_TECH (35 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_PORT_FIREC 50
 #define GROUP_PORT_RANGE 0
 #define GROUP_PORT_SIZE 4
@@ -65,16 +79,6 @@
 
 #define IMPORT_EXPORT_ENABLE_PERIOD  100
 #define IMPORT_EXPORT_DISABLE_PERIOD 150
-
-#include <array>                    // for array
-#include <map>                      // for map
-
-#include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"     // for Message
-
-class World;
 
 class PortConstructionGroup: public ConstructionGroup {
 public:
@@ -147,5 +151,6 @@ public:
     int tech_made;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_PORT_HPP__
 
 /** @file lincity/modules/port.h */

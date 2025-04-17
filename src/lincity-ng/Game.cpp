@@ -215,19 +215,19 @@ Game::executeUserOperation(MapPoint point) {
     case UserOperation::ACTION_QUERY: {
       // TODO: do dialogs on double-click, not 'second-click'
       if(getMpsMap().tile == world->map(point)) {
+        Construction *cst = world->map(point)->reportingConstruction;
         switch(world->map(point)->getGroup()) {
         case GROUP_MARKET:
-          new Dialog(*this, EDIT_MARKET, point);
+          new Dialog(*this, EDIT_MARKET, cst->point);
           break;
         case GROUP_PORT:
-          new Dialog(*this, EDIT_PORT, point);
+          new Dialog(*this, EDIT_PORT, cst->point);
           break;
         case GROUP_ROCKET:
-          RocketPad *rocket = dynamic_cast<RocketPad *>(
-            world->map(point)->reportingConstruction);
+          RocketPad *rocket = dynamic_cast<RocketPad *>(cst);
           assert(rocket);
           if(rocket->stage == RocketPad::AWAITING) {
-            new Dialog(*this, ASK_LAUNCH_ROCKET, point);
+            new Dialog(*this, ASK_LAUNCH_ROCKET, cst->point);
           }
           break;
         }
@@ -740,7 +740,7 @@ Game::handleMessage(Message::ptr message_) {
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();
   }
-  if(OutsideMapMessage::ptr message =
+  else if(OutsideMapMessage::ptr message =
     dynamic_message_cast<OutsideMapMessage>(message_)
   ) {
     // silently ignore requests to do stuff outside the map

@@ -22,11 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_COALPOWER_HPP__
+#define __LINCITYNG_LINCITY_MODULES_COALPOWER_HPP__
+
+#include <array>                    // for array
+#include <list>                     // for list
+
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+struct ExtraFrame;
+
 #define GROUP_COAL_POWER_COLOUR 0
 #define GROUP_COAL_POWER_COST   100000
 #define GROUP_COAL_POWER_COST_MUL 5
 #define GROUP_COAL_POWER_BUL_COST   200000
-#define GROUP_COAL_POWER_TECH   200
+#define GROUP_COAL_POWER_TECH   (200 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_COAL_POWER_FIREC  80
 #define GROUP_COAL_POWER_RANGE  0
 #define GROUP_COAL_POWER_SIZE  4
@@ -39,15 +52,6 @@
 #define LABOR_COALPS_GENERATE 100
 #define MAX_LABOR_AT_COALPS (20 * LABOR_COALPS_GENERATE)
 #define SMOKE_ANIM_SPEED 300
-
-#include <array>                    // for array
-#include <list>                     // for list
-
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
-struct ExtraFrame;
 
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:
@@ -101,5 +105,6 @@ public:
     int  working_days, busy;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_COALPOWER_HPP__
 
 /** @file lincity/modules/coal_power.h */

@@ -192,7 +192,7 @@ LCPBar::refresh() {
       diffNorm = diff / (diff >= 0 ? 100000.0f : 50000.0f);
       break;
     default:
-      diffNorm = diff / std::max(cap * 100.0f, 1.0f);
+      diffNorm = diff * 100.f / std::max(cap, 1);
       break;
     };
     if(diffNorm > 1.0f)

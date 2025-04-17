@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_HEALTHCENTRE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_HEALTHCENTRE_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for green
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_HEALTH_COLOUR   (green(24))
 #define GROUP_HEALTH_COST     100000
 #define GROUP_HEALTH_COST_MUL 2
 #define GROUP_HEALTH_BUL_COST     1000
-#define GROUP_HEALTH_TECH     110
+#define GROUP_HEALTH_TECH     (110 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_HEALTH_FIREC 2
 #define GROUP_HEALTH_RANGE 14
 #define GROUP_HEALTH_SIZE 2
@@ -38,14 +50,6 @@
 #define MAX_WASTE_AT_HEALTH_CENTRE (20 * HEALTH_CENTRE_GOODS / 3)
 #define HEALTH_RUNNING_COST  2
 #define HEALTH_RUNNING_COST_MUL 9
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for green
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class HealthCentreConstructionGroup: public ConstructionGroup {
 public:
@@ -92,5 +96,7 @@ public:
     bool active;
     int working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_HEALTHCENTRE_HPP__
 
 /** @file lincity/modules/health_centre.h */

@@ -22,11 +22,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_WATERWELL_HPP__
+#define __LINCITYNG_LINCITY_MODULES_WATERWELL_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for blue
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"     // for Message
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_WATERWELL_COLOUR    (blue(31))
 #define GROUP_WATERWELL_COST      1
 #define GROUP_WATERWELL_COST_MUL 2
 #define GROUP_WATERWELL_BUL_COST      1
-#define GROUP_WATERWELL_TECH      0
+#define GROUP_WATERWELL_TECH      (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_WATERWELL_FIREC 0
 #define GROUP_WATERWELL_RANGE 0
 #define GROUP_WATERWELL_SIZE 2
@@ -34,14 +47,6 @@
 #define MAX_POLLUTION_AT_WATERWELL 3000
 #define WATER_PER_UGW 400
 #define MAX_WATER_AT_WATERWELL (20 * WATER_PER_UGW * GROUP_WATERWELL_SIZE * GROUP_WATERWELL_SIZE)
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"     // for Message
-
-class World;
 
 class WaterwellConstructionGroup: public ConstructionGroup {
 public:
@@ -81,5 +86,7 @@ public:
     int ugwCount;
     int working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_WATERWELL_HPP__
 
 /** @file lincity/modules/waterwell.h */

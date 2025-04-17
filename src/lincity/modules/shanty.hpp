@@ -22,6 +22,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_SHANTY_HPP__
+#define __LINCITYNG_LINCITY_MODULES_SHANTY_HPP__
+
+#include <array>                    // for array
+#include <list>                     // for list
+
+#include "lincity/all_buildings.hpp"  // for red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+
+class World;
+struct ExtraFrame;
+
 #define GROUP_SHANTY_COLOUR    (red(22))
 #define GROUP_SHANTY_COST      0   /* Unused */
 #define GROUP_SHANTY_COST_MUL  1   /* Unused */
@@ -54,16 +67,6 @@
 #define MAX_STEEL_AT_SHANTY (SHANTY_GET_STEEL * 20)
 #define MAX_WASTE_AT_SHANTY (SHANTY_PUT_WASTE * 20 + MAX_GOODS_AT_SHANTY / 3)
 #define MAX_LOVOLT_AT_SHANTY   (SHANTY_GET_LOVOLT * 20)
-
-#include <array>                    // for array
-#include <list>                     // for list
-
-#include "lincity/all_buildings.hpp"  // for red
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
-struct ExtraFrame;
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:
@@ -126,7 +129,6 @@ public:
     int waste_fire_anim;
 };
 
-
-
+#endif // __LINCITYNG_LINCITY_MODULES_SHANTY_HPP__
 
 /** @file lincity/modules/shanty.h */

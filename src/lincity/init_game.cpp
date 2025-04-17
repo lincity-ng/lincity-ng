@@ -222,7 +222,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   //std::cout << "smoothing graphics edges ...";
   //std::cout.flush();
   map.connect_transport(1, 1, map.len() - 2, map.len() - 2);
-  map.desert_water_frontiers(0, 0, map.len()-1, map.len()-1);
+  map.desert_water_frontiers(0, 0, map.len(), map.len());
   //std::cout << " done" << std::endl;
 }
 
@@ -274,7 +274,7 @@ create_new_city(city_settings *city, int mapSize, int old_setup_ground,
 
   // TODO: this was already done in setup_land. Need it be done again?
   world.map.connect_transport(1, 1, world.map.len() - 2, world.map.len() - 2);
-  world.map.desert_water_frontiers(0, 0, world.map.len()-1, world.map.len()-1);
+  world.map.desert_water_frontiers(0, 0, world.map.len(), world.map.len());
 
   return worldPtr;
 }

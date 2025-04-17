@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_MILL_HPP__
+#define __LINCITYNG_LINCITY_MODULES_MILL_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_MILL_COLOUR (white(15))
 #define GROUP_MILL_COST   10000
 #define GROUP_MILL_COST_MUL 25
 #define GROUP_MILL_BUL_COST   1000
-#define GROUP_MILL_TECH   25
+#define GROUP_MILL_TECH   (25 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_MILL_FIREC  60
 #define GROUP_MILL_RANGE  0
 #define GROUP_MILL_SIZE 2
@@ -44,14 +56,6 @@
 #define MAX_GOODS_AT_MILL  (GOODS_MADE_BY_MILL * 20)
 
 #define MILL_ANIM_SPEED    300
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class MillConstructionGroup: public ConstructionGroup {
 public:
@@ -103,5 +107,6 @@ public:
     bool animate_enable;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_MILL_HPP__
 
 /** @file lincity/modules/mill.h */

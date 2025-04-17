@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_MONUMENT_HPP__
+#define __LINCITYNG_LINCITY_MODULES_MONUMENT_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_MONUMENT_COLOUR (white(15))
 #define GROUP_MONUMENT_COST   10000
 #define GROUP_MONUMENT_COST_MUL 25
 #define GROUP_MONUMENT_BUL_COST   1000000
-#define GROUP_MONUMENT_TECH   0
+#define GROUP_MONUMENT_TECH   (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_MONUMENT_FIREC  0
 #define GROUP_MONUMENT_RANGE  0
 #define GROUP_MONUMENT_SIZE  2
@@ -37,14 +49,6 @@
 #define MONUMENT_DAYS_PER_TECH  3
 #define MONUMENT_TECH_EXPIRE    400
 //#define MONUMENT_ANIM_SPEED     300 //actually used?
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class MonumentConstructionGroup: public ConstructionGroup {
 public:
@@ -88,5 +92,7 @@ public:
     bool completed;
     int  labor_consumed;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_MONUMENT_HPP__
 
 /** @file lincity/modules/monument.h */

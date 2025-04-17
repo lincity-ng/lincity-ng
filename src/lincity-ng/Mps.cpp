@@ -186,14 +186,15 @@ Mps::add_sdd(const std::string& s, int d1, int d2) {
 void
 Mps::add_sddp(const std::string& s, int d, int max) {
   addText((std::ostringstream() << std::setprecision(1) << std::fixed
-    << _(s.c_str()) << "\t" << d << "\t" << (d*100.0/max) << "%"
+    << _(s.c_str()) << "\t" << d << "\t" << (max ? d*100.0/max : 0.0) << "%"
   ).str());
 }
 
 void
 Mps::add_tsddp(const std::string& t1, const std::string& s2, int d, int max) {
   addText((std::ostringstream() << std::setprecision(1) << std::fixed
-    << t1 << _(s2.c_str()) << "\t" << d << "\t" << (d*100.0/max) << "%"
+    << t1 << _(s2.c_str()) << "\t" << d << "\t"
+    << (max ? d*100.0/max : 0.0) << "%"
   ).str());
 }
 
@@ -494,7 +495,7 @@ MpsFinance::refreshPopulation() {
   std::advance(birthsEnd, 12);
   add_sddp(N_("Births p.a."),
     std::accumulate(stats.history.births.begin(), birthsEnd, 0),
-    stats.population.population_m);
+    stats.population.population_m / NUMOF_DAYS_IN_MONTH);
 
   assert(stats.history.deaths.size() >= 12);
   auto deathsEnd = stats.history.deaths.begin();

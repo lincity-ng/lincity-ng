@@ -22,8 +22,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __residence_h__
-#define __residence_h__
+#ifndef __LINCITYNG_LINCITY_MODULES_RESIDENCE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_RESIDENCE_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for cyan
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/groups.hpp"         // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
 
 #define POWER_USE_PER_PERSON 3
 #define POWER_RES_OVERHEAD 30
@@ -53,7 +63,7 @@
 #define GROUP_RESIDENCE_LL_COST 1000
 #define GROUP_RESIDENCE_LL_COST_MUL 25
 #define GROUP_RESIDENCE_LL_BUL_COST 1000
-#define GROUP_RESIDENCE_LL_TECH 0
+#define GROUP_RESIDENCE_LL_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_LL_FIREC 75
 #define GROUP_RESIDENCE_LL_MAX_POP 50
 
@@ -61,7 +71,7 @@
 #define GROUP_RESIDENCE_ML_COST 2000
 #define GROUP_RESIDENCE_ML_COST_MUL 25
 #define GROUP_RESIDENCE_ML_BUL_COST 1000
-#define GROUP_RESIDENCE_ML_TECH 0
+#define GROUP_RESIDENCE_ML_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_ML_FIREC 75
 #define GROUP_RESIDENCE_ML_MAX_POP 100
 
@@ -69,7 +79,7 @@
 #define GROUP_RESIDENCE_HL_COST 4000
 #define GROUP_RESIDENCE_HL_COST_MUL 25
 #define GROUP_RESIDENCE_HL_BUL_COST 1000
-#define GROUP_RESIDENCE_HL_TECH 0
+#define GROUP_RESIDENCE_HL_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_HL_FIREC 75
 #define GROUP_RESIDENCE_HL_MAX_POP 200
 
@@ -77,7 +87,7 @@
 #define GROUP_RESIDENCE_LH_COST 800
 #define GROUP_RESIDENCE_LH_COST_MUL 25
 #define GROUP_RESIDENCE_LH_BUL_COST 1000
-#define GROUP_RESIDENCE_LH_TECH 300
+#define GROUP_RESIDENCE_LH_TECH (300 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_LH_FIREC 75
 #define GROUP_RESIDENCE_LH_MAX_POP 100
 
@@ -85,7 +95,7 @@
 #define GROUP_RESIDENCE_MH_COST 1600
 #define GROUP_RESIDENCE_MH_COST_MUL 25
 #define GROUP_RESIDENCE_MH_BUL_COST 1000
-#define GROUP_RESIDENCE_MH_TECH 300
+#define GROUP_RESIDENCE_MH_TECH (300 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_MH_FIREC 75
 #define GROUP_RESIDENCE_MH_MAX_POP 200
 
@@ -93,24 +103,13 @@
 #define GROUP_RESIDENCE_HH_COST 3200
 #define GROUP_RESIDENCE_HH_COST_MUL 25
 #define GROUP_RESIDENCE_HH_BUL_COST 1000
-#define GROUP_RESIDENCE_HH_TECH 300
+#define GROUP_RESIDENCE_HH_TECH (300 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_RESIDENCE_HH_FIREC 75
 #define GROUP_RESIDENCE_HH_MAX_POP 400
 
 #define GROUP_RESIDENCE_RANGE 0
 #define GROUP_RESIDENCE_SIZE 3
 
-
-#endif /* __residence_h__ */
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for cyan
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/groups.hpp"         // for GROUP_RESIDENCE_HH, GROUP_RESIDEN...
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class ResidenceConstructionGroup: public ConstructionGroup {
 public:
@@ -213,5 +212,6 @@ public:
     int births, deaths, pol_deaths;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_RESIDENCE_HPP__
 
 /** @file lincity/modules/residence.h */

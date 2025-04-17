@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_SOLARPOWER_HPP__
+#define __LINCITYNG_LINCITY_MODULES_SOLARPOWER_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for yellow
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_SOLAR_POWER_COLOUR (yellow(22))
 #define GROUP_SOLAR_POWER_COST 500000
 #define GROUP_SOLAR_POWER_COST_MUL 5
 #define GROUP_SOLAR_POWER_BUL_COST 100000
-#define GROUP_SOLAR_POWER_TECH 500
+#define GROUP_SOLAR_POWER_TECH (500 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_SOLAR_POWER_FIREC 33
 #define GROUP_SOLAR_POWER_RANGE 0
 #define GROUP_SOLAR_POWER_SIZE 4
@@ -35,14 +47,6 @@
 #define POWERS_SOLAR_OUTPUT 900 //1800
 #define MAX_LABOR_AT_SOLARPS (20 * SOLAR_POWER_LABOR)
 #define MAX_HIVOLT_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for yellow
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 
 class SolarPowerConstructionGroup: public ConstructionGroup {
@@ -87,5 +91,6 @@ public:
     int  working_days, busy;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_SOLARPOWER_HPP__
 
 /** @file lincity/modules/solar_power.h */

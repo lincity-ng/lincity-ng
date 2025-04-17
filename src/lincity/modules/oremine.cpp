@@ -63,6 +63,8 @@ bool
 OremineConstructionGroup::can_build_here(const World& world,
   const MapPoint point, Message::ptr& message
 ) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
   int total_ore = 0;
   for(int i = 0; i < size; i++)
   for(int j = 0; j < size; j++)
@@ -72,7 +74,7 @@ OremineConstructionGroup::can_build_here(const World& world,
     return false;
   }
 
-  return ConstructionGroup::can_build_here(world, point, message);
+  return true;
 }
 
 Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :

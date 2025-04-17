@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_FIRESTATION_HPP__
+#define __LINCITYNG_LINCITY_MODULES_FIRESTATION_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_FIRESTATION_COLOUR (red(20))
 #define GROUP_FIRESTATION_COST   20000
 #define GROUP_FIRESTATION_COST_MUL 10
 #define GROUP_FIRESTATION_BUL_COST 1000
-#define GROUP_FIRESTATION_TECH     22
+#define GROUP_FIRESTATION_TECH     (22 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_FIRESTATION_FIREC 0
 #define GROUP_FIRESTATION_RANGE 17
 #define GROUP_FIRESTATION_SIZE 2
@@ -39,14 +51,6 @@
 #define FIRESTATION_RUNNING_COST 1
 #define FIRESTATION_RUNNING_COST_MUL 6
 #define FIRESTATION_ANIMATION_SPEED 250
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for red
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class FireStationConstructionGroup: public ConstructionGroup {
 public:
@@ -96,5 +100,7 @@ public:
     bool animate_enable, active;
     int working_days, busy;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_FIRESTATION_HPP__
 
 /** @file lincity/modules/firestation.h */

@@ -22,11 +22,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_POWERLINE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_POWERLINE_HPP__
+
 #include <array>                    // for array
 
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
 #include "lincity/transport.hpp"      // for MAX_HIVOLT_ON_POWERLINE
+#include "lincity/lin-city.hpp"
 
 class World;
 
@@ -70,5 +74,6 @@ public:
     bool flashing;
 };
 
+#endif // __LINCITYNG_LINCITY_MODULES_POWERLINE_HPP__
 
 /** @file lincity/modules/power_line.h */

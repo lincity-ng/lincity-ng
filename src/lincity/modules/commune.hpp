@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_COMMUNE_HPP__
+#define __LINCITYNG_LINCITY_MODULES_COMMUNE_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for green
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_COMMUNE_COLOUR (green(30))
 #define GROUP_COMMUNE_COST  1
 #define GROUP_COMMUNE_COST_MUL 2
 #define GROUP_COMMUNE_BUL_COST  1000
-#define GROUP_COMMUNE_TECH  0
+#define GROUP_COMMUNE_TECH  (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_COMMUNE_FIREC 30
 #define GROUP_COMMUNE_RANGE 0
 #define GROUP_COMMUNE_SIZE 4
@@ -47,14 +59,6 @@
 #define WATER_FOREST 5
 #define COMMUNE_WATER_GET (16 * WATER_FOREST)
 #define MAX_WATER_AT_COMMUNE (20*COMMUNE_WATER_GET)
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for green
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class CommuneConstructionGroup: public ConstructionGroup {
 public:
@@ -110,5 +114,7 @@ public:
     bool animate_enable;
     bool steel_made;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_COMMUNE_HPP__
 
 /** @file lincity/modules/commune.h */

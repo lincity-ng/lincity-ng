@@ -25,6 +25,8 @@
 #ifndef __all_buildings_h__
 #define __all_buildings_h__
 
+#include "lin-city.hpp"
+
 /************* Buildings stuff *********************/
 
 #define DAYS_PER_POLLUTION      14
@@ -73,14 +75,14 @@
 #define GROUP_BARE_COST    0
 #define GROUP_BARE_COST_MUL 1
 #define GROUP_BARE_BUL_COST 1
-#define GROUP_BARE_TECH    0
+#define GROUP_BARE_TECH    (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_BARE_FIREC   0
 
 #define GROUP_WATER_COLOUR    (blue(31))
 #define GROUP_WATER_COST      1000000
 #define GROUP_WATER_COST_MUL 2
 #define GROUP_WATER_BUL_COST      1000000
-#define GROUP_WATER_TECH      0
+#define GROUP_WATER_TECH      (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_WATER_FIREC 0
 
 #define GROUP_BURNT_COLOUR    (red(30))
@@ -101,14 +103,14 @@
 #define GROUP_DESERT_COST    0
 #define GROUP_DESERT_COST_MUL 1
 #define GROUP_DESERT_BUL_COST 1
-#define GROUP_DESERT_TECH    0
+#define GROUP_DESERT_TECH    (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_DESERT_FIREC   0
 
 #define GROUP_TREE_COLOUR  (green(12))
 #define GROUP_TREE_COST    0
 #define GROUP_TREE_COST_MUL 1
 #define GROUP_TREE_BUL_COST 1
-#define GROUP_TREE_TECH    0
+#define GROUP_TREE_TECH    (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_TREE_FIREC   0
 
 #define GROUP_TREE2_COLOUR  (green(12))

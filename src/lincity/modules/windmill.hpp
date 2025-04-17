@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_WINDMILL_HPP__
+#define __LINCITYNG_LINCITY_MODULES_WINDMILL_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for green
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_WINDMILL_COLOUR (green(25))
 #define GROUP_WINDMILL_COST   20000
 #define GROUP_WINDMILL_COST_MUL 25
 #define GROUP_WINDMILL_BUL_COST   1000
-#define GROUP_WINDMILL_TECH   30
+#define GROUP_WINDMILL_TECH   (30 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_WINDMILL_FIREC  10
 #define GROUP_WINDMILL_RANGE  0
 #define GROUP_WINDMILL_SIZE  2
@@ -40,14 +52,6 @@
 #define ANTIQUE_WINDMILL_ANIM_SPEED 120
 
 #define MODERN_WINDMILL_TECH 450000
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for green
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class WindmillConstructionGroup: public ConstructionGroup {
 public:
@@ -93,5 +97,7 @@ public:
     int  working_days, busy;
     bool animate_enable;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_WINDMILL_HPP__
 
 /** @file lincity/modules/windmill.h */

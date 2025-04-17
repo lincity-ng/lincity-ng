@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_TIP_HPP__
+#define __LINCITYNG_LINCITY_MODULES_TIP_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for white
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, NUMOF_DAYS_IN_...
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_TIP_COLOUR (white(16))
 #define GROUP_TIP_COST 10000
 #define GROUP_TIP_COST_MUL 25
 #define GROUP_TIP_BUL_COST 1000000
-#define GROUP_TIP_TECH 0
+#define GROUP_TIP_TECH (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_TIP_FIREC 50
 #define GROUP_TIP_RANGE 0
 #define GROUP_TIP_SIZE 4
@@ -37,14 +49,6 @@
 #define WASTE_BURRIED 200
 #define CRITICAL_WASTE_LEVEL 20 //gives waste if inbox is below and swallows if above
 #define TIP_TAKES_WASTE (20 * WASTE_BURRIED)
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, NUMOF_DAYS_IN_...
-
-class World;
 
 
 class TipConstructionGroup: public ConstructionGroup {
@@ -86,3 +90,5 @@ public:
     int  total_waste;
     int  degration_days;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_TIP_HPP__

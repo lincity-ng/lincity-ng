@@ -22,6 +22,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_TRACKROADRAIL_HPP__
+#define __LINCITYNG_LINCITY_MODULES_TRACKROADRAIL_HPP__
+
 #include <array>                    // for array
 #include <list>                     // for list
 
@@ -140,3 +143,5 @@ public:
     std::list<ExtraFrame>::iterator waste_fire_frit;
     int waste_fire_anim;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_TRACKROADRAIL_HPP__

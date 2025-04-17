@@ -441,7 +441,7 @@ void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
     if (newMode==mMode && mMode == TRAFFIC)
     {   newMode = COMMODITIES;}
 
-    if(mMode == COAL) {
+    if(newMode == COAL) {
       if(!game->getWorld().coal_survey_done)
         new Dialog(*game, ASK_COAL_SURVEY);
     }

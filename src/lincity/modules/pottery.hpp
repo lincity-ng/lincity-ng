@@ -22,11 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#ifndef __LINCITYNG_LINCITY_MODULES_POTTERY_HPP__
+#define __LINCITYNG_LINCITY_MODULES_POTTERY_HPP__
+
+#include <array>                    // for array
+
+#include "lincity/all_buildings.hpp"  // for red
+#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
+#include "lincity/lin-city.hpp"
+
+class World;
+
 #define GROUP_POTTERY_COLOUR (red(12))
 #define GROUP_POTTERY_COST   1000
 #define GROUP_POTTERY_COST_MUL 25
 #define GROUP_POTTERY_BUL_COST 1000
-#define GROUP_POTTERY_TECH  0
+#define GROUP_POTTERY_TECH  (0 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_POTTERY_FIREC 50
 #define GROUP_POTTERY_RANGE 0
 #define GROUP_POTTERY_SIZE 2
@@ -41,14 +53,6 @@
 #define MAX_COAL_AT_POTTERY       (POTTERY_COAL_MAKE_GOODS*20)
 #define MAX_LABOR_AT_POTTERY       (POTTERY_LABOR*20)
 #define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20)
-
-#include <array>                    // for array
-
-#include "lincity/all_buildings.hpp"  // for red
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-
-class World;
 
 class PotteryConstructionGroup: public ConstructionGroup {
 public:
@@ -95,3 +99,5 @@ public:
     int  working_days, busy;
     bool animate_enable;
 };
+
+#endif // __LINCITYNG_LINCITY_MODULES_POTTERY_HPP__
