@@ -185,6 +185,8 @@ Transport::Transport(World& world, ConstructionGroup *cstgrp) :
   commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
 }
 Transport::~Transport() {
+  // TODO: killframe should be called when detached from the map; doing it in
+  //       the deleter is a bit late.
   world.map(point)->killframe(waste_fire_frit);
 }
 

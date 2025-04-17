@@ -258,30 +258,16 @@ Map::desert_water_frontiers(int x, int y, int w, int h) {
 
 void
 Map::desert_water_frontiers(MapPoint p0, MapPoint p1) {
+  Map& map = *this;
   assert(p0.x <= p1.x && p0.y <= p1.y);
   assert(is_visible(p0) && is_inside(p1));
-  Map& map = (*this);
-  /* copied from connect_transport */
-  // sets the correct TYPE depending on neighbours, => gives the correct tile to display
-/*
-  static const short desert_table[16] = {
-      CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
-      CST_DESERT_1L, CST_DESERT_2LD, CST_DESERT_2LR, CST_DESERT_3LRD,
-      CST_DESERT_1U, CST_DESERT_2UD, CST_DESERT_2RU, CST_DESERT_3RUD,
-      CST_DESERT_2LU, CST_DESERT_3LUD, CST_DESERT_3LRU, CST_DESERT
-  };
 
-#if FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
-#error  desert_frontier(): you loose
-#error  the algorithm depends on proper flag settings -- (ThMO)
-#endif
-*/
-  /* Adjust originx,originy,w,h to proper range */
   for(MapPoint p(0, std::max(p0.y-1, 1)); p.y < p1.y; p.y++)
   for(p.x = std::max(p0.x-1, 1); p.x < p1.x; p.x++) {
     unsigned short grp = map(p)->getLowerstVisibleGroup();
-    if(grp != GROUP_DESERT && grp != GROUP_WATER) continue;
+    // if(grp != GROUP_DESERT && grp != GROUP_WATER) continue;
 
+    // south = 1, east = 2, west = 4, north = 8
     MapPoint q = p.e();
     if(p.y >= p0.y && q.x < map.len()-1) {
       if(map(q)->getLowerstVisibleGroup() == grp) {
