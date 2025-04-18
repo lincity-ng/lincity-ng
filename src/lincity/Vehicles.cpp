@@ -84,7 +84,7 @@ void Vehicle::drive(void) {
   --death_counter;
   speed = speed0;
   int xstep = next.x - prev.x;
-  int ystep = next.x - prev.y;
+  int ystep = next.y - prev.y;
   if(xstep == 2)
     direction = 2;
   else if(xstep == -2)
@@ -209,7 +209,7 @@ void Vehicle::walk(unsigned long real_time) {
   my += 0.25;
   //update absolute floating positions
   xr = (double)prev.x + mx;
-  yr = (double)prev.x + my;
+  yr = (double)prev.y + my;
   //choose tile for placing the frame
   MapPoint tile(ceil(xr), ceil(yr));
   //no need to go up or left
@@ -217,7 +217,7 @@ void Vehicle::walk(unsigned long real_time) {
   if(tile.y < prev.y) tile.y = prev.y;
   //align animation to placement of frame on map
   mx = xr - (double)tile.x;
-  my = yr - (double)tile.x;
+  my = yr - (double)tile.y;
   if(tile != framePt)
     move_frame(tile);
 
