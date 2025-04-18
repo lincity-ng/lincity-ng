@@ -35,7 +35,6 @@
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
-#include "ConstructionRequest.hpp"        // for PowerLineFlashRequest
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
 #include "groups.hpp"                     // for GROUP_POWER_LINE, GROUP_FIRE
@@ -296,6 +295,20 @@ void Construction::place(MapPoint point) {
   neighborize();
 }
 
+bool
+Construction::can_bulldoze(Message::ptr message) const {
+  assert(world.map(point)->construction == this);
+  return true;
+}
+
+void
+Construction::bulldoze() {
+  if(Message::ptr msg; !can_bulldoze(msg)) msg->throwEx();
+  world.expense(constructionGroup->bul_cost,
+    world.stats.expenses.construction);
+  detach();
+}
+
 //use this before deleting a construction. Construction requests check independently against NULL
 void Construction::detach()
 {
@@ -316,6 +329,10 @@ void Construction::detach()
   }
   world.setUpdated(World::Updatable::MAP);
   deneighborize();
+
+  world.map.connect_transport(point.x - 2, point.y - 2, point.x + size + 1,
+    point.y + size + 1);
+  world.map.desert_water_frontiers(point, point.s(size).e(size));
 }
 
 bool
@@ -713,8 +730,14 @@ void Construction::trade()
                 && neighbors[i]->constructionGroup->commodityRuleCount[stuff_ID].give
                 && (neighbors[i]->commodityCount[stuff_ID] > 0))
                 {   powerline->anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;}
-                if((powerline->flashing && (neighbors[i]->constructionGroup->group == GROUP_POWER_LINE)))
-                {   PowerLineFlashRequest(neighbors[i]).execute();}
+                if(powerline->flashing &&
+                  neighbors[i]->constructionGroup->group == GROUP_POWER_LINE
+                ) {
+                  int& anim_counter =
+                    dynamic_cast<Powerline*>(neighbors[i])->anim_counter;
+                  if(anim_counter <= POWER_MODULUS / 3)
+                    anim_counter = POWER_MODULUS;
+                }
             }
         }
 
@@ -823,7 +846,6 @@ ConstructionGroup::placeItem(World& world, MapPoint point) {
     Construction *cst = tile.reportingConstruction;
     if(cst) {
       throw std::logic_error("space occupied");
-      // ConstructionDeletionRequest(cst).execute();
     }
     if(tile.is_water() && !dynamic_cast<TransportConstructionGroup *>(this)) {
       throw std::logic_error("water here");

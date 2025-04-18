@@ -136,6 +136,7 @@ public:
     virtual bool canPlaceVehicle();
     virtual void init_resources() override;
     virtual void place(MapPoint point) override;
+    virtual void detach() override;
     std::array<int, STUFF_COUNT> trafficCount;
     void list_traffic(Mps& mps) const;
     int anim;

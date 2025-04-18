@@ -123,6 +123,9 @@ public:
 
     virtual void init_resources() override;
 
+    virtual void bulldoze() override;
+    void makeFire();
+
     int anim;
     bool start_burning_waste;
     std::list<ExtraFrame>::iterator waste_fire_frit;

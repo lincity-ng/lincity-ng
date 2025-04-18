@@ -78,6 +78,8 @@ public:
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
+    virtual bool can_bulldoze(Message::ptr message) const override;
+
     int burning_days;
     int smoking_days;
     int days_before_spread;

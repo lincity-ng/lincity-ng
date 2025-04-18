@@ -33,7 +33,6 @@
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"               // for Mps
 #include "lincity-ng/Sound.hpp"             // for getSound, Sound
-#include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/all_buildings.hpp"        // for DAYS_PER_RAIL_POLLUTION
 #include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD
@@ -141,7 +140,9 @@ TransportConstructionGroup::placeItem(World& world, MapPoint point) {
   MapTile& tile = *world.map(point);
   unsigned short oldGrp = tile.getTransportGroup();
   if(tile.is_transport() && oldGrp != group || oldGrp == GROUP_POWER_LINE) {
-    ConstructionDeletionRequest(tile.reportingConstruction).execute();
+    assert(tile.construction);
+    tile.construction->detach();
+    tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
   }
 
   ConstructionGroup::placeItem(world, point);
@@ -185,9 +186,6 @@ Transport::Transport(World& world, ConstructionGroup *cstgrp) :
   commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
 }
 Transport::~Transport() {
-  // TODO: killframe should be called when detached from the map; doing it in
-  //       the deleter is a bit late.
-  world.map(point)->killframe(waste_fire_frit);
 }
 
 void Transport::update()
@@ -380,6 +378,15 @@ void Transport::place(MapPoint point) {
   }
 
   Construction::place(point);
+}
+
+void
+Transport::detach() {
+  MapTile& tile = *world.map(point);
+  tile.killframe(waste_fire_frit);
+  tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+
+  Construction::detach();
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

@@ -30,7 +30,6 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.hpp"  // for OreMineDeletionRequest
 #include "lincity/MapPoint.hpp"           // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_OREMINE
 #include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
@@ -156,8 +155,11 @@ void Oremine::update()
     if(total_ore_reserve == 0
       && commodityCount[STUFF_LABOR] == 0
       && commodityCount[STUFF_ORE] == 0
-    )
-      OreMineDeletionRequest(this).execute();
+    ) {
+      detach();
+      makeLake();
+      return;
+    }
 }
 
 void Oremine::animate(unsigned long real_time) {
@@ -195,6 +197,26 @@ Oremine::place(MapPoint point) {
   if(ore < 1)
     ore = 1;
   this->total_ore_reserve = ore;
+}
+
+void
+Oremine::bulldoze() {
+  Construction::bulldoze();
+  makeLake();
+}
+
+void
+Oremine::makeLake() {
+  int size = constructionGroup->size;
+  for(MapPoint p(point); p.y < point.y + size; p.y++)
+  for(p.x = point.x; p.x < point.x + size; p.x++) {
+    MapTile& tile = *world.map(p);
+    if(tile.ore_reserve < ORE_RESERVE / 2) {
+      tile.setTerrain(GROUP_WATER);
+      tile.flags |= FLAG_HAS_UNDERGROUND_WATER;
+      world.map.connect_rivers(p.x, p.y);
+    }
+  }
 }
 
 void Oremine::save(xmlTextWriterPtr xmlWriter) const {

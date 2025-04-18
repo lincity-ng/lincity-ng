@@ -33,7 +33,6 @@
 #include <unordered_set>            // for unordered_set
 #include <vector>                   // for vector
 
-#include "ConstructionRequest.hpp"  // for SetOnFire
 #include "MapPoint.hpp"             // for MapPoint, hash
 #include "groups.hpp"               // for GROUP_DESERT, GROUP_WATER, GROUP_...
 #include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_IS_RIVER
@@ -59,7 +58,18 @@ World::fire_area(MapPoint loc) {
       stats.population.unnat_deaths_m += casualities;
       stats.population.deaths_m += casualities;
     }
-    SetOnFire(cst).execute();
+
+    unsigned short size = cst->constructionGroup->size;
+    cst->detach();
+    for(unsigned short i = 0; i < size; ++i)
+    for(unsigned short j = 0; j < size; ++j) {
+      MapPoint p(cst->point.s(i).e(j));
+      fireConstructionGroup.placeItem(*this, p);
+    }
+    map.connect_transport(cst->point.x - 2, cst->point.y - 2,
+      cst->point.x + size + 1, cst->point.y + size + 1);
+    map.desert_water_frontiers(cst->point, cst->point.s(size).e(size));
+    setUpdated(World::Updatable::MAP);
   }
 }
 

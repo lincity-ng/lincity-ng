@@ -30,11 +30,11 @@
 #include <string>                           // for basic_string, operator<
 #include <vector>                           // for vector
 #include <optional>
+#include <cassert>
 
 #include "commune.hpp"                      // for CommuneConstructionGroup
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"               // for Mps
-#include "lincity/ConstructionRequest.hpp"  // for BurnDownRequest
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_SHANTY, GROUP_MARKET
 #include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
@@ -137,8 +137,11 @@ void update_shanty(World& world) {
         fprintf(stderr, "Can't find a shanty to remove!\n");
         return;
       }
-      p = *r;
-      BurnDownRequest(world.map(p)->reportingConstruction).execute();
+      Shanty *shanty = dynamic_cast<Shanty *>(
+        world.map(*r)->reportingConstruction);
+      assert(shanty);
+      shanty->detach();
+      shanty->makeFire();
     }
   }
 }
@@ -240,6 +243,24 @@ void Shanty::init_resources() {
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
   waste_fire_frit->frame = -1;
+}
+
+void
+Shanty::bulldoze() {
+  Construction::bulldoze();
+  makeFire();
+}
+
+void
+Shanty::makeFire() {
+  int size = constructionGroup->size;
+  for(MapPoint p(point); p.y < point.y + size; p.y++)
+  for(p.x = point.x; p.x < point.x + size; p.x++) {
+    fireConstructionGroup.placeItem(world, p);
+    Fire *fire = dynamic_cast<Fire *>(world.map(p)->construction);
+    assert(fire); if(!fire) continue;
+    fire->burning_days = FIRE_LENGTH - 25;
+  }
 }
 
 /** @file lincity/modules/shanty.cpp */

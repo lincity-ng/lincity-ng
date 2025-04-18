@@ -33,7 +33,6 @@
 #include <map>                      // for map
 #include <string>                   // for basic_string, char_traits, operator<
 
-#include "ConstructionRequest.hpp"  // for BurnDownRequest, ConstructionDele...
 #include "all_buildings.hpp"        // for GROUP_WATER_COST
 #include "groups.hpp"               // for GROUP_WATER, GROUP_BARE, GROUP_DE...
 #include "lin-city.hpp"             // for FLAG_IS_RIVER, FLAG_TRANSPARENT
@@ -437,49 +436,28 @@ World::bulldozeArea(MapPoint point) {
   if(!map.is_visible(point))
     OutsideMapMessage::create(point)->throwEx();
 
-  Construction *cst = map(point)->reportingConstruction;
-  unsigned short g = map(point)->getGroup();
-
-  // TODO: delegate check to the construction
-  if(g == GROUP_DESERT)
-    return; // nothing to do
-  else if (g == GROUP_FIRE)
-    CannotBulldozeThisEverMessage::create(point, fireConstructionGroup)
-      ->throwEx();
-  else if (g == GROUP_MONUMENT
-    && !dynamic_cast<Monument *>(cst)->completed
-  )
-    CannotBulldozeIncompleteMonumentMessage::create(point)->throwEx();
-  else if (g == GROUP_TIP
-    && dynamic_cast<Tip *>(cst)->total_waste > 0
-  )
-    CannotBulldozeNonemptyTipMessage::create(point)->throwEx();
-
-  expense(map(point)->getConstructionGroup()->bul_cost,
-    stats.expenses.construction);
-
-  // TODO: delegate special cases to the construction
-  if(g == GROUP_SHANTY)
-    BurnDownRequest(cst).execute();
-  else if (g == GROUP_OREMINE)
-    OreMineDeletionRequest(cst).execute();
-  else if(cst)
-    ConstructionDeletionRequest(cst).execute();
+  if(Construction *cst = map(point)->reportingConstruction) {
+    cst->bulldoze();
+  }
   else {
-    map(point)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-    if (map(point)->is_water()) {
-      map(point)->type = 0;
-      map(point)->group = GROUP_BARE;
-      map(point)->flags &= ~(FLAG_IS_RIVER);
+    MapTile& tile = *map(point);
+    unsigned short g = tile.getGroup();
+    if(g == GROUP_DESERT)
+      return; // nothing to do
+
+    expense(tile.getTileConstructionGroup()->bul_cost,
+      stats.expenses.construction);
+
+    if(g == GROUP_WATER) {
+      tile.group = GROUP_BARE;
+      tile.flags &= ~(FLAG_IS_RIVER);
+      tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+      map.connect_rivers(point.x, point.y);
     }
     else {
-      map(point)->type = 0;
-      map(point)->group = GROUP_DESERT;
+      tile.group = GROUP_DESERT;
     }
-    //Here size is always 1
-    map.connect_transport(point.x - 2, point.y - 2, point.x + 2, point.y + 2);
-    map.connect_rivers(point.x, point.y);
-    map.desert_water_frontiers(point.x - 1, point.y - 1, 1 + 2, 1 + 2);
+    map.desert_water_frontiers(point, point.se());
   }
 
   setUpdated(Updatable::MAP);

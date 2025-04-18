@@ -121,6 +121,15 @@ void Tip::report(Mps& mps, bool production) const {
   list_commodities(mps, production);
 }
 
+bool
+Tip::can_bulldoze(Message::ptr message) const {
+  if(total_waste > 0) {
+    message = CannotBulldozeNonemptyTipMessage::create(point);
+    return false;
+  }
+  return Construction::can_bulldoze(message);
+}
+
 void Tip::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_waste",    "%d", total_waste);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"degration_days", "%d", degration_days);

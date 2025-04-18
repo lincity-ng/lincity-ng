@@ -32,7 +32,6 @@
 #include <vector>                         // for allocator, vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
 #include "lincity/MapPoint.hpp"           // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_FIRE
 #include "lincity/lin-city.hpp"             // for FLAG_FIRE_COVER, ANIM_THRES...
@@ -88,7 +87,7 @@ void Fire::update()
         if (world.map(point)->flags & FLAG_FIRE_COVER)
         {   smoking_days += 4;}
         if(smoking_days > AFTER_FIRE_LENGTH)
-          ConstructionDeletionRequest(this).execute();
+          detach();
         return;
     }
 
@@ -154,6 +153,13 @@ void Fire::report(Mps& mps, bool production) const {
       mps.add_sddp(N_("burnt down"), burning_days, FIRE_LENGTH);
     else
       mps.add_sddp(N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);
+}
+
+bool
+Fire::can_bulldoze(Message::ptr message) const {
+  message = CannotBulldozeThisEverMessage::create(
+    point, fireConstructionGroup);
+  return false;
 }
 
 void Fire::save(xmlTextWriterPtr xmlWriter) const {

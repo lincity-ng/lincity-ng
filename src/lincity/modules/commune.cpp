@@ -30,13 +30,13 @@
 #include <vector>                           // for vector
 
 #include "lincity-ng/Mps.hpp"               // for Mps
-#include "lincity/ConstructionRequest.hpp"  // for CommuneDeletionRequest
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/groups.hpp"               // for GROUP_COMMUNE
 #include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
 #include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "tinygettext/gettext.hpp"          // for N_
+#include "lincity/modules/parkland.hpp"
 
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),
@@ -137,7 +137,7 @@ Commune::update() {
       lazy_months++;
       /* Communes without production only last 10 years */
       if(lazy_months > 120) {
-        CommuneDeletionRequest(this).execute();
+        turnIntoParks();
         return;
       }
     }
@@ -196,6 +196,19 @@ Commune::place(MapPoint point) {
   {   this->coalprod = COMMUNE_COAL_MADE/2;}
   else
   {   this->coalprod = COMMUNE_COAL_MADE;}
+}
+
+void
+Commune::turnIntoParks() {
+  detach();
+
+  unsigned short size = constructionGroup->size;
+  for(unsigned short i = 0; i < size; ++i)
+  for(unsigned short j = 0; j < size; ++j) {
+    MapPoint p(point.s(i).e(j));
+    if(world.map(p)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      parklandConstructionGroup.placeItem(world, p);
+  }
 }
 
 /** @file lincity/modules/commune.cpp */

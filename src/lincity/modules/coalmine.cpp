@@ -31,7 +31,6 @@
 #include <string>                         // for basic_string, operator<
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/ConstructionRequest.hpp"  // for ConstructionDeletionRequest
 #include "lincity/groups.hpp"               // for GROUP_COALMINE
 #include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
@@ -149,7 +148,7 @@ void Coalmine::update() {
     && commodityCount[STUFF_LABOR] == 0
     && commodityCount[STUFF_COAL] == 0
   )
-    ConstructionDeletionRequest(this).execute();
+    detach();
 }
 
 void Coalmine::animate(unsigned long real_time) {

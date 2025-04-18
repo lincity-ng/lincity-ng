@@ -105,6 +105,8 @@ public:
     virtual void animate(unsigned long real_time) override;
     virtual void place(MapPoint point) override;
 
+    void turnIntoParks();
+
     int  anim;
     int  ugwCount;
     int  coalprod;

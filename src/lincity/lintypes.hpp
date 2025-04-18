@@ -111,6 +111,10 @@ public:
   **/
   virtual void place(MapPoint point);
 
+  virtual bool can_bulldoze(Message::ptr message) const;
+
+  virtual void bulldoze();
+
   /**
    * Saves all persistent, non-derived members as XML elements to the provided
    * xmlWriter.
@@ -155,7 +159,7 @@ public:
   void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
   void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
 
-  void detach();      //removes all references from world, ::constructionCount
+  virtual void detach();      //removes all references from world, ::constructionCount
   void deneighborize(); //cancells all neighbors and partners mutually
   void   neighborize(); //adds all neigborconnections once (call twice for double connections)
   int countPowercables(int mask); //removes all but one suspended cable on each edge

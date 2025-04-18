@@ -144,6 +144,15 @@ void Monument::report(Mps& mps, bool production) const {
   }
 }
 
+bool
+Monument::can_bulldoze(Message::ptr message) const {
+  if(!completed) {
+    message = CannotBulldozeIncompleteMonumentMessage::create(point);
+    return false;
+  }
+  return Construction::can_bulldoze(message);
+}
+
 void Monument::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
