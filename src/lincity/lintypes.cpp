@@ -274,13 +274,11 @@ void Construction::place(MapPoint point) {
     //never change water upon building something
     if(!tile.is_water()) {
       if(flags & FLAG_TRANSPARENT) {
-        tile.flags &= ~FLAG_INVISIBLE; // show maptiles
         if(tile.group != GROUP_DESERT)
           tile.setTerrain(GROUP_BARE);
       }
       else {
         tile.setTerrain(GROUP_DESERT);
-        tile.flags |= FLAG_INVISIBLE; // hide maptiles
       }
     }
     assert(!tile.reportingConstruction);

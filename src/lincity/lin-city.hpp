@@ -55,7 +55,6 @@
 #define FLAG_CRICKET_COVER_CHECK   (0x00800000)
 #define FLAG_IS_LAKE               (0x01000000)
 #define FLAG_IS_RIVER              (0x02000000)
-#define FLAG_INVISIBLE             (0x08000000) // TODO: use FLAG_TRANSPARENT
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
 
 // Construction flags

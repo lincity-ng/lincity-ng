@@ -1351,7 +1351,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         }
         GraphicsInfo *graphicsInfo = 0;
         //draw visible tiles underneath constructions
-        if( (getWorld().map(upperLeft)->reportingConstruction || getWorld().map(upperLeft)->framesptr) && !(getWorld().map(upperLeft)->flags & FLAG_INVISIBLE) )
+        if(Construction *cst = getWorld().map(upperLeft)->reportingConstruction;
+          !cst || (cst->flags & FLAG_TRANSPARENT))
         {
             if (resgrp->images_loaded)
             {
@@ -1420,15 +1421,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                     }
                     else
                     {   draw_colored_site = true;}
-                }
-            }
-            else
-            {
-                size_t s = resgrp->graphicsInfoVector.size();
-                if(s && resgrp->images_loaded)
-                {
-                    graphicsInfo = &resgrp->graphicsInfoVector[ textureType %  s]; //needed
-                    drawTexture(painter, lowerRightTile, graphicsInfo);
                 }
             }
         }

@@ -328,12 +328,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           if (*frame >= 11 && *frame <= 12)
           {
               cstr->flags |= FLAG_TRANSPARENT;
-              map(p)->flags &= (~FLAG_INVISIBLE);
           }
           else
           {
-             cstr->flags &= (~FLAG_TRANSPARENT);
-             map(p)->flags |= FLAG_INVISIBLE;
+             cstr->flags &= ~FLAG_TRANSPARENT;
           }
           break;
 
@@ -354,7 +352,6 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           else //a lonely bridge tile
           {   *frame = 1;}
           cstr->flags |= FLAG_TRANSPARENT;
-          map(p)->flags &= (~FLAG_INVISIBLE);
           break;
 
       case GROUP_ROAD:
@@ -482,12 +479,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           if(*frame >= 11 && *frame <= 16)
           {
               cstr->flags |= FLAG_TRANSPARENT;
-              map(p)->flags &= (~FLAG_INVISIBLE);
           }
           else
           {
-             cstr->flags &= (~FLAG_TRANSPARENT);
-             map(p)->flags |= FLAG_INVISIBLE;
+             cstr->flags &= ~FLAG_TRANSPARENT;
           }
           break;
 
@@ -589,12 +584,10 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           if(*frame >= 11 && *frame <= 16)
           {
               cstr->flags |= FLAG_TRANSPARENT;
-              map(p)->flags &= (~FLAG_INVISIBLE);
           }
           else
           {
-                 cstr->flags &= (~FLAG_TRANSPARENT);
-                 map(p)->flags |= FLAG_INVISIBLE;
+                 cstr->flags &= ~FLAG_TRANSPARENT;
           }
           break;
 
@@ -609,7 +602,6 @@ Map::connect_transport(int originx, int originy, int lastx, int lasty) {
           else
           {   *frame = 1;}
           cstr->flags |= FLAG_TRANSPARENT;
-          map(p)->flags &= (~FLAG_INVISIBLE);
           break;
       }
     }

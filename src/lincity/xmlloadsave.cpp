@@ -1137,7 +1137,7 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
           | (tile.flags & 0x00400000 ? FLAG_CRICKET_COVER | FLAG_CRICKET_COVER_CHECK : 0)
           | (tile.flags & 0x00800000 ? FLAG_IS_RIVER : 0)
           | (tile.flags & 0x01000000 ? FLAG_IS_LAKE : 0)
-          | (tile.flags & 0x08000000 ? FLAG_INVISIBLE : 0)
+          // | (tile.flags & 0x08000000 ? FLAG_INVISIBLE : 0)
           | (tile.flags & 0x20000000 ? FLAG_HAS_UNDERGROUND_WATER : 0);
       }
     }
