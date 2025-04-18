@@ -1,60 +1,62 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-Copyright (c) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/ButtonPanel.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "ButtonPanel.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_RIGHT, SDL_BUTT...
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for sscanf
-#include <string.h>                        // for strcmp
-#include <functional>                      // for bind, _Bind, _2, function, _1
-#include <iostream>                        // for basic_ostream, operator<<
-#include <list>                            // for list, _List_iterator
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <stdexcept>                       // for runtime_error
-#include <utility>                         // for pair
+#include <SDL.h>                          // for SDL_BUTTON_RIGHT, SDL_BUTTO...
+#include <assert.h>                       // for assert
+#include <stdio.h>                        // for sscanf
+#include <string.h>                       // for strcmp
+#include <filesystem>                     // for path, operator==
+#include <functional>                     // for _Bind, bind, function, _2, _1
+#include <iostream>                       // for basic_ostream, operator<<
+#include <list>                           // for list, _List_iterator
+#include <memory>                         // for unique_ptr, dynamic_pointer...
+#include <sstream>                        // for basic_stringstream, basic_o...
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
 
-#include "Game.hpp"                        // for getGame, Game
-#include "GameView.hpp"                    // for getGameView, GameView
-#include "MapEdit.hpp"                     // for monument_bul_flag, river_b...
-#include "Util.hpp"                        // for getCheckButton
-#include "gui/CheckButton.hpp"             // for CheckButton
-#include "gui/Child.hpp"                   // for Childs, Child
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"         // for parseEmbeddedComponent
-#include "gui/Image.hpp"                   // for Image
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/shared_globals.h"  // for modern_windmill_flag
-#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
-#include "lincity/engglobs.h"              // for tech_level, userOperation
-#include "lincity/lin-city.h"              // for GOOD
-#include "lincity/lintypes.h"              // for ConstructionGroup
-#include "lincity/modules/all_modules.h"   // for MODERN_WINDMILL_TECH, Wind...
-#include "tinygettext/gettext.hpp"         // for _
-
-class Painter;
-class Vector2;
+#include "Game.hpp"                       // for Game
+#include "UserOperation.hpp"              // for UserOperation
+#include "Util.hpp"                       // for getCheckButton
+#include "gui/Button.hpp"                 // for Button
+#include "gui/CheckButton.hpp"            // for CheckButton
+#include "gui/Child.hpp"                  // for Childs, Child
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"        // for loadGUIFile, parseEmbeddedC...
+#include "gui/Image.hpp"                  // for Image
+#include "gui/Signal.hpp"                 // for Signal
+#include "gui/Window.hpp"                 // for Window
+#include "gui/WindowManager.hpp"          // for WindowManager
+#include "gui/XmlReader.hpp"              // for XmlReader
+#include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
+#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lintypes.hpp"             // for ConstructionGroup
+#include "lincity/messages.hpp"           // for NotEnoughTechMessage, Message
+#include "lincity/modules/all_modules.hpp"  // for MODERN_WINDMILL_TECH, Windm...
+#include "lincity/world.hpp"                // for World
+#include "tinygettext/gettext.hpp"        // for _
 
 using namespace std::placeholders;
-
-extern void ok_dial_box(const char *, int, const char *);
 
 ButtonPanel *buttonPanelInstance = NULL;
 
@@ -175,7 +177,7 @@ ButtonPanel::parse(XmlReader& reader) {
                     ConstructionGroup::getConstructionGroup(std::stoi(value));
                 }
                 else if(attribute == "help") {
-                  tool->operation.helpName = value;
+                  tool->helpName = value;
                 }
                 else if(attribute == "upmes") {
                   tool->upMessage = value;
@@ -307,10 +309,18 @@ void ButtonPanel::connectButtons() {
       std::bind(&ButtonPanel::getMenu, this, _2)));
 }
 
+void
+ButtonPanel::setGame(Game *game) {
+  this->game = game;
+}
+
 /*
  * enable/disable buttons according to tech.
 **/
-void ButtonPanel::checkTech(bool showInfo) {
+void
+ButtonPanel::updateTech(bool showInfo) {
+  World& world = game->getWorld();
+  const int tech_level = world.tech_level;
   for(auto t : tools){
     Tool *tool = t.second;
     UserOperation& op = tool->operation;
@@ -318,11 +328,11 @@ void ButtonPanel::checkTech(bool showInfo) {
     if(op.constructionGroup == &windmillConstructionGroup) {
       if(tech_level >= MODERN_WINDMILL_TECH) {
         op.constructionGroup = &windpowerConstructionGroup;
+        // TODO: if the windmill tool is in use, need to update the game uop too
 
-        if(!modern_windmill_flag && showInfo) {
-          ok_dial_box("mod_wind_up.mes", GOOD, NULL);
+        if(showInfo) {
+          showUpMessage("mod_wind_up.mes");
         }
-        modern_windmill_flag = 1;
       }
     }
     else if(op.constructionGroup == &windpowerConstructionGroup) {
@@ -331,9 +341,10 @@ void ButtonPanel::checkTech(bool showInfo) {
       }
     }
 
-    if(op.enoughTech()) {
+    Message::ptr msg;
+    if(op.isAllowed(world, msg)) {
       if(!tool->button->isEnabled()) {
-        tool->button->setTooltip(op.createTooltip(false));
+        tool->button->setTooltip(createTooltip(tool));
         tool->button->enable();
 
         if(tool == tool->menu->activeTool) {
@@ -341,18 +352,21 @@ void ButtonPanel::checkTech(bool showInfo) {
         }
 
         if(!tool->upShown && showInfo && tool->upMessage.length()) {
-          ok_dial_box(tool->upMessage.c_str(), GOOD, 0L);
+          showUpMessage(tool->upMessage);
         }
       }
       tool->upShown = true;
     }
-    else {
+    else if(NotEnoughTechMessage::ptr net =
+      std::dynamic_pointer_cast<const NotEnoughTechMessage>(msg)
+    ) {
       if(tool->button->isEnabled()) {
         std::ostringstream os;
-        os << op.createTooltip(false).c_str() << " ("
-          << _("Techlevel") << " " << op.requiredTech()
+        os << createTooltip(tool) << " ("
+          << _("Techlevel") << " "
+          << (net->getRequiredTech() * 100.f / MAX_TECH_LEVEL)
           << " " << _("required") << ")";
-        tool->button->setTooltip(os.str().c_str());
+        tool->button->setTooltip(os.str());
         tool->button->enable(false);
 
         if(tool == tool->menu->activeTool) {
@@ -366,7 +380,80 @@ void ButtonPanel::checkTech(bool showInfo) {
         tool->upShown = false;
       }
     }
+    else {
+      // operation not allowed because of some other reason
+      std::ostringstream os;
+      os << createTooltip(tool);
+      tool->button->setTooltip(os.str());
+      if(tool->button->isEnabled()) {
+        tool->button->enable(false);
+        if(tool == tool->menu->activeTool) {
+          tool->menu->button->enable(false);
+        }
+      }
+    }
   }
+}
+
+std::string
+ButtonPanel::createTooltip(const Tool *tool) {
+  std::stringstream tooltip;
+  const UserOperation& op = tool->operation;
+  switch(op.action) {
+  case UserOperation::ACTION_QUERY:
+    tooltip <<  _("Query Tool") ; break;
+  case UserOperation::ACTION_BUILD:
+    tooltip << op.constructionGroup->getName();
+    switch(op.constructionGroup->group) {
+    case GROUP_RESIDENCE_LL:
+      tooltip <<  _(": 50 tenants, low birthrate, high deathrate");
+      break;
+    case GROUP_RESIDENCE_ML:
+      tooltip <<  _(": 100 tenants, high birthrate, low deathrate");
+      break;
+    case GROUP_RESIDENCE_HL:
+      tooltip <<  _(": 200 tenants, high birthrate, high deathrate");
+      break;
+    case GROUP_RESIDENCE_LH:
+      tooltip <<  _(": 100 tenants, low birthrate, high deathrate");
+      break;
+    case GROUP_RESIDENCE_MH:
+      tooltip <<  _(": 200 tenants, high birthrate, low deathrate");
+      break;
+    case GROUP_RESIDENCE_HH:
+      tooltip <<  _(": 400 tenants, high birthrate, high deathrate");
+      break;
+    }
+    break;
+  case UserOperation::ACTION_BULLDOZE:
+      tooltip <<  _("Bulldozer") ; break;
+  case UserOperation::ACTION_EVACUATE:
+      tooltip << _("Evacuate") ; break;
+  case UserOperation::ACTION_FLOOD:
+      tooltip <<  _("Water") ; break;
+  default:
+      tooltip << "unknown useroperation";
+  }
+  tooltip << " ["<< _("Click right for help.") << "]";
+  return tooltip.str();
+}
+
+void
+ButtonPanel::showUpMessage(const std::string& upMessage) {
+  std::filesystem::path msgFile("gui/dialogs/");
+  msgFile /= upMessage;
+  if(msgFile.extension() == ".mes")
+    msgFile.replace_extension(".xml");
+
+  std::unique_ptr<Window> dialog(dynamic_cast<Window *>(loadGUIFile(msgFile)));
+
+  WindowManager& wm = game->getWindowManager();
+
+  Button *okButton = dynamic_cast<Button *>(dialog->findComponent("Ok"));
+  okButton->clicked.connect(
+    std::bind(&WindowManager::removeWindow, &wm, dialog.get()));
+
+  wm.addWindow(dialog.release());
 }
 
 void ButtonPanel::draw(Painter &painter) {
@@ -396,7 +483,7 @@ void ButtonPanel::toggleBulldozeTool() {
 void ButtonPanel::toolButtonClicked(CheckButton* button, int mouseBtnNum) {
   Tool *tool = tools[button];
   if(mouseBtnNum == SDL_BUTTON_RIGHT) {
-    getGame()->showHelpWindow(tool->operation.helpName);
+    game->showHelpWindow(tool->helpName);
     return;
   }
 
@@ -435,16 +522,9 @@ void ButtonPanel::toolSelected(Tool *tool) {
   menu->setActiveTool(tool);
   activeMenu.select(menu->button);
 
-  userOperation = &tool->operation;
-
   bulldozeToggled = false;
 
-  // TODO: move this to a function GameView::updateTool(...)
-  getGameView()->setCursorSize(tool->operation.cursorSize());
-  getGameView()->showToolInfo();
-
-  // TODO: move this to MapEdit.cpp
-  monument_bul_flag = river_bul_flag = shanty_bul_flag = 0;
+  selected(tool->operation);
 }
 
 void ButtonPanel::menuSelected(Menu *menu) {

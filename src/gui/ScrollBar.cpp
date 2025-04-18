@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <functional>            // for bind, function, _1
+#include <functional>            // for bind, _1, function
 #include <iostream>              // for basic_ostream, operator<<, cerr, str...
 #include <memory>                // for unique_ptr
 #include <sstream>               // for basic_stringstream
@@ -39,8 +39,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Event.hpp"             // for Event
 #include "Vector2.hpp"           // for Vector2
 #include "XmlReader.hpp"         // for XmlReader
-
-class Painter;
 
 using namespace std::placeholders;
 

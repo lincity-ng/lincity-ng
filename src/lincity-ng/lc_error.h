@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __LC_ERROR_H__
 
 #include <errno.h>
-#include "config.h"
+#include "config.hpp"
 
 #ifdef __cplusplus
 #define EXTERN_C extern "C"

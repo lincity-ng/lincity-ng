@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <zlib.h>
 
-#include "lctypes.h"
+#include "lctypes.hpp"
 
 extern lmap_struct lmap;
 extern int global_mountainity,  global_aridity;

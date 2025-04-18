@@ -18,19 +18,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "HelpWindow.hpp"
 
-#include <physfs.h>                     // for PHYSFS_exists
+#include <cassert>                      // for assert
 #include <exception>                    // for exception
-#include <functional>                   // for bind, function, _1, _2
+#include <functional>                   // for bind, _1, function, _2
 #include <iostream>                     // for basic_ostream, operator<<, cerr
 #include <memory>                       // for unique_ptr
 #include <sstream>                      // for basic_ostringstream
 #include <stdexcept>                    // for runtime_error
 
+#include "Config.hpp"                   // for getConfig, Config
 #include "Util.hpp"                     // for getButton
 #include "gui/Button.hpp"               // for Button
 #include "gui/Component.hpp"            // for Component
 #include "gui/ComponentLoader.hpp"      // for loadGUIFile
-#include "gui/Desktop.hpp"              // for Desktop
 #include "gui/Document.hpp"             // for Document
 #include "gui/ScrollView.hpp"           // for ScrollView
 #include "gui/Signal.hpp"               // for Signal
@@ -41,14 +41,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using namespace std::placeholders;
 
-HelpWindow::HelpWindow(Desktop* desktop)
-{
-    this->windowManager = dynamic_cast<WindowManager *>(
-      desktop->findComponent("windowManager"));
+HelpWindow::HelpWindow(WindowManager* wm) : windowManager(wm) {
+  assert(wm);
 }
 
-HelpWindow::~HelpWindow()
-{}
+HelpWindow::~HelpWindow() { }
 
 void
 HelpWindow::update()
@@ -75,7 +72,8 @@ HelpWindow::showTopic(const std::string& topic)
               std::bind(&HelpWindow::historyBackClicked, this, _1));
         }
         // load new contents
-        std::string filename = getHelpFile(topic);
+        std::filesystem::path filename = getHelpFile(topic);
+        filename = std::filesystem::absolute(filename);
         std::unique_ptr<Component> contents (loadGUIFile(filename));
         Document* document = dynamic_cast<Document*> (contents.get());
         if(document == 0)
@@ -100,41 +98,41 @@ HelpWindow::showTopic(const std::string& topic)
     nextTopic = "";
 }
 
-std::string
+std::filesystem::path
 HelpWindow::getHelpFile(const std::string& topic)
 {
-    // try in user language
-    std::string filename = "help/";
-    filename += dictionaryManager->get_language() + "/";
-    filename += topic;
-    filename += ".xml";
-    if(PHYSFS_exists(filename.c_str()))
-       return filename;
-
-    // try short language, eg. "de" instead of "de_CH"
-    std::string language = dictionaryManager->get_language();
-    std::string::size_type pos = language.find("_");
-    if(pos != std::string::npos) {
-        language = std::string(language, 0, pos);
-        filename = "help/";
-        filename += language + "/";
-        filename += topic;
-        filename += ".xml";
-        if(PHYSFS_exists(filename.c_str()))
-            return filename;
-    }
-
-    // try english
-    filename = "help/en/";
-    filename += topic;
-    filename += ".xml";
-    if(!PHYSFS_exists(filename.c_str())) {
-        std::ostringstream msg;
-        msg << "There exists no help file for topic '" << topic << "'";
-        throw std::runtime_error(msg.str());
-    }
-
+  // try in user language
+  std::filesystem::path filename = getConfig()->appDataDir / "help";
+  filename /= dictionaryManager->get_language();
+  filename /= topic;
+  filename += ".xml";
+  if(std::filesystem::exists(filename))
     return filename;
+
+  // try short language, eg. "de" instead of "de_CH"
+  std::string language = dictionaryManager->get_language();
+  std::string::size_type pos = language.find("_");
+  if(pos != std::string::npos) {
+    language = std::string(language, 0, pos);
+    filename = getConfig()->appDataDir / "help";
+    filename /= language;
+    filename /= topic;
+    filename += ".xml";
+    if(std::filesystem::exists(filename))
+      return filename;
+  }
+
+  // try english
+  filename = getConfig()->appDataDir / "help" / "en";
+  filename += topic;
+  filename += ".xml";
+  if(std::filesystem::exists(filename))
+    return filename;
+
+  // give up
+  std::ostringstream msg;
+  msg << "There exists no help file for topic '" << topic << "'";
+  throw std::runtime_error(msg.str());
 }
 
 void

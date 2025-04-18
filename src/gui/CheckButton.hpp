@@ -1,6 +1,6 @@
 /*
 Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-Copyright (c) 2024 David Bears <dbear4q@gmail.com>
+Copyright (C) 2024 David Bears <dbear4q@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,17 +19,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __CHECK_BUTTON_HPP__
 #define __CHECK_BUTTON_HPP__
 
-#include <SDL.h>             // for Uint32
-#include <string>                   // for string, basic_string
-#include <vector>                   // for vector
+#include <SDL.h>              // for Uint32
+#include <string>             // for string, basic_string
+#include <vector>             // for vector
 
-#include "gui/Child.hpp"            // for Child, Childs
-#include "gui/Component.hpp"        // for Component
-#include "gui/Event.hpp"            // for Event
-#include "gui/Signal.hpp"  // for Signal
-#include "gui/Vector2.hpp"          // for Vector2
+#include "gui/Child.hpp"      // for Childs
+#include "gui/Component.hpp"  // for Component
+#include "gui/Signal.hpp"     // for Signal
+#include "gui/Vector2.hpp"    // for Vector2
 
-class Painter;
 class XmlReader;
 
 class CheckButton : public Component

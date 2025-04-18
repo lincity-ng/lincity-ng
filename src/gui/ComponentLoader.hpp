@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __COMPONENTLOADER_HPP__
 
 #include <string>
+#include <filesystem>
 
 class Component;
 class XmlReader;
@@ -33,11 +34,11 @@ class XmlReader;
  * Loads a gui-definition xml-file from disk and returns the toplevel
  * component
  */
-Component* loadGUIFile(const std::string& filename);
+Component* loadGUIFile(const std::filesystem::path& filename);
 
 /**
  * Parse a component embedded in the current xml element
- * ie. In this xml-tree: 
+ * ie. In this xml-tree:
  * <Contents>
  *   <Image src="example.png"/>
  * </Contents>
@@ -54,4 +55,3 @@ Component* createComponent(const std::string& type, XmlReader& reader);
 #endif
 
 /** @file gui/ComponentLoader.hpp */
-

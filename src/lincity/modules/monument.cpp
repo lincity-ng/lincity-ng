@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,14 +22,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "monument.h"
+#include "monument.hpp"
 
-#include <list>                     // for _List_iterator
-#include <map>                      // for map
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <map>                            // for allocator, map
+#include <string>                         // for basic_string, char_traits
 
-#include "modules.h"
-
-extern int mps_x, mps_y;
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.hpp"               // for GROUP_MONUMENT
+#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE, FLAG_...
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"                // for World
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 MonumentConstructionGroup monumentConstructionGroup(
     N_("Monument"),
@@ -47,8 +54,24 @@ MonumentConstructionGroup monumentConstructionGroup(
 
 //MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
-Construction *MonumentConstructionGroup::createConstruction() {
-  return new Monument(this);
+Construction *MonumentConstructionGroup::createConstruction(World& world) {
+  return new Monument(world, this);
+}
+
+Monument::Monument(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->busy = 0;
+  this->working_days = 0;
+  this->tech_made = 0;
+  this->tail_off = 0;
+  this->completion = 0;
+  this->completed = false; //don't save this one
+  this->labor_consumed = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * MONUMENT_GET_LABOR;
 }
 
 void Monument::update()
@@ -66,36 +89,34 @@ void Monument::update()
         {
             completed = true;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-            if (mps_x == x && mps_y == y)
-            {   mps_set(x, y, MPS_MAP);}
+            world.setUpdated(World::Updatable::MAP);
             //don't clear commodiyCount for savegame compatability
         }
         /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */
-        if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)
-            && (total_time % MONUMENT_DAYS_PER_TECH) == 1)
+        if (world.tech_level < (MONUMENT_TECH_EXPIRE * 1000)
+            && (world.total_time % MONUMENT_DAYS_PER_TECH) == 1)
         {
             tail_off++;
-            if (tail_off > (tech_level / 10000) - 2)
+            if (tail_off > (world.tech_level / 10000) - 2)
             {
-                tech_level++;
+                world.tech_level++;
                 tech_made++;
                 tail_off = 0;
             }
         }
     }
     //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-        if(commodityCount[STUFF_LABOR]==0 && completed)
-        {   deneighborize();}
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
+      if(commodityCount[STUFF_LABOR]==0 && completed)
+        deneighborize();
     }
 }
 
-void Monument::animate() {
+void Monument::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(completed) {
     frame = 0;
@@ -106,28 +127,33 @@ void Monument::animate() {
     frame = completion / 20;
 }
 
-void Monument::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    /* Display tech contribution only after monument is complete */
-    if (completion >= 100) {
-        i++;
-        mps_store_sfp(i++, N_("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
-    }
-    else
-    {
-        mps_store_sfp(i++, N_("busy"), (float) busy);
-        // i++;
-        list_commodities(&i);
-        i++;
-        mps_store_sfp(i++, N_("Completion"), completion);
-    }
+void Monument::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  /* Display tech contribution only after monument is complete */
+  if(completion >= 100) {
+    mps.addBlank();
+    mps.add_sfp(N_("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
+  }
+  else {
+    mps.add_sfp(N_("busy"), (float) busy);
+    // i++;
+    list_commodities(mps, production);
+    mps.addBlank();
+    mps.add_sfp(N_("Completion"), completion);
+  }
 }
 
-void Monument::save(xmlTextWriterPtr xmlWriter) {
+bool
+Monument::can_bulldoze(Message::ptr message) const {
+  if(!completed) {
+    message = CannotBulldozeIncompleteMonumentMessage::create(point);
+    return false;
+  }
+  return Construction::can_bulldoze(message);
+}
+
+void Monument::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"completion", "%d", completion);
@@ -135,14 +161,14 @@ void Monument::save(xmlTextWriterPtr xmlWriter) {
   Construction::save(xmlWriter);
 }
 
-bool Monument::loadMember(xmlpp::TextReader& xmlReader) {
+bool Monument::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "tech_made")  tech_made      = std::stoi(xmlReader.read_inner_xml());
   else if(name == "tail_off")   tail_off       = std::stoi(xmlReader.read_inner_xml());
   else if(name == "completion") completion     = std::stoi(xmlReader.read_inner_xml());
   else if(name == "labor_consumed" || name == "jobs_consumed")
                                 labor_consumed = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

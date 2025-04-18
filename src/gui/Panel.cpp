@@ -27,7 +27,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <iostream>              // for operator<<, basic_ostream, stringstream
+#include <filesystem>            // for path
+#include <iostream>              // for basic_ostream, operator<<, stringstream
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
 #include <string>                // for char_traits, allocator, basic_string

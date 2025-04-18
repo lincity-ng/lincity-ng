@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +22,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "substation.h"
+#include "substation.hpp"
 
 #include <list>                     // for _List_iterator
 #include <map>                      // for map
+#include <string>                   // for basic_string, operator<
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/groups.hpp"         // for GROUP_SUBSTATION
+#include "lincity/lin-city.hpp"       // for FALSE
+#include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"          // for World
+#include "tinygettext/gettext.hpp"  // for N_
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),
@@ -48,8 +54,20 @@ SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstruc
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 
 
-Construction *SubstationConstructionGroup::createConstruction() {
-  return new Substation(this);
+Construction *SubstationConstructionGroup::createConstruction(World& world) {
+  return new Substation(world, this);
+}
+
+Substation::Substation(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_HIVOLT] = 100 * SUBSTATION_HIVOLT;
+  commodityMaxProd[STUFF_LOVOLT] = 100 * 2 * SUBSTATION_HIVOLT;
 }
 
 void Substation::update()
@@ -62,15 +80,14 @@ void Substation::update()
         produceStuff(STUFF_LOVOLT, 2 * use_hivolt);
         working_days += use_hivolt;
     }
-    if (total_time % 100 == 99) //monthly update
-    {
-        reset_prod_counters();
-        busy = working_days/SUBSTATION_HIVOLT;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days/SUBSTATION_HIVOLT;
+      working_days = 0;
     }
 }
 
-void Substation::animate() {
+void Substation::animate(unsigned long real_time) {
   if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 2))
     frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];
   else if (commodityCount[STUFF_LOVOLT] > (MAX_LOVOLT_AT_SUBSTATION / 10))
@@ -80,14 +97,11 @@ void Substation::animate() {
   soundGroup = frameIt->resourceGroup;
 }
 
-void Substation::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), busy);
-    // i++;
-    list_commodities(&i);
+void Substation::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), busy);
+  list_commodities(mps, production);
 }
 
 /** @file lincity/modules/substation.cpp */

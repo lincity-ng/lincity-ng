@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,11 +22,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "residence.h"
+#include "residence.hpp"
 
-#include <stdlib.h>                 // for rand
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <iostream>                       // for basic_ostream, operator<<
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint, operator<<
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_EMPLOYED, FLAG_FED
+#include "lincity/stats.hpp"              // for Stats, Stat
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),
@@ -113,8 +123,54 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
 );
 
 
-Construction *ResidenceConstructionGroup::createConstruction() {
-  return new Residence(this);
+Construction *ResidenceConstructionGroup::createConstruction(World& world) {
+  return new Residence(world, this);
+}
+
+Residence::Residence(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->local_population = 0;
+  this->desireability = 0;
+  this->births = 120000;
+  this->deaths = 120000;
+  this->pol_deaths = 0;
+  if (cstgrp == &residenceLLConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_LL_MAX_POP;
+  else if (cstgrp == &residenceMLConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_ML_MAX_POP;
+  else if (cstgrp == &residenceHLConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_HL_MAX_POP;
+  else if (cstgrp == &residenceLHConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_LH_MAX_POP;
+  else if (cstgrp == &residenceMHConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_MH_MAX_POP;
+  else if (cstgrp == &residenceHHConstructionGroup)
+    this->max_population = GROUP_RESIDENCE_HH_MAX_POP;
+  else {
+    this->max_population = 50;
+    std::cout << "unknown ConstructionGroup in new Residence at "
+      << point << std::endl;
+  }
+
+  initialize_commodities();
+  commodityMaxCons[STUFF_FOOD] = 100 * max_population;
+  commodityMaxCons[STUFF_WATER] = 100 * max_population;
+  commodityMaxCons[STUFF_LOVOLT] = 100 * (POWER_RES_OVERHEAD +
+    (POWER_USE_PER_PERSON * max_population) + max_population/2);
+  commodityMaxProd[STUFF_LABOR] = 100 * (max_population * (
+      WORKING_POP_PERCENT + JOB_SWING +
+      HC_WORKING_POP + HC_JOB_SWING +
+      CRICKET_WORKING_POP + CRICKET_JOB_SWING)
+    / 100);
+  commodityMaxCons[STUFF_GOODS] = 100 * (max_population / 4) * 2;
+  commodityMaxProd[STUFF_WASTE] = 100 * (max_population / 12) * 2;
+}
+
+Residence::~Residence() {
+  //everyone survives demolition
+  world.people_pool += local_population;
 }
 
 void Residence::update()
@@ -131,16 +187,16 @@ void Residence::update()
     //int pol_death = 0;             //sometimes pollution kills
 
     /*Determine Health,Fire,Cricket cover*/
-    if ((hc = world(x,y)->flags & FLAG_HEALTH_COVER))
+    if ((hc = world.map(point)->flags & FLAG_HEALTH_COVER))
     {
         brm = RESIDENCE_BRM_HEALTH;
         good += 15;
     }
-    if (world(x,y)->flags & FLAG_FIRE_COVER)
+    if (world.map(point)->flags & FLAG_FIRE_COVER)
     {   good += 15;}
     else
     {   bad += 5;}
-    if (cc = world(x,y)->flags & FLAG_CRICKET_COVER)
+    if (cc = world.map(point)->flags & FLAG_CRICKET_COVER)
     {
         good += 20;
     }
@@ -164,12 +220,12 @@ void Residence::update()
             if (rand() % DAYS_PER_STARVE == 1)
             {
                 local_population--; //starving maybe deadly
-                ++ddeaths;
-                ++tunnat_deaths;
-                ++total_starve_deaths;
-                starve_deaths_history += 1.0;
+                ++world.stats.population.deaths_m;
+                ++world.stats.population.unnat_deaths_m;
+                ++world.stats.population.starve_deaths_t;
+                world.stats.population.starve_deaths_history += 1.0;
             }
-            starving_population += local_population; //only the survivors are starving
+            world.stats.population.starving_m += local_population; //only the survivors are starving
             bad += 250; // This place really sucks
             drm = 100; //starving is also unhealty
         }
@@ -179,13 +235,11 @@ void Residence::update()
     if (commodityCount[STUFF_LOVOLT] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
         consumeStuff(STUFF_LOVOLT, POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population));
-        flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
     }
     else
     {
-        flags &= ~(FLAG_POWERED);
         bad += 15;
         if ((flags & FLAG_HAD_POWER))
         {   bad += 50;}
@@ -230,15 +284,10 @@ void Residence::update()
     else
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
-        unemployed_population += local_population;
-        total_unemployed_days += local_population;
-        if (total_unemployed_days >= NUMOF_DAYS_IN_YEAR)
-        {
-            total_unemployed_years+= total_unemployed_days / NUMOF_DAYS_IN_YEAR;
-            total_unemployed_days -= total_unemployed_days % NUMOF_DAYS_IN_YEAR;
-            unemployed_history += (double)(total_unemployed_days / NUMOF_DAYS_IN_YEAR);
-        }
-        unemployment_cost += local_population; /* nobody went to work*/
+        world.stats.population.unemployed_m += local_population;
+        world.stats.population.unemployed_days_t += local_population;
+        world.stats.population.unemployed_history +=
+          (double)local_population / NUMOF_DAYS_IN_YEAR;
         bad += 70;
     }
 
@@ -276,7 +325,7 @@ void Residence::update()
     if (drm > RESIDENCE_BASE_DR - 1)
     {   drm = RESIDENCE_BASE_DR - 1;}
     /* normal deaths + pollution deaths */
-    po = ((world(x,y)->pollution / 16) + 1);
+    po = ((world.map(point)->pollution / 16) + 1);
     pol_deaths = po>100?95:po-5>0?po-5:1;
     deaths = (RESIDENCE_BASE_DR - drm - 3*po);
     if (deaths < 1) deaths = 1;
@@ -287,12 +336,12 @@ void Residence::update()
         if (r == 0) //one guy had bad luck
         {
             --local_population;
-            ++ddeaths;
+            ++world.stats.population.deaths_m;
             if(rand() % 100 < pol_deaths) // deadly pollution
             {
-                tunnat_deaths++;
-                total_pollution_deaths++;
-                pollution_deaths_history += 1.0;
+                world.stats.population.unnat_deaths_m++;
+                world.stats.population.pollution_deaths_t++;
+                world.stats.population.pollution_deaths_history += 1.0;
                 bad += 100;
             }
         }
@@ -308,8 +357,8 @@ void Residence::update()
         if (rand() % births == 0)
         {
             ++local_population;
-            ++total_births;
-            ++dbirths;
+            ++world.stats.population.births_t;
+            ++world.stats.population.births_m;
             good += 50;
         }
     }
@@ -318,8 +367,8 @@ void Residence::update()
 
     /* people_pool stuff */
     //bad += local_population / 2;
-    bad += world(x,y)->pollution / 20;
-    good += people_pool / 27; //27
+    bad += world.map(point)->pollution / 20;
+    good += world.people_pool / 27; //27
     desireability = good-bad;
     r = rand() % ((good + bad) * RESIDENCE_PPM);
     if (r < bad || local_population > max_population)
@@ -327,46 +376,43 @@ void Residence::update()
         if (local_population > MIN_RES_POPULATION)
         {
             --local_population;
-            ++people_pool;
+            ++world.people_pool;
         }
-    } else if (people_pool > 0 && local_population < max_population
+    } else if (world.people_pool > 0 && local_population < max_population
                && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad))  /* r > (rmax - good) */
     {
         ++local_population;
-        --people_pool;
+        --world.people_pool;
     }
     /* XXX AL1: this is daily accumulator used stats.cpp, and maybe pop graph */
-   population += local_population;
-   housing += max_population;
+    world.stats.population.population_m += local_population;
+    world.stats.population.housed_m += local_population;
+    world.stats.population.housing_m += max_population;
 
-    if(total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
       reset_prod_counters();
     }
 }
 
-void Residence::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
-    mps_store_sd(i++, N_("Desireability"), desireability);
-    mps_store_sf(i++, N_("Births p.a."), (float)1200/births);
-    mps_store_sf(i++, N_("Death p.a."), (float)1200/deaths);
-    mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
-    // i++;
-    list_commodities(&i);
+void Residence::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sddp(N_("Tenants"), local_population, max_population);
+  mps.add_sd(N_("Desireability"), desireability);
+  mps.add_sf(N_("Births p.a."), (float)1200/births);
+  mps.add_sf(N_("Death p.a."), (float)1200/deaths);
+  mps.add_sfp(N_("Unnat. mortality"), (float)pol_deaths);
+  list_commodities(mps, production);
 }
 
-void Residence::save(xmlTextWriterPtr xmlWriter) {
+void Residence::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"local_population", "%d", local_population);
   Construction::save(xmlWriter);
 }
 
-bool Residence::loadMember(xmlpp::TextReader& xmlReader) {
+bool Residence::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "local_population") local_population = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

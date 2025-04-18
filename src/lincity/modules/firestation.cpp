@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,13 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "firestation.h"
+#include "firestation.hpp"
 
-#include <algorithm>  // for max, min
-#include <list>       // for _List_iterator
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <algorithm>                      // for max, min
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
+#include <vector>                         // for vector
 
-#include "modules.h"  // for basic_string, allocator, char_traits, Commodity
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_FIRESTATION
+#include "lincity/lin-city.hpp"           // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 // FireStation:
@@ -46,33 +58,56 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_RANGE
 );
 
-Construction *FireStationConstructionGroup::createConstruction() {
-  return new FireStation(this);
+Construction *FireStationConstructionGroup::createConstruction(World& world) {
+  return new FireStation(world, this);
+}
+FireStation::FireStation(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->active = false;
+  this->busy = 0;
+  this->working_days = 0;
+  this->daycount = 0;
+  this->covercount = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * FIRESTATION_LABOR;
+  commodityMaxCons[STUFF_GOODS] = 100 * FIRESTATION_GOODS;
+  commodityMaxProd[STUFF_WASTE] = 100 * (FIRESTATION_GOODS / 3);
 }
 
 void FireStation::update()
 {
-    ++daycount;
-    if (commodityCount[STUFF_LABOR] >= FIRESTATION_LABOR
-    &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
-    &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION)
-    {
-        consumeStuff(STUFF_LABOR, FIRESTATION_LABOR);
-        consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
-        produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
-        ++covercount;
-        ++working_days;
+  ++daycount;
+  try {
+    world.expense(FIRESTATION_RUNNING_COST * (1 +
+        FIRESTATION_RUNNING_COST_MUL * world.tech_level / MAX_TECH_LEVEL),
+      world.stats.expenses.firestation);
+
+    if(commodityCount[STUFF_LABOR] >= FIRESTATION_LABOR
+      &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
+      &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION
+    ) {
+      consumeStuff(STUFF_LABOR, FIRESTATION_LABOR);
+      consumeStuff(STUFF_GOODS, FIRESTATION_GOODS);
+      produceStuff(STUFF_WASTE, FIRESTATION_GOODS / 3);
+      ++covercount;
+      ++working_days;
     }
-    //monthly update
-    if (total_time % 100 == 99) {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    /* That's all. Cover is done by different functions every 3 months or so. */
-    fire_cost += FIRESTATION_RUNNING_COST;
-    if(refresh_cover)
-    {   cover();}
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
+
+  if(world.total_time % DAYS_BETWEEN_COVER == 75)
+    cover();
+
+  //monthly update
+  if (world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days;
+      working_days = 0;
+  }
 }
 
 void FireStation::cover()
@@ -88,16 +123,20 @@ void FireStation::cover()
     daycount = 0;
     animate_enable = true;
 
-    int xs = std::max(x - constructionGroup->range, 1);
-    int xe = std::min(x + constructionGroup->range, world.len() - 1);
-    int ys = std::max(y - constructionGroup->range, 1);
-    int ye = std::min(y + constructionGroup->range, world.len() - 1);
-    for(int yy = ys; yy < ye; ++yy)
-    for(int xx = xs; xx < xe; ++xx)
-      world(xx,yy)->flags |= FLAG_FIRE_COVER;
+    MapPoint nw(
+      std::max(point.x - constructionGroup->range, 1),
+      std::max(point.y - constructionGroup->range, 1)
+    );
+    MapPoint se(
+      std::min(point.x + constructionGroup->range, world.map.len() - 1),
+      std::min(point.y + constructionGroup->range, world.map.len() - 1)
+    );
+    for(MapPoint p(nw); p.y < se.y; p.y++)
+    for(p.x = nw.x; p.x < se.x; p.x++)
+      world.map(p)->flags |= FLAG_FIRE_COVER_CHECK;
 }
 
-void FireStation::animate() {
+void FireStation::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(FIRESTATION_ANIMATION_SPEED);
@@ -110,31 +149,26 @@ void FireStation::animate() {
   }
 }
 
-void FireStation::report()
-{
-    int i = 0;
-    const char* p;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    // i++;
-    list_commodities(&i);
-    p = active?N_("Yes"):N_("No");
-    mps_store_ss(i++, N_("Fire Protection"), p);
+void FireStation::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (float) busy);
+  list_commodities(mps, production);
+  mps.add_ss(N_("Fire Protection"), active ? N_("Yes") : N_("No"));
 }
 
-void FireStation::save(xmlTextWriterPtr xmlWriter) {
+void FireStation::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
   Construction::save(xmlWriter);
 }
 
-bool FireStation::loadMember(xmlpp::TextReader& xmlReader) {
+bool FireStation::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if     (name == "active")     active     = std::stoi(xmlReader.read_inner_xml());
   else if(name == "daycount")   daycount   = std::stoi(xmlReader.read_inner_xml());
   else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

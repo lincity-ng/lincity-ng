@@ -25,8 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Color.hpp"    // for Color
 #include "gui/Painter.hpp"  // for Painter
 
-class Rect2D;
-class Texture;
 class TextureSDL;
 
 /**
