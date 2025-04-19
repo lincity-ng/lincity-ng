@@ -24,20 +24,25 @@ include(GNUInstallDirs)
 include(GetGitRevisionDescription)
 
 ### build configurations
-string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_UPPER)
-set(BUILD_CONFIGS Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
+set(BUILD_TYPES Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${BUILD_TYPES})
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Release)
+	message(STATUS "No build type specified, defaulting to ${CMAKE_BUILD_TYPE}.")
+endif()
+string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE_UPPER)
 set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os    -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
 set(CMAKE_CXX_FLAGS_BETATEST       "-O3 -g")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g -DDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUGOPT       "-O2 -g -DDEBUG")
-foreach(BConfig ${BUILD_CONFIGS})
-	string(TOUPPER ${BConfig} BCONFIG)
-	set(CMAKE_CXX_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BCONFIG}}
-		CACHE STRING "Flags used by the CXX compiler for ${BCONFIG} builds.")
-	set(CMAKE_C_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BCONFIG}}
-		CACHE STRING "Flags used by the C compiler for ${BCONFIG} builds.")
+foreach(BType ${BUILD_TYPES})
+	string(TOUPPER ${BType} BTYPE)
+	set(CMAKE_CXX_FLAGS_${BTYPE} ${CMAKE_CXX_FLAGS_${BTYPE}}
+		CACHE STRING "Flags used by the CXX compiler for ${BTYPE} builds.")
+	set(CMAKE_C_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BTYPE}}
+		CACHE STRING "Flags used by the C compiler for ${BTYPE} builds.")
 endforeach()
 
 
