@@ -32,9 +32,7 @@ set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 
 ### build configurations
 
-if(CMAKE_BUILD_TYPE)
-  string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPER)
-endif()
+string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE_UPPER)
 set(BUILD_CONFIGS Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
 set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os    -DNDEBUG")
