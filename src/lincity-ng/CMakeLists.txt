@@ -13,7 +13,6 @@ add_executable(lincity-ng
 		Game.hpp
 		GameView.cpp
 		GameView.hpp
-		getBundleSharePath.cpp
 		HelpWindow.cpp
 		HelpWindow.hpp
 		lc_error.c

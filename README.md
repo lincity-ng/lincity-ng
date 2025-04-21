@@ -90,7 +90,7 @@ To clone, configure, build, and install:
 ```
 git clone https://github.com/lincity-ng/lincity-ng.git
 cd lincity-ng
-cmake -B build
+cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 sudo cmake --install build  # optional
 ```

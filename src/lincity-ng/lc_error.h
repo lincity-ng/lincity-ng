@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __LC_ERROR_H__
 
 #include <errno.h>
+#include <stddef.h>
+
 #include "config.h"
 
 #ifdef __cplusplus
@@ -41,7 +43,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   error(STATUS, ERRNO, FORMAT)
 #endif
 
-#ifdef UNIX
+#if defined(UNIX) && !defined(APPLE)
 #include <error.h>
 #else
 #define error(STATUS, ERRNO, FORMAT...) \
