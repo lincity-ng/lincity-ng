@@ -137,7 +137,6 @@ void MainMenu::fillNewGameMenu()
   {
     button = getCheckButton(*newGameMenu, buttonNames[i]);
 
-    button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
     while(*fptr)
     {
       if(std::string(*fptr).find(".scn.gz")!=std::string::npos)
@@ -255,6 +254,24 @@ MainMenu::loadNewGameMenu() {
 
   button = getCheckButton(*newGameMenu,"SwampArea");
   button->setCaptionText(_("swamp"));
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File0");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File1");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File2");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File3");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File4");
+  button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
+
+  button = getCheckButton(*newGameMenu, "File5");
   button->clicked.connect(std::bind(&MainMenu::selectLoadGameButtonClicked, this, _1, _2));
 }
 
@@ -936,18 +953,26 @@ MainMenu::run()
     quitState = QUIT;
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       menu->findComponent("windowManager")));
-    Uint32 fpsTicks = SDL_GetTicks();
-    Uint32 lastticks = fpsTicks;
-    int frame = 0;
+
     {
       int width, height;
       SDL_GetWindowSize(window, &width, &height);
       menu->resize(width, height);
     }
-    while(running)
-    {
-        if(SDL_WaitEventTimeout(&event, 100))
-        {
+    int frame = 0;
+    Uint32 next_gui = 0, next_fps = 0;
+    __attribute__((unused))
+    Uint32 prev_gui = 0, prev_fps = 0;
+    Uint32 next_task;
+    Uint32 tick = 0;
+    while(running) {
+        next_task = std::min({next_gui, next_fps});
+        while(true) {
+            int event_timeout = next_task - SDL_GetTicks();
+            if(event_timeout < 0) event_timeout = 0;
+            int status = SDL_WaitEventTimeout(&event, event_timeout);
+            if(!status) break; // timed out
+
             switch(event.type) {
                 case SDL_WINDOWEVENT:
                     if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
@@ -997,26 +1022,34 @@ MainMenu::run()
                 default:
                     break;
             }
+
+            if(menu->needsRedraw())
+              next_task = tick;
         }
 
-        // create update Event
-        Uint32 ticks = SDL_GetTicks();
-        float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
-        menu->event(Event(elapsedTime));
-        lastticks = ticks;
+        tick = SDL_GetTicks();
+        frame++;
+
+        if(tick >= next_gui) { // gui update
+            // fire update event
+            menu->event(Event((tick - prev_gui) / 1000.0f));
+
+            next_gui = tick + 1000/10; // 10 FPS
+            prev_gui = tick;
+        }
+
+        if(tick >= next_fps) {
+#ifdef DEBUG_FPS
+            printf("MainMenu FPS: %d.\n", (frame*1000) / (tick - prev_fps));
+#endif
+            frame = 0;
+            next_fps = tick + 1000;
+            prev_fps = tick;
+        }
 
         if(menu->needsRedraw()) {
             menu->draw(*painter);
             painter->updateScreen();
-        }
-
-        frame++;
-        if(ticks - fpsTicks > 1000) {
-#ifdef DEBUG_FPS
-            printf("MainMenu FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
-#endif
-            frame = 0;
-            fpsTicks = ticks;
         }
     }
 

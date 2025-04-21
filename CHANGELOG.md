@@ -1,3 +1,25 @@
+## Unreleased
+
+###### User Interface
+- Fixed duplicate click events in the new-game menu.
+
+
+## LinCity-NG 2.13.1
+
+date: 2025-02-15
+
+###### User Interface
+- Fixed popup dialog text not showing.
+- Fixed input lag in main menu.
+
+###### Internal
+- Fixed random crashing on Windows caused by a bad string termination.
+- Fixed segfault when loading communes from a saved game.
+- Fixed freeze on launch.
+- Fixed freeze when starting a game.
+- Fixed segfault and dangling thread when quitting the game in debug mode.
+
+
 ## LinCity-NG 2.13.0 [SECURITY]
 
 date: 2025-01-26

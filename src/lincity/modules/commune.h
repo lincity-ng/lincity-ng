@@ -99,23 +99,6 @@ public:
         this->last_month_output = 0;
         this->lazy_months = 0;
         initialize_commodities();
-        // Check underground water, and reduce coal production accordingly
-        int w = 0;
-        for (int i = 0; i < constructionGroup->size; i++)
-        {
-            for (int j = 0; j < constructionGroup->size; j++)
-            {
-                if (world(x+j, y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                {    w++;}
-            }// end j
-        }//end i
-        this->ugwCount = w;
-        if (w < 16 / 3)
-        {   this->coalprod = COMMUNE_COAL_MADE/3;}
-        else if (w < (2 * 16) / 3)
-        {   this->coalprod = COMMUNE_COAL_MADE/2;}
-        else
-        {   this->coalprod = COMMUNE_COAL_MADE;}
 
         commodityMaxCons[STUFF_WATER] = 100 *
           constructionGroup->size * constructionGroup->size * WATER_FOREST;
