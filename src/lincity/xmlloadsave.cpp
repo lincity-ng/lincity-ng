@@ -66,12 +66,12 @@ static void readArray(xmlpp::TextReader& xmlReader, int *ary, int len);
 static void writePbar(xmlTextWriterPtr xmlWriter, struct pbar_st& pbar);
 static void readPbar(xmlpp::TextReader& xmlReader, struct pbar_st& pbar);
 
-void saveGame(std::string filename) {
+void saveGame(const std::filesystem::path& filename) {
   std::string gz_name;
-  gzFile gz_file = gzopen(filename.c_str(), "wb");
+  gzFile gz_file = gzopen(filename.string().c_str(), "wb");
   if(!gz_file)
     throw std::runtime_error(
-      std::string("failed to open file: ") + filename);
+      std::string("failed to open file: ") + filename.string());
 
   int xmlStatus = XML_ERR_OK;
   {
@@ -133,11 +133,11 @@ void saveGame(std::string filename) {
   }
 }
 
-void loadGame(std::string filename) {
-  gzFile gz_file = gzopen(filename.c_str(), "rb");
+void loadGame(const std::filesystem::path& filename) {
+  gzFile gz_file = gzopen(filename.string().c_str(), "rb");
   if(!gz_file)
     throw std::runtime_error(
-      std::string("failed to open file: ") + filename);
+      std::string("failed to open file: ") + filename.string());
 
   xmlTextReaderPtr xmlCReader = xmlReaderForIO(
     [](void *ctx, char *buf, int len){
@@ -161,7 +161,7 @@ void loadGame(std::string filename) {
   // find the SaveGame node
   while(true) {
     if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
-      throw std::runtime_error("failed to find SaveGame element");
+      throw std::runtime_error("failed to find lc-game element");
     else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
     else if(xmlReader.get_name() == "lc-game")
       break;

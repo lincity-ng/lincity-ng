@@ -17,21 +17,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "PainterGL.hpp"
 
-#include <SDL_opengl.h>   // for glVertex2f, glDisable, glEnable, GL_TEXTURE_2D
-#include <assert.h>       // for assert
-#include <iostream>       // for operator<<, basic_ostream, cerr
+#include <SDL_opengl.h>    // for glVertex2f, glDisable, glEnable, GL_TEXTUR...
+#include <assert.h>        // for assert
+#include <iostream>        // for basic_ostream, operator<<, cerr
 
 #include "../Vector2.hpp"  // for Vector2
-#include "Color.hpp"      // for Color
-#include "Rect2D.hpp"     // for Rect2D
-#include "Texture.hpp"    // for Texture
-#include "TextureGL.hpp"  // for TextureGL
+#include "Color.hpp"       // for Color
+#include "Rect2D.hpp"      // for Rect2D
+#include "Texture.hpp"     // for Texture
+#include "TextureGL.hpp"   // for TextureGL
 
 #ifndef NDEBUG
-#include <typeinfo>       // for typeid
+#include <typeinfo>        // for type_info
 #endif
-
-class Painter;
 
 PainterGL::PainterGL(SDL_Window* _window)
     : window(_window)

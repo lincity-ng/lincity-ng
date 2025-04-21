@@ -19,13 +19,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __GAMEVIEW_HPP__
 #define __GAMEVIEW_HPP__
 
-#include <SDL.h>                  // for Uint32, SDL_Cursor, SDL_Surface
-#include <string>                 // for string, basic_string
+#include <SDL.h>                  // for Uint32, SDL_Surface, SDL_Thread
+#include <filesystem>             // for path
+#include <string>                 // for basic_string, string
 
 #include "MapPoint.hpp"           // for MapPoint
 #include "MiniMap.hpp"            // for MiniMap
 #include "gui/Component.hpp"      // for Component
-#include "gui/Event.hpp"          // for Event
 #include "gui/Vector2.hpp"        // for Vector2
 #include "lincity/resources.hpp"  // for GraphicsInfo
 
@@ -103,9 +103,9 @@ private:
     void setZoom(float newzoom);
     void zoomMouse(float factor, Vector2 mousepos);
     bool constrainViewportPosition(bool useScrollCorrection);
-    SDL_Surface* readImage(const std::string& filename);
+    SDL_Surface* readImage(const std::filesystem::path& filename);
     void preReadImages(void);
-    Texture* readTexture(const std::string& filename);
+    Texture* readTexture(const std::filesystem::path& filename);
     //void loadTextures();
     //void preReadCityTexture(int textureType, const std::string& filename);
 

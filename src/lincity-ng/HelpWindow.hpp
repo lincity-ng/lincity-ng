@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <stack>   // for stack
 #include <string>  // for string, basic_string
+#include <filesystem>
 
 class Button;
 class Desktop;
@@ -38,7 +39,7 @@ public:
 private:
     void linkClicked(Paragraph* paragraph, const std::string& href);
     void historyBackClicked(Button*);
-    std::string getHelpFile(const std::string& topic);
+    std::filesystem::path getHelpFile(const std::string& topic);
 
     WindowManager* windowManager;
     std::string nextTopic;

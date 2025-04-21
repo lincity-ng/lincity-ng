@@ -62,13 +62,9 @@ target_link_libraries(lincity-ng
 	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
 	PRIVATE
 	tinygettext
-	physfsrwops
-	LinCity::physfsstream
+	cfgpath
 	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 )
-
-target_include_directories(lincity-ng PRIVATE ${PHYSFS_INCLUDE_DIR})
-target_link_libraries(lincity-ng PRIVATE ${PHYSFS_LIBRARY})
 
 include_directories(.)

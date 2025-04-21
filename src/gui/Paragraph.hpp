@@ -29,12 +29,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Component.hpp"        // for Component
 #include "DocumentElement.hpp"  // for DocumentElement
-#include "Event.hpp"            // for Event
 #include "Rect2D.hpp"           // for Rect2D
+#include "Signal.hpp"           // for Signal
 #include "Style.hpp"            // for Style
-#include "Signal.hpp"  // for Signal
 
-class Painter;
 class Texture;
 class XmlReader;
 

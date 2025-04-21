@@ -21,8 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>                       // for SDL_GetError, SDL_CreateThread
 #include <SDL_mixer.h>                 // for Mix_Volume, Mix_FreeMusic, Mix...
-#include <assert.h>                    // for assert
-#include <physfs.h>                    // for PHYSFS_stat, PHYSFS_FileType
+#include <cassert>                     // for assert
 #include <stdio.h>                     // for NULL, size_t, fprintf, stderr
 #include <stdlib.h>                    // for strtod, rand
 #include <string.h>                    // for strcmp
@@ -30,19 +29,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>                    // for basic_ostream, operator<<, endl
 #include <utility>                     // for pair
 #include <vector>                      // for vector
+#include <stdexcept>                   // for runtime_error
 
 #include "Config.hpp"                  // for getConfig, Config
 #include "Game.hpp"                    // for getGame
-#include "physfsrwops.h"
 #include "gui/XmlReader.hpp"           // for XmlReader
 #include "libxml/xmlreader.h"          // for XML_READER_TYPE_ELEMENT
 #include "lincity/engglobs.h"          // for tech_level
 #include "lincity/lin-city.h"          // for MAX_TECH_LEVEL
 #include "lincity/resources.hpp"       // for ResourceGroup
-
-#ifdef DEBUG
-#include <stdexcept>                   // for runtime_error
-#endif
 
 Sound* soundPtr = 0;
 
@@ -62,19 +57,16 @@ Sound::soundThread(void* ptr)
 void
 Sound::loadWaves() {
     //Load Waves
-    const auto dirsep = "/";
-    std::string directory = "sounds";
-    directory += dirsep;
-    std::string xmlfile = directory + "sounds.xml";
-    XmlReader reader( xmlfile );
-    std::string filename;
-    std::string fullname;
+    std::filesystem::path directory = getConfig()->appDataDir / "sounds";
+    std::filesystem::path xmlfile = directory / "sounds.xml";
+    XmlReader reader(xmlfile);
+    std::filesystem::path filename;
+    std::filesystem::path fullname;
     std::vector<ResourceGroup*> resGrpVec;
     resGrpVec.clear();
     int resourceID_level = 0;
     std::string key;
     Mix_Chunk *chunk;
-    SDL_RWops* file;
     while( reader.read() )
     {
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
@@ -121,9 +113,8 @@ Sound::loadWaves() {
                     else
                     {   std::cout << "unknown attribute " << name << " in sounds.xml" << std::endl;}
                 }
-                fullname = directory + key;
-                file = PHYSFSRWOPS_openRead(fullname.c_str());
-                chunk = Mix_LoadWAV_RW( file, 1);
+                fullname = directory / key;
+                chunk = Mix_LoadWAV(fullname.string().c_str());
                 if(!chunk) {
                     std::cerr << "warning: failed to load sound '" << key
                         << "': " << Mix_GetError() << std::endl;
@@ -152,161 +143,66 @@ Sound::loadWaves() {
 
  /*
  * Load music theme from subfolder of 'music/'.
- * If no theme files are present, load just plain playlist.
  */
 void Sound::loadMusicTheme() {
+  std::filesystem::path musicDir = getConfig()->appDataDir / "music";
+  //Reset track counter:
+  totalTracks=0;
+  playlist.clear();
+  //Get the current music theme
+  std::string theme = getConfig()->musicTheme;
+  std::filesystem::path themeDir = musicDir / theme;
+  std::filesystem::path xml_name = themeDir / (theme + ".xml");
 
-    //TODO there should be a music directory in
-    // LINCITY_HOME
-    const std::string dirsep = "/";
-    std::string musicDir = "music" + dirsep;
-    //Reset track counter:
-    totalTracks=0;
-    playlist.clear();
-    //Get the current music theme
-    std::string theme = getConfig()->musicTheme;
+  if(!std::filesystem::is_regular_file(xml_name))
+    throw std::runtime_error(
+      std::string("could not load music theme: " + theme));
 
-    //Separate folder, filename and extension:
-    /*
-    std::string format = theme.substr((theme.length()-4), 4);
-    std::string folder = "";
-    std::string file = "";
-    */
-    /*
-    if(format == ".xml") {
-        size_t found;
-        found = theme.find_last_of("/");
-        folder = theme.substr(0, found);
-        file = theme.substr(found+1);
-    }
-    */
+  //Get the number of songs
+  XmlReader reader( xml_name );
 
-    std::string xml_name = musicDir + theme + dirsep + theme + ".xml";
-    theme = musicDir + theme;
+  while(reader.read()) {
+    if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+      const std::string& element = (const char*) reader.getName();
 
-    //std::cout << "looking for : " << xml_name << std::endl;
-    //Check if XML file is present
-    PHYSFS_Stat themeStat;
-    int errorCode = PHYSFS_stat(theme.c_str(), &themeStat);
-    if(errorCode == 0) {
-        std::cerr << "could not stat file: " << theme << std::endl;
-    }
-    if(PHYSFS_exists(xml_name.c_str()) && themeStat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
+      if(element == "song") {
+        XmlReader::AttributeIterator iter(reader);
+        std::string title;
+        std::filesystem::path filename;
+        float lowest_tech_level = 0.0;
+        float highest_tech_level = 10000.0;
 
-        //XML file found, so let's parse it and use as a basis
-        //for our music theme
-        std::cerr << "File found: '" << xml_name << "'. Loading song data..." << std::endl;
+        while(iter.next()) {
+          const char* name = (const char*) iter.getName();
+          const char* value = (const char*) iter.getValue();
 
-        //Get the number of songs
-        XmlReader reader( xml_name );
-
-        while( reader.read() ) {
-            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
-            {
-                const std::string& element = (const char*) reader.getName();
-
-                if( element == "song" ) {
-                    XmlReader::AttributeIterator iter(reader);
-                    std::string title;
-                    std::string filename;
-                    float lowest_tech_level = 0.0;
-                    float highest_tech_level = 10000.0;
-
-                    while( iter.next() )
-                    {
-                        const char* name = (const char*) iter.getName();
-                        const char* value = (const char*) iter.getValue();
-
-                        if (strcmp(name, "title" ) == 0)
-                            title = value;
-                        else if (strcmp(name, "filename" ) == 0) {
-                            filename = theme + dirsep + value;
-                        }
-                        else if (strcmp(name, "highest-tech-level" ) == 0)
-                            highest_tech_level = strtod(value, NULL);
-                        else if (strcmp(name, "lowest-tech-level" ) == 0)
-                            lowest_tech_level = strtod(value, NULL);
-                    }
-                    song tempSong;
-                    tempSong.title = title;
-                    tempSong.filename = filename;
-                    tempSong.trackNumber = totalTracks;
-                    tempSong.lowestTechLevel = lowest_tech_level;
-                    if(highest_tech_level == 0)
-                    {   highest_tech_level = 10 * MAX_TECH_LEVEL;}
-                    tempSong.highestTechLevel = highest_tech_level;
-
-                    playlist.push_back(tempSong);
-                    std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
-                    totalTracks++;
-                }
-                else {
-                    std::cerr << "Config::load# Unknown element '" << element << "' in "<< theme << "." << std::endl;
-                }
-            }
+          if(strcmp(name, "title") == 0)
+            title = value;
+          else if(strcmp(name, "filename") == 0)
+            filename = themeDir / value;
+          else if(strcmp(name, "highest-tech-level") == 0)
+            highest_tech_level = strtod(value, NULL);
+          else if(strcmp(name, "lowest-tech-level") == 0)
+            lowest_tech_level = strtod(value, NULL);
         }
+        song tempSong;
+        tempSong.title = title;
+        tempSong.filename = filename;
+        tempSong.trackNumber = totalTracks;
+        tempSong.lowestTechLevel = lowest_tech_level;
+        if(highest_tech_level == 0)
+          highest_tech_level = 10 * MAX_TECH_LEVEL;
+        tempSong.highestTechLevel = highest_tech_level;
+
+        playlist.push_back(tempSong);
+        totalTracks++;
+      }
+      else {
+        std::cerr << "Config::load# Unknown element '" << element << "' in "
+          << theme << "." << std::endl;
+      }
     }
-    else {
-        std::string directory;
-
-        errorCode = PHYSFS_stat(theme.c_str(), &themeStat);
-        if(errorCode == 0) {
-            std::cerr << "could not stat file: " << theme << std::endl;
-        }
-        if (themeStat.filetype == PHYSFS_FILETYPE_DIRECTORY)
-        {   directory = theme;}
-        /*
-        else if(PHYSFS_isDirectory(folder.c_str()))
-            directory = folder;
-        */
-        else
-        {   return;}
-
-        //No XML file found, let's just load plain song files to the playlist:
-
-        //TODO not tested. It should work, but who knows?
-
-        std::string filename;
-        std::string fullname;
-        std::cerr << "Loading song data from '" << directory << "'..." << std::endl;
-
-
-        //list files in 'music/'
-        char **files= PHYSFS_enumerateFiles(directory.c_str());
-        char **fptr=files;
-
-        //reset the pointer
-        fullname = "";
-
-        //Fill the playlist with data:
-        while(*fptr)
-        {
-            fullname = directory;
-            fullname.append( *fptr );
-            filename.assign( *fptr );
-            std::string format = fullname.substr((fullname.length()-4), 4);
-
-            PHYSFS_Stat fullnameStat;
-            errorCode = PHYSFS_stat(fullname.c_str(), &fullnameStat);
-            if(errorCode == 0) {
-                std::cerr << "could not stat file: " << fullname << std::endl;
-            }
-            if(themeStat.filetype != PHYSFS_FILETYPE_DIRECTORY && (filename[0]!='.')
-            && (format == ".ogg") ){
-                song tempSong;
-                tempSong.title = *fptr;
-                tempSong.filename = directory + dirsep + *fptr;
-                tempSong.trackNumber = totalTracks;
-                tempSong.lowestTechLevel = -10;
-                tempSong.highestTechLevel =  10 * MAX_TECH_LEVEL;
-                playlist.push_back(tempSong);
-                //std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
-                totalTracks++;
-            }
-            fptr++;
-        }
-        PHYSFS_freeList(files);
-    }
+  }
 }
 
 Sound::Sound()
@@ -496,22 +392,10 @@ Sound::playMusic()
             return;
         }
 
-        // transform filename... because the music commands in SDL_Mixer don't
-        // support reading callbacks to read from physfs directly
-
-        const char* dir = PHYSFS_getRealDir(currentTrack.filename.c_str());
-        if(dir == 0) {
-            std::cerr << "Warning couldn't find music file '" << currentTrack.filename << "'." << std::endl;
-            return;
-        }
-        std::string filename = dir;
-        filename += PHYSFS_getDirSeparator();
-        filename += currentTrack.filename;
-
-
-        currentMusic = Mix_LoadMUS(filename.c_str());
+        currentMusic = Mix_LoadMUS(currentTrack.filename.string().c_str());
         if(currentMusic == 0) {
-            std::cerr << "Couldn't load music file '" << filename << "': "
+            std::cerr << "Couldn't load music file '"
+                << currentTrack.filename << "': "
                 << SDL_GetError() << std::endl;
             return;
         }
@@ -542,10 +426,7 @@ Sound::enableMusic(bool enabled)
 void
 Sound::setMusicVolume(int vol)
 {
-#ifdef DEBUG
-    if(vol < 0 || vol > 100)
-    {   throw std::runtime_error("Music volume out of range (0..100)");}
-#endif
+    assert(vol >= 0 && vol <= 100);
     getConfig()->musicVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_VolumeMusic(static_cast<int>(volvalue));
@@ -554,10 +435,7 @@ Sound::setMusicVolume(int vol)
 void
 Sound::setSoundVolume(int vol)
 {
-#ifdef DEBUG
-    if(vol < 0 || vol > 100)
-    {   throw std::runtime_error("Sound volume out of range (0..100)");}
-#endif
+    assert(vol >= 0 && vol <= 100);
     getConfig()->soundVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_Volume(-1, static_cast<int>(volvalue));

@@ -22,7 +22,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_BUTTO...
 #include <SDL_image.h>                     // for IMG_Load_RW
 #include <assert.h>                        // for assert
-#include <physfs.h>                        // for PHYSFS_exists
 #include <stdio.h>                         // for size_t, sscanf, NULL
 #include <string.h>                        // for strcmp
 #include <cmath>                           // for sqrt, fabs, fabsf
@@ -41,7 +40,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "MapEdit.hpp"                     // for editMap
 #include "MiniMap.hpp"                     // for MiniMap, getMiniMap
 #include "Mps.hpp"                         // for mps_x, mps_y
-#include "physfsrwops.h"
 #include "Util.hpp"                        // for getButton, getParagraph
 #include "gui/Button.hpp"                  // for Button
 #include "gui/Color.hpp"                   // for Color
@@ -417,46 +415,30 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
  * or Null if no file found. NOT THREADSAFE
  */
 
-Texture* GameView::readTexture(const std::string& filename)
-{
-    const auto dirsep = "/";
-    std::string nfilename = std::string("images") + dirsep
-    + std::string("tiles") + dirsep + filename;
-    Texture* currentTexture;
-    try {
-        currentTexture = texture_manager->load(nfilename);
-    } catch(std::exception& err) {
-        std::cerr << nfilename << "GameView::readTexture# missing: " << err.what() << "\n";
-        return 0;
-    }
-    return currentTexture;
+Texture* GameView::readTexture(const std::filesystem::path& filename) {
+  Texture* currentTexture;
+  try {
+    currentTexture = texture_manager->load(
+      std::filesystem::path("images") / "tiles" / filename);
+  } catch(std::exception& err) {
+    std::cerr << filename << " GameView::readTexture# missing: "
+      << err.what() << "\n";
+    return 0;
+  }
+  return currentTexture;
 }
 
 /*
  * Loads Image from filename, Returns Pointer to Image
  * or Null if no file found. IS THREADSAFE
  */
-SDL_Surface* GameView::readImage(const std::string& filename)
-{
-    const auto dirsep = "/";
-
-    //std::string nfilename;
-    //nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
-
-    std::ostringstream os;
-    os << "images" << dirsep << "tiles" << dirsep << filename;
-    std::string nfilename = os.str();
-
-    SDL_Surface* currentImage;
-    if( !PHYSFS_exists( nfilename.c_str() ) ){
-        std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
-        return 0;
-    }
-    currentImage = IMG_Load_RW(PHYSFSRWOPS_openRead(nfilename.c_str()), 1);
-    if( !currentImage ) {
-        std::cerr << "GameView::readImage# Could not load image "<< nfilename << "\n";
-    }
-    return currentImage;
+SDL_Surface* GameView::readImage(const std::filesystem::path& filename) {
+  SDL_Surface* currentImage = IMG_Load((getConfig()->appDataDir / "images" /
+    "tiles" / filename).string().c_str());
+  if( !currentImage ) {
+    std::cerr << "GameView::readImage# Could not load image " << filename << "\n";
+  }
+  return currentImage;
 }
 
 /**
@@ -477,13 +459,8 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
-    const auto dirsep = "/";
-
-    std::ostringstream os;
-    os << "images" << dirsep << "tiles" << dirsep << "images.xml";
-    std::string xmlfile = os.str();
-
-    XmlReader reader( xmlfile );
+    XmlReader reader(getConfig()->appDataDir /
+      "images" / "tiles" / "images.xml");
 
     ResourceGroup *resourceGroup = 0;
     int resourceID_level = 0;

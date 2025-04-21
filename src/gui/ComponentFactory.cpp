@@ -24,13 +24,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentFactory.hpp"
 
 #include <string.h>                     // for strcmp
+#include <filesystem>                   // for operator/, path
+#include <iostream>                     // for basic_ostream, operator<<, cerr
+#include <stdexcept>                    // for runtime_error
 
 #include "ComponentLoader.hpp"          // for createComponent
 #include "XmlReader.hpp"                // for XmlReader
+#include "lincity-ng/Config.hpp"        // for getConfig, Config
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager, Dictionary
-
-#include <iostream>                     // for operator<<, basic_ostream, cerr
-#include <stdexcept>                    // for runtime_error
 
 tinygettext::DictionaryManager* dictionaryGUIManager = 0;
 
@@ -86,7 +87,7 @@ ImportFactory::createComponent(XmlReader& reader)
 
     if(importfile == "")
         throw std::runtime_error("No src attribute specified.");
-    XmlReader nreader(importfile);
+    XmlReader nreader(getConfig()->appDataDir / importfile);
     //std::cout << "importing Factory: " << importfile << std::endl;
     return ::createComponent((const char*) nreader.getName(), nreader);
 }
@@ -101,7 +102,7 @@ ImportFactory::createComponent(XmlReader& reader)
 **/
 
 #include "Button.hpp"                   // for Button
-#include "CheckButton.hpp"              // for Checkbutton
+#include "CheckButton.hpp"              // for CheckButton
 #include "Desktop.hpp"                  // for Desktop
 #include "Document.hpp"                 // for Document
 #include "FilledRectangle.hpp"          // for FilledRectangle
@@ -161,7 +162,8 @@ void initFactories()
 
         dictionaryGUIManager = new tinygettext::DictionaryManager();
         dictionaryGUIManager->set_charset("UTF-8");
-        dictionaryGUIManager->add_directory("locale/gui");
+        dictionaryGUIManager->add_directory(
+          getConfig()->appDataDir / "locale/gui");
 
 #ifdef DEBUG
         initialized = true;

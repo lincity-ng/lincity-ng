@@ -30,9 +30,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "DocumentElement.hpp"  // for DocumentElement
 #include "Style.hpp"            // for Style
 
-class Painter;
 class Texture;
-class XmlReader;
 
 /**
  * @class DocumentImage

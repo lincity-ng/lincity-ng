@@ -20,14 +20,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL.h>          // for SDL_FreeSurface, SDL_CreateRGBSurface, SDL_...
 #include <SDL_opengl.h>   // for glTexParameteri, GL_TEXTURE_2D, GL_REPEAT
 #include <stddef.h>       // for NULL
-#include <sstream>        // for basic_ostream, operator<<, basic_ostringstream
+#include <sstream>        // for basic_ostringstream, basic_ostream, operator<<
 #include <stdexcept>      // for runtime_error
 #include <string>         // for char_traits, allocator, basic_string
 
 #include "Rect2D.hpp"     // for Rect2D
 #include "TextureGL.hpp"  // for TextureGL
-
-class Texture;
 
 TextureManagerGL::TextureManagerGL()
 {
