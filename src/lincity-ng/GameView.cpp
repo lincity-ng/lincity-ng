@@ -1307,10 +1307,7 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(graphicsInfo->texture->getWidth() * zoom,
             graphicsInfo->texture->getHeight() * zoom);
-        if( zoom == 1.0 )     // Floating point test of equality !
-        {    painter.drawTexture(graphicsInfo->texture, tilerect.p1);}
-        else
-        {   painter.drawStretchTexture(graphicsInfo->texture, tilerect);}
+        painter.drawStretchTexture(graphicsInfo->texture, tilerect);
     }
 }
 

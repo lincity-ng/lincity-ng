@@ -42,11 +42,14 @@ public:
     }
 
     Vector2 getSize() const {
-      int w = 0, h = 0;
-      if(SDL_QueryTexture(tx, NULL, NULL, &w, &h)) {
-        throw std::runtime_error(SDL_GetError());
+      if(!size.x) {
+        int w = 0, h = 0;
+        if(SDL_QueryTexture(tx, NULL, NULL, &w, &h)) {
+          throw std::runtime_error(SDL_GetError());
+        }
+        size = Vector2((float)w, (float)h);
       }
-      return Vector2((float)w, (float)h);
+      return size;
     }
 
 private:
@@ -55,6 +58,7 @@ private:
     TextureSDL(SDL_Texture *tx) : tx(tx) { }
 
     SDL_Texture *tx;
+    mutable Vector2 size;
 };
 
 #endif
