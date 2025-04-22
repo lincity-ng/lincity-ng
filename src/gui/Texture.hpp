@@ -26,6 +26,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>
 
+#include "Vector2.hpp"
+
 /**
  * @class Texture
  * @brief Wrapper around a pixmap.
@@ -35,14 +37,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class Texture
 {
 public:
-    virtual ~Texture() 
+    virtual ~Texture()
     { }
-    
+
     virtual float getWidth() const = 0;
     virtual float getHeight() const = 0;
+    virtual Vector2 getSize() const { return Vector2(getWidth(), getHeight()); }
 };
 
 #endif
 
 /** @file gui/Texture.hpp */
-

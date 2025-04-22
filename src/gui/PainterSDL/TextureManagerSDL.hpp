@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 /**
  * This handles the creation and sharing of textures.
- * 
+ *
  * A texture is a wrapper around a pixmaps. Using a wrapper allows to make use
  * of hardware acceleration in some scenarios (for example in opengl where the
  * pixmaps can get uploaded into the gfx cards memory).
@@ -32,13 +32,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class TextureManagerSDL : public TextureManager
 {
 public:
-    TextureManagerSDL();
+    TextureManagerSDL(SDL_Renderer *renderer);
     virtual ~TextureManagerSDL();
 
     Texture* create(SDL_Surface* surface);
+
+private:
+  SDL_Renderer *renderer;
 };
 
 #endif
 
 /** @file gui/PainterSDL/TextureManagerSDL.hpp */
-

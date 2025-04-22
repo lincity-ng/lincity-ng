@@ -20,8 +20,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <SDL.h>    // for SDL_Surface, SDL_FreeSurface
 #include <stddef.h>         // for NULL
+#include <stdexcept>
 
-#include "gui/Texture.hpp"  // for Texture
+#include "Texture.hpp"  // for Texture
+#include "Vector2.hpp"
 
 /**
  * Wrapper around a pixmap. Texture have to be created by the TextureManager
@@ -32,36 +34,27 @@ class TextureSDL : public Texture
 public:
     virtual ~TextureSDL();
 
-    float getWidth() const
-    {
-        return surface->w;
+    float getWidth() const {
+      return getSize().x;
     }
-    float getHeight() const
-    {
-        return surface->h;
+    float getHeight() const {
+      return getSize().y;
     }
 
-    void setZoomSurface(SDL_Surface* zs, double zx, double zy)
-    {
-        if(zoomSurface != NULL)
-            SDL_FreeSurface(zoomSurface);
-
-        zoomSurface = zs;
-        zoomx = zx;
-        zoomy = zy;
+    Vector2 getSize() const {
+      int w = 0, h = 0;
+      if(SDL_QueryTexture(tx, NULL, NULL, &w, &h)) {
+        throw std::runtime_error(SDL_GetError());
+      }
+      return Vector2((float)w, (float)h);
     }
+
 private:
     friend class PainterSDL;
     friend class TextureManagerSDL;
-    TextureSDL(SDL_Surface* _surface)
-        : surface(_surface)
-    {
-        zoomSurface = NULL;
-    }
+    TextureSDL(SDL_Texture *tx) : tx(tx) { }
 
-    SDL_Surface* surface;
-    SDL_Surface* zoomSurface;
-    double zoomx,zoomy;
+    SDL_Texture *tx;
 };
 
 #endif

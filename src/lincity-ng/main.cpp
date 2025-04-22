@@ -149,7 +149,7 @@ void initVideo(int width, int height)
         std::cout << "\nSDL Mode " << width;
         std::cout << "x"<< height <<"\n";
 
-        texture_manager = new TextureManagerSDL();
+        texture_manager = new TextureManagerSDL(window_renderer);
     }
 
     fontManager = new FontManager();

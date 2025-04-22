@@ -45,7 +45,7 @@ public:
     { }
 
     virtual void drawTexture(const Texture* texture, const Vector2& pos) = 0;
-    virtual void drawStretchTexture(Texture* texture, const Rect2D& rect) = 0;
+    virtual void drawStretchTexture(const Texture *texture, const Rect2D& rect) = 0;
     virtual void fillRectangle(const Rect2D& rect) = 0;
     virtual void drawRectangle(const Rect2D& rect) = 0;
     virtual void fillPolygon(int numberPoints, const Vector2* points) = 0;
@@ -72,4 +72,3 @@ public:
 #endif
 
 /** @file gui/Painter.hpp */
-

@@ -16,65 +16,28 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <SDL.h>           // for SDL_ConvertSurfaceFormat, SDL_FreeSurface
+#include <stdexcept>
 
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"  // for TextureSDL
 
 static const Uint8 ALPHA_BARRIER = 100;
 
-TextureManagerSDL::TextureManagerSDL()
+TextureManagerSDL::TextureManagerSDL(SDL_Renderer *renderer)
+  : renderer(renderer)
 {}
 
 TextureManagerSDL::~TextureManagerSDL()
 {}
 
-Texture*
-TextureManagerSDL::create(SDL_Surface* image)
-{
-    // The code below transforms images with alpha channel to color keyed
-    // images. But I disabled it again, because it seems to make the rendering
-    // actually slower on my machine which is very odd...
-
-#if 0
-    if(image->format->BitsPerPixel != 32)
-        throw std::runtime_error("Only 32bit images supported");
-    
-    Uint32 colorkey = SDL_MapRGB(image->format, 255, 0, 254);
-    
-    // convert alpha channel to colorkey...
-    SDL_LockSurface(image);
-    
-    Uint8* p = (uint8_t*) image->pixels;
-    for(int y = 0; y < image->h; ++y) {
-        Uint32* pixel = (uint32_t*) p;
-        for(int x = 0; x < image->w; ++x) {
-            Uint8 alpha 
-                = (*pixel & image->format->Amask) >> image->format->Ashift;
-            if(alpha <= ALPHA_BARRIER) {
-                *pixel = colorkey;
-            }
-            pixel++;
-        }
-        p += image->pitch;
-    }
-    SDL_UnlockSurface(image);
-    
-    //SDL_SetAlpha(image, SDL_SRCCOLORKEY, 0);
-    //SDL_SetColorKey(image, SDL_SRCCOLORKEY, colorkey);
-    SDL_Surface* surface = SDL_DisplayFormatAlpha(image);
-    SDL_FreeSurface(image);
-
-    SDL_SetAlpha(surface, 0, 0);
-    SDL_SetColorKey(surface, SDL_SRCCOLORKEY,
-            SDL_MapRGB(surface->format, 255, 0, 254));
-#else
-    SDL_Surface* surface = SDL_ConvertSurfaceFormat(image, SDL_PIXELFORMAT_RGBA8888, 0);
-    SDL_FreeSurface(image);
-#endif
-
-    return new TextureSDL(surface);
+Texture *
+TextureManagerSDL::create(SDL_Surface *image) {
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, image);
+  if(!texture) {
+    throw std::runtime_error(SDL_GetError());
+  }
+  return new TextureSDL(texture);
 }
 
 
 /** @file gui/PainterSDL/TextureManagerSDL.cpp */
-

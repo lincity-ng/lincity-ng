@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Color.hpp"    // for Color
 #include "gui/Painter.hpp"  // for Painter
 
-class TextureSDL;
 
 /**
  * This class is needed to perform drawing operations. It contains a stack of
@@ -39,7 +38,7 @@ public:
     virtual ~PainterSDL();
 
     void drawTexture(const Texture* texture, const Vector2& pos);
-    void drawStretchTexture(Texture* texture, const Rect2D& rect);
+    void drawStretchTexture(const Texture *texture, const Rect2D& rect);
     void fillRectangle(const Rect2D& rect);
     void drawRectangle(const Rect2D& rect);
     void fillPolygon(int numberPoints, const Vector2* points);
@@ -61,7 +60,6 @@ public:
     void updateScreen();
 
 private:
-    PainterSDL(TextureSDL* texture);
 
     class Transform
     {
