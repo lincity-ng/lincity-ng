@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PainterSDL.hpp"
 
 #include <SDL.h>                 // for Sint16, SDL_Rect, SDL_CreateTextureF...
-#include <SDL2_gfxPrimitives.h>  // for aalineRGBA, aapolygonRGBA, boxRGBA
 #include <cassert>               // for assert
 #include <stdlib.h>              // for NULL
 
@@ -72,71 +71,87 @@ PainterSDL::drawStretchTexture(const Texture *texture, const Rect2D& rect)
     SDL_RenderCopyF(renderer, textureSDL->tx, NULL, &drect);
 }
 
-
+/**
+ * Note: This function assumes the polygon is convex.
+**/
 void
-PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
-{
-    Vector2 screenpos;
-    Sint16* vx = new Sint16[numberPoints];
-    Sint16* vy = new Sint16[numberPoints];
-    for(int i = 0; i < numberPoints; i++ ) {
-         screenpos = transform.apply( points[ i ] );
-         vx[ i ] = (int) screenpos.x;
-         vy[ i ] = (int) screenpos.y;
-    }
-    filledPolygonRGBA( renderer, vx, vy, numberPoints,
-            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
-    delete[] vx;
-    delete[] vy;
+PainterSDL::fillPolygon(int numberPoints, const Vector2* points) {
+  assert(numberPoints >= 3);
+
+  SDL_Color color = (SDL_Color)
+    {.r = fillColor.r, .g = fillColor.g, .b = fillColor.b, .a = fillColor.a};
+
+  float *xy = new float[numberPoints * 2];
+  for(int i = 0; i < numberPoints; i++) {
+    Vector2 p = transform.apply(points[i]);
+    xy[i * 2 + 0] = p.x;
+    xy[i * 2 + 1] = p.y;
+  }
+
+  int *indices = new int[(numberPoints - 2) * 3];
+  indices[0] = 0;
+  indices[1] = 1;
+  indices[2] = numberPoints - 1;
+  for(int i = 3; i < (numberPoints - 2) * 3; i += 3) {
+    indices[i + 0] = indices[i - 2];
+    indices[i + 1] = indices[i - 1];
+    indices[i + 2] = indices[i - 2] + (i << 1 & 2) - 1;
+  }
+
+  SDL_RenderGeometryRaw(renderer, NULL,
+    xy, sizeof(float) * 2, &color, 0, NULL, 0, numberPoints,
+    indices, (numberPoints - 2) * 3, 4);
+
+  delete[] xy;
+  delete[] indices;
 }
 
 void
-PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
-{
-    Vector2 screenpos;
-    Sint16* vx = new Sint16[numberPoints];
-    Sint16* vy = new Sint16[numberPoints];
-    for(int i = 0; i < numberPoints; i++ ) {
-         screenpos = transform.apply( points[ i ] );
-         vx[ i ] = (int) screenpos.x;
-         vy[ i ] = (int) screenpos.y;
-    }
-    aapolygonRGBA( renderer, vx, vy, numberPoints,
-            lineColor.r, lineColor.g, lineColor.b, lineColor.a);
-    delete[] vx;
-    delete[] vy;
+PainterSDL::drawPolygon(int numberPoints, const Vector2* points) {
+  SDL_FPoint *screenPoints = new SDL_FPoint[numberPoints + 1];
+  for(int i = 0; i < numberPoints; i++) {
+    Vector2 p = transform.apply(points[i]);
+    screenPoints[i] = (SDL_FPoint){.x = p.x, .y = p.y};
+  }
+  screenPoints[numberPoints] = screenPoints[0]; // close the polygon
+  SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+  SDL_RenderDrawLinesF(renderer, screenPoints, numberPoints + 1);
+  delete[] screenPoints;
 }
 
 void
-PainterSDL::drawLine( const Vector2 pointA, const Vector2 pointB )
-{
-    Vector2 screenpos = transform.apply( pointA );
-    Vector2 screenpos2 = transform.apply( pointB );
-    aalineRGBA( renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-      lineColor.r, lineColor.g, lineColor.b, lineColor.a);
-
-
+PainterSDL::drawLine(const Vector2 pointA, const Vector2 pointB) {
+  Vector2 screenposA = transform.apply(pointA);
+  Vector2 screenposB = transform.apply(pointB);
+  SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+  SDL_RenderDrawLineF(renderer,
+    screenposA.x, screenposA.y,
+    screenposB.x, screenposB.y);
 }
 
 void
-PainterSDL::fillRectangle(const Rect2D& rect)
-{
-    Vector2 screenpos = transform.apply(rect.p1);
-    Vector2 screenpos2 = transform.apply(rect.p2);
-    boxRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+PainterSDL::makeSDLRect(const Rect2D& src, SDL_FRect& dst) const {
+  Vector2 p = transform.apply(src.p1);
+  Vector2 s = src.p2 - src.p1;
+  dst = (SDL_FRect){.x = p.x, .y = p.y, .w = s.x, .h = s.y};
 }
 
 void
-PainterSDL::drawRectangle(const Rect2D& rect)
-{
-    Vector2 screenpos = transform.apply(rect.p1);
-    Vector2 screenpos2 = transform.apply(rect.p2);
-    rectangleRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-            lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+PainterSDL::fillRectangle(const Rect2D& rect) {
+  SDL_FRect screenRect; makeSDLRect(rect, screenRect);
+  SDL_SetRenderDrawColor(renderer,
+    fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+  SDL_RenderFillRectF(renderer, &screenRect);
+}
+
+void
+PainterSDL::drawRectangle(const Rect2D& rect) {
+  SDL_FRect screenRect; makeSDLRect(rect, screenRect);
+  SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+  SDL_RenderDrawRectF(renderer, &screenRect);
 }
 
 void

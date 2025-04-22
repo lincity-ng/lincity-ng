@@ -96,7 +96,6 @@ target_link_libraries(lincity_gui
 		OpenGL::GL
 		PRIVATE
 		tinygettext
-		SDL2::SDL2_gfx
 )
 
 target_include_directories(lincity_gui

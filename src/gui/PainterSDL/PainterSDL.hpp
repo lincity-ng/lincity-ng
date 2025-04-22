@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Color.hpp"    // for Color
 #include "gui/Painter.hpp"  // for Painter
 
+class Rect2D;
 
 /**
  * This class is needed to perform drawing operations. It contains a stack of
@@ -77,7 +78,8 @@ private:
     // the currently active transform
     Transform transform;
 
-    SDL_Surface* target;
+    void makeSDLRect(const Rect2D& src, SDL_FRect& dst) const;
+
     SDL_Renderer* renderer;
     Color fillColor,lineColor;
 };
