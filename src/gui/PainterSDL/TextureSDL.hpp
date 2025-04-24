@@ -19,46 +19,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __TEXTURESDL_HPP__
 
 #include <SDL.h>    // for SDL_Surface, SDL_FreeSurface
-#include <stddef.h>         // for NULL
-#include <stdexcept>
 
-#include "Texture.hpp"  // for Texture
-#include "Vector2.hpp"
+#include "../Texture.hpp"  // for Texture
+#include "../Vector2.hpp"
 
-/**
- * Wrapper around a pixmap. Texture have to be created by the TextureManager
- * class
- */
-class TextureSDL : public Texture
-{
+class TextureSDL : public Texture {
 public:
-    virtual ~TextureSDL();
+  virtual ~TextureSDL();
 
-    float getWidth() const {
-      return getSize().x;
-    }
-    float getHeight() const {
-      return getSize().y;
-    }
-
-    Vector2 getSize() const {
-      if(!size.x) {
-        int w = 0, h = 0;
-        if(SDL_QueryTexture(tx, NULL, NULL, &w, &h)) {
-          throw std::runtime_error(SDL_GetError());
-        }
-        size = Vector2((float)w, (float)h);
-      }
-      return size;
-    }
+  int getWidth() const override {
+    return width;
+  }
+  int getHeight() const override {
+    return height;
+  }
 
 private:
-    friend class PainterSDL;
-    friend class TextureManagerSDL;
-    TextureSDL(SDL_Texture *tx) : tx(tx) { }
+  friend class PainterSDL;
+  friend class TextureManagerSDL;
+  TextureSDL(SDL_Texture *tx);
 
-    SDL_Texture *tx;
-    mutable Vector2 size;
+  SDL_Texture *tx = nullptr;
+  mutable int width = 0, height = 0;
 };
 
 #endif

@@ -26,6 +26,8 @@
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
+#include <ostream>
+
 class Rect2D;
 
 /**
@@ -34,22 +36,22 @@ class Rect2D;
  */
 class Vector2 {
 public:
-  Vector2(float nx, float ny)
+  constexpr Vector2(float nx, float ny)
     : x(nx), y(ny)
   { }
-  Vector2(const Vector2& other)
+  constexpr Vector2(const Vector2& other)
     : x(other.x), y(other.y)
   { }
-  Vector2()
+  constexpr Vector2()
     : x(0), y(0)
   { }
 
-  bool operator ==(const Vector2& other) const
+  constexpr bool operator ==(const Vector2& other) const
   {
     return x == other.x && y == other.y;
   }
 
-  bool operator !=(const Vector2& other) const
+  constexpr bool operator !=(const Vector2& other) const
   {
     return !(x == other.x && y == other.y);
   }
@@ -61,27 +63,27 @@ public:
     return *this;
   }
 
-  Vector2 operator+(const Vector2& other) const
+  constexpr Vector2 operator+(const Vector2& other) const
   {
     return Vector2(x + other.x, y + other.y);
   }
 
-  Vector2 operator-(const Vector2& other) const
+  constexpr Vector2 operator-(const Vector2& other) const
   {
     return Vector2(x - other.x, y - other.y);
   }
 
-  Vector2 operator*(float s) const
+  constexpr Vector2 operator*(float s) const
   {
     return Vector2(x * s, y * s);
   }
 
-  Vector2 operator/(float s) const
+  constexpr Vector2 operator/(float s) const
   {
     return Vector2(x / s, y / s);
   }
 
-  Vector2 operator-() const
+  constexpr Vector2 operator-() const
   {
     return Vector2(-x, -y);
   }
@@ -115,7 +117,7 @@ public:
   }
 
   /** Scalar product of 2 vectors */
-  float operator*(const Vector2& other) const
+  constexpr float operator*(const Vector2& other) const
   {
     return x*other.x + y*other.y;
   }
@@ -123,6 +125,8 @@ public:
   // ... add the other operators as needed, I'm too lazy now ...
 
   const Vector2& constrain(const Rect2D &bounds);
+
+  friend std::ostream& operator<<(std::ostream& os, const Vector2& vec);
 
   float x, y; // leave this public, get/set methods just give me headaches
               // for such simple stuff :)

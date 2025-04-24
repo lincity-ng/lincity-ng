@@ -71,12 +71,12 @@ add_library(lincity_gui  STATIC
 		WindowManager.hpp
 		XmlReader.hpp
 
-		PainterGL/PainterGL.cpp
-		PainterGL/PainterGL.hpp
-		PainterGL/TextureGL.cpp
-		PainterGL/TextureGL.hpp
-		PainterGL/TextureManagerGL.cpp
-		PainterGL/TextureManagerGL.hpp
+		# PainterGL/PainterGL.cpp
+		# PainterGL/PainterGL.hpp
+		# PainterGL/TextureGL.cpp
+		# PainterGL/TextureGL.hpp
+		# PainterGL/TextureManagerGL.cpp
+		# PainterGL/TextureManagerGL.hpp
 
 		PainterSDL/PainterSDL.cpp
 		PainterSDL/PainterSDL.hpp

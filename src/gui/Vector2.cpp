@@ -17,6 +17,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "Vector2.hpp"
 
+#include <ostream>
+
 #include "Rect2D.hpp"
 
 const Vector2&
@@ -24,4 +26,8 @@ Vector2::constrain(const Rect2D &bounds) {
   x = x < bounds.p1.x ? bounds.p1.x : x > bounds.p2.x ? bounds.p2.x : x;
   y = y < bounds.p1.y ? bounds.p1.y : y > bounds.p2.y ? bounds.p2.y : y;
   return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const Vector2& vec) {
+  return os << "(" << vec.x << "," << vec.y << ")";
 }

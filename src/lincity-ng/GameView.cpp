@@ -1127,15 +1127,21 @@ void GameView::viewportUpdated()
     MapPoint newCenter = this->getCenter();
 
     if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {
-        //Tell Minimap about new Corners
-        getMiniMap()->setGameViewCorners(
-            getTile(Vector2(0, 0)),
-            getTile(Vector2(getWidth(), getHeight()))
-        );
+      //Tell Minimap about new Corners
+      Vector2 viewport2 = viewport + getSize();
+      getMiniMap()->setGameViewCorners(
+        Vector2(
+          viewport.y / tileHeight + viewport.x / tileWidth,
+          viewport.y / tileHeight - viewport.x / tileWidth
+        ),
+        Vector2(
+          viewport2.y / tileHeight + viewport2.x / tileWidth,
+          viewport2.y / tileHeight - viewport2.x / tileWidth
+        )
+      );
 
-        oldCenter = newCenter;
-        oldZoom = zoom;
-
+      oldCenter = newCenter;
+      oldZoom = zoom;
     }
 }
 
@@ -1240,7 +1246,7 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
     if( !inCity( tile ) ) {
             painter.setFillColor( black );
     } else {
-        miniMapColor = getMiniMap()->getColor(tile);
+        miniMapColor = getMiniMap()->getColor(*getWorld().map(tile));
         if( mapOverlay == overlayOn ){
             miniMapColor.a = 200;  //Transparent
         }
@@ -1429,7 +1435,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
             tileOnScreenPoint.y -= tileHeight*size;
             tilerect.move( tileOnScreenPoint );
-            painter.setFillColor(getMiniMap()->getColorNormal(tile));
+            painter.setFillColor(getMiniMap()->getColorNormal(*getWorld().map(tile)));
             fillDiamond( painter, tilerect );
         }
         //last draw suspended power cables on top

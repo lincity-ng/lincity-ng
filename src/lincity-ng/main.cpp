@@ -119,7 +119,7 @@ void initVideo(int width, int height)
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, width, height,
                               flags);
-    if( getConfig()->useOpenGL ){
+    if(getConfig()->useOpenGL && false) {
         window_context = SDL_GL_CreateContext(window);
         SDL_GL_SetSwapInterval(1);
 
@@ -137,11 +137,11 @@ void initVideo(int width, int height)
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        painter = new PainterGL(window);
+        // painter = new PainterGL(window);
         std::cout << "\nOpenGL Mode " << width;
         std::cout << "x" << height << "\n";
 
-        texture_manager = new TextureManagerGL();
+        // texture_manager = new TextureManagerGL();
     } else {
         window_renderer = SDL_CreateRenderer(window, -1, 0);
 
