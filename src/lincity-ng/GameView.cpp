@@ -153,6 +153,7 @@ void GameView::parse(XmlReader& reader)
     mapMode = MiniMap::NORMAL;
     buttonsConnected = false;
     lastStatusMessage = "";
+    refreshMap = true;
 }
 
 World&
@@ -1143,6 +1144,8 @@ void GameView::viewportUpdated()
       oldCenter = newCenter;
       oldZoom = zoom;
     }
+
+    refreshMap = true;
 }
 
 /*
@@ -1559,10 +1562,9 @@ void GameView::draw(Painter& painter)
 
     //draw Background
     Color black;
-    Rect2D background( 0, 0, getWidth(), getHeight() );
-    black.parse( "black" );
-    painter.setFillColor( black );
-    painter.fillRectangle( background );
+    black.parse("black");
+    painter.setFillColor(black);
+    painter.clear();
 
     //draw Tiles
     MapPoint currentTile;
@@ -1573,30 +1575,38 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if (mapOverlay != overlayOnly)
-    {
-        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-        {
-            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
-            {
-                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-                currentTile.y = upperLeftTile.y - i + k / 2;
-                drawTile( painter, currentTile );
-            }
+    if(!mapTexture || refreshMap) {
+      if(!mapTexture
+        || mapTexture->getWidth() != (int)getWidth()
+        || mapTexture->getHeight() != (int)getHeight()
+      ) {
+        mapTexture = painter.createTargetTexture(getWidth(), getHeight());
+      }
+
+      painter.pushRenderTarget(mapTexture.get());
+      painter.setFillColor(Color(0,0,0));
+      painter.clear();
+
+      if(mapOverlay != overlayOnly) {
+        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
+          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+          currentTile.y = upperLeftTile.y - i + k / 2;
+          drawTile(painter, currentTile);
         }
-    }
-    if( mapOverlay != overlayNone )
-    {
-        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-        {
-            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
-            {
-                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-                currentTile.y = upperLeftTile.y - i + k / 2;
-                drawOverlay( painter, currentTile );
-            }
+      }
+      if(mapOverlay != overlayNone) {
+        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
+          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+          currentTile.y = upperLeftTile.y - i + k / 2;
+          drawOverlay(painter, currentTile);
         }
+      }
+      painter.popRenderTarget();
+      refreshMap = false;
     }
+    painter.drawTexture(mapTexture.get(), Vector2(0,0));
 
     int cost = 0;
     //display commodities continously

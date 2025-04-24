@@ -54,6 +54,7 @@ public:
     void resize(float width, float height );
     void event(const Event& event);
     void setDirty() { Component::setDirty(); }
+    void setMapDirty() { refreshMap = true; }
 
     //Show City Tile(x/y) by centering the screen
     void show(MapPoint point, bool redraw = true );
@@ -187,6 +188,9 @@ private:
 
     int cursorSize;
     bool buttonsConnected;
+
+    std::unique_ptr<Texture> mapTexture;
+    bool refreshMap;
 
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;

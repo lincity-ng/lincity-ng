@@ -668,7 +668,7 @@ void MiniMap::refreshTexture(Painter& painter) {
   }
 
   painter.pushRenderTarget(mTexture.get());
-  painter.setFillColor(Color(0,0,255));
+  painter.setFillColor(Color(0,0,0));
   painter.clear();
 
   bool tileMode = mMode == COAL || mMode == POLLUTION;

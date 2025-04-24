@@ -69,6 +69,8 @@ public:
 
     void setGame(Game *game);
 
+    void setMapDirty() { mFullRefresh = true; }
+
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);

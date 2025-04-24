@@ -291,6 +291,7 @@ void Construction::place(MapPoint point) {
 
   //now look for neighbors
   neighborize();
+  world.setUpdated(World::Updatable::MAP);
 }
 
 bool
