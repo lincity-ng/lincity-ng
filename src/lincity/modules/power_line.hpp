@@ -28,9 +28,8 @@
 #include <array>                    // for array
 
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/transport.hpp"      // for MAX_HIVOLT_ON_POWERLINE
-#include "lincity/lin-city.hpp"
+#include "lincity/lintypes.hpp"     // for ConstructionGroup, Construction
+#include "lincity/transport.hpp"    // for MAX_HIVOLT_ON_POWERLINE
 
 class World;
 

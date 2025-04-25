@@ -22,6 +22,7 @@
 ** ---------------------------------------------------------------------- */
 
 #include "all_buildings.hpp"  // for magenta, white, yellow
+#include "lin-city.hpp"       // for MAX_TECH_LEVEL
 
 #ifndef __LINCITYNG_LINCITY_TRANSPORT_HPP__
 #define __LINCITYNG_LINCITY_TRANSPORT_HPP__
