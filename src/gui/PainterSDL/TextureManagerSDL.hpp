@@ -23,9 +23,9 @@
 #ifndef __TEXTUREMANAGERSDL_HPP__
 #define __TEXTUREMANAGERSDL_HPP__
 
-#include <SDL.h>                   // for SDL_Surface
+#include <SDL.h>                  // for SDL_Surface
 
-#include "gui/TextureManager.hpp"  // for TextureManager
+#include "../TextureManager.hpp"  // for TextureManager
 
 /**
  * This handles the creation and sharing of textures.

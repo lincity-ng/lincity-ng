@@ -25,6 +25,7 @@
 
 #include <SDL.h>                  // for Uint32, SDL_Surface, SDL_Thread
 #include <filesystem>             // for path
+#include <memory>                 // for unique_ptr
 #include <string>                 // for basic_string, string
 
 #include "MiniMap.hpp"            // for MiniMap

@@ -24,8 +24,8 @@
 
 #include <SDL.h>
 #include <cassert>
-#include <stdexcept>
 #include <cstddef>
+#include <stdexcept>
 
 TextureSDL::TextureSDL(SDL_Texture *tx) : tx(tx) {
   assert(tx);

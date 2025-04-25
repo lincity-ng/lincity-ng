@@ -23,10 +23,9 @@
 #ifndef __TEXTURESDL_HPP__
 #define __TEXTURESDL_HPP__
 
-#include <SDL.h>    // for SDL_Surface, SDL_FreeSurface
+#include <SDL.h>           // for SDL_Texture
 
 #include "../Texture.hpp"  // for Texture
-#include "../Vector2.hpp"
 
 class TextureSDL : public Texture {
 public:

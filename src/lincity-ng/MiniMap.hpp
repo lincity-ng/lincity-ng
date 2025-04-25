@@ -30,16 +30,17 @@
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
 #include "gui/Vector2.hpp"          // for Vector2
-#include "lincity/MapPoint.hpp"     // for MapPoint
 #include "lincity/commodities.hpp"  // for Commodity
 
 class Button;
 class CheckButton;
 class Game;
+class MapPoint;
+class MapTile;
+class Painter;
 class Texture;
 class World;
 class XmlReader;
-class MapTile;
 
 class MiniMap : public Component
 {

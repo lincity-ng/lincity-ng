@@ -23,7 +23,6 @@
 #include "EconomyGraph.hpp"
 
 #include <SDL.h>                     // for SDL_Surface
-#include <SDL_opengl.h>              // for glDisable, GL_LINE_SMOOTH
 #include <SDL_ttf.h>                 // for TTF_RenderUTF8_Blended, TTF_Font
 #include <stdio.h>                   // for sscanf, NULL
 #include <string.h>                  // for strcmp

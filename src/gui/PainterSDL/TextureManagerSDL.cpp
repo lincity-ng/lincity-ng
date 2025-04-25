@@ -20,11 +20,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
+#include "TextureManagerSDL.hpp"
 
 #include <SDL.h>           // for SDL_ConvertSurfaceFormat, SDL_FreeSurface
 #include <stdexcept>
 
-#include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"  // for TextureSDL
 
 static const Uint8 ALPHA_BARRIER = 100;

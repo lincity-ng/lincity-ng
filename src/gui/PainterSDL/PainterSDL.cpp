@@ -22,20 +22,23 @@
 
 #include "PainterSDL.hpp"
 
-#include <SDL.h>                 // for Sint16, SDL_Rect, SDL_CreateTextureF...
-#include <cassert>               // for assert
-#include <cstdlib>               // for NULL
-#include <cmath>
-#include <stdexcept>
+#include <SDL.h>           // for SDL_GetError, SDL_SetRenderDrawColor, SDL_...
+#include <algorithm>       // for max, min
+#include <cassert>         // for assert
+#include <cmath>           // for lround
+#include <cstdlib>         // for NULL
+#include <memory>          // for unique_ptr
+#include <stdexcept>       // for runtime_error
+#include <string>          // for basic_string, operator+, string
 
-#include "Vector2.hpp"        // for Vector2
-#include "Color.hpp"             // for Color
-#include "Rect2D.hpp"            // for Rect2D
-#include "Texture.hpp"           // for Texture
-#include "TextureSDL.hpp"        // for TextureSDL
+#include "Color.hpp"       // for Color
+#include "Rect2D.hpp"      // for Rect2D
+#include "Texture.hpp"     // for Texture
+#include "TextureSDL.hpp"  // for TextureSDL
+#include "Vector2.hpp"     // for Vector2
 
 #ifndef NDEBUG
-#include <typeinfo>              // for type_info
+#include <typeinfo>        // for type_info
 #endif
 
 #define HANDLE_ERR(SDL_CALL) do { \

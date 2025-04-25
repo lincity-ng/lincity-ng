@@ -23,16 +23,17 @@
 #ifndef __PAINTERSDL_HPP__
 #define __PAINTERSDL_HPP__
 
-#include <SDL.h>            // for SDL_Renderer, SDL_Surface
-#include <vector>           // for vector
-#include <deque>
+#include <SDL.h>           // for SDL_Renderer
+#include <cmath>           // for INFINITY
+#include <deque>           // for deque
+#include <vector>          // for vector
 
-#include "../Vector2.hpp"   // for Vector2
-#include "../Color.hpp"    // for Color
-#include "../Painter.hpp"  // for Painter
-#include "TextureSDL.hpp"
+#include "../Color.hpp"       // for Color
+#include "../Painter.hpp"     // for Painter
+#include "../Vector2.hpp"     // for Vector2
+#include "../Rect2D.hpp"      // for Rect2D
 
-class Rect2D;
+class TextureSDL;
 
 /**
  * This class is needed to perform drawing operations. It contains a stack of

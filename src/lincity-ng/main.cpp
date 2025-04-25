@@ -22,9 +22,8 @@
 
 #include "main.hpp"
 
-#include <SDL.h>                                 // for SDL_GL_SetAttribute
+#include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
-#include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
@@ -49,6 +48,7 @@
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DISABLE_GL_MODE
+#include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
 #endif
