@@ -30,6 +30,7 @@
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
+#include <memory>                         // for __shared_ptr_access
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair

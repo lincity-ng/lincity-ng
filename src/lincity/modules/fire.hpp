@@ -25,10 +25,11 @@
 #ifndef __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
 #define __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
 
-#include <stdlib.h>                 // for rand
+#include <stdlib.h>                   // for rand
 
 #include "lincity/all_buildings.hpp"  // for red
-#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, ConstructionG...
+#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, Constructio...
+#include "lincity/messages.hpp"       // for Message
 
 class World;
 

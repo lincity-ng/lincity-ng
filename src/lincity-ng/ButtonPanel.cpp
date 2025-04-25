@@ -22,39 +22,40 @@
 
 #include "ButtonPanel.hpp"
 
-#include <SDL.h>                          // for SDL_BUTTON_RIGHT, SDL_BUTTO...
-#include <assert.h>                       // for assert
-#include <stdio.h>                        // for sscanf
-#include <string.h>                       // for strcmp
-#include <filesystem>                     // for path, operator==
-#include <functional>                     // for _Bind, bind, function, _2, _1
-#include <iostream>                       // for basic_ostream, operator<<
-#include <list>                           // for list, _List_iterator
-#include <memory>                         // for unique_ptr, dynamic_pointer...
-#include <sstream>                        // for basic_stringstream, basic_o...
-#include <stdexcept>                      // for runtime_error
-#include <utility>                        // for pair
+#include <SDL.h>                            // for SDL_BUTTON_RIGHT, SDL_BUT...
+#include <assert.h>                         // for assert
+#include <stdio.h>                          // for sscanf
+#include <string.h>                         // for strcmp
+#include <filesystem>                       // for path, operator==
+#include <functional>                       // for _Bind, bind, function, _2
+#include <iostream>                         // for basic_ostream, operator<<
+#include <list>                             // for list, _List_iterator
+#include <memory>                           // for unique_ptr, dynamic_point...
+#include <sstream>                          // for basic_stringstream, basic...
+#include <stdexcept>                        // for runtime_error
+#include <utility>                          // for pair
 
-#include "Game.hpp"                       // for Game
-#include "UserOperation.hpp"              // for UserOperation
-#include "Util.hpp"                       // for getCheckButton
-#include "gui/Button.hpp"                 // for Button
-#include "gui/CheckButton.hpp"            // for CheckButton
-#include "gui/Child.hpp"                  // for Childs, Child
-#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"        // for loadGUIFile, parseEmbeddedC...
-#include "gui/Image.hpp"                  // for Image
-#include "gui/Signal.hpp"                 // for Signal
-#include "gui/Window.hpp"                 // for Window
-#include "gui/WindowManager.hpp"          // for WindowManager
-#include "gui/XmlReader.hpp"              // for XmlReader
-#include "libxml/xmlreader.h"             // for XML_READER_TYPE_ELEMENT
-#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "Game.hpp"                         // for Game
+#include "UserOperation.hpp"                // for UserOperation
+#include "Util.hpp"                         // for getCheckButton
+#include "gui/Button.hpp"                   // for Button
+#include "gui/CheckButton.hpp"              // for CheckButton
+#include "gui/Child.hpp"                    // for Childs, Child
+#include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"          // for loadGUIFile, parseEmbedde...
+#include "gui/Image.hpp"                    // for Image
+#include "gui/Signal.hpp"                   // for Signal
+#include "gui/Window.hpp"                   // for Window
+#include "gui/WindowManager.hpp"            // for WindowManager
+#include "gui/XmlReader.hpp"                // for XmlReader
+#include "libxml/xmlreader.h"               // for XML_READER_TYPE_ELEMENT
+#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP...
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"             // for ConstructionGroup
-#include "lincity/messages.hpp"           // for NotEnoughTechMessage, Message
-#include "lincity/modules/all_modules.hpp"  // for MODERN_WINDMILL_TECH, Windm...
+#include "lincity/messages.hpp"             // for NotEnoughTechMessage, Mes...
+#include "lincity/modules/all_modules.hpp"  // for MODERN_WINDMILL_TECH, Win...
 #include "lincity/world.hpp"                // for World
-#include "tinygettext/gettext.hpp"        // for _
+#include "tinygettext/gettext.hpp"          // for _
 
 using namespace std::placeholders;
 

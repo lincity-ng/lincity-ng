@@ -25,12 +25,13 @@
 #ifndef __LINCITYNG_LINCITY_MODULES_TIP_HPP__
 #define __LINCITYNG_LINCITY_MODULES_TIP_HPP__
 
-#include <array>                    // for array
+#include <array>                      // for array
 
 #include "lincity/all_buildings.hpp"  // for white
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, NUMOF_DAYS_IN_...
-#include "lincity/lin-city.hpp"
+#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
+#include "lincity/lin-city.hpp"       // for MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, Constructio...
+#include "lincity/messages.hpp"       // for Message
 
 class World;
 
