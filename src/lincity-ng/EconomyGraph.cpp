@@ -221,7 +221,7 @@ EconomyGraph::drawHistoryLineGraph(Painter& painter, Rect2D space) {
       space.p2 - half
         - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, valP)));
 
-    glDisable(GL_LINE_SMOOTH);
+    // glDisable(GL_LINE_SMOOTH);
   }
   // painter.clearClipRectangle();
 

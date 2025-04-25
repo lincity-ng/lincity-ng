@@ -1,4 +1,8 @@
-find_package(OpenGL REQUIRED)
+set(DISABLE_GL_MODE ON CACHE BOOL "disables GL video mode")
+
+if(NOT DISABLE_GL_MODE)
+	find_package(OpenGL REQUIRED)
+endif()
 
 add_library(lincity_gui  STATIC
 		Button.cpp
@@ -84,7 +88,22 @@ add_library(lincity_gui  STATIC
 		PainterSDL/TextureSDL.hpp
 		PainterSDL/TextureManagerSDL.cpp
 		PainterSDL/TextureManagerSDL.hpp
-		)
+)
+
+if(NOT DISABLE_GL_MODE)
+	target_sources(lincity_gui PRIVATE
+		PainterGL/PainterGL.cpp
+		PainterGL/PainterGL.hpp
+		PainterGL/TextureGL.cpp
+		PainterGL/TextureGL.hpp
+		PainterGL/TextureManagerGL.cpp
+		PainterGL/TextureManagerGL.hpp
+	)
+endif()
+
+if(DISABLE_GL_MODE)
+	target_compile_definitions(lincity_gui PUBLIC DISABLE_GL_MODE)
+endif()
 
 add_library(LinCity::gui ALIAS lincity_gui)
 
@@ -93,10 +112,12 @@ target_link_libraries(lincity_gui
 		LibXml2::LibXml2
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		$<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
-		OpenGL::GL
 		PRIVATE
 		tinygettext
 )
+if(NOT DISABLE_GL_MODE)
+	target_link_libraries(lincity_gui PUBLIC OpenGL::GL)
+endif()
 
 target_include_directories(lincity_gui
 		PUBLIC
