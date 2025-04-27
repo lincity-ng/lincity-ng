@@ -20,8 +20,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "ScreenInterface.hpp"
-
 #include <assert.h>                 // for assert
 #include <stdio.h>                  // for snprintf
 #include <cstdlib>                  // for abs
@@ -68,6 +66,7 @@ static void string_begadd_number(std::string &str, int number, bool fill) {
 
 void
 Game::updateMoney() const {
+  if(!world->isUpdated(World::Updatable::MONEY)) return;
   std::ostringstream moneyText;
   std::string        postfix ="";
   std::string        moneystr="";
@@ -101,6 +100,8 @@ Game::updateMoney() const {
   if(!moneyPar) return;
 
   moneyPar->setText(moneyText.str());
+
+  world->clearUpdated(World::Updatable::MONEY);
 }
 
 /*

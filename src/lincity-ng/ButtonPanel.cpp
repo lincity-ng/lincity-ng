@@ -26,7 +26,6 @@
 #include <assert.h>                         // for assert
 #include <stdio.h>                          // for sscanf
 #include <string.h>                         // for strcmp
-#include <filesystem>                       // for path, operator==
 #include <functional>                       // for _Bind, bind, function, _2
 #include <iostream>                         // for basic_ostream, operator<<
 #include <list>                             // for list, _List_iterator
@@ -34,28 +33,27 @@
 #include <sstream>                          // for basic_stringstream, basic...
 #include <stdexcept>                        // for runtime_error
 #include <utility>                          // for pair
+#include <iomanip>
 
 #include "Game.hpp"                         // for Game
 #include "UserOperation.hpp"                // for UserOperation
 #include "Util.hpp"                         // for getCheckButton
-#include "gui/Button.hpp"                   // for Button
 #include "gui/CheckButton.hpp"              // for CheckButton
 #include "gui/Child.hpp"                    // for Childs, Child
 #include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/ComponentLoader.hpp"          // for loadGUIFile, parseEmbedde...
 #include "gui/Image.hpp"                    // for Image
 #include "gui/Signal.hpp"                   // for Signal
-#include "gui/Window.hpp"                   // for Window
-#include "gui/WindowManager.hpp"            // for WindowManager
 #include "gui/XmlReader.hpp"                // for XmlReader
 #include "libxml/xmlreader.h"               // for XML_READER_TYPE_ELEMENT
 #include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP...
 #include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"             // for ConstructionGroup
 #include "lincity/messages.hpp"             // for NotEnoughTechMessage, Mes...
-#include "lincity/modules/all_modules.hpp"  // for MODERN_WINDMILL_TECH, Win...
 #include "lincity/world.hpp"                // for World
 #include "tinygettext/gettext.hpp"          // for _
+#include "lincity/modules/windmill.hpp"
+#include "lincity/modules/windpower.hpp"
 
 using namespace std::placeholders;
 
@@ -179,9 +177,6 @@ ButtonPanel::parse(XmlReader& reader) {
                 }
                 else if(attribute == "help") {
                   tool->helpName = value;
-                }
-                else if(attribute == "upmes") {
-                  tool->upMessage = value;
                 }
                 else {
                   std::cerr << "Skipping unknown attribute '"
@@ -315,11 +310,8 @@ ButtonPanel::setGame(Game *game) {
   this->game = game;
 }
 
-/*
- * enable/disable buttons according to tech.
-**/
 void
-ButtonPanel::updateTech(bool showInfo) {
+ButtonPanel::updateTech() {
   World& world = game->getWorld();
   const int tech_level = world.tech_level;
   for(auto t : tools){
@@ -327,17 +319,13 @@ ButtonPanel::updateTech(bool showInfo) {
     UserOperation& op = tool->operation;
 
     if(op.constructionGroup == &windmillConstructionGroup) {
-      if(tech_level >= MODERN_WINDMILL_TECH) {
+      if(tech_level >= windpowerConstructionGroup.tech) {
         op.constructionGroup = &windpowerConstructionGroup;
         // TODO: if the windmill tool is in use, need to update the game uop too
-
-        if(showInfo) {
-          showUpMessage("mod_wind_up.mes");
-        }
       }
     }
     else if(op.constructionGroup == &windpowerConstructionGroup) {
-      if(tech_level < MODERN_WINDMILL_TECH) {
+      if(tech_level < windpowerConstructionGroup.tech) {
         op.constructionGroup = &windmillConstructionGroup;
       }
     }
@@ -351,47 +339,36 @@ ButtonPanel::updateTech(bool showInfo) {
         if(tool == tool->menu->activeTool) {
           tool->menu->button->enable();
         }
-
-        if(!tool->upShown && showInfo && tool->upMessage.length()) {
-          showUpMessage(tool->upMessage);
-        }
-      }
-      tool->upShown = true;
-    }
-    else if(NotEnoughTechMessage::ptr net =
-      std::dynamic_pointer_cast<const NotEnoughTechMessage>(msg)
-    ) {
-      if(tool->button->isEnabled()) {
-        std::ostringstream os;
-        os << createTooltip(tool) << " ("
-          << _("Techlevel") << " "
-          << (net->getRequiredTech() * 100.f / MAX_TECH_LEVEL)
-          << " " << _("required") << ")";
-        tool->button->setTooltip(os.str());
-        tool->button->enable(false);
-
-        if(tool == tool->menu->activeTool) {
-          tool->menu->button->enable(false);
-        }
-      }
-
-      if(!showInfo) {
-        // a new game was loaded, so reset the upShown
-        // TODO: make this less hacky
-        tool->upShown = false;
       }
     }
-    else {
-      // operation not allowed because of some other reason
+    else if(tool->button->isEnabled()) {
+      tool->button->enable(false);
+      if(tool == tool->menu->activeTool) {
+        tool->menu->button->enable(false);
+      }
+
       std::ostringstream os;
       os << createTooltip(tool);
-      tool->button->setTooltip(os.str());
-      if(tool->button->isEnabled()) {
-        tool->button->enable(false);
-        if(tool == tool->menu->activeTool) {
-          tool->menu->button->enable(false);
-        }
+      if(NotEnoughTechMessage::ptr msg_ =
+        std::dynamic_pointer_cast<const NotEnoughTechMessage>(msg)
+      ) {
+        os << " (" << _("requires") << " "
+          << std::fixed << std::setprecision(1)
+          << (msg_->getRequiredTech() * 100.f / MAX_TECH_LEVEL)
+          << " " << _("tech level") << ")";
       }
+      else if(OutOfMoneyMessage::ptr msg_ =
+        std::dynamic_pointer_cast<const OutOfMoneyMessage>(msg)
+      ) {
+        os << " (" << _("requires") << " "
+          // TODO: format this number properly
+          << _("$") << op.constructionGroup->getCosts(world)
+          << ")";
+      }
+      else {
+        // TODO: handle NotEnoughStudentsMessage
+      }
+      tool->button->setTooltip(os.str());
     }
   }
 }
@@ -439,24 +416,6 @@ ButtonPanel::createTooltip(const Tool *tool) {
   return tooltip.str();
 }
 
-void
-ButtonPanel::showUpMessage(const std::string& upMessage) {
-  std::filesystem::path msgFile("gui/dialogs/");
-  msgFile /= upMessage;
-  if(msgFile.extension() == ".mes")
-    msgFile.replace_extension(".xml");
-
-  std::unique_ptr<Window> dialog(dynamic_cast<Window *>(loadGUIFile(msgFile)));
-
-  WindowManager& wm = game->getWindowManager();
-
-  Button *okButton = dynamic_cast<Button *>(dialog->findComponent("Ok"));
-  okButton->clicked.connect(
-    std::bind(&WindowManager::removeWindow, &wm, dialog.get()));
-
-  wm.addWindow(dialog.release());
-}
-
 void ButtonPanel::draw(Painter &painter) {
   Component::draw(painter);
 }
@@ -502,6 +461,8 @@ void ButtonPanel::menuButtonClicked(CheckButton* button, int mouseBtnNum) {
     openMenu(NULL);
     break;
   }
+
+  updateTech();
 }
 
 void ButtonPanel::openMenu(Menu *menu) {

@@ -47,7 +47,7 @@ public:
   virtual void draw(Painter &painter);
   virtual bool opaque(const Vector2& pos) const;
 
-  void updateTech(bool showInfo);
+  void updateTech();
   void selectQueryTool();
   void toggleBulldozeTool();
   void setGame(Game *game);
@@ -71,8 +71,6 @@ private:
     CheckButton *button = NULL;
     Menu *menu = NULL;
     UserOperation operation;
-    std::string upMessage;
-    bool upShown = NULL;
     std::string helpName;
   };
   std::unordered_map<CheckButton *, Menu *> menus;
@@ -94,7 +92,6 @@ private:
   bool bulldozeToggled;
 
   std::string createTooltip(const Tool *tool);
-  void showUpMessage(const std::string& upMessage);
 };
 
 ButtonPanel *getButtonPanel();

@@ -38,7 +38,7 @@ class World;
 #define GROUP_WIND_POWER_COST   20000
 #define GROUP_WIND_POWER_COST_MUL 25
 #define GROUP_WIND_POWER_BUL_COST   1000
-#define GROUP_WIND_POWER_TECH   (30 * (MAX_TECH_LEVEL / 1000))
+#define GROUP_WIND_POWER_TECH   (450 * (MAX_TECH_LEVEL / 1000))
 #define GROUP_WIND_POWER_FIREC  10
 #define GROUP_WIND_POWER_RANGE  0
 #define GROUP_WIND_POWER_SIZE  2
@@ -50,8 +50,6 @@ class World;
 /* WIND_POWER_RCOST is days per quid */
 #define WIND_POWER_RCOST      2
 #define WIND_POWER_ANIM_SPEED 120
-
-#define WIND_POWER_TECH 450000
 
 class WindpowerConstructionGroup: public ConstructionGroup {
 public:

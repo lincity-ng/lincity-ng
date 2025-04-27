@@ -51,8 +51,6 @@ class World;
 #define WINDMILL_RCOST      4
 #define ANTIQUE_WINDMILL_ANIM_SPEED 120
 
-#define MODERN_WINDMILL_TECH 450000
-
 class WindmillConstructionGroup: public ConstructionGroup {
 public:
     WindmillConstructionGroup(

@@ -132,7 +132,7 @@ UserOperation::execute(World& world, MapPoint point) {
     if(constructionGroup == &windmillConstructionGroup
       || constructionGroup == &windpowerConstructionGroup
     ) {
-      if(world.tech_level >= MODERN_WINDMILL_TECH)
+      if(world.tech_level >= windpowerConstructionGroup.tech)
         constructionGroup = &windpowerConstructionGroup;
       else
         constructionGroup = &windmillConstructionGroup;

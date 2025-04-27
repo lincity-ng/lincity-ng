@@ -35,6 +35,7 @@
 #include <stdexcept>                       // for runtime_error
 #include <typeinfo>                        // for type_info
 #include <utility>                         // for move
+#include <list>
 
 #include "ButtonPanel.hpp"                 // for ButtonPanel
 #include "Config.hpp"                      // for getConfig, Config
@@ -63,11 +64,10 @@
 #include "lincity/lin-city.hpp"            // for ANIMATE_DELAY, MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"            // for ConstructionGroup, Constru...
 #include "lincity/messages.hpp"            // for dynamic_message_cast, Message
-#include "lincity/modules/parkland.hpp"    // for ParklandConstructionGroup
-#include "lincity/modules/rocket_pad.hpp"  // for RocketPad
 #include "lincity/world.hpp"               // for World, Map, MapTile
 #include "main.hpp"                        // for painter, videoSizeChanged
 #include "tinygettext/gettext.hpp"         // for _
+#include "lincity/modules/all_modules.hpp"
 
 using namespace std::placeholders;
 
@@ -179,10 +179,80 @@ Game::setWorld(std::unique_ptr<World>&& world) {
   for(auto w : {&warnBullWater, &warnBullShanty, &warnBullMonument})
     w->onAccept.clear();
   getButtonPanel().selectQueryTool();
-  getButtonPanel().updateTech(false);
+  getButtonPanel().updateTech();
   getMpsMap().query(nullptr);
   gameview->show(this->world->map.recentPoint);
   getSound()->setTechLevel(this->world->tech_level);
+
+  inventions.assign({
+    &potteryConstructionGroup,       //  0.0
+    &monumentConstructionGroup,      //  0.0
+    &waterwellConstructionGroup,     //  0.0
+    &communeConstructionGroup,       //  0.0
+    &organic_farmConstructionGroup,  //  0.0
+    &trackConstructionGroup,         //  0.0
+    // &residenceLLConstructionGroup,   //  0.0
+    // &residenceMLConstructionGroup,   //  0.0
+    &residenceHLConstructionGroup,   //  0.0
+    &oremineConstructionGroup,       //  0.0
+    &tipConstructionGroup,           //  0.0
+    &marketConstructionGroup,        //  0.0
+    &schoolConstructionGroup,        //  0.1
+    &parklandConstructionGroup,      //  0.2
+    // &parkpondConstructionGroup       //  0.2
+    &blacksmithConstructionGroup,    //  0.3
+    &cricketConstructionGroup,       //  1.2
+    &fireStationConstructionGroup,   //  2.2
+    &millConstructionGroup,          //  2.5
+    &windmillConstructionGroup,      //  3.0
+    &portConstructionGroup,          //  3.5
+    &roadConstructionGroup,          //  5.0
+    &coalmineConstructionGroup,      //  8.5
+    &healthCentreConstructionGroup,  // 11.0
+    &universityConstructionGroup,    // 15.0
+    &industryLightConstructionGroup, // 16.0
+    &industryHeavyConstructionGroup, // 17.0
+    &railConstructionGroup,          // 18.0
+    &coal_powerConstructionGroup,    // 20.0
+    // &substationConstructionGroup,    // 20.0
+    // &powerlineConstructionGroup,     // 20.0
+    &recycleConstructionGroup,       // 23.2
+    // &residenceLHConstructionGroup,   // 30.0
+    // &residenceMHConstructionGroup,   // 30.0
+    &residenceHHConstructionGroup,   // 30.0
+    &windpowerConstructionGroup,     // 45.0
+    &solarPowerConstructionGroup,    // 50.0
+    &rocketPadConstructionGroup,     // 75.0
+  });
+  inventions.sort(
+    [](const ConstructionGroup *a, const ConstructionGroup *b)
+    { return a->tech < b->tech; }
+  );
+  while(!inventions.empty()
+    && inventions.front()->tech <= this->world->tech_level
+  )
+    inventions.pop_front();
+}
+
+void
+Game::updateTech() {
+  while(!inventions.empty()
+    && inventions.front()->tech <= world->tech_level
+  ) {
+    const ConstructionGroup& cstGrp = *inventions.front();
+    DialogBuilder()
+      .titleText(_("New Invention!"))
+      .messageAddTextBold(_(cstGrp.name))
+      .messageAddText(
+        _("You have reached the tech level which enables you to build ")
+        + _(cstGrp.name + "s") + ". "
+        + _("See the help screen for more information about this type of"
+          " building."))
+      .imageFile("images/gui/dialogs/invention.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .build();
+    inventions.pop_front();
+  }
 }
 
 UserOperation&
@@ -398,6 +468,7 @@ Game::run() {
     gui->resize(getConfig()->videoX, getConfig()->videoY);
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
+    world->setUpdated(World::Updatable::MONEY);
 
     getButtonPanel().selectQueryTool();
 
@@ -526,7 +597,6 @@ Game::run() {
             if(new_day) {
               new_day = false;
               updateDate();
-              updateMoney();
             }
             if(new_month) {
               new_month = false;
@@ -537,9 +607,14 @@ Game::run() {
             }
             if(new_year) {
               new_year = false;
-              getButtonPanel().updateTech(true);
+              getButtonPanel().updateTech();
               getSound()->setTechLevel(this->world->tech_level);
               getMpsFinance().refresh();
+              updateTech();
+            }
+            if(world->isUpdated(World::Updatable::MONEY)) {
+              updateMoney();
+              world->clearUpdated(World::Updatable::MONEY);
             }
 
             // reschedule

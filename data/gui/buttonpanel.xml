@@ -6,8 +6,7 @@
 			default="BPMPointerButton">
 		<tool name="BPMPointerButton"    action="QUERY"    help="query"/>
 		<tool name="BPMBullDozeButton"   action="BULLDOZE" help="bulldoze"/>
-		<tool name="BPMWaterButton"      action="FLOOD"    help="river"
-			upmes="riverup.mes"/>
+		<tool name="BPMWaterButton"      action="FLOOD"    help="river"/>
 		<tool name="BPMEvacuateButton"   action="EVACUATE" help="evacuate"/>
 	</menu>
 
@@ -26,73 +25,53 @@
 		<tool name="BPMMarketButton"     grpid="06" help="market"/>
 		<tool name="BPMWaterwellButton"  grpid="41" help="waterwell"/>
 		<tool name="BPMFarmButton"       grpid="05" help="farm"/>
-		<tool name="BPMParkButton"       grpid="19" help="park"
-			upmes="parkup.mes"/>
+		<tool name="BPMParkButton"       grpid="19" help="park"/>
 	</menu>
 
 	<menu button-name="BPSchoolButton" drawer-name="BPSchoolMenu"
 		 	default="BPMMonumentButton">
 		<tool name="BPMMonumentButton"   grpid="25" help="monument"/>
-		<tool name="BPMSchoolButton"     grpid="26" help="school"
-			upmes="schoolup.mes"/>
-		<tool name="BPMUniversityButton" grpid="13" help="university" upmes="universityup.mes"/>
-		<tool name="BPMFireButton"       grpid="30" help="firestation"
-			upmes="firestationup.mes"/>
-		<tool name="BPMHealthButton"     grpid="22" help="health"
-			upmes="healthup.mes"/>
-		<tool name="BPMSportsButton"     grpid="31" help="cricket"
-			upmes="cricketup.mes"/>
+		<tool name="BPMSchoolButton"     grpid="26" help="school"/>
+		<tool name="BPMUniversityButton" grpid="13" help="university"/>
+		<tool name="BPMFireButton"       grpid="30" help="firestation"/>
+		<tool name="BPMHealthButton"     grpid="22" help="health"/>
+		<tool name="BPMSportsButton"     grpid="31" help="cricket"/>
 	</menu>
 
 	<menu button-name="BPTransportButton" drawer-name="BPTransportMenu"
 			default="BPMTrackButton">
 		<tool name="BPMTrackButton"      grpid="07" help="track"/>
-		<tool name="BPMStreetButton"     grpid="11" help="road"
-			upmes="roadup.mes"/>
-		<tool name="BPMRailButton"       grpid="09" help="rail"
-			upmes="railwayup.mes"/>
-		<tool name="BPMPortButton"       grpid="17" help="port"
-			upmes="import-exportup.mes"/>
-		<tool name="BPMRocketButton"     grpid="23" help="rocket"
-			upmes="rocketup.mes"/>
+		<tool name="BPMStreetButton"     grpid="11" help="road"/>
+		<tool name="BPMRailButton"       grpid="09" help="rail"/>
+		<tool name="BPMPortButton"       grpid="17" help="port"/>
+		<tool name="BPMRocketButton"     grpid="23" help="rocket"/>
 	</menu>
 
 	<menu button-name="BPPowerButton" drawer-name="BPPowerMenu"
 			default="BPMWindmillButton">
 		<tool name="BPMPowerLineButton"  grpid="01" help="powerline"/>
-		<tool name="BPMCoalPSButton"     grpid="10" help="powerscoal"
-			upmes="coalpowerup.mes"/>
-		<tool name="BPMSolarPSButton"    grpid="02" help="powerssolar"
-			upmes="solarpowerup.mes"/>
+		<tool name="BPMCoalPSButton"     grpid="10" help="powerscoal"/>
+		<tool name="BPMSolarPSButton"    grpid="02" help="powerssolar"/>
 		<tool name="BPMSubstationButton" grpid="03" help="substation"/>
-		<tool name="BPMWindmillButton"   grpid="49" help="windmill"
-			upmes="windmillup.mes"/>
+		<tool name="BPMWindmillButton"   grpid="49" help="windmill"/>
 	</menu>
 
 	<menu button-name="BPMiningButton" drawer-name="BPMiningMenu"
 			default="BPMCommuneButton">
 		<tool name="BPMCommuneButton"    grpid="14" help="commune"/>
-		<tool name="BPMCoalButton"       grpid="08" help="coalmine"
-			upmes="coalmineup.mes"/>
-		<tool name="BPMOreButton"        grpid="15" help="oremine"
-			upmes="oremineup.mes"/>
+		<tool name="BPMCoalButton"       grpid="08" help="coalmine"/>
+		<tool name="BPMOreButton"        grpid="15" help="oremine"/>
 		<tool name="BPMTipButton"        grpid="16" help="tip"/>
-		<tool name="BPMRecycleButton"    grpid="20" help="recycle"
-			upmes="recycleup.mes"/>
+		<tool name="BPMRecycleButton"    grpid="20" help="recycle"/>
 	</menu>
 
 	<menu button-name="BPIndustryButton" drawer-name="BPIndustryMenu"
 			default="BPMPotteryButton">
-		<tool name="BPMPotteryButton"    grpid="29" help="pottery"
-			upmes="potteryup.mes"/>
-		<tool name="BPMBlacksmithButton" grpid="27" help="blacksmith"
-			upmes="blacksmithup.mes"/>
-		<tool name="BPMMillButton"       grpid="28" help="mill"
-			upmes="millup.mes"/>
-		<tool name="BPMLIndustryButton"  grpid="12" help="industryl"
-			upmes="ltindustryup.mes"/>
-		<tool name="BPMHIndustryButton"  grpid="18" help="industryh"
-			upmes="hvindustryup.mes"/>
+		<tool name="BPMPotteryButton"    grpid="29" help="pottery"/>
+		<tool name="BPMBlacksmithButton" grpid="27" help="blacksmith"/>
+		<tool name="BPMMillButton"       grpid="28" help="mill"/>
+		<tool name="BPMLIndustryButton"  grpid="12" help="industryl"/>
+		<tool name="BPMHIndustryButton"  grpid="18" help="industryh"/>
 	</menu>
 
 	<content>

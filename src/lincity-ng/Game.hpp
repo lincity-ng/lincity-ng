@@ -26,6 +26,7 @@
 #include <SDL.h>                 // for SDL_Window
 #include <memory>                // for unique_ptr
 #include <string>                // for string
+#include <list>
 
 #include "UserOperation.hpp"     // for UserOperation
 #include "gui/Signal.hpp"        // for Signal
@@ -43,6 +44,7 @@ class MpsFinance;
 class MpsMap;
 class WindowManager;
 class World;
+class ConstructionGroup;
 
 class Game {
 public:
@@ -100,6 +102,9 @@ private:
 
     void updateDate() const;
     void updateMoney() const;
+
+    void updateTech();
+    std::list<ConstructionGroup *> inventions;
 
     struct {
       Signal<> onAccept;

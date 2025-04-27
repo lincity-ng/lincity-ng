@@ -34,7 +34,6 @@ add_executable(lincity-ng
 		readdir.cpp
 		readdir.hpp
 		ScreenInterface.cpp
-		ScreenInterface.hpp
 		Sound.cpp
 		Sound.hpp
 		TimerInterface.cpp
