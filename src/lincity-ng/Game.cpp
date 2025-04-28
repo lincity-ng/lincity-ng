@@ -869,6 +869,11 @@ Game::handleMessage(Message::ptr message_) {
       dialog.messageAddText(_("A ") + message->getGroup().name
         + _(" needs water, but this space is desert."));
     }
+    else if(NoOreMessage::ptr reason =
+      dynamic_message_cast<NoOreMessage>(reason_)
+    ) {
+      dialog.messageAddText(_("There are no ore reserves left here."));
+    }
     else if(!reason_) {
 // #ifdef DEBUG
       std::cerr << "warning: no reason given in CannotBuildMessage: "
