@@ -217,6 +217,7 @@ Oremine::makeLake() {
       world.map.connect_rivers(p.x, p.y);
     }
   }
+  world.map.desert_water_frontiers(point, point.e(size).s(size));
 }
 
 void Oremine::save(xmlTextWriterPtr xmlWriter) const {
