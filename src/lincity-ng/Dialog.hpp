@@ -37,7 +37,6 @@ class Game;
 #define ASK_COAL_SURVEY   6
 #define ASK_LAUNCH_ROCKET 7
 #define GAME_STATS        8
-#define MSG_DIALOG        9
 
 extern bool blockingDialogIsOpen;
 
