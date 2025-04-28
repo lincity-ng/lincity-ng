@@ -756,10 +756,10 @@ Game::handleMessage(Message::ptr message_) {
     case RocketResultMessage::LaunchResult::FAIL:
       dialog
         .messageAddTextBold(_("The Rocket Crashed"))
-        .messageAddText(_("Looks like your rocket technology leaves some to "
-          "be desired. Thankfully there were no people on board this test "
-          "flight. The scientists say they have identified the cause of the"
-          "crash and are confident future launches will go smoothly."))
+        .messageAddText(_("Looks like your rocket technology leaves some to be"
+          " desired. Thankfully this was a test flight, so no people on board."
+          " The scientists say they have identified the cause of the"
+          " crash and are confident future launches will go smoothly."))
         .imageFile("images/gui/dialogs/warning.png");
       break;
     case RocketResultMessage::LaunchResult::SUCCESS:
