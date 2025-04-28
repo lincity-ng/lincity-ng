@@ -108,10 +108,6 @@ IndustryLight::IndustryLight(World& world, ConstructionGroup *cstgrp) :
 }
 
 IndustryLight::~IndustryLight() {
-  MapTile& tile = *world.map(point);
-  for(const auto& frit : frits) {
-    tile.killframe(frit);
-  }
 }
 
 void IndustryLight::update()
@@ -251,6 +247,15 @@ void IndustryLight::init_resources() {
   frits[0]->move_y = -210;
   frits[1]->move_x = -84;
   frits[1]->move_y = -198;
+}
+
+void
+IndustryLight::detach() {
+  MapTile& tile = *world.map(point);
+  for(const auto& frit : frits) {
+    tile.killframe(frit);
+  }
+  Construction::detach();
 }
 
 void

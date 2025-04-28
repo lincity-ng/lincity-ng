@@ -71,10 +71,6 @@ Coal_power::Coal_power(World& world, ConstructionGroup *cstgrp) :
 }
 
 Coal_power::~Coal_power() {
-  MapTile& tile = *world.map(point);
-  for(const auto& frit : frits) {
-    tile.killframe(frit);
-  }
 }
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
@@ -175,6 +171,15 @@ void Coal_power::init_resources() {
   frits[6]->move_y = -371;
   frits[7]->move_x = 136;
   frits[7]->move_y = -383;
+}
+
+void
+Coal_power::detach() {
+  MapTile& tile = *world.map(point);
+  for(const auto& frit : frits) {
+    tile.killframe(frit);
+  }
+  Construction::detach();
 }
 
 void Coal_power::place(MapPoint point) {
