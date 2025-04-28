@@ -131,7 +131,9 @@ void RocketPad::update() {
 }
 
 void RocketPad::animate(unsigned long real_time) {
-  if(stage == BUILDING) {
+  switch(stage) {
+  case BUILDING:
+  case AWAITING: {
     if(steps < (25 * ROCKET_PAD_STEPS) / 100)
       frameIt->frame = 0;
     else if(steps < (60 * ROCKET_PAD_STEPS) / 100)
@@ -142,8 +144,8 @@ void RocketPad::animate(unsigned long real_time) {
       frameIt->frame = 3;
     else
       frameIt->frame = 4;
-  }
-  else if(stage == LAUNCHING) {
+  } break;
+  case LAUNCHING: {
     if (real_time >= anim) {
       anim = real_time + ANIM_THRESHOLD(ROCKET_ANIMATION_SPEED);
       if(++frameIt->frame >= 6) {
@@ -151,9 +153,14 @@ void RocketPad::animate(unsigned long real_time) {
       }
       assert(frameIt->frame <= 6);
     }
-  }
-  else if(stage == DONE) {
+  } break;
+  case LAUNCH:
+    break; // waiting for simulation to calculate the launch result
+  case DONE: {
     frameIt->frame = 7;
+  } break;
+  default:
+    assert(false);
   }
 }
 
