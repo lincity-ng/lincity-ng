@@ -397,6 +397,7 @@ World::World(int mapSize) :
   tech_level = 0;
   rockets_launched = 0;
   rockets_launched_success = 0;
+  gameEnd = false;
 
   people_pool = 100;
 

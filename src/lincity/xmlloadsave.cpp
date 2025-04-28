@@ -269,8 +269,8 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
 
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched",            "%d", world.rockets_launched);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched_success",    "%d", world.rockets_launched_success);
-
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_survey_done",            "%d", world.coal_survey_done);
+  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"game_end",                    "%d", world.gameEnd);
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"money_rates");
     xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_rate",           "%d", world.money_rates.income_tax);
@@ -474,8 +474,8 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
 
     else if(xml_tag == "rockets_launched")            world.rockets_launched = std::stoi(xmlReader.read_inner_xml());
     else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = std::stoi(xmlReader.read_inner_xml());
-
     else if(xml_tag == "coal_survey_done")            world.coal_survey_done = std::stoi(xmlReader.read_inner_xml());
+    else if(xml_tag == "game_end")                    world.gameEnd = std::stoi(xmlReader.read_inner_xml());
 
     else if(xml_tag == "money_rates") {
       if(!xmlReader.is_empty_element() && xmlReader.read())
@@ -947,6 +947,8 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
   }
   assert(xmlReader.get_name() == "globals");
   assert(xmlReader.get_depth() == depth);
+
+  world.gameEnd = false;
 
   world.expense(uncounted_import * world.money_rates.import_cost / 100,
     world.stats.expenses.import);

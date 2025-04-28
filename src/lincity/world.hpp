@@ -257,6 +257,7 @@ public:
 
   int rockets_launched, rockets_launched_success;
   int coal_survey_done;
+  bool gameEnd;
 
   std::array<CommodityRule, STUFF_COUNT> tradeRule;
 

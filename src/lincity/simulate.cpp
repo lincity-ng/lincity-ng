@@ -170,10 +170,9 @@ World::end_of_month_update(void) {
 
   stats.total_money = total_money;
 
-  static bool noPeople = false;
-  if(stats.population.population_m.acc == 0 && !noPeople) {
+  if(stats.population.population_m.acc == 0 && !gameEnd) {
     pushMessage(NoPeopleLeftMessage::create(total_time));
-    noPeople = true;
+    gameEnd = true;
   }
 }
 

@@ -253,7 +253,8 @@ void RocketPad::remove_people(int num)
       }
     }
 
-    if(!housed) {
+    if(!housed && !world.gameEnd) {
+      world.gameEnd = true;
       world.pushMessage(RocketResultMessage::create(
         point, RocketResultMessage::LaunchResult::EVAC_WIN));
       return;
