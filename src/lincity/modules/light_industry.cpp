@@ -32,17 +32,18 @@
 #include <vector>                         // for allocator, vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"
 #include "lincity/groups.hpp"               // for GROUP_INDUSTRY_L
 #include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "tinygettext/gettext.hpp"        // for N_
-#include "lincity/MapPoint.hpp"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
      N_("Light Industry"),
+     N_("Light Industries"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_L,
      GROUP_INDUSTRY_L_SIZE,

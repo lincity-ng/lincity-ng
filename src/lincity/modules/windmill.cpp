@@ -43,6 +43,7 @@
 
 WindmillConstructionGroup windmillConstructionGroup(
   N_("Windmill"),
+  N_("Windmills"),
   FALSE,                     /* need credit? */
   GROUP_WINDMILL,
   GROUP_WINDMILL_SIZE,

@@ -44,6 +44,7 @@
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
+     N_("Markets"),
      FALSE,                     /* need credit? */
      GROUP_MARKET,
      GROUP_MARKET_SIZE,

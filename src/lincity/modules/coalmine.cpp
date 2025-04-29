@@ -42,6 +42,7 @@
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(
     N_("Coal Mine"),
+    N_("Coal Mines"),
      FALSE,                     /* need credit? */
      GROUP_COALMINE,
      GROUP_COALMINE_SIZE,

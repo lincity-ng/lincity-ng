@@ -36,7 +36,8 @@
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(
-    N_("Power line"),
+    N_("Power Line"),
+    N_("Power Lines"),
     FALSE,                     /* need credit? */
     GROUP_POWER_LINE,
     GROUP_POWER_LINE_SIZE,

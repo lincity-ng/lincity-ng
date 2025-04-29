@@ -40,6 +40,7 @@
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
     N_("University"),
+    N_("Universities"),
      TRUE,                     /* need credit? */
      GROUP_UNIVERSITY,
      GROUP_UNIVERSITY_SIZE,

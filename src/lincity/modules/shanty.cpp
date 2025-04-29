@@ -26,11 +26,11 @@
 
 #include <stdio.h>                          // for fprintf, stderr, printf
 #include <stdlib.h>                         // for rand
+#include <cassert>
 #include <map>                              // for map
+#include <optional>
 #include <string>                           // for basic_string, operator<
 #include <vector>                           // for vector
-#include <optional>
-#include <cassert>
 
 #include "commune.hpp"                      // for CommuneConstructionGroup
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
@@ -47,6 +47,7 @@
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
     N_("Shanty Town"),
+    N_("Shanty Towns"),
      FALSE,                     /* need credit? */
      GROUP_SHANTY,
      GROUP_SHANTY_SIZE,

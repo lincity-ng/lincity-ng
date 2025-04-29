@@ -37,6 +37,7 @@
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),
+    N_("Power Substations"),
      FALSE,                     /* need credit? */
      GROUP_SUBSTATION,
      GROUP_SUBSTATION_SIZE,

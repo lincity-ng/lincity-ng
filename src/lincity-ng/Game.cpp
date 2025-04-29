@@ -24,18 +24,18 @@
 
 #include <SDL.h>                           // for SDL_KeyCode, Uint32, SDL_E...
 #include <assert.h>                        // for assert
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <stddef.h>                        // for NULL
 #include <algorithm>                       // for min
 #include <filesystem>                      // for path, operator/, directory...
 #include <functional>                      // for function, bind, _1
 #include <initializer_list>                // for initializer_list
-#include <iomanip>                         // for _Setprecision, setprecision
 #include <iostream>                        // for basic_ostream, operator<<
-#include <sstream>                         // for basic_ostringstream
+#include <list>
 #include <stdexcept>                       // for runtime_error
 #include <typeinfo>                        // for type_info
 #include <utility>                         // for move
-#include <list>
 
 #include "ButtonPanel.hpp"                 // for ButtonPanel
 #include "Config.hpp"                      // for getConfig, Config
@@ -64,10 +64,10 @@
 #include "lincity/lin-city.hpp"            // for ANIMATE_DELAY, MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"            // for ConstructionGroup, Constru...
 #include "lincity/messages.hpp"            // for dynamic_message_cast, Message
+#include "lincity/modules/all_modules.hpp"
 #include "lincity/world.hpp"               // for World, Map, MapTile
 #include "main.hpp"                        // for painter, videoSizeChanged
 #include "tinygettext/gettext.hpp"         // for _
-#include "lincity/modules/all_modules.hpp"
 
 using namespace std::placeholders;
 
@@ -242,12 +242,11 @@ Game::updateTech() {
     const ConstructionGroup& cstGrp = *inventions.front();
     DialogBuilder()
       .titleText(_("New Invention!"))
-      .messageAddTextBold(_(cstGrp.name))
-      .messageAddText(
-        _("You have reached the tech level which enables you to build ")
-        + _(cstGrp.name + "s") + ". "
-        + _("See the help screen for more information about this type of"
-          " building."))
+      .messageAddTextBold(fmt::format(_("{} Available"), _(cstGrp.name_plural)))
+      .messageAddText(fmt::format(_("You have reached the tech level which"
+          " enables you to build {}. See the help screen for more information"
+          " about this type of building."),
+        _(cstGrp.name_plural)))
       .imageFile("images/gui/dialogs/invention.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();
@@ -337,6 +336,7 @@ Game::executeUserOperation(MapPoint point) {
         break;
 
       Construction *cst = world->map(point)->reportingConstruction;
+      assert(cst);
       warnStatus->onAccept.connect([this, point, cst, grp]() {
         // make sure things haven't changed
         // there must be a better way to do this
@@ -359,9 +359,8 @@ Game::executeUserOperation(MapPoint point) {
       DialogBuilder()
         .titleText("Warning")
         .messageAddTextBold("Warning:")
-        .messageAddText(std::string(_("Bulldozing a ")) +
-          _(world->map(point)->getConstructionGroup()->name) +
-          _(" costs a lot of money."))
+        .messageAddText(fmt::format(_("Bulldozing a {} costs a lot of money."),
+          _(cst->constructionGroup->name)))
         .messageAddText("Want to bulldoze?")
         .imageFile("images/gui/dialogs/warning.png")
         // TODO: use "Bulldoze"/"Leave It" buttons
@@ -687,9 +686,9 @@ Game::handleMessage(Message::ptr message_) {
     DialogBuilder()
       .titleText(_("Fire!"))
       .messageAddTextBold(_("A Fire has Started"))
-      .messageAddText(_("A fire has broken out in a ")
-        + _(message->getGroup().name) + "! " + _("You should address this "
-        "promptly before the whole city burns down."))
+      .messageAddText(fmt::format(_("A fire has broken out in a {}! You should"
+          " address this promptly before the whole city burns down."),
+        _(message->getGroup().name)))
       .imageFile("images/gui/dialogs/warning.png") // TODO: fire icon
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();
@@ -728,12 +727,12 @@ Game::handleMessage(Message::ptr message_) {
     DialogBuilder()
       .titleText(_("Rocket Ready"))
       .messageAddTextBold(_("A Rocket is Ready for Launch"))
-      .messageAddText((std::ostringstream() << _("The rocket at ")
-        << message->getPoint() << _(" has finished construction and is ready "
-          "for takeoff. You may choose to launch now or later. If you choose "
-          "to wait, beware it costs money to keep the rocket in tip-top "
-          "shape until launch day.")).str())
-      .messageAddText("Launch now?")
+      .messageAddText(fmt::format(_("The rocket at {} has finished construction"
+          " and is ready for takeoff. You may choose to launch now or later. If"
+          " you choose to wait, beware it costs money to keep the rocket in"
+          " tip-top shape until launch day."),
+        fmt::streamed(message->getPoint())))
+      .messageAddText(_("Launch now?"))
       .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
       .buttonSet(DialogBuilder::ButtonSet::YESNO)
       .onYes([this, point = message->getPoint()]() {
@@ -755,10 +754,10 @@ Game::handleMessage(Message::ptr message_) {
     switch(message->getResult()) {
     case RocketResultMessage::LaunchResult::FAIL:
       dialog
-        .messageAddTextBold(_("The Rocket Crashed"))
+        .messageAddTextBold(_("Rocket Crashed"))
         .messageAddText(_("Looks like your rocket technology leaves some to be"
-          " desired. Thankfully this was a test flight, so no people on board."
-          " The scientists say they have identified the cause of the"
+          " desired. Thankfully this was a test flight, so no people were on"
+          " board. The scientists say they have identified the cause of the"
           " crash and are confident future launches will go smoothly."))
         .imageFile("images/gui/dialogs/warning.png");
       break;
@@ -829,8 +828,9 @@ Game::handleMessage(Message::ptr message_) {
     DialogBuilder dialog;
     dialog
       .titleText(_("Cannot Build"))
-      .messageAddTextBold(_("Cannot build a ") + message->getGroup().name
-        + (hereMessage ? _(" here.") : "."))
+      .messageAddTextBold(fmt::format(
+        hereMessage ? _("Cannot build a {} here.") : _("Cannot build a {}."),
+        _(message->getGroup().name)))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK);
     if(OutOfMoneyMessage::ptr reason =
@@ -847,27 +847,32 @@ Game::handleMessage(Message::ptr message_) {
     else if(NotEnoughTechMessage::ptr reason =
       dynamic_message_cast<NotEnoughTechMessage>(reason_)
     ) {
-      dialog.messageAddText((std::ostringstream()
-        << _("Tech level too low. Requires ")
-        << std::fixed << std::setprecision(1)
-        << (reason->getRequiredTech() * 100.0f / MAX_TECH_LEVEL)
-      ).str());
+      const std::string formatStr = hereMessage
+        ? _("Your tech level is too low. Building a {} here requires {:.1f}"
+          " tech level, but you have only {:.1f} tech level.")
+        : _("Your tech level is too low. Building a {} requires {:.1f}"
+          " tech level, but you have only {:.1f} tech level.");
+      dialog.messageAddText(fmt::format(formatStr,
+        _(message->getGroup().name),
+        reason->getRequiredTech() * 100.0f / MAX_TECH_LEVEL,
+        reason->getCurrentTech() * 100.0f / MAX_TECH_LEVEL));
     }
     else if(SpaceOccupiedMessage::ptr reason =
       dynamic_message_cast<SpaceOccupiedMessage>(reason_)
     ) {
-      dialog.messageAddText(_("The space is occupied."));
+      dialog.messageAddText(_("This space is occupied."));
     }
     else if(OutsideMapMessage::ptr reason =
       dynamic_message_cast<OutsideMapMessage>(reason_)
     ) {
-      dialog.messageAddText(_("You cannot build outside the map."));
+      dialog.messageAddText(_("Silly! You cannot build outside the map."));
     }
     else if(DesertHereMessage::ptr reason =
       dynamic_message_cast<DesertHereMessage>(reason_)
     ) {
-      dialog.messageAddText(_("A ") + message->getGroup().name
-        + _(" needs water, but this space is desert."));
+      dialog.messageAddText(fmt::format(
+        _("A {} needs water, but this space is desert."),
+        _(message->getGroup().name)));
     }
     else if(NoOreMessage::ptr reason =
       dynamic_message_cast<NoOreMessage>(reason_)
@@ -901,66 +906,57 @@ Game::handleMessage(Message::ptr message_) {
     DialogBuilder dialog;
     dialog
       .titleText(_("Cannot Bulldoze"))
+      .messageAddTextBold(fmt::format(_("Cannot bulldoze this {}."),
+        _(message->getGroup().name)))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK);
     if(CannotBulldozeNonemptyTipMessage::ptr message =
       dynamic_message_cast<CannotBulldozeNonemptyTipMessage>(message_)
     ) {
-      dialog
-        .messageAddTextBold(_("Cannot bulldoze this ")
-          + _(message->getGroup().name))
-        .messageAddText(_("You cannot bulldoze a tip that is full of waste."));
+      dialog.messageAddText(_("You cannot bulldoze this tip because it is full"
+        " of waste."));
     }
     else if(CannotBulldozeIncompleteMonumentMessage::ptr message =
       dynamic_message_cast<CannotBulldozeIncompleteMonumentMessage>(message_)
     ) {
-      dialog
-        .messageAddTextBold(_("Cannot bulldoze this ")
-          + _(message->getGroup().name))
-        .messageAddText(_("You cannot bulldoze a monument that is under "
-          "construction."));
+      dialog.messageAddText(_("You cannot bulldoze this monument because it is"
+        " still under construction."));
     }
     else if(CannotBulldozeThisEverMessage::ptr message =
       dynamic_message_cast<CannotBulldozeThisEverMessage>(message_)
     ) {
-      dialog
-        .messageAddTextBold(_("You cannot bulldoze a ")
-          + _(message->getGroup().name) + ".")
-        .messageAddText(_("You are not allowed to bulldoze this type of "
-          "construction."));
+      dialog.messageAddText(fmt::format(
+        _("You are not allowed to bulldoze {}."),
+        _(message->getGroup().name_plural)));
     }
-    else {
+    else {{
 // #ifdef DEBUG
       std::cerr << "warning: unrecognized message derived from "
         << "CannotBulldozeThisMessage: "
         << typeid(*message_).name() << ": "
         << message_->str() << std::endl;
 // #endif
-      {
-        CannotBulldozeThisMessage::ptr message =
-          dynamic_message_cast<CannotBulldozeThisMessage>(message_);
-        dialog
-          .messageAddTextBold(_("You cannot bulldoze this")
-            + _(message->getGroup().name) + ".")
-          .messageAddText(_("You are not allowed to bulldoze this")
-            + _(message->getGroup().name)
-            + _(", but we're not exactly sure why."));
-      }
+      CannotBulldozeThisMessage::ptr message =
+        dynamic_message_cast<CannotBulldozeThisMessage>(message_);
+      dialog.messageAddText(fmt::format(_("You are not allowed to bulldoze this"
+        " {}, but we're not exactly sure why."),
+        _(message->getGroup().name)));
+      dialog.imageFile("images/gui/dialogs/warning.png");
       assert(false);
-    }
+    }}
     dialog.build();
   }
   else if(CannotEvacuateThisMessage::ptr message =
     dynamic_message_cast<CannotEvacuateThisMessage>(message_)
   ) {
     DialogBuilder()
-      .titleText(_("Cannot Bulldoze"))
+      .titleText(_("Cannot Evacuate"))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
-      .messageAddTextBold(_("You cannot evacuate a ")
-        + _(message->getGroup().name) + ".")
-      .messageAddText(_("You are not allowed to evacuate this type of "
-        "construction."))
+      .messageAddTextBold(fmt::format(_("Cannot evacuate {}."),
+        _(message->getGroup().name)))
+      .messageAddText(fmt::format(_("You are not allowed to evacuate {}."),
+        _(message->getGroup().name_plural)))
       .build();
   }
   else {

@@ -45,6 +45,7 @@
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(
   N_("Elementary School"),
+  N_("Elementary Schools"),
   FALSE,                     /* need credit? */
   GROUP_SCHOOL,
   GROUP_SCHOOL_SIZE,

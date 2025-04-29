@@ -51,9 +51,9 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(LibXml2 REQUIRED)
+find_package(fmt REQUIRED)
 # Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
-
 # seems libxml++ doesn't have a find module, but it provides a pkg-config
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(libXMLPlusPlus REQUIRED IMPORTED_TARGET libxml++-5.0)

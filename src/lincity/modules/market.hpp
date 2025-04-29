@@ -25,14 +25,15 @@
 #ifndef __LINCITYNG_LINCITY_MODULES_MARKET_HPP__
 #define __LINCITYNG_LINCITY_MODULES_MARKET_HPP__
 
-#include <array>                    // for array
-#include <list>                     // for list
+#include <array>                      // for array
+#include <list>                       // for list
+#include <string>                     // for string
 
 #include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
+#include "lincity/lin-city.hpp"       // for MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/transport.hpp"      // for MAX_COAL_IN_MARKET, MAX_FOOD_IN_M...
-#include "lincity/lin-city.hpp"
+#include "lincity/transport.hpp"      // for MAX_COAL_IN_MARKET, MAX_FOOD_IN...
 
 class World;
 struct ExtraFrame;
@@ -56,15 +57,16 @@ struct ExtraFrame;
 class MarketConstructionGroup: public ConstructionGroup {
 public:
     MarketConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int market_chance,
+        int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance,
-        cost, tech, range
+        name, name_plural, no_credit, group, size, colour, cost_mul, bul_cost,
+        fire_chance,   cost, tech, range
     ) {
         commodityRuleCount[STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
         commodityRuleCount[STUFF_FOOD].take = true;
