@@ -1,6 +1,8 @@
 Residential area
 
-This is where people live. To encourage people to live in this area they must have water and food. It also helps to provide them workplaces, electricity and goods. They must be connected to transport. Beeing in range of a market is benefitial. Sports fields increase desirability. Keep your people away from pollution
+This is where people live. To encourage people to live in this area they must have water and food. It also helps to provide them workplaces, electricity and goods. They must be connected to transport. Being in range of a market is beneficial. Sports fields increase desirability. Keep your people away from pollution
+
+If residents have insufficient food or water or the area is very polluted, then they will die. When residents are dying, the residence is given a very low desirability score, so people are discouraged from moving in, and people may even move out.
 
 There are 3 different types of residential areas: Low, Medium and High density housing. These have different birth and death rates associated with them. This gives you some control over your population. Health centers also affect birth and death rates.
 
