@@ -71,14 +71,18 @@ for a different version than what you are building can cause build failures.
 
   https://gitlab.gnome.org/GNOME/libxslt
 
-* gettext (optional)
-
-  https://www.gnu.org/software/gettext/
-
 * Header files for all [run dependencies](#run-dependencies)
 
   If you use packages from your distribution, header files are often in separate
   `*-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
+
+* Include What You Use (optional)
+
+  https://include-what-you-use.org/
+
+* gettext (optional)
+
+  https://www.gnu.org/software/gettext/
 
 ### Building
 
