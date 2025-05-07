@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,11 +22,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "organic_farm.h"
+#include "organic_farm.hpp"
 
-#include <list>                     // for _List_iterator
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_ORGANIC_FARM
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
@@ -43,10 +54,29 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_RANGE
 );
 
-Construction *Organic_farmConstructionGroup::createConstruction() {
-  return new Organic_farm(this);
+Construction *Organic_farmConstructionGroup::createConstruction(World& world) {
+  return new Organic_farm(world, this);
 }
 
+Organic_farm::Organic_farm(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->crop_rotation_key = (rand() % 4) + 1;
+  this->month_stagger = rand() % 100;
+  this->food_this_month = 0;
+  this->food_last_month = 0;
+  this->max_foodprod = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;
+  commodityMaxCons[STUFF_LABOR] = 100 * FARM_LABOR_USED;
+  commodityMaxCons[STUFF_LOVOLT] = 100 * ORG_FARM_POWER_REC;
+  commodityMaxCons[STUFF_WATER] = 100 * 16 * WATER_FARM;
+  // commodityMaxProd[STUFF_FOOD] = 100 *
+  //   (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
+}
 
 void Organic_farm::update()
 {
@@ -58,12 +88,10 @@ void Organic_farm::update()
     max_foodprod = 0;
     /* check labor */
     used_labor = (FARM_LABOR_USED<commodityCount[STUFF_LABOR]?FARM_LABOR_USED:commodityCount[STUFF_LABOR]);
-    flags &= ~(FLAG_POWERED);
     /* check for power */
     if (commodityCount[STUFF_LOVOLT] >= ORG_FARM_POWER_REC)
     {
         used_power = ORG_FARM_POWER_REC;
-        flags |= FLAG_POWERED;
         if (commodityCount[STUFF_WASTE] >= 3 * ORG_FARM_WASTE_GET)
         {   consumeStuff(STUFF_WASTE, ORG_FARM_WASTE_GET);}
         used_water = commodityCount[STUFF_WATER] / WATER_FARM;
@@ -101,15 +129,15 @@ void Organic_farm::update()
         food_this_month += 100 * foodprod / max_foodprod;
     }
     // monthly update
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         food_last_month = food_this_month;
         food_this_month = 0;
     }
 }
 
-void Organic_farm::animate() {
-  int i = (total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
+void Organic_farm::animate(unsigned long real_time) {
+  int i = (world.total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
   //Every three month
   if (i % 300 == 0) {
     i /= 300;
@@ -125,28 +153,24 @@ void Organic_farm::animate() {
   }
 }
 
-void Organic_farm::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
-    mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, N_("busy"), (float)food_last_month / 100.0);
-    mps_store_sd(i++, N_("Output"), max_foodprod);
-    // i++;
-    list_commodities(&i);
+void Organic_farm::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sddp(N_("Fertility"), ugwCount, 16);
+  mps.add_sfp(N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
+  mps.add_sfp(N_("busy"), (float)food_last_month / 100.0);
+  mps.add_sd(N_("Output"), max_foodprod);
+  list_commodities(mps, production);
 }
 
-void Organic_farm::place(int x, int y) {
-  Construction::place(x, y);
+void Organic_farm::place(MapPoint point) {
+  Construction::place(point);
 
   // Check underground water, and reduce food production accordingly
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if(world.map(point.s(i).e(j))->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   this->tech_bonus = (int)((long long int)this->tech
@@ -156,16 +180,16 @@ void Organic_farm::place(int x, int y) {
     (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus);
 }
 
-void Organic_farm::save(xmlTextWriterPtr xmlWriter) {
+void Organic_farm::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader) {
+bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   if(tag == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(tag == "tech_bonus");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

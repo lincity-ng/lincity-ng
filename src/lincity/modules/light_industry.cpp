@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,14 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "light_industry.h"
+#include "light_industry.hpp"
 
-#include <stdlib.h>   // for rand
-#include <iterator>   // for advance
-#include <map>        // for map
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand, NULL
+#include <map>                            // for map
+#include <string>                         // for basic_string, char_traits
+#include <vector>                         // for allocator, vector
 
-#include "modules.h"  // for Commodity, basic_string, ExtraFrame, allocator
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.hpp"               // for GROUP_INDUSTRY_L
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
+#include "lincity/MapPoint.hpp"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
@@ -52,14 +61,59 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
 //IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
 //IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
-Construction *IndustryLightConstructionGroup::createConstruction() {
-  return new IndustryLight(this);
+Construction *IndustryLightConstructionGroup::createConstruction(World& world) {
+  return new IndustryLight(world, this);
+}
+
+IndustryLight::IndustryLight(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  this->goods_this_month = 0;
+  this->anim = 0;
+  initialize_commodities();
+  this->bonus = 0;
+  this->extra_bonus = 0;
+  // if (tech > MAX_TECH_LEVEL)
+  // {
+  //     bonus = (tech - MAX_TECH_LEVEL);
+  //     if (bonus > MAX_TECH_LEVEL)
+  //         bonus = MAX_TECH_LEVEL;
+  //     bonus /= MAX_TECH_LEVEL;
+  //     // check for filter technology bonus
+  //     if (tech > 2 * MAX_TECH_LEVEL)
+  //     {
+  //         extra_bonus = tech - 2 * MAX_TECH_LEVEL;
+  //         if (extra_bonus > MAX_TECH_LEVEL)
+  //             extra_bonus = MAX_TECH_LEVEL;
+  //         extra_bonus /= MAX_TECH_LEVEL;
+  //     }
+  // }
+
+  commodityMaxCons[STUFF_LABOR] = 100 * (INDUSTRY_L_LABOR_USED +
+    INDUSTRY_L_LABOR_LOAD_ORE + LABOR_LOAD_ORE +
+    INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL);
+  commodityMaxCons[STUFF_ORE] = 100 * INDUSTRY_L_ORE_USED * 2;
+  commodityMaxCons[STUFF_STEEL] = 100 * INDUSTRY_L_STEEL_USED;
+  commodityMaxCons[STUFF_LOVOLT] = 100 *
+    INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 8;
+  commodityMaxCons[STUFF_HIVOLT] = 100 *
+    INDUSTRY_L_POWER_PER_GOOD * INDUSTRY_L_MAKE_GOODS * 4;
+  commodityMaxProd[STUFF_GOODS] = 100 * INDUSTRY_L_MAKE_GOODS * 8;
+  // commodityMaxProd[STUFF_WASTE] = 100 * (int)(INDUSTRY_L_POL_PER_GOOD *
+  //   INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
+}
+
+IndustryLight::~IndustryLight() {
 }
 
 void IndustryLight::update()
 {
     //monthly update
-    if (total_time % 100 == 0)
+    if(world.total_time % 100 == 0)
     {
         reset_prod_counters();
         int output_level = goods_this_month / (INDUSTRY_L_MAKE_GOODS * 8);
@@ -78,13 +132,13 @@ void IndustryLight::update()
         consumeStuff(STUFF_ORE, INDUSTRY_L_ORE_USED);
         goods_today = INDUSTRY_L_MAKE_GOODS;
         //make some pollution and waste
-        world(x,y)->pollution += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * (1 - bonus)));
+        world.map(point)->pollution += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * (1 - bonus)));
         produceStuff(STUFF_WASTE, (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * bonus)*(1-extra_bonus)));
         // if the trash bin is full reburn the filterd pollution
         if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_L)
         {
             int excess = -levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_L);
-            world(x,y)->pollution += excess;
+            world.map(point)->pollution += excess;
         }
         //now double goods_today if there are more labor and steel
         if ((commodityCount[STUFF_LABOR] >= (INDUSTRY_L_LABOR_LOAD_STEEL + LABOR_LOAD_STEEL))
@@ -129,7 +183,7 @@ void IndustryLight::update()
     }// endif make some goods
 }
 
-void IndustryLight::animate() {
+void IndustryLight::animate(unsigned long real_time) {
   if(real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(INDUSTRY_L_ANIM_SPEED);
 
@@ -147,18 +201,17 @@ void IndustryLight::animate() {
     int active = 0;
     if(busy > 70)
       active = 2;
-    else if (busy > 5)
+    else if (busy > 10)
       active = 1;
-    std::list<ExtraFrame>::iterator frit = fr_begin;
-    for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1)) {
+    for(int i = 0; i < frits.size(); i++) {
+      auto& frit = frits[i];
       int s = frit->resourceGroup->graphicsInfoVector.size();
       int& smoke = frit->frame;
       if (i >= active) {
         smoke = -1;
       }
-      else if(!s) ;
-      else if(smoke < 0 || rand() % 1600) {
-        // always randomize new plumes and sometimes existing ones
+      else if(smoke < 0 || !(rand() % 1600)) {
+        // randomize new plumes and sometimes existing ones
         smoke = rand() % s;
       }
       else if(goods_today && ++smoke >= s) {
@@ -173,45 +226,41 @@ void IndustryLight::animate() {
   }
 }
 
-void IndustryLight::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (busy));
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void IndustryLight::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (busy));
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
 void IndustryLight::init_resources() {
   Construction::init_resources();
 
-  world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
-  std::list<ExtraFrame>::iterator frit = frameIt;
-  std::advance(frit, 1);
-  fr_begin = frit;
-  frit = frameIt;
-  std::advance(frit, 1);
-  frit->move_x = -113;
-  frit->move_y = -210;
-  std::advance(frit, 1);
-  frit->move_x = -84;
-  frit->move_y = -198;
-  std::advance(frit, 1);
-  fr_end = frit;
-  for(frit = fr_begin;
-    frit != world(x,y)->framesptr->end() && frit != fr_end;
-    std::advance(frit, 1)
-  ) {
+  MapTile& tile = *world.map(point);
+  for(auto& frit : frits) {
+    frit = tile.createframe();
     frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
     frit->frame = -1; // hide smoke
   }
+  frits[0]->move_x = -113;
+  frits[0]->move_y = -210;
+  frits[1]->move_x = -84;
+  frits[1]->move_y = -198;
 }
 
-void IndustryLight::place(int x, int y) {
-  Construction::place(x, y);
+void
+IndustryLight::detach() {
+  MapTile& tile = *world.map(point);
+  for(const auto& frit : frits) {
+    tile.killframe(frit);
+  }
+  Construction::detach();
+}
+
+void
+IndustryLight::place(MapPoint point) {
+  Construction::place(point);
 
   if (tech > MAX_TECH_LEVEL) {
     bonus = (tech - MAX_TECH_LEVEL);
@@ -232,17 +281,17 @@ void IndustryLight::place(int x, int y) {
     INDUSTRY_L_MAKE_GOODS * bonus * (1-extra_bonus));
 }
 
-void IndustryLight::save(xmlTextWriterPtr xmlWriter) {
+void IndustryLight::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool IndustryLight::loadMember(xmlpp::TextReader& xmlReader) {
+bool IndustryLight::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "bonus");
   else if(name == "extra_bonus");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

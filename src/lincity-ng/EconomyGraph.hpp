@@ -1,23 +1,28 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/EconomyGraph.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __EconomyGraph_HPP
 #define __EconomyGraph_HPP
 
+#include <deque>
 #include <string>             // for basic_string, string
 
 #include "gui/Component.hpp"  // for Component
@@ -29,6 +34,7 @@ class Paragraph;
 class Rect2D;
 class Texture;
 class XmlReader;
+class Game;
 
 class EconomyGraph : public Component {
 public:
@@ -37,15 +43,32 @@ public:
 
     void parse(XmlReader& reader);
     void draw(Painter& painter);
-    void updateData();
     void newFPS( int frame );
+    void setDirty() { Component::setDirty(); }
+
+    void setGame(Game *game);
 private:
+    Game *game;
+
+    std::deque<int> fps;
+
     static const int border = 5;
+    static const int headingVSpace = 10;
+    static const int headingVOffset = -1;
+    static const int headingHOffset = 5;
+    static const int sustHeight = 60;
+    static const int sustBarSpace = 10;
+    static const int sustBarHeight = 5;
+    static const int sustBarVOffset = 3;
+    static const int sustBarStart = 40;
+    static const int sustBarStub = 1;
+    static const int sustLabelVOffset = -1;
+    static const int fpsHeight = 40;
+
     void drawHistoryLineGraph( Painter& painter, Rect2D mg );
     void drawSustBarGraph( Painter& painter, Rect2D mg );
     void drawFPSGraph( Painter& painter, Rect2D fpsRect );
 
-    int* fps;
     Texture* labelTextureMIN;
     Texture* labelTexturePRT;
     Texture* labelTextureMNY;
@@ -57,8 +80,6 @@ private:
     Texture* labelTextureSustainability;
     Texture* labelTextureFPS;
 
-    bool nobodyHomeDialogShown;
-
     CheckButton* switchEconomyGraphButton;
     std::string switchEconomyGraphText;
     Paragraph* switchEconomyGraphParagraph;
@@ -67,8 +88,6 @@ private:
     Style redStyle;
     Style yellowStyle;
 };
-
-EconomyGraph* getEconomyGraph();
 
 #endif
 

@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,13 +22,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "oremine.h"
+#include "oremine.hpp"
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
-#include "lincity/ConstructionRequest.h"  // for OreMineDeletionRequest
-#include "modules.h"                      // for Commodity, ConstructionGroup
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"               // for GROUP_OREMINE
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Oremine:
 OremineConstructionGroup oremineConstructionGroup(
@@ -45,14 +54,47 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_RANGE
 );
 
-Construction *OremineConstructionGroup::createConstruction()
+Construction *OremineConstructionGroup::createConstruction(World& world) {
+  return new Oremine(world, this);
+}
+
+bool
+OremineConstructionGroup::can_build_here(const World& world,
+  const MapPoint point, Message::ptr& message
+) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
+  int total_ore = 0;
+  for(int i = 0; i < size; i++)
+  for(int j = 0; j < size; j++)
+    total_ore += world.map(point.e(j).s(i))->ore_reserve;
+  if(total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+    message = NoOreMessage::create();
+    return false;
+  }
+
+  return true;
+}
+
+Oremine::Oremine(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-  return new Oremine(this);
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->working_days = 0;
+  this->busy = 0;
+  this->anim_count = 0;
+  // this->days_offset = 0;
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+  commodityMaxCons[STUFF_ORE] = 100 * ORE_PER_RESERVE;
+  commodityMaxCons[STUFF_LABOR] = 100 * OREMINE_LABOR;
 }
 
 void Oremine::update()
 {
-    int xx,yy;
     animate_enable = false;
 
     // see if we can/need to extract some underground ore
@@ -60,54 +102,46 @@ void Oremine::update()
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
     && (commodityCount[STUFF_LABOR] >= OREMINE_LABOR))
     {
-        for (yy = y; (yy < y + constructionGroup->size); yy++)
-        {
-            for (xx = x; (xx < x + constructionGroup->size); xx++)
-            {
-                if (world(xx,yy)->ore_reserve > 0)
-                {
-                    world(xx,yy)->ore_reserve--;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
-                    total_ore_reserve--;
-                    produceStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
-                    //FIXME ore_tax should be handled upon delivery
-                    //ore_made += ORE_PER_RESERVE;
-                    if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
-                    {   sust_dig_ore_coal_tip_flag = 0;}
-                    animate_enable = true;
-                    working_days++;
-                    goto end_mining;
-                }
-            }
+      for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+      for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++) {
+        if(world.map(p)->ore_reserve > 0) {
+          world.map(p)->ore_reserve--;
+          total_ore_reserve--;
+          produceStuff(STUFF_ORE, ORE_PER_RESERVE);
+          consumeStuff(STUFF_LABOR, OREMINE_LABOR);
+          //FIXME ore_tax should be handled upon delivery
+          //ore_made += ORE_PER_RESERVE;
+          if(total_ore_reserve <
+            (constructionGroup->size * constructionGroup->size * ORE_RESERVE)
+          )
+            world.stats.sustainability.mining_flag = false;
+          animate_enable = true;
+          working_days++;
+          goto end_mining;
         }
+      }
     }
     // return the ore to ore_reserve if there is enough sustainable ore available
     else if ((commodityCount[STUFF_ORE] - ORE_PER_RESERVE > ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE )/100)
     && (commodityCount[STUFF_LABOR] >= LABOR_DIG_ORE))
     {
-        for (yy = y; (yy < y + constructionGroup->size); yy++)
-        {
-            for (xx = x; (xx < x + constructionGroup->size); xx++)
-            {
-                if (world(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
-                {
-                    world(xx,yy)->ore_reserve++;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
-                    total_ore_reserve++;
-                    consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, OREMINE_LABOR);
-                    animate_enable = true;
-                    working_days++;
-                    goto end_mining;
-                }
-            }
+      for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+      for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++) {
+        if(world.map(p)->ore_reserve < 3 * ORE_RESERVE / 2) {
+          world.map(p)->ore_reserve++;
+          total_ore_reserve++;
+          consumeStuff(STUFF_ORE, ORE_PER_RESERVE);
+          consumeStuff(STUFF_LABOR, OREMINE_LABOR);
+          animate_enable = true;
+          working_days++;
+          goto end_mining;
         }
+      }
     }
     end_mining:
 
     //Monthly update of activity
-    if (total_time % 100 == 99) {
+    if (world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -118,13 +152,17 @@ void Oremine::update()
     {   flags |= FLAG_EVACUATE;}
 
     //Abandon the Oremine if it is really empty
-    if ((total_ore_reserve == 0)
-      &&(commodityCount[STUFF_LABOR] == 0)
-      &&(commodityCount[STUFF_ORE] == 0) )
-    {   ConstructionManager::submitRequest(new OreMineDeletionRequest(this));}
+    if(total_ore_reserve == 0
+      && commodityCount[STUFF_LABOR] == 0
+      && commodityCount[STUFF_ORE] == 0
+    ) {
+      detach();
+      makeLake();
+      return;
+    }
 }
 
-void Oremine::animate() {
+void Oremine::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
 
   if(animate_enable && real_time >= anim) {
@@ -141,37 +179,56 @@ void Oremine::animate() {
   }
 }
 
-void Oremine::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
-    // i++;
-    list_commodities(&i);
+void Oremine::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sddp(N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
+  list_commodities(mps, production);
 }
 
-void Oremine::place(int x, int y) {
-  Construction::place(x, y);
+void
+Oremine::place(MapPoint point) {
+  Construction::place(point);
 
   int ore = 0;
-  for(int yy = y; yy < y + constructionGroup->size; yy++)
-  for(int xx = x; xx < x + constructionGroup->size; xx++)
-    ore += world(xx,yy)->ore_reserve;
+  for(MapPoint p(point); p.y < point.y + constructionGroup->size; p.y++)
+  for(p.x = point.x; p.x < point.x + constructionGroup->size; p.x++)
+    ore += world.map(p)->ore_reserve;
   if(ore < 1)
     ore = 1;
   this->total_ore_reserve = ore;
 }
 
-void Oremine::save(xmlTextWriterPtr xmlWriter) {
+void
+Oremine::bulldoze() {
+  Construction::bulldoze();
+  makeLake();
+}
+
+void
+Oremine::makeLake() {
+  int size = constructionGroup->size;
+  for(MapPoint p(point); p.y < point.y + size; p.y++)
+  for(p.x = point.x; p.x < point.x + size; p.x++) {
+    MapTile& tile = *world.map(p);
+    if(tile.ore_reserve < ORE_RESERVE / 2) {
+      tile.setTerrain(GROUP_WATER);
+      tile.flags |= FLAG_HAS_UNDERGROUND_WATER;
+      world.map.connect_rivers(p.x, p.y);
+    }
+  }
+  world.map.desert_water_frontiers(point, point.e(size).s(size));
+}
+
+void Oremine::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
   Construction::save(xmlWriter);
 }
 
-bool Oremine::loadMember(xmlpp::TextReader& xmlReader) {
+bool Oremine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

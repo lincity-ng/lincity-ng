@@ -5,7 +5,8 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,25 +23,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "world.h"
+#include "world.hpp"
 
-#include <stdlib.h>         // for NULL
-#include <iostream>         // for basic_ostream, char_traits, operator<<
-#include <iterator>         // for advance
-#include <map>              // for map
-#include <string>           // for basic_string, operator<
+#include <stdlib.h>            // for NULL
+#include <cassert>             // for assert
+#include <initializer_list>    // for initializer_list
+#include <iostream>            // for basic_ostream, operator<<, basic_ostre...
+#include <iterator>            // for advance
+#include <map>                 // for map
+#include <string>              // for basic_string, char_traits, operator<
 
-#include "all_buildings.h"  // for TileConstructionGroup, desertConstruction...
-#include "engglobs.h"       // for world, dxo, dyo, world_id
-#include "groups.h"         // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
-#include "init_game.h"      // for clear_game
-#include "lin-city.h"       // for FLAG_TRANSPARENT, FLAG_IS_RIVER, FLAG_HAS...
-#include "lintypes.h"       // for Construction, ConstructionGroup
-#include "resources.hpp"    // for ExtraFrame, ResourceGroup
-
-#ifdef DEBUG
-#include <cassert>          // for assert
-#endif
+#include "all_buildings.hpp"   // for GROUP_WATER_COST
+#include "groups.hpp"          // for GROUP_WATER, GROUP_BARE, GROUP_DESERT
+#include "lin-city.hpp"        // for FLAG_IS_RIVER, FLAG_TRANSPARENT, FLAG_...
+#include "lintypes.hpp"        // for Construction, ConstructionGroup
+#include "modules/market.hpp"  // for Market
+#include "modules/tile.hpp"    // for TileConstructionGroup, desertConstruct...
+#include "resources.hpp"       // for ExtraFrame, ResourceGroup
 
 Ground::Ground() {
   altitude = 0;
@@ -48,6 +47,7 @@ Ground::Ground() {
   wastes = 0;
   pollution = 0;
   water_alt = 0;
+  water_pol = 0;
   water_wast = 0;
   water_next = 0;
   int1 = 0;
@@ -57,19 +57,19 @@ Ground::Ground() {
 }
 Ground::~Ground() {}
 
-
-
-MapTile::MapTile():ground()
+MapTile::MapTile(MapPoint point) :
+  point(point), ground()
 {
     construction = NULL;
     reportingConstruction = NULL;
     framesptr = NULL;
     flags = 0;
     type = 0;
-    group = 0;
+    group = GROUP_BARE;
     pollution = 0;
     ore_reserve = 0;
     coal_reserve = 0;
+    pollution = 0;
 }
 
 MapTile::~MapTile()
@@ -92,8 +92,8 @@ void MapTile::setTerrain(unsigned short new_group)
     {   flags |= FLAG_HAS_UNDERGROUND_WATER;}
 }
 
-ConstructionGroup* MapTile::getTileConstructionGroup()
-{
+ConstructionGroup *
+MapTile::getTileConstructionGroup() const {
     switch (group)
     {
         case GROUP_BARE:    return &bareConstructionGroup;      break;
@@ -103,13 +103,12 @@ ConstructionGroup* MapTile::getTileConstructionGroup()
         case GROUP_TREE2:   return &tree2ConstructionGroup;     break;
         case GROUP_TREE3:   return &tree3ConstructionGroup;     break;
         default:
-            std::cout << "invalid group of maptile at: (" << world.map_x(this) <<"," << world.map_y(this) << ")" << std::endl;
+            std::cout << "invalid group of maptile at: (" << point.x <<"," << point.y << ")" << std::endl;
             return &desertConstructionGroup;
     }
 }
 
-ResourceGroup* MapTile::getTileResourceGroup()
-{
+ResourceGroup* MapTile::getTileResourceGroup() const {
     static bool initialized = false;
     static ResourceGroup* bare = 0;
     static ResourceGroup* desert = 0;
@@ -139,18 +138,18 @@ ResourceGroup* MapTile::getTileResourceGroup()
         case GROUP_TREE2:   return tree2;     break;
         case GROUP_TREE3:   return tree3;     break;
         default:
-            std::cout << "invalid group of maptile at: (" << world.map_x(this) <<"," << world.map_y(this) << ")" << std::endl;
+            std::cout << "invalid group of maptile at: (" << point.x <<"," << point.y << ")" << std::endl;
             return desert;
     }
 }
 
-ConstructionGroup* MapTile::getConstructionGroup() //constructionGroup of bare land or the covering construction
+ConstructionGroup* MapTile::getConstructionGroup() const //constructionGroup of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->constructionGroup : getTileConstructionGroup());}
 
-ConstructionGroup* MapTile::getTopConstructionGroup() //constructionGroup of bare land or the actual construction
+ConstructionGroup* MapTile::getTopConstructionGroup() const //constructionGroup of bare land or the actual construction
 {   return (construction ? construction->constructionGroup : getTileConstructionGroup());}
 
-ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup()
+ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup() const
 {
     if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
     {   return getTileConstructionGroup();}
@@ -158,24 +157,23 @@ ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup()
     {   return getConstructionGroup();}
 }
 
-unsigned short MapTile::getType() //type of bare land or the covering construction
+unsigned short MapTile::getType() const //type of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->frameIt->frame : type);}
 
-unsigned short MapTile::getTopType() //type of bare land or the actual construction
+unsigned short MapTile::getTopType() const //type of bare land or the actual construction
 {   return (construction ? construction->frameIt->frame : type);}
 
-unsigned short MapTile::getLowerstVisibleType()
-{
+unsigned short MapTile::getLowerstVisibleType() const {
     if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
     {   return type;}
     else
     {   return reportingConstruction->frameIt->frame;}
 }
 
-unsigned short MapTile::getGroup() //group of bare land or the covering construction
+unsigned short MapTile::getGroup() const //group of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
 
-unsigned short MapTile::getTransportGroup() //group of bare land or the covering construction
+unsigned short MapTile::getTransportGroup() const //group of bare land or the covering construction
 {
     unsigned short grp = getGroup();
     if (is_transport())
@@ -198,7 +196,7 @@ unsigned short MapTile::getTransportGroup() //group of bare land or the covering
     return grp;
 }
 
-unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
+unsigned short MapTile::getTopGroup() const //group of bare land or the actual construction
 {
     if(!construction) //simple case
     {   return group;}
@@ -208,7 +206,7 @@ unsigned short MapTile::getTopGroup() //group of bare land or the actual constru
     {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
 }
 
-unsigned short MapTile::getLowerstVisibleGroup()
+unsigned short MapTile::getLowerstVisibleGroup() const
 {
     if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
     {   return group;}
@@ -217,25 +215,25 @@ unsigned short MapTile::getLowerstVisibleGroup()
 }
 
 
-bool MapTile::is_bare() //true if we there is neither a covering construction nor water
+bool MapTile::is_bare() const //true if we there is neither a covering construction nor water
 {   return (!reportingConstruction) && (group != GROUP_WATER);}
 
-bool MapTile::is_water() //true on bridges or lakes (also under bridges)
+bool MapTile::is_water() const //true on bridges or lakes (also under bridges)
 {   return (group == GROUP_WATER);}
 
-bool MapTile::is_lake() //true on lakes (also under bridges)
+bool MapTile::is_lake() const //true on lakes (also under bridges)
 {   return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);}
 
-bool MapTile::is_river() // true on rivers (also under bridges)
+bool MapTile::is_river() const // true on rivers (also under bridges)
 {   return (flags & FLAG_IS_RIVER);}
 
-bool MapTile::is_visible() // true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
+bool MapTile::is_visible() const // true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
 {   return (construction || !reportingConstruction);}
 
-bool MapTile::is_transport() //true on tracks, road, rails and bridges
+bool MapTile::is_transport() const //true on tracks, road, rails and bridges
 {   return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);}
 
-bool MapTile::is_residence() //true on residences
+bool MapTile::is_residence() const //true on residences
 {
     return (reportingConstruction &&(
         (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_LL)
@@ -256,7 +254,7 @@ std::list<ExtraFrame>::iterator MapTile::createframe(void)
     return frit; //the last position
 }
 
-void MapTile::killframe(std::list<ExtraFrame>::iterator it)
+void MapTile::killframe(const std::list<ExtraFrame>::iterator& it)
 {
     //what would actually happen if "it" belongs to another maptile?
     framesptr->erase(it);
@@ -269,181 +267,259 @@ void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 
 
 
-World::World(int map_len)
+Map::Map(int map_len) :
+  side_len(map_len), recentPoint(map_len / 2, map_len / 2)
 {
-    maptile.resize(map_len * map_len);
-    dirty = false;
-    world.climate = -1;
-    world.old_setup_ground = -1;
-    //std::cout << "created World len = " << len() << "²" << std::endl;
+  maptile.reserve(map_len * map_len);
+  for(MapPoint p; p.y < map_len; p.y++)
+  for(p.x = 0; p.x < map_len; p.x++) {
+    maptile.emplace_back(p);
+  }
 }
 
-World::~World()
-{
-    maptile.clear();
+Map::~Map() {
+  maptile.clear();
 }
 
-void World::len(int new_len)
-{
-    if (new_len < 50)
-    {   new_len = 50;}
-    if (dirty) {clear_game();}
-    bool job_done = false;
-
-    while (!job_done)
-    {
-        try
-        {
-            this->side_len = new_len;
-            job_done = true;
-            maptile.resize(new_len * new_len);
-        }
-        catch(...)
-        {
-            new_len -= 25;
-            std::cout << "failed to allocate world. shrinking edge to " << new_len << " tiles" << std::endl;
-            job_done = false;
-            if (new_len < 50) //Ok we give up, but should crash very soon anyways.
-            {   return;}
-        }
-    }
+const MapTile *Map::operator()(MapPoint point) const {
+  assert(is_inside(point));
+  return &(maptile[point.x + point.y * side_len]);
 }
 
-MapTile* World::operator()(int x, int y)
-{
-    return &(maptile[x + y * side_len]);
+MapTile *Map::operator()(MapPoint point) {
+  assert(is_inside(point));
+  return &(maptile[point.x + point.y * side_len]);
 }
 
-MapTile* World::operator()(int index)
-{
-    return &(maptile[index]);
+bool Map::is_inside(MapPoint point) const {
+  return point.x >= 0 && point.y >= 0
+    && point.x < side_len && point.y < side_len;
 }
 
-bool World::is_inside(int x, int y)
-{
-    return (x >= 0 && y >= 0 && x < side_len && y < side_len);
+bool Map::is_border(MapPoint point) const {
+  return (point.x == 0 || point.y == 0
+    || point.x == side_len-1 || point.y == side_len-1);
 }
 
-bool World::is_inside(int index)
-{
-    return (index >= 0 && index < side_len * side_len);
+bool Map::is_edge(MapPoint point) const {
+  return (point.x == 1 || point.y == 1
+    || point.x == side_len-2 || point.y == side_len -2);
 }
 
-bool World::is_border(int x, int y)
-{
-    return (x == 0 || y == 0 || x == side_len-1 || y == side_len -1);
+bool
+Map::is_visible(MapPoint point) const {
+  return (point.x > 0 && point.y > 0
+    && point.x < side_len-1 && point.y < side_len-1);
 }
 
-bool World::is_border(int index)
-{
-    return (index%side_len == side_len -1 || index%side_len == 0 || index/side_len == side_len-1 || index/side_len == 0);
-}
-
-bool World::is_edge(int x, int y)
-{
-    return (x == 1 || y == 1 || x == side_len-2 || y == side_len -2);
-}
-
-bool World::is_visible(int x, int y)
-{
-    return (x > 0 && y > 0 && x < side_len-1 && y < side_len -1);
-}
-
-int World::map_x(MapTile * tile)
-{
-    return (tile-&maptile[0]) % side_len;
-}
-
-int World::map_y(MapTile * tile)
-{
-    return (tile-&maptile[0]) / side_len;
-}
-
-int World::map_index(MapTile * tile)
-{
-    return (tile-&maptile[0]);
-}
-
-int World::len()
-{
+int Map::len() const {
     return side_len;
 }
 
-int World::seed()
-{
-#ifdef DEBUG
-    assert(world_id == id);
-#endif
-    return id;
+bool Map::maximum(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  for(MapPoint q : {p.n(),p.s(),p.w(),p.e(),p.nw(),p.ne(),p.sw(),p.se()})
+    if(alt < operator()(q)->ground.altitude) return false;
+  return true;
 }
 
-void World::seed( int new_seed)
-{
-    this->id = new_seed;
-    world_id = new_seed;
+bool Map::minimum(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  for(MapPoint q : {p.n(),p.s(),p.w(),p.e(),p.nw(),p.ne(),p.sw(),p.se()})
+    if(alt > operator()(q)->ground.altitude) return false;
+  return true;
 }
 
-bool World::maximum(int x , int y)
+bool Map::saddlepoint(MapPoint p) const {
+  int alt = operator()(p)->ground.altitude;
+  int dips = 0;
+  bool prevLower = true;
+  for(MapPoint q : {p.w(),p.nw(),p.n(),p.ne(),p.e(),p.se(),p.s(),p.sw(),p.w()}){
+    bool lower = alt > operator()(q)->ground.altitude;
+    if(lower && !prevLower)
+      dips++;
+    prevLower = lower;
+  }
+  return dips > 1;
+}
+
+bool Map::checkEdgeMin(MapPoint point) const {
+  MapPoint q1,q2;
+  if(point.x == 1 || point.x == side_len-2) {
+    q1 = point.w();
+    q2 = point.e();
+  }
+  else if(point.y == 1 || point.y == side_len-2) {
+    q1 = point.n();
+    q2 = point.s();
+  }
+  else
+    return false;
+
+  // handle corners
+  if(point == MapPoint(1,1))
+    q1 = point.s();
+  else if(point == MapPoint(1,side_len-2))
+    q2 = point.s();
+  else if(point == MapPoint(side_len-2,1))
+    q1 = point.n();
+  else if(point == MapPoint(side_len-2,side_len-2))
+    q2 = point.n();
+
+  int alt = operator()(point)->ground.altitude;
+  return alt < operator()(q1)->ground.altitude
+    && alt < operator()(q2)->ground.altitude;
+}
+
+Map::  iterator Map::  begin()       { return maptile.  begin(); }
+Map::  iterator Map::  end()         { return maptile.  end();   }
+Map:: riterator Map:: rbegin()       { return maptile. rbegin(); }
+Map:: riterator Map:: rend()         { return maptile. rend();   }
+Map:: citerator Map:: cbegin() const { return maptile. cbegin(); }
+Map:: citerator Map:: cend()   const { return maptile. cend();   }
+Map::criterator Map::crbegin() const { return maptile.crbegin(); }
+Map::criterator Map::crend()   const { return maptile.crend();   }
+Map:: citerator Map::  begin() const { return maptile.  begin(); }
+Map:: citerator Map::  end()   const { return maptile.  end();   }
+Map::criterator Map:: rbegin() const { return maptile. rbegin(); }
+Map::criterator Map:: rend()   const { return maptile. rend();   }
+
+World::World() :
+  World(WORLD_SIDE_LEN)
+{}
+
+World::World(int mapSize) :
+  map(mapSize)
 {
-    int alt = maptile[x + y * side_len].ground.altitude;
-    bool is_max = true;
-    for (int i=0; i<8; i++)
-    {
-        int tx = x + dxo[i];
-        int ty = y + dyo[i];
-        is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);
+  total_time = 0;
+  coal_survey_done = 0;
+  total_money = 0;
+  tech_level = 0;
+  rockets_launched = 0;
+  rockets_launched_success = 0;
+  gameEnd = false;
+
+  people_pool = 100;
+
+  stats.sustainability.old_population = people_pool;
+
+  for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
+    tradeRule[s].take = true;
+    tradeRule[s].give = true;
+  }
+}
+
+World::~World() {
+}
+
+void
+World::buildConstruction(ConstructionGroup& cstGrp, MapPoint point) {
+  Message::ptr message;
+  if(!cstGrp.can_build(*this, message))
+    CannotBuildMessage::create(cstGrp, message)->throwEx();
+  if(!cstGrp.can_build_here(*this, point, message))
+    CannotBuildHereMessage::create(cstGrp, point, message)->throwEx();
+  expense(cstGrp.getCosts(*this), stats.expenses.construction,
+    !cstGrp.no_credit);
+  cstGrp.placeItem(*this, point);
+
+  map.connect_transport(point.x - 2, point.y - 2,
+    point.x + cstGrp.size + 1, point.y + cstGrp.size + 1);
+  map.desert_water_frontiers(point.x - 1, point.y - 1,
+    cstGrp.size + 2, cstGrp.size + 2);
+}
+
+void
+World::bulldozeArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+
+  if(Construction *cst = map(point)->reportingConstruction) {
+    cst->bulldoze();
+  }
+  else {
+    MapTile& tile = *map(point);
+    unsigned short g = tile.getGroup();
+    if(g == GROUP_DESERT)
+      return; // nothing to do
+
+    expense(tile.getTileConstructionGroup()->bul_cost,
+      stats.expenses.construction);
+
+    if(g == GROUP_WATER) {
+      tile.group = GROUP_BARE;
+      tile.flags &= ~(FLAG_IS_RIVER);
+      tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+      map.connect_rivers(point.x, point.y);
     }
-    return is_max;
+    else {
+      tile.group = GROUP_DESERT;
+    }
+    map.desert_water_frontiers(point, point.se());
+  }
+
+  setUpdated(Updatable::MAP);
 }
 
-bool World::minimum(int x , int y)
-{
-    int alt = maptile[x + y * side_len].ground.altitude;
-    bool is_min = true;
-    for (int i=0; i<8; i++)
-    {
-        int tx = x + dxo[i];
-        int ty = y + dyo[i];
-        is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);
-    }
-    return is_min;
+void
+World::evacuateArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+  Construction *cst = map(point)->reportingConstruction;
+  if(!cst)
+    NothingHereMessage::create(point)->throwEx();
+  if(cst->flags & FLAG_NEVER_EVACUATE)
+    CannotEvacuateThisMessage::create(point,
+      *cst->constructionGroup)->throwEx();
+
+  if(cst->constructionGroup->group == GROUP_MARKET) {
+    dynamic_cast<Market*>(cst)->toggleEvacuation();
+    return;
+  }
+  cst->flags ^= FLAG_EVACUATE;
 }
 
-bool World::saddlepoint(int x , int y)
-{
-    int alt = maptile[x + y * side_len].ground.altitude;
-    int dips = 0;
-    bool dip_new = alt > maptile[x + dxo[7] + (y + dyo[7])*side_len ].ground.altitude;
-    bool dip_old = dip_new;
-    for (int i=0; i<8; i++)
-    {
-        dip_new = alt > maptile[x + dxo[i]+ (y + dyo[i])*side_len].ground.altitude;
-        if (dip_new && !dip_old) //We just stepped into a valley
-        {
-                dips++;
-        }
-        dip_old = dip_new;
-    }
-    return dips > 1;
+void
+World::floodArea(MapPoint point) {
+  if(!map.is_visible(point))
+    OutsideMapMessage::create(point)->throwEx();
+  if(!map(point)->is_bare())
+    SpaceOccupiedMessage::create(point)->throwEx();
+  map(point)->setTerrain(GROUP_WATER);
+  expense(GROUP_WATER_COST, stats.expenses.construction);
+  map.connect_transport(point.x - 2, point.y - 2, point.x + 2, point.y + 2);
+  map.desert_water_frontiers(point.x - 1, point.y - 1, 3, 3);
+  map.connect_rivers(point.x, point.y);
+  setUpdated(Updatable::MAP);
 }
 
-bool World::checkEdgeMin(int x , int y)
-{
-    int alt = maptile[x + y * side_len].ground.altitude;
-    if (x==1 || x == side_len-2)
-    {
-        return alt < maptile[x+1 + y * side_len].ground.altitude
-            && alt < maptile[x-1 + y * side_len].ground.altitude;
-    }
-    else if (y==1 || y == side_len-2)
-    {
-        return alt < maptile[x + (y+1) * side_len].ground.altitude
-            && alt < maptile[x + (y-1) * side_len].ground.altitude;
-    }
-    else
-        return false;
+void
+World::pushMessage(Message::ptr message) {
+  messageQueue.push_back(message);
 }
 
+Message::ptr
+World::popMessage() {
+  if(messageQueue.empty())
+    return Message::ptr();
+  Message::ptr message = messageQueue.front();
+  messageQueue.pop_front();
+  return message;
+}
 
+void
+World::setUpdated(Updatable what) {
+  updatedSet.insert(what);
+}
+
+void
+World::clearUpdated(Updatable what) {
+  updatedSet.erase(what);
+}
+
+bool
+World::isUpdated(Updatable what) {
+  return updatedSet.find(what) != updatedSet.end();
+}
 
 /** @file lincity/world.cpp */

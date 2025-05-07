@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,15 +22,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "commune.h"
+#include "commune.hpp"
 
-#include <cstdlib>                        // for rand
-#include <list>                           // for _List_iterator
-#include <vector>                         // for vector
+#include <cstdlib>                          // for rand
+#include <list>                             // for _List_iterator
+#include <string>                           // for basic_string
+#include <vector>                           // for vector
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
-#include "lincity/ConstructionRequest.h"  // for CommuneDeletionRequest
-#include "modules.h"                      // for Commodity, N_, Construction...
+#include "lincity-ng/Mps.hpp"               // for Mps
+#include "lincity/MapPoint.hpp"             // for MapPoint
+#include "lincity/groups.hpp"               // for GROUP_COMMUNE
+#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
+#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"          // for N_
+#include "lincity/modules/parkland.hpp"
 
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),
@@ -46,86 +52,99 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction() {
-  return new Commune(this);
+Construction *CommuneConstructionGroup::createConstruction(World& world) {
+  return new Commune(world, this);
 }
 
-void Commune::update()
+Commune::Commune(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    int tmpUgwCount = ugwCount;
-    int tmpCoalprod = coalprod;
-    const unsigned short s = constructionGroup->size;
-    const unsigned short a = s*s;
-    if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST)
-    {
-        tmpUgwCount = a;
-        tmpCoalprod = COMMUNE_COAL_MADE;
-        consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
-    }
-    if(//(total_time & 1) && //make coal every second day
-       (tmpCoalprod > 0)
-    && (commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE ))
-    {
-         produceStuff(STUFF_COAL, tmpCoalprod);
-         monthly_stuff_made++;
-         animate_enable = true;
-    }
-    if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
-    {
-        produceStuff(STUFF_ORE, COMMUNE_ORE_MADE);
-        monthly_stuff_made++;
-        animate_enable = true;
-    }
-    /* recycle a bit of waste if there is plenty*/
-    if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
-    {
-        consumeStuff(STUFF_WASTE, COMMUNE_WASTE_GET);
-        monthly_stuff_made++;
-        animate_enable = true;
-        if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
-        {   produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);}
-    }
-    if (total_time % 10 == 0)
-    {
-        int modulus = ((total_time%20)?1:0);
-        for(int idx = 0; idx < tmpUgwCount; idx++)
-        {
-            int i = x + idx % s;
-            int j = y + idx / s;
-            if((i+j)%2==modulus && world(i,j)->pollution)
-            {   --world(i,j)->pollution;}
-        }
-        if (modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
-        {
-            monthly_stuff_made++;
-            animate_enable = true;
-            steel_made = true;
-            produceStuff(STUFF_STEEL, COMMUNE_STEEL_MADE);
-        }
-    }
+  this->constructionGroup = cstgrp;
+  this->anim = 0; // or real_time?
+  this->animate_enable = false;
+  this->steel_made = false;
+  this->monthly_stuff_made = 0;
+  this->last_month_output = 0;
+  this->lazy_months = 0;
+  initialize_commodities();
 
-    if (total_time % 100 == 99) { //each month
-        reset_prod_counters();
-        last_month_output = monthly_stuff_made;
-        monthly_stuff_made = 0;
-        if (last_month_output)
-        {//we were busy
-            if (lazy_months > 0)
-            {   --lazy_months;}
-        }
-        else
-        {//we are lazy
-            lazy_months++;
-            /* Communes without production only last 10 years */
-            if (lazy_months > 120) {
-                ConstructionManager::submitRequest(new CommuneDeletionRequest(this));
-                return;
-            }
-        }//end we are lazy
-    }//end each month
+  commodityMaxCons[STUFF_WATER] = 100 *
+    constructionGroup->size * constructionGroup->size * WATER_FOREST;
+  commodityMaxProd[STUFF_COAL] = 100 * COMMUNE_COAL_MADE;
+  commodityMaxProd[STUFF_ORE] = 100 *
+    (COMMUNE_ORE_MADE + COMMUNE_ORE_FROM_WASTE);
+  commodityMaxCons[STUFF_WASTE] = 100 * COMMUNE_WASTE_GET;
+  commodityMaxProd[STUFF_STEEL] = 100 / 20 * COMMUNE_STEEL_MADE;
 }
 
-void Commune::animate() {
+void
+Commune::update() {
+  int tmpUgwCount = ugwCount;
+  int tmpCoalprod = coalprod;
+  const unsigned short s = constructionGroup->size;
+  const unsigned short a = s*s;
+  if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST) {
+    tmpUgwCount = a;
+    tmpCoalprod = COMMUNE_COAL_MADE;
+    consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
+  }
+  if(/* (total_time & 1) && */ //make coal every second day
+    tmpCoalprod > 0
+    && commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE
+  ) {
+    produceStuff(STUFF_COAL, tmpCoalprod);
+    monthly_stuff_made++;
+    animate_enable = true;
+  }
+  if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE) {
+    produceStuff(STUFF_ORE, COMMUNE_ORE_MADE);
+    monthly_stuff_made++;
+    animate_enable = true;
+  }
+  /* recycle a bit of waste if there is plenty*/
+  if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET) {
+    consumeStuff(STUFF_WASTE, COMMUNE_WASTE_GET);
+    monthly_stuff_made++;
+    animate_enable = true;
+    if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
+      produceStuff(STUFF_ORE, COMMUNE_ORE_FROM_WASTE);
+  }
+  if (world.total_time % 10 == 0) {
+    int modulus = world.total_time % 20 >= 10 ? 1 : 0;
+    for(MapPoint p(point); p.y < point.y + s; p.y++)
+    for(p.x = point.x + (p.y + modulus) % 2; p.x < point.x + s; p.x++) {
+      int& pol = world.map(p)->pollution;
+      if(pol) --pol;
+    }
+    if(modulus && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE) {
+      monthly_stuff_made++;
+      animate_enable = true;
+      steel_made = true;
+      produceStuff(STUFF_STEEL, COMMUNE_STEEL_MADE);
+    }
+  }
+
+  if(world.total_time % 100 == 99) { //each month
+    reset_prod_counters();
+    last_month_output = monthly_stuff_made;
+    monthly_stuff_made = 0;
+
+    if(last_month_output) { //we were busy
+      if (lazy_months > 0)
+        --lazy_months;
+    }
+    else { //we are lazy
+      lazy_months++;
+      /* Communes without production only last 10 years */
+      if(lazy_months > 120) {
+        turnIntoParks();
+        return;
+      }
+    }
+  }
+}
+
+void Commune::animate(unsigned long real_time) {
   int& frame = frameIt->frame;
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(COMMUNE_ANIM_SPEED - 25 + (rand() % 50));
@@ -149,27 +168,26 @@ void Commune::animate() {
   }
 }
 
-void Commune::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
-    mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
-    mps_store_sd(i++, N_("Pollution"), world(x,y)->pollution);
-    if(lazy_months)
-    {   mps_store_sddp(i++, N_("lazy months"), lazy_months, 120);}
-    else
-    {   mps_store_title(i++, "");}
-    list_commodities(&i);
+void Commune::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sddp(N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
+  mps.add_sfp(N_("busy"), (float)last_month_output / 3.05);
+  mps.add_sd(N_("Pollution"), world.map(point)->pollution);
+  if(lazy_months)
+    mps.add_sddp(N_("lazy months"), lazy_months, 120);
+  else
+    mps.addBlank();
+  list_commodities(mps, production);
 }
 
-void Commune::place(int x, int y) {
-  Construction::place(x, y);
+void
+Commune::place(MapPoint point) {
+  Construction::place(point);
 
   this->ugwCount = 0;
   for(int i = 0; i < constructionGroup->size; i++)
   for (int j = 0; j < constructionGroup->size; j++)
-    if (world(x + j, y + i)->flags & FLAG_HAS_UNDERGROUND_WATER)
+    if (world.map(point.s(i).e(j))->flags & FLAG_HAS_UNDERGROUND_WATER)
       this->ugwCount++;
 
   if (this->ugwCount < 16 / 3)
@@ -178,6 +196,19 @@ void Commune::place(int x, int y) {
   {   this->coalprod = COMMUNE_COAL_MADE/2;}
   else
   {   this->coalprod = COMMUNE_COAL_MADE;}
+}
+
+void
+Commune::turnIntoParks() {
+  detach();
+
+  unsigned short size = constructionGroup->size;
+  for(unsigned short i = 0; i < size; ++i)
+  for(unsigned short j = 0; j < size; ++j) {
+    MapPoint p(point.s(i).e(j));
+    if(world.map(p)->flags & FLAG_HAS_UNDERGROUND_WATER)
+      parklandConstructionGroup.placeItem(world, p);
+  }
 }
 
 /** @file lincity/modules/commune.cpp */

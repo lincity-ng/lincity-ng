@@ -1,48 +1,38 @@
 add_subdirectory(modules)
 
 add_library(lincity_lib  STATIC
-		all_buildings.cpp
-		all_buildings.h
+		all_buildings.hpp
 		commodities.cpp
 		commodities.hpp
-		ConstructionCount.cpp
-		ConstructionCount.h
-		ConstructionManager.cpp
-		ConstructionManager.h
-		ConstructionRequest.cpp
-		ConstructionRequest.h
-		engglobs.cpp
-		engglobs.h
 		engine.cpp
-		engine.h
-		groups.h
+		groups.hpp
 		init_game.cpp
-		init_game.h
+		init_game.hpp
 		lc_locale.cpp
-		lc_locale.h
-		lclib.cpp
-		lclib.h
-		lctypes.h
-		lin-city.h
+		lc_locale.hpp
+		lin-city.hpp
 		lintypes.cpp
-		lintypes.h
+		lintypes.hpp
+		MapPoint.cpp
+		MapPoint.hpp
+		messages.cpp
+		messages.hpp
 		resources.cpp
 		resources.hpp
 		simulate.cpp
-		simulate.h
 		stats.cpp
-		stats.h
-		sustainable.h
+		stats.hpp
+		sustainable.hpp
 		transport.cpp
-		transport.h
-		UserOperation.cpp
-		UserOperation.h
+		transport.hpp
 		Vehicles.cpp
-		Vehicles.h
+		Vehicles.hpp
 		world.cpp
-		world.h
+		world.hpp
+		util.cpp
+		util.hpp
 		xmlloadsave.cpp
-		xmlloadsave.h
+		xmlloadsave.hpp
 )
 
 add_library(LinCity::lib ALIAS lincity_lib)

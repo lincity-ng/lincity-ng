@@ -1,73 +1,74 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/GameView.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "GameView.hpp"
 
-#include <SDL.h>                           // for SDL_BUTTON_LEFT, SDL_BUTTO...
-#include <SDL_image.h>                     // for IMG_Load_RW
-#include <assert.h>                        // for assert
-#include <stdio.h>                         // for size_t, sscanf, NULL
-#include <string.h>                        // for strcmp
-#include <cmath>                           // for sqrt, fabs, fabsf
-#include <exception>                       // for exception
-#include <functional>                      // for bind, function, _1
-#include <iostream>                        // for basic_ostream, operator<<
-#include <iterator>                        // for advance
-#include <list>                            // for _List_iterator, list, oper...
-#include <map>                             // for _Rb_tree_iterator, map
-#include <sstream>                         // for basic_stringstream, basic_...
-#include <utility>                         // for pair
-#include <vector>                          // for vector
+#include <SDL.h>                         // for SDL_Scancode, SDL_BUTTON_LEFT
+#include <SDL_image.h>                   // for IMG_Load
+#include <assert.h>                      // for assert
+#include <stdio.h>                       // for size_t, sscanf, NULL
+#include <string.h>                      // for strcmp
+#include <cmath>                         // for sqrt, fabs, fabsf, floorf
+#include <exception>                     // for exception
+#include <functional>                    // for bind, _1, function
+#include <iostream>                      // for basic_ostream, operator<<
+#include <iterator>                      // for advance
+#include <list>                          // for _List_iterator, list, operat...
+#include <map>                           // for _Rb_tree_iterator, map, oper...
+#include <sstream>                       // for basic_stringstream
+#include <utility>                       // for pair
+#include <vector>                        // for vector
 
-#include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for blockingDialogIsOpen
-#include "MapEdit.hpp"                     // for editMap
-#include "MiniMap.hpp"                     // for MiniMap, getMiniMap
-#include "Mps.hpp"                         // for mps_x, mps_y
-#include "Util.hpp"                        // for getButton, getParagraph
-#include "gui/Button.hpp"                  // for Button
-#include "gui/Color.hpp"                   // for Color
-#include "gui/ComponentFactory.hpp"        // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Paragraph.hpp"               // for Paragraph
-#include "gui/Rect2D.hpp"                  // for Rect2D
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/Texture.hpp"                 // for Texture
-#include "gui/TextureManager.hpp"          // for TextureManager, texture_ma...
-#include "gui/XmlReader.hpp"               // for XmlReader
-#include "gui_interface/mps.h"             // for mps_set, MPS_MAP, mps_refresh
-#include "gui_interface/shared_globals.h"  // for main_screen_originx, main_...
-#include "libxml/xmlreader.h"              // for XML_READER_TYPE_ELEMENT
-#include "lincity/UserOperation.h"         // for UserOperation
-#include "lincity/all_buildings.h"         // for TileConstructionGroup, GRO...
-#include "lincity/commodities.hpp"         // for commodityNames
-#include "lincity/engglobs.h"              // for userOperation, world, alt_...
-#include "lincity/engine.h"                // for desert_water_frontiers
-#include "lincity/groups.h"                // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lin-city.h"              // for FLAG_POWER_CABLES_0, FLAG_...
-#include "lincity/lintypes.h"              // for ConstructionGroup, Constru...
-#include "lincity/transport.h"             // for connect_transport, BRIDGE_...
-#include "lincity/world.h"                 // for World, MapTile, Ground
-#include "tinygettext/gettext.hpp"         // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"     // for Dictionary, DictionaryManager
+#include "Config.hpp"                    // for getConfig, Config
+#include "Dialog.hpp"                    // for blockingDialogIsOpen
+#include "Game.hpp"                      // for Game
+#include "MiniMap.hpp"                   // for MiniMap, getMiniMap
+#include "Mps.hpp"                       // for MpsMap
+#include "Util.hpp"                      // for getButton, getParagraph
+#include "gui/Button.hpp"                // for Button
+#include "gui/Color.hpp"                 // for Color
+#include "gui/ComponentFactory.hpp"      // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Desktop.hpp"               // for Desktop
+#include "gui/Event.hpp"                 // for Event
+#include "gui/Painter.hpp"               // for Painter
+#include "gui/Paragraph.hpp"             // for Paragraph
+#include "gui/Rect2D.hpp"                // for Rect2D
+#include "gui/Signal.hpp"                // for Signal
+#include "gui/Texture.hpp"               // for Texture
+#include "gui/TextureManager.hpp"        // for TextureManager, texture_manager
+#include "gui/XmlReader.hpp"             // for XmlReader
+#include "libxml/xmlreader.h"            // for XML_READER_TYPE_ELEMENT
+#include "lincity-ng/UserOperation.hpp"  // for UserOperation
+#include "lincity/all_buildings.hpp"       // for GROUP_WATER_BUL_COST, GROUP_...
+#include "lincity/commodities.hpp"       // for commodityNames
+#include "lincity/groups.hpp"              // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.hpp"            // for FLAG_POWER_CABLES_0, FLAG_PO...
+#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
+#include "lincity/messages.hpp"          // for Message
+#include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
+#include "lincity/transport.hpp"           // for BRIDGE_FACTOR
+#include "lincity/world.hpp"               // for Map, World, MapTile, Ground
+#include "tinygettext/gettext.hpp"       // for _, dictionaryManager
+#include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
 
 using namespace std::placeholders;
 
@@ -78,18 +79,7 @@ const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
 const float GameView::defaultZoom = 1.0;    // fastest drawing
 
-GameView* gameViewPtr = 0;
-
-GameView* getGameView() {
-  assert(gameViewPtr);
-  return gameViewPtr;
-}
-
-
-GameView::GameView()
-{
-    assert(gameViewPtr == 0);
-    gameViewPtr = this;
+GameView::GameView() {
     loaderThread = 0;
     keyScrollState = SCROLL_NONE;
     mouseScrollState = SCROLL_NONE;
@@ -97,12 +87,9 @@ GameView::GameView()
     textures_ready = false;
 }
 
-GameView::~GameView()
-{
+GameView::~GameView() {
     stopThread = true;
     SDL_WaitThread( loaderThread, NULL );
-    if(gameViewPtr == this)
-    {   gameViewPtr = 0;}
 }
 
 //Static function to use with SDL_CreateThread
@@ -147,9 +134,6 @@ void GameView::parse(XmlReader& reader)
     zoom = defaultZoom;
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
-    virtualScreenWidth = tileWidth * world.len();
-    virtualScreenHeight = tileHeight * world.len();
-    readOrigin( false );
 
     mouseInGameView = false;
     dragging = false;
@@ -164,12 +148,21 @@ void GameView::parse(XmlReader& reader)
     hideHigh = false;
     showTerrainHeight = false;
     cursorSize = 0;
-    mpsEnvOnQuery = false;
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
     buttonsConnected = false;
     lastStatusMessage = "";
+}
+
+World&
+GameView::getWorld() const {
+  return game->getWorld();
+}
+
+UserOperation *
+GameView::getUserOperation() const {
+  return &game->getUserOperation();
 }
 
 /*
@@ -205,7 +198,7 @@ void GameView::buttonClicked( Button* button ){
         return;
     }
     if( name == "showTerrainHeight" ){
-        if( alt_step != 0 ){
+        if(getWorld().map.alt_step != 0) {
             showTerrainHeight = !showTerrainHeight;
         } else { // map is completely flat
             showTerrainHeight = false;
@@ -237,17 +230,15 @@ void GameView::setCursorSize( int size )
 /*
  * evaluate main_screen_originx and main_screen_originy
  */
-void GameView::readOrigin( bool redraw /* = true */ ){
-    MapPoint newCenter( main_screen_originx, main_screen_originy );
-    show( newCenter, redraw );
+void GameView::readOrigin( bool redraw /* = true */ ) {
+  show(getWorld().map.recentPoint, redraw);
 }
 
 /*
  * set main_screen_originx and main_screen_originy
  */
-void GameView::writeOrigin(){
-    main_screen_originx = getCenter().x;
-    main_screen_originy = getCenter().y;
+void GameView::writeOrigin() {
+  getWorld().map.recentPoint = getCenter().x;
 }
 /*
  *  inform GameView about change in Mini Map Mode
@@ -333,10 +324,6 @@ void GameView::setZoom(float newzoom){
 
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
-    //a virtual screen containing the whole city
-    virtualScreenWidth = tileWidth * world.len();
-    virtualScreenHeight = tileHeight * world.len();
-    //std::cout << "Zoom " << zoom  << "\n";
 
     //Show the Center
     show( centerTile );
@@ -354,19 +341,16 @@ void GameView::zoomMouse(float factor, Vector2 mousepos) {
         newzoom = 4;
         factor = newzoom / zoom;
     }
+    if(fabs(newzoom - 1.0) < .01) {
+      // fix rounding errors...
+      newzoom = 1;
+      factor = newzoom / zoom;
+    }
 
     zoom = newzoom;
 
-    // fix rounding errors...
-    if(fabs(zoom - 1.0) < .01)
-        zoom = 1;
-
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
-    //a virtual screen containing the whole city
-    virtualScreenWidth = tileWidth * world.len();
-    virtualScreenHeight = tileHeight * world.len();
-    //std::cout << "Zoom " << zoom  << "\n";
 
     viewport = (viewport + mousepos) * factor - mousepos;
     constrainViewportPosition(true);
@@ -397,7 +381,7 @@ void GameView::zoomOut(){
 void GameView::show( MapPoint map , bool redraw /* = true */ )
 {
     Vector2 center;
-    center.x = virtualScreenWidth / 2 + ( map.x - map.y ) * ( tileWidth / 2 );
+    center.x = ( map.x - map.y ) * ( tileWidth / 2 );
     center.y = ( map.x + map.y ) * ( tileHeight / 2 ) + ( tileHeight / 2 );
     if( redraw ){
         viewport.x = center.x - ( getWidth() / 2 );
@@ -625,26 +609,27 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
   //adjust viewport so it is.
   if(useScrollCorrection)
     viewport += scrollCorrection * zoom;
-  Vector2 center = viewport + (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+  Vector2 center = viewport + (Vector2(getWidth(), getHeight()) / 2);
   Vector2 centerTile = Vector2(
     center.y / tileHeight + center.x / tileWidth,
     center.y / tileHeight - center.x / tileWidth
   );
   bool outside = false;
+  int mapSize = getWorld().map.len();
   if(centerTile.x < 1) {
       centerTile.x = 1;
       outside = true;
   }
-  else if(centerTile.x > world.len() - 1) {
-      centerTile.x = world.len() - 1;
+  else if(centerTile.x > mapSize - 1) {
+      centerTile.x = mapSize - 1;
       outside = true;
   }
   if(centerTile.y < 1) {
       centerTile.y = 1;
       outside = true;
   }
-  else if(centerTile.y > world.len() - 1) {
-      centerTile.y = world.len() - 1;
+  else if(centerTile.y > mapSize - 1) {
+      centerTile.y = mapSize - 1;
       outside = true;
   }
 
@@ -652,7 +637,7 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
       Vector2 vpOld = viewport;
       center.x = ( centerTile.x - centerTile.y ) * tileWidth / 2;
       center.y = ( centerTile.x + centerTile.y ) * tileHeight / 2;
-      viewport = center - (Vector2(getWidth() - virtualScreenWidth, getHeight()) / 2);
+      viewport = center - (Vector2(getWidth(), getHeight()) / 2);
       if(useScrollCorrection)
         scrollCorrection = (vpOld - viewport) / zoom;
       else
@@ -665,15 +650,6 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
     scrollCorrection = Vector2(0,0);
     return false;
   }
-}
-
-void GameView::updateMps(int x, int y) {
-    int mod_x = x, mod_y = y;
-    if(world(x,y)->reportingConstruction && !mpsEnvOnQuery) {
-        mod_x = world(x,y)->reportingConstruction->x;
-        mod_y = world(x,y)->reportingConstruction->y;
-    }
-    mps_set(mod_x, mod_y, mpsEnvOnQuery ? MPS_ENV : MPS_MAP);
 }
 
 /*
@@ -729,7 +705,7 @@ void GameView::event(const Event& event)
             }
             MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
-            (userOperation->action != UserOperation::ACTION_EVACUATE))
+            (getUserOperation()->action != UserOperation::ACTION_EVACUATE))
             {
                 roadDragging = true;
                 startRoad = tile;
@@ -744,20 +720,25 @@ void GameView::event(const Event& event)
             }
             // bulldoze at once while still dragging
 
-            if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
-            && !areaBulldoze){
-                if( tile != startRoad ) {
-                    editMap(startRoad, SDL_BUTTON_LEFT);
-                    startRoad = tile;
-                }
+            if(roadDragging && !areaBulldoze
+              && getUserOperation()->action == UserOperation::ACTION_BULLDOZE
+            ) {
+              if(tile != startRoad) {
+                game->executeUserOperation(startRoad);
+                startRoad = tile;
+              }
             }
 
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
                 setDirty();
                 //update mps target
-                if(userOperation->action == UserOperation::ACTION_EVACUATE)
-                {   mps_set( tile.x, tile.y, MPS_MAP );}
+                if(getUserOperation()->action == UserOperation::ACTION_EVACUATE)
+                  game->getMpsMap().setTile(
+                    game->getWorld().map.is_visible(tile)
+                    ? game->getWorld().map(tile)
+                    : nullptr
+                  );
             }
 
             break;
@@ -805,7 +786,6 @@ void GameView::event(const Event& event)
                 rightButtonDown = false;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
-                resetLastMessage();
                 if ( roadDragging && event.inside )
                 {
                     MapPoint endRoad = getTile( event.mousepos );
@@ -815,59 +795,64 @@ void GameView::event(const Event& event)
                     if( cursorSize != 1 ){//roadDragging was aborted with Escape
                         break;
                     }
+                    if(blockingDialogIsOpen)
+                      break;
 
                     //build last tile first to play the sound
-                    if( !blockingDialogIsOpen &&
-                        userOperation->is_allowed_here(endRoad.x, endRoad.y, true))
-                        {   editMap(endRoad, SDL_BUTTON_LEFT);}
-                    //use same method to find all Tiles as in void GameView::draw()
+                    Message::ptr dummyMsg;
+                    // check if allowed to avoid many dialogs for bulk ops
+                    if(getUserOperation()->isAllowedHere(
+                      game->getWorld(), endRoad, dummyMsg)
+                    ) {
+                      game->executeUserOperation(endRoad);
+                    }
                     MapPoint currentTile = startRoad;
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    if ( userOperation->action == UserOperation::ACTION_BULLDOZE )
-                    {
-                        for (;currentTile.x != endRoad.x + stepx; currentTile.x += stepx)
-                        {
-                            for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy)
-                            {
-                                if(!blockingDialogIsOpen) {
-                                  editMap(currentTile, SDL_BUTTON_LEFT);
-                                }
-                            }
+                    if(getUserOperation()->action ==
+                      UserOperation::ACTION_BULLDOZE
+                    ) {
+                      for(currentTile.x = startRoad.x;
+                        currentTile.x != endRoad.x + stepx;
+                        currentTile.x += stepx
+                      )
+                      for(currentTile.y = startRoad.y;
+                        currentTile.y != endRoad.y + stepy;
+                        currentTile.y += stepy
+                      ) {
+                        if(getUserOperation()->isAllowedHere(
+                          game->getWorld(), currentTile, dummyMsg)
+                        ) {
+                          game->executeUserOperation(currentTile);
                         }
+                      }
                     }
-                    else if (userOperation->action == UserOperation::ACTION_BUILD)
-                    {
-                        int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
-                        int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
-                        int* l1 = ctrDrag ? &endRoad.y :&endRoad.x;
-                        int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
-                        int* s1 = ctrDrag ? &stepy: &stepx;
-                        int* s2 = ctrDrag ? &stepx: &stepy;
-                        ConstructionGroup* cstgrp = userOperation->constructionGroup;
-                        unsigned short size = cstgrp->size;
+                    else if(getUserOperation()->action ==
+                      UserOperation::ACTION_BUILD
+                    ) {
+                      int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
+                      int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
+                      int* l1 = ctrDrag ? &endRoad.y :&endRoad.x;
+                      int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
+                      int* s1 = ctrDrag ? &stepy: &stepx;
+                      int* s2 = ctrDrag ? &stepx: &stepy;
 
-                        while( *v1 != *l1 )
-                        {
-                            if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {
-                                cstgrp->placeItem(currentTile.x, currentTile.y);
-                                connect_transport(currentTile.x - 2, currentTile.y - 2, currentTile.x + size + 1, currentTile.y + size + 1);
-                                desert_water_frontiers(currentTile.x - 1, currentTile.y - 1, size + 2, size + 2);
-                            }
-                            *v1 += *s1;
+                      while(*v1 != *l1) {
+                        if(getUserOperation()->isAllowedHere(
+                          game->getWorld(), currentTile, dummyMsg)
+                        ) {
+                          game->executeUserOperation(currentTile);
                         }
-
-                        while( *v2 != *l2 )
-                        {
-                            if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {
-                                userOperation->constructionGroup->placeItem(currentTile.x, currentTile.y);
-                                connect_transport(currentTile.x - 2, currentTile.y - 2, currentTile.x + size + 1, currentTile.y + size + 1);
-                                desert_water_frontiers(currentTile.x - 1, currentTile.y - 1, size + 2, size + 2);
-                            }
-                            *v2 += *s2;
+                        *v1 += *s1;
+                      }
+                      while(*v2 != *l2) {
+                        if(getUserOperation()->isAllowedHere(
+                          game->getWorld(), currentTile, dummyMsg)
+                        ) {
+                          game->executeUserOperation(currentTile);
                         }
+                        *v2 += *s2;
+                      }
                     }
                     break;
                 }
@@ -880,15 +865,16 @@ void GameView::event(const Event& event)
                 break;
             }
 
-            if( event.mousebutton == SDL_BUTTON_LEFT ){                 //left
-                if( !blockingDialogIsOpen ) //edit tile
-                {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
+            if(event.mousebutton == SDL_BUTTON_LEFT) {
+              if(!blockingDialogIsOpen) {
+                game->executeUserOperation(getTile(event.mousepos));
+              }
             }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
+            else if(event.mousebutton == SDL_BUTTON_RIGHT) {
                 // show info on the clicked thing
                 MapPoint point = getTile(event.mousepos);
                 if(!inCity(point)) break;
-                updateMps(point.x, point.y);
+                game->getMpsMap().query(game->getWorld().map(point));
             }
             break;
         case Event::MOUSEWHEEL:
@@ -995,10 +981,15 @@ void GameView::event(const Event& event)
             }
 */
 
-            if( event.keysym.scancode == SDL_SCANCODE_G ){
-                mpsEnvOnQuery = !mpsEnvOnQuery;
-                updateMps(mps_x, mps_y);
-                break;
+            if(event.keysym.scancode == SDL_SCANCODE_G) {
+              MpsMap& mps = game->getMpsMap();
+              if(mps.page == MpsMap::Page::GROUND)
+                mps.page = MpsMap::Page::INVENTORY;
+              else
+                mps.page = MpsMap::Page::GROUND;
+              mps.refresh();
+              game->getMiniMap().switchView("MapMPS");
+              break;
             }
             //Hide High Buildings
             if( event.keysym.scancode == SDL_SCANCODE_H ){
@@ -1085,7 +1076,7 @@ void GameView::event(const Event& event)
             }
 
             if ( event.keysym.scancode == SDL_SCANCODE_KP_5 ) {
-                show(MapPoint(world.len() / 2, world.len() / 2));
+                show(MapPoint(getWorld().map.len() / 2, getWorld().map.len() / 2));
                 setDirty();
                 break;
             }
@@ -1152,18 +1143,18 @@ void GameView::viewportUpdated()
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-Vector2 GameView::getScreenPoint(MapPoint map)
+Vector2 GameView::getScreenPoint(MapPoint mp)
 {
     Vector2 point;
-    point.x = virtualScreenWidth / 2 + (map.x - map.y) * ( tileWidth / 2 );
-    point.y = (map.x + map.y) * ( tileHeight / 2 );
+    point.x = (mp.x - mp.y) * ( tileWidth / 2 );
+    point.y = (mp.x + mp.y) * ( tileHeight / 2 );
 
     //we want the lower right corner
     point.y += tileHeight;
 
-    if ((showTerrainHeight) && (inCity(map))){
+    if ((showTerrainHeight) && (inCity(mp))){
         // shift the tile upward to show altitude
-        point.y -= (float) ( (world(map.x, map.y)->ground.altitude) * scale3d) * zoom  / (float) alt_step ;
+        point.y -= (float) ( (getWorld().map(mp)->ground.altitude) * scale3d) * zoom  / (float) getWorld().map.alt_step ;
     }
 
     //on Screen
@@ -1180,10 +1171,8 @@ MapPoint GameView::getTile(const Vector2& p)
     MapPoint tile;
     // Map Point to virtual Screen
     Vector2 point = p + viewport;
-    float x = (point.x - virtualScreenWidth / 2 ) / tileWidth
-        +  point.y  / tileHeight;
-    tile.x = (int) floorf(x);
-    tile.y = (int) floorf( 2 * point.y  / tileHeight  - x );
+    tile.x = (int) floorf(point.y / tileHeight + point.x / tileWidth);
+    tile.y = (int) floorf(point.y / tileHeight - point.x / tileWidth);
 
     return tile;
 }
@@ -1231,7 +1220,7 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
  */
 bool GameView::inCity( MapPoint tile )
 {
-    return world.is_visible(tile.x, tile.y);
+    return getWorld().map.is_visible(tile);
 }
 
 /*
@@ -1251,7 +1240,7 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
     if( !inCity( tile ) ) {
             painter.setFillColor( black );
     } else {
-        miniMapColor = getMiniMap()->getColor( tile.x, tile.y );
+        miniMapColor = getMiniMap()->getColor(tile);
         if( mapOverlay == overlayOn ){
             miniMapColor.a = 200;  //Transparent
         }
@@ -1264,18 +1253,13 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
  * If the current Tile is Part of a Building, return the
  * Coordinates of the tile that contains the real informations.
  */
-MapPoint GameView::realTile( MapPoint tile )
-{
-    MapPoint real = tile;
-    if( ! inCity( tile ) )
-        return real;
-    if(world(tile.x, tile.y)->reportingConstruction)
-    {
-        real.x = world(tile.x, tile.y)->reportingConstruction->x;
-        real.y = world(tile.x, tile.y)->reportingConstruction->y;
-        return real;
-    }
-    return real;
+MapPoint GameView::realTile(MapPoint point) {
+  if(!inCity(point))
+    return point;
+  else if(getWorld().map(point)->reportingConstruction)
+    return getWorld().map(point)->reportingConstruction->point;
+  else
+    return point;
 }
 
 void GameView::fetchTextures()
@@ -1343,20 +1327,19 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 
     //Texture* texture = 0;
     MapPoint upperLeft = realTile(tile);
-    int x = upperLeft.x;
-    int y = upperLeft.y;
 
-    ConstructionGroup *cstgrp = world(x,y)->getTopConstructionGroup();
+    ConstructionGroup *cstgrp =
+      getWorld().map(upperLeft)->getTopConstructionGroup();
     ResourceGroup *resgrp;
     unsigned short size = cstgrp->size;
 
     //Attention map is rotated for displaying
-    if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
+    if(tile.n(size-1) == upperLeft) //Signs are tested
     {
-        resgrp = world(x, y)->getTileResourceGroup();
+        resgrp = getWorld().map(upperLeft)->getTileResourceGroup();
         //adjust OnScreenPoint of big Tiles
-        MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
-        unsigned short textureType = world(x, y)->getTopType();
+        MapPoint lowerRightTile(tile.e(size-1));
+        unsigned short textureType = getWorld().map(upperLeft)->getTopType();
 
         // if we hide high buildings, hide trees as well
         if (hideHigh && (cstgrp == &treeConstructionGroup
@@ -1368,7 +1351,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         }
         GraphicsInfo *graphicsInfo = 0;
         //draw visible tiles underneath constructions
-        if( (world(x, y)->reportingConstruction || world(x,y)->framesptr) && !(world(x,y)->flags & FLAG_INVISIBLE) )
+        if(Construction *cst = getWorld().map(upperLeft)->reportingConstruction;
+          !cst || (cst->flags & FLAG_TRANSPARENT))
         {
             if (resgrp->images_loaded)
             {
@@ -1376,7 +1360,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 if (s)
                 {
                     graphicsInfo = &resgrp->graphicsInfoVector
-                        [ world(x, y)->type  % s];
+                        [ getWorld().map(upperLeft)->type  % s];
                     drawTexture(painter, lowerRightTile, graphicsInfo);
                 }
             }
@@ -1386,10 +1370,10 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         if( (size==1 || !hideHigh) )
         {
             draw_colored_site = false;
-            if (world(x,y)->framesptr)
+            if (getWorld().map(upperLeft)->framesptr)
             {
-                for(std::list<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
-                    frit != world(x,y)->framesptr->end(); std::advance(frit, 1))
+                for(std::list<ExtraFrame>::iterator frit = getWorld().map(upperLeft)->framesptr->begin();
+                    frit != getWorld().map(upperLeft)->framesptr->end(); std::advance(frit, 1))
                 {
                     if(frit->resourceGroup && frit->resourceGroup->images_loaded)
                     {
@@ -1439,15 +1423,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                     {   draw_colored_site = true;}
                 }
             }
-            else
-            {
-                size_t s = resgrp->graphicsInfoVector.size();
-                if(s && resgrp->images_loaded)
-                {
-                    graphicsInfo = &resgrp->graphicsInfoVector[ textureType %  s]; //needed
-                    drawTexture(painter, lowerRightTile, graphicsInfo);
-                }
-            }
         }
 
         if(draw_colored_site)
@@ -1457,19 +1432,19 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
             tileOnScreenPoint.y -= tileHeight*size;
             tilerect.move( tileOnScreenPoint );
-            painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
+            painter.setFillColor(getMiniMap()->getColorNormal(tile));
             fillDiamond( painter, tilerect );
         }
         //last draw suspended power cables on top
         //only works for size == 1
-        if (world(x, y)->flags & (FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90))
+        if (getWorld().map(upperLeft)->flags & (FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90))
         {
             resgrp = ResourceGroup::resMap["PowerLine"];
             if(resgrp->images_loaded)
             {
-                if (world(x, y)->flags & FLAG_POWER_CABLES_0)
+                if (getWorld().map(upperLeft)->flags & FLAG_POWER_CABLES_0)
                 {   drawTexture(painter, upperLeft, &resgrp->graphicsInfoVector[23]);}
-                if (world(x, y)->flags & FLAG_POWER_CABLES_90)
+                if (getWorld().map(upperLeft)->flags & FLAG_POWER_CABLES_90)
                 {   drawTexture(painter, upperLeft, &resgrp->graphicsInfoVector[22]);}
             }
         }
@@ -1481,34 +1456,30 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 /*
  * Mark a tile with current cursor
  */
-void GameView::markTile( Painter& painter, const MapPoint &tile )
-{
-    Vector2 tileOnScreenPoint = getScreenPoint(tile);
-    int x = tile.x;
-    int y = tile.y;
+void GameView::markTile(Painter& painter, MapPoint point) {
+    Vector2 tileOnScreenPoint = getScreenPoint(point);
     {
-        MapPoint upperLeft = realTile(tile);
-        if(upperLeft.x == mps_x && upperLeft.y == mps_y && userOperation->action == UserOperation::ACTION_QUERY)
-        {
-            if(world(x,y)->reportingConstruction)
-            {
-                ConstructionGroup *constructionGroup = world(x,y)->reportingConstruction->constructionGroup;
-                int range = constructionGroup->range;
-                int edgelen = 2 * range + constructionGroup->size ;
-                painter.setFillColor( Color( 0, 255, 0, 64 ) );
-                Rect2D rangerect( 0,0,
-                                  tileWidth  * ( edgelen) ,
-                                  tileHeight * ( edgelen) );
-                Vector2 screenPoint = getScreenPoint(upperLeft);
-                screenPoint.x -= tileWidth  * ( 0.5*(edgelen) );
-                screenPoint.y -= tileHeight * ( range + 1 );
-                rangerect.move( screenPoint );
-                fillDiamond( painter, rangerect );
-            }//endif
-        }//endif mps
+      MapPoint upperLeft = realTile(point);
+      Construction *cst;
+      if(game->getMpsMap().tile
+        && upperLeft == realTile(game->getMpsMap().tile->point)
+        && getUserOperation()->action == UserOperation::ACTION_QUERY
+        && (cst = getWorld().map(point)->reportingConstruction)
+      ) {
+        ConstructionGroup *constructionGroup = cst->constructionGroup;
+        int range = constructionGroup->range;
+        int edgelen = 2 * range + constructionGroup->size;
+        painter.setFillColor(Color(0, 255, 0, 64));
+        Rect2D rangerect(0, 0, tileWidth * edgelen, tileHeight * edgelen);
+        Vector2 screenPoint = getScreenPoint(upperLeft);
+        screenPoint.x -= tileWidth * (0.5*edgelen);
+        screenPoint.y -= tileHeight * (range + 1);
+        rangerect.move(screenPoint);
+        fillDiamond(painter, rangerect);
+      }
     }
 
-    if( userOperation->action == UserOperation::ACTION_QUERY) //  cursorSize == 0
+    if( getUserOperation()->action == UserOperation::ACTION_QUERY) //  cursorSize == 0
     {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
@@ -1522,10 +1493,11 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
     {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
-        if(userOperation->is_allowed_here(x, y, false))
-        {   painter.setFillColor( alphablue );}
+        Message::ptr tmpMsg;
+        if(getUserOperation()->isAllowedHere(getWorld(), point, tmpMsg))
+          painter.setFillColor(alphablue);
         else
-        {   painter.setFillColor( alphared );}
+          painter.setFillColor(alphared);
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x -= (tileWidth * cursorSize / 2);
@@ -1533,18 +1505,18 @@ void GameView::markTile( Painter& painter, const MapPoint &tile )
         tilerect.move( tileOnScreenPoint );
         fillDiamond( painter, tilerect );
 
-        if(userOperation->action == UserOperation::ACTION_BUILD)
+        if(getUserOperation()->action == UserOperation::ACTION_BUILD)
         {
             // Draw range for selected_building
-            int range = userOperation->constructionGroup->range;
+            int range = getUserOperation()->constructionGroup->range;
             if (range > 0 )
             {
-                int edgelen = 2 * range + userOperation->constructionGroup->size ;
+                int edgelen = 2 * range + getUserOperation()->constructionGroup->size ;
                 painter.setFillColor( Color( 0, 0, 128, 64 ) );
                 Rect2D rangerect( 0,0,
                                   tileWidth  * ( edgelen) ,
                                   tileHeight * ( edgelen) );
-                Vector2 screenPoint = getScreenPoint(tile);
+                Vector2 screenPoint = getScreenPoint(point);
                 screenPoint.x -= tileWidth  * ( 0.5*edgelen );
                 screenPoint.y -= tileHeight * ( range + 1 );
                 rangerect.move( screenPoint );
@@ -1625,24 +1597,23 @@ void GameView::draw(Painter& painter)
 
     int cost = 0;
     //display commodities continously
-    if(userOperation->action == UserOperation::ACTION_EVACUATE)
-    {
-        mps_update();
-        mps_refresh();
+    if(getUserOperation()->action == UserOperation::ACTION_EVACUATE) {
+      game->getMpsMap().refresh();
+      game->getMiniMap().switchView("MapMPS");
     }
     //Mark Tile under Mouse // TODO: handle showTerrainHeight
-    if( mouseInGameView  && !blockingDialogIsOpen ) {
+    if(mouseInGameView && !blockingDialogIsOpen) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
         if( roadDragging && ( cursorSize == 1 ) &&
-        (userOperation->action == UserOperation::ACTION_BUILD || userOperation->action == UserOperation::ACTION_BULLDOZE))
+        (getUserOperation()->action == UserOperation::ACTION_BUILD || getUserOperation()->action == UserOperation::ACTION_BULLDOZE))
         {
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
 
-            if (userOperation->action == UserOperation::ACTION_BULLDOZE)
+            if (getUserOperation()->action == UserOperation::ACTION_BULLDOZE)
             {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
@@ -1655,7 +1626,7 @@ void GameView::draw(Painter& painter)
                     }
                 }
             }
-            else if (userOperation->action == UserOperation::ACTION_BUILD)
+            else if (getUserOperation()->action == UserOperation::ACTION_BUILD)
             {
                 int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
                 int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
@@ -1685,14 +1656,14 @@ void GameView::draw(Painter& painter)
         {
             markTile( painter, tileUnderMouse );
             tiles++;
-            if( (userOperation->action == UserOperation::ACTION_BULLDOZE ) && realTile( currentTile ) != lastRazed ) {
+            if( (getUserOperation()->action == UserOperation::ACTION_BULLDOZE ) && realTile( currentTile ) != lastRazed ) {
                     cost += bulldozeCost( tileUnderMouse );
             } else {
                 cost += buildCost( tileUnderMouse );
             }
         }
         std::stringstream prize;
-        if( userOperation->action == UserOperation::ACTION_BULLDOZE ){
+        if( getUserOperation()->action == UserOperation::ACTION_BULLDOZE ){
             if( roadDragging ){
                 prize << _("Estimated Bulldoze Cost: ");
             } else {
@@ -1705,9 +1676,9 @@ void GameView::draw(Painter& painter)
             }
             printStatusMessage( prize.str() );
         }
-        else if( userOperation->action == UserOperation::ACTION_BUILD)
+        else if( getUserOperation()->action == UserOperation::ACTION_BUILD)
         {
-            std::string buildingName =  userOperation->constructionGroup->name;
+            std::string buildingName =  getUserOperation()->constructionGroup->name;
             prize << dictionaryManager->get_dictionary().translate( buildingName );
             prize << _(": Cost to build ");
             if( cost > 0 ) {
@@ -1729,29 +1700,29 @@ void GameView::showToolInfo( int number /*= 0*/ )
 {
     std::stringstream infotextstream;
 
-    if( userOperation->action == UserOperation::ACTION_QUERY ) //query
+    if( getUserOperation()->action == UserOperation::ACTION_QUERY ) //query
     {
         infotextstream << _("Query Tool: Show information about selected building.");
     }
-    else if( userOperation->action == UserOperation::ACTION_BULLDOZE ) //bulldoze
+    else if( getUserOperation()->action == UserOperation::ACTION_BULLDOZE ) //bulldoze
     {
         infotextstream << _("Bulldozer: remove building -price varies-");
     }
-    else if( userOperation->action == UserOperation::ACTION_BUILD )
+    else if( getUserOperation()->action == UserOperation::ACTION_BUILD )
     {
-        infotextstream << userOperation->constructionGroup->getName();
-        infotextstream << _(": Cost to build ") << userOperation->constructionGroup->getCosts() <<_("$");
-        infotextstream << _(", to bulldoze ") << userOperation->constructionGroup->bul_cost <<_("$") << ".";
+        infotextstream << getUserOperation()->constructionGroup->getName();
+        infotextstream << _(": Cost to build ") << getUserOperation()->constructionGroup->getCosts(getWorld()) <<_("$");
+        infotextstream << _(", to bulldoze ") << getUserOperation()->constructionGroup->bul_cost <<_("$") << ".";
         if( number > 1 ){
             infotextstream << _(" To build ") << number << _(" of them ");
-            infotextstream << _("will cost about ") << number*userOperation->constructionGroup->getCosts() << _("$") << "-";
+            infotextstream << _("will cost about ") << number*getUserOperation()->constructionGroup->getCosts(getWorld()) << _("$") << "-";
         }
     }
-    else if ( userOperation->action == UserOperation::ACTION_EVACUATE )
+    else if ( getUserOperation()->action == UserOperation::ACTION_EVACUATE )
     {
         infotextstream << _("Evacuation of commodities is for free.");
     }
-    else if ( userOperation->action == UserOperation::ACTION_FLOOD )
+    else if ( getUserOperation()->action == UserOperation::ACTION_FLOOD )
     {
         infotextstream <<  _("Water") << _(": Cost to build ") << GROUP_WATER_COST << _("$");
         infotextstream << _(", to bulldoze ") << GROUP_WATER_BUL_COST << _("$") << ".";
@@ -1789,14 +1760,14 @@ void GameView::printStatusMessage( std::string message ){
 
 int GameView::bulldozeCost( MapPoint tile ){
 
-    if (!world.is_visible(tile.x, tile.y))
+    if (!getWorld().map.is_visible(tile))
     {   return 0;}
-    Construction *reportingConstruction = world(tile.x, tile.y)->reportingConstruction;
+    Construction *reportingConstruction = getWorld().map(tile)->reportingConstruction;
     if (reportingConstruction)
     {   return reportingConstruction->constructionGroup->bul_cost;}
     else
     {
-        int group = world(tile.x, tile.y)->getGroup();
+        int group = getWorld().map(tile)->getGroup();
         if (group == GROUP_DESERT)
         {   return 0;}
         else if (group == GROUP_WATER)
@@ -1807,23 +1778,22 @@ int GameView::bulldozeCost( MapPoint tile ){
     return 0;
 }
 
-int GameView::buildCost( MapPoint tile )
-{
-    if( !userOperation->is_allowed_here(tile.x, tile.y, false) ||
-        userOperation->action == UserOperation::ACTION_QUERY ||
-        userOperation->action == UserOperation::ACTION_EVACUATE)
-    {   return 0;}
-    if( userOperation->action == UserOperation::ACTION_BUILD)
-    {   if (world(tile.x, tile.y)->is_water()) //building a bridge
-        {   return BRIDGE_FACTOR * userOperation->constructionGroup->getCosts();}
-        else //building on land
-        {   return userOperation->constructionGroup->getCosts();} userOperation->constructionGroup->getCosts();}
-    if (userOperation->action == UserOperation::ACTION_FLOOD &&
-        userOperation->is_allowed_here(tile.x, tile.y, false))
-    {
-        return GROUP_WATER_COST;
-    }
+int GameView::buildCost(MapPoint tile) {
+  Message::ptr tmp;
+  if(!getUserOperation()->isAllowedHere(getWorld(), tile, tmp)
+    || getUserOperation()->action == UserOperation::ACTION_QUERY
+    || getUserOperation()->action == UserOperation::ACTION_EVACUATE
+  )
     return 0;
+  if(getUserOperation()->action == UserOperation::ACTION_BUILD) {
+    if (getWorld().map(tile)->is_water()) //building a bridge
+      return BRIDGE_FACTOR * getUserOperation()->constructionGroup->getCosts(getWorld());
+    else //building on land
+      return getUserOperation()->constructionGroup->getCosts(getWorld());
+  }
+  if(getUserOperation()->action == UserOperation::ACTION_FLOOD)
+    return GROUP_WATER_COST;
+  return 0;
 }
 
 //Register as Component
