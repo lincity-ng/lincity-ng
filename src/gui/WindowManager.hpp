@@ -36,8 +36,8 @@ public:
 
   void parse(XmlReader& reader);
 
-  void resize(float width, float height);
-  void event(const Event& event);
+  void resize(float width, float height) override;
+  void event(const Event& event) override;
   bool opaque(const Vector2& pos) const override;
 
   void addWindow(Window *window);

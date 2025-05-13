@@ -274,7 +274,7 @@ void Dialog::gameStats(){
     snprintf (outf, maxlength,"%s %s", _("Game statistics from LinCity-NG Version"), PACKAGE_VERSION);
     setParagraphN( "statistic_text", line++, outf );
     if(world.given_scene.length() > 3) {
-        snprintf (outf, maxlength,"%s - %s", _("Initial loaded scene"), world.given_scene);
+        snprintf (outf, maxlength,"%s - %s", _("Initial loaded scene"), world.given_scene.c_str());
         setParagraphN( "statistic_text", line++, outf );
     }
     if(world.stats.sustainability.sustainable) {
@@ -282,7 +282,7 @@ void Dialog::gameStats(){
         setParagraphN( "statistic_text", line++, outf );
     }
     snprintf (outf, maxlength, "%s %d %s %d %s.",
-        _("Population"), world.stats.population.population_m,
+        _("Population"), world.stats.population.population_m / NUMOF_DAYS_IN_MONTH,
         _("of which"),  world.people_pool, _("are not housed"));
     setParagraphN( "statistic_text", line++, outf );
     snprintf(outf, maxlength, "%s %d %s %d %s %d",
@@ -426,8 +426,9 @@ void Dialog::saveGameStats(){
         snprintf (outf, maxlength, "%s", "Economy is sustainable");
         results << outf << std::endl;
     }
-    snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed."
-         , world.stats.population.population_m, world.people_pool);
+    snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed.",
+      world.stats.population.population_m / NUMOF_DAYS_IN_MONTH,
+      world.people_pool);
     results << outf << std::endl;
     snprintf (outf, maxlength,
          "Max population %d  Number evacuated %d Total births %d"

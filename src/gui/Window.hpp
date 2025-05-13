@@ -42,8 +42,8 @@ public:
 
     void parse(XmlReader& reader);
 
-    void draw(Painter& painter);
-    void event(const Event& event);
+    void draw(Painter& painter) override;
+    void event(const Event& event) override;
     void resize(float width, float height) override;
 
 private:

@@ -200,7 +200,7 @@ class Residence: public Construction {
 public:
     Residence(World& world, ConstructionGroup *cstgrp);
     virtual ~Residence();
-    virtual void update();
+    virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;

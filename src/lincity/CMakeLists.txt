@@ -43,6 +43,7 @@ target_link_libraries(lincity_lib
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		ZLIB::ZLIB
 		PkgConfig::libXMLPlusPlus
+		LibXml2::LibXml2
 		PRIVATE
 		tinygettext
 		LinCity::gui
