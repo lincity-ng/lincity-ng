@@ -124,7 +124,7 @@ Allowed values are:
   much as possible
 - `DebugOpt`: This is for development when a faster binary is useful.
   This is the same as `Debug` except the -O2 optimization level is used.
-- Specifying any other build type that is not defined will prevent
+- Specifying any other build type not listed above will prevent
   per-configuration build flags from being used. This may be useful when
   supplying flags via `CMAKE_<LANG>_FLAGS`.
 
