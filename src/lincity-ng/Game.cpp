@@ -876,16 +876,20 @@ Game::handleMessage(Message::ptr message_) {
     }
     else if(!reason_) {
 // #ifdef DEBUG
+      // clang doesn't like '*' operator in typeid
+      const CannotBuildMessage& message_raw = *message;
       std::cerr << "warning: no reason given in CannotBuildMessage: "
-        << typeid(*message).name() << ": "
+        << typeid(message_raw).name() << ": "
         << message->str() << std::endl;
 // #endif
       assert(false);
     }
     else {
 // #ifdef DEBUG
+      // clang doesn't like '*' operator in typeid
+      const Message& reason_raw = *reason_;
       std::cerr << "warning: unrecognized reason in CannotBuildMessage: "
-        << typeid(*reason_).name() << ": "
+        << typeid(reason_raw).name() << ": "
         << reason_->str() << std::endl;
 // #endif
       dialog
@@ -931,9 +935,11 @@ Game::handleMessage(Message::ptr message_) {
     }
     else {
 // #ifdef DEBUG
+      // clang doesn't like '*' operator in typeid
+      const Message& message_raw = *message_;
       std::cerr << "warning: unrecognized message derived from "
         << "CannotBulldozeThisMessage: "
-        << typeid(*message_).name() << ": "
+        << typeid(message_raw).name() << ": "
         << message_->str() << std::endl;
 // #endif
       {
@@ -965,8 +971,10 @@ Game::handleMessage(Message::ptr message_) {
   }
   else {
 // #ifdef DEBUG
+    // clang doesn't like '*' operator in typeid
+    const Message& message_raw = *message_;
     std::cerr << "warning: encountered unrecognized message: "
-      << typeid(*message_).name() << ": "
+      << typeid(message_raw).name() << ": "
       << message_->str() << std::endl;
 // #endif
     // DialogBuilder()

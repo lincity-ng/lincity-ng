@@ -302,7 +302,7 @@ void
 CheckButton::event(const Event& event) {
   switch(event.type) {
   case Event::MOUSEMOTION:
-    if(mhovered = event.inside) {
+    if((mhovered = event.inside)) {
       mouseholdTicks = SDL_GetTicks();
       mouseholdPos = event.mousepos;
     } else {

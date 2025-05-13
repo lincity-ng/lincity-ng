@@ -84,7 +84,7 @@ class HealthCentre: public Construction {
 public:
     HealthCentre(World& world, ConstructionGroup *cstgrp);
     virtual ~HealthCentre() { }
-    virtual void update();
+    virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
     void cover();
 

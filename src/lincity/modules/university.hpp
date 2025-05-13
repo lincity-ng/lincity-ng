@@ -78,7 +78,7 @@ public:
         commodityRuleCount[STUFF_WASTE].give = true;
     }
     // overriding method that creates a University
-    virtual Construction *createConstruction(World& world);
+    virtual Construction *createConstruction(World& world) override;
 
     virtual bool can_build(const World& world,
       Message::ptr& message) const override;
@@ -90,7 +90,7 @@ class University: public Construction {
 public:
     University(World& world, ConstructionGroup *cstgrp);
     virtual ~University() { }
-    virtual void update();
+    virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;

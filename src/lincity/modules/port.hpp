@@ -121,7 +121,7 @@ public:
     //map that holds the Rates for the commodities
     std::map<Commodity, int> commodityRates;
     // overriding method that creates a Port
-    virtual Construction *createConstruction(World& world);
+    virtual Construction *createConstruction(World& world) override;
 
     virtual bool can_build_here(const World& world, const MapPoint point,
       Message::ptr& message) const override;
@@ -133,7 +133,7 @@ class Port: public Construction {
 public:
     Port(World& world, ConstructionGroup *cstgrp);
     virtual ~Port() { }
-    virtual void update();
+    virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;

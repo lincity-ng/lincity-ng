@@ -224,10 +224,12 @@ void Port::save(xmlTextWriterPtr xmlWriter) const {
     const CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
     const char *name = commodityStandardName(stuff);
-    xmlStr giveName = (xmlStr)(givePfx + name).c_str();
-    xmlStr takeName = (xmlStr)(takePfx + name).c_str();
-    xmlTextWriterWriteFormatElement(xmlWriter, giveName, "%d", rule.give);
-    xmlTextWriterWriteFormatElement(xmlWriter, takeName, "%d", rule.take);
+    const std::string giveName = givePfx + name;
+    const std::string takeName = takePfx + name;
+    const xmlStr giveNameXml = (xmlStr)giveName.c_str();
+    const xmlStr takeNameXml = (xmlStr)takeName.c_str();
+    xmlTextWriterWriteFormatElement(xmlWriter, giveNameXml, "%d", rule.give);
+    xmlTextWriterWriteFormatElement(xmlWriter, takeNameXml, "%d", rule.take);
   }
 
   Construction::save(xmlWriter);

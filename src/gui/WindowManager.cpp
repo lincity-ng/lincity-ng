@@ -199,6 +199,7 @@ WindowManager::event(const Event& event) {
           case Edge::NW:
           case Edge::SE:
             desktop->setSystemCursor(this, (SDL_SystemCursor)cursorId);
+          default: ;
           }
         }
       }
