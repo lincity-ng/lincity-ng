@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,13 +22,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "heavy_industry.h"
+#include "heavy_industry.hpp"
 
-#include <list>                     // for _List_iterator
-#include <map>                      // for map
-#include <vector>                   // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <map>                            // for map
+#include <string>                         // for basic_string, allocator
+#include <vector>                         // for vector
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_INDUSTRY_H
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
@@ -50,8 +60,33 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
 //IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 //IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction() {
-  return new IndustryHeavy(this);
+Construction *IndustryHeavyConstructionGroup::createConstruction(World& world) {
+  return new IndustryHeavy(world, this);
+}
+
+IndustryHeavy::IndustryHeavy(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->output_level = 0;
+  this->steel_this_month = 0;
+  this->anim = 0;
+  initialize_commodities();
+   //check for pollution bonus
+  this->bonus = 0;
+  this->extra_bonus = 0;
+
+  int steel_prod = MAX_ORE_USED / ORE_MAKE_STEEL;
+  commodityMaxCons[STUFF_HIVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL / 2);
+  commodityMaxCons[STUFF_LOVOLT] = 100 * (steel_prod * POWER_MAKE_STEEL);
+  commodityMaxCons[STUFF_COAL] = 100 * (steel_prod * COAL_MAKE_STEEL);
+  commodityMaxCons[STUFF_LABOR] = 100 * (MAX_ORE_USED / LABOR_MAKE_STEEL +
+    LABOR_LOAD_COAL + LABOR_LOAD_ORE + LABOR_LOAD_STEEL);
+  commodityMaxCons[STUFF_ORE] = 100 * MAX_ORE_USED;
+  commodityMaxProd[STUFF_STEEL] = 100 * steel_prod;
+  // commodityMaxProd[STUFF_WASTE] = 100 * (int)(
+  //   ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
 }
 
 void IndustryHeavy::update()
@@ -111,26 +146,26 @@ void IndustryHeavy::update()
             produceStuff(STUFF_STEEL, steel);
             steel_this_month += steel;
             //cause some pollution and waste depending on bonuses
-            world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
+            world.map(point)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
             produceStuff(STUFF_WASTE, (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus)));
             // if the trash bin is full reburn the filterd pollution
             if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
             {
-                world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
+                world.map(point)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
                 levelStuff(STUFF_WASTE, MAX_WASTE_AT_INDUSTRY_H);
             }
         }//endif steel still > 0
     }//endif steel > 0
 
     //monthly update
-    if (total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
     }//end monthly update
 }
 
-void IndustryHeavy::animate() {
+void IndustryHeavy::animate(unsigned long real_time) {
   if(real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(INDUSTRY_H_ANIM_SPEED);
 
@@ -150,20 +185,17 @@ void IndustryHeavy::animate() {
   }
 }
 
-void IndustryHeavy::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (output_level));
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void IndustryHeavy::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (output_level));
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
-void IndustryHeavy::place(int x, int y) {
-  Construction::place(x, y);
+void
+IndustryHeavy::place(MapPoint point) {
+  Construction::place(point);
 
   if (tech > MAX_TECH_LEVEL) {
     bonus = (tech - MAX_TECH_LEVEL);
@@ -185,17 +217,17 @@ void IndustryHeavy::place(int x, int y) {
     ((double)(POL_PER_STEEL_MADE * steel_prod) * bonus)*(1-extra_bonus));
 }
 
-void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) {
+void IndustryHeavy::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool IndustryHeavy::loadMember(xmlpp::TextReader& xmlReader) {
+bool IndustryHeavy::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "bonus");
   else if(name == "extra_bonus");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

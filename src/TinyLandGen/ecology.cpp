@@ -6,7 +6,7 @@
  * @license 	GPL v3 or later
  */
 
-#include "lctypes.h"
+#include "lctypes.hpp"
 #include <algorithm>
 
 extern lmap_struct lmap;

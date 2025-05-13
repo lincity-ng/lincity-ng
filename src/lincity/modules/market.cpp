@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,15 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "market.h"
+#include "market.hpp"
 
-#include <algorithm>  // for max, min
-#include <cstdlib>    // for size_t
-#include <map>        // for map
-#include <vector>     // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <algorithm>                      // for max, min
+#include <cstdlib>                        // for size_t
+#include <map>                            // for map
+#include <string>                         // for basic_string, allocator
+#include <vector>                         // for vector
 
-#include "fire.h"     // for FIRE_ANIMATION_SPEED
-#include "modules.h"  // for CommodityRule, basic_string, Commodity, ExtraFrame
+#include "fire.hpp"                       // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_MARKET
+#include "lincity/lin-city.hpp"           // for FLAG_EVACUATE, ANIM_THRESHOLD
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -52,10 +62,32 @@ MarketConstructionGroup marketConstructionGroup(
 //MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
 
 
-Construction *MarketConstructionGroup::createConstruction() {
-  return new Market(this);
+Construction *MarketConstructionGroup::createConstruction(World& world) {
+  return new Market(world, this);
 }
 
+Market::Market(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  //local copy of commodityRuCount
+  commodityRuleCount = constructionGroup->commodityRuleCount;
+  initialize_commodities();
+  this->labor = LABOR_MARKET_EMPTY;
+  this->anim = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->market_ratio = 0;
+  this->start_burning_waste = false;
+  this->waste_fire_anim = 0;
+
+  commodityMaxCons[STUFF_LABOR] = 100 * LABOR_MARKET_FULL;
+  commodityMaxCons[STUFF_WASTE] = 100 * ((7 * MAX_WASTE_IN_MARKET) / 10);
+}
+
+Market::~Market() {
+  world.map(point)->killframe(waste_fire_frit);
+}
 
 void Market::update()
 {
@@ -124,24 +156,24 @@ void Market::update()
     {
         consumeStuff(STUFF_LABOR, labor);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
-        income_tax += labor;
+        world.taxable.labor += labor;
         ++working_days;
     }
 
-    if(total_time % 50)
+    if(world.total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
         start_burning_waste = true;
-        world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
+        world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
         consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
     }
 
     //monthly update
-    if (total_time % 100 == 99) {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
     }
-    if (total_time % 25 == 17)
+    if(world.total_time % 25 == 17)
     {
         //average filling of the market, catch n == 0 in case market has
         //not yet any commodities initialized
@@ -168,21 +200,25 @@ void Market::update()
         }
     }
 
-    if(refresh_cover)
-    {   cover();}
+    if(world.total_time % DAYS_BETWEEN_COVER == 75)
+      cover();
 }
 
 void Market::cover() {
-  int xs = std::max(x - constructionGroup->range, 1);
-  int xe = std::min(x + constructionGroup->range, world.len() - 1);
-  int ys = std::max(y - constructionGroup->range, 1);
-  int ye = std::min(y + constructionGroup->range, world.len() - 1);
-  for(int yy = ys; yy < ye; yy++)
-  for(int xx = xs; xx < xe; xx++)
-    world(xx,yy)->flags |= FLAG_MARKET_COVER;
+  MapPoint nw(
+    std::max(point.x - constructionGroup->range, 1),
+    std::max(point.y - constructionGroup->range, 1)
+  );
+  MapPoint se(
+    std::min(point.x + constructionGroup->range, world.map.len() - 1),
+    std::min(point.y + constructionGroup->range, world.map.len() - 1)
+  );
+  for(MapPoint p(nw); p.y < se.y; p.y++)
+  for(p.x = nw.x; p.x < se.x; p.x++)
+    world.map(p)->flags |= FLAG_MARKET_COVER_CHECK;
 }
 
-void Market::animate() {
+void Market::animate(unsigned long real_time) {
   if (market_ratio < 10) {
       frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
   }
@@ -212,53 +248,46 @@ void Market::animate() {
   }
 }
 
-void Market::report()
-{
-    int i = 0;
+void Market::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (float)busy);
+  mps.addBlank();
+  //list_commodities(mps, production);
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    const CommodityRule& rule = commodityRuleCount[stuff];
+    if(!rule.maxload) continue;
+    char arrows[4]="---";
+    if (flags & FLAG_EVACUATE) {
+      arrows[0] = '<';
+      arrows[1] = '<';
+      arrows[2] = ' ';
+    }
+    else {
+      if(rule.take)
+        arrows[2] = '>';
+      if(rule.give)
+        arrows[0] = '<';
+    }
 
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (float) busy);
-    i++;
-    //list_commodities(&i);
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        CommodityRule& rule = commodityRuleCount[stuff];
-        if(!rule.maxload) continue;
-        char arrows[4]="---";
-        if (flags & FLAG_EVACUATE)
-        {
-            arrows[0] = '<';
-            arrows[1] = '<';
-            arrows[2] = ' ';
-        }
-        else
-        {
-            if (rule.take)
-            {   arrows[2] = '>';}
-            if (rule.give)
-            {   arrows[0] = '<';}
-        }
-
-        if(i < 14)
-        {
-            mps_store_ssddp(i++, arrows, getStuffName(stuff), commodityCount[stuff], rule.maxload);
-        }//endif
-    } //endfor
+    mps.add_tsddp(arrows, commodityName(stuff),
+      commodityCount[stuff], rule.maxload);
+  }
 }
 
 void Market::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit = world.map(point)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
   waste_fire_frit->frame = -1;
 }
 
-void Market::place(int x, int y) {
-  Construction::place(x, y);
+void
+Market::place(MapPoint point) {
+  Construction::place(point);
   cover();
 }
 
@@ -286,11 +315,11 @@ void Market::toggleEvacuation()
     {   flags |= FLAG_EVACUATE;}
 }
 
-void Market::save(xmlTextWriterPtr xmlWriter) {
+void Market::save(xmlTextWriterPtr xmlWriter) const {
   const std::string givePfx("give_");
   const std::string takePfx("take_");
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
-    CommodityRule& rule = commodityRuleCount[stuff];
+    const CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
     const char *name = commodityStandardName(stuff);
     xmlStr giveName = (xmlStr)(givePfx + name).c_str();
@@ -302,7 +331,7 @@ void Market::save(xmlTextWriterPtr xmlWriter) {
   Construction::save(xmlWriter);
 }
 
-bool Market::loadMember(xmlpp::TextReader& xmlReader) {
+bool Market::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   bool give;
   Commodity stuff;
@@ -313,7 +342,7 @@ bool Market::loadMember(xmlpp::TextReader& xmlReader) {
     CommodityRule& rule = commodityRuleCount[stuff];
     give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

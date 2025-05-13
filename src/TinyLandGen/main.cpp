@@ -7,15 +7,15 @@
  */
 
 #if defined(_MSC_VER)
-#include "SDL.h"
+#include "SDL.hpp"
 #else
-#include "SDL/SDL.h"
+#include "SDL/SDL.hpp"
 #endif
 
 #include <time.h>
 #include <math.h>
 
-#include "lctypes.h"
+#include "lctypes.hpp"
 
 SDL_Surface *screen;
 

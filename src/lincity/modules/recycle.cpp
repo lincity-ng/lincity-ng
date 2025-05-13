@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "recycle.h"
+#include "recycle.hpp"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, allocator
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_RECYCLE
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, FALSE
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 RecycleConstructionGroup recycleConstructionGroup(
     N_("Recycling Centre"),
@@ -40,60 +52,73 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_RANGE
 );
 
-Construction *RecycleConstructionGroup::createConstruction() {
-  return new Recycle(this);
+Construction *RecycleConstructionGroup::createConstruction(World& world) {
+  return new Recycle(world, this);
 }
 
-void Recycle::update()
+Recycle::Recycle(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    recycle_cost += RECYCLE_RUNNING_COST;
+  this->constructionGroup = cstgrp;
+  this->busy = 0;
+  this->working_days = 0;
+  this->tech = world.tech_level;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * RECYCLE_LABOR;
+  commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_RECYCLE_WASTE;
+  commodityMaxCons[STUFF_WASTE] = 100 *
+    (WASTE_RECYCLED + BURN_WASTE_AT_RECYCLE);
+  // commodityMaxProd[STUFF_ORE] = 100 * make_ore;
+  // commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
+}
+
+void Recycle::update() {
+  try {
+    world.expense(RECYCLE_RUNNING_COST, world.stats.expenses.recycle);
 
     // always recycle waste and only make steel & ore if there are free capacities
     if (commodityCount[STUFF_WASTE] >= WASTE_RECYCLED
-        && commodityCount[STUFF_LOVOLT] >= LOVOLT_RECYCLE_WASTE
-        && commodityCount[STUFF_LABOR] >= RECYCLE_LABOR)
-    {
-        consumeStuff(STUFF_LABOR, RECYCLE_LABOR);
-        consumeStuff(STUFF_LOVOLT, LOVOLT_RECYCLE_WASTE);
-        consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
-        working_days++;
-        // rather loose ore / steel than stop recycling the waste
-        produceStuff(STUFF_ORE, make_ore);
-        produceStuff(STUFF_STEEL, make_steel);
-        if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
-        {   levelStuff(STUFF_ORE, MAX_ORE_AT_RECYCLE);}
-        if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
-        {   levelStuff(STUFF_STEEL, MAX_STEEL_AT_RECYCLE);}
+      && commodityCount[STUFF_LOVOLT] >= LOVOLT_RECYCLE_WASTE
+      && commodityCount[STUFF_LABOR] >= RECYCLE_LABOR
+    ) {
+      consumeStuff(STUFF_LABOR, RECYCLE_LABOR);
+      consumeStuff(STUFF_LOVOLT, LOVOLT_RECYCLE_WASTE);
+      consumeStuff(STUFF_WASTE, WASTE_RECYCLED);
+      working_days++;
+      // rather loose ore / steel than stop recycling the waste
+      produceStuff(STUFF_ORE, make_ore);
+      produceStuff(STUFF_STEEL, make_steel);
+      if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
+      {   levelStuff(STUFF_ORE, MAX_ORE_AT_RECYCLE);}
+      if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
+      {   levelStuff(STUFF_STEEL, MAX_STEEL_AT_RECYCLE);}
+    }
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
 
-    }
-    // monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
-    // if we've still >90% waste in stock, burn some waste cleanly.
-    if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
-    {   consumeStuff(STUFF_WASTE, BURN_WASTE_AT_RECYCLE);}
+  // monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
+  // if we've still >90% waste in stock, burn some waste cleanly.
+  if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
+  {   consumeStuff(STUFF_WASTE, BURN_WASTE_AT_RECYCLE);}
 }
 
-void Recycle::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("Tech"), tech * 100.0f / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);
-    mps_store_sfp(i++, N_("Efficiency Steel"),(float) make_steel * 100 / WASTE_RECYCLED);
-    mps_store_sfp(i++, N_("busy"), busy);
-    // i++;
-    list_commodities(&i);
+void Recycle::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("Tech"), tech * 100.0f / MAX_TECH_LEVEL);
+  mps.add_sfp(N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);
+  mps.add_sfp(N_("Efficiency Steel"),(float) make_steel * 100 / WASTE_RECYCLED);
+  mps.add_sfp(N_("busy"), busy);
+  list_commodities(mps, production);
 }
 
-void Recycle::place(int x, int y) {
-  Construction::place(x, y);
+void Recycle::place(MapPoint point) {
+  Construction::place(point);
 
   int efficiency =
     (WASTE_RECYCLED * (10 + ((50 * tech) / MAX_TECH_LEVEL))) / 100;
@@ -106,17 +131,17 @@ void Recycle::place(int x, int y) {
   commodityMaxProd[STUFF_STEEL] = 100 * make_steel;
 }
 
-void Recycle::save(xmlTextWriterPtr xmlWriter) {
+void Recycle::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool Recycle::loadMember(xmlpp::TextReader& xmlReader) {
+bool Recycle::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "make_ore");
   else if(name == "make_steel");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

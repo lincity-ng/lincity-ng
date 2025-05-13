@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,20 +22,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "rocket_pad.h"
+#include "rocket_pad.hpp"
 
-#include <assert.h>                        // for assert
-#include <stdlib.h>                        // for rand
-#include <iostream>                        // for operator<<, basic_ostream
-#include <list>                            // for _List_iterator
-#include <stdexcept>                       // for runtime_error
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <stdlib.h>                       // for rand
+#include <algorithm>                      // for min
+#include <iostream>                       // for char_traits, basic_ostream
+#include <list>                           // for _List_iterator
+#include <set>                            // for _Rb_tree_const_iterator, set
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, allocator
 
-#include "gui_interface/pbar_interface.h"  // for update_pbar, PPOP
-#include "lincity-ng/Dialog.hpp"           // for Dialog, ASK_LAUNCH_ROCKET
-#include "lincity-ng/Sound.hpp"            // for getSound, Sound
-#include "lincity/ConstructionCount.h"     // for ConstructionCount
-#include "modules.h"                       // for basic_string, char_traits
-#include "residence.h"                     // for Residence
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "residence.hpp"                    // for Residence
+#include "tinygettext/gettext.hpp"        // for N_
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),
@@ -51,58 +61,79 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_RANGE
 );
 
-Construction *RocketPadConstructionGroup::createConstruction() {
-  return new RocketPad(this);
+Construction *RocketPadConstructionGroup::createConstruction(World& world) {
+  return new RocketPad(world, this);
 }
 
-extern void ok_dial_box(const char *, int, const char *);
+RocketPad::RocketPad(World& world, ConstructionGroup* cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  this->anim = 0;
+  this->steps = 0;
+  this->stage = BUILDING;
+  this->tech = world.tech_level;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * MAX_LABOR_AT_ROCKET_PAD;
+  commodityMaxCons[STUFF_GOODS] = 100 * MAX_GOODS_AT_ROCKET_PAD;
+  commodityMaxCons[STUFF_STEEL] = 100 * MAX_STEEL_AT_ROCKET_PAD;
+  commodityMaxProd[STUFF_WASTE] = 100 * MAX_WASTE_AT_ROCKET_PAD;
+}
 
 void RocketPad::update() {
-  if(stage != DONE)
-    rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
+  try{
+    if(stage != DONE)
+      world.expense(ROCKET_PAD_RUNNING_COST, world.stats.expenses.rockets);
 
-  if(stage == BUILDING) {
-    int stepsToday;
-    int stepsRemaining = ROCKET_PAD_STEPS - steps;
-    int stepsLabor = commodityCount[STUFF_LABOR] / ROCKET_PAD_LABOR;
-    int stepsGoods = commodityCount[STUFF_GOODS] / ROCKET_PAD_GOODS;
-    int stepsSteel = commodityCount[STUFF_STEEL] / ROCKET_PAD_STEEL;
-    int stepsWaste = commodityCount[STUFF_WASTE] / ROCKET_PAD_GOODS;
-    stepsToday = stepsRemaining;
-    if(stepsLabor < stepsToday) stepsToday = stepsLabor;
-    if(stepsGoods < stepsToday) stepsToday = stepsGoods;
-    if(stepsSteel < stepsToday) stepsToday = stepsSteel;
-    if(stepsWaste < stepsToday) stepsToday = stepsWaste;
-    assert(stepsToday >= 0);
+    if(stage == BUILDING) {
+      int stepsToday;
+      int stepsRemaining = ROCKET_PAD_STEPS - steps;
+      int stepsLabor = commodityCount[STUFF_LABOR] / ROCKET_PAD_LABOR;
+      int stepsGoods = commodityCount[STUFF_GOODS] / ROCKET_PAD_GOODS;
+      int stepsSteel = commodityCount[STUFF_STEEL] / ROCKET_PAD_STEEL;
+      int stepsWaste = (MAX_WASTE_AT_ROCKET_PAD - commodityCount[STUFF_WASTE])
+        / ROCKET_PAD_WASTE;
+      stepsToday = stepsRemaining;
+      if(stepsLabor < stepsToday) stepsToday = stepsLabor;
+      if(stepsGoods < stepsToday) stepsToday = stepsGoods;
+      if(stepsSteel < stepsToday) stepsToday = stepsSteel;
+      if(stepsWaste < stepsToday) stepsToday = stepsWaste;
+      assert(stepsToday >= 0);
 
-    consumeStuff(STUFF_LABOR, stepsToday * ROCKET_PAD_LABOR);
-    consumeStuff(STUFF_GOODS, stepsToday * ROCKET_PAD_GOODS);
-    consumeStuff(STUFF_STEEL, stepsToday * ROCKET_PAD_STEEL);
-    consumeStuff(STUFF_WASTE, stepsToday * ROCKET_PAD_WASTE);
-    steps += stepsToday;
-    if(stepsToday)
-      working_days++;
+      consumeStuff(STUFF_LABOR, stepsToday * ROCKET_PAD_LABOR);
+      consumeStuff(STUFF_GOODS, stepsToday * ROCKET_PAD_GOODS);
+      consumeStuff(STUFF_STEEL, stepsToday * ROCKET_PAD_STEEL);
+      produceStuff(STUFF_WASTE, stepsToday * ROCKET_PAD_WASTE);
+      steps += stepsToday;
+      if(stepsToday)
+        working_days++;
 
-    if(steps >= ROCKET_PAD_STEPS) {
-      stage = AWAITING;
-      new Dialog( ASK_LAUNCH_ROCKET, x, y );
+      if(steps >= ROCKET_PAD_STEPS) {
+        stage = AWAITING;
+        world.pushMessage(RocketReadyMessage::create(point));
+      }
     }
-  }
-  else if(stage == LAUNCH) {
-    compute_launch_result();
-    stage = DONE;
-  }
+    else if(stage == LAUNCH) {
+      compute_launch_result();
+      stage = DONE;
+    }
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
 
   //monthly update
-  if (total_time % 100 == 99) {
+  if(world.total_time % 100 == 99) {
     reset_prod_counters();
     busy = working_days;
     working_days = 0;
   }
 }
 
-void RocketPad::animate() {
-  if(stage == BUILDING) {
+void RocketPad::animate(unsigned long real_time) {
+  switch(stage) {
+  case BUILDING:
+  case AWAITING: {
     if(steps < (25 * ROCKET_PAD_STEPS) / 100)
       frameIt->frame = 0;
     else if(steps < (60 * ROCKET_PAD_STEPS) / 100)
@@ -113,8 +144,8 @@ void RocketPad::animate() {
       frameIt->frame = 3;
     else
       frameIt->frame = 4;
-  }
-  else if(stage == LAUNCHING) {
+  } break;
+  case LAUNCHING: {
     if (real_time >= anim) {
       anim = real_time + ANIM_THRESHOLD(ROCKET_ANIMATION_SPEED);
       if(++frameIt->frame >= 6) {
@@ -122,9 +153,14 @@ void RocketPad::animate() {
       }
       assert(frameIt->frame <= 6);
     }
-  }
-  else if(stage == DONE) {
+  } break;
+  case LAUNCH:
+    break; // waiting for simulation to calculate the launch result
+  case DONE: {
     frameIt->frame = 7;
+  } break;
+  default:
+    assert(false);
   }
 }
 
@@ -139,111 +175,105 @@ void RocketPad::launch_rocket() {
 
 void RocketPad::compute_launch_result() {
     int i, r, xx, yy, xxx, yyy;
-    rockets_launched++;
+    world.rockets_launched++;
     /* The first five failures gives 49.419 % chances of 5 success
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */
     r = rand() % MAX_TECH_LEVEL;
-    if (r > tech_level || r < tech || rand() % 100 > (rockets_launched * 15 + 25))
-    {
+    if(r > world.tech_level || r > tech
+      || rand() % 100 > world.rockets_launched * 15 + 25
+    ) {
         /* the launch failed */
-        //display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
-        getSound()->playSound( "RocketExplosion" );
-        ok_dial_box ("launch-fail.mes", BAD, 0L);
-        rockets_launched_success = 0;
-        xx = ((rand() % 40) - 20) + x;
-        yy = ((rand() % 40) - 20) + y;
+        world.pushMessage(RocketResultMessage::create(
+          point, RocketResultMessage::LaunchResult::FAIL));
+        // TODO: getSound()->playSound( "RocketExplosion" );
+        world.rockets_launched_success = 0;
+        xx = ((rand() % 40) - 20) + point.x;
+        yy = ((rand() % 40) - 20) + point.y;
         for (i = 0; i < 20; i++)
         {
             xxx = ((rand() % 20) - 10) + xx;
             yyy = ((rand() % 20) - 10) + yy;
-            if (xxx > 0 && xxx < (world.len() - 1)
-                && yyy > 0 && yyy < (world.len() - 1))
+            if (xxx > 0 && xxx < (world.map.len() - 1)
+                && yyy > 0 && yyy < (world.map.len() - 1))
             {
                 /* don't crash on it's own area */
-                if (xxx >= x && xxx < (x + constructionGroup->size) && yyy >= y && yyy < (y + constructionGroup->size))
-                {   continue;}
-                fire_area(xxx, yyy);
+                if(xxx >= point.x && xxx < point.x + constructionGroup->size
+                  && yyy >= point.y && yyy < point.y + constructionGroup->size
+                )
+                  continue;
+                world.fire_area(MapPoint(xxx, yyy));
                 /* make a sound perhaps */
             }
         }
     }
     else
     {
-        getSound()->playSound( "RocketTakeoff" );
-        rockets_launched_success++;
+        // TODO: getSound()->playSound( "RocketTakeoff" );
+        world.rockets_launched_success++;
         /* TODO: Maybe should generate some pollution ? */
-        if (rockets_launched_success > 5)
-        {
-            remove_people(1000);
-            if (people_pool || housed_population)
-            {
-                //display_rocket_result_dialog(ROCKET_LAUNCH_EVAC);
-                ok_dial_box ("launch-evac.mes", GOOD, 0L);
-            }
+        if(world.rockets_launched_success > 5) {
+          remove_people(1000);
         }
-        else
-        {
-            //display_rocket_result_dialog(ROCKET_LAUNCH_GOOD);
-            ok_dial_box ("launch-good.mes", GOOD, 0L);
+        else {
+          world.pushMessage(RocketResultMessage::create(
+            point, RocketResultMessage::LaunchResult::SUCCESS));
         }
     }
 }
 
 void RocketPad::remove_people(int num)
 {
-    {
-        int ppl = (num < people_pool)?num:people_pool;
-        num -= ppl;
-        people_pool -= ppl;
-        total_evacuated += ppl;
-    }
-    /* reset housed population so that we can display it correctly */
-    housed_population = 1;
-    while (housed_population && (num > 0))
-    {
-        housed_population = 0;
-        for (int i = 0; i < constructionCount.size(); i++)
-        {
-            if (constructionCount[i])
-            {
-                unsigned short grp = constructionCount[i]->constructionGroup->group;
-                if( (grp == GROUP_RESIDENCE_LL)
-                 || (grp == GROUP_RESIDENCE_ML)
-                 || (grp == GROUP_RESIDENCE_HL)
-                 || (grp == GROUP_RESIDENCE_LH)
-                 || (grp == GROUP_RESIDENCE_MH)
-                 || (grp == GROUP_RESIDENCE_HH) )
-                 {
-                    Residence* residence = static_cast <Residence *> (constructionCount[i]);
-                    if (residence->local_population)
-                    {
-                        residence->local_population--;
-                        housed_population += residence->local_population;
-                        num--;
-                        total_evacuated++;
-                    }
-                 }
-            }
+  {
+    int ppl = std::min(num, world.people_pool);
+    num -= ppl;
+    world.people_pool -= ppl;
+    world.stats.population.evacuated_t += ppl;
+  }
+  /* reset housed population so that we can display it correctly */
+  while(num > 0) {
+    int housed = 0;
+    for(Construction *cst : world.map.constructions) {
+      if(cst->isDead()) continue;
+      unsigned short grp = cst->constructionGroup->group;
+      if(  grp == GROUP_RESIDENCE_LL
+        || grp == GROUP_RESIDENCE_ML
+        || grp == GROUP_RESIDENCE_HL
+        || grp == GROUP_RESIDENCE_LH
+        || grp == GROUP_RESIDENCE_MH
+        || grp == GROUP_RESIDENCE_HH
+      ) {
+        Residence* residence = static_cast<Residence *>(cst);
+        if(residence->local_population) {
+          residence->local_population--;
+          housed += residence->local_population;
+          world.stats.population.evacuated_t++;
+          if(!--num) break;
         }
+      }
     }
-    update_pbar (PPOP, housed_population + people_pool, 0);
-    if (!housed_population && !people_pool)
-    {   ok_dial_box("launch-gone.mes", GOOD, 0L);}
+
+    if(!housed && !world.gameEnd) {
+      world.gameEnd = true;
+      world.pushMessage(RocketResultMessage::create(
+        point, RocketResultMessage::LaunchResult::EVAC_WIN));
+      return;
+    }
+  }
+
+  world.pushMessage(RocketResultMessage::create(
+    point, RocketResultMessage::LaunchResult::EVAC));
 }
 
-void RocketPad::report()
-{
-    int i = 0;
-    mps_store_title(i++, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), (busy));
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, N_("Completion"), (double)steps / ROCKET_PAD_STEPS);
-    // i++;
-    list_commodities(&i);
+void RocketPad::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (busy));
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  mps.add_sfp(N_("Completion"), steps * 100.0 / ROCKET_PAD_STEPS);
+  list_commodities(mps, production);
 }
 
-void RocketPad::save(xmlTextWriterPtr xmlWriter) {
+void RocketPad::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech",  "%d", tech);
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"steps", "%d", steps);
   const char *stStr;
@@ -260,7 +290,7 @@ void RocketPad::save(xmlTextWriterPtr xmlWriter) {
   Construction::save(xmlWriter);
 }
 
-bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {
+bool RocketPad::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   if     (tag == "tech")  tech  = std::stoi(xmlReader.read_inner_xml());
   else if(tag == "steps") steps = std::stoi(xmlReader.read_inner_xml());
@@ -271,7 +301,7 @@ bool RocketPad::loadMember(xmlpp::TextReader& xmlReader) {
     else if(stStr == "done")     stage = DONE;
     else throw std::runtime_error("unknown rocket stage");
   }
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

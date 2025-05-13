@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "parkland.h"
+#include "parkland.hpp"
 
-#include "modules.h"
+#include <string>                   // for basic_string
+
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/MapPoint.hpp"     // for MapPoint
+#include "lincity/groups.hpp"         // for GROUP_PARKLAND, GROUP_PARKPOND
+#include "lincity/lin-city.hpp"       // for TRUE, FLAG_HAS_UNDERGROUND_WATER
+#include "lincity/world.hpp"          // for World, Map, MapTile
+#include "tinygettext/gettext.hpp"  // for N_
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
@@ -55,23 +62,40 @@ ParklandConstructionGroup parkpondConstructionGroup(
      GROUP_PARKLAND_RANGE
 );
 
-Construction *ParklandConstructionGroup::createConstruction() {
-  return new Parkland(this);
+Construction *ParklandConstructionGroup::createConstruction(World& world) {
+  return new Parkland(world, this);
 }
 
-void Parkland::update()
-{
-    if (world(x,y)->pollution > 10 && (total_time & 1) == 0)
-        world(x,y)->pollution --;
+bool
+ParklandConstructionGroup::can_build_here(const World& world,
+  const MapPoint point, Message::ptr& message
+) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
+  if(!(world.map(point)->flags & FLAG_HAS_UNDERGROUND_WATER)) {
+    message = DesertHereMessage::create(point);
+    return false;
+  }
+
+  return true;
 }
 
-void Parkland::report()
+Parkland::Parkland(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    int i = 0;
+  this->constructionGroup = cstgrp;
+  this->flags |= FLAG_NEVER_EVACUATE;
+}
 
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
+void Parkland::update() {
+  if(world.map(point)->pollution > 10 && (world.total_time & 1) == 0)
+    world.map(point)->pollution--;
+}
+
+void Parkland::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sd(N_("Air Pollution"), world.map(point)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */

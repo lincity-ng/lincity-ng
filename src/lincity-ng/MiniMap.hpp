@@ -1,21 +1,25 @@
-/*
-Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/MiniMap.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
+ * Copyright (C) 2024      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __lc_minimap_h__
 #define __lc_minimap_h__
 
@@ -23,18 +27,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>                   // for string, basic_string
 #include <vector>                   // for vector
 
-#include "MapPoint.hpp"             // for MapPoint
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
 #include "gui/Vector2.hpp"          // for Vector2
+#include "lincity/MapPoint.hpp"     // for MapPoint
 #include "lincity/commodities.hpp"  // for Commodity
 
 class Button;
 class CheckButton;
+class Game;
 class Texture;
+class World;
 class XmlReader;
 
-class MiniMap:public Component
+class MiniMap : public Component
 {
 public:
     enum DisplayMode  {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,TRAFFIC,COMMODITIES,MAX};
@@ -51,10 +57,8 @@ public:
         const MapPoint& upperLeft, const MapPoint& lowerRight
     );
 
-    Color getColor(int x,int y) const;
-    Color getColorNormal(int x,int y) const;
-    void showMpsEnv( MapPoint tile );
-    void hideMpsEnv();
+    Color getColor(MapPoint p) const;
+    Color getColorNormal(MapPoint p) const;
 
     void switchView(const std::string& viewname);
     void scrollPageDown(bool down);
@@ -63,6 +67,8 @@ public:
     void toggleStuffID(int step);
 
     void mapViewChangeDisplayMode(DisplayMode mode);
+
+    void setGame(Game *game);
 
 private:
     void mapViewButtonClicked(CheckButton* button, int);
@@ -83,18 +89,19 @@ private:
 
     void constrainPosition();
 
+    Game *game = nullptr;
+    World& getWorld() const;
+
     MapPoint upperLeft, lowerRight;
 
     DisplayMode mMode;
     Commodity stuff_ID;
     int tilesize;
     int border;
-    int left, top; //Positioning of minimap
+    MapPoint anchor; //Positioning of minimap
 
     std::vector<CheckButton*> switchButtons;
     std::unique_ptr<Texture> mTexture;
-
-    int mpsXOld, mpsYOld, mpsStyleOld;
 
     bool mFullRefresh;
     bool alreadyAttached;

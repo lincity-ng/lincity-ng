@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,77 +22,109 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "windmill.h"
+#include "windmill.hpp"
 
-#include <list>                     // for _List_iterator
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <list>                           // for _List_iterator
+#include <string>                         // for basic_string, allocator
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_WINDMILL
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/messages.hpp"           // for OutOfMoneyMessage
+#include "lincity/resources.hpp"          // for ExtraFrame
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 WindmillConstructionGroup windmillConstructionGroup(
-    N_("Windmill"),
-     FALSE,                     /* need credit? */
-     GROUP_WINDMILL,
-     GROUP_WINDMILL_SIZE,
-     GROUP_WINDMILL_COLOUR,
-     GROUP_WINDMILL_COST_MUL,
-     GROUP_WINDMILL_BUL_COST,
-     GROUP_WINDMILL_FIREC,
-     GROUP_WINDMILL_COST,
-     GROUP_WINDMILL_TECH,
-     GROUP_WINDMILL_RANGE
+  N_("Windmill"),
+  FALSE,                     /* need credit? */
+  GROUP_WINDMILL,
+  GROUP_WINDMILL_SIZE,
+  GROUP_WINDMILL_COLOUR,
+  GROUP_WINDMILL_COST_MUL,
+  GROUP_WINDMILL_BUL_COST,
+  GROUP_WINDMILL_FIREC,
+  GROUP_WINDMILL_COST,
+  GROUP_WINDMILL_TECH,
+  GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction() {
-  return new Windmill(this);
+Construction *WindmillConstructionGroup::createConstruction(World& world) {
+  return new Windmill(world, this);
 }
 
-void Windmill::update()
+Windmill::Windmill(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    if (!(total_time%(WINDMILL_RCOST)))
-    {   windmill_cost++;}
-    int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
-    int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->animate_enable = false;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
 
-    if ((commodityCount[STUFF_LABOR] >= labor_used)
-     && (lovolt_made >= WINDMILL_LOVOLT))
-    {
-        consumeStuff(STUFF_LABOR, labor_used);
-        produceStuff(STUFF_LOVOLT, lovolt_made);
-        animate_enable = true;
-        working_days += lovolt_made;
-    }
-    else
-    {   animate_enable = false;}
-    //monthly update
-    if (total_time % 100 == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  commodityMaxCons[STUFF_LABOR] = 100 * WINDMILL_LABOR;
+  // commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
 }
 
-void Windmill::animate() {
+void Windmill::update() {
+  static bool paid = false;
+  if(world.total_time % WINDMILL_RCOST == 0)
+    paid = false;
+  if(!paid)
+    try {
+      world.expense(1, world.stats.expenses.windmill);
+      paid = true;
+    } catch (OutOfMoneyMessage ex) { }
+
+  int lovolt_made = (commodityCount[STUFF_LOVOLT] + lovolt_output <= MAX_LOVOLT_AT_WINDMILL)?lovolt_output:MAX_LOVOLT_AT_WINDMILL-commodityCount[STUFF_LOVOLT];
+  int labor_used = WINDMILL_LABOR * lovolt_made / lovolt_output;
+
+  if(paid
+    && commodityCount[STUFF_LABOR] >= labor_used
+    && lovolt_made >= WINDMILL_LOVOLT
+  ) {
+    consumeStuff(STUFF_LABOR, labor_used);
+    produceStuff(STUFF_LOVOLT, lovolt_made);
+    animate_enable = true;
+    working_days += lovolt_made;
+  }
+  else {
+    animate_enable = false;
+  }
+
+  //monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
+}
+
+void Windmill::animate(unsigned long real_time) {
   if(animate_enable && real_time >= anim) {
     anim = real_time + ANIM_THRESHOLD(ANTIQUE_WINDMILL_ANIM_SPEED);
     ++frameIt->frame %= 3;
   }
 }
 
-void Windmill::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), float(busy) / lovolt_output);
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), lovolt_output);
-    // i++;
-    list_commodities(&i);
+void Windmill::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), float(busy) / lovolt_output);
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  mps.add_sd(N_("Output"), lovolt_output);
+  list_commodities(mps, production);
 }
 
-void Windmill::place(int x, int y) {
-  Construction::place(x, y);
+void Windmill::place(MapPoint point) {
+  Construction::place(point);
 
   this->lovolt_output = (int)(WINDMILL_LOVOLT +
     (((double)tech * WINDMILL_LOVOLT) / MAX_TECH_LEVEL));
@@ -100,16 +132,16 @@ void Windmill::place(int x, int y) {
   commodityMaxProd[STUFF_LOVOLT] = 100 * lovolt_output;
 }
 
-void Windmill::save(xmlTextWriterPtr xmlWriter) {
+void Windmill::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool Windmill::loadMember(xmlpp::TextReader& xmlReader) {
+bool Windmill::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "kwh_output");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

@@ -1,21 +1,24 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/main.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "main.hpp"
 
@@ -23,24 +26,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <assert.h>                              // for assert
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
-#include <stdio.h>                               // for NULL, printf
+#include <stdio.h>                               // for NULL
 #include <stdlib.h>                              // for setenv
-#include <unistd.h>                              // for execlp
 #include <filesystem>                            // for operator/, path
 #include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for unique_ptr, allocator
+#include <memory>                                // for allocator, unique_ptr
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
 
 #include "Config.hpp"                            // for getConfig, Config
-#include "Game.hpp"                              // for Game
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
-#include "PBar.hpp"                              // for LCPBarPage1, LCPBarP...
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
@@ -49,7 +48,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "lincity/init_game.h"                   // for destroy_game
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DEBUG
@@ -63,7 +61,7 @@ SDL_GLContext window_context = NULL;
 SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 tinygettext::DictionaryManager* dictionaryManager = 0;
-bool restart = false;
+// bool restart = false;
 const char *appdatadir;
 
 void musicHalted() {
@@ -157,52 +155,8 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
-void mainLoop()
-{
-    std::unique_ptr<MainMenu> menu;
-    std::unique_ptr<Game> game;
-    MainState state = MAINMENU;
-    MainState nextstate;
-
-    while(state != QUIT)
-    {
-        switch(state)
-        {
-            case MAINMENU:
-                {
-                    if(menu.get() == 0)
-                    {   menu.reset(new MainMenu(window));}
-                    nextstate = menu->run();
-                }
-                break;
-            case INGAME:
-                {
-                    if(game.get() == 0)
-                    {
-                        game.reset(new Game(window));
-
-                        while(!LCPBarPage1 || !LCPBarPage2)
-                        {//wait until PBars exist so they can be initalized
-                            printf(".");
-                            SDL_Delay(100);
-                        }
-                    }
-                    nextstate = game->run();
-                    if(menu.get() == 0)
-                    {    menu.reset(new MainMenu(window));}
-                    menu->gotoMainMenu();
-
-                }
-                break;
-            case RESTART:
-                restart = true;
-                nextstate = QUIT;
-                break;
-            default:
-                assert(false);
-        }
-        state = nextstate;
-    }
+void mainLoop() {
+  MainMenu(window).run();
 }
 
 int main(int argc, char** argv)
@@ -255,7 +209,9 @@ int main(int argc, char** argv)
 #endif
 
 // in debug mode we want a backtrace of the exceptions so we don't catch them
+#ifndef DEBUG
     try {
+#endif
         xmlInitParser ();
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             std::stringstream msg;
@@ -275,7 +231,7 @@ int main(int argc, char** argv)
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
         getConfig()->save();
-        destroy_game();
+#ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";
         result = 1;
@@ -283,6 +239,7 @@ int main(int argc, char** argv)
         std::cerr << "Unexpected exception.\n";
         result = 1;
     }
+#endif
     delete painter;
     delete fontManager;
     delete texture_manager;
@@ -293,18 +250,18 @@ int main(int argc, char** argv)
     xmlCleanupParser();
     delete dictionaryManager;
     dictionaryManager = 0;
-    if( restart ){
-#ifdef WIN32
-        //Windows has a Problem with Whitespaces.
-        std::string fixWhiteSpaceInPathnameProblem;
-        fixWhiteSpaceInPathnameProblem="\"";
-        fixWhiteSpaceInPathnameProblem+=argv[0];
-        fixWhiteSpaceInPathnameProblem+="\"";
-        execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
-#else
-        execlp( argv[0], argv[0], (char *) NULL );
-#endif
-    }
+//     if( restart ){
+// #ifdef WIN32
+//         //Windows has a Problem with Whitespaces.
+//         std::string fixWhiteSpaceInPathnameProblem;
+//         fixWhiteSpaceInPathnameProblem="\"";
+//         fixWhiteSpaceInPathnameProblem+=argv[0];
+//         fixWhiteSpaceInPathnameProblem+="\"";
+//         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
+// #else
+//         execlp( argv[0], argv[0], (char *) NULL );
+// #endif
+//     }
     return result;
 }
 
