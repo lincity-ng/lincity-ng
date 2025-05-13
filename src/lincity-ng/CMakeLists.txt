@@ -24,27 +24,22 @@ add_executable(lincity-ng
 		MainLincity.hpp
 		MainMenu.cpp
 		MainMenu.hpp
-		MapEdit.cpp
-		MapEdit.hpp
 		MapPoint.hpp
 		MiniMap.cpp
 		MiniMap.hpp
 		Mps.cpp
 		Mps.hpp
-		MpsInterface.cpp
 		PBar.cpp
 		PBar.hpp
-		PbarInterface.cpp
-		Permutator.cpp
-		Permutator.hpp
 		readdir.cpp
 		readdir.hpp
 		ScreenInterface.cpp
-		ScreenInterface.hpp
 		Sound.cpp
 		Sound.hpp
 		TimerInterface.cpp
 		TimerInterface.hpp
+		UserOperation.cpp
+		UserOperation.hpp
 		Util.cpp
 		Util.hpp
 )

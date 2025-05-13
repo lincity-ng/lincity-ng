@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "university.h"
+#include "university.hpp"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, allocator
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.hpp"               // for GROUP_UNIVERSITY
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, TRUE
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "school.hpp"                       // for SchoolConstructionGroup
+#include "tinygettext/gettext.hpp"        // for N_
 
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
@@ -41,54 +52,77 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_RANGE
 );
 
-Construction *UniversityConstructionGroup::createConstruction() {
-  return new University(this);
+Construction *UniversityConstructionGroup::createConstruction(World& world) {
+  return new University(world, this);
 }
 
-void University::update()
+bool
+UniversityConstructionGroup::can_build(const World& world, Message::ptr& message
+) const {
+  if(schoolConstructionGroup.count/4 - universityConstructionGroup.count < 1) {
+    message = NotEnoughStudentsMessage::create();
+    return false;
+  }
+
+  return ConstructionGroup::can_build(world, message);
+}
+
+University::University(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    university_cost += UNIVERSITY_RUNNING_COST;
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  this->total_tech_made = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * UNIVERSITY_LABOR;
+  commodityMaxCons[STUFF_GOODS] = 100 * UNIVERSITY_GOODS;
+  commodityMaxProd[STUFF_WASTE] = 100 * (UNIVERSITY_GOODS/3);
+}
+
+void University::update() {
+  try {
+    world.expense(UNIVERSITY_RUNNING_COST, world.stats.expenses.university);
     //do the teaching
     if (commodityCount[STUFF_LABOR] >= UNIVERSITY_LABOR
-    &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
-    &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY)
-    {
-        consumeStuff(STUFF_LABOR, UNIVERSITY_LABOR);
-        consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
-        produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
-        ++working_days;
-        tech_level += UNIVERSITY_TECH_MADE;
-        total_tech_made += UNIVERSITY_TECH_MADE;
+      &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
+      &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY
+    ) {
+      consumeStuff(STUFF_LABOR, UNIVERSITY_LABOR);
+      consumeStuff(STUFF_GOODS, UNIVERSITY_GOODS);
+      produceStuff(STUFF_WASTE, UNIVERSITY_GOODS / 3);
+      ++working_days;
+      world.tech_level += UNIVERSITY_TECH_MADE;
+      total_tech_made += UNIVERSITY_TECH_MADE;
     }
-    //monthly update
-    if ((total_time % 100) == 99)
-    {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  } catch(const OutOfMoneyMessage::Exception& ex) { }
+
+  //monthly update
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+  }
 }
 
-void University::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sfp(i++, N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void University::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sfp(N_("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
-void University::save(xmlTextWriterPtr xmlWriter) {
+void University::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
   Construction::save(xmlWriter);
 }
 
-bool University::loadMember(xmlpp::TextReader& xmlReader) {
+bool University::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

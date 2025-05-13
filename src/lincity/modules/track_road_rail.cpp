@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,15 +22,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "track_road_rail.h"
+#include "track_road_rail.hpp"
 
-#include <stdlib.h>              // for rand
-#include <map>                   // for map
-#include <vector>                // for vector
+#include <stdlib.h>                         // for rand
+#include <cassert>                          // for assert
+#include <map>                              // for map
+#include <string>                           // for basic_string, operator<
+#include <vector>                           // for vector
 
-#include "fire.h"                // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Sound.hpp"  // for getSound, Sound
-#include "modules.h"             // for Commodity, basic_string, ExtraFrame
+#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"               // for Mps
+#include "lincity-ng/Sound.hpp"             // for getSound, Sound
+#include "lincity/MapPoint.hpp"             // for MapPoint
+#include "lincity/all_buildings.hpp"        // for DAYS_PER_RAIL_POLLUTION
+#include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD
+#include "lincity/messages.hpp"             // for OutOfMoneyMessage
+#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, MapTile, Map
+#include "tinygettext/gettext.hpp"          // for N_, _
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -121,68 +131,136 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-Construction *TransportConstructionGroup::createConstruction() {
-  return new Transport(this);
+Construction *TransportConstructionGroup::createConstruction(World& world) {
+  return new Transport(world, this);
+}
+
+void
+TransportConstructionGroup::placeItem(World& world, MapPoint point) {
+  MapTile& tile = *world.map(point);
+  unsigned short oldGrp = tile.getTransportGroup();
+  if(tile.is_transport() && oldGrp != group || oldGrp == GROUP_POWER_LINE) {
+    assert(tile.construction);
+    tile.construction->detach();
+    tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+  }
+
+  ConstructionGroup::placeItem(world, point);
+}
+
+Transport::Transport(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->start_burning_waste = false;
+  this->waste_fire_anim = 0;
+  // register the construction as transport tile
+  // disable evacuation
+  //transparency is set and updated in connect_transport
+  this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
+
+  initialize_commodities();
+  this->trafficCount = this->commodityCount;
+
+  switch (constructionGroup->group) {
+  case GROUP_ROAD:
+  case GROUP_ROAD_BRIDGE:
+    commodityMaxCons[STUFF_GOODS] =
+      (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
+    commodityMaxProd[STUFF_WASTE] =
+      (100 - 1) / (ROAD_GOODS_USED_MASK + 1) + 1;
+    break;
+  case GROUP_RAIL:
+  case GROUP_RAIL_BRIDGE:
+    commodityMaxCons[STUFF_GOODS] =
+      (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1;
+    commodityMaxCons[STUFF_STEEL] =
+      (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
+    commodityMaxProd[STUFF_WASTE] =
+      (100 - 1) / (RAIL_GOODS_USED_MASK + 1) + 1 +
+      (100 - 1) / (RAIL_STEEL_USED_MASK + 1) + 1;
+    break;
+  }
+  commodityMaxCons[STUFF_LOVOLT] = 100 * LOVOLT_LOSS_ON_TRANSPORT;
+  commodityMaxCons[STUFF_WASTE] = 100 * WASTE_BURN_ON_TRANSPORT;
+}
+Transport::~Transport() {
 }
 
 void Transport::update()
 {
-    switch (constructionGroup->group)
-    {
-        case GROUP_TRACK:
-        case GROUP_TRACK_BRIDGE:
-            //tracks have no side effects
-        break;
-        case GROUP_ROAD:
-        case GROUP_ROAD_BRIDGE:
-            ++transport_cost;
-            if (total_time % DAYS_PER_ROAD_POLLUTION == 0)
-                world(x,y)->pollution += ROAD_POLLUTION;
-            if ((total_time & ROAD_GOODS_USED_MASK) == 0 && commodityCount[STUFF_GOODS] > 0)
-            {
-                consumeStuff(STUFF_GOODS, 1);
-                produceStuff(STUFF_WASTE, 1);
-            }
-        break;
-        case GROUP_RAIL:
-        case GROUP_RAIL_BRIDGE:
-            transport_cost += 3;
-            if (total_time % DAYS_PER_RAIL_POLLUTION == 0)
-                world(x,y)->pollution += RAIL_POLLUTION;
-            if ((total_time & RAIL_GOODS_USED_MASK) == 0 && commodityCount[STUFF_GOODS] > 0)
-            {
-                consumeStuff(STUFF_GOODS, 1);
-                produceStuff(STUFF_WASTE, 1);
-            }
-            if ((total_time & RAIL_STEEL_USED_MASK) == 0 && commodityCount[STUFF_STEEL] > 0)
-            {
-                consumeStuff(STUFF_STEEL, 1);
-                produceStuff(STUFF_WASTE, 1);
-            }
-        break;
+  switch(constructionGroup->group) {
+  case GROUP_TRACK:
+  case GROUP_TRACK_BRIDGE:
+    //tracks have no side effects
+    break;
+  case GROUP_ROAD:
+  case GROUP_ROAD_BRIDGE:
+    try {
+      if(world.total_time % 100 == 0)
+        world.expense(world.money_rates.transport_cost,
+          world.stats.expenses.transport);
+    } catch(const OutOfMoneyMessage::Exception& ex) {
+      // TODO: reduce transport capacity
+      // maybe have a chance of converting to track or deleting
     }
-    if (commodityCount[STUFF_LOVOLT] >= LOVOLT_LOSS_ON_TRANSPORT)
-    {
-        consumeStuff(STUFF_LOVOLT, LOVOLT_LOSS_ON_TRANSPORT);
+    if(world.total_time % DAYS_PER_ROAD_POLLUTION == 0)
+      world.map(point)->pollution += ROAD_POLLUTION;
+    if(!(world.total_time & ROAD_GOODS_USED_MASK)
+      && commodityCount[STUFF_GOODS] > 0
+    ) {
+      consumeStuff(STUFF_GOODS, 1);
+      produceStuff(STUFF_WASTE, 1);
     }
-    else if (commodityCount[STUFF_LOVOLT] > 0)
-    {
-        consumeStuff(STUFF_LOVOLT, 1);
+    break;
+  case GROUP_RAIL:
+  case GROUP_RAIL_BRIDGE:
+    try {
+      if(world.total_time % 100 == 0)
+        world.expense(3 * world.money_rates.transport_cost,
+          world.stats.expenses.transport);
+    } catch(const OutOfMoneyMessage::Exception& ex) {
+      // TODO: reduce transport capacity
     }
+    if(world.total_time % DAYS_PER_RAIL_POLLUTION == 0)
+      world.map(point)->pollution += RAIL_POLLUTION;
+    if(!(world.total_time & RAIL_GOODS_USED_MASK)
+      && commodityCount[STUFF_GOODS] > 0
+    ) {
+      consumeStuff(STUFF_GOODS, 1);
+      produceStuff(STUFF_WASTE, 1);
+    }
+    if((world.total_time & RAIL_STEEL_USED_MASK) == 0
+      && commodityCount[STUFF_STEEL] > 0
+    ) {
+      consumeStuff(STUFF_STEEL, 1);
+      produceStuff(STUFF_WASTE, 1);
+    }
+    break;
+  default:
+    assert(false);
+  }
+  if (commodityCount[STUFF_LOVOLT] >= LOVOLT_LOSS_ON_TRANSPORT) {
+    consumeStuff(STUFF_LOVOLT, LOVOLT_LOSS_ON_TRANSPORT);
+  }
+  else if (commodityCount[STUFF_LOVOLT] > 0) {
+    consumeStuff(STUFF_LOVOLT, 1);
+  }
 
-    if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)
-    {
-        consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
-        world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
-        start_burning_waste = true;
-    }
+  int wasteMax = constructionGroup->commodityRuleCount[STUFF_WASTE].maxload;
+  if(commodityCount[STUFF_WASTE] > wasteMax * 9 / 10) {
+    consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
+    world.map(point)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
+    start_burning_waste = true;
+  }
 
-    if(total_time % 100 == 99) {
-        reset_prod_counters();
-    }
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+  }
 }
 
-void Transport::animate() {
+void Transport::animate(unsigned long real_time) {
   if(start_burning_waste) { // start fire
     start_burning_waste = false;
     anim = real_time + ANIM_THRESHOLD(WASTE_BURN_TIME);
@@ -198,31 +276,26 @@ void Transport::animate() {
   }
 }
 
-void Transport::list_traffic(int *i)
-{
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        if(*i < 14 && constructionGroup->commodityRuleCount[stuff].maxload)
-        {   mps_store_sfp((*i)++, commodityNames[stuff], (float) trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
-    }
+void Transport::list_traffic(Mps& mps) const {
+  for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+    if(!constructionGroup->commodityRuleCount[stuff].maxload)
+      continue;
+    mps.add_sfp(commodityNames[stuff],
+      trafficCount[stuff] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+  }
 }
 
-void Transport::report()
-{
-    int i = 0;
-
-    mps_store_title(i++, constructionGroup->name);
-    i++;
-    if(mps_map_page == 1)
-    {
-        mps_store_title(i++, _("Traffic") );
-        list_traffic(&i);
-    }
-    else
-    {
-        mps_store_title(i++, _("Commodities") );
-        list_inventory(&i);
-    }
+void Transport::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  if(production) {
+    mps.add_s(_("Traffic"));
+    list_traffic(mps);
+  }
+  else {
+    // mps.add_s(_("Commodities"));
+    list_commodities(mps, false);
+  }
 }
 
 void Transport::playSound()
@@ -257,9 +330,9 @@ void Transport::playSound()
 }
 
 bool Transport::canPlaceVehicle() {
-  if(!world(x, y)->framesptr)
+  if(!world.map(point)->framesptr)
     return false;
-  for(ExtraFrame& exfr : *world(x, y)->framesptr)
+  for(ExtraFrame& exfr : *world.map(point)->framesptr)
     if(exfr.resourceGroup->is_vehicle)
       return false;
   return true;
@@ -268,18 +341,16 @@ bool Transport::canPlaceVehicle() {
 void Transport::init_resources() {
   Construction::init_resources();
 
-  waste_fire_frit = world(x, y)->createframe();
+  waste_fire_frit = world.map(point)->createframe();
   waste_fire_frit->resourceGroup = ResourceGroup::resMap["Fire"];
   waste_fire_frit->move_x = 0;
   waste_fire_frit->move_y = 0;
   waste_fire_frit->frame = -1;
 }
 
-void Transport::place(int x, int y) {
-  Construction::place(x, y);
-
+void Transport::place(MapPoint point) {
   // set the constructionGroup to build bridges iff over water
-  if(world(x,y)->is_water()) {
+  if(world.map(point)->is_water()) {
     switch (constructionGroup->group) {
       case GROUP_TRACK:
         constructionGroup = &trackbridgeConstructionGroup;
@@ -305,6 +376,17 @@ void Transport::place(int x, int y) {
       break;
     }
   }
+
+  Construction::place(point);
+}
+
+void
+Transport::detach() {
+  MapTile& tile = *world.map(point);
+  tile.killframe(waste_fire_frit);
+  tile.flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+
+  Construction::detach();
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

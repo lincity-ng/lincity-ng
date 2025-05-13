@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "solar_power.h"
+#include "solar_power.hpp"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, allocator
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_SOLAR_POWER
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, TRUE
+#include "lincity/world.hpp"              // for World
+#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 
 // SolarPower:
@@ -42,8 +52,20 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction() {
-  return new SolarPower(this);
+Construction *SolarPowerConstructionGroup::createConstruction(World& world) {
+  return new SolarPower(world, this);
+}
+
+SolarPower::SolarPower(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->tech = world.tech_level;
+  this->working_days = 0;
+  this->busy = 0;
+  initialize_commodities();
+
+  commodityMaxCons[STUFF_LABOR] = 100 * SOLAR_POWER_LABOR;
 }
 
 void SolarPower::update()
@@ -58,29 +80,24 @@ void SolarPower::update()
         produceStuff(STUFF_HIVOLT, hivolt_made);
         working_days += hivolt_made;
     }
-    if (total_time % 100 == 99) //monthly update
-    {
-        reset_prod_counters();
-        busy = working_days / hivolt_output;
-        working_days = 0;
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
+      busy = working_days / hivolt_output;
+      working_days = 0;
     }
 }
 
-void SolarPower::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    i++;
-    mps_store_sfp(i++, N_("busy"), (busy));
-    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, N_("Output"), hivolt_output);
-    // i++;
-    list_commodities(&i);
+void SolarPower::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.addBlank();
+  mps.add_sfp(N_("busy"), (busy));
+  mps.add_sfp(N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+  mps.add_sd(N_("Output"), hivolt_output);
+  list_commodities(mps, production);
 }
 
-void SolarPower::place(int x, int y) {
-  Construction::place(x, y);
+void SolarPower::place(MapPoint point) {
+  Construction::place(point);
 
   this->hivolt_output = (int)(POWERS_SOLAR_OUTPUT +
     (((double)tech * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
@@ -88,16 +105,16 @@ void SolarPower::place(int x, int y) {
   commodityMaxProd[STUFF_HIVOLT] = 100 * hivolt_output;
 }
 
-void SolarPower::save(xmlTextWriterPtr xmlWriter) {
+void SolarPower::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
   Construction::save(xmlWriter);
 }
 
-bool SolarPower::loadMember(xmlpp::TextReader& xmlReader) {
+bool SolarPower::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
   else if(name == "mwh_output");
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,14 +22,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "coalmine.h"
+#include "coalmine.hpp"
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <list>                           // for _List_iterator
-#include <map>                            // for map
+#include <map>                            // for allocator, map
+#include <string>                         // for basic_string, operator<
 
-#include "lincity/ConstructionManager.h"  // for ConstructionManager
-#include "lincity/ConstructionRequest.h"  // for ConstructionDeletionRequest
-#include "modules.h"                      // for Commodity, ExtraFrame, MapTile
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/groups.hpp"               // for GROUP_COALMINE
+#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE
+#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(
@@ -50,83 +58,100 @@ CoalmineConstructionGroup coalmineConstructionGroup(
 //CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
 //CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
-Construction *CoalmineConstructionGroup::createConstruction() {
-  return new Coalmine(this);
+Construction *CoalmineConstructionGroup::createConstruction(World& world) {
+  return new Coalmine(world, this);
 }
 
-void Coalmine::update()
+Coalmine::Coalmine(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
 {
-    bool coal_found = false;
-    //scan available coal_reserve in range
-    current_coal_reserve = 0;
-    for (int yy = ys; yy < ye ; yy++)
-    {
-        for (int xx = xs; xx < xe ; xx++)
-        {   current_coal_reserve += world(xx,yy)->coal_reserve;}
-    }
-    // mine some coal
-    if ((current_coal_reserve > 0)
-    && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
-    && (commodityCount[STUFF_LABOR] >= COALMINE_LABOR))
-    {
-        for (int yy = ys; (yy < ye) && !coal_found; yy++)
-        {
-            for (int xx = xs; (xx < xe) && !coal_found; xx++)
-            {
-                if (world(xx,yy)->coal_reserve > 0)
-                {
-                    world(xx,yy)->coal_reserve--;
-                    world(xx,yy)->pollution += COALMINE_POLLUTION;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
-                    produceStuff(STUFF_COAL, COAL_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
-                    if (current_coal_reserve < initial_coal_reserve)
-                    {   sust_dig_ore_coal_tip_flag = 0;}
-                    coal_found = true;
-                    working_days++;
-                }
-            }
-        }
-    }
-    else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
-    && (commodityCount[STUFF_LABOR] >= COALMINE_LABOR))
-    {
-        for (int yy = ys; (yy < ye) && !coal_found; yy++)
-        {
-            for (int xx = xs; (xx < xe) && !coal_found; xx++)
-            {
-                if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE)
-                {
-                    world(xx,yy)->coal_reserve++;
-                    world(xx,yy)->flags |= FLAG_ALTERED;
-                    consumeStuff(STUFF_COAL, COAL_PER_RESERVE);
-                    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
-                    coal_found = true;
-                    working_days++;
-                }
-            }
-        }
-    }
-    //Monthly update of activity
-    if (total_time % 100 == 99) {
-        reset_prod_counters();
-        busy = working_days;
-        working_days = 0;
-    }
+  this->constructionGroup = cstgrp;
+  this->working_days = 0;
+  this->busy = 0;
+  this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete
+  initialize_commodities();
 
-    // TODO: This may prevent unmining when reserve gets to 0.
-    //Evacuate Mine if no more deposits
-    if (current_coal_reserve == 0 )
-    {   flags |= FLAG_EVACUATE;}
-
-    //Abandon the Coalmine if it is really empty
-    if ((current_coal_reserve == 0)
-      &&(commodityCount[STUFF_LABOR] == 0)
-      &&(commodityCount[STUFF_COAL] == 0) )
-    {   ConstructionManager::submitRequest(new ConstructionDeletionRequest(this));}
+  commodityMaxProd[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+  commodityMaxCons[STUFF_COAL] = 100 * COAL_PER_RESERVE;
+  commodityMaxCons[STUFF_LABOR] = 100 * COALMINE_LABOR;
 }
 
-void Coalmine::animate() {
+void Coalmine::update() {
+  if(commodityCount[STUFF_LABOR] < COALMINE_LABOR)
+    ; // can't do anything without miners
+  else if(commodityCount[STUFF_COAL] <=
+    MAX_COAL_AT_MINE * TARGET_COAL_LEVEL/100 - COAL_PER_RESERVE
+  ) {
+    if(world.map(mine_cur)->coal_reserve <= 0) {
+      for(mine_cur = MapPoint(0,0); mine_cur.y < mine_se.y ; mine_cur.y++)
+      for(mine_cur.x = mine_nw.x; mine_cur.x < mine_se.x ; mine_cur.x++) {
+        if(world.map(mine_cur)->coal_reserve > 0)
+          goto do_mine;
+      }
+      current_coal_reserve = 0;
+      goto done;
+    }
+
+    do_mine:
+    world.map(mine_cur)->coal_reserve--;
+    current_coal_reserve--;
+    world.map(mine_cur)->pollution += COALMINE_POLLUTION;
+    produceStuff(STUFF_COAL, COAL_PER_RESERVE);
+    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
+    if(current_coal_reserve < initial_coal_reserve)
+      world.stats.sustainability.mining_flag = false;
+    working_days++;
+  }
+  else if(commodityCount[STUFF_COAL] >=
+    TARGET_COAL_LEVEL * MAX_COAL_AT_MINE/100 + COAL_PER_RESERVE
+  ) {
+    if(world.map(mine_cur)->coal_reserve >= COAL_RESERVE_SIZE) {
+      for(mine_cur = MapPoint(0,0); mine_cur.y < mine_se.y ; mine_cur.y++)
+      for(mine_cur.x = mine_nw.x; mine_cur.x < mine_se.x ; mine_cur.x++) {
+        if(world.map(mine_cur)->coal_reserve < COAL_RESERVE_SIZE)
+          goto do_unmine;
+      }
+      goto done;
+    }
+
+    do_unmine:
+    world.map(mine_cur)->coal_reserve++;
+    current_coal_reserve++;
+    consumeStuff(STUFF_COAL, COAL_PER_RESERVE);
+    consumeStuff(STUFF_LABOR, COALMINE_LABOR);
+    working_days++;
+  }
+  done:
+
+  //Monthly update of activity
+  if(world.total_time % 100 == 99) {
+    reset_prod_counters();
+    busy = working_days;
+    working_days = 0;
+
+    if(commodityProdPrev[STUFF_COAL] > 0)
+      world.stats.sustainability.mining_flag = false;
+
+    // re-scan reserves monthly
+    current_coal_reserve = 0;
+    for(MapPoint p = mine_nw; p.y < mine_se.y ; p.y++)
+    for(p.x = mine_nw.x; p.x < mine_se.x ; p.x++)
+      current_coal_reserve += world.map(p)->coal_reserve;
+  }
+
+  //Evacuate Mine if no more deposits
+  if(current_coal_reserve == 0)
+    flags |= FLAG_EVACUATE;
+
+  //Abandon the Coalmine if it is really empty
+  if(current_coal_reserve == 0
+    && commodityCount[STUFF_LABOR] == 0
+    && commodityCount[STUFF_COAL] == 0
+  )
+    detach();
+}
+
+void Coalmine::animate(unsigned long real_time) {
   //choose type depending on availabe coal
   // TODO: make sure case 'nothing' can actually happen
   if(commodityCount[STUFF_COAL] > MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE/4))//75%
@@ -140,56 +165,49 @@ void Coalmine::animate() {
   soundGroup = frameIt->resourceGroup;
 }
 
-void Coalmine::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
-    // i++;
-    list_commodities(&i);
+void Coalmine::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sddp(N_("Deposits"), current_coal_reserve, initial_coal_reserve);
+  list_commodities(mps, production);
 }
 
-void Coalmine::place(int x, int y) {
-  Construction::place(x, y);
+void Coalmine::place(MapPoint point) {
+  Construction::place(point);
 
-  int coal = 0;
-  int lenm1 = world.len()-1;
-  int tmp;
-  tmp = x - constructionGroup->range;
-  this->xs = (tmp < 1) ? 1 : tmp;
-  tmp = y - constructionGroup->range;
-  this->ys = (tmp < 1) ? 1 : tmp;
-  tmp = x + constructionGroup->range + constructionGroup->size;
-  this->xe = (tmp > lenm1) ? lenm1 : tmp;
-  tmp = y + constructionGroup->range + constructionGroup->size;
-  this->ye = (tmp > lenm1) ? lenm1 : tmp;
+  current_coal_reserve = 0;
+  mine_nw = point.n(constructionGroup->range).w(constructionGroup->range);
+  if(mine_nw.x < 1) mine_nw.x = 1;
+  if(mine_nw.y < 1) mine_nw.y = 1;
+  mine_se = point.s(constructionGroup->range).e(constructionGroup->range);
+  if(mine_se.x >= world.map.len()-1) mine_se.x = world.map.len()-1;
+  if(mine_se.y >= world.map.len()-1) mine_se.y = world.map.len()-1;
+  mine_cur = mine_nw;
 
-  for(int yy = ys; yy < ye ; yy++)
-  for (int xx = xs; xx < xe ; xx++)
-    coal += world(xx,yy)->coal_reserve;
+  for(MapPoint p = mine_nw; p.y < mine_se.y ; p.y++)
+  for(p.x = mine_nw.x; p.x < mine_se.x ; p.x++)
+    current_coal_reserve += world.map(p)->coal_reserve;
 
   //always provide some coal so player can
   //store sustainable coal before the mine is deleted
-  if (coal < 20)
-  {
-      world(x,y)->coal_reserve += 20-coal;
-      coal = 20;
+  if(current_coal_reserve < 20) {
+    world.map(point)->coal_reserve += 20-current_coal_reserve;
+    current_coal_reserve = 20;
   }
 
-  this->initial_coal_reserve = coal;
-  this->current_coal_reserve = coal;
+  initial_coal_reserve = current_coal_reserve;
 }
 
-void Coalmine::save(xmlTextWriterPtr xmlWriter) {
+void Coalmine::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
   Construction::save(xmlWriter);
 }
 
-bool Coalmine::loadMember(xmlpp::TextReader& xmlReader) {
+bool
+Coalmine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
   if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

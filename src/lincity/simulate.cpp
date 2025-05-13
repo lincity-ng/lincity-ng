@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,401 +22,320 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include <array>                           // for array
-#include <cstdlib>                         // for rand, abs
-#include <iterator>                        // for advance
-#include <list>                            // for list, _List_iterator, oper...
-//#include "common.h"
+#include <assert.h>                      // for assert
+#include <algorithm>                     // for min, shuffle
+#include <array>                         // for array
+#include <cstdlib>                       // for rand, abs
+#include <list>                          // for list, operator!=, _List_iter...
+#include <numeric>                       // for iota
+#include <set>                           // for set, _Rb_tree_const_iterator
+#include <vector>                        // for vector
+#include <initializer_list>
 
-/*
-#ifdef LC_X11
-#include <X11/cursorfont.h>
-#endif
-*/
-
-#include "../lincity-ng/GameView.hpp"      // for getGameView, GameView
-#include "ConstructionCount.h"             // for ConstructionCount
-#include "ConstructionManager.h"           // for ConstructionManager
-#include "Vehicles.h"                      // for Vehicle
-#include "all_buildings.h"                 // for DAYS_BETWEEN_COVER, DAYS_P...
-#include "commodities.hpp"                 // for CommodityRule, Commodity
-#include "engglobs.h"                      // for tech_level, total_money
-#include "engine.h"                        // for do_random_fire, scan_pollu...
-#include "groups.h"                        // for GROUP_FIRE, GROUP_MONUMENT
-#include "gui_interface/pbar_interface.h"  // for update_pbars_monthly
-#include "lin-city.h"                      // for MAX_TECH_LEVEL, TECH_LEVEL...
-#include "lintypes.h"                      // for Construction, NUMOF_DAYS_I...
-#include "modules/all_modules.h"           // for IMPORT_EXPORT_DISABLE_PERIOD
-#include "modules/modules_interfaces.h"    // for update_shanty
-#include "simulate.h"
-//#include "power.h"
-#include "stats.h"                         // for export_tax, goods_tax, ly_...
-#include "sustainable.h"                   // for SUST_MIN_TECH_LEVEL, SUST_...
-#include "tinygettext/gettext.hpp"         // for _
-#include "world.h"                         // for World, MapTile
-
-
-/* extern resources */
-extern void print_total_money(void);
-void setSimulationDelay( int speed );
-extern void ok_dial_box(const char *, int, const char *);
-extern GameView* GetGameView(void);
-
-/* AL1: they are all in engine.cpp */
-extern void do_daily_ecology(void);
-extern void do_pollution(void);
-extern void do_fire_health_cricket_power_cover(void);
-
-/* Flag to warn users that they have 10 years to put waterwell everywhere */
-int flag_warning = false;
-
-/* ---------------------------------------------------------------------- *
- * Private Fn Prototypes
- * ---------------------------------------------------------------------- */
-// static void shuffle_mappoint_array(void);
-static void do_periodic_events(void);
-static void end_of_month_update(void);
-static void start_of_year_update(void);
-static void end_of_year_update(void);
-static void simulate_mappoints(void);
-//extern void desert_water_frontier(int originx, int originy, int w, int h);
-
-static void sustainability_test(void);
-static int sust_fire_cover(void);
+#include "MapPoint.hpp"                  // for MapPoint
+#include "Vehicles.hpp"                    // for Vehicle
+#include "all_buildings.hpp"               // for DAYS_BETWEEN_COVER, DAYS_PER...
+#include "commodities.hpp"               // for CommodityRule, Commodity
+#include "groups.hpp"                      // for GROUP_FIRE, GROUP_MONUMENT
+#include "util.hpp"                 // for LcUrbg
+#include "lin-city.hpp"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
+#include "lintypes.hpp"                    // for Construction, NUMOF_DAYS_IN_...
+#include "messages.hpp"                  // for OutOfMoneyMessage, NoPeopleL...
+#include "modules/all_modules.hpp"         // for IMPORT_EXPORT_DISABLE_PERIOD
+#include "modules/modules_interfaces.hpp"  // for update_shanty
+#include "stats.hpp"                       // for Stats, Stat
+#include "sustainable.hpp"                 // for SUST_FIRE_YEARS_NEEDED, SUST...
+#include "world.hpp"                       // for World, Map, MapTile
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
-void do_time_step(void)
-{
-    if (flag_warning) {
-        flag_warning = false;
-        /* FIXME use blocking_dialog_open instead */
-        setSimulationDelay(SIM_DELAY_PAUSE);
-        ok_dial_box("warning.mes", GOOD, \
-                _("Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!\
-  You should check starvation minimap, and read waterwell help page :-)") );
-
-    }
+void
+World::do_time_step(void) {
     /* Increment game time */
     ++total_time;
-#ifdef DEBUG_ENGINE
-    printf("In do_time_step (%d)\n", total_time);
-#endif
 
-    /* Initialize daily accumulators */
-    init_daily();
-
-    /* Initialize monthly accumulators */
-    if (total_time % NUMOF_DAYS_IN_MONTH == 0)
-    {   init_monthly();}
-
-    /* Initialize yearly accumulators */
-    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0)
-    {   init_yearly();}
-
-    /* execute yesterdays requests OR treat loadgame requests*/
-    ConstructionManager::executePendingRequests();
+    // update stats
+    stats.daily();
+    if(total_time % NUMOF_DAYS_IN_MONTH == 0)
+      stats.monthly();
+    if(total_time % NUMOF_DAYS_IN_YEAR == 0)
+      stats.yearly();
 
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
-
-    /* Remove all too old cars*/
-    Vehicle::cleanVehicleList();
 
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();
 }
 
-void do_animate() {
-  Construction *construction;
-  for(int i = 0; i < constructionCount.size(); i++) {
-    construction = constructionCount[i];
-    if(construction) {
-      construction->animate();
-    }
+void
+World::do_animate(unsigned long real_time) {
+  for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
+    cst->animate(real_time);
   }
-  for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
-    it != Vehicle::vehicleList.end();
-    std::advance(it,1)
+  for(std::list<Vehicle*>::iterator it = vehicleList.begin();
+    it != vehicleList.end();
   ) {
-    if((*it)->alive)
-      (*it)->update();
+    (*(it++))->update(real_time);
   }
-
-  getGameView()->setDirty();
 }
 
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
 
-static void do_periodic_events(void)
-{
-    add_daily_to_monthly();
-    do_daily_ecology();
+void
+World::do_periodic_events(void) {
+  do_daily_ecology();
 
-    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0)
-    {   start_of_year_update();}
-    if ((total_time % DAYS_PER_POLLUTION) == 3)
-    {   do_pollution();}
-    if ((total_time % (DAYS_BETWEEN_FIRES*100/world.len()*100/world.len() )) == 9 && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000))
-    {   do_random_fire(-1, -1, 1);}
-    if ((total_time % DAYS_BETWEEN_COVER) == 75)
-    {   do_fire_health_cricket_power_cover();} //constructions will call ::cover()
-    else //constructions will not call ::cover()
-    {   refresh_cover = false;}
-    if ((total_time % DAYS_BETWEEN_SHANTY) == 15 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000))
-    {   update_shanty();}
-    if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
-    {   end_of_month_update();}
-    if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1))
-    {   end_of_year_update();}
-}
-
-static void end_of_month_update(void)
-{
-    //update queque of polluted tiles
-    scan_pollution();
-    //fetch remaining textures in order loader thread can exit
-    if(getGameView()->textures_ready && getGameView()->remaining_images)
-    {   getGameView()->fetchTextures();}
-    housed_population = (tpopulation / NUMOF_DAYS_IN_MONTH);
-    total_housing = (thousing / NUMOF_DAYS_IN_MONTH);
-    if ((housed_population + people_pool) > max_pop_ever)
-        max_pop_ever = housed_population + people_pool;
-
-    if (people_pool > 100)
-    {
-        if (rand() % 1000 < people_pool)
-            people_pool -= 10;
-    }
-    if (people_pool < 0)
-    {   people_pool = 0;}
-
-    if (tech_level > TECH_LEVEL_LOSS_START)
-    {
-        tech_level -= (int)(tech_level * (1. / TECH_LEVEL_LOSS)
-                            * (1 + (tpopulation * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 200)))));
-    }
-    else
-    {   tech_level += TECH_LEVEL_UNAIDED;}
-    /* we can go over 100, but it's even more difficult */
-    if (tech_level > MAX_TECH_LEVEL)
-    {   tech_level -= (int)((tech_level - MAX_TECH_LEVEL)
-                            * (1. / TECH_LEVEL_LOSS)
-                            * (1 + (tpopulation * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 100)))));
-    }
-    if (highest_tech_level < tech_level)
-    {   highest_tech_level = tech_level;}
-
-    deaths_cost += tunnat_deaths * UNNAT_DEATHS_COST;
-
-    for (int i = 0; i < constructionCount.size(); i++)
-    {
-        if (constructionCount[i])
-        {   constructionCount[i]->report_commodities();}
-    }
-    update_pbars_monthly();
-}
-
-static void start_of_year_update(void)
-{
+  if(total_time % NUMOF_DAYS_IN_YEAR == 0)
     sustainability_test();
-    pollution_deaths_history -= pollution_deaths_history / 100.0;
-    starve_deaths_history -= starve_deaths_history / 100.0;
-    unemployed_history -= unemployed_history / 100.0;
+
+  if(total_time % DAYS_PER_POLLUTION == 3)
+    do_pollution();
+
+  int fire_rate = DAYS_BETWEEN_FIRES*100/map.len()*100/map.len();
+  int fire_tech = GROUP_FIRESTATION_TECH;
+  if(total_time % fire_rate == 9 && tech_level > fire_tech)
+    do_random_fire();
+
+  if(total_time % DAYS_BETWEEN_COVER == 75)
+    do_fire_health_cricket_power_cover();
+
+  if(total_time % DAYS_BETWEEN_SHANTY == 15
+    && tech_level > GROUP_HEALTH_TECH
+  )
+    update_shanty(*this);
+
+  if(total_time % NUMOF_DAYS_IN_MONTH == NUMOF_DAYS_IN_MONTH - 1)
+    end_of_month_update();
+
+  if(total_time % NUMOF_DAYS_IN_YEAR == NUMOF_DAYS_IN_YEAR - 1)
+    end_of_year_update();
 }
 
-static void end_of_year_update(void)
-{
-    income_tax = (income_tax * income_tax_rate) / 100;
-    ly_income_tax = income_tax;
-    total_money += income_tax;
+void
+World::end_of_month_update(void) {
+  //update queque of polluted tiles
+  scan_pollution();
 
-    coal_tax = (coal_tax * coal_tax_rate) / 10;
-    ly_coal_tax = coal_tax;
-    total_money += coal_tax;
+  if(people_pool > 100) {
+    if(rand() % 1000 < people_pool)
+      people_pool -= 10;
+  }
+  if(people_pool < 0) {
+    assert(false);
+    people_pool = 0;
+  }
+  stats.population.population_m += people_pool * NUMOF_DAYS_IN_MONTH;
 
-    goods_tax = (goods_tax * goods_tax_rate) / 100;
-    goods_tax += (int)((float)(goods_tax * goods_tax_rate)
-                       * (float)tech_level / 2000000.0);
-    ly_goods_tax = goods_tax;
-    total_money += goods_tax;
+  if(tech_level > TECH_LEVEL_LOSS_START) {
+    tech_level -= (int)(tech_level * (1. / TECH_LEVEL_LOSS)
+      * (1 + (stats.population.population_m.acc
+        * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 200)))));
+  }
+  else
+    tech_level += TECH_LEVEL_UNAIDED;
+  /* we can go over 100, but it's even more difficult */
+  if(tech_level > MAX_TECH_LEVEL) {
+    tech_level -= (int)((tech_level - MAX_TECH_LEVEL) * (1. / TECH_LEVEL_LOSS)
+      * (1 + (stats.population.population_m.acc
+        * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 100)))));
+  }
+  if(tech_level > stats.highest_tech_level) {
+    stats.highest_tech_level = tech_level;
+  }
+  stats.tech_level = tech_level;
 
-    /* The price of exports on the world market drops as you export more.
-       The exporters have to discount there wares, therefore the
-       tax take is less.
-     */
-    if (export_tax > ex_tax_dis[0]) {
-        int discount, disi;
-        discount = 0;
-        for (disi = 0; disi < NUMOF_DISCOUNT_TRIGGERS && export_tax > ex_tax_dis[disi]; disi++)
-            discount += (export_tax - ex_tax_dis[disi]) / 10;
-        export_tax -= discount;
-    }
-    ly_export_tax = export_tax;
-    total_money += export_tax;
+  try {
+    expense(stats.population.unnat_deaths_m.acc * UNNAT_DEATHS_COST,
+      stats.expenses.deaths);
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO: penalty for being bankrupt
+  }
 
-    ly_university_cost = university_cost;
-    ly_recycle_cost = recycle_cost;
-    ly_deaths_cost = deaths_cost;
-    ly_health_cost = (health_cost * (tech_level / 10000)
-                      * HEALTH_RUNNING_COST_MUL) / (MAX_TECH_LEVEL / 10000);
-    ly_rocket_pad_cost = rocket_pad_cost;
-    ly_school_cost = school_cost;
-    ly_windmill_cost = windmill_cost;
-    ly_fire_cost = (fire_cost * (tech_level / 10000)
-                    * FIRESTATION_RUNNING_COST_MUL) / (MAX_TECH_LEVEL / 10000);
-    ly_cricket_cost = cricket_cost;
-    if (total_money < 0) {
-        ly_interest = ((-total_money / 1000) * INTEREST_RATE);
-        if (ly_interest > 1000000)
-            ly_interest = 1000000;
-    } else
-        ly_interest = 0;
+  try {
+    expense(stats.population.unemployed_m.acc * money_rates.dole / 100,
+      stats.expenses.unemployment);
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO:  penalty for being bankrupt
+  }
 
-    other_cost = university_cost + recycle_cost + deaths_cost
-        + ly_health_cost + rocket_pad_cost + school_cost + ly_interest + windmill_cost + ly_fire_cost + ly_cricket_cost;
-    ly_other_cost = other_cost;
-    total_money -= other_cost;
+  for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
+    cst->report_commodities();
+  }
 
-    unemployment_cost = (unemployment_cost * dole_rate) / 100;
-    ly_unemployment_cost = unemployment_cost;
-    total_money -= unemployment_cost;
+  stats.total_money = total_money;
 
-    transport_cost = (transport_cost * transport_cost_rate) / 100;
-    ly_transport_cost = transport_cost;
-    total_money -= transport_cost;
-
-    import_cost = (import_cost * import_cost_rate) / 100;
-    ly_import_cost = import_cost;
-    total_money -= import_cost;
-
-    if (total_money > 2000000000)
-        total_money = 2000000000;
-    else if (total_money < -2000000000)
-        total_money = -2000000000;
-
-    print_total_money();
-
-    // change import/export ability
-    for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
-      CommodityRule &tradeRule = portConstructionGroup.tradeRule[s];
-      tradeRule.take ^= !(rand() % (tradeRule.take
-        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
-      tradeRule.give ^= !(rand() % (tradeRule.give
-        ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
-    }
+  if(stats.population.population_m.acc == 0 && !gameEnd) {
+    pushMessage(NoPeopleLeftMessage::create(total_time));
+    gameEnd = true;
+  }
 }
 
-static void simulate_mappoints(void)
-{
-    Construction *construction;
-    constructionCount.shuffle();
-    for (int i = 0; i < constructionCount.size(); i++)
-    {
-        construction = constructionCount[i];
-        if (construction)
-        {
-            construction->trade();
-            construction->update();
-        }
-    }
-//     for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
-//         it != Vehicle::vehicleList.end();
-//         std::advance(it,1))
-//     {
-//         if((*it)->alive)
-//         {   (*it)->update();}
-// /*
-//         if(rand()%50 == 1)
-//         {
-//             delete *it;
-//             break;
-//         }
-// */
-//     }
+void
+World::end_of_year_update(void) {
+  income(taxable.labor * money_rates.income_tax / 100,
+    stats.income.income_tax);
+  taxable.labor = 0;
+
+  income(taxable.coal * money_rates.coal_tax / 10,
+    stats.income.coal_tax);
+  taxable.coal = 0;
+
+  int goods_tax = (taxable.goods * money_rates.goods_tax) / 100;
+  goods_tax += (int)((float)(goods_tax * money_rates.goods_tax)
+    * (float)tech_level / 2000000.0);
+  income(goods_tax, stats.income.goods_tax);
+  taxable.goods = 0;
+
+  /* The price of exports on the world market drops as you export more.
+     The exporters have to discount there wares, therefore the
+     tax take is less.
+   */
+  int exDiscount = 0;
+  for(int trigger : {25000, 50000, 100000, 200000, 400000, 800000})
+    exDiscount += std::max(0, taxable.trade_ex - trigger) / 10;
+  income(taxable.trade_ex - exDiscount, stats.income.export_tax);
+  taxable.trade_ex = 0;
+
+  try {
+    if(total_money < 0)
+      expense(std::min((-total_money / 1000) * INTEREST_RATE, 1000000),
+        stats.expenses.interest);
+  } catch(const OutOfMoneyMessage::Exception& ex) {
+    // TODO: penalty for being bankrupt
+  }
+
+  if(total_money > 2000000000)
+    total_money = 2000000000;
+  else if(total_money < -2000000000)
+    total_money = -2000000000;
+
+  setUpdated(Updatable::MONEY);
+
+  // change import/export ability
+  for(Commodity s = STUFF_INIT; s < STUFF_COUNT; s++) {
+    tradeRule[s].take ^= !(rand() % (tradeRule[s].take
+      ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
+    tradeRule[s].give ^= !(rand() % (tradeRule[s].give
+      ? IMPORT_EXPORT_DISABLE_PERIOD : IMPORT_EXPORT_ENABLE_PERIOD));
+  }
 }
 
-static void sustainability_test(void)
-{
-    int i;
-    if (sust_dig_ore_coal_tip_flag == 0) {
-        sust_dig_ore_coal_tip_flag = 1;
-        sust_dig_ore_coal_count = 0;
-    } else
-        sust_dig_ore_coal_count++;
+void
+World::simulate_mappoints(void) {
+  // We could directly shuffle constructions, but the swaps could be more
+  // expensive if we decide down the line to store Construction's directly
+  // instead of using pointers.
+  std::vector<decltype(map.constructions)::iterator> ordering(
+    map.constructions.size());
+  std::iota(ordering.begin(), ordering.end(), map.constructions.begin());
+  std::shuffle(ordering.begin(), ordering.end(), LcUrbg::get());
+  for(auto cstIt : ordering) {
+    Construction *cst = *cstIt;
+    if(cst->isDead()) {
+      // TODO: Consider move pruning to its own function.
+      map.constructions.erase(cstIt);
+      delete cst;
+      continue;
+    }
+    cst->trade();
+    cst->update();
+  }
+}
 
-    if (sust_port_flag == 0) {
-        sust_port_flag = 1;
-        sust_port_count = 0;
-    } else
-        sust_port_count++;
+void
+World::sustainability_test(void) {
+  int i;
+  if(!stats.sustainability.mining_flag) {
+    stats.sustainability.mining_flag = true;
+    stats.sustainability.mining_years = 0;
+  } else
+    stats.sustainability.mining_years++;
 
-    /* Money must be going up or the same. (ie can't build.) */
-    if (sust_old_money > total_money)
-        sust_old_money_count = 0;
+  if(!stats.sustainability.trade_flag) {
+    stats.sustainability.trade_flag = true;
+    stats.sustainability.trade_years = 0;
+  } else
+    stats.sustainability.trade_years++;
+
+  /* Money must be going up or the same. (ie can't build.) */
+  if(stats.sustainability.old_money > total_money)
+    stats.sustainability.money_years = 0;
+  else
+    stats.sustainability.money_years++;
+  stats.sustainability.old_money = total_money;
+
+  /* population must be withing 2% of when it started. */
+  i = stats.population.population_m - stats.sustainability.old_population;
+  if(abs(i) > stats.sustainability.old_population / 40     /* 2.5%  */
+    || stats.population.population_m < SUST_MIN_POPULATION * NUMOF_DAYS_IN_MONTH
+  ) {
+    stats.sustainability.old_population = stats.population.population_m;
+    stats.sustainability.population_years = 0;
+  } else
+    stats.sustainability.population_years++;
+
+  /* tech level must be going up or not fall more than 0.5% from it's
+     highest during the sus count
+   */
+  i = tech_level - stats.sustainability.old_tech;
+  if(-i > stats.sustainability.old_tech / 100 ||
+    tech_level < SUST_MIN_TECH_LEVEL
+  ) {
+    stats.sustainability.tech_years = 0;
+    stats.sustainability.old_tech = tech_level;
+  }
+  else {
+    stats.sustainability.tech_years++;
+    if(i > 0)
+      stats.sustainability.old_tech = tech_level;
+  }
+
+  /* check fire cover only every three years */
+  if(total_time % (NUMOF_DAYS_IN_YEAR * 3) == 0) {
+    if(sust_fire_cover())
+      stats.sustainability.fire_years += 3;
     else
-        sust_old_money_count++;
-    sust_old_money = total_money;
+      stats.sustainability.fire_years = 0;
+  }
 
-    /* population must be withing 2% of when it started. */
-    i = (housed_population + people_pool) - sust_old_population;
-    if (abs(i) > (sust_old_population / 40)     /* 2.5%  */
-        ||(housed_population + people_pool) < SUST_MIN_POPULATION) {
-        sust_old_population = (housed_population + people_pool);
-        sust_old_population_count = 0;
-    } else
-        sust_old_population_count++;
-
-    /* tech level must be going up or not fall more than 0.5% from it's
-       highest during the sus count
-     */
-    i = tech_level - sust_old_tech;
-    if (i < 0 || tech_level < SUST_MIN_TECH_LEVEL) {
-        i = -i;
-        if ((i > sust_old_tech / 100) || tech_level < SUST_MIN_TECH_LEVEL) {
-            sust_old_tech_count = 0;
-            sust_old_tech = tech_level;
-        } else
-            sust_old_tech_count++;
-    } else {
-        sust_old_tech_count++;
-        sust_old_tech = tech_level;
+  if(stats.sustainability.mining_years >= SUST_ORE_COAL_YEARS_NEEDED
+    && stats.sustainability.trade_years >= SUST_PORT_YEARS_NEEDED
+    && stats.sustainability.money_years >= SUST_MONEY_YEARS_NEEDED
+    && stats.sustainability.population_years >= SUST_POP_YEARS_NEEDED
+    && stats.sustainability.tech_years >= SUST_TECH_YEARS_NEEDED
+    && stats.sustainability.fire_years >= SUST_FIRE_YEARS_NEEDED
+  ) {
+    if(!stats.sustainability.sustainable) {
+      pushMessage(SustainableEconomyMessage::create(total_time));
     }
-
-    /* check fire cover only every three years */
-    if (total_time % (NUMOF_DAYS_IN_YEAR * 3) == 0) {
-        if (sust_fire_cover() != 0)
-        {    sust_fire_count += 3;}
-        else
-        {    sust_fire_count = 0;}
-    }
+    stats.sustainability.sustainable = true;
+  }
 }
 
-static int sust_fire_cover(void)
-{
-    for (int i = 0; i < constructionCount.size(); i++)
-    {
-        if (constructionCount[i])
-        {
-            if(constructionCount[i]->flags & FLAG_IS_TRANSPORT)
-            {   continue;}
-            unsigned short grp = constructionCount[i]->constructionGroup->group;
-            if((grp==GROUP_MONUMENT)
-            || (grp==GROUP_OREMINE)
-            || (grp==GROUP_ROCKET)
-            || (grp==GROUP_FIRE)
-            || (grp==GROUP_POWER_LINE))
-            {   continue;}
-            int x = constructionCount[i]->x;
-            int y = constructionCount[i]->y;
-            if(!(world(x, y)->flags & FLAG_FIRE_COVER))
-            {   return(0);}
-        }
-    }
-    return(1);
+bool
+World::sust_fire_cover(void) {
+  for(Construction *cst : map.constructions) {
+    if(cst->isDead()) continue;
+    if(cst->flags & FLAG_IS_TRANSPORT)
+      continue;
+    unsigned short grp = cst->constructionGroup->group;
+    if(grp == GROUP_MONUMENT
+      || grp == GROUP_OREMINE
+      || grp == GROUP_ROCKET
+      || grp == GROUP_FIRE
+      || grp == GROUP_POWER_LINE
+    )
+      continue;
+    if(!(map(cst->point)->flags & FLAG_FIRE_COVER))
+      return false;
+  }
+  return true;
 }
 
 /** @file lincity/simulate.cpp */

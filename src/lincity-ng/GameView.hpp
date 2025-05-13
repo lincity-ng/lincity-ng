@@ -1,21 +1,25 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/GameView.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2024      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __GAMEVIEW_HPP__
 #define __GAMEVIEW_HPP__
 
@@ -23,16 +27,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <filesystem>             // for path
 #include <string>                 // for basic_string, string
 
-#include "MapPoint.hpp"           // for MapPoint
 #include "MiniMap.hpp"            // for MiniMap
 #include "gui/Component.hpp"      // for Component
 #include "gui/Vector2.hpp"        // for Vector2
+#include "lincity/MapPoint.hpp"   // for MapPoint
 #include "lincity/resources.hpp"  // for GraphicsInfo
 
 class Button;
+class Game;
 class Painter;
 class Rect2D;
 class Texture;
+class UserOperation;
+class World;
 class XmlReader;
 
 class GameView : public Component
@@ -84,6 +91,8 @@ public:
     //check if tile is in city
     bool inCity( MapPoint tile );
 
+    void setGame(Game *game) { this->game = game; }
+
     bool textures_ready;
     //bool economyGraph_open;
     int remaining_images;
@@ -110,8 +119,10 @@ private:
     //void preReadCityTexture(int textureType, const std::string& filename);
 
     float tileWidth, tileHeight, zoom;
-    //a virtual screen containing the whole city
-    float virtualScreenWidth, virtualScreenHeight;
+
+    Game *game = nullptr;
+    World& getWorld() const;
+    UserOperation *getUserOperation() const;
 
     enum {
         SCROLL_NONE = 0x0,
@@ -159,8 +170,6 @@ private:
     //       (I didn't bother to refactor the name.)
     MapPoint startRoad;
     bool areaBulldoze;
-    bool mpsEnvOnQuery;
-    void updateMps(int x, int y);
 
     static const float defaultTileWidth;
     static const float defaultTileHeight;
@@ -174,7 +183,7 @@ private:
     static const int overlayOnly = 2;
     static const int overlayMAX = 2;
 
-    void markTile( Painter& painter, const MapPoint &tile );
+    void markTile(Painter& painter, MapPoint tile);
 
     int cursorSize;
     bool buttonsConnected;
@@ -185,8 +194,6 @@ private:
     void setPanningCursor();
     void setDefaultCursor();
 };
-
-GameView* getGameView();
 
 Uint32 autoScroll( Uint32 interval, void *param );
 static const int scrollBorder = 5;

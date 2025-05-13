@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +22,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "blacksmith.h"
+#include "blacksmith.hpp"
 
-#include <list>                     // for _List_iterator
-#include <vector>                   // for vector
+#include <list>                   // for _List_iterator
+#include <string>                 // for basic_string
+#include <vector>                 // for vector
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"     // for Mps
+#include "lincity/MapPoint.hpp"   // for MapPoint
+#include "lincity/groups.hpp"       // for GROUP_BLACKSMITH
+#include "lincity/lin-city.hpp"     // for ANIM_THRESHOLD
+#include "lincity/resources.hpp"  // for ExtraFrame, ResourceGroup
+#include "lincity/world.hpp"        // for World, Map, MapTile
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_NAME,
@@ -43,8 +49,26 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
   GROUP_BLACKSMITH_RANGE
 );
 
-Construction *BlacksmithConstructionGroup::createConstruction() {
-  return new Blacksmith(this);
+Construction *BlacksmithConstructionGroup::createConstruction(World& world) {
+  return new Blacksmith(world, this);
+}
+
+Blacksmith::Blacksmith(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->anim = 0;
+  this->pauseCounter = 0;
+  this->busy = 0;
+  this->working_days = 0;
+  this->animate_enable = false;
+  this->goods_made = 0;
+  initialize_commodities();
+
+  commodityMaxProd[STUFF_GOODS] = 100 * GOODS_MADE_BY_BLACKSMITH;
+  commodityMaxCons[STUFF_COAL] = 100 * BLACKSMITH_COAL_USED;
+  commodityMaxCons[STUFF_STEEL] = 100 * BLACKSMITH_STEEL_USED;
+  commodityMaxCons[STUFF_LABOR] = 100 * BLACKSMITH_LABOR;
 }
 
 void Blacksmith::update()
@@ -64,7 +88,7 @@ void Blacksmith::update()
     working_days++;
     if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH) {
       animate_enable = true;
-      world(x,y)->pollution++;
+      world.map(point)->pollution++;
       goods_made = 0;
     }
   }
@@ -74,14 +98,14 @@ void Blacksmith::update()
   }
 
   //monthly update
-  if (total_time % 100 == 99) {
+  if (world.total_time % 100 == 99) {
     reset_prod_counters();
     busy = working_days;
     working_days = 0;
   }
 }
 
-void Blacksmith::animate() {
+void Blacksmith::animate(unsigned long real_time) {
   if(!animate_enable) {
     frameIt->frame = 0;
     anim = 0;
@@ -96,15 +120,10 @@ void Blacksmith::animate() {
   }
 }
 
-void Blacksmith::report()
-{
-  int i = 0;
-
-  mps_store_title(i++, constructionGroup->name);
-  i++;
-  mps_store_sfp(i++, N_("busy"), (float) busy);
-  // i++;
-    list_commodities(&i);
+void Blacksmith::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), (float)busy);
+  list_commodities(mps, production);
 }
 
 /** @file lincity/modules/blacksmith.cpp */

@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,11 +22,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "power_line.h"
+#include "power_line.hpp"
 
 #include <list>                     // for _List_iterator
+#include <string>                   // for basic_string
 
-#include "modules.h"
+#include "lincity-ng/Mps.hpp"       // for Mps
+#include "lincity/groups.hpp"         // for GROUP_POWER_LINE
+#include "lincity/lin-city.hpp"       // for ANIM_THRESHOLD, FALSE, FLAG_NEVER...
+#include "lincity/resources.hpp"    // for ExtraFrame
+#include "lincity/world.hpp"          // for World
+#include "tinygettext/gettext.hpp"  // for N_
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(
@@ -43,8 +49,22 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_RANGE
 );
 
-Construction *PowerlineConstructionGroup::createConstruction() {
-  return new Powerline(this);
+Construction *PowerlineConstructionGroup::createConstruction(World& world) {
+  return new Powerline(world, this);
+}
+
+Powerline::Powerline(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+  this->constructionGroup = cstgrp;
+  this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
+  this->anim_counter = 0;
+  this->anim = 0;
+  this->flashing = false;
+  initialize_commodities();
+  this->trafficCount = this->commodityCount;
+
+  commodityMaxCons[STUFF_HIVOLT] = 100 * 1;
 }
 
 void Powerline::update()
@@ -54,12 +74,12 @@ void Powerline::update()
         consumeStuff(STUFF_HIVOLT, 1);// loss on powerline
     }
 
-    if(total_time % 100 == 99) {
-        reset_prod_counters();
+    if(world.total_time % 100 == 99) {
+      reset_prod_counters();
     }
 }
 
-void Powerline::animate() {
+void Powerline::animate(unsigned long real_time) {
   switch(anim_counter) {
   case POWER_MODULUS - 2:
     if ( !(frameIt->frame >= 11) )
@@ -80,14 +100,10 @@ void Powerline::animate() {
   }
 }
 
-void Powerline::report()
-{
-    int i = 0;
-
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
-    // i++;
-    list_commodities(&i);
+void Powerline::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("usage"), trafficCount[STUFF_HIVOLT] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+  list_commodities(mps, production);
 }
 
 

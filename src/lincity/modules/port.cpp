@@ -5,7 +5,7 @@
  * Copyright (C) 1995-1997 I J Peters
  * Copyright (C) 1997-2005 Greg Sharp
  * Copyright (C) 2000-2004 Corey Keasling
- * Copyright (C) 2022-2024 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2022-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "port.h"
+#include "port.hpp"
 
-#include "modules.h"
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <string>                         // for basic_string, char_traits
+
+#include "lincity-ng/Mps.hpp"             // for Mps
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"               // for GROUP_PORT
+#include "lincity/lin-city.hpp"             // for FALSE, MAX_TECH_LEVEL
+#include "lincity/stats.hpp"                // for Stats
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "tinygettext/gettext.hpp"        // for N_
 
 // Port:
 PortConstructionGroup portConstructionGroup(
@@ -41,29 +52,98 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction() {
-  return new Port(this);
+Construction *PortConstructionGroup::createConstruction(World& world) {
+  return new Port(world, this);
+}
+
+bool
+PortConstructionGroup::can_build_here(const World& world, const MapPoint point,
+  Message::ptr& message
+) const {
+  if(!ConstructionGroup::can_build_here(world, point, message)) return false;
+
+  MapPoint east = point.e(size);
+  for(int j = 0; j < size; j++) {
+    if(!world.map(east.s(j))->is_river()) {
+      message = PortRequiresRiverMessage::create();
+      return false;
+    }
+  }
+
+  return true;
+}
+
+Port::Port(World& world, ConstructionGroup *cstgrp) :
+  Construction(world)
+{
+    this->constructionGroup = cstgrp;
+    this->daily_ic = 0; this->daily_et = 0;
+    this->monthly_ic = 0; this->monthly_et = 0;
+    this->lastm_ic = 0; this->lastm_et = 0;
+    this->pence = 0;
+    this->working_days = 0;
+    this->busy = 0;
+    this->tech_made = 0;
+    initialize_commodities();
+    //local copy of commodityRuleCount
+    commodityRuleCount = constructionGroup->commodityRuleCount;
+    //do not trade labor
+    // commodityRuleCount.erase (STUFF_LABOR);
+    commodityRuleCount[STUFF_LABOR] = (CommodityRule){
+      .maxload = 0,
+      .take = false,
+      .give = false
+    };
+    commodityRuleCount[STUFF_FOOD].take = false;
+    commodityRuleCount[STUFF_FOOD].give = false;
+    commodityRuleCount[STUFF_COAL].take = false;
+    commodityRuleCount[STUFF_COAL].give = false;
+    commodityRuleCount[STUFF_GOODS].take = false;
+    commodityRuleCount[STUFF_GOODS].give = false;
+    commodityRuleCount[STUFF_ORE].take = false;
+    commodityRuleCount[STUFF_ORE].give = false;
+    commodityRuleCount[STUFF_STEEL].take = false;
+    commodityRuleCount[STUFF_STEEL].give = false;
+
+    commodityMaxCons[STUFF_LABOR] = 100 * PORT_LABOR;
+    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
+        if(!commodityRuleCount[stuff].maxload) continue;
+        commodityMaxCons[stuff] = 100 * ((
+          portConstructionGroup.commodityRuleCount[stuff].maxload *
+          PORT_EXPORT_RATE) / 1000);
+        commodityMaxProd[stuff] = 100 * ((
+          portConstructionGroup.commodityRuleCount[stuff].maxload *
+          PORT_IMPORT_RATE) / 1000);
+    }
 }
 
 int Port::buy_stuff(Commodity stuff)
 //fills up a PORT_IMPORT_RATE fraction of the available capacity and returns the cost
 //amount to buy must exceed PORT_TRIGGER_RATE
 {
-    if(!portConstructionGroup.tradeRule[stuff].take)
+    if(!world.tradeRule[stuff].take)
         return 0;
     int i = portConstructionGroup.commodityRuleCount[stuff].maxload - commodityCount[stuff];
     i = (i * PORT_IMPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
     {   return 0;}
-    produceStuff(stuff, i);
-    return (i * portConstructionGroup.commodityRates[stuff]);
+    try {
+      int cost = i * portConstructionGroup.commodityRates[stuff];
+      // TODO: track fractional remainder
+      world.expense(cost * world.money_rates.import_cost / 100,
+        world.stats.expenses.import);
+      produceStuff(stuff, i);
+      return cost;
+    } catch(const OutOfMoneyMessage::Exception& ex) {
+      return 0;
+    }
 }
 
 int Port::sell_stuff(Commodity stuff)
 //sells a PORT_IMPORT_RATE fraction of the current load and returns the revenue
 //amount to sell must exceed PORT_TRIGGER_RATE
 {
-    if(!portConstructionGroup.tradeRule[stuff].give)
+    if(!world.tradeRule[stuff].give)
         return 0;
     int i = commodityCount[stuff];
     i = (i * PORT_EXPORT_RATE) / 1000;
@@ -99,20 +179,19 @@ void Port::update()
         if (daily_ic || daily_et)
         {
             consumeStuff(STUFF_LABOR, PORT_LABOR);
-            world(x,y)->pollution += PORT_POLLUTION;
-            sust_port_flag = 0;
+            world.map(point)->pollution += PORT_POLLUTION;
+            world.stats.sustainability.trade_flag = false;
             tech_made++;
-            tech_level++;
+            world.tech_level++;
             working_days++;
             if (daily_ic && daily_et)
-            {   tech_level++;}
+              world.tech_level++;
         }
     }
     monthly_ic += daily_ic;
     monthly_et += daily_et;
     //monthly update
-    if (total_time % 100 == 99)
-    {
+    if(world.total_time % 100 == 99) {
         reset_prod_counters();
         busy = working_days;
         working_days = 0;
@@ -123,30 +202,26 @@ void Port::update()
     }
 
     daily_et += pence;
-    export_tax += daily_et / 100;
+    world.taxable.trade_ex += daily_et / 100;
     pence = daily_et % 100;
-    import_cost += daily_ic;
 }
 
-void Port::report()
-{
-    int i = 0;
-    mps_store_title(i, constructionGroup->name);
-    mps_store_sfp(i++, N_("busy"), busy);
-    mps_store_sd(i++, N_("Export"),lastm_et/100);
-    mps_store_sd(i++, N_("Import"),lastm_ic/100);
-    mps_store_sfp(i++, N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
-    // i++;
-    list_commodities(&i);
+void Port::report(Mps& mps, bool production) const {
+  mps.add_s(constructionGroup->name);
+  mps.add_sfp(N_("busy"), busy);
+  mps.add_sd(N_("Export"),lastm_et/100);
+  mps.add_sd(N_("Import"),lastm_ic/100);
+  mps.add_sfp(N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
+  list_commodities(mps, production);
 }
 
-void Port::save(xmlTextWriterPtr xmlWriter) {
+void Port::save(xmlTextWriterPtr xmlWriter) const {
   xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
 
   const std::string givePfx("give_");
   const std::string takePfx("take_");
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
-    CommodityRule& rule = commodityRuleCount[stuff];
+    const CommodityRule& rule = commodityRuleCount[stuff];
     if(!rule.maxload) continue;
     const char *name = commodityStandardName(stuff);
     xmlStr giveName = (xmlStr)(givePfx + name).c_str();
@@ -158,7 +233,7 @@ void Port::save(xmlTextWriterPtr xmlWriter) {
   Construction::save(xmlWriter);
 }
 
-bool Port::loadMember(xmlpp::TextReader& xmlReader) {
+bool Port::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   bool give;
   Commodity stuff;
@@ -170,7 +245,7 @@ bool Port::loadMember(xmlpp::TextReader& xmlReader) {
     give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
   }
   else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
-  else return Construction::loadMember(xmlReader);
+  else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
 

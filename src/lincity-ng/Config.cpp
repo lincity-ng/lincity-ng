@@ -1,20 +1,24 @@
-/*
-Copyright (C) 2005 Wolfgang Becker <uafr@gmx.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* ---------------------------------------------------------------------- *
+ * src/lincity-ng/Config.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "Config.hpp"
 
@@ -32,9 +36,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>                      // for runtime_error
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
-#include "lincity/engglobs.h"             // for world
-#include "lincity/world.h"                // for World, WORLD_SIDE_LEN
-#include "lincity/xmlloadsave.h"          // for xmlStr, unexpectedXmlElement
+#include "lincity/world.hpp"                // for WORLD_SIDE_LEN
+#include "lincity/xmlloadsave.hpp"          // for xmlStr, unexpectedXmlElement
 
 
 static int parseInt(const std::string& value, int defaultValue,
@@ -52,7 +55,6 @@ Config::Config() {
   useFullScreen = true;
   videoX = 1024;
   videoY = 768;
-  restartOnChangeScreen = false;
 
   soundVolume = 100;
   musicVolume = 50;
@@ -64,12 +66,7 @@ Config::Config() {
   language = "autodetect";
   appDataDirIsDefault = false;
   userDataDirIsDefault = false;
-  // TODO: remove this. also see issue #225
-  world.len(WORLD_SIDE_LEN);
-  // TODO: Remove monthgraph size from config. Monthgraph size should be based
-  //       on available space in GUI.
-  monthgraphW = 190;
-  monthgraphH = 64;
+  worldSize = WORLD_SIDE_LEN;
 }
 
 Config::~Config() {}
@@ -123,8 +120,6 @@ void Config::load(std::filesystem::path configFile) {
           videoY = parseInt(xml_val, videoY, 480);
         else if(xml_tag == "fullscreen")
           useFullScreen = parseBool(xml_val, useFullScreen);
-        else if(xml_tag == "restartOnChangeScreen")
-          restartOnChangeScreen = parseBool(xml_val, restartOnChangeScreen);
         else
           unexpectedXmlElement(xmlReader);
 
@@ -171,14 +166,10 @@ void Config::load(std::filesystem::path configFile) {
 
         std::string xml_tag = xmlReader.get_name();
         std::string xml_val = xmlReader.read_inner_xml();
-        if(xml_tag == "monthgraphW")
-          monthgraphW = parseInt(xml_val, monthgraphW, 0);
-        else if(xml_tag == "monthgraphH")
-          monthgraphH = parseInt(xml_val, monthgraphH, 0);
-        else if(xml_tag == "language")
+        if(xml_tag == "language")
           language = xml_val;
         else if(xml_tag == "WorldSideLen")
-          world.len(parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000));
+          worldSize = parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000);
         else if(xml_tag == "carsEnabled")
           carsEnabled = parseBool(xml_val, carsEnabled);
         else if(xml_tag == "appDataDir")
@@ -237,9 +228,6 @@ Config::save(std::filesystem::path configFile) {
         useOpenGL?"yes":"no");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"fullscreen", "%s",
         useFullScreen?"yes":"no");
-      xmlTextWriterWriteFormatElement(xmlWriter,
-        (xmlStr)"restartOnChangeScreen", "%s",
-        restartOnChangeScreen?"yes":"no");
     xmlTextWriterEndElement(xmlWriter);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"audio");
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"soundEnabled", "%s",
@@ -257,7 +245,7 @@ Config::save(std::filesystem::path configFile) {
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"language", "%s",
         language.c_str());
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"WorldSideLen", "%d",
-        (world.len()<50)?50:world.len());
+        worldSize);
       xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"carsEnabled", "%s",
         carsEnabled?"yes":"no");
       if(!appDataDirIsDefault)
