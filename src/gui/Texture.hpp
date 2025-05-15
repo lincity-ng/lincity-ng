@@ -40,6 +40,11 @@ public:
 
   virtual int getWidth() const = 0;
   virtual int getHeight() const = 0;
+
+  enum class ScaleMode {
+    NEAREST, LINEAR, ANISOTROPIC
+  };
+  virtual void setScaleMode(ScaleMode mode) = 0;
 };
 
 #endif

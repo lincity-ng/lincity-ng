@@ -26,6 +26,7 @@
 #include <cassert>
 #include <cstddef>
 #include <stdexcept>
+#include <iostream>
 
 TextureSDL::TextureSDL(SDL_Texture *tx) : tx(tx) {
   assert(tx);
@@ -36,6 +37,32 @@ TextureSDL::TextureSDL(SDL_Texture *tx) : tx(tx) {
 
 TextureSDL::~TextureSDL() {
   SDL_DestroyTexture(tx);
+}
+
+void
+TextureSDL::setScaleMode(ScaleMode mode) {
+  SDL_ScaleMode sdlMode;
+  switch(mode) {
+  case ScaleMode::NEAREST:
+    sdlMode = SDL_ScaleModeNearest;
+    break;
+  case ScaleMode::LINEAR:
+    sdlMode = SDL_ScaleModeLinear;
+    break;
+  case ScaleMode::ANISOTROPIC:
+    sdlMode = SDL_ScaleModeBest;
+    break;
+  default:
+    std::cerr << "warning: scale mode not supported" << std::endl;
+    assert(false);
+    return;
+  }
+
+  if(SDL_SetTextureScaleMode(tx, sdlMode)) {
+    std::cerr << "warning: failed to set scale mode" << std::endl;
+    assert(false);
+    return;
+  }
 }
 
 /** @file gui/PainterSDL/TextureSDL.cpp */

@@ -38,6 +38,8 @@ public:
     return height;
   }
 
+  virtual void setScaleMode(ScaleMode mode) override;
+
 private:
   friend class PainterSDL;
   friend class TextureManagerSDL;

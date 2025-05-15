@@ -1271,25 +1271,21 @@ MapPoint GameView::realTile(MapPoint point) {
     return point;
 }
 
-void GameView::fetchTextures()
-{
-    std::map<std::string, ResourceGroup*>::iterator it;
-    for(it= ResourceGroup::resMap.begin(); it != ResourceGroup::resMap.end(); ++it)
-    {
-        for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i)
-        {
-            if( !it->second->graphicsInfoVector[i].texture)
-            {
-                if(it->second->graphicsInfoVector[i].image)
-                {
-                    it->second->graphicsInfoVector[i].texture = texture_manager->create( it->second->graphicsInfoVector[i].image );
-                    if (it->second->graphicsInfoVector[i].texture)
-                    {   it->second->graphicsInfoVector[i].image = 0;} //Image was erased by texture_manager->create.
-                    --remaining_images;
-                }
-            }
+void GameView::fetchTextures() {
+  std::map<std::string, ResourceGroup*>::iterator it;
+  for(it= ResourceGroup::resMap.begin(); it != ResourceGroup::resMap.end(); ++it) {
+    for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i) {
+      auto& gfx = it->second->graphicsInfoVector[i];
+      if(!gfx.texture && gfx.image) {
+        gfx.texture = texture_manager->create(gfx.image);
+        if(gfx.texture) { //Image was erased by texture_manager->create.
+          gfx.texture->setScaleMode(Texture::ScaleMode::NEAREST);
+          gfx.image = 0;
         }
+        --remaining_images;
+      }
     }
+  }
 }
 
 
@@ -1304,8 +1300,10 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
         if(graphicsInfo->image)
         {
             graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-            if ( graphicsInfo->texture)
-            {   graphicsInfo->image = 0;} //Image was erased by texture_manager->create.
+            if(graphicsInfo->texture) { //Image was erased by texture_manager->create.
+              graphicsInfo->texture->setScaleMode(Texture::ScaleMode::NEAREST);
+              graphicsInfo->image = 0;
+            }
             --remaining_images;
         }
     }
