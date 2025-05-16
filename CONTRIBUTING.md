@@ -1,9 +1,9 @@
 # Contributing to LinCity-NG
 
-In developing LinCity-NG, I hope that it may be a pleasure and a good
-experience for others. If You have enjoyed LinCity-NG , I encourage you to give
-back. There are many ways you can give back to Open Source even if you do not
-know how to program, and no way is lesser or greater than another.
+In developing LinCity-NG, my hope is it may be a pleasure and a good experience
+for others. If You enjoyed playing LinCity-NG, I encourage you to give back.
+There are many ways you can give back to Open Source even if you do not know how
+to program, and no way is lesser or greater than another.
 
 - You can [contribute code](#contributing-code) if you know how to program C++.
   You can add features, fix bugs, or just generally improve the code base.
@@ -37,7 +37,8 @@ know how to program, and no way is lesser or greater than another.
 
 The format of the LinCity-NG changelog is inspired by [keepachangelog.com](
 https://keepachangelog.com). Whenever you contribute meaningfully to the
-project, write changelog entry with a short summary of what you changed.
+project, write a changelog entry with a short summary of what you changed with
+respect to the most recent release.
 
 To avoid git merge conflicts from everyone modifying the same `CHANGELOG.md`
 file. Instead of directly adding to the changelog, you will write your entry in
@@ -48,12 +49,13 @@ merged, as part of routine maintenance, I will compile all the entries from the
 
 Changelog entries should be categorized into one of four sections:
 - **Gameplay** for changes affecting the game rules
-- **User Interface** for changes affecting look and feel or controls
-- **Internal** for implementation changes that may be invisible to the user
+- **User Interface** for changes affecting look-and-feel or controls
+- **Internal** for implementation changes are more or less invisible to the user
+  such as performance improvements.
 - **Documentation / Translation** for updates to documentation or translation
 
-Each entry should be written in past tense and preferably start with one of the
-following five keywords:
+Each entry should be written in complete sentences in the past tense and
+preferably start with one of the following five keywords:
 - **Fixed** for changes that fix previously broken behavior
 - **Added** for new features
 - **Removed** for now-removed features
@@ -78,7 +80,7 @@ entry.
 ### Singletons
 
 [Singletons are evil.](https://kentonshouse.com/singletons) At current, the
-code-base is [riddled with singletons](src/lincity/engglobs.cpp), and want to
+code-base is [riddled with singletons](src/lincity/engglobs.cpp), and I want to
 phase them out. So do me a favor and avoid adding more if possible.
 
 ### Formatting
@@ -132,7 +134,7 @@ configurations or platforms. For example, if you use a certain symbol only
 within a `#ifdef DEBUG` context, then IWYU may report extraneous `#include`s for
 release builds but not for debug builds. To prevent this, you are encouraged to
 look for IWYU warnings in all relevant build configurations. If you find a
-`#include` that is needed only fer certain build configurations, wrap it in a
+`#include` that is needed only for certain build configurations, wrap it in a
 `#ifdef` and place it below other `#include`s.
 
 ### Git
@@ -183,6 +185,53 @@ git merge A
 git checkout -B A
 git push origin A
 ```
+
+## Testing
+
+You can contribute to LinCity-NG by testing it and reporting issues you find.
+Here are some pointers for testing effectively:
+
+- Test the latest master branch or open PRs (not draft). It is generally
+  less useful to test older versions (e.g. the latest release) except to confirm
+  or deny whether an issue on master exists in the latest release.
+- Configure the build with the BetaTest build type. You select this by using
+  `-DCMAKE_BUILD_TYPE=BetaTest` at configure time. This will enable runtime
+  assertions so faults will be more obvious.
+- Run the game in gdb. This can help with reporting crashes.
+- When playing the game, make an effort to test a broad range of functionality.
+  For example, test multiple kinds of starting scenarios, change settings in the
+  options menu, build all types of constructions, etc. You can also test extreme
+  edge cases; for example, build 10,000 rivers, save and load the game many
+  times, try opening the help window when it's already open, use a small window
+  size or strange aspect ratio, etc. Try to break the game.
+- Report all kinds of issues that you find. This might be crashes, "buggy"
+  behavior, regressions, visual issues, poor performance, confusing
+  user-interface, incomplete documentation, or even feature ideas.
+- When you find an issue on master, report it to
+  https://github.com/lincity-ng/lincity-ng/issues. If you find an issue in a
+  pull request that does not exist on master, then comment in the PR discussion
+  thread. When opening the issue, include your LinCity-NG version and your
+  platform/operating system. To avoid duplicate issues, search the issues list (including closed issues) to find whether your issue
+  has already been reported; if so, then you may be able to provide additional
+  details to the existing issue.
+
+#### Checklist for reporting an issue:
+
+- Search the
+  [issues list](https://github.com/lincity-ng/lincity-ng/issues?q=is%3Aissue%20)
+  (including closed issues), to see if someone has already reported it.
+  - If it is already reported, you may be able to provide additional details,
+    confirm the issue affects multiple people, and/or confirm the issue still
+    exists.
+  - If it is not already reported, open a
+    [new issue](https://github.com/lincity-ng/lincity-ng/issues/new).
+- In the report, please include your LinCity-NG version, your platform/OS, and
+  an explanation of the issue.
+- For crashes, include what you did (or tried to do) that seemed to cause the
+  crash, any console output related to the crash (especially warnings/errors),
+  and a backtrace if available. (You can get a backtrace by running the game in
+  gdb; when the game crashes, run the `bt` gdb command.)
+- Include screenshots if/where applicable.
 
 
 ## Contributing Translation
