@@ -64,9 +64,9 @@ public:
 
   void updateScreen() override;
 
-  void translate(Vector2 tl);
-  void pushTransform();
-  void popTransform();
+  void translate(Vector2 tl) override;
+  void pushTransform() override;
+  void popTransform() override;
 
   void pushClipRect(const Rect2D& region) override;
   void popClipRect() override;
