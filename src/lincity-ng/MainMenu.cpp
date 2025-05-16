@@ -935,6 +935,8 @@ MainMenu::launchGame() {
   game->run();
   state = State::MENU;
   switchMenu(mainMenu);
+  DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
+    menu->findComponent("windowManager")));
 }
 
 /** @file lincity-ng/MainMenu.cpp */
