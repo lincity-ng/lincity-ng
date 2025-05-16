@@ -27,11 +27,12 @@
 
 #include <array>                    // for array
 #include <list>                     // for list
+#include <string>                   // for string
 
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/groups.hpp"         // for GROUP_RAIL, GROUP_RAIL_BRIDGE
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/transport.hpp"      // for MAX_COAL_ON_RAIL, MAX_COAL_ON_ROAD
+#include "lincity/groups.hpp"       // for GROUP_RAIL, GROUP_RAIL_BRIDGE
+#include "lincity/lintypes.hpp"     // for ConstructionGroup, Construction
+#include "lincity/transport.hpp"    // for MAX_COAL_ON_RAIL, MAX_COAL_ON_ROAD
 
 class Mps;
 class World;
@@ -40,17 +41,17 @@ struct ExtraFrame;
 class TransportConstructionGroup: public ConstructionGroup {
 public:
     TransportConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range
-    )
-    {
+        name, name_plural, no_credit, group, size, colour, cost_mul, bul_cost,
+        fire_chance,   cost, tech, range
+    ) {
         switch (group)
         {
             case GROUP_TRACK:

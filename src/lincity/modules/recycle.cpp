@@ -39,7 +39,8 @@
 #include "tinygettext/gettext.hpp"        // for N_
 
 RecycleConstructionGroup recycleConstructionGroup(
-    N_("Recycling Centre"),
+    N_("Recycling Center"),
+    N_("Recycling Centers"),
     FALSE,                     /* need credit? */
     GROUP_RECYCLE,
     GROUP_RECYCLE_SIZE,

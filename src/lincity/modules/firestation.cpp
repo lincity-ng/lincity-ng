@@ -46,6 +46,7 @@
 // FireStation:
 FireStationConstructionGroup fireStationConstructionGroup(
     N_("Fire Station"),
+    N_("Fire Stations"),
     FALSE,                     /* need credit? */
     GROUP_FIRESTATION,
     GROUP_FIRESTATION_SIZE,

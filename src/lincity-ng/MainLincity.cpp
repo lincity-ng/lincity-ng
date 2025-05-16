@@ -28,6 +28,8 @@
 #include <iostream>                       // for char_traits, basic_ostream
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, operator+
+#include <fmt/format.h>
+#include <fmt/std.h>  // IWYU pragma: keep
 
 #include "TimerInterface.hpp"             // for reset_start_time
 #include "gui/DialogBuilder.hpp"          // for DialogBuilder
@@ -35,6 +37,7 @@
 #include "lincity/lin-city.hpp"             // for SIM_DELAY_SLOW
 #include "lincity/modules/all_modules.hpp"  // for initializeModules
 #include "lincity/world.hpp"                // for World
+#include "tinygettext/gettext.hpp"
 
 extern void init_types(void);
 extern void initFactories(void);
@@ -74,10 +77,9 @@ std::unique_ptr<World> loadCityNG(const std::filesystem::path& filename) {
     std::cerr << "error: failed to load game from " << filename
       << ": " << err.what() << std::endl;
     DialogBuilder()
-      .titleText("Error!")
-      .messageAddTextBold("Error: Failed to load game.")
-      .messageAddText(std::string("Could not load '") + filename.string() +
-        "'.")
+      .titleText(_("Error"))
+      .messageAddTextBold(_("Error: Failed to load game."))
+      .messageAddText(fmt::format(_("Could not load {}."), filename))
       .messageAddText(err.what())
       .imageFile("images/gui/dialogs/error.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)

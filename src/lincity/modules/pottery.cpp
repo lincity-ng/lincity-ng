@@ -38,6 +38,7 @@
 
 PotteryConstructionGroup potteryConstructionGroup(
     N_("Pottery"),
+    N_("Potteries"),
     FALSE,                     /* need credit? */
     GROUP_POTTERY,
     GROUP_POTTERY_SIZE,

@@ -36,6 +36,7 @@
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
      N_("Park"),
+     N_("Parks"),
      TRUE,                     /* need credit? */
      GROUP_PARKLAND,
      GROUP_PARKLAND_SIZE,
@@ -50,6 +51,7 @@ ParklandConstructionGroup parklandConstructionGroup(
 
 ParklandConstructionGroup parkpondConstructionGroup(
      N_("Park (Pond)"),
+     N_("Parks (Pond)"),
      TRUE,                     /* need credit? */
      GROUP_PARKPOND,
      GROUP_PARKLAND_SIZE,
