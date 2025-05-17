@@ -1,314 +1,297 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+/* ---------------------------------------------------------------------- *
+ * src/gui/PainterSDL/PainterSDL.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #include "PainterSDL.hpp"
 
-#include <SDL.h>                 // for Sint16, SDL_Rect, SDL_CreateTextureF...
-#include <SDL2_gfxPrimitives.h>  // for aalineRGBA, aapolygonRGBA, boxRGBA
-#include <SDL2_rotozoom.h>       // for zoomSurface, SMOOTHING_OFF
-#include <cassert>               // for assert
-#include <stdlib.h>              // for NULL
-#include <cmath>                 // for lroundf, lrint
+#include <SDL.h>           // for SDL_GetError, SDL_SetRenderDrawColor, SDL_...
+#include <algorithm>       // for max, min
+#include <cassert>         // for assert
+#include <cmath>           // for lround
+#include <cstdlib>         // for NULL
+#include <memory>          // for unique_ptr
+#include <stdexcept>       // for runtime_error
+#include <string>          // for basic_string, operator+, string
 
-#include "../Vector2.hpp"        // for Vector2
-#include "Color.hpp"             // for Color
-#include "Rect2D.hpp"            // for Rect2D
-#include "Texture.hpp"           // for Texture
-#include "TextureSDL.hpp"        // for TextureSDL
+#include "Color.hpp"       // for Color
+#include "Rect2D.hpp"      // for Rect2D
+#include "Texture.hpp"     // for Texture
+#include "TextureSDL.hpp"  // for TextureSDL
+#include "Vector2.hpp"     // for Vector2
 
 #ifndef NDEBUG
-#include <typeinfo>              // for type_info
+#include <typeinfo>        // for type_info
 #endif
 
-#ifdef _MSC_VER
-#define lrint(x) (long int)x
-#define lroundf(x) (long int)(x + .5)
-#endif
+#define HANDLE_ERR(SDL_CALL) do { \
+  if(SDL_CALL) \
+    throw std::runtime_error(std::string(#SDL_CALL": ") + SDL_GetError()); \
+} while(0)
 
-PainterSDL::PainterSDL(SDL_Renderer* _renderer)
-    : target(NULL), renderer(_renderer)
+PainterSDL::PainterSDL(SDL_Renderer* _renderer) :
+  renderer(_renderer)
 {
+  cliprectStack.push_back(CR_NONE);
+  HANDLE_ERR(SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND));
 }
 
-PainterSDL::PainterSDL(TextureSDL* texture)
-    : target(texture->surface)
-{
-    renderer = SDL_CreateSoftwareRenderer(target);
-}
-
-PainterSDL::~PainterSDL()
-{
-    if (target) {
-        SDL_DestroyRenderer(renderer);
-    }
-}
-
-//ERM  this function seems to account for SOME of the slowdown
-//This function draw a tile with zoom = 1
-//i.e. with no transformation, so it is as fast as possible
-void
-PainterSDL::drawTexture(const Texture* texture, const Vector2& pos)
-{
-    assert(typeid(*texture) == typeid(TextureSDL));
-    const TextureSDL* textureSDL = static_cast<const TextureSDL*> (texture);
-
-#ifdef DEBUG_ALL
-    if(texture == 0) {
-        std::cerr << "Trying to render 0 texture.";
-        assert(false);
-        return;
-    }
-#endif
-
-    Vector2 screenpos = transform.apply(pos);
-
-    SDL_Rect drect;
-    drect.x = lrint(screenpos.x);
-    drect.y = lrint(screenpos.y);
-    drect.w = texture->getWidth();
-    drect.h = texture->getHeight();
-
-    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, textureSDL->surface);
-    SDL_RenderCopy(renderer, tex, NULL, &drect);
-    SDL_DestroyTexture(tex);
-}
-
-//RectIntersection checks to see if two SDL_Rects intersect each other
-//  This is actually stolen from SDL code (SDL_HasIntersection function in SDL_rect.c),
-//  but I think that's a very recent addition which is not accessible here.
-bool RectIntersection(const SDL_Rect * A, const SDL_Rect * B)
-{
-    int Amin, Amax, Bmin, Bmax;
-
-    // Horizontal intersection
-    Amin = A->x;
-    Amax = Amin + A->w;
-    Bmin = B->x;
-    Bmax = Bmin + B->w;
-    if (Bmin > Amin)
-        Amin = Bmin;
-    if (Bmax < Amax)
-        Amax = Bmax;
-    if (Amax <= Amin)
-        return false;
-
-    // Vertical intersection
-    Amin = A->y;
-    Amax = Amin + A->h;
-    Bmin = B->y;
-    Bmax = Bmin + B->h;
-    if (Bmin > Amin)
-        Amin = Bmin;
-    if (Bmax < Amax)
-        Amax = Bmax;
-    if (Amax <= Amin)
-        return false;
-
-    return true;
-}
-
-//ERM  this function seems to account for MOST of the slowdown
-//AL1  this function is twice as slow as drawTexture
-void
-PainterSDL::drawStretchTexture(Texture* texture, const Rect2D& rect)
-{
-    assert(typeid(*texture) == typeid(TextureSDL));
-    TextureSDL* textureSDL = static_cast< TextureSDL*> (texture);
-
-#ifdef DEBUG_ALL
-    if(texture == 0 || texture->getWidth() == 0 || texture->getHeight() == 0) {
-        std::cerr << "Trying to render 0 texture.";
-        assert(false);
-        return;
-    }
-#endif
-
-    Vector2 screenpos = transform.apply(rect.p1);
-
-    SDL_Rect drect, cliprect;
-    drect.x = lroundf(screenpos.x);
-    drect.y = lroundf(screenpos.y);
-    // kinda hacky... but zoomSurface sometimes produces 1 pixel too small
-    // images
-    drect.w = lroundf(rect.getWidth()) /*+ 1*/;
-    drect.h = lroundf(rect.getHeight()) /*+ 1*/;
-
-    SDL_RenderGetClipRect(renderer, &cliprect);  //get the current cliprect for the target
-    //This intersection test would not normally be necessary since SDL_BlitSurface
-    //  will only blit to the cliprect and skip others.
-    //  The problem here is that we are zooming all surfaces before blitting, so
-    //  even the clipped rects get zoomed.
-    //  So, the solution is to do the clipping ourselves so that we don't zoom
-    //  surfaces ultimately destined to be clipped.
-    if(cliprect.w && cliprect.h && !RectIntersection(&drect, &cliprect))
-        return;
-
-    double zoomx = drect.w / textureSDL->getWidth();
-    double zoomy = drect.h / textureSDL->getHeight();
-
-    //This code caches zoomed surfaces so that they do not need to be zoomed each blit
-    if(textureSDL->zoomSurface == NULL || zoomx != textureSDL->zoomx || zoomy != textureSDL->zoomy)
-    {
-        textureSDL->setZoomSurface(zoomSurface(textureSDL->surface, zoomx, zoomy, SMOOTHING_OFF), zoomx, zoomy);
-    }
-
-    // note: textures should be cached per zoom/renderer/surface combination
-    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, textureSDL->zoomSurface);
-    SDL_RenderCopy(renderer, tex, NULL, &drect);
-    SDL_DestroyTexture(tex);
-
-/*
-    //This was the original code that would zoom a surface, blit it, and then free it.
-    SDL_Surface *tmp;
-    tmp = zoomSurface(textureSDL->surface, zoomx, zoomy, SMOOTHING_OFF);
-    SDL_BlitSurface(tmp, 0, target, &drect);
-    SDL_FreeSurface(tmp);
-*/
-}
-
+PainterSDL::~PainterSDL() { }
 
 void
-PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
-{
-    Vector2 screenpos;
-    Sint16* vx = new Sint16[numberPoints];
-    Sint16* vy = new Sint16[numberPoints];
-    for(int i = 0; i < numberPoints; i++ ) {
-         screenpos = transform.apply( points[ i ] );
-         vx[ i ] = (int) screenpos.x;
-         vy[ i ] = (int) screenpos.y;
-    }
-    filledPolygonRGBA( renderer, vx, vy, numberPoints,
-            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
-    delete[] vx;
-    delete[] vy;
+PainterSDL::drawTexture(const Texture *texture, Vector2 pos) {
+  Vector2 size((float)texture->getWidth(), (float)texture->getHeight());
+  drawStretchTexture(texture, Rect2D(pos, pos + size));
 }
 
 void
-PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
-{
-    Vector2 screenpos;
-    Sint16* vx = new Sint16[numberPoints];
-    Sint16* vy = new Sint16[numberPoints];
-    for(int i = 0; i < numberPoints; i++ ) {
-         screenpos = transform.apply( points[ i ] );
-         vx[ i ] = (int) screenpos.x;
-         vy[ i ] = (int) screenpos.y;
-    }
-    aapolygonRGBA( renderer, vx, vy, numberPoints,
-            lineColor.r, lineColor.g, lineColor.b, lineColor.a);
-    delete[] vx;
-    delete[] vy;
+PainterSDL::drawStretchTexture(const Texture *texture, const Rect2D& rect) {
+  assert(texture);
+  assert(typeid(*texture) == typeid(TextureSDL));
+  const TextureSDL *textureSDL = static_cast<const TextureSDL *>(texture);
+
+  Vector2 screenpos = transform.apply(rect.p1);
+  SDL_FRect drect = {
+    .x = screenpos.x,
+    .y = screenpos.y,
+    .w = rect.getWidth(),
+    .h = rect.getHeight(),
+  };
+
+  HANDLE_ERR(SDL_RenderCopyF(renderer, textureSDL->tx, NULL, &drect));
+}
+
+/**
+ * Note: This function assumes the polygon is convex.
+**/
+void
+PainterSDL::fillPolygon(int numberPoints, const Vector2* points) {
+  assert(numberPoints >= 3);
+
+  SDL_Color color = (SDL_Color)
+    {.r = fillColor.r, .g = fillColor.g, .b = fillColor.b, .a = fillColor.a};
+
+  float *xy = new float[numberPoints * 2];
+  for(int i = 0; i < numberPoints; i++) {
+    Vector2 p = transform.apply(points[i]);
+    xy[i * 2 + 0] = p.x;
+    xy[i * 2 + 1] = p.y;
+  }
+
+  int *indices = new int[(numberPoints - 2) * 3];
+  indices[0] = 0;
+  indices[1] = 1;
+  indices[2] = numberPoints - 1;
+  for(int i = 3; i < (numberPoints - 2) * 3; i += 3) {
+    indices[i + 0] = indices[i - 2];
+    indices[i + 1] = indices[i - 1];
+    indices[i + 2] = indices[i - 2] + (i << 1 & 2) - 1;
+  }
+
+  HANDLE_ERR(SDL_RenderGeometryRaw(renderer, NULL,
+    xy, sizeof(float) * 2, &color, 0, NULL, 0, numberPoints,
+    indices, (numberPoints - 2) * 3, 4));
+
+  delete[] xy;
+  delete[] indices;
 }
 
 void
-PainterSDL::drawLine( const Vector2 pointA, const Vector2 pointB )
-{
-    Vector2 screenpos = transform.apply( pointA );
-    Vector2 screenpos2 = transform.apply( pointB );
-    aalineRGBA( renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-      lineColor.r, lineColor.g, lineColor.b, lineColor.a);
-
-
+PainterSDL::drawPolygon(int numberPoints, const Vector2* points) {
+  SDL_FPoint *screenPoints = new SDL_FPoint[numberPoints + 1];
+  for(int i = 0; i < numberPoints; i++) {
+    Vector2 p = transform.apply(points[i]);
+    screenPoints[i] = (SDL_FPoint){.x = p.x, .y = p.y};
+  }
+  screenPoints[numberPoints] = screenPoints[0]; // close the polygon
+  HANDLE_ERR(SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a));
+  HANDLE_ERR(SDL_RenderDrawLinesF(renderer, screenPoints, numberPoints + 1));
+  delete[] screenPoints;
 }
 
 void
-PainterSDL::fillRectangle(const Rect2D& rect)
-{
-    Vector2 screenpos = transform.apply(rect.p1);
-    Vector2 screenpos2 = transform.apply(rect.p2);
-    boxRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+PainterSDL::drawLine(Vector2 pointA, Vector2 pointB) {
+  Vector2 screenposA = transform.apply(pointA);
+  Vector2 screenposB = transform.apply(pointB);
+  HANDLE_ERR(SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a));
+  HANDLE_ERR(SDL_RenderDrawLineF(renderer,
+    screenposA.x, screenposA.y, screenposB.x, screenposB.y));
 }
 
 void
-PainterSDL::drawRectangle(const Rect2D& rect)
-{
-    Vector2 screenpos = transform.apply(rect.p1);
-    Vector2 screenpos2 = transform.apply(rect.p2);
-    rectangleRGBA(renderer, (int) screenpos.x, (int) screenpos.y,
-            (int) screenpos2.x, (int) screenpos2.y,
-            lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+PainterSDL::fillRectangle(const Rect2D& rect) {
+  Vector2 screenpos = transform.apply(rect.p1);
+  SDL_FRect screenRect = {
+    .x = screenpos.x,
+    .y = screenpos.y,
+    .w = rect.getWidth(),
+    .h = rect.getHeight(),
+  };
+  HANDLE_ERR(SDL_SetRenderDrawColor(renderer,
+    fillColor.r, fillColor.g, fillColor.b, fillColor.a));
+  HANDLE_ERR(SDL_RenderFillRectF(renderer, &screenRect));
 }
 
 void
-PainterSDL::setFillColor(Color color)
-{
-    fillColor = color;
+PainterSDL::drawRectangle(const Rect2D& rect) {
+  Vector2 screenpos = transform.apply(rect.p1);
+  SDL_FRect screenRect = {
+    .x = screenpos.x,
+    .y = screenpos.y,
+    .w = rect.getWidth(),
+    .h = rect.getHeight(),
+  };
+  HANDLE_ERR(SDL_SetRenderDrawColor(renderer,
+    lineColor.r, lineColor.g, lineColor.b, lineColor.a));
+  HANDLE_ERR(SDL_RenderDrawRectF(renderer, &screenRect));
 }
 
 void
-PainterSDL::setLineColor(Color color)
-{
-    lineColor = color;
+PainterSDL::clear() {
+  HANDLE_ERR(SDL_SetRenderDrawColor(renderer,
+    fillColor.r, fillColor.g, fillColor.b, fillColor.a));
+  HANDLE_ERR(SDL_RenderClear(renderer));
 }
 
 void
-PainterSDL::translate(const Vector2& vec)
-{
-    transform.translation -= vec;
+PainterSDL::setFillColor(Color color) {
+  fillColor = color;
 }
 
 void
-PainterSDL::pushTransform()
-{
-    transformStack.push_back(transform);
+PainterSDL::setLineColor(Color color) {
+  lineColor = color;
 }
 
 void
-PainterSDL::popTransform()
-{
-    transform = transformStack.back();
-    transformStack.pop_back();
+PainterSDL::updateScreen() {
+  SDL_RenderPresent(renderer);
 }
 
 void
-PainterSDL::setClipRectangle(const Rect2D& rect)
-{
-    Vector2 screenpos = transform.apply(rect.p1);
-    SDL_Rect cliprect;
-    cliprect.x = (int) screenpos.x;
-    cliprect.y = (int) screenpos.y;
-    cliprect.w = (int) rect.getWidth();
-    cliprect.h = (int) rect.getHeight();
-    SDL_RenderSetClipRect(renderer, &cliprect);
+PainterSDL::translate(Vector2 tl) {
+  transform.translation -= tl;
 }
 
 void
-PainterSDL::clearClipRectangle()
-{
-    SDL_RenderSetClipRect(renderer, NULL);
-}
-
-Painter*
-PainterSDL::createTexturePainter(Texture* texture)
-{
-    assert(typeid(*texture) == typeid(TextureSDL));
-    TextureSDL* textureSDL = static_cast<TextureSDL*> (texture);
-
-    return new PainterSDL(textureSDL);
+PainterSDL::pushTransform() {
+  transformStack.push_back(transform);
 }
 
 void
-PainterSDL::updateScreen()
-{
-    SDL_RenderPresent(renderer);
+PainterSDL::popTransform() {
+  transform = transformStack.back();
+  transformStack.pop_back();
+}
+
+void
+PainterSDL::pushClipRect(const Rect2D& clipRect) {
+  Rect2D newcr(
+    transform.apply(clipRect.p1),
+    transform.apply(clipRect.p2)
+  );
+  const Rect2D& oldcr = cliprectStack.back();
+  if(oldcr != CR_NONE) {
+    newcr = Rect2D(
+      std::max(newcr.p1.x, oldcr.p1.x),
+      std::max(newcr.p1.y, oldcr.p1.y),
+      std::min(newcr.p2.x, oldcr.p2.x),
+      std::min(newcr.p2.y, oldcr.p2.y)
+    );
+  }
+  cliprectStack.push_back(newcr);
+  updateClipRect();
+}
+
+void
+PainterSDL::popClipRect() {
+  cliprectStack.pop_back();
+  updateClipRect();
+}
+
+void
+PainterSDL::updateClipRect() {
+  if(cliprectStack.back() == CR_NONE) {
+    HANDLE_ERR(SDL_RenderSetClipRect(renderer, NULL));
+  }
+  else {
+    SDL_Rect clip = {
+      .x = (int)lround(cliprectStack.back().p1.x),
+      .y = (int)lround(cliprectStack.back().p1.y),
+      .w = (int)lround(cliprectStack.back().p2.x),
+      .h = (int)lround(cliprectStack.back().p2.y),
+    };
+    clip.w -= clip.x;
+    clip.h -= clip.y;
+    HANDLE_ERR(SDL_RenderSetClipRect(renderer, &clip));
+  }
+}
+
+std::unique_ptr<Texture>
+PainterSDL::createTargetTexture(int width, int height) {
+  SDL_Texture *texture = SDL_CreateTexture(renderer,
+    SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, width, height);
+  HANDLE_ERR(!texture);
+  HANDLE_ERR(SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND));
+  return std::unique_ptr<Texture>(new TextureSDL(texture));
+}
+
+void
+PainterSDL::pushRenderTarget(Texture *target) {
+  TextureSDL *t = dynamic_cast<TextureSDL *>(target);
+  assert(t);
+  #ifndef NDEBUG
+  {
+    int tflags;
+    HANDLE_ERR(SDL_QueryTexture(t->tx, NULL, &tflags, NULL, NULL));
+    assert(tflags == SDL_TEXTUREACCESS_TARGET);
+  }
+  {
+    SDL_RendererInfo rinfo;
+    HANDLE_ERR(SDL_GetRendererInfo(renderer, &rinfo));
+    assert(rinfo.flags & SDL_RENDERER_TARGETTEXTURE);
+  }
+  #endif
+  targetStack.push_back(t);
+  HANDLE_ERR(SDL_SetRenderTarget(renderer, t->tx));
+
+  cliprectStack.push_back(CR_NONE);
+  HANDLE_ERR(SDL_RenderSetClipRect(renderer, NULL));
+
+  transformStack.push_back(transform);
+  transform = Transform();
+}
+
+void
+PainterSDL::popRenderTarget() {
+  targetStack.pop_back();
+  HANDLE_ERR(SDL_SetRenderTarget(renderer,
+    targetStack.empty() ? NULL : targetStack.back()->tx));
+
+  cliprectStack.pop_back();
+  updateClipRect();
+
+  transform = transformStack.back();
+  transformStack.pop_back();
 }
 
 

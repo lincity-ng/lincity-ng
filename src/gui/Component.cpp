@@ -59,7 +59,7 @@ Component::drawChild(Child& child, Painter& painter)
     assert(child.getComponent() != 0);
 
     if(child.useClipRect) {
-        painter.setClipRectangle(child.clipRect);
+        painter.pushClipRect(child.clipRect);
     }
     if(child.position != Vector2(0, 0)) {
         painter.pushTransform();
@@ -70,7 +70,7 @@ Component::drawChild(Child& child, Painter& painter)
         painter.popTransform();
     }
     if(child.useClipRect) {
-        painter.clearClipRectangle();
+        painter.popClipRect();
     }
 }
 
