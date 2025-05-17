@@ -49,7 +49,7 @@ find_package(SDL2 2.0.18 REQUIRED)
 find_package(SDL2_image 2.0.0 REQUIRED)
 find_package(SDL2_mixer 2.0.0 REQUIRED)
 find_package(SDL2_ttf 2.0.12 REQUIRED)
-find_package(LibXml2 2.6.11 REQUIRED)
+find_package(LibXml2 REQUIRED) # requires >=2.6.11
 # Prevent linking unneded libraries from LibXml2. see https://gitlab.gnome.org/GNOME/libxml2/-/issues/918
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 
