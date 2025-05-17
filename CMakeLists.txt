@@ -50,7 +50,7 @@ find_package(SDL2_image 2.0.0 REQUIRED)
 find_package(SDL2_mixer 2.0.0 REQUIRED)
 find_package(SDL2_ttf 2.0.12 REQUIRED)
 find_package(LibXml2 2.6.11 REQUIRED)
-# Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
+# Prevent linking unneded libraries from LibXml2. see https://gitlab.gnome.org/GNOME/libxml2/-/issues/918
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 
 # seems libxml++ doesn't have a find module, but it provides a pkg-config
