@@ -2,7 +2,8 @@
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Residential area</p>
-	<p style="hp">This is where people live. To encourage people to live in this area they must have water and food. It also helps to provide them workplaces, electricity and goods. They must be connected to transport. Beeing in range of a market is benefitial. Sports fields increase desirability. Keep your people away from pollution</p>
+	<p style="hp">This is where people live. To encourage people to live in this area they must have water and food. It also helps to provide them workplaces, electricity and goods. They must be connected to transport. Being in range of a market is beneficial. Sports fields increase desirability. Keep your people away from pollution</p>
+	<p style="hp">If residents have insufficient food or water or the area is very polluted, then they will die. When residents are dying, the residence is given a very low desirability score, so people are discouraged from moving in, and people may even move out.</p>
 	<p style="hp">There are 3 different types of residential areas: Low, Medium and High density housing. These have different birth and death rates associated with them. This gives you some control over your population. Health centers also affect birth and death rates.</p>
 	<p style="hp">Later in the game, if you have sufficient technology, you can build more 'modern' housing, even tower blocks.</p>
 

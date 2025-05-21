@@ -250,10 +250,10 @@ Config::save(std::filesystem::path configFile) {
         carsEnabled?"yes":"no");
       if(!appDataDirIsDefault)
         xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"appDataDir", "%s",
-          appDataDir.c_str());
+          appDataDir.string().c_str());
       if(!userDataDirIsDefault)
         xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"userDataDir", "%s",
-          userDataDir.c_str());
+          userDataDir.string().c_str());
     xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndDocument(xmlWriter);

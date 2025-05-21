@@ -68,7 +68,7 @@ Organic_farm::Organic_farm(World& world, ConstructionGroup *cstgrp) :
   this->month_stagger = rand() % 100;
   this->food_this_month = 0;
   this->food_last_month = 0;
-  //this->max_foodprod = 0;
+  this->max_foodprod = 0;
   initialize_commodities();
 
   commodityMaxCons[STUFF_WASTE] = 100 * ORG_FARM_WASTE_GET;

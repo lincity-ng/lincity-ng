@@ -75,14 +75,18 @@ for a different version than what you are building can cause build failures.
 
   https://gitlab.gnome.org/GNOME/libxslt
 
-* gettext (optional)
-
-  https://www.gnu.org/software/gettext/
-
 * Header files for all [run dependencies](#run-dependencies)
 
   If you use packages from your distribution, header files are often in separate
   `*-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
+
+* Include What You Use (optional)
+
+  https://include-what-you-use.org/
+
+* gettext (optional)
+
+  https://www.gnu.org/software/gettext/
 
 ### Building
 
@@ -90,9 +94,9 @@ To clone, configure, build, and install:
 ```
 git clone https://github.com/lincity-ng/lincity-ng.git
 cd lincity-ng
-cmake -B build                  # configure
-cmake --build build --parallel  # build
-sudo cmake --install build      # install
+cmake -B build -DCMAKE_BUILD_TYPE=Release  # configure
+cmake --build build --parallel             # build
+sudo cmake --install build                 # install
 ```
 
 To create a package:
@@ -100,6 +104,37 @@ To create a package:
 cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install path>
 cmake --build build --parallel --target package
 ```
+
+#### CMAKE_BUILD_TYPE
+The `-DCMAKE_BUILD_TYPE=<build-type>` option at configure time selects which
+debug features and optimization level to use. Values are case-insensitive.
+
+Allowed values are:
+- `Release`: This is for regular users or anyone not interested in debugging.
+  This enables the highest optimization level (-O3), and disables all features
+  that are only for development and/or testing. This is the default.
+- `MinSizeRel`: This tries to make the binary as small as possible.
+  It is the same as `Release` except the -Os optimization level is used.
+- `RelWithDebInfo`: This is for debugging issues in the `Release` build type
+  that may not be present with lower optimization levels. It is also useful for
+  running performance analysis. It is the same as `Release` except debug symbols
+  are included in the binary and compile-time warnings are enabled.
+- `BetaTest`: This is for beta-testing.
+  This enables the highest optimization level (-O3), includes debug symbols in
+  the binary, and enables runtime assertions. Use this only if you intend to
+  report issues that you find. The runtime assertions will cause the game
+  to crash when they fail, so this is just unnecessary inconvenience if you
+  don't report the failed assertion anyway.
+- `Debug`: This is for general development.
+  This enables the lowest optimization level (-O0) and all development and testing
+  features. This includes debug symbols, runtime-assertions, and debug logging
+  to the console. The low optimization level is used to shorten build times as
+  much as possible
+- `DebugOpt`: This is for development when a faster binary is useful.
+  This is the same as `Debug` except the -O2 optimization level is used.
+- Specifying any other build type not listed above will prevent
+  per-configuration build flags from being used. This may be useful when
+  supplying flags via `CMAKE_<LANG>_FLAGS`.
 
 ### Running
 
