@@ -175,7 +175,8 @@ public:
 class ConstructionGroup {
 public:
     ConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         bool no_credit,
         unsigned short group,
         unsigned short size, int colour,
@@ -183,6 +184,7 @@ public:
         int cost, int tech, int range
     ) {
         this->name = name;
+        this->name_plural = name_plural;
         this->no_credit = no_credit;
         this->group = group;
         this->size = size;
@@ -229,9 +231,10 @@ public:
 
     std::string getName(void) const;
 
-    std::string resourceID;           /* name for matching resources from XML*/
-    std::string name;           /* inGame name of group */
-    bool no_credit;   /* TRUE if need credit to build */
+    std::string resourceID;     /* name for matching resources from XML*/
+    std::string name;           /* name of group (english) */
+    std::string name_plural;    /* plural name of the group (english) */
+    bool no_credit;             /* TRUE if need credit to build */
     unsigned short group;       /* This is redundant: it must match
                                    the index into the table */
     unsigned short size;        /* shape in x and y */
