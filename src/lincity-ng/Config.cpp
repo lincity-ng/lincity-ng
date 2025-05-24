@@ -34,15 +34,41 @@
 #include <iostream>                       // for basic_ostream, operator<<
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
+#include <fmt/format.h>
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
 #include "lincity/world.hpp"                // for WORLD_SIDE_LEN
 #include "lincity/xmlloadsave.hpp"          // for xmlStr, unexpectedXmlElement
 
-
-static int parseInt(const std::string& value, int defaultValue,
+template<typename V>
+static std::optional<V> parseValue(const std::string& value);
+template<>
+/*static*/ std::optional<int> parseValue(const std::string& value);
+template<>
+/*static*/ std::optional<bool> parseValue(const std::string& value);
+template<>
+/*static*/ std::optional<std::string> parseValue(const std::string& value);
+template<>
+/*static*/ std::optional<std::filesystem::path> parseValue(
+  const std::string& value);
+static std::optional<int> validateRange(const std::optional<int>& value,
   int minValue = INT_MIN, int maxValue = INT_MAX);
-static bool parseBool(const std::string& value, bool defaultValue);
+
+template<typename V>
+static void saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<V>& option);
+template<>
+/*static*/ void saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<int>& option);
+template<>
+/*static*/ void saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<bool>& option);
+template<>
+/*static*/ void saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<std::string>& option);
+template<>
+/*static*/ void saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<std::filesystem::path>& option);
 
 Config *configPtr = nullptr;
 Config *getConfig() {
@@ -51,32 +77,51 @@ Config *getConfig() {
 }
 
 Config::Config() {
-  useOpenGL = false;  //OpenGL is often way too slow
-  useFullScreen = true;
-  videoX = 1024;
-  videoY = 768;
+  useOpenGL.default_ = false;
+  useFullScreen.default_ = true;
+  videoX.default_ = 1024;
+  videoY.default_ = 768;
 
-  soundVolume = 100;
-  musicVolume = 50;
-  soundEnabled = true;
-  musicEnabled = true;
-  musicTheme = "default";
+  soundVolume.default_ = 100;
+  musicVolume.default_ = 50;
+  soundEnabled.default_ = true;
+  musicEnabled.default_ = true;
+  musicTheme.default_ = "default";
 
-  carsEnabled = true;
-  language = "autodetect";
-  appDataDirIsDefault = false;
-  userDataDirIsDefault = false;
-  worldSize = WORLD_SIDE_LEN;
+  carsEnabled.default_ = true;
+  language.default_ = "autodetect";
+  worldSize.default_ = WORLD_SIDE_LEN;
+
+  {
+    char configFileStr[MAX_PATH];
+    get_user_config_file(configFileStr, MAX_PATH, PACKAGE_NAME);
+    if(*configFileStr)
+      configFile.default_ = std::filesystem::path(configFileStr);
+    else
+      std::cerr << "warning: "
+        << "failed to compute default config file location" << std::endl;
+  }
+  {
+    char userDataDirStr[MAX_PATH];
+    get_user_data_folder(userDataDirStr, MAX_PATH, PACKAGE_NAME);
+    if(*userDataDirStr)
+      userDataDir.default_ = std::filesystem::path(userDataDirStr);
+    else
+      std::cerr << "warning: "
+        << "failed to compute default user data directory location"
+        << std::endl;
+  }
+  appDataDir.default_ = std::filesystem::path(INSTALL_FULL_APPDATADIR);
 }
 
 Config::~Config() {}
 
 void Config::load(std::filesystem::path configFile) {
   if(configFile.empty())
-    configFile = this->configFile;
+    configFile = this->configFile.get();
   if(!std::filesystem::exists(configFile)) {
     std::cerr << "info: config file does not exist: "
-      << appDataDir.string() << std::endl;
+      << configFile.string() << std::endl;
     return;
   }
 
@@ -113,13 +158,13 @@ void Config::load(std::filesystem::path configFile) {
         std::string xml_tag = xmlReader.get_name();
         std::string xml_val = xmlReader.read_inner_xml();
         if(xml_tag == "useOpenGL")
-          useOpenGL = parseBool(xml_val, useOpenGL);
+          useOpenGL.config = parseValue<bool>(xml_val);
         else if(xml_tag == "x")
-          videoX = parseInt(xml_val, videoX, 640);
+          videoX.config = validateRange(parseValue<int>(xml_val), 640);
         else if(xml_tag == "y")
-          videoY = parseInt(xml_val, videoY, 480);
+          videoY.config = validateRange(parseValue<int>(xml_val), 480);
         else if(xml_tag == "fullscreen")
-          useFullScreen = parseBool(xml_val, useFullScreen);
+          useFullScreen.config = parseValue<bool>(xml_val);
         else
           unexpectedXmlElement(xmlReader);
 
@@ -139,15 +184,15 @@ void Config::load(std::filesystem::path configFile) {
         std::string xml_tag = xmlReader.get_name();
         std::string xml_val = xmlReader.read_inner_xml();
         if(xml_tag == "soundVolume")
-          soundVolume = parseInt(xml_val, soundVolume, 0, 100);
+          soundVolume.config = validateRange(parseValue<int>(xml_val), 0, 100);
         else if(xml_tag == "musicVolume")
-          musicVolume = parseInt(xml_val, musicVolume, 0, 100);
+          musicVolume.config = validateRange(parseValue<int>(xml_val), 0, 100);
         else if(xml_tag == "soundEnabled")
-          soundEnabled = parseBool(xml_val, soundEnabled);
+          soundEnabled.config = parseValue<bool>(xml_val);
         else if(xml_tag == "musicEnabled")
-          musicEnabled = parseBool(xml_val, musicEnabled);
+          musicEnabled.config = parseValue<bool>(xml_val);
         else if(xml_tag == "musicTheme")
-          musicTheme = xml_val;
+          musicTheme.config = parseValue<std::string>(xml_val);
         else
           unexpectedXmlElement(xmlReader);
 
@@ -167,15 +212,15 @@ void Config::load(std::filesystem::path configFile) {
         std::string xml_tag = xmlReader.get_name();
         std::string xml_val = xmlReader.read_inner_xml();
         if(xml_tag == "language")
-          language = xml_val;
+          language.config = parseValue<std::string>(xml_val);
         else if(xml_tag == "WorldSideLen")
-          worldSize = parseInt(xml_val, WORLD_SIDE_LEN, 50, 10000);
+          worldSize.config = validateRange(parseValue<int>(xml_val), 50, 10000);
         else if(xml_tag == "carsEnabled")
-          carsEnabled = parseBool(xml_val, carsEnabled);
+          carsEnabled.config = parseValue<bool>(xml_val);
         else if(xml_tag == "appDataDir")
-          appDataDir = std::filesystem::path(xml_val);
+          appDataDir.config = parseValue<std::filesystem::path>(xml_val);
         else if(xml_tag == "userDataDir")
-          userDataDir = std::filesystem::path(xml_val);
+          userDataDir.config = parseValue<std::filesystem::path>(xml_val);
         else
           unexpectedXmlElement(xmlReader);
 
@@ -198,7 +243,7 @@ void Config::load(std::filesystem::path configFile) {
 void
 Config::save(std::filesystem::path configFile) {
   if(configFile.empty())
-    configFile = this->configFile;
+    configFile = this->configFile.get();
 
   int xmlStatus = XML_ERR_OK;
   {
@@ -222,38 +267,24 @@ Config::save(std::filesystem::path configFile) {
   xmlTextWriterStartDocument(xmlWriter, NULL, NULL, NULL);
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"lc-config");
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"video");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"x", "%d", videoX);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"y", "%d", videoY);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"useOpenGL", "%s",
-        useOpenGL?"yes":"no");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"fullscreen", "%s",
-        useFullScreen?"yes":"no");
+      saveOption(xmlWriter, "x", videoX);
+      saveOption(xmlWriter, "y", videoY);
+      saveOption(xmlWriter, "useOpenGL", useOpenGL);
+      saveOption(xmlWriter, "fullscreen", useFullScreen);
     xmlTextWriterEndElement(xmlWriter);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"audio");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"soundEnabled", "%s",
-        soundEnabled?"yes":"no");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"soundVolume", "%d",
-        soundVolume);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"musicEnabled", "%s",
-        musicEnabled?"yes":"no");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"musicVolume", "%d",
-        musicVolume);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"musicTheme", "%s",
-        musicTheme.c_str());
+      saveOption(xmlWriter, "soundEnabled", soundEnabled);
+      saveOption(xmlWriter, "soundVolume", soundVolume);
+      saveOption(xmlWriter, "musicEnabled", musicEnabled);
+      saveOption(xmlWriter, "musicVolume", musicVolume);
+      saveOption(xmlWriter, "musicTheme", musicTheme);
     xmlTextWriterEndElement(xmlWriter);
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"game");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"language", "%s",
-        language.c_str());
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"WorldSideLen", "%d",
-        worldSize);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"carsEnabled", "%s",
-        carsEnabled?"yes":"no");
-      if(!appDataDirIsDefault)
-        xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"appDataDir", "%s",
-          appDataDir.string().c_str());
-      if(!userDataDirIsDefault)
-        xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"userDataDir", "%s",
-          userDataDir.string().c_str());
+      saveOption(xmlWriter, "language", language);
+      saveOption(xmlWriter, "WorldSideLen", worldSize);
+      saveOption(xmlWriter, "carsEnabled", carsEnabled);
+      saveOption(xmlWriter, "appDataDir", appDataDir);
+      saveOption(xmlWriter, "userDataDir", userDataDir);
     xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndElement(xmlWriter);
   xmlTextWriterEndDocument(xmlWriter);
@@ -273,15 +304,10 @@ Config::parseCommandLine(int argc, char** argv) {
       argi++;
       if(argi >= argc)
         throw std::runtime_error("--config needs a parameter");
-      configFile = std::filesystem::path(argv[argi]);
-      load(configFile);
+      if(configFile.session)
+        throw std::runtime_error("--config may be specified only once");
+      configFile.session = std::filesystem::path(argv[argi]);
     }
-  }
-  if(configFile.empty()) {
-    char configFileStr[MAX_PATH];
-    get_user_config_file(configFileStr, MAX_PATH, PACKAGE_NAME);
-    configFile = std::filesystem::path(configFileStr);
-    load(configFile);
   }
 
   for(int argi = 1; argi < argc; ++argi) {
@@ -307,9 +333,9 @@ Config::parseCommandLine(int argc, char** argv) {
       std::cout << "             --user-data <dir> user data location\n";
       exit(0);
     } else if(argStr == "-g" || argStr == "--gl") {
-      useOpenGL = true;
+      useOpenGL.session = true;
     } else if(argStr == "-s" || argStr == "--sdl") {
-      useOpenGL = false;
+      useOpenGL.session = false;
     } else if(argStr == "-S" || argStr == "--size") {
       argi++;
       if(argi >= argc)
@@ -325,104 +351,225 @@ Config::parseCommandLine(int argc, char** argv) {
         std::cerr << "Error: Size parameter out of range.\n";
         exit(1);
       }
-      videoX = newX;
-      videoY = newY;
+      videoX.session = newX;
+      videoY.session = newY;
     } else if(argStr == "-f" || argStr == "--fullscreen") {
-      useFullScreen = true;
+      useFullScreen.session = true;
     } else if(argStr == "-w" || argStr == "--window") {
-      useFullScreen = false;
+      useFullScreen.session = false;
     } else if(argStr == "-m" || argStr == "--mute") {
-      soundEnabled = false;
-      musicEnabled = false;
+      soundEnabled.session = false;
+      musicEnabled.session = false;
+    } else if(argStr == "--config" || argStr == "-c") {
+      argi++;
+      if(argi >= argc)
+        throw std::runtime_error("--config needs a parameter");
+      configFile.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "--app-data") {
       argi++;
       if(argi >= argc)
         throw std::runtime_error("--app-data needs a parameter");
-      appDataDir = std::filesystem::path(argv[argi]);
+      appDataDir.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "--user-data") {
       argi++;
       if(argi >= argc)
         throw std::runtime_error("--user-data needs a parameter");
-      userDataDir = std::filesystem::path(argv[argi]);
+      userDataDir.session = std::filesystem::path(argv[argi]);
     } else {
       std::cerr << "Unknown command line argument: " << argStr << "\n";
       exit(1);
     }
   }
 
-  if(appDataDir.empty()) {
-    appDataDir = std::filesystem::path(INSTALL_FULL_APPDATADIR);
-    appDataDirIsDefault = true;
-  }
-
-  if(userDataDir.empty()) {
-    char userDataDirStr[MAX_PATH];
-    get_user_data_folder(userDataDirStr, MAX_PATH, PACKAGE_NAME);
-    userDataDir = std::filesystem::path(userDataDirStr);
-    userDataDirIsDefault = true;
-  }
+  load(configFile.get());
 
 #ifdef DEBUG
-  std::cerr << "  config file: " << configFile  << std::endl
-            << " app data dir: " << appDataDir  << std::endl
-            << "user data dir: " << userDataDir << std::endl;
+  std::cerr << "  config file: " << configFile.get()  << std::endl
+            << " app data dir: " << appDataDir.get()  << std::endl
+            << "user data dir: " << userDataDir.get() << std::endl;
 #endif
 
-  if(!std::filesystem::is_directory(appDataDir)) {
+  if(!std::filesystem::is_directory(appDataDir.get())) {
     std::cerr << "error: app data location is not a directory: "
-      << appDataDir.string() << std::endl
-      << "  Use `--app-data` to configure the correct app data location."
+      << appDataDir.get().string() << std::endl
+      << "  Use `--app-data` to set the correct app data location."
       << " Otherwise, LinCity-NG will likely crash." << std::endl;
   }
 
-  if(!std::filesystem::is_directory(userDataDir)) {
+  if(!std::filesystem::is_directory(userDataDir.get())) {
     std::cerr << "error: user data location is not a directory: "
-      << userDataDir.string() << std::endl
-      << "  Use `--user-data` to configure the correct user data location."
+      << userDataDir.get().string() << std::endl
+      << "  Use `--user-data` to set the correct user data location."
       << std::endl;
   }
 
 #ifdef DISABLE_GL_MODE
-  if(useOpenGL) {
-    useOpenGL = false;
+  if(useOpenGL.get()) {
+    useOpenGL.session = false;
     std::cerr << "warning: GL mode was requested, but it is disabled for this"
       " build. Using SDL mode instead." << std::endl;
   }
 #endif
 }
 
-static int parseInt(const std::string& value,
-  int defaultValue, int minValue, int maxValue
-) {
-    int tmp;
-    if(sscanf(value.c_str(), "%i", &tmp) != 1)
-    {
-        std::cerr << "Config::parseInt# Error parsing integer value '" << value << "'.\n";
-        tmp = defaultValue;
-    }
-    if( ( tmp >= minValue ) && ( tmp <= maxValue ) ) {
-        return tmp;
-    } else {
-        std::cerr << "Config::parseInt# Value '" << value << "' not in ";
-        std::cerr << minValue << ".." << maxValue << "\n";
-        return defaultValue;
-    }
+
+template class Config::Option<int>;
+template class Config::Option<bool>;
+template class Config::Option<std::string>;
+template class Config::Option<std::filesystem::path>;
+
+template<typename T>
+Config::Option<T>::Option() :
+  default_(std::nullopt)
+{ }
+
+template<typename T>
+Config::Option<T>::Option(const T& default_) :
+  default_(default_)
+{ }
+
+template<typename T>
+const T&
+Config::Option<T>::get() const {
+  if(session) return session.value();
+  else if(config) return config.value();
+  else if(default_) return default_.value();
+  else {
+    throw std::runtime_error("this config option has no default");
+  }
 }
 
-static bool parseBool(const std::string& value, bool defaultValue) {
-    if(value == "no" || value == "off"
-            || value == "false" || value == "NO"
-            || value == "OFF" || value == "FALSE") {
-        return false;
-    }
-    if(value == "yes" || value == "on"
-            || value == "true" || value == "YES"
-            || value == "ON" || value == "TRUE") {
-        return true;
-    }
+template<typename T>
+bool Config::Option<T>::isDefault() const {
+  return !session && !config;
+}
 
-    std::cerr << "Couldn't parse boolean value '" << value << "'.\n";
-    return defaultValue;
+template<typename T>
+void
+Config::Option<T>::sessionToConfig() {
+  config = session;
+}
+
+template<>
+/*static*/ std::optional<int>
+parseValue(const std::string& value) {
+  if(value == "default")
+    return std::nullopt;
+
+  int tmp;
+  if(sscanf(value.c_str(), "%i", &tmp) != 1) {
+    throw std::runtime_error(fmt::format(
+      "error: failed to parse integer value {:?}", value));
+  }
+  return tmp;
+}
+
+template<>
+/*static*/ std::optional<bool>
+parseValue(const std::string& value) {
+  if(value == "default")
+    return std::nullopt;
+
+  if(value == "no" || value == "NO"
+    || value == "n" || value == "N"
+    || value == "off" || value == "OFF"
+    || value == "false" || value == "FALSE"
+    || value == "0"
+  ) {
+    return false;
+  }
+  if(value == "yes" || value == "YES"
+    || value == "y" || value == "Y"
+    || value == "on" || value == "ON"
+    || value == "true" || value == "TRUE"
+    || value == "1"
+  ) {
+    return true;
+  }
+
+  throw std::runtime_error(fmt::format(
+    "error: failed to parse boolean value {:?} (should be \"yes\" or \"no\")",
+    value));
+}
+
+template<>
+/*static*/ std::optional<std::string>
+parseValue(const std::string& value) {
+  if(value == "default")
+    return std::nullopt;
+  return value;
+}
+
+template<>
+/*static*/ std::optional<std::filesystem::path>
+parseValue(const std::string& value) {
+  if(value == "default")
+    return std::nullopt;
+  return std::filesystem::path(value);
+}
+
+static std::optional<int>
+validateRange(const std::optional<int>& value,
+  int minValue /*= INT_MIN*/, int maxValue /*= INT_MAX*/
+) {
+  if(value && (*value < minValue || *value > maxValue)) {
+    throw std::runtime_error(fmt::format(
+      "error: value {:d} is outside range {:d}..{:d}",
+      *value, minValue, maxValue));
+  }
+  return value;
+}
+
+template<>
+/*static*/ void
+saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<int>& option
+) {
+  if(option.config)
+    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
+      "%d", *option.config);
+  else if(option.default_)
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      (xmlStr)"default");
+}
+
+template<>
+/*static*/ void
+saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<bool>& option
+) {
+  if(option.config)
+    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
+      "%s", *option.config?"yes":"no");
+  else if(option.default_)
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      (xmlStr)"default");
+}
+
+template<>
+/*static*/ void
+saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<std::string>& option
+) {
+  if(option.config)
+    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
+      "%s", option.config->c_str());
+  else if(option.default_)
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      (xmlStr)"default");
+}
+
+template<>
+/*static*/ void
+saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
+  const Config::Option<std::filesystem::path>& option
+) {
+  if(option.config)
+    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
+      "%s", option.config->string().c_str());
+  else if(option.default_)
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      (xmlStr)"default");
 }
 
 /** @file lincity-ng/Config.cpp */

@@ -693,7 +693,7 @@ void Construction::trade()
         {
             transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;
             if(simDelay != SIM_DELAY_FAST
-            && getConfig()->carsEnabled
+            && getConfig()->carsEnabled.get()
             && 100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2
             && world.map(point)->getTransportGroup() == GROUP_ROAD)
             {
