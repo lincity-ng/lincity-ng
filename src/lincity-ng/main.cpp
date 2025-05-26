@@ -35,6 +35,7 @@
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
+#include <optional>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
@@ -126,6 +127,14 @@ void initVideo(int width, int height)
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, width, height,
                               flags);
+
+    if(getConfig()->useFullScreen.get()) {
+      // actual window saze may be different than requested
+      SDL_GetWindowSize(window, &width, &height);
+      getConfig()->videoX.session = width;
+      getConfig()->videoY.session = height;
+    }
+
 #ifndef DISABLE_GL_MODE
     if(getConfig()->useOpenGL.get()) {
         window_context = SDL_GL_CreateContext(window);
