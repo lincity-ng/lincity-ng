@@ -51,7 +51,7 @@ Config *getConfig() {
 }
 
 Config::Config() {
-  useOpenGL = true;  //OpenGL is often way too slow
+  useOpenGL = false;  //OpenGL is often way too slow
   useFullScreen = true;
   videoX = 1024;
   videoY = 768;
@@ -381,6 +381,14 @@ Config::parseCommandLine(int argc, char** argv) {
       << "  Use `--user-data` to configure the correct user data location."
       << std::endl;
   }
+
+#ifdef DISABLE_GL_MODE
+  if(useOpenGL) {
+    useOpenGL = false;
+    std::cerr << "warning: GL mode was requested, but it is disabled for this"
+      " build. Using SDL mode instead." << std::endl;
+  }
+#endif
 }
 
 static int parseInt(const std::string& value,

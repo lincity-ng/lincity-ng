@@ -34,7 +34,8 @@
 #include "tinygettext/gettext.hpp"  // for N_
 
 WaterwellConstructionGroup waterwellConstructionGroup(
-  N_("Water tower"),
+  N_("Water Tower"),
+  N_("Water Towers"),
   FALSE,                     /* need credit? */
   GROUP_WATERWELL,
   GROUP_WATERWELL_SIZE,

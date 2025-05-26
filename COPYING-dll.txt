@@ -1,4 +1,4 @@
-LinCity NG packages built for Windows may include dll's, which are covered under
+LinCity-NG packages built for Windows may include dll's, which are covered under
 their own licenses.
 
 `libgcc_s_seh-1.dll` is provided by MinGW-w64 (https://www.mingw-w64.org/) and
@@ -10,10 +10,6 @@ Public License (LGPL).
 
 `liblzma-5.dll` is provided by XZ-Utils (https://tukaani.org/xz/) and so falls
 under the BSD Zero Clause License (0BSD).
-
-`libSDL2_gfx-1-0-0.dll` is provided by SDL2_gfx
-(http://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/) and falls under
-the ZLIB License.
 
 `libssp-0.dll` is provided by the GNU Compiler Collection (a.k.a. GCC)
 (https://gcc.gnu.org/) and MinGW-w64 (https://www.mingw-w64.org/) and so falls
@@ -46,4 +42,7 @@ License.
 License.
 
 `zlib1.dll` is provided by zlib (https://www.zlib.net/) and falls under the ZLIB
+License.
+
+`libfmt.dll` is provided by fmt (https://fmt.dev/) and falls under the MIT
 License.

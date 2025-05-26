@@ -40,6 +40,7 @@
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LL,
     GROUP_RESIDENCE_SIZE,
@@ -54,6 +55,7 @@ ResidenceConstructionGroup residenceLLConstructionGroup(
 
 ResidenceConstructionGroup residenceMLConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_ML,
     GROUP_RESIDENCE_SIZE,
@@ -68,6 +70,7 @@ ResidenceConstructionGroup residenceMLConstructionGroup(
 
 ResidenceConstructionGroup residenceHLConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HL,
     GROUP_RESIDENCE_SIZE,
@@ -82,6 +85,7 @@ ResidenceConstructionGroup residenceHLConstructionGroup(
 
 ResidenceConstructionGroup residenceLHConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LH,
     GROUP_RESIDENCE_SIZE,
@@ -96,6 +100,7 @@ ResidenceConstructionGroup residenceLHConstructionGroup(
 
 ResidenceConstructionGroup residenceMHConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_MH,
     GROUP_RESIDENCE_SIZE,
@@ -110,6 +115,7 @@ ResidenceConstructionGroup residenceMHConstructionGroup(
 
 ResidenceConstructionGroup residenceHHConstructionGroup(
     N_("Residence"),
+    N_("Residences"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HH,
     GROUP_RESIDENCE_SIZE,

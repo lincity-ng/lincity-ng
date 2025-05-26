@@ -42,6 +42,7 @@
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
     N_("Farm"),
+    N_("Farms"),
     FALSE,                     /* need credit? */
     GROUP_ORGANIC_FARM,
     GROUP_ORGANIC_FARM_SIZE,

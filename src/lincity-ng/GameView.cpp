@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,6 +153,7 @@ void GameView::parse(XmlReader& reader)
     mapMode = MiniMap::NORMAL;
     buttonsConnected = false;
     lastStatusMessage = "";
+    refreshMap = true;
 }
 
 World&
@@ -1127,16 +1128,24 @@ void GameView::viewportUpdated()
     MapPoint newCenter = this->getCenter();
 
     if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {
-        //Tell Minimap about new Corners
-        getMiniMap()->setGameViewCorners(
-            getTile(Vector2(0, 0)),
-            getTile(Vector2(getWidth(), getHeight()))
-        );
+      //Tell Minimap about new Corners
+      Vector2 viewport2 = viewport + getSize();
+      getMiniMap()->setGameViewCorners(
+        Vector2(
+          viewport.y / tileHeight + viewport.x / tileWidth,
+          viewport.y / tileHeight - viewport.x / tileWidth
+        ),
+        Vector2(
+          viewport2.y / tileHeight + viewport2.x / tileWidth,
+          viewport2.y / tileHeight - viewport2.x / tileWidth
+        )
+      );
 
-        oldCenter = newCenter;
-        oldZoom = zoom;
-
+      oldCenter = newCenter;
+      oldZoom = zoom;
     }
+
+    refreshMap = true;
 }
 
 /*
@@ -1240,7 +1249,7 @@ void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
     if( !inCity( tile ) ) {
             painter.setFillColor( black );
     } else {
-        miniMapColor = getMiniMap()->getColor(tile);
+        miniMapColor = getMiniMap()->getColor(*getWorld().map(tile));
         if( mapOverlay == overlayOn ){
             miniMapColor.a = 200;  //Transparent
         }
@@ -1262,25 +1271,21 @@ MapPoint GameView::realTile(MapPoint point) {
     return point;
 }
 
-void GameView::fetchTextures()
-{
-    std::map<std::string, ResourceGroup*>::iterator it;
-    for(it= ResourceGroup::resMap.begin(); it != ResourceGroup::resMap.end(); ++it)
-    {
-        for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i)
-        {
-            if( !it->second->graphicsInfoVector[i].texture)
-            {
-                if(it->second->graphicsInfoVector[i].image)
-                {
-                    it->second->graphicsInfoVector[i].texture = texture_manager->create( it->second->graphicsInfoVector[i].image );
-                    if (it->second->graphicsInfoVector[i].texture)
-                    {   it->second->graphicsInfoVector[i].image = 0;} //Image was erased by texture_manager->create.
-                    --remaining_images;
-                }
-            }
+void GameView::fetchTextures() {
+  std::map<std::string, ResourceGroup*>::iterator it;
+  for(it= ResourceGroup::resMap.begin(); it != ResourceGroup::resMap.end(); ++it) {
+    for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i) {
+      auto& gfx = it->second->graphicsInfoVector[i];
+      if(!gfx.texture && gfx.image) {
+        gfx.texture = texture_manager->create(gfx.image);
+        if(gfx.texture) { //Image was erased by texture_manager->create.
+          gfx.texture->setScaleMode(Texture::ScaleMode::NEAREST);
+          gfx.image = 0;
         }
+        --remaining_images;
+      }
     }
+  }
 }
 
 
@@ -1295,8 +1300,10 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
         if(graphicsInfo->image)
         {
             graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-            if ( graphicsInfo->texture)
-            {   graphicsInfo->image = 0;} //Image was erased by texture_manager->create.
+            if(graphicsInfo->texture) { //Image was erased by texture_manager->create.
+              graphicsInfo->texture->setScaleMode(Texture::ScaleMode::NEAREST);
+              graphicsInfo->image = 0;
+            }
             --remaining_images;
         }
     }
@@ -1307,10 +1314,7 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(graphicsInfo->texture->getWidth() * zoom,
             graphicsInfo->texture->getHeight() * zoom);
-        if( zoom == 1.0 )     // Floating point test of equality !
-        {    painter.drawTexture(graphicsInfo->texture, tilerect.p1);}
-        else
-        {   painter.drawStretchTexture(graphicsInfo->texture, tilerect);}
+        painter.drawStretchTexture(graphicsInfo->texture, tilerect);
     }
 }
 
@@ -1432,7 +1436,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
             tileOnScreenPoint.y -= tileHeight*size;
             tilerect.move( tileOnScreenPoint );
-            painter.setFillColor(getMiniMap()->getColorNormal(tile));
+            painter.setFillColor(getMiniMap()->getColorNormal(*getWorld().map(tile)));
             fillDiamond( painter, tilerect );
         }
         //last draw suspended power cables on top
@@ -1556,10 +1560,9 @@ void GameView::draw(Painter& painter)
 
     //draw Background
     Color black;
-    Rect2D background( 0, 0, getWidth(), getHeight() );
-    black.parse( "black" );
-    painter.setFillColor( black );
-    painter.fillRectangle( background );
+    black.parse("black");
+    painter.setFillColor(black);
+    painter.clear();
 
     //draw Tiles
     MapPoint currentTile;
@@ -1570,30 +1573,38 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if (mapOverlay != overlayOnly)
-    {
-        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-        {
-            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
-            {
-                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-                currentTile.y = upperLeftTile.y - i + k / 2;
-                drawTile( painter, currentTile );
-            }
+    if(!mapTexture || refreshMap) {
+      if(!mapTexture
+        || mapTexture->getWidth() != (int)getWidth()
+        || mapTexture->getHeight() != (int)getHeight()
+      ) {
+        mapTexture = painter.createTargetTexture(getWidth(), getHeight());
+      }
+
+      painter.pushRenderTarget(mapTexture.get());
+      painter.setFillColor(Color(0,0,0));
+      painter.clear();
+
+      if(mapOverlay != overlayOnly) {
+        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
+          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+          currentTile.y = upperLeftTile.y - i + k / 2;
+          drawTile(painter, currentTile);
         }
-    }
-    if( mapOverlay != overlayNone )
-    {
-        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-        {
-            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
-            {
-                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-                currentTile.y = upperLeftTile.y - i + k / 2;
-                drawOverlay( painter, currentTile );
-            }
+      }
+      if(mapOverlay != overlayNone) {
+        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
+          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+          currentTile.y = upperLeftTile.y - i + k / 2;
+          drawOverlay(painter, currentTile);
         }
+      }
+      painter.popRenderTarget();
+      refreshMap = false;
     }
+    painter.drawTexture(mapTexture.get(), Vector2(0,0));
 
     int cost = 0;
     //display commodities continously

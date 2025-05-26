@@ -21,7 +21,7 @@ for a different version than what you are building can cause build failures.
 
 ### Run Dependencies
 
-* SDL2 2.0.0 or later
+* SDL2 2.0.18 or later
 
   http://www.libsdl.org
 
@@ -37,10 +37,6 @@ for a different version than what you are building can cause build failures.
 
   http://www.libsdl.org/projects/SDL_ttf/
 
-* SDL2_gfx 1.0.0 or later
-
-  http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
-
 * zlib 1.0 or later
 
   https://zlib.net/
@@ -52,6 +48,10 @@ for a different version than what you are building can cause build failures.
 * libxml++ 5.0
 
   https://libxmlplusplus.github.io/libxmlplusplus/
+
+* fmt 9.0.0 or later
+
+  https://fmt.dev/latest/index.html
 
 ### Build Dependencies
 
@@ -74,7 +74,7 @@ for a different version than what you are building can cause build failures.
 * Header files for all [run dependencies](#run-dependencies)
 
   If you use packages from your distribution, header files are often in separate
-  `*-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
+  `-dev` packages. E.g. for zlib you may need `zlib1g` and `zlib1g-dev`.
 
 * Include What You Use (optional)
 

@@ -44,7 +44,8 @@
 
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
-    N_("Basketball court"),
+    N_("Basketball Court"),
+    N_("Basketball Courts"),
      FALSE,                     /* need credit? */
      GROUP_CRICKET,
      GROUP_CRICKET_SIZE,

@@ -41,6 +41,7 @@
 // Tip:
 TipConstructionGroup tipConstructionGroup(
     N_("Land Fill"),
+    N_("Land Fills"),
      FALSE,                     /* need credit? */
      GROUP_TIP,
      GROUP_TIP_SIZE,

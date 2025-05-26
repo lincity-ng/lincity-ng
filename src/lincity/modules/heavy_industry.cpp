@@ -43,6 +43,7 @@
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
      N_("Steel Works"),
+     N_("Steel Works"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_H,
      GROUP_INDUSTRY_H_SIZE,

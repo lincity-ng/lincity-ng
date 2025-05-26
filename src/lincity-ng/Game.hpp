@@ -24,9 +24,9 @@
 #define __GAME_HPP__
 
 #include <SDL.h>                 // for SDL_Window
+#include <list>                  // for list
 #include <memory>                // for unique_ptr
 #include <string>                // for string
-#include <list>
 
 #include "UserOperation.hpp"     // for UserOperation
 #include "gui/Signal.hpp"        // for Signal
@@ -34,6 +34,7 @@
 
 class ButtonPanel;
 class Component;
+class ConstructionGroup;
 class EconomyGraph;
 class GameView;
 class HelpWindow;
@@ -44,7 +45,6 @@ class MpsFinance;
 class MpsMap;
 class WindowManager;
 class World;
-class ConstructionGroup;
 
 class Game {
 public:

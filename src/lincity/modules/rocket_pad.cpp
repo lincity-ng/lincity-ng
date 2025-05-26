@@ -49,6 +49,7 @@
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),
+    N_("Rocket Pads"),
      TRUE,                     /* need credit? */
      GROUP_ROCKET,
      GROUP_ROCKET_SIZE,
