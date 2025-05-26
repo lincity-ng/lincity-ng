@@ -11,10 +11,6 @@ Public License (LGPL).
 `liblzma-5.dll` is provided by XZ-Utils (https://tukaani.org/xz/) and so falls
 under the BSD Zero Clause License (0BSD).
 
-`libSDL2_gfx-1-0-0.dll` is provided by SDL2_gfx
-(http://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/) and falls under
-the ZLIB License.
-
 `libssp-0.dll` is provided by the GNU Compiler Collection (a.k.a. GCC)
 (https://gcc.gnu.org/) and MinGW-w64 (https://www.mingw-w64.org/) and so falls
 under the applicable licenses for those projects.

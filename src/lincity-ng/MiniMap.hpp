@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
- * Copyright (C) 2024      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,12 +30,14 @@
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
 #include "gui/Vector2.hpp"          // for Vector2
-#include "lincity/MapPoint.hpp"     // for MapPoint
 #include "lincity/commodities.hpp"  // for Commodity
 
 class Button;
 class CheckButton;
 class Game;
+class MapPoint;
+class MapTile;
+class Painter;
 class Texture;
 class World;
 class XmlReader;
@@ -53,12 +55,10 @@ public:
     virtual void draw(Painter &painter);
     virtual void event(const Event& event);
 
-    void setGameViewCorners(
-        const MapPoint& upperLeft, const MapPoint& lowerRight
-    );
+    void setGameViewCorners(Vector2 upperLeft, Vector2 lowerRight);
 
-    Color getColor(MapPoint p) const;
-    Color getColorNormal(MapPoint p) const;
+    Color getColor(MapTile& tile) const;
+    Color getColorNormal(MapTile& tile) const;
 
     void switchView(const std::string& viewname);
     void scrollPageDown(bool down);
@@ -69,6 +69,8 @@ public:
     void mapViewChangeDisplayMode(DisplayMode mode);
 
     void setGame(Game *game);
+
+    void setMapDirty() { mFullRefresh = true; }
 
 private:
     void mapViewButtonClicked(CheckButton* button, int);
@@ -92,16 +94,17 @@ private:
     Game *game = nullptr;
     World& getWorld() const;
 
-    MapPoint upperLeft, lowerRight;
+    Vector2 upperLeft, lowerRight;
 
     DisplayMode mMode;
     Commodity stuff_ID;
     int tilesize;
     int border;
-    MapPoint anchor; //Positioning of minimap
+    Vector2 anchor; //Positioning of minimap
 
     std::vector<CheckButton*> switchButtons;
     std::unique_ptr<Texture> mTexture;
+    void refreshTexture(Painter &painter);
 
     bool mFullRefresh;
     bool alreadyAttached;

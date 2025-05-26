@@ -49,15 +49,14 @@ endforeach()
 # find dependencies
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 find_package(Threads)
-find_package(ZLIB REQUIRED)
-find_package(SDL2 REQUIRED)
-find_package(SDL2_gfx REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_mixer REQUIRED)
-find_package(SDL2_ttf REQUIRED)
-find_package(LibXml2 REQUIRED)
+find_package(ZLIB 1.0 REQUIRED)
+find_package(SDL2 2.0.18 REQUIRED)
+find_package(SDL2_image 2.0.0 REQUIRED)
+find_package(SDL2_mixer 2.0.0 REQUIRED)
+find_package(SDL2_ttf 2.0.12 REQUIRED)
+find_package(LibXml2 REQUIRED) # requires >=2.6.11
 find_package(fmt 9.0.0 REQUIRED)
-# Prevent linking unneded libraries from LibXml2. see https://trac.macports.org/ticket/59436
+# Prevent linking unneded libraries from LibXml2. see https://gitlab.gnome.org/GNOME/libxml2/-/issues/918
 set_target_properties(LibXml2::LibXml2 PROPERTIES INTERFACE_LINK_LIBRARIES "")
 # seems libxml++ doesn't have a find module, but it provides a pkg-config
 find_package(PkgConfig REQUIRED)
