@@ -126,6 +126,14 @@ void initVideo(int width, int height)
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, width, height,
                               flags);
+
+    if(getConfig()->useFullScreen) {
+      // actual window saze may be different than requested
+      SDL_GetWindowSize(window, &width, &height);
+      getConfig()->videoX = width;
+      getConfig()->videoY = height;
+    }
+
 #ifndef DISABLE_GL_MODE
     if(getConfig()->useOpenGL) {
         window_context = SDL_GL_CreateContext(window);
