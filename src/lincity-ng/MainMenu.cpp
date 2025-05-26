@@ -453,7 +453,6 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         );
         // switching to/from fullscreen may change the window size
         // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
-        loadOptionsMenu();
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
