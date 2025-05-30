@@ -25,35 +25,53 @@
 
 #include <filesystem>  // for path
 #include <string>      // for basic_string, string
+#include <optional>
 
 class Config
 {
 public:
+  template<typename T>
+  class Option {
+  public:
+    std::optional<T> default_;
+    std::optional<T> config = std::nullopt;
+    std::optional<T> session = std::nullopt;
+
+    const T& get() const;
+    bool isDefault() const;
+
+    void sessionToConfig();
+
+  private:
+    Option();
+    Option(const T& default_);
+
+    friend Config;
+  };
+
   Config();
   ~Config();
 
-  std::filesystem::path configFile;
-  std::filesystem::path appDataDir;
-  std::filesystem::path userDataDir;
-  bool appDataDirIsDefault;
-  bool userDataDirIsDefault;
+  Option<std::filesystem::path> configFile;
+  Option<std::filesystem::path> appDataDir;
+  Option<std::filesystem::path> userDataDir;
 
-  bool useOpenGL;
-  bool useFullScreen;
-  int videoX, videoY;
+  Option<bool> useOpenGL;
+  Option<bool> useFullScreen;
+  Option<int> videoX, videoY;
 
   // sound volume 0..100 (0=silent)
-  int soundVolume;
+  Option<int> soundVolume;
   // music volume 0..100
-  int musicVolume;
-  bool soundEnabled;
-  bool musicEnabled;
-  bool carsEnabled;
+  Option<int> musicVolume;
+  Option<bool> soundEnabled;
+  Option<bool> musicEnabled;
+  Option<bool> carsEnabled;
 
-  std::string language;
-  std::string musicTheme;
+  Option<std::string> language;
+  Option<std::string> musicTheme;
 
-  int worldSize;
+  Option<int> worldSize;
 
   void load(std::filesystem::path configPath = std::filesystem::path());
   void save(std::filesystem::path configPath = std::filesystem::path());
@@ -61,8 +79,13 @@ public:
   void parseCommandLine(int argc, char** argv);
 };
 
+extern template class Config::Option<int>;
+extern template class Config::Option<bool>;
+extern template class Config::Option<std::string>;
+extern template class Config::Option<std::filesystem::path>;
+
 Config* getConfig();
 
 #endif
 
-/** @file lincity-ng/Config.hpp */
+/** @file lincity-ng/Conextern fig.hpp */

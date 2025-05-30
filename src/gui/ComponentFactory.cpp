@@ -87,7 +87,7 @@ ImportFactory::createComponent(XmlReader& reader)
 
     if(importfile == "")
         throw std::runtime_error("No src attribute specified.");
-    XmlReader nreader(getConfig()->appDataDir / importfile);
+    XmlReader nreader(getConfig()->appDataDir.get() / importfile);
     //std::cout << "importing Factory: " << importfile << std::endl;
     return ::createComponent((const char*) nreader.getName(), nreader);
 }
@@ -163,7 +163,7 @@ void initFactories()
         dictionaryGUIManager = new tinygettext::DictionaryManager();
         dictionaryGUIManager->set_charset("UTF-8");
         dictionaryGUIManager->add_directory(
-          getConfig()->appDataDir / "locale/gui");
+          getConfig()->appDataDir.get() / "locale/gui");
 
 #ifdef DEBUG
         initialized = true;

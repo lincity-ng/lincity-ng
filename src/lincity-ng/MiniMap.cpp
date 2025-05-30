@@ -22,41 +22,41 @@
 
 #include "MiniMap.hpp"
 
-#include <SDL.h>                          // for Uint16, Uint8, SDL_BUTTON_R...
-#include <assert.h>                       // for assert
-#include <stdio.h>                        // for sscanf, size_t
-#include <string.h>                       // for strlen, strcmp
-#include <array>                          // for array
-#include <functional>                     // for bind, _1, function, _2
-#include <iostream>                       // for basic_ostream, operator<<
-#include <sstream>                        // for basic_stringstream
-#include <stdexcept>                      // for runtime_error
+#include <SDL.h>                            // for Uint16, Uint8, SDL_BUTTON...
+#include <assert.h>                         // for assert
+#include <stdio.h>                          // for sscanf, size_t
+#include <string.h>                         // for strlen, strcmp
+#include <array>                            // for array
+#include <functional>                       // for bind, _1, function, _2
+#include <iostream>                         // for basic_ostream, operator<<
+#include <sstream>                          // for basic_stringstream
+#include <stdexcept>                        // for runtime_error
 
-#include "Dialog.hpp"                     // for Dialog, ASK_COAL_SURVEY
-#include "Game.hpp"                       // for Game
-#include "GameView.hpp"                   // for GameView
-#include "MainLincity.hpp"                // for setSimulationDelay
-#include "Mps.hpp"                        // for MpsFinance, MpsMap
-#include "Util.hpp"                       // for getCheckButton, getButton
-#include "gui/Button.hpp"                 // for Button
-#include "gui/CheckButton.hpp"            // for CheckButton
-#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/Event.hpp"                  // for Event
-#include "gui/Painter.hpp"                // for Painter
-#include "gui/Rect2D.hpp"                 // for Rect2D
-#include "gui/Signal.hpp"                 // for Signal
-#include "gui/SwitchComponent.hpp"        // for SwitchComponent
-#include "gui/Texture.hpp"                // for Texture
-#include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
-#include "gui/XmlReader.hpp"              // for XmlReader
+#include "Dialog.hpp"                       // for Dialog, ASK_COAL_SURVEY
+#include "Game.hpp"                         // for Game
+#include "GameView.hpp"                     // for GameView
+#include "MainLincity.hpp"                  // for setSimulationDelay
+#include "Mps.hpp"                          // for MpsFinance, MpsMap
+#include "Util.hpp"                         // for getCheckButton, getButton
+#include "gui/Button.hpp"                   // for Button
+#include "gui/CheckButton.hpp"              // for CheckButton
+#include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Event.hpp"                    // for Event
+#include "gui/Painter.hpp"                  // for Painter
+#include "gui/Rect2D.hpp"                   // for Rect2D
+#include "gui/Signal.hpp"                   // for Signal
+#include "gui/SwitchComponent.hpp"          // for SwitchComponent
+#include "gui/Texture.hpp"                  // for Texture
+#include "gui/XmlReader.hpp"                // for XmlReader
+#include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/all_buildings.hpp"        // for COAL_RESERVE_SIZE
-#include "lincity/commodities.hpp"        // for Commodity, CommodityRule
+#include "lincity/commodities.hpp"          // for Commodity, CommodityRule
 #include "lincity/groups.hpp"               // for GROUP_POWER_LINE, GROUP_FIRE
-#include "lincity/lin-city.hpp"             // for FLAG_IS_TRANSPORT, FLAG_CRI...
-#include "lincity/lintypes.hpp"             // for Construction, ConstructionG...
+#include "lincity/lin-city.hpp"             // for FLAG_IS_TRANSPORT, FLAG_C...
+#include "lincity/lintypes.hpp"             // for Construction, Constructio...
 #include "lincity/modules/all_modules.hpp"  // for Powerline, Transport, Fire
-#include "lincity/transport.hpp"            // for TRANSPORT_QUANTA, TRANSPORT...
-#include "lincity/world.hpp"                // for Map, MapTile, World
+#include "lincity/transport.hpp"            // for TRANSPORT_QUANTA, TRANSPO...
+#include "lincity/world.hpp"                // for MapTile, World, Map
 
 using namespace std::placeholders;
 
@@ -210,12 +210,6 @@ MiniMap::parse(XmlReader& reader)
     }
     if(width <= 0 || height <= 0)
       throw std::runtime_error("Width or Height invalid");
-
-    // create alpha-surface
-    SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
-                          0x000000ff, 0x0000ff00,
-                                              0x00ff0000, 0xff000000);
-    mTexture.reset(texture_manager->create(image));
 
     mFullRefresh=true;
     alreadyAttached=false;
@@ -618,173 +612,88 @@ MiniMap::mapPointToVector(MapPoint p)
 }
 
 void MiniMap::constrainPosition() {
-    int minLeft = 1 - 1;
-    int maxLeft = game->getWorld().map.len()-1 - ((int)(width/tilesize)-1);
-    int minTop = 1 - 1;
-    int maxTop = game->getWorld().map.len()-1 - ((int)(height/tilesize)-1);
+  Vector2 min(1,1);
+  Vector2 max(game->getWorld().map.len()-1, game->getWorld().map.len()-1);
+  max -= getSize() / tilesize;
 
-    if(minLeft > maxLeft) {
-      anchor.x = (minLeft + maxLeft) / 2;
-    }
-    else if(anchor.x < minLeft) {
-      anchor.x = minLeft;
-    }
-    else if(anchor.x > maxLeft) {
-      anchor.x = maxLeft;
-    }
+  if(min.x > max.x) {
+    anchor.x = (min.x + max.x) / 2;
+  }
+  else if(anchor.x < min.x) {
+    anchor.x = min.x;
+  }
+  else if(anchor.x > max.y) {
+    anchor.x = max.x;
+  }
 
-    if(minTop > maxTop) {
-      anchor.y = (minTop + maxTop) / 2;
-    }
-    else if(anchor.y < minTop) {
-      anchor.y = minTop;
-    }
-    else if(anchor.y > maxTop) {
-      anchor.y = maxTop;
-    }
+  if(min.y > max.y) {
+    anchor.y = (min.y + max.y) / 2;
+  }
+  else if(anchor.y < min.y) {
+    anchor.y = min.y;
+  }
+  else if(anchor.y > max.y) {
+    anchor.y = max.y;
+  }
 }
 
 /*
  *  Set the Corners of the GameView to show in Minimap
  */
 void MiniMap::setGameViewCorners(
-    const MapPoint& upperLeft, const MapPoint& lowerRight
+  Vector2 upperLeft, Vector2 lowerRight
 ) {
     this->upperLeft = upperLeft;
     this->lowerRight = lowerRight;
-    anchor = MapPoint(
-      (upperLeft.x + lowerRight.x) / 2 - (width / tilesize / 2),
-      (upperLeft.y + lowerRight.y) / 2 - (height / tilesize / 2)
-    );
+    anchor = (upperLeft + lowerRight - getSize() / tilesize) / 2;
     constrainPosition();
-    mFullRefresh = true;
     setDirty();
 }
 
 void MiniMap::draw(Painter &painter) {
-  Map& map = game->getWorld().map;
   attachButtons();
-  int x, y;
-  unsigned short size;
-
-  // simple and bad implementation
-  // FIXME: should be stored SDL_Surface and then blitted
-
-  std::unique_ptr<Painter> mpainter(
-    painter.createTexturePainter(mTexture.get()));
-  Color white;
-  white.parse( "white" );
-  Rect2D miniRect( 0 , 0, width, height );
-  Color mc = getColor(MapPoint(0,0));
-  if(mpainter.get() == 0) {
-    // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-    if(mFullRefresh) {
-      painter.setFillColor( mc );
-      painter.fillRectangle( miniRect );
-      for(int y = 1; y < height/tilesize; y++)
-      for(int x = 1; x < width/tilesize; x++) {
-        MapPoint p(anchor.e(x).s(y));
-        if(!map.is_visible(p)) continue;
-
-        if(map(p)->construction) {
-          size = map(p)->construction->constructionGroup->size;
-          mc = getColor(p);
-          painter.setFillColor(mc);
-          painter.fillRectangle(Rect2D(
-            x*tilesize,
-            y*tilesize,
-            (x+size)*tilesize+1,
-            (y+size)*tilesize
-          ));
-        }
-        else if(!map(p)->reportingConstruction) {
-          size = map(p)->getTileConstructionGroup()->size;
-          mc = getColor(p);
-          painter.setFillColor(mc);
-          painter.fillRectangle(Rect2D(
-            x*tilesize,
-            y*tilesize,
-            (x+size)*tilesize+1,
-            (y+size)*tilesize
-          ));
-        }
-        if(mMode == COAL) { //show coal under buildings, too
-          mc = getColor(p);
-          painter.setFillColor(mc);
-          painter.fillRectangle(Rect2D(
-            x*tilesize,
-            y*tilesize,
-            (x+1)*tilesize+1,
-            (y+1)*tilesize
-          ));
-        }
-      }
-    }
-
-    //show current GameView
-    painter.setClipRectangle( miniRect );
-// FIXME:
-//        painter.setLineColor( white );
-//        painter.drawPolygon( 4, gameViewPoints );
-    painter.clearClipRectangle();
-    return;
-  }
   if(mFullRefresh) {
-    mpainter->setFillColor( mc );
-    mpainter->fillRectangle( miniRect );
-
-    for(int y = 1; y < height/tilesize; y++)
-    for(int x = 1; x < width/tilesize; x++) {
-      MapPoint p(anchor.e(x).s(y));
-      if(!map.is_visible(p)) continue;
-
-      if(map(p)->construction) {
-        size = map(p)->construction->constructionGroup->size;
-        mc = getColor(p);
-        mpainter->setFillColor(mc);
-        mpainter->fillRectangle(Rect2D(
-          x*tilesize,
-          y*tilesize,
-          (x+size)*tilesize+1,
-          (y+size)*tilesize
-        ));
-      }
-      else if(!map(p)->reportingConstruction) {
-        size = map(p)->getTileConstructionGroup()->size;
-        mc = getColor(p);
-        mpainter->setFillColor(mc);
-        mpainter->fillRectangle(Rect2D(
-          x*tilesize,
-          y*tilesize,
-          (x+size)*tilesize+1,
-          (y+size)*tilesize
-        ));
-      }
-      if(mMode == COAL) { //show coal under buildings, too
-        mc=getColor(p);
-        mpainter->setFillColor(mc);
-        mpainter->fillRectangle(Rect2D(
-          x*tilesize,
-          y*tilesize,
-          (x+1)*tilesize+1,
-          (y+1)*tilesize
-        ));
-      }
-    }
+    refreshTexture(painter);
+    mFullRefresh = false;
   }
-
-  //show current GameView
-// FIXME:
-//    mpainter->setLineColor( white );
-//    mpainter->drawPolygon( 4, gameViewPoints );
-
-  painter.drawTexture(mTexture.get(), Vector2(0, 0));
-  mFullRefresh=false;
+  painter.pushClipRect(Rect2D(Vector2(0,0), getSize()));
+  painter.drawTexture(mTexture.get(), (-anchor + Vector2(1,1)) * tilesize);
+  painter.popClipRect();
 }
 
-Color MiniMap::getColorNormal(MapPoint p) const
-{
-    int mc = game->getWorld().map(p)->getConstructionGroup()->colour;
+void MiniMap::refreshTexture(Painter& painter) {
+  const int textureSize = (game->getWorld().map.len() - 2) * tilesize;
+  if(!mTexture || mTexture->getWidth() != textureSize) {
+    mTexture = painter.createTargetTexture(textureSize, textureSize);
+  }
+
+  painter.pushRenderTarget(mTexture.get());
+  painter.setFillColor(Color(0,0,0));
+  painter.clear();
+
+  bool tileMode = mMode == COAL || mMode == POLLUTION;
+
+  for(MapTile& tile : game->getWorld().map) {
+    if(!game->getWorld().map.is_visible(tile.point))
+      continue;
+    if(tile.reportingConstruction && !tile.construction && !tileMode)
+      continue;
+
+    const int size = tileMode ? 1 : tile.getConstructionGroup()->size;
+    painter.setFillColor(getColor(tile));
+    painter.fillRectangle(Rect2D(
+      (tile.point.x - 1) * tilesize,
+      (tile.point.y - 1) * tilesize,
+      (tile.point.x - 1 + size) * tilesize,
+      (tile.point.y - 1 + size) * tilesize
+    ));
+  }
+
+  painter.popRenderTarget();
+}
+
+Color MiniMap::getColorNormal(MapTile& tile) const {
+    int mc = tile.getConstructionGroup()->colour;
 
     int red = 0;
     int green = 0;
@@ -801,18 +710,7 @@ Color MiniMap::getColorNormal(MapPoint p) const
 }
 
 Color
-MiniMap::getColor(MapPoint point) const {
-  Map& map = game->getWorld().map;
-  if(!map.is_inside(point))
-    point = MapPoint(0,0);
-  MapTile& tile = *map(point);
-  MapPoint p = point;
-  int conflags = 0;
-  if(tile.reportingConstruction) {
-    p = tile.reportingConstruction->point;
-    conflags = tile.reportingConstruction->flags;
-  }
-  MapTile& t = *map(p);
+MiniMap::getColor(MapTile& tile) const {
 
   switch(mMode)
   {
@@ -820,7 +718,7 @@ MiniMap::getColor(MapPoint point) const {
 #ifdef DEBUG
 //#define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
-    if(t.is_bare()) {
+    if(tile.is_bare()) {
       // show ground altitude
       int alt = t.ground.altitude;
       if(alt > alt_min + 9 * alt_step)
@@ -847,7 +745,7 @@ MiniMap::getColor(MapPoint point) const {
     else
 #endif
 #endif  //DEBUG
-      return getColorNormal(p);
+      return getColorNormal(tile);
   case POLLUTION: {
     short pol = tile.pollution;
     float v = pol/600.0;
@@ -856,12 +754,12 @@ MiniMap::getColor(MapPoint point) const {
     if(v > 1)
       v = 1;
     Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
-    mc = light(mc,brightness(getColorNormal(p)));
+    mc = light(mc,brightness(getColorNormal(tile)));
     return mc;
   }
   case FIRE:
     if(tile.getGroup() == GROUP_FIRE) {
-      if(!static_cast<Fire*>(t.reportingConstruction)->smoking_days) {
+      if(!static_cast<Fire*>(tile.reportingConstruction)->smoking_days) {
         return Color(0xFF,0,0); //still burning (red)
       } else  {
         return Color(0xFF,0x99,0); //unbulldozable (orange)
@@ -873,44 +771,48 @@ MiniMap::getColor(MapPoint point) const {
       return Color(0xFF,0xFF,0); // (yellow)
     }
 */
-    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &fireStationConstructionGroup) {
+    if(tile.getConstructionGroup() == &fireStationConstructionGroup) {
       return Color(0,0xFF,0); //green
     }
     //fall through
   case CRICKET:
-    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &cricketConstructionGroup && mMode==CRICKET) {
+    if(tile.getConstructionGroup() == &cricketConstructionGroup && mMode==CRICKET) {
       return Color(0,0xFF,0); //green
     }
       //fall through
-  case HEALTH:
-    if(t.reportingConstruction && t.reportingConstruction->constructionGroup == &healthCentreConstructionGroup && mMode==HEALTH) {
+  case HEALTH: {
+    if(tile.getConstructionGroup() == &healthCentreConstructionGroup && mMode==HEALTH) {
       return Color(0,0xFF,0); //green
     }
-    if((t.flags & FLAG_FIRE_COVER) && mMode==FIRE
-      || (t.flags & FLAG_CRICKET_COVER) && mMode==CRICKET
-      || (t.flags & FLAG_HEALTH_COVER) && mMode==HEALTH
+    int csttileflags = tile.reportingConstruction
+      ? game->getWorld().map(tile.reportingConstruction->point)->flags
+      : tile.flags;
+    if((csttileflags & FLAG_FIRE_COVER) && mMode==FIRE
+      || (csttileflags & FLAG_CRICKET_COVER) && mMode==CRICKET
+      || (csttileflags & FLAG_HEALTH_COVER) && mMode==HEALTH
     ) {
       Color mc(0,0xFF,0);
-      mc = light(mc,brightness(getColorNormal(p)));
+      mc = light(mc,brightness(getColorNormal(tile)));
       return mc;
     }
     else
-      return makeGrey(getColorNormal(p));
+      return makeGrey(getColorNormal(tile));
+  }
   case UB40: {
     /* Display residence with un/employed people (red / green) == too many people here */
-    int job_level = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(STUFF_LABOR, -1)
+    int job_level = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(STUFF_LABOR, -1)
       : -1;
     if(job_level == -1) { // Not a "jobby" place at all
-      return makeGrey(getColorNormal(p));
+      return makeGrey(getColorNormal(tile));
     }
-    if(t.is_residence()) {
+    if(tile.is_residence()) {
       if(job_level > 95 * TRANSPORT_QUANTA / 100)
         return Color(0xFF,0,0);
       else if(job_level > 90 * TRANSPORT_QUANTA / 100)
         return Color(0x7F,0,0);
       else
-        return makeGrey(getColorNormal(p));
+        return makeGrey(getColorNormal(tile));
         //return Color(0,0xFF,0);
     }
 
@@ -922,7 +824,7 @@ MiniMap::getColor(MapPoint point) const {
       else if(job_level < 10 * TRANSPORT_QUANTA / 100)
         return Color(0xFF,0x99,0); // orange
       else
-        return makeGrey(getColorNormal(p));
+        return makeGrey(getColorNormal(tile));
     }
   }
   case COAL: {
@@ -931,24 +833,24 @@ MiniMap::getColor(MapPoint point) const {
       return Color(0,0,0);
     }
     if(tile.coal_reserve==0)
-        return makeGrey(getColorNormal(point));
+      return makeGrey(getColorNormal(tile));
     else if (tile.coal_reserve >= COAL_RESERVE_SIZE / 2)
-        return Color(0,0xFF,0);
+      return Color(0,0xFF,0);
     else if (tile.coal_reserve < COAL_RESERVE_SIZE / 2)
-        return Color(0xFF,0,0);
-
-    return c;
+      return Color(0xFF,0,0);
+    else
+      return Color(0x77,0,0);
   }
   case STARVE: {
-    int food_level = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(STUFF_FOOD, -1)
+    int food_level = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(STUFF_FOOD, -1)
       : 1;
-    int water_level = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(STUFF_WATER, -1)
+    int water_level = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(STUFF_WATER, -1)
       : 1;
     int crit_level = water_level < food_level ? water_level : food_level;
     //don't care about other eaters or drinkers
-    if(t.is_residence()) {
+    if(tile.is_residence()) {
       if(crit_level < 5 * TRANSPORT_QUANTA / 100)
         return Color(0xFF,0,0);
       else if(crit_level < 10 * TRANSPORT_QUANTA / 100)
@@ -957,18 +859,18 @@ MiniMap::getColor(MapPoint point) const {
         return Color(0,0xFF,0);
     }
     else
-      return makeGrey(getColorNormal(p));
+      return makeGrey(getColorNormal(tile));
   }
   case POWER: {
     Color mc;
     /* default color = grey */
     //mc = Color(0x3F,0x3F,0x3F);
-    mc = makeGrey(getColorNormal(p));
-    int lovolt_level = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(STUFF_LOVOLT, -1)
+    mc = makeGrey(getColorNormal(tile));
+    int lovolt_level = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(STUFF_LOVOLT, -1)
       : -1;
-    int hivolt_level = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(STUFF_HIVOLT, -1)
+    int hivolt_level = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(STUFF_HIVOLT, -1)
       : -1;
     if(lovolt_level > -1 || hivolt_level > -1) {
       /* not enough power */
@@ -985,22 +887,24 @@ MiniMap::getColor(MapPoint point) const {
     return mc;
   }
   case TRAFFIC: {
+    int conflags = tile.reportingConstruction
+      ? tile.reportingConstruction->flags : 0;
     if((conflags & FLAG_IS_TRANSPORT) || (tile.getGroup() == GROUP_POWER_LINE)) {
       float loc_lvl = -1;
       if (conflags & FLAG_IS_TRANSPORT) {
         Transport *transport =
-          static_cast<Transport *>(t.reportingConstruction);
+          static_cast<Transport *>(tile.reportingConstruction);
         if(transport->constructionGroup->commodityRuleCount[stuff_ID].maxload)
           loc_lvl = transport->trafficCount[stuff_ID];
       }
       else if(tile.getGroup() == GROUP_POWER_LINE) {
         Powerline *powerline =
-          static_cast<Powerline *>(t.reportingConstruction);
+          static_cast<Powerline *>(tile.reportingConstruction);
         if(powerline->constructionGroup->commodityRuleCount[stuff_ID].maxload)
           loc_lvl = powerline->trafficCount[stuff_ID];
       }
       if (loc_lvl < 0)
-        return makeGrey(getColorNormal(p));
+        return makeGrey(getColorNormal(tile));
       loc_lvl = loc_lvl * TRANSPORT_RATE / TRANSPORT_QUANTA;
 
 #ifdef DEBUG
@@ -1011,14 +915,16 @@ MiniMap::getColor(MapPoint point) const {
       Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);
       return mc;
     }
-    else
-    { //not a Transport, make bluish if in range of a markt
-        if ((t.flags & FLAG_MARKET_COVER) &&
-            marketConstructionGroup.commodityRuleCount[stuff_ID].maxload)
-        {
-            return makeBlue(getColorNormal(point));
-        }
-        return makeGrey(getColorNormal(p));
+    else { //not a Transport, make bluish if in range of a markt
+      int csttileflags = tile.reportingConstruction
+        ? game->getWorld().map(tile.reportingConstruction->point)->flags
+        : tile.flags;
+      if((csttileflags & FLAG_MARKET_COVER)
+        && marketConstructionGroup.commodityRuleCount[stuff_ID].maxload
+      ) {
+        return makeBlue(getColorNormal(tile));
+      }
+      return makeGrey(getColorNormal(tile));
     }
   }
   case COMMODITIES:
@@ -1027,29 +933,30 @@ MiniMap::getColor(MapPoint point) const {
     if(conflags & FLAG_IS_TRANSPORT)
       return makeGrey(getColorNormal(p.x,p.y));
 */
-    float loc_lvl = t.reportingConstruction
-      ? t.reportingConstruction->tellstuff(stuff_ID, -1)
+    float loc_lvl = tile.reportingConstruction
+      ? tile.reportingConstruction->tellstuff(stuff_ID, -1)
       : -1;
     float red, green, blue;
 
     if(loc_lvl < 0)
-      return makeGrey(getColorNormal(p));
+      return makeGrey(getColorNormal(tile));
     loc_lvl /= TRANSPORT_QUANTA;
     if(stuff_ID == STUFF_WASTE) //so far waste is the only bad commodity
       loc_lvl = 1 - loc_lvl;
     red = 1 - 2.25 * loc_lvl;
     if(red < 0) red = 0;
-    if(!t.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
+    if(!tile.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].take)
       red = 0;
     blue = 1 - 2.25 * (1 - loc_lvl);
     if(blue < 0) blue = 0;
-    if(!t.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
+    if(!tile.reportingConstruction->constructionGroup->commodityRuleCount[stuff_ID].give)
       blue = 0;
     green = 1 - red - blue;
     Color mc(static_cast<int>(0xFF*red), static_cast<int>(0xFF*green),static_cast<int>(0xFF*blue));
     return mc;
   }
   case MAX:
+  default:
     std::cerr<<"Undefined MiniMap-Display-type!"<<std::endl;
   };
   // default coloor is a nasty looking pink
@@ -1082,8 +989,8 @@ void MiniMap::event(const Event& event) {
     if(event.type==Event::MOUSEBUTTONDOWN) {
         // get Tile, that was clicked
         MapPoint tile (
-          (int)((event.mousepos.x - border) / tilesize) + anchor.x,
-          (int)((event.mousepos.y - border) / tilesize) + anchor.y
+          (int)((event.mousepos.x - border) / tilesize + anchor.x),
+          (int)((event.mousepos.y - border) / tilesize + anchor.y)
         );
 
         if(event.mousebutton == SDL_BUTTON_LEFT )

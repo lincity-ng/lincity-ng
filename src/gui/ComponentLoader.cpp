@@ -81,7 +81,7 @@ Component* createComponent(const std::string& type, XmlReader& reader)
 
 Component* loadGUIFile(const std::filesystem::path& filename)
 {
-    XmlReader reader(getConfig()->appDataDir / filename);
+    XmlReader reader(getConfig()->appDataDir.get() / filename);
 
     std::string componentName = (const char*) reader.getName();
     if(componentName == "gui") {

@@ -25,13 +25,14 @@
 #ifndef __LINCITYNG_LINCITY_MODULES_UNIVERSITY_HPP__
 #define __LINCITYNG_LINCITY_MODULES_UNIVERSITY_HPP__
 
-#include <array>                    // for array
+#include <array>                      // for array
+#include <string>                     // for string
 
 #include "lincity/all_buildings.hpp"  // for blue
-#include "lincity/commodities.hpp"  // for CommodityRule, Commodity
+#include "lincity/commodities.hpp"    // for CommodityRule, Commodity
+#include "lincity/lin-city.hpp"       // for MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"     // for Message
-#include "lincity/lin-city.hpp"
+#include "lincity/messages.hpp"       // for Message
 
 class World;
 
@@ -57,15 +58,16 @@ class World;
 class UniversityConstructionGroup: public ConstructionGroup {
 public:
     UniversityConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range
+        name, name_plural, no_credit, group, size, colour, cost_mul, bul_cost,
+        fire_chance,   cost, tech, range
     ) {
         commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_UNIVERSITY;
         commodityRuleCount[STUFF_LABOR].take = true;

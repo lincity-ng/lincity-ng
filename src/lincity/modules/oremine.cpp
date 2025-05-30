@@ -42,6 +42,7 @@
 // Oremine:
 OremineConstructionGroup oremineConstructionGroup(
      N_("Ore Mine"),
+     N_("Ore Mines"),
      FALSE,                     /* need credit? */
      GROUP_OREMINE,
      GROUP_OREMINE_SIZE,

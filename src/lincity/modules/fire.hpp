@@ -26,6 +26,7 @@
 #define __LINCITYNG_LINCITY_MODULES_FIRE_HPP__
 
 #include <stdlib.h>                   // for rand
+#include <string>                     // for string
 
 #include "lincity/all_buildings.hpp"  // for red
 #include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_YEAR, Constructio...
@@ -51,15 +52,16 @@ class World;
 class FireConstructionGroup: public ConstructionGroup {
 public:
     FireConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range
+        name, name_plural, no_credit, group, size, colour, cost_mul, bul_cost,
+        fire_chance,   cost, tech, range
     ) {
 
     };

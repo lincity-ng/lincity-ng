@@ -22,9 +22,8 @@
 
 #include "main.hpp"
 
-#include <SDL.h>                                 // for SDL_GL_SetAttribute
+#include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
-#include <SDL_opengl.h>                          // for glDisable, glLoadIde...
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
 #include <config.h>                              // for PACKAGE_NAME, PACKAG...
 #include <libxml/parser.h>                       // for xmlCleanupParser
@@ -36,6 +35,7 @@
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
+#include <optional>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
@@ -43,12 +43,16 @@
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
-#include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
-#include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "tinygettext/tinygettext.hpp"           // for DictionaryManager
+
+#ifndef DISABLE_GL_MODE
+#include <SDL_opengl.h>                          // for glDisable, glLoadIde...
+#include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
+#include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
+#endif
 
 #ifndef DEBUG
 #include <exception>                             // for exception
@@ -70,7 +74,8 @@ void musicHalted() {
 }
 
 void videoSizeChanged(int width, int height) {
-    if (getConfig()->useOpenGL) {
+#ifndef DISABLE_GL_MODE
+    if(getConfig()->useOpenGL.get()) {
         /* Reset OpenGL state */
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
@@ -86,6 +91,7 @@ void videoSizeChanged(int width, int height) {
 
         glClear(GL_COLOR_BUFFER_BIT);
     }
+#endif
 }
 void resizeVideo(int width, int height, bool fullscreen)
 {
@@ -103,7 +109,8 @@ void initVideo(int width, int height)
     Uint32 flags = 0;
 
     flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
-    if( getConfig()->useOpenGL ){
+#ifndef DISABLE_GL_MODE
+    if(getConfig()->useOpenGL.get()) {
         flags |= SDL_WINDOW_OPENGL;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
@@ -112,14 +119,24 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     }
-    if(getConfig()->useFullScreen)
+#endif
+    if(getConfig()->useFullScreen.get())
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
     window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, width, height,
                               flags);
-    if( getConfig()->useOpenGL ){
+
+    if(getConfig()->useFullScreen.get()) {
+      // actual window saze may be different than requested
+      SDL_GetWindowSize(window, &width, &height);
+      getConfig()->videoX.session = width;
+      getConfig()->videoY.session = height;
+    }
+
+#ifndef DISABLE_GL_MODE
+    if(getConfig()->useOpenGL.get()) {
         window_context = SDL_GL_CreateContext(window);
         SDL_GL_SetSwapInterval(1);
 
@@ -142,14 +159,17 @@ void initVideo(int width, int height)
         std::cout << "x" << height << "\n";
 
         texture_manager = new TextureManagerGL();
-    } else {
+    }
+    else
+#endif
+    {
         window_renderer = SDL_CreateRenderer(window, -1, 0);
 
         painter = new PainterSDL(window_renderer);
         std::cout << "\nSDL Mode " << width;
         std::cout << "x"<< height <<"\n";
 
-        texture_manager = new TextureManagerSDL();
+        texture_manager = new TextureManagerSDL(window_renderer);
     }
 
     fontManager = new FontManager();
@@ -173,16 +193,16 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
 
-        if( getConfig()->language != "autodetect" ){
+        if(getConfig()->language.get() != "autodetect") {
 #if defined (WIN32)
-            _putenv_s("LINCITY_LANG", getConfig()->language.c_str());
+          _putenv_s("LINCITY_LANG", getConfig()->language.get().c_str());
 #else
-            setenv("LINCITY_LANG", getConfig()->language.c_str(), false);
+          setenv("LINCITY_LANG", getConfig()->language.get().c_str(), false);
 #endif
         }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory(getConfig()->appDataDir / "locale");
+        dictionaryManager->add_directory(getConfig()->appDataDir.get() / "locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
 
         // char *lc_textdomain_directory[1024];
@@ -223,7 +243,7 @@ int main(int argc, char** argv)
             msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
             throw std::runtime_error(msg.str());
         }
-        initVideo(getConfig()->videoX, getConfig()->videoY);
+        initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
         initLincity();
         std::unique_ptr<Sound> sound;
         sound.reset(new Sound());

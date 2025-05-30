@@ -4,18 +4,17 @@ RUN apt-get update
 
 RUN apt-get install -y \
   libsdl2-2.0-0 \
-  libsdl2-gfx-1.0-0 \
   libsdl2-image-2.0-0 \
   libsdl2-mixer-2.0-0 \
   libsdl2-ttf-2.0-0 \
   libphysfs1 \
   zlib1g \
-  libxml2
+  libxml2 \
+  libfmt9
 RUN apt-get install -y \
   build-essential \
   cmake \
   libsdl2-dev \
-  libsdl2-gfx-dev \
   libsdl2-image-dev \
   libsdl2-mixer-dev \
   libsdl2-ttf-dev \
@@ -24,6 +23,7 @@ RUN apt-get install -y \
   libxml2-dev \
   libxslt1.1 \
   libxslt1-dev \
+  libfmt-dev \
   xsltproc \
   git \
   meson \

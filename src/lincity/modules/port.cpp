@@ -40,6 +40,7 @@
 // Port:
 PortConstructionGroup portConstructionGroup(
     N_("Port"),
+    N_("Ports"),
      FALSE,                     /* need credit? */
      GROUP_PORT,
      GROUP_PORT_SIZE,

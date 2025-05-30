@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
- * Copyright (C) 2024      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 
 #include <SDL.h>                  // for Uint32, SDL_Surface, SDL_Thread
 #include <filesystem>             // for path
+#include <memory>                 // for unique_ptr
 #include <string>                 // for basic_string, string
 
 #include "MiniMap.hpp"            // for MiniMap
@@ -54,6 +55,7 @@ public:
     void resize(float width, float height );
     void event(const Event& event);
     void setDirty() { Component::setDirty(); }
+    void setMapDirty() { refreshMap = true; }
 
     //Show City Tile(x/y) by centering the screen
     void show(MapPoint point, bool redraw = true );
@@ -187,6 +189,9 @@ private:
 
     int cursorSize;
     bool buttonsConnected;
+
+    std::unique_ptr<Texture> mapTexture;
+    bool refreshMap;
 
     MapPoint realTile( MapPoint tile );
     std::string lastStatusMessage;
