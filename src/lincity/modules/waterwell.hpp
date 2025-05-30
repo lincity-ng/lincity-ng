@@ -66,7 +66,7 @@ public:
         commodityRuleCount[STUFF_WATER].take = false;
     }
     // overriding method that creates a waterwell
-    virtual Construction *createConstruction(World& world);
+    virtual Construction *createConstruction(World& world) override;
 
     virtual bool can_build_here(const World& world, const MapPoint point,
       Message::ptr& message) const override;

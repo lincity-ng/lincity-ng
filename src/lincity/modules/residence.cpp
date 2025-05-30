@@ -187,18 +187,16 @@ void Residence::update()
     //int pol_death = 0;             //sometimes pollution kills
 
     /*Determine Health,Fire,Cricket cover*/
-    if ((hc = world.map(point)->flags & FLAG_HEALTH_COVER))
-    {
-        brm = RESIDENCE_BRM_HEALTH;
-        good += 15;
+    if((hc = world.map(point)->flags & FLAG_HEALTH_COVER)) {
+      brm = RESIDENCE_BRM_HEALTH;
+      good += 15;
     }
     if (world.map(point)->flags & FLAG_FIRE_COVER)
-    {   good += 15;}
+      good += 15;
     else
-    {   bad += 5;}
-    if (cc = world.map(point)->flags & FLAG_CRICKET_COVER)
-    {
-        good += 20;
+      bad += 5;
+    if((cc = world.map(point)->flags & FLAG_CRICKET_COVER)) {
+      good += 20;
     }
 
     /* now get fed */

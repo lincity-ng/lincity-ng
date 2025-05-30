@@ -57,7 +57,7 @@ public:
 
     };
     // overriding method that creates a Park
-    virtual Construction *createConstruction(World& world);
+    virtual Construction *createConstruction(World& world) override;
 
     virtual bool can_build_here(const World& world, const MapPoint point,
       Message::ptr& message) const override;
@@ -69,7 +69,7 @@ extern ParklandConstructionGroup parkpondConstructionGroup;
 class Parkland: public Construction {
 public:
     Parkland(World& world, ConstructionGroup *cstgrp);
-    virtual void update();
+    virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;
 };
 

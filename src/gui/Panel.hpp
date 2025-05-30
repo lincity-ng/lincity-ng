@@ -41,8 +41,8 @@ public:
     virtual ~Panel();
 
     void parse(XmlReader& reader);
-    void draw(Painter& painter);
-    bool opaque(const Vector2& pos) const;
+    void draw(Painter& painter) override;
+    bool opaque(const Vector2& pos) const override;
     virtual void resize(float width, float height) override;
 
 private:
