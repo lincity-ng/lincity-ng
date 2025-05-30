@@ -76,6 +76,7 @@ TextureManager::load(const std::filesystem::path& filename, Filter filter)
     }
 
     Texture* result = create(image);
+    SDL_FreeSurface(image);
     textures.insert(std::make_pair(info, result));
 
     return result;

@@ -1,29 +1,37 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+/* ---------------------------------------------------------------------- *
+ * src/gui/PainterSDL/PainterSDL.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __PAINTERSDL_HPP__
 #define __PAINTERSDL_HPP__
 
-#include <SDL.h>            // for SDL_Renderer, SDL_Surface
-#include <vector>           // for vector
+#include <SDL.h>           // for SDL_Renderer
+#include <cmath>           // for INFINITY
+#include <deque>           // for deque
+#include <vector>          // for vector
 
-#include "../Vector2.hpp"   // for Vector2
-#include "gui/Color.hpp"    // for Color
-#include "gui/Painter.hpp"  // for Painter
+#include "../Color.hpp"       // for Color
+#include "../Painter.hpp"     // for Painter
+#include "../Vector2.hpp"     // for Vector2
+#include "../Rect2D.hpp"      // for Rect2D
 
 class TextureSDL;
 
@@ -35,53 +43,57 @@ class TextureSDL;
 class PainterSDL : public Painter
 {
 public:
-    PainterSDL(SDL_Renderer* target);
-    virtual ~PainterSDL();
+  PainterSDL(SDL_Renderer* target);
+  virtual ~PainterSDL();
 
-    void drawTexture(const Texture* texture, const Vector2& pos);
-    void drawStretchTexture(Texture* texture, const Rect2D& rect);
-    void fillRectangle(const Rect2D& rect);
-    void drawRectangle(const Rect2D& rect);
-    void fillPolygon(int numberPoints, const Vector2* points);
-    void drawPolygon(int numberPoints, const Vector2* points);
-    void drawLine(const Vector2 pointA, const Vector2 pointB);
+  void drawTexture(const Texture* texture, Vector2 pos) override;
+  void drawStretchTexture(const Texture *texture, const Rect2D& rect) override;
+  void fillRectangle(const Rect2D& rect) override;
+  void drawRectangle(const Rect2D& rect) override;
+  void fillPolygon(int numberPoints, const Vector2* points) override;
+  void drawPolygon(int numberPoints, const Vector2* points) override;
+  void drawLine(Vector2 pointA, Vector2 pointB) override;
+  void clear() override;
 
-    void pushTransform();
-    void popTransform();
+  void setFillColor(Color color) override;
+  void setLineColor(Color color) override;
 
-    void setClipRectangle(const Rect2D& rect);
-    void clearClipRectangle();
+  std::unique_ptr<Texture> createTargetTexture(int w, int h) override;
+  void pushRenderTarget(Texture *target) override;
+  void popRenderTarget() override;
 
-    void translate(const Vector2& vec);
-    void setFillColor(Color color);
-    void setLineColor(Color color);
+  void updateScreen() override;
 
-    Painter* createTexturePainter(Texture* texture);
+  void translate(Vector2 tl) override;
+  void pushTransform() override;
+  void popTransform() override;
 
-    void updateScreen();
+  void pushClipRect(const Rect2D& region) override;
+  void popClipRect() override;
+
 
 private:
-    PainterSDL(TextureSDL* texture);
+  SDL_Renderer* renderer;
 
-    class Transform
-    {
-    public:
-        Vector2 translation;
+  struct Transform {
+    Vector2 translation;
 
-        Vector2 apply(const Vector2& v) const
-        {
-            return v - translation;
-        }
-    };
+    Vector2 apply(const Vector2& v) const {
+      return v - translation;
+    }
+  };
+  // the stack used by push-/popTransform
+  std::vector<Transform> transformStack;
+  // the currently active transform
+  Transform transform;
 
-    // the stack used by push-/popTransform
-    std::vector<Transform> transformStack;
-    // the currently active transform
-    Transform transform;
+  std::deque<TextureSDL *> targetStack;
 
-    SDL_Surface* target;
-    SDL_Renderer* renderer;
-    Color fillColor,lineColor;
+  std::deque<Rect2D> cliprectStack;
+  void updateClipRect();
+  static constexpr Rect2D CR_NONE = Rect2D(0,0,INFINITY,INFINITY);
+
+  Color fillColor,lineColor;
 };
 
 #endif
