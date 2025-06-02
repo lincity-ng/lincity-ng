@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>              // for char_traits, operator<<, basic_ostream
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
-#include <string>                // for basic_string
 
 #include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "Gradient.hpp"
