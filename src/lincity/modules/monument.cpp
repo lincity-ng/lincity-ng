@@ -40,6 +40,7 @@
 
 MonumentConstructionGroup monumentConstructionGroup(
     N_("Monument"),
+    N_("Monuments"),
     FALSE,                     /* need credit? */
     GROUP_MONUMENT,
     GROUP_MONUMENT_SIZE,

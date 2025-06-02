@@ -49,6 +49,10 @@ for a different version than what you are building can cause build failures.
 
   https://libxmlplusplus.github.io/libxmlplusplus/
 
+* fmt 9.0.0 or later
+
+  https://fmt.dev/latest/index.html
+
 ### Build Dependencies
 
 * A C++ compiler supporting C++17 (such as gcc)

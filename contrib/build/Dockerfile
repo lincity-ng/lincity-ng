@@ -9,7 +9,8 @@ RUN apt-get install -y \
   libsdl2-ttf-2.0-0 \
   libphysfs1 \
   zlib1g \
-  libxml2
+  libxml2 \
+  libfmt9
 RUN apt-get install -y \
   build-essential \
   cmake \
@@ -22,6 +23,7 @@ RUN apt-get install -y \
   libxml2-dev \
   libxslt1.1 \
   libxslt1-dev \
+  libfmt-dev \
   xsltproc \
   git \
   meson \

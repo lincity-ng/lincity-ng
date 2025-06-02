@@ -1,4 +1,4 @@
-LinCity NG packages built for Windows may include dll's, which are covered under
+LinCity-NG packages built for Windows may include dll's, which are covered under
 their own licenses.
 
 `libgcc_s_seh-1.dll` is provided by MinGW-w64 (https://www.mingw-w64.org/) and
@@ -42,4 +42,7 @@ License.
 License.
 
 `zlib1.dll` is provided by zlib (https://www.zlib.net/) and falls under the ZLIB
+License.
+
+`libfmt.dll` is provided by fmt (https://fmt.dev/) and falls under the MIT
 License.

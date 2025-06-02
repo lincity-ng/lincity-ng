@@ -45,6 +45,7 @@
 // Track:
 TransportConstructionGroup trackConstructionGroup(
     N_("Track"),
+    N_("Tracks"),
     FALSE,                     /* need credit? */
     GROUP_TRACK,
     GROUP_TRANSPORT_SIZE,
@@ -59,7 +60,8 @@ TransportConstructionGroup trackConstructionGroup(
 
 // TrackBridge:
 TransportConstructionGroup trackbridgeConstructionGroup(
-    N_("Track Bridge"),
+    N_("Track (Bridge)"),
+    N_("Tracks (Bridge)"),
     FALSE,                     /* need credit? */
     GROUP_TRACK_BRIDGE,
     GROUP_TRANSPORT_SIZE,
@@ -75,6 +77,7 @@ TransportConstructionGroup trackbridgeConstructionGroup(
 // Road:
 TransportConstructionGroup roadConstructionGroup(
     N_("Road"),
+    N_("Roads"),
     FALSE,                     /* need credit? */
     GROUP_ROAD,
     GROUP_TRANSPORT_SIZE,
@@ -88,7 +91,8 @@ TransportConstructionGroup roadConstructionGroup(
 );
 // RoadBridge:
 TransportConstructionGroup roadbridgeConstructionGroup(
-    N_("Road Bridge"),
+    N_("Road (Bridge)"),
+    N_("Roads (Bridge)"),
     FALSE,                     /* need credit? */
     GROUP_ROAD_BRIDGE,
     GROUP_TRANSPORT_SIZE,
@@ -105,6 +109,7 @@ TransportConstructionGroup roadbridgeConstructionGroup(
 // Rail:
 TransportConstructionGroup railConstructionGroup(
     N_("Rail"),
+    N_("Rails"),
     FALSE,                     /* need credit? */
     GROUP_RAIL,
     GROUP_TRANSPORT_SIZE,
@@ -118,7 +123,8 @@ TransportConstructionGroup railConstructionGroup(
 );
 // RailBridge:
 TransportConstructionGroup railbridgeConstructionGroup(
-    N_("Rail Bridge"),
+    N_("Rail (Bridge)"),
+    N_("Rails (Bridge)"),
     FALSE,                     /* need credit? */
     GROUP_RAIL_BRIDGE,
     GROUP_TRANSPORT_SIZE,

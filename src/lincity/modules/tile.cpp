@@ -32,6 +32,7 @@
 
 TileConstructionGroup waterConstructionGroup(
   N_("Water"),
+  N_("Water"),
   false,                     //need credit
   GROUP_WATER,
   1,                         //tilesize is always 1
@@ -46,6 +47,7 @@ TileConstructionGroup waterConstructionGroup(
 
 TileConstructionGroup bareConstructionGroup(
   N_("Empty"),
+  N_("Empty"),
   false,                     //need credit
   GROUP_BARE,
   1,                         //tilesize is always 1
@@ -59,6 +61,7 @@ TileConstructionGroup bareConstructionGroup(
 );
 
 TileConstructionGroup desertConstructionGroup(
+  N_("Desert"),
   N_("Desert"),
   false,                     //need credit
   GROUP_DESERT,
@@ -75,6 +78,7 @@ TileConstructionGroup desertConstructionGroup(
 
 TileConstructionGroup treeConstructionGroup(
   N_("Tree"),
+  N_("Trees"),
   false,                     //need credit
   GROUP_TREE,
   1,                         //tilesize is always 1
@@ -88,6 +92,7 @@ TileConstructionGroup treeConstructionGroup(
 );
 
 TileConstructionGroup tree2ConstructionGroup(
+  N_("Trees"),
   N_("Trees"),
   false,                     //need credit
   GROUP_TREE2,
@@ -103,6 +108,7 @@ TileConstructionGroup tree2ConstructionGroup(
 
 TileConstructionGroup tree3ConstructionGroup(
   N_("Forest"),
+  N_("Forests"),
   false,                     //need credit
   GROUP_TREE3,
   1,                         //tilesize is always 1

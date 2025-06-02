@@ -42,6 +42,7 @@
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),
+     N_("Coal Power Stations"),
      FALSE,                     /* need credit? */
      GROUP_COAL_POWER,
      GROUP_COAL_POWER_SIZE,

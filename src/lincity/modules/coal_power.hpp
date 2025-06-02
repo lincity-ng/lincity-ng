@@ -27,10 +27,11 @@
 
 #include <array>                    // for array
 #include <list>                     // for list
+#include <string>                   // for string
 
 #include "lincity/commodities.hpp"  // for CommodityRule, Commodity
-#include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "lincity/lin-city.hpp"
+#include "lincity/lin-city.hpp"     // for MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"     // for ConstructionGroup, Construction
 
 class World;
 struct ExtraFrame;
@@ -56,15 +57,16 @@ struct ExtraFrame;
 class Coal_powerConstructionGroup: public ConstructionGroup {
 public:
     Coal_powerConstructionGroup(
-        const char *name,
+        const std::string& name,
+        const std::string& name_plural,
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance,
-        cost, tech, range
+        name, name_plural, no_credit, group, size, colour, cost_mul, bul_cost,
+        fire_chance,   cost, tech, range
     ) {
         commodityRuleCount[STUFF_LABOR].maxload = MAX_LABOR_AT_COALPS;
         commodityRuleCount[STUFF_LABOR].take = true;

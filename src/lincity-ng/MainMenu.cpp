@@ -683,7 +683,7 @@ MainMenu::optionsBackButtonClicked(Button *) {
       .titleText(_("Warning"))
       .messageAddTextBold(_("Restart Required"))
       .messageAddText(_("Changing the language requires restarting LinCity"
-        "for changes to take effect."))
+        " for changes to take effect."))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();

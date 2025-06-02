@@ -41,7 +41,8 @@
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
-     N_("Health Centre"),
+     N_("Hospital"),
+     N_("Hospitals"),
      FALSE,                     /* need credit? */
      GROUP_HEALTH,
      GROUP_HEALTH_SIZE,

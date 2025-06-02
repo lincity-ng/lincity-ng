@@ -43,6 +43,7 @@
 
 FireConstructionGroup fireConstructionGroup(
      N_("Fire"),
+     N_("Fires"),
      FALSE,                     /* need credit? */
      GROUP_FIRE,
      GROUP_FIRE_SIZE,

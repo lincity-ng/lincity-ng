@@ -39,6 +39,7 @@
 
 MillConstructionGroup millConstructionGroup(
     N_("Textile Mill"),
+    N_("Textile Mills"),
     FALSE,                     /* need credit? */
     GROUP_MILL,
     GROUP_MILL_SIZE,
