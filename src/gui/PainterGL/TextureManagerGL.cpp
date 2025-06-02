@@ -93,11 +93,9 @@ TextureManagerGL::create(SDL_Surface* image)
     texture->width = image->w;
     texture->height = image->h;
 
-    SDL_FreeSurface(image);
     SDL_FreeSurface(convert);
     return texture;
 }
 
 
 /** @file gui/PainterGL/TextureManagerGL.cpp */
-

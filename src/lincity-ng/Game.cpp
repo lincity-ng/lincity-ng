@@ -590,6 +590,13 @@ Game::run() {
             while(Message::ptr message = world->popMessage())
               handleMessage(message);
 
+            if(world->isUpdated(World::Updatable::MAP)) {
+              getGameView().setDirty();
+              getGameView().setMapDirty();
+              getMiniMap().setMapDirty();
+              world->clearUpdated(World::Updatable::MAP);
+            }
+
             // update the help window
             // TODO: Why is this not triggered by the gui update?
             helpWindow->update();
@@ -604,6 +611,8 @@ Game::run() {
               getPBar2().refresh();
               getMpsMap().refresh();
               getEconomyGraph().setDirty();
+              getGameView().setMapDirty();
+              getMiniMap().setMapDirty();
             }
             if(new_year) {
               new_year = false;
@@ -643,6 +652,7 @@ Game::run() {
           if(getGameView().textures_ready && getGameView().remaining_images)
             getGameView().fetchTextures();
           getGameView().setDirty();
+          getGameView().setMapDirty();
 
           // reschedule
           next_animate = tick + ANIMATE_DELAY;

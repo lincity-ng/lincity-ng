@@ -42,6 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "TextureManager.hpp"    // for TextureManager, texture_manager
 #include "Vector2.hpp"           // for Vector2
 #include "XmlReader.hpp"         // for XmlReader
+#include "Texture.hpp"
 
 /**
  * Class constructor.
@@ -76,6 +77,7 @@ Panel::parse(XmlReader& reader)
         } else if(strcmp(attribute, "background") == 0) {
             background = 0;
             background = texture_manager->load(value);
+            background->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;

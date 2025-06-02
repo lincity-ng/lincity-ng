@@ -73,7 +73,7 @@ PainterGL::drawTexture(const Texture* texture, const Vector2& pos)
 }
 
 void
-PainterGL::drawStretchTexture(Texture* texture, const Rect2D& rect)
+PainterGL::drawStretchTexture(const Texture *texture, const Rect2D& rect)
 {
     assert(typeid(*texture) == typeid(TextureGL));
 
