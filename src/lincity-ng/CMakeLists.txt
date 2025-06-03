@@ -16,8 +16,6 @@ add_executable(lincity-ng
 		getBundleSharePath.cpp
 		HelpWindow.cpp
 		HelpWindow.hpp
-		lc_error.c
-		lc_error.h
 		main.cpp
 		main.hpp
 		MainLincity.cpp
