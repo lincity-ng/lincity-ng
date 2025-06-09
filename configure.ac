@@ -136,7 +136,7 @@ NP_FINDLIB([SDLGFX], [SDL2_gfx], [SDL2_gfx >= 1.0.0],
 # error SDL_GFX too old
 #endif
 ], [hlineColor(0, 0, 0, 0, 0);]),
-	[], [-lSDL2_gfx],
+	[], [-lSDL2_gfx -lm],
 	[],
 	[AC_MSG_ERROR([Please install SDL2_gfx >= 1.0.0])],
 	[$SDL_CFLAGS], [$SDL_LIBS])
