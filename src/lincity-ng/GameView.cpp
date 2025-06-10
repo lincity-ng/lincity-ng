@@ -390,8 +390,8 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
         viewportUpdated();
         setDirty();
     } else { //on startup getWidth is 0.
-        viewport.x = center.x - ( getConfig()->videoX / 2 );
-        viewport.y = center.y - ( getConfig()->videoY / 2 );
+        viewport.x = center.x - ( getConfig()->videoX.get() / 2 );
+        viewport.y = center.y - ( getConfig()->videoY.get() / 2 );
     }
 }
 
@@ -418,7 +418,7 @@ Texture* GameView::readTexture(const std::filesystem::path& filename) {
  * or Null if no file found. IS THREADSAFE
  */
 SDL_Surface* GameView::readImage(const std::filesystem::path& filename) {
-  SDL_Surface* currentImage = IMG_Load((getConfig()->appDataDir / "images" /
+  SDL_Surface* currentImage = IMG_Load((getConfig()->appDataDir.get() / "images" /
     "tiles" / filename).string().c_str());
   if( !currentImage ) {
     std::cerr << "GameView::readImage# Could not load image " << filename << "\n";
@@ -444,7 +444,7 @@ SDL_Surface* GameView::readImage(const std::filesystem::path& filename) {
 
 void GameView::preReadImages(void)
 {
-    XmlReader reader(getConfig()->appDataDir /
+    XmlReader reader(getConfig()->appDataDir.get() /
       "images" / "tiles" / "images.xml");
 
     ResourceGroup *resourceGroup = 0;

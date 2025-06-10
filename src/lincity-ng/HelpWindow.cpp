@@ -102,7 +102,7 @@ std::filesystem::path
 HelpWindow::getHelpFile(const std::string& topic)
 {
   // try in user language
-  std::filesystem::path filename = getConfig()->appDataDir / "help";
+  std::filesystem::path filename = getConfig()->appDataDir.get() / "help";
   filename /= dictionaryManager->get_language();
   filename /= topic;
   filename += ".xml";
@@ -114,7 +114,7 @@ HelpWindow::getHelpFile(const std::string& topic)
   std::string::size_type pos = language.find("_");
   if(pos != std::string::npos) {
     language = std::string(language, 0, pos);
-    filename = getConfig()->appDataDir / "help";
+    filename = getConfig()->appDataDir.get() / "help";
     filename /= language;
     filename /= topic;
     filename += ".xml";
@@ -123,7 +123,7 @@ HelpWindow::getHelpFile(const std::string& topic)
   }
 
   // try english
-  filename = getConfig()->appDataDir / "help" / "en";
+  filename = getConfig()->appDataDir.get() / "help" / "en";
   filename += topic;
   filename += ".xml";
   if(std::filesystem::exists(filename))

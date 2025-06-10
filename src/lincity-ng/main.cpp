@@ -35,6 +35,7 @@
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
+#include <optional>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
@@ -74,7 +75,7 @@ void musicHalted() {
 
 void videoSizeChanged(int width, int height) {
 #ifndef DISABLE_GL_MODE
-    if(getConfig()->useOpenGL) {
+    if(getConfig()->useOpenGL.get()) {
         /* Reset OpenGL state */
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
@@ -109,7 +110,7 @@ void initVideo(int width, int height)
 
     flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
 #ifndef DISABLE_GL_MODE
-    if(getConfig()->useOpenGL) {
+    if(getConfig()->useOpenGL.get()) {
         flags |= SDL_WINDOW_OPENGL;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
@@ -119,7 +120,7 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     }
 #endif
-    if(getConfig()->useFullScreen)
+    if(getConfig()->useFullScreen.get())
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
     window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
@@ -127,15 +128,15 @@ void initVideo(int width, int height)
                               SDL_WINDOWPOS_UNDEFINED, width, height,
                               flags);
 
-    if(getConfig()->useFullScreen) {
+    if(getConfig()->useFullScreen.get()) {
       // actual window saze may be different than requested
       SDL_GetWindowSize(window, &width, &height);
-      getConfig()->videoX = width;
-      getConfig()->videoY = height;
+      getConfig()->videoX.session = width;
+      getConfig()->videoY.session = height;
     }
 
 #ifndef DISABLE_GL_MODE
-    if(getConfig()->useOpenGL) {
+    if(getConfig()->useOpenGL.get()) {
         window_context = SDL_GL_CreateContext(window);
         SDL_GL_SetSwapInterval(1);
 
@@ -192,16 +193,16 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
 
-        if( getConfig()->language != "autodetect" ){
+        if(getConfig()->language.get() != "autodetect") {
 #if defined (WIN32)
-            _putenv_s("LINCITY_LANG", getConfig()->language.c_str());
+          _putenv_s("LINCITY_LANG", getConfig()->language.get().c_str());
 #else
-            setenv("LINCITY_LANG", getConfig()->language.c_str(), false);
+          setenv("LINCITY_LANG", getConfig()->language.get().c_str(), false);
 #endif
         }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory(getConfig()->appDataDir / "locale");
+        dictionaryManager->add_directory(getConfig()->appDataDir.get() / "locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
 
         // char *lc_textdomain_directory[1024];
@@ -242,7 +243,7 @@ int main(int argc, char** argv)
             msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
             throw std::runtime_error(msg.str());
         }
-        initVideo(getConfig()->videoX, getConfig()->videoY);
+        initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
         initLincity();
         std::unique_ptr<Sound> sound;
         sound.reset(new Sound());

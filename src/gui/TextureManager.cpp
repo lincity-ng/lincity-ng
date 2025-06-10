@@ -48,7 +48,7 @@ Texture*
 TextureManager::load(const std::filesystem::path& filename, Filter filter)
 {
     TextureInfo info;
-    info.filename = getConfig()->appDataDir / filename;
+    info.filename = getConfig()->appDataDir.get() / filename;
     info.filter = filter;
 
     Textures::iterator i = textures.find(info);

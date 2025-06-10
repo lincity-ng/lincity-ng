@@ -36,6 +36,7 @@
 #include <stdexcept>                       // for runtime_error
 #include <typeinfo>                        // for type_info
 #include <utility>                         // for move
+#include <optional>
 
 #include "ButtonPanel.hpp"                 // for ButtonPanel
 #include "Config.hpp"                      // for getConfig, Config
@@ -83,7 +84,8 @@ void Game::showHelpWindow( std::string topic ){
 
 void Game::backToMainMenu(){
     closeAllDialogs();
-    saveCityNG(*world, getConfig()->userDataDir / "9_currentGameNG.scn.gz");
+    saveCityNG(*world,
+      getConfig()->userDataDir.get() / "9_currentGameNG.scn.gz");
     running = false;
 }
 
@@ -94,7 +96,7 @@ void Game::quickLoad(){
   getGameView().printStatusMessage("quick load...");
   std::string filename("quicksave.scn.gz");
   if(std::unique_ptr<World> world =
-    loadCityNG(getConfig()->userDataDir / filename)
+    loadCityNG(getConfig()->userDataDir.get() / filename)
   ) {
     setWorld(std::move(world));
     getGameView().printStatusMessage("quick load successful.");
@@ -106,13 +108,13 @@ void Game::quickLoad(){
 void Game::quickSave(){
   //save file
   getGameView().printStatusMessage("quick save...");
-  saveCityNG(*world, getConfig()->userDataDir / "quicksave.scn.gz");
+  saveCityNG(*world, getConfig()->userDataDir.get() / "quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){
   getGameView().printStatusMessage("Testing Help Files...");
 
-  std::filesystem::path dir = getConfig()->appDataDir / "help" / "en";
+  std::filesystem::path dir = getConfig()->appDataDir.get() / "help" / "en";
   for(auto& dirEntry : std::filesystem::directory_iterator(dir)) {
     if(!dirEntry.is_regular_file()) continue;
     std::cerr << "--- Examining " << dirEntry.path().stem() << "\n";
@@ -464,7 +466,7 @@ Game::run() {
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
       throw std::runtime_error("Toplevel component is not a Desktop");
-    gui->resize(getConfig()->videoX, getConfig()->videoY);
+    gui->resize(getConfig()->videoX.get(), getConfig()->videoY.get());
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
     world->setUpdated(World::Updatable::MONEY);
@@ -495,8 +497,10 @@ Game::run() {
                     case SDL_WINDOWEVENT_SIZE_CHANGED:
                         videoSizeChanged(event.window.data1, event.window.data2);
                         gui->resize(event.window.data1, event.window.data2);
-                        getConfig()->videoX = event.window.data1;
-                        getConfig()->videoY = event.window.data2;
+                        getConfig()->videoX.session = event.window.data1;
+                        getConfig()->videoY.session = event.window.data2;
+                        getConfig()->videoX.sessionToConfig();
+                        getConfig()->videoY.sessionToConfig();
                         break;
                     case SDL_WINDOWEVENT_ENTER:
                     case SDL_WINDOWEVENT_LEAVE:
@@ -563,7 +567,8 @@ Game::run() {
                     break;
                 }
                 case SDL_QUIT: {
-                    saveCityNG(*world, getConfig()->userDataDir / "9_currentGameNG.scn.gz");
+                    saveCityNG(*world, getConfig()->userDataDir.get()
+                      / "9_currentGameNG.scn.gz");
                     // push the QUIT event back for main menu to handle
                     int s = SDL_PushEvent(&event);
                     assert(s == 1);

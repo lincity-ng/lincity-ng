@@ -68,7 +68,7 @@ FontManager::getFont(Style style)
 
     // If there a special font for the current language use it.
     std::string language = dictionaryManager->get_language();
-    std::filesystem::path fontsDir = getConfig()->appDataDir / "fonts";
+    std::filesystem::path fontsDir = getConfig()->appDataDir.get() / "fonts";
     std::filesystem::path fontfile = fontsDir /
       (info.name + "-" + language + ".ttf");
     try{

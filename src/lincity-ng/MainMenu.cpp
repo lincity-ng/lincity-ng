@@ -37,6 +37,7 @@
 #include <stdexcept>                    // for invalid_argument, out_of_range
 #include <utility>                      // for pair, move
 #include <vector>                       // for vector
+#include <optional>
 
 #include "Config.hpp"                   // for getConfig, Config
 #include "Game.hpp"                     // for Game
@@ -110,7 +111,7 @@ MainMenu::loadMainMenu() {
 
 void
 MainMenu::updateNewGameMenu() {
-  std::filesystem::path scenarioDir = getConfig()->appDataDir / "opening";
+  std::filesystem::path scenarioDir = getConfig()->appDataDir.get() / "opening";
   CheckButton *button;
 
   button = getCheckButton(*newGameMenu, "File0");
@@ -151,7 +152,7 @@ void MainMenu::updateLoadSaveMenus() {
     getCheckButton(*saveGameMenu, name)->setCaptionText(_("empty"));
   }
 
-  std::filesystem::path dir = getConfig()->userDataDir;
+  std::filesystem::path dir = getConfig()->userDataDir.get();
   for(auto& dirEnt : std::filesystem::directory_iterator(dir)) {
     std::string fName = dirEnt.path().filename().string();
     if(fName.substr(1, 1) != "_") continue;
@@ -236,17 +237,17 @@ MainMenu::loadCreditsMenu() {
 void
 MainMenu::updateOptionsMenu() {
   //adjust checkbutton-states
-  if( getConfig()->musicEnabled ){
+  if(getConfig()->musicEnabled.get()) {
     getCheckButton(*optionsMenu, "BackgroundMusic")->check();
   } else {
     getCheckButton(*optionsMenu, "BackgroundMusic")->uncheck();
   }
-  if( getConfig()->soundEnabled ){
+  if(getConfig()->soundEnabled.get()) {
     getCheckButton(*optionsMenu, "SoundFX")->check();
   } else {
     getCheckButton(*optionsMenu, "SoundFX")->uncheck();
   }
-  if( getConfig()->useFullScreen ){
+  if(getConfig()->useFullScreen.get()) {
     getCheckButton(*optionsMenu, "Fullscreen")->check();
   } else {
     getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
@@ -260,18 +261,18 @@ MainMenu::updateOptionsMenu() {
   SDL_GetWindowSize(window, &width, &height);
 
   std::stringstream mode;
-  if (getConfig()->useFullScreen) {
+  if(getConfig()->useFullScreen.get()) {
     mode << "fullscreen";
   } else {
     mode << width << "x" << height;
   }
-  getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+  getParagraph(*optionsMenu, "resolutionParagraph")->setText(mode.str());
   mode.str("");
-  mode << getConfig()->worldSize;
+  mode << getConfig()->worldSize.get();
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
-  languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
-  currentLanguage = getConfig()->language;
-  languageParagraph->setText( getConfig()->language );
+  languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
+  currentLanguage = getConfig()->language.get();
+  languageParagraph->setText(getConfig()->language.get());
   languages = dictionaryManager->get_languages();
   languages.insert( "autodetect" );
   languages.insert( "en" ); // English is the default when no translation is used
@@ -389,73 +390,84 @@ MainMenu::doubleClick(Component *button, std::function<void()> action) {
 void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     std::string buttonName = button->getName();
     if( buttonName == "BackgroundMusic"){
+      getSound()->playSound("Click");
+      getSound()->enableMusic(!getConfig()->musicEnabled.get());
+      getConfig()->musicEnabled.sessionToConfig();
+    } else if(buttonName == "MusicVolumePlus") {
+      int volume = getConfig()->musicVolume.get();
+      if(volume < 100) {
+        if((volume += 5) > 100)
+          volume = 100;
+        getSound()->setMusicVolume(volume);
         getSound()->playSound("Click");
-        getSound()->enableMusic( !getConfig()->musicEnabled );
-    } else if( buttonName == "MusicVolumePlus"){
-        int newVolume = getConfig()->musicVolume + 5;
-        if( newVolume > 100 ){
-           newVolume = 100;
-        }
-        if( getConfig()->musicVolume != newVolume ){
-            getSound()->setMusicVolume( newVolume );
-            getSound()->playSound("Click");
-        }
-    } else if( buttonName == "MusicVolumeMinus"){
-        int newVolume = getConfig()->musicVolume -5;
-        if( newVolume < 0 ){
-           newVolume = 0;
-        }
-        if( getConfig()->musicVolume != newVolume ){
-            getSound()->setMusicVolume( newVolume );
-            getSound()->playSound("Click");
-        }
-    } else if( buttonName == "SoundFX"){
-        getConfig()->soundEnabled = !getConfig()->soundEnabled;
+      }
+      getConfig()->musicVolume.sessionToConfig();
+    } else if(buttonName == "MusicVolumeMinus") {
+      int volume = getConfig()->musicVolume.get();
+      if(volume > 0) {
+        if((volume -= 5) < 0)
+          volume = 0;
+        getSound()->setMusicVolume(volume);
         getSound()->playSound("Click");
-    } else if( buttonName == "FXVolumePlus"){
-        int newVolume = getConfig()->soundVolume + 5;
-        if( newVolume > 100 ){
-           newVolume = 100;
-        }
-        if( getConfig()->soundVolume != newVolume ){
-            getSound()->setSoundVolume( newVolume );
-            getSound()->playSound("Click");
-        }
-    } else if( buttonName == "FXVolumeMinus"){
-        int newVolume = getConfig()->soundVolume - 5;
-        if( newVolume < 0 ){
-           newVolume = 0;
-        }
-        if( getConfig()->soundVolume != newVolume ){
-            getSound()->setSoundVolume( newVolume );
-            getSound()->playSound("Click");
-        }
-    } else if( buttonName == "ResolutionPrev"){
-        changeResolution(false);
-    } else if( buttonName == "ResolutionNext"){
-        changeResolution(true);
-    } else if( buttonName == "WorldLenPrev"){
-        changeWorldLen(false);
-    } else if( buttonName == "WorldLenNext"){
-        changeWorldLen(true);
-    } else if( buttonName == "LanguagePrev"){
-        changeLanguage(false);
-    } else if( buttonName == "LanguageNext"){
-        changeLanguage(true);
-    } else if( buttonName == "Fullscreen"){
+      }
+      getConfig()->musicVolume.sessionToConfig();
+    } else if(buttonName == "SoundFX") {
+      getConfig()->soundEnabled.session = !getConfig()->soundEnabled.get();
+      getSound()->playSound("Click");
+      getConfig()->soundEnabled.sessionToConfig();
+    } else if(buttonName == "FXVolumePlus") {
+      int volume = getConfig()->soundVolume.get();
+      if(volume < 100) {
+        if((volume += 5) > 100)
+          volume = 100;
+        getSound()->setSoundVolume(volume);
         getSound()->playSound("Click");
-        getConfig()->useFullScreen = !getConfig()->useFullScreen;
+      }
+      getConfig()->soundVolume.sessionToConfig();
+    } else if(buttonName == "FXVolumeMinus") {
+      int volume = getConfig()->soundVolume.get();
+      if(volume > 0) {
+        if((volume -= 5) < 0)
+          volume = 0;
+        getSound()->setSoundVolume(volume);
+        getSound()->playSound("Click");
+      }
+      getConfig()->soundVolume.sessionToConfig();
+    } else if(buttonName == "ResolutionPrev") {
+      changeResolution(false);
+      getConfig()->videoX.sessionToConfig();
+      getConfig()->videoY.sessionToConfig();
+    } else if(buttonName == "ResolutionNext") {
+      changeResolution(true);
+      getConfig()->videoX.sessionToConfig();
+      getConfig()->videoY.sessionToConfig();
+    } else if(buttonName == "WorldLenPrev") {
+      changeWorldLen(false);
+      getConfig()->worldSize.sessionToConfig();
+    } else if(buttonName == "WorldLenNext") {
+      changeWorldLen(true);
+      getConfig()->worldSize.sessionToConfig();
+    } else if(buttonName == "LanguagePrev") {
+      changeLanguage(false);
+      getConfig()->language.sessionToConfig();
+    } else if(buttonName == "LanguageNext") {
+      changeLanguage(true);
+      getConfig()->language.sessionToConfig();
+    } else if(buttonName == "Fullscreen") {
+        getSound()->playSound("Click");
+        getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
+        getConfig()->useFullScreen.sessionToConfig();
         getConfig()->save();
         resizeVideo(
-          getConfig()->videoX,
-          getConfig()->videoY,
-          getConfig()->useFullScreen
+          getConfig()->videoX.get(),
+          getConfig()->videoY.get(),
+          getConfig()->useFullScreen.get()
         );
         // switching to/from fullscreen may change the window size
         // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
-    } else if( buttonName == "TrackPrev"){
+    } else if(buttonName == "TrackPrev") {
         changeTrack(false);
-    } else if( buttonName == "TrackNext"){
+    } else if(buttonName == "TrackNext") {
         changeTrack(true);
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
@@ -468,7 +480,7 @@ This does not actually change the resolution. initVideo has to be called to do t
 @todo sort modes before in ascending order and remove unsupported modes like 640x480
 */
 void MainMenu::changeResolution(bool next) {
-    if (getConfig()->useFullScreen) {
+    if(getConfig()->useFullScreen.get()) {
         /* Resolution changes have no effect in desktop fullscreen mode */
         return;
     }
@@ -511,8 +523,8 @@ void MainMenu::changeResolution(bool next) {
     }
     std::sort(resolutions.begin(), resolutions.end());
 
-    const int width = getConfig()->videoX;
-    const int height = getConfig()->videoY;
+    const int width = getConfig()->videoX.get();
+    const int height = getConfig()->videoY.get();
     int closest_mode = 0;
     int min_cost = 1000000000;
     for (size_t i = 0; i < resolutions.size(); ++i) {
@@ -542,15 +554,15 @@ void MainMenu::changeResolution(bool next) {
 
     getSound()->playSound("Click");
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    getConfig()->videoX = resolutions[new_mode].first;
-    getConfig()->videoY = resolutions[new_mode].second;
+    getConfig()->videoX.session = resolutions[new_mode].first;
+    getConfig()->videoY.session = resolutions[new_mode].second;
 }
 
 void
 MainMenu::changeWorldLen(bool next) {
-  getConfig()->worldSize += (next?25:-25);
+  getConfig()->worldSize.session = getConfig()->worldSize.get() + (next?25:-25);
   getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
-    std::to_string(getConfig()->worldSize));
+    std::to_string(getConfig()->worldSize.get()));
 }
 
 void
@@ -568,25 +580,25 @@ MainMenu::changeTrack( bool next)
 }
 
 void
-MainMenu::changeLanguage( bool next)
-{
-    std::set<std::string>::iterator i = languages.find( getConfig()->language );
-    if( next ){ // next language in set
-        i++;
-        if( i == languages.end() ){
-            i = languages.begin();
-        }
-    } else { // previous
-        if( i == languages.begin() ){
-            i = languages.end();
-        }
-        i--;
+MainMenu::changeLanguage(bool next) {
+  std::set<std::string>::iterator i =
+    languages.find(getConfig()->language.get());
+  if(next) { // next language in set
+    i++;
+    if(i == languages.end()) {
+      i = languages.begin();
     }
+  } else { // previous
+    if(i == languages.begin()) {
+      i = languages.end();
+    }
+    i--;
+  }
 
-    std::string newLang = *i;
-    languageParagraph->setText( newLang );
-    getConfig()->language = newLang;
-    getSound()->playSound("Click");
+  std::string newLang = *i;
+  languageParagraph->setText(newLang);
+  getConfig()->language.session = newLang;
+  getSound()->playSound("Click");
 }
 
 void
@@ -615,7 +627,7 @@ MainMenu::continueButtonClicked(Button* ) {
   if(!game) {
     std::unique_ptr<World> world;
     std::filesystem::path file =
-      getConfig()->userDataDir / "9_currentGameNG.scn.gz";
+      getConfig()->userDataDir.get() / "9_currentGameNG.scn.gz";
     if(std::filesystem::exists(file)) {
       world = loadCityNG(file);
     }
@@ -625,7 +637,7 @@ MainMenu::continueButtonClicked(Button* ) {
       city.without_trees = false;
 
       //by default create a new City
-      world = new_city(&city, getConfig()->worldSize);
+      world = new_city(&city, getConfig()->worldSize.get());
     }
 
     if(world) {
@@ -670,12 +682,13 @@ MainMenu::optionsBackButtonClicked(Button *) {
   getConfig()->save();
   int width = 0, height = 0;
   SDL_GetWindowSize(window, &width, &height);
-  if( getConfig()->videoX != width || getConfig()->videoY != height )
-  {
-    resizeVideo(getConfig()->videoX, getConfig()->videoY,
-      getConfig()->useFullScreen);
+  if(getConfig()->videoX.get() != width
+    || getConfig()->videoY.get() != height
+  ) {
+    resizeVideo(getConfig()->videoX.get(), getConfig()->videoY.get(),
+      getConfig()->useFullScreen.get());
   }
-  else if( currentLanguage != getConfig()->language )
+  else if(currentLanguage != getConfig()->language.get())
   {
     // TODO: implement changing the language on the go
     //       For now, show warning in a language the user may not understand.
@@ -711,13 +724,13 @@ MainMenu::newGameStartButtonClicked(Button *) {
     settings.without_trees =
       getCheckButton(*newGameMenu, "WithoutTrees")->isChecked();
     if(bName == "RiverDelta") {
-      world = new_city(&settings, getConfig()->worldSize);
+      world = new_city(&settings, getConfig()->worldSize.get());
     } else if(bName == "DesertArea") {
-      world = new_desert_city(&settings, getConfig()->worldSize);
+      world = new_desert_city(&settings, getConfig()->worldSize.get());
     } else if(bName == "TemperateArea") {
-      world = new_temperate_city(&settings, getConfig()->worldSize);
+      world = new_temperate_city(&settings, getConfig()->worldSize.get());
     } else if(bName == "SwampArea") {
-      world = new_swamp_city(&settings, getConfig()->worldSize);
+      world = new_swamp_city(&settings, getConfig()->worldSize.get());
     }
     assert(world);
   }
@@ -812,7 +825,7 @@ MainMenu::loadGameSaveButtonClicked(Button *) {
   filename << world.stats.population.population_m / NUMOF_DAYS_IN_MONTH;
   filename << ".gz";
 
-  saveCityNG(world, getConfig()->userDataDir / filename.str());
+  saveCityNG(world, getConfig()->userDataDir.get() / filename.str());
 
   // TODO: remove the old save file, but only if the save was successful
 
@@ -850,13 +863,15 @@ MainMenu::run() {
                     if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
                         videoSizeChanged(event.window.data1, event.window.data2);
                         menu->resize(event.window.data1, event.window.data2);
-                        getConfig()->videoX = event.window.data1;
-                        getConfig()->videoY = event.window.data2;
+                        getConfig()->videoX.session = event.window.data1;
+                        getConfig()->videoY.session = event.window.data2;
+                        getConfig()->videoX.sessionToConfig();
+                        getConfig()->videoY.sessionToConfig();
 
                         if(menuSwitch->getActiveComponent() == optionsMenu) {
                             std::stringstream mode;
                             mode.str("");
-                            if (getConfig()->useFullScreen) {
+                            if (getConfig()->useFullScreen.get()) {
                                 mode << "fullscreen";
                             } else {
                                 mode << event.window.data1 << "x" << event.window.data2;

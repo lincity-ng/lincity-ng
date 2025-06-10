@@ -33,6 +33,7 @@
 #include <stdexcept>              // for runtime_error
 #include <utility>                // for pair
 #include <vector>                 // for vector
+#include <optional>
 
 #include "Config.hpp"             // for getConfig, Config
 #include "gui/XmlReader.hpp"      // for XmlReader
@@ -60,7 +61,7 @@ Sound::soundThread(void* ptr)
 void
 Sound::loadWaves() {
     //Load Waves
-    std::filesystem::path directory = getConfig()->appDataDir / "sounds";
+    std::filesystem::path directory = getConfig()->appDataDir.get() / "sounds";
     std::filesystem::path xmlfile = directory / "sounds.xml";
     XmlReader reader(xmlfile);
     std::filesystem::path filename;
@@ -148,12 +149,12 @@ Sound::loadWaves() {
  * Load music theme from subfolder of 'music/'.
  */
 void Sound::loadMusicTheme() {
-  std::filesystem::path musicDir = getConfig()->appDataDir / "music";
+  std::filesystem::path musicDir = getConfig()->appDataDir.get() / "music";
   //Reset track counter:
   totalTracks=0;
   playlist.clear();
   //Get the current music theme
-  std::string theme = getConfig()->musicTheme;
+  std::string theme = getConfig()->musicTheme.get();
   std::filesystem::path themeDir = musicDir / theme;
   std::filesystem::path xml_name = themeDir / (theme + ".xml");
 
@@ -226,8 +227,8 @@ Sound::Sound()
         loaderThread = SDL_CreateThread(soundThread, "Sound", this);
     }
 
-    setMusicVolume(getConfig()->musicVolume);
-    setSoundVolume(getConfig()->soundVolume);
+    setMusicVolume(getConfig()->musicVolume.get());
+    setSoundVolume(getConfig()->soundVolume.get());
 
     totalTracks = 0;
     loadMusicTheme();
@@ -272,26 +273,26 @@ Sound::~Sound()
  */
 void
 Sound::playSound(const std::string& name) {
-    if( !getConfig()->soundEnabled ){
-        return;
-    }
-    if( !audioOpen ){
-        return;
-    }
+  if(!getConfig()->soundEnabled.get()) {
+    return;
+  }
+  if(!audioOpen) {
+    return;
+  }
 
-    chunks_t::size_type count = waves.count( name );
-    if ( count == 0 ) {
-        std::cout << "Couldn't find audio file '" << name << "'" << std::endl;
-        return;
-    }
+  chunks_t::size_type count = waves.count( name );
+  if(count == 0) {
+    std::cout << "Couldn't find audio file '" << name << "'" << std::endl;
+    return;
+  }
 
-    chunks_t::iterator it = waves.find(name);
-    for (int i = rand() % count; i > 0; i--) {
-        it++;
-    }
+  chunks_t::iterator it = waves.find(name);
+  for(int i = rand() % count; i > 0; i--) {
+    it++;
+  }
 
-    Mix_Volume( 0, getConfig()->soundVolume );
-    Mix_PlayChannel( 0, it->second, 0 );
+  Mix_Volume(0, getConfig()->soundVolume.get());
+  Mix_PlayChannel( 0, it->second, 0 );
 }
 
 void
@@ -306,14 +307,13 @@ Sound::playSound(const MapTile& tile) {
     playASound(resourceGroup->chunks[rand() % count]);
 }
 
-void Sound::playASound(Mix_Chunk *chunk)
-{
-    if( !getConfig()->soundEnabled )
-    {   return;}
-    if( !audioOpen )
-    {   return;}
-    Mix_Volume( 0, getConfig()->soundVolume );
-    Mix_PlayChannel( 0, chunk, 0 );
+void Sound::playASound(Mix_Chunk *chunk) {
+  if(!getConfig()->soundEnabled.get())
+    return;
+  if(!audioOpen)
+    return;
+  Mix_Volume(0, getConfig()->soundVolume.get());
+  Mix_PlayChannel(0, chunk, 0);
 }
 
 
@@ -382,7 +382,7 @@ Sound::playMusic()
     if(!audioOpen)
         return;
 
-    if(getConfig()->musicEnabled) {
+    if(getConfig()->musicEnabled.get()) {
 
         if(currentMusic)
         {
@@ -420,29 +420,30 @@ Sound::playMusic()
 }
 
 void
-Sound::enableMusic(bool enabled)
-{
-    if(getConfig()->musicEnabled == enabled)
-        return;
-    getConfig()->musicEnabled = enabled;
+Sound::enableMusic(bool enabled) {
+  bool old = getConfig()->musicEnabled.get();
+  getConfig()->musicEnabled.session = enabled;
 
-    if(!audioOpen)
-        return;
+  if(old == enabled)
+    return;
 
-    if(enabled) {
-        playMusic();
-    } else {
-        if(Mix_PlayingMusic()) {
-            Mix_FadeOutMusic(1000);
-        }
+  if(!audioOpen)
+    return;
+
+  if(enabled) {
+    playMusic();
+  } else {
+    if(Mix_PlayingMusic()) {
+      Mix_FadeOutMusic(1000);
     }
+  }
 }
 
 void
 Sound::setMusicVolume(int vol)
 {
     assert(vol >= 0 && vol <= 100);
-    getConfig()->musicVolume = vol;
+    getConfig()->musicVolume.session = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_VolumeMusic(static_cast<int>(volvalue));
 }
@@ -451,7 +452,7 @@ void
 Sound::setSoundVolume(int vol)
 {
     assert(vol >= 0 && vol <= 100);
-    getConfig()->soundVolume = vol;
+    getConfig()->soundVolume.session = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_Volume(-1, static_cast<int>(volvalue));
 }

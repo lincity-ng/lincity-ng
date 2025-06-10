@@ -405,7 +405,7 @@ void Dialog::gameStats(){
  * That way the files can be used for highscores.
  */
 void Dialog::saveGameStats(){
-    std::ofstream results(getConfig()->userDataDir / RESULTS_FILENAME);
+    std::ofstream results(getConfig()->userDataDir.get() / RESULTS_FILENAME);
 
     // Fill in Fields.
     World& world = game.getWorld();
