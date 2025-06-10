@@ -179,13 +179,12 @@ World::load(const std::filesystem::path& filename) {
   xmlpp::TextReader xmlReader(xmlCReader);
 
   // initialize the reader and seek to the first node
-  xmlReader.read();
+  if(!xmlReader.read())
+    throw std::runtime_error("save file is empty");
 
   // find the SaveGame node
   while(true) {
-    if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
-      throw std::runtime_error("failed to find lc-game element");
-    else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
+    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
     else if(xmlReader.get_name() == "lc-game")
       break;
     else if(xmlReader.get_name() == "SaveGame") {
@@ -196,7 +195,8 @@ World::load(const std::filesystem::path& filename) {
     }
     else
       unexpectedXmlElement(xmlReader);
-    xmlReader.next();
+    if(!xmlReader.next())
+      throw std::runtime_error("failed to find <lc-game> element in save file");
   }
 
   // parse load/save version
