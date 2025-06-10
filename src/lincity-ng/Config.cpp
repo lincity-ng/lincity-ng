@@ -126,16 +126,16 @@ void Config::load(std::filesystem::path configFile) {
   }
 
   xmlpp::TextReader xmlReader(configFile.string());
-  xmlReader.read();
+  if(!xmlReader.read())
+    throw std::runtime_error("config file is empty");
   while(true) {
-    if(xmlReader.get_read_state() == xmlpp::TextReader::ReadState::EndOfFile)
-      throw std::runtime_error("failed to find lc-config element");
-    else if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
+    if(xmlReader.get_node_type() != xmlpp::TextReader::NodeType::Element);
     else if(xmlReader.get_name() == "lc-config")
       break;
     else
       unexpectedXmlElement(xmlReader);
-    xmlReader.next();
+    if(!xmlReader.next())
+      throw std::runtime_error("failed to find <lc-config> element");
   }
 
   if(!xmlReader.is_empty_element() && xmlReader.read())
