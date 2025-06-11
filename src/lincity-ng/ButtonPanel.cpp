@@ -332,7 +332,7 @@ ButtonPanel::updateTech() {
 
     Message::ptr msg;
     if(op.isAllowed(world, msg)) {
-      if(!tool->button->isEnabled()) {
+      if(!tool->button->isEnabled() || tool->button->getTooltip() == "") {
         tool->button->setTooltip(createTooltip(tool));
         tool->button->enable();
 
@@ -341,7 +341,7 @@ ButtonPanel::updateTech() {
         }
       }
     }
-    else if(tool->button->isEnabled()) {
+    else if(tool->button->isEnabled() || tool->button->getTooltip() == "") {
       tool->button->enable(false);
       if(tool == tool->menu->activeTool) {
         tool->menu->button->enable(false);
