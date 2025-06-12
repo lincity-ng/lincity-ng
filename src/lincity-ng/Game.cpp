@@ -338,7 +338,6 @@ Game::executeUserOperation(MapPoint point) {
         break;
 
       Construction *cst = world->map(point)->reportingConstruction;
-      assert(cst);
       warnStatus->onAccept.connect([this, point, cst, grp]() {
         // make sure things haven't changed
         // there must be a better way to do this
@@ -362,7 +361,7 @@ Game::executeUserOperation(MapPoint point) {
         .titleText("Warning")
         .messageAddTextBold("Warning:")
         .messageAddText(fmt::format(_("Bulldozing a {} costs a lot of money."),
-          _(cst->constructionGroup->name)))
+          _(world->map(point)->getConstructionGroup()->name)))
         .messageAddText("Want to bulldoze?")
         .imageFile("images/gui/dialogs/warning.png")
         // TODO: use "Bulldoze"/"Leave It" buttons
@@ -932,8 +931,8 @@ Game::handleMessage(Message::ptr message_) {
     if(CannotBulldozeNonemptyTipMessage::ptr message =
       dynamic_message_cast<CannotBulldozeNonemptyTipMessage>(message_)
     ) {
-      dialog.messageAddText(_("You cannot bulldoze this tip because it is full"
-        " of waste."));
+      dialog.messageAddText(_("You cannot bulldoze this land fill because it is"
+        " full of waste."));
     }
     else if(CannotBulldozeIncompleteMonumentMessage::ptr message =
       dynamic_message_cast<CannotBulldozeIncompleteMonumentMessage>(message_)

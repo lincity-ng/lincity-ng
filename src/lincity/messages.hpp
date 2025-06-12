@@ -436,7 +436,6 @@ public:
   virtual std::string str() const override;
 
   DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeIncompleteMonumentMessage,
-
     CannotBulldozeThisMessage);
 };
 
@@ -448,7 +447,6 @@ public:
   virtual std::string str() const override;
 
   DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeNonemptyTipMessage,
-
     CannotBulldozeThisMessage);
 };
 
@@ -462,7 +460,6 @@ public:
   virtual std::string str() const override;
 
   DEFINE_MESSAGE_BOILERPLATE(CannotBulldozeThisEverMessage,
-
     CannotBulldozeThisMessage);
 };
 

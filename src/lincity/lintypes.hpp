@@ -111,7 +111,7 @@ public:
   **/
   virtual void place(MapPoint point);
 
-  virtual bool can_bulldoze(Message::ptr message) const;
+  virtual bool can_bulldoze(Message::ptr& message) const;
 
   virtual void bulldoze();
 

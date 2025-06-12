@@ -296,7 +296,7 @@ void Construction::place(MapPoint point) {
 }
 
 bool
-Construction::can_bulldoze(Message::ptr message) const {
+Construction::can_bulldoze(Message::ptr& message) const {
   assert(world.map(point)->construction == this);
   return true;
 }

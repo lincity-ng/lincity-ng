@@ -157,7 +157,7 @@ void Fire::report(Mps& mps, bool production) const {
 }
 
 bool
-Fire::can_bulldoze(Message::ptr message) const {
+Fire::can_bulldoze(Message::ptr& message) const {
   message = CannotBulldozeThisEverMessage::create(
     point, fireConstructionGroup);
   return false;

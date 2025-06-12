@@ -123,7 +123,7 @@ void Tip::report(Mps& mps, bool production) const {
 }
 
 bool
-Tip::can_bulldoze(Message::ptr message) const {
+Tip::can_bulldoze(Message::ptr& message) const {
   if(total_waste > 0) {
     message = CannotBulldozeNonemptyTipMessage::create(point);
     return false;

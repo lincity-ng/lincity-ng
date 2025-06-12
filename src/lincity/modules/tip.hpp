@@ -85,7 +85,7 @@ public:
     virtual void report(Mps& mps, bool production) const override;
     virtual void animate(unsigned long real_time) override;
 
-    virtual bool can_bulldoze(Message::ptr messag) const override;
+    virtual bool can_bulldoze(Message::ptr& messag) const override;
 
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
