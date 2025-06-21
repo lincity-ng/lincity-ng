@@ -74,6 +74,19 @@ the entries are ordered by last name. If you already have an entry in the
 credits list, take a moment to update the year and/or email address of your
 entry.
 
+### Directory Structure
+
+- `build` - Build artifacts.
+- `CHANGELOG.d` - Unreleased changelog entries.
+- `contrib` - Miscellaneous unused files including old art and scripts.
+- `data` - Game assets.
+- `external` - External libraries.
+- `mk` - Files for configure/build.
+- `src` - All source code.
+  - `gui` - Custom GUI library for LinCity-NG.
+  - `lincity` - LinCity-NG backend library for game mechanics.
+  - `lincity-ng` - LinCity-NG frontend.
+
 
 ## Contributing Code
 
@@ -186,7 +199,7 @@ git checkout -B A
 git push origin A
 ```
 
-## Testing
+## Contribute Play-Testing
 
 You can contribute to LinCity-NG by testing it and reporting issues you find.
 Here are some pointers for testing effectively:
@@ -211,11 +224,12 @@ Here are some pointers for testing effectively:
   https://github.com/lincity-ng/lincity-ng/issues. If you find an issue in a
   pull request that does not exist on master, then comment in the PR discussion
   thread. When opening the issue, include your LinCity-NG version and your
-  platform/operating system. To avoid duplicate issues, search the issues list (including closed issues) to find whether your issue
-  has already been reported; if so, then you may be able to provide additional
-  details to the existing issue.
+  platform/operating system. To avoid duplicate issues, search the issues list
+  (including closed issues) to find whether your issue has already been
+  reported; if so, then you may be able to provide additional details to the
+  existing issue.
 
-#### Checklist for reporting an issue:
+#### Checklist for reporting issues:
 
 - Search the
   [issues list](https://github.com/lincity-ng/lincity-ng/issues?q=is%3Aissue%20)
