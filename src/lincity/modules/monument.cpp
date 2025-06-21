@@ -146,7 +146,7 @@ void Monument::report(Mps& mps, bool production) const {
 }
 
 bool
-Monument::can_bulldoze(Message::ptr message) const {
+Monument::can_bulldoze(Message::ptr& message) const {
   if(!completed) {
     message = CannotBulldozeIncompleteMonumentMessage::create(point);
     return false;
