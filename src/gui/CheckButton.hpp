@@ -55,6 +55,7 @@ public:
     std::string getCaptionText();
     Component *getCaption();
 
+    const std::string& getTooltip() const;
     void setTooltip(const std::string &pText);
 
     void check();

@@ -422,6 +422,11 @@ void CheckButton::setTooltip(const std::string &pText)
     tooltip = pText;
 }
 
+const std::string&
+CheckButton::getTooltip() const {
+  return tooltip;
+}
+
 std::string CheckButton::getCaptionText()
 {
   std::string s;
