@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>               // for string, basic_string
 #include <vector>               // for vector
+#include <memory>
 
 #include "Component.hpp"        // for Component
 #include "DocumentElement.hpp"  // for DocumentElement
@@ -95,7 +96,7 @@ public:
     Signal<Paragraph*, const std::string&> linkClicked;
 
 private:
-    void commit_changes(TextSpan* &currentspan, bool translatable);
+    void commit_changes(std::unique_ptr<TextSpan>& currentspan, bool translatable);
 
     class LinkRectangle
     {
@@ -104,7 +105,7 @@ private:
         const TextSpan* span;
     };
 
-    typedef std::vector<TextSpan*> TextSpans;
+    typedef std::vector<std::unique_ptr<TextSpan>> TextSpans;
     TextSpans textspans;
     Style style; //CK: every span has its own style anyways
     //TODO distinct Styles for paragraphs and styles
