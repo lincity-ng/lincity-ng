@@ -90,11 +90,15 @@ entry.
 
 ## Contributing Code
 
+You may contribute features and/or bug fixes by
+[forking the project on GitHub](https://github.com/lincity-ng/lincity-ng/fork)
+and [opening a pull request](https://github.com/lincity-ng/lincity-ng/compare).
+
 ### Singletons
 
-[Singletons are evil.](https://kentonshouse.com/singletons) At current, the
-code-base is [riddled with singletons](src/lincity/engglobs.cpp), and I want to
-phase them out. So do me a favor and avoid adding more if possible.
+[Singletons are evil.](https://kentonshouse.com/singletons) I have spent
+considerable effort to remove singletons, so do me a favor and avoid adding more
+if possible.
 
 ### Formatting
 
@@ -117,19 +121,18 @@ ugly.
   - Macros in MACRO_CASE
   - Enum members in MACRO_CASE
   - Everything else in camelCase
-  - If you really_want_to_use_snake_case, I might excuse it for private members
+  - If you really_want_to_use_snake_case, I can excuse it for private members
     and local variables.
   - In PascalCase and camelCase, only the first letter of an acronym may be
     caps.
 
-Much of the existing code base does not follow this format, so I am slowly
-changing it.
+Much of the old code does not follow this format, so I am slowly changing it.
 
 ### Include What You Use
 
 This project uses Include What You Use to manage `#include`s. The build system
-automatically runs include-what-you-use on every build and reports warnings.
-When you submit a PR, make sure that your code does not have any IWYU warnings.
+automatically runs include-what-you-use and reports warnings. When you submit a
+PR, make sure that your code does not introduce any new IWYU warnings.
 
 To find IWYU warnings for all files, run a clean build and save the standard
 error stream to a file:
