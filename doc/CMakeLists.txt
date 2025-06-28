@@ -1,3 +1,1 @@
-install(FILES lincityconfig.xml DESTINATION ${CMAKE_INSTALL_DOCDIR})
-install(FILES userconfig.xml DESTINATION ${CMAKE_INSTALL_DOCDIR})
 install(FILES lincity-ng.6 DESTINATION ${CMAKE_INSTALL_MANDIR})
