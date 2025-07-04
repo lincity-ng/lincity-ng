@@ -29,8 +29,6 @@ add_executable(lincity-ng
 		Mps.hpp
 		PBar.cpp
 		PBar.hpp
-		readdir.cpp
-		readdir.hpp
 		ScreenInterface.cpp
 		Sound.cpp
 		Sound.hpp
