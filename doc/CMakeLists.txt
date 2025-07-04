@@ -1,1 +1,0 @@
-install(FILES lincity-ng.6 DESTINATION ${CMAKE_INSTALL_MANDIR})

@@ -25,6 +25,7 @@ function(copy_data_file data_file src_loc dst_loc)
   install(FILES ${build_path} DESTINATION ${install_path_parent})
 endfunction(copy_data_file)
 
+# data files
 file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
   fonts/*
   help/*
@@ -40,6 +41,7 @@ foreach(dataFile ${allDataFiles})
   copy_data_file(${dataFile} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_APPDATADIR} data_files_out)
 endforeach()
 
+# info files
 set(infoFiles
   CHANGELOG.md
   CONTRIBUTING.md
@@ -55,8 +57,10 @@ foreach(infoFile ${infoFiles})
   copy_data_file(${infoFile} ${CMAKE_SOURCE_DIR} ${CMAKE_INSTALL_DOCDIR} data_files_out)
 endforeach()
 
+# miscellaneous files
 copy_data_file(lincity-ng.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
 copy_data_file(lincity-ng.png ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps data_files_out)
+copy_data_file(lincity-ng.6 ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_MANDIR} data_files_out)
 
 add_custom_target(data-files.target DEPENDS ${data_files_out})
 add_dependencies(lincity-ng data-files.target)
