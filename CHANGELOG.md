@@ -1,7 +1,50 @@
 ## Unreleased
 
+###### Gameplay
+- Fixed a bug that allowed uncompleted monuments to be bulldozed.
+- Improved terrain/ecology generation algorithms.
+
 ###### User Interface
 - Fixed duplicate click events in the new-game menu.
+- Added warning dialogs when a construction cannot be built.
+- Reworded most in-game pop-up dialogs.
+- Fixed the "map size" configuration option so it no longer resets to 100 when
+  loading a scenario.
+- Added `--config`, `--app-data`, and `--user-data` command-line options for
+  specifying custom paths.
+- Removed support for restarting the game automatically. This means the user
+  must restart the game manually if they change the language setting.
+
+###### Internal
+- Removed PhysFS library dependency in favor of C++17 Filesystem library.
+- Added cfgpath library for detecting config and user data locations.
+- Added [libfmt](https://fmt.dev/latest/index.html) library dependency for
+  formatting translatable strings.
+- Changed SDL2 dependency minimum version from 2.0.0 to 2.0.18.
+- Removed SDL2_gfx library dependency.
+- Changed the default `CMAKE_BUILD_TYPE` to **Release** instead of being
+  system-dependent.
+- Changed detection of app data location to use `CMAKE_INSTALL_PREFIX`. Note:
+  `--install-prefix` may need to be specified at configure time with the
+  expected install location; otherwise, the default app data directory will be
+  incorrect.
+- Added `appDataDir` and `userDataDir` config options for storing non-standard
+  app data and user data locations.
+- Changed format and location of config file.
+- Added hardware-accelerated rendering in SDL video mode.
+- Added hardware-accelerated blitting.
+- Removed GL video mode.
+- Fixed two memory leaks from paragraph textures.
+- Improved separation between front-end and back-end logic.
+- Removed many singletons from the code.
+- Removed `error.h` dependency for Unix-based systems. This improves portability
+  as not all Unix-based systems have the `error.h` header.
+
+###### Documentation / Translation
+- Fixed translatable phrases appearing as fragments to translators due to string
+  concatenation.
+- Added documentation about the CMAKE_BUILD_TYPE options to the readme.
+- Added explanation of very-negative residence desirability to the help page.
 
 
 ## LinCity-NG 2.13.1
