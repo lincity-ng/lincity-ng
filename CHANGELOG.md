@@ -1,4 +1,6 @@
-## Unreleased
+## LinCity-NG 2.14.0
+
+date: 2025-07-04
 
 ###### Gameplay
 - Fixed a bug that allowed uncompleted monuments to be bulldozed.
