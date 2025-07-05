@@ -38,6 +38,7 @@
 #include <optional>
 #include <gettext.h>
 #include <locale.h>
+#include <fmt/format.h>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
@@ -59,6 +60,8 @@
 #include <exception>                             // for exception
 #endif
 
+#define _(MSG) gettext(MSG)
+#define N_(MSG) gettext_noop(MSG)
 #ifdef WIN32
 #define bindtextdomain wbindtextdomain
 #endif
@@ -201,90 +204,69 @@ void mainLoop() {
   MainMenu(window).run();
 }
 
-int main(int argc, char** argv)
-{
-    int result = 0;
+int
+main(int argc, char** argv) {
+  // parse config and command line
+  configPtr = new Config();
+  getConfig()->parseCommandLine(argc, argv);
 
-    configPtr = new Config();
-    getConfig()->parseCommandLine(argc, argv);
+  // set the preferred language
+  setlocale(LC_ALL, "");
+  if(getConfig()->language.get() != "autodetect")
+    setLang(getConfig()->language.get());
+  bindtextdomain(PACKAGE_NAME,
+    (getConfig()->appDataDir.get() / "locale").c_str());
+  textdomain(PACKAGE_NAME);
 
-#ifndef DEBUG //in debug mode we wanna have a backtrace
-    try {
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ")...\n";
-#else
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
-#endif
+  // show versions or help message if requested
+  if(getConfig()->showVersion.get()) {
+    fmt::println(PRETTY_NAME_VERSION);
+    return 0;
+  }
+  if(getConfig()->showHelp.get()) {
+    Config::printHelp(argv[0]);
+    return 0;
+  }
 
-        setlocale(LC_ALL, "");
-        if(getConfig()->language.get() != "autodetect")
-          setLang(getConfig()->language.get());
-        bindtextdomain(PACKAGE_NAME,
-          (getConfig()->appDataDir.get() / "locale").c_str());
-        textdomain(PACKAGE_NAME);
+  // print welcome message
+  fmt::println(stderr, _("starting {} ..."), PRETTY_NAME_VERSION);
 
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        return 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        return 1;
-    }
-#endif
+  // initialize resources
+  xmlInitParser();
+  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+    std::stringstream msg;
+    msg << "Couldn't initialize SDL: " << SDL_GetError();
+    throw std::runtime_error(msg.str());
+  }
+  if(TTF_Init() < 0) {
+    std::stringstream msg;
+    msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
+    throw std::runtime_error(msg.str());
+  }
+  initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
+  initLincity();
+  std::unique_ptr<Sound> sound;
+  sound.reset(new Sound());
+  //set a function to call when music stops
+  Mix_HookMusicFinished(musicHalted);
 
-// in debug mode we want a backtrace of the exceptions so we don't catch them
-#ifndef DEBUG
-    try {
-#endif
-        xmlInitParser ();
-        if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        if(TTF_Init() < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
-        initLincity();
-        std::unique_ptr<Sound> sound;
-        sound.reset(new Sound());
-        //set a function to call when music stops
-        Mix_HookMusicFinished(musicHalted);
-        mainLoop();
-        getConfig()->save();
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        result = 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        result = 1;
-    }
-#endif
-    delete painter;
-    delete fontManager;
-    delete texture_manager;
-    if(TTF_WasInit())
-        TTF_Quit();
-    if(SDL_WasInit(0))
-        SDL_Quit();
-    xmlCleanupParser();
-//     if( restart ){
-// #ifdef WIN32
-//         //Windows has a Problem with Whitespaces.
-//         std::string fixWhiteSpaceInPathnameProblem;
-//         fixWhiteSpaceInPathnameProblem="\"";
-//         fixWhiteSpaceInPathnameProblem+=argv[0];
-//         fixWhiteSpaceInPathnameProblem+="\"";
-//         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
-// #else
-//         execlp( argv[0], argv[0], (char *) NULL );
-// #endif
-//     }
-    return result;
+  // enter main loop
+  mainLoop();
+
+  // save the current game
+  getConfig()->save();
+
+  // clean up
+  delete painter;
+  delete fontManager;
+  delete texture_manager;
+  if(TTF_WasInit())
+      TTF_Quit();
+  if(SDL_WasInit(0))
+      SDL_Quit();
+  xmlCleanupParser();
+
+  return 0;
 }
 
 

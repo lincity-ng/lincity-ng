@@ -28,6 +28,7 @@ project(lincity-ng
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
+set(PROJECT_NAME_PRETTY "LinCity-NG")
 
 
 ### dependencies
