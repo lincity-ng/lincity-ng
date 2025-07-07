@@ -76,7 +76,7 @@ target_link_libraries(lincity_lib_modules
 		PUBLIC
 		tinygettext
 		LinCity::lib
-		PkgConfig::libXMLPlusPlus
+		LibXml++-5.0::LibXml++-5.0
 )
 
 include_directories(.)

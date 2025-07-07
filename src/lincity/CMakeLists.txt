@@ -42,7 +42,7 @@ target_link_libraries(lincity_lib
 		LinCity::lib_modules
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		ZLIB::ZLIB
-		PkgConfig::libXMLPlusPlus
+		LibXml++-5.0::LibXml++-5.0
 		LibXml2::LibXml2
 		PRIVATE
 		tinygettext
