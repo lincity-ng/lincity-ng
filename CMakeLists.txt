@@ -145,7 +145,7 @@ set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
 add_subdirectory(doc)
-add_subdirectory(external)
+add_subdirectory(lib)
 
 
 ### runtime dependency installation for Windows
