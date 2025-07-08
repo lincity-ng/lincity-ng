@@ -68,15 +68,19 @@ add_library(lincity_lib_modules  STATIC
 		windmill.hpp
 		windpower.cpp
 		windpower.hpp
-		)
+)
 
 add_library(LinCity::lib_modules ALIAS lincity_lib_modules)
 
 target_link_libraries(lincity_lib_modules
-		PUBLIC
-		tinygettext
-		LinCity::lib
-		LibXml++-5.0::LibXml++-5.0
+	PUBLIC
+	LinCity::lib
+	LibXml++-5.0::LibXml++-5.0
+	PRIVATE
+	gettext
 )
 
 include_directories(.)
+
+include(TranslateTarget)
+translate_target(lincity_lib_modules lincity_lib_modules.pot)

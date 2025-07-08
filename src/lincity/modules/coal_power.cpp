@@ -38,7 +38,8 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+
+#define N_(MSG) MSG
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),

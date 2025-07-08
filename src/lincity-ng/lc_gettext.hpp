@@ -1,10 +1,8 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/lc_locale.hpp
+ * src/lincity-ng/lc_gettext.hpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +19,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LC_LOCALE_H__
-#define __LC_LOCALE_H__
+#ifndef __LINCITYNG_LINCITYNG_LCGETTEXT_HPP__
+#define __LINCITYNG_LINCITYNG_LCGETTEXT_HPP__
 
-void lincity_set_locale(void);
+#include <gettext.h>
+#include <string>
 
-#endif
+#define N_(MSG) gettext_noop(MSG)
 
-/** @file lincity/lc_locale.h */
+static const char *
+_(const char *msg) {
+  return gettext(msg);
+}
+
+static const std::string
+_(const std::string& msg) {
+  return gettext(msg.c_str());
+}
+
+#endif // __LINCITYNG_LINCITYNG_LCGETTEXT_HPP__

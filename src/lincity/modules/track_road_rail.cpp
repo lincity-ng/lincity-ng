@@ -29,6 +29,7 @@
 #include <map>                              // for map
 #include <string>                           // for basic_string, operator<
 #include <vector>                           // for vector
+#include <gettext.h>
 
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"               // for Mps
@@ -40,7 +41,9 @@
 #include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/stats.hpp"                // for Stats
 #include "lincity/world.hpp"                // for World, MapTile, Map
-#include "tinygettext/gettext.hpp"          // for N_, _
+
+#define _(MSG) gettext(MSG)
+#define N_(MSG) MSG
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(

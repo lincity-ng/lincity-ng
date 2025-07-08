@@ -32,9 +32,12 @@
 #include <time.h>     // for time
 #include <random>     // for random_device, seed_seq
 #include <vector>     // for vector
+#include <gettext.h>
 
 #include "lintypes.hpp"               // for NUMOF_DAYS_IN_YEAR, NUMOF_DAYS_IN...
-#include "tinygettext/gettext.hpp"  // for N_, _
+
+#define _(MSG) gettext(MSG)
+#define N_(MSG) gettext_noop(MSG)
 
 // TODO: move to NG
 const char *current_month(int current_time) {

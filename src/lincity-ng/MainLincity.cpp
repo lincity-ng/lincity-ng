@@ -33,11 +33,10 @@
 
 #include "TimerInterface.hpp"             // for reset_start_time
 #include "gui/DialogBuilder.hpp"          // for DialogBuilder
-#include "lincity/lc_locale.hpp"            // for lincity_set_locale
 #include "lincity/lin-city.hpp"             // for SIM_DELAY_SLOW
 #include "lincity/modules/all_modules.hpp"  // for initializeModules
 #include "lincity/world.hpp"                // for World
-#include "tinygettext/gettext.hpp"
+#include "lc_gettext.hpp"
 
 extern void init_types(void);
 extern void initFactories(void);
@@ -91,9 +90,6 @@ std::unique_ptr<World> loadCityNG(const std::filesystem::path& filename) {
 
 void initLincity()
 {
-    /* I18n */
-    lincity_set_locale();
-
     /* Set up the paths to certain files and directories */
     // init_path_strings();
 

@@ -19,5 +19,17 @@
  # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ## ---------------------------------------------------------------------- ##
 
-add_subdirectory(cfgpath)
-add_subdirectory(gettext)
+add_library(gettext INTERFACE
+  gettext.h
+)
+
+target_include_directories(gettext INTERFACE SYSTEM .)
+set_target_properties(gettext PROPERTIES
+  LINKER_LANGUAGE C
+  C_INCLUDE_WHAT_YOU_USE ""
+)
+
+if(ENABLE_NLS AND Intl_FOUND)
+  target_link_libraries(gettext INTERFACE Intl::Intl)
+  target_compile_definitions(gettext INTERFACE ENABLE_NLS=1)
+endif()

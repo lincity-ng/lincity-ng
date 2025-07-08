@@ -36,8 +36,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Signal.hpp"               // for Signal
 #include "gui/Window.hpp"               // for Window
 #include "gui/WindowManager.hpp"        // for WindowManager
-#include "tinygettext/gettext.hpp"      // for dictionaryManager
-#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 using namespace std::placeholders;
 
@@ -102,15 +100,17 @@ std::filesystem::path
 HelpWindow::getHelpFile(const std::string& topic)
 {
   // try in user language
+  std::string language = getConfig()->language.get();
+  if(language == "C" || language == "POSIX") language = "en";
+
   std::filesystem::path filename = getConfig()->appDataDir.get() / "help";
-  filename /= dictionaryManager->get_language();
+  filename /= language;
   filename /= topic;
   filename += ".xml";
   if(std::filesystem::exists(filename))
     return filename;
 
   // try short language, eg. "de" instead of "de_CH"
-  std::string language = dictionaryManager->get_language();
   std::string::size_type pos = language.find("_");
   if(pos != std::string::npos) {
     language = std::string(language, 0, pos);

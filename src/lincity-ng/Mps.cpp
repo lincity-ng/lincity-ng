@@ -46,7 +46,7 @@
 #include "lincity/stats.hpp"                // for Stat, Stats
 #include "lincity/util.hpp"                 // for num_to_ansi, current_year
 #include "lincity/world.hpp"                // for MapTile, World, Ground
-#include "tinygettext/gettext.hpp"          // for N_, _
+#include "lc_gettext.hpp"
 
 Mps::Mps() { }
 

@@ -32,7 +32,8 @@
 #include "lincity/lin-city.hpp"       // for ANIM_THRESHOLD, FALSE, FLAG_NEVER...
 #include "lincity/resources.hpp"    // for ExtraFrame
 #include "lincity/world.hpp"          // for World
-#include "tinygettext/gettext.hpp"  // for N_
+
+#define N_(MSG) MSG
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(

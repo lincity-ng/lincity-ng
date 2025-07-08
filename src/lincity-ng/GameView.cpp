@@ -67,8 +67,7 @@
 #include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
 #include "lincity/transport.hpp"           // for BRIDGE_FACTOR
 #include "lincity/world.hpp"               // for Map, World, MapTile, Ground
-#include "tinygettext/gettext.hpp"       // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
+#include "lc_gettext.hpp"
 
 using namespace std::placeholders;
 
@@ -1690,7 +1689,7 @@ void GameView::draw(Painter& painter)
         else if( getUserOperation()->action == UserOperation::ACTION_BUILD)
         {
             std::string buildingName =  getUserOperation()->constructionGroup->name;
-            prize << dictionaryManager->get_dictionary().translate( buildingName );
+            prize << _(buildingName);
             prize << _(": Cost to build ");
             if( cost > 0 ) {
                 prize << cost << _("$");

@@ -89,8 +89,8 @@ Config::Config() {
   musicTheme.default_ = "default";
 
   carsEnabled.default_ = true;
-  language.default_ = "autodetect";
   worldSize.default_ = WORLD_SIDE_LEN;
+  language.default_ = "autodetect";
 
   {
     char configFileStr[MAX_PATH];

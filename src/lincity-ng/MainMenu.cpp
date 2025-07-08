@@ -61,10 +61,11 @@
 #include "lincity/stats.hpp"            // for Stat, Stats
 #include "lincity/world.hpp"            // for World
 #include "main.hpp"                     // for resizeVideo, painter, videoSi...
-#include "tinygettext/gettext.hpp"      // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
+#include "lc_gettext.hpp"
+#include "config.h"
 
 using namespace std::placeholders;
+using namespace std::string_literals;
 
 extern std::string autoLanguage;
 
@@ -270,12 +271,25 @@ MainMenu::updateOptionsMenu() {
   mode.str("");
   mode << getConfig()->worldSize.get();
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
+
   languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
   currentLanguage = getConfig()->language.get();
   languageParagraph->setText(getConfig()->language.get());
-  languages = dictionaryManager->get_languages();
-  languages.insert( "autodetect" );
-  languages.insert( "en" ); // English is the default when no translation is used
+  languages.clear();
+  for(const auto& ent : std::filesystem::directory_iterator(
+    getConfig()->appDataDir.get() / "locale")
+  ) {
+    if(!std::filesystem::exists(
+      ent.path() / "LC_MESSAGES" / (PACKAGE_NAME + ".mo"s))
+    ) continue;
+    std::string lang = ent.path().filename().generic_string();
+    languages.insert(lang);
+#ifdef DEBUG
+    std::cerr << "debug: detected available locale: " << lang << std::endl;
+#endif
+  }
+  languages.insert("autodetect");
+  languages.insert("en"); // English is the default when no translation is used
 }
 
 void
@@ -598,6 +612,7 @@ MainMenu::changeLanguage(bool next) {
   std::string newLang = *i;
   languageParagraph->setText(newLang);
   getConfig()->language.session = newLang;
+  setLang(newLang);
   getSound()->playSound("Click");
 }
 
@@ -690,13 +705,12 @@ MainMenu::optionsBackButtonClicked(Button *) {
   }
   else if(currentLanguage != getConfig()->language.get())
   {
-    // TODO: implement changing the language on the go
-    //       For now, show warning in a language the user may not understand.
+    // TODO: re-parse GUI to update translatable text
     DialogBuilder()
       .titleText(_("Warning"))
       .messageAddTextBold(_("Restart Required"))
       .messageAddText(_("Changing the language requires restarting LinCity"
-        " for changes to take effect."))
+        " for changes to take full effect."))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();

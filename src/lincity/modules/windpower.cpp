@@ -38,7 +38,8 @@
 #include "lincity/stats.hpp"              // for Stat, Stats
 #include "lincity/world.hpp"              // for World
 #include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+
+#define N_(MSG) MSG
 
 WindpowerConstructionGroup windpowerConstructionGroup(
   N_("Wind Power"),

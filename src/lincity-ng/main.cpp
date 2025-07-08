@@ -36,6 +36,8 @@
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for char_traits, basic_s...
 #include <optional>
+#include <gettext.h>
+#include <locale.h>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
@@ -46,7 +48,6 @@
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
@@ -58,13 +59,16 @@
 #include <exception>                             // for exception
 #endif
 
+#ifdef WIN32
+#define bindtextdomain wbindtextdomain
+#endif
+
 extern Config *configPtr;
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
 SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
-tinygettext::DictionaryManager* dictionaryManager = 0;
 // bool restart = false;
 const char *appdatadir;
 
@@ -175,6 +179,22 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
+void
+setLang(const std::string& lang) {
+  if(lang != "autodetect")
+#ifndef WIN32
+    setenv("LANGUAGE", lang.c_str(), 1);
+#else
+    _putenv_s("LANGUAGE", lang.c_str());
+#endif
+  else
+#ifndef WIN32
+    unsetenv("LANGUAGE");
+#else
+    _putenv_s("LANGUAGE", "");
+#endif
+}
+
 void mainLoop() {
   MainMenu(window).run();
 }
@@ -193,30 +213,12 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
 
-        if(getConfig()->language.get() != "autodetect") {
-#if defined (WIN32)
-          _putenv_s("LINCITY_LANG", getConfig()->language.get().c_str());
-#else
-          setenv("LINCITY_LANG", getConfig()->language.get().c_str(), false);
-#endif
-        }
-        dictionaryManager = new tinygettext::DictionaryManager();
-        dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory(getConfig()->appDataDir.get() / "locale");
-        std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
-
-        // char *lc_textdomain_directory[1024];
-        // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
-        //   appdatadir, "/", "locale") < 1024) {
-        //   char *dm = bindtextdomain(PACKAGE, lc_textdomain_directory);
-        //   fprintf(stderr, "Bound textdomain directory is %s\n", dm);
-        //   char *td = textdomain(PACKAGE);
-        //   fprintf(stderr, "Textdomain is %s\n", td);
-        // } else {
-        //   fprintf(stderr, "warning: %s, %s",
-        //     "data directory path name too long",
-        //     "cannot set text domain");
-        // }
+        setlocale(LC_ALL, "");
+        if(getConfig()->language.get() != "autodetect")
+          setLang(getConfig()->language.get());
+        bindtextdomain(PACKAGE_NAME,
+          (getConfig()->appDataDir.get() / "locale").c_str());
+        textdomain(PACKAGE_NAME);
 
 #ifndef DEBUG
     } catch(std::exception& e) {
@@ -268,8 +270,6 @@ int main(int argc, char** argv)
     if(SDL_WasInit(0))
         SDL_Quit();
     xmlCleanupParser();
-    delete dictionaryManager;
-    dictionaryManager = 0;
 //     if( restart ){
 // #ifdef WIN32
 //         //Windows has a Problem with Whitespaces.

@@ -23,7 +23,7 @@
 
 #include <cstring>
 
-#include "tinygettext/gettext.hpp"  // for N_
+#define N_(MSG) MSG
 
 Commodity& operator++(Commodity& stuff) {
   return stuff = (Commodity)((int)stuff + 1);

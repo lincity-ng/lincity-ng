@@ -1,14 +1,55 @@
+# #-#-#-#-#  sv.po (lincity-ng)  #-#-#-#-#
+# #-#-#-#-#  sv.po (lincity-ng)  #-#-#-#-#
 # Swedish translations for lincity-ng package
 # Swedish messages for lincity-ng.
 # Copyright (C) 2005 THE lincity-ng'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the lincity-ng package.
 # Daniel Nylander <po@danielnylander.se>, 2005, 2007, 2008.
 #
+# #-#-#-#-#  sv.po (lincity-ng 1.1.0)  #-#-#-#-#
+# Swedish translations for lincity-ng gui
+# Swedish messages for lincity-ng.
+# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the lincity-ng package.
+# Daniel Nylander <po@danielnylander.se>, 2005, 2007.
+#
+# #-#-#-#-#  sv.po (lincity-ng 1.1.0)  #-#-#-#-#
+# Swedish translations for lincity-ng gui
+# Swedish messages for lincity-ng.
+# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the lincity-ng package.
+# Daniel Nylander <po@danielnylander.se>, 2005, 2007.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  sv.po (lincity-ng)  #-#-#-#-#\n"
+"#-#-#-#-#  sv.po (lincity-ng)  #-#-#-#-#\n"
 "Project-Id-Version: lincity-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-01 14:12+0100\n"
+"PO-Revision-Date: 2009-01-05 19:45+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  sv.po (lincity-ng 1.1.0)  #-#-#-#-#\n"
+"Project-Id-Version: lincity-ng 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jan  1 14:12:28 2009\n"
+"PO-Revision-Date: 2009-01-05 19:45+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  sv.po (lincity-ng 1.1.0)  #-#-#-#-#\n"
+"Project-Id-Version: lincity-ng 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jan  1 14:12:28 2009\n"
 "PO-Revision-Date: 2009-01-05 19:45+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -75,11 +116,13 @@ msgstr "Du kan inte bygga en vattenbrunn här: det är bara öken här."
 
 #: src/lincity/engine.cpp:175
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr "Du kan inte bygga en soptipp här: den här platsen var tidigare en soptipp"
+msgstr ""
+"Du kan inte bygga en soptipp här: den här platsen var tidigare en soptipp"
 
 #: src/lincity/engine.cpp:190
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Du kan inte bygga en gruva här: den här platsen var tidigare en soptipp"
+msgstr ""
+"Du kan inte bygga en gruva här: den här platsen var tidigare en soptipp"
 
 #: src/lincity/engine.cpp:201
 msgid "You can't build a mine here: there is no ore left at this site"
@@ -87,7 +130,8 @@ msgstr "Du kan inte bygga en gruva här: det finns ingen malm kvar här"
 
 #: src/lincity/engine.cpp:211
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr "Du kan inte bygga en park här: det är en öken och parker behöver vatten"
+msgstr ""
+"Du kan inte bygga en park här: det är en öken och parker behöver vatten"
 
 #: src/lincity/engine.cpp:226
 msgid "Too many substations + windmills. You cannot build one more"
@@ -98,8 +142,13 @@ msgid "Too many markets. You cannot build one more"
 msgstr "För många marknader. Du kan inte bygga en till"
 
 #: src/lincity/engine.cpp:259
-msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "FEL: gruppen finns inte. Det här ska inte hända! Skicka gärna in en felrapport till lincity-ng-teamet med det sparade spelet och information om vad du gjorde :-) "
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"FEL: gruppen finns inte. Det här ska inte hända! Skicka gärna in en "
+"felrapport till lincity-ng-teamet med det sparade spelet och information om "
+"vad du gjorde :-) "
 
 #: src/lincity/engine.cpp:578
 msgid "It's at a power line."
@@ -217,8 +266,7 @@ msgstr "Den är vid en kåkstad."
 msgid "UNKNOWN!"
 msgstr "OKÄND!"
 
-#: src/lincity/fileutil.cpp:233
-#: src/lincity/fileutil.cpp:277
+#: src/lincity/fileutil.cpp:233 src/lincity/fileutil.cpp:277
 msgid "Error. Can't find LINCITY_HOME"
 msgstr "Fel. Kan inte hitta LINCITY_HOME"
 
@@ -226,8 +274,7 @@ msgstr "Fel. Kan inte hitta LINCITY_HOME"
 msgid "Error verifying package. Can't find colour.pal."
 msgstr "Fel vid verifiering av paket. Kan inte hitta filen colour.pal."
 
-#: src/lincity/fileutil.cpp:476
-#: src/lincity/fileutil.cpp:484
+#: src/lincity/fileutil.cpp:476 src/lincity/fileutil.cpp:484
 #, c-format
 msgid "Couldn't create the save directory '%s'\n"
 msgstr "Kunde inte skapa mapp för sparade spel \"%s\"\n"
@@ -246,8 +293,7 @@ msgstr "Spara filen <%s> - "
 msgid "Can't open save file!"
 msgstr "Kan inte öppna sparad fil!"
 
-#: src/lincity/loadsave.cpp:293
-#: src/lincity/old_ldsvguts.cpp:130
+#: src/lincity/loadsave.cpp:293 src/lincity/old_ldsvguts.cpp:130
 #, c-format
 msgid "Can't open <%s> (gzipped)"
 msgstr "Kan inte öppna <%s> (gzippad)"
@@ -264,8 +310,7 @@ msgstr "Kraftledning"
 msgid "Solar PS"
 msgstr "Solkraftverk"
 
-#: src/lincity/lintypes.cpp:55
-#: src/lincity/modules/substation.cpp:93
+#: src/lincity/lintypes.cpp:55 src/lincity/modules/substation.cpp:93
 msgid "Substation"
 msgstr "Relästation"
 
@@ -277,8 +322,7 @@ msgstr "Bostadsområde NN"
 msgid "Farm"
 msgstr "Bondgård"
 
-#: src/lincity/lintypes.cpp:88
-#: src/lincity/modules/market.cpp:1011
+#: src/lincity/lintypes.cpp:88 src/lincity/modules/market.cpp:1011
 #: src/lincity-ng/Dialog.cpp:631
 msgid "Market"
 msgstr "Marknad"
@@ -307,13 +351,11 @@ msgstr "Väg"
 msgid "Lt. Industry"
 msgstr "Industri"
 
-#: src/lincity/lintypes.cpp:165
-#: src/lincity/modules/university.cpp:59
+#: src/lincity/lintypes.cpp:165 src/lincity/modules/university.cpp:59
 msgid "University"
 msgstr "Universitet"
 
-#: src/lincity/lintypes.cpp:176
-#: src/lincity/modules/commune.cpp:174
+#: src/lincity/lintypes.cpp:176 src/lincity/modules/commune.cpp:174
 msgid "Commune"
 msgstr "Kolmila"
 
@@ -325,8 +367,7 @@ msgstr "Malmgruva"
 msgid "Rubbish tip"
 msgstr "Soptipp"
 
-#: src/lincity/lintypes.cpp:209
-#: src/lincity/modules/port.cpp:281
+#: src/lincity/lintypes.cpp:209 src/lincity/modules/port.cpp:281
 #: src/lincity-ng/Dialog.cpp:685
 msgid "Port"
 msgstr "Hamn"
@@ -339,13 +380,11 @@ msgstr "T.industri"
 msgid "Park"
 msgstr "Park"
 
-#: src/lincity/lintypes.cpp:242
-#: src/lincity-ng/MpsInterface.cpp:525
+#: src/lincity/lintypes.cpp:242 src/lincity-ng/MpsInterface.cpp:525
 msgid "Recycle"
 msgstr "Återvinning"
 
-#: src/lincity/lintypes.cpp:253
-#: src/lincity/modules/residence.cpp:264
+#: src/lincity/lintypes.cpp:253 src/lincity/modules/residence.cpp:264
 #: src/lincity/modules/water.cpp:20
 msgid "Water"
 msgstr "Vatten"
@@ -358,24 +397,20 @@ msgstr "Sjukhus"
 msgid "Rocket pad"
 msgstr "Raketavfyrningsramp"
 
-#: src/lincity/lintypes.cpp:286
-#: src/lincity/modules/windmill.cpp:74
+#: src/lincity/lintypes.cpp:286 src/lincity/modules/windmill.cpp:74
 #: src/lincity-ng/MpsInterface.cpp:515
 msgid "Windmill"
 msgstr "Väderkvarn"
 
-#: src/lincity/lintypes.cpp:297
-#: src/lincity/modules/monument.cpp:51
+#: src/lincity/lintypes.cpp:297 src/lincity/modules/monument.cpp:51
 msgid "Monument"
 msgstr "Monument"
 
-#: src/lincity/lintypes.cpp:308
-#: src/lincity/modules/school.cpp:43
+#: src/lincity/lintypes.cpp:308 src/lincity/modules/school.cpp:43
 msgid "School"
 msgstr "Skola"
 
-#: src/lincity/lintypes.cpp:319
-#: src/lincity/modules/blacksmith.cpp:91
+#: src/lincity/lintypes.cpp:319 src/lincity/modules/blacksmith.cpp:91
 msgid "Blacksmith"
 msgstr "Smedja"
 
@@ -383,8 +418,7 @@ msgstr "Smedja"
 msgid "Mill"
 msgstr "Verkstad"
 
-#: src/lincity/lintypes.cpp:341
-#: src/lincity/modules/pottery.cpp:105
+#: src/lincity/lintypes.cpp:341 src/lincity/modules/pottery.cpp:105
 msgid "Pottery"
 msgstr "Keramikfabrik"
 
@@ -392,8 +426,7 @@ msgstr "Keramikfabrik"
 msgid "Fire sta'n"
 msgstr "Brandstation"
 
-#: src/lincity/lintypes.cpp:363
-#: src/lincity/modules/cricket.cpp:92
+#: src/lincity/lintypes.cpp:363 src/lincity/modules/cricket.cpp:92
 msgid "Sports field"
 msgstr "Sportarena"
 
@@ -405,10 +438,9 @@ msgstr "Bränd"
 msgid "Shanty town"
 msgstr "Kåkstad"
 
-#: src/lincity/lintypes.cpp:399
-#: src/lincity/modules/residence.cpp:283
-#: src/lincity-ng/MpsInterface.cpp:389
-#: src/lincity-ng/EconomyGraph.cpp:134
+#: src/lincity/lintypes.cpp:399 src/lincity/modules/residence.cpp:283
+#: src/lincity-ng/MpsInterface.cpp:389 src/lincity-ng/EconomyGraph.cpp:134
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
 msgid "Fire"
 msgstr "Brand"
 
@@ -473,8 +505,14 @@ msgid "Loading scene"
 msgstr "Läser in scenario"
 
 #: src/lincity/simulate.cpp:81
-msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
-msgstr "Uppgraderar från ett gammalt spel. Du har 10 år på dig att bygga vattenbrunnar där de behövs. Annars kommer svält att inträffa!  Du bör kontrollera minikartan för svält och läsa hjälpsidorna för vattenbrunnar :-)"
+msgid ""
+"Upgrading from old game. You have 10 years to build water wells where "
+"needed. After, starvation will occur!  You should check starvation minimap, "
+"and read waterwell help page :-)"
+msgstr ""
+"Uppgraderar från ett gammalt spel. Du har 10 år på dig att bygga "
+"vattenbrunnar där de behövs. Annars kommer svält att inträffa!  Du bör "
+"kontrollera minikartan för svält och läsa hjälpsidorna för vattenbrunnar :-)"
 
 #: src/lincity/power.cpp:298
 msgid "You have too many power grids. Join some of them"
@@ -484,10 +522,8 @@ msgstr "Du har för många kraftledningar. Anslut några av dem till varandra"
 msgid "Power Line"
 msgstr "Kraftledning"
 
-#: src/lincity/modules/power_line.cpp:49
-#: src/lincity/modules/substation.cpp:113
-#: src/lincity/modules/windmill.cpp:99
-#: src/lincity/modules/coal_power.cpp:100
+#: src/lincity/modules/power_line.cpp:49 src/lincity/modules/substation.cpp:113
+#: src/lincity/modules/windmill.cpp:99 src/lincity/modules/coal_power.cpp:100
 #: src/lincity/modules/solar_power.cpp:59
 msgid "Grid ID"
 msgstr "Nät ID"
@@ -500,12 +536,9 @@ msgstr "Bostad"
 msgid "People"
 msgstr "Folk"
 
-#: src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267
-#: src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273
-#: src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:263 src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270 src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
 #: src/lincity/modules/residence.cpp:285
 #: src/lincity/modules/organic_farm.cpp:217
 #: src/lincity/modules/light_industry.cpp:281
@@ -513,12 +546,9 @@ msgstr "Folk"
 msgid "YES"
 msgstr "JA"
 
-#: src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267
-#: src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273
-#: src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:263 src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270 src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
 #: src/lincity/modules/residence.cpp:285
 #: src/lincity/modules/heavy_industry.cpp:280
 #: src/lincity/modules/organic_farm.cpp:217
@@ -543,8 +573,7 @@ msgstr "Ström"
 msgid "Employed"
 msgstr "Anställda"
 
-#: src/lincity/modules/residence.cpp:276
-#: src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity/modules/residence.cpp:276 src/lincity-ng/MpsInterface.cpp:402
 msgid "good"
 msgstr "bra"
 
@@ -560,14 +589,12 @@ msgstr "Jobb"
 msgid "Health Cvr"
 msgstr "Sjukhustä."
 
-#: src/lincity/modules/residence.cpp:286
-#: src/lincity-ng/MpsInterface.cpp:395
+#: src/lincity/modules/residence.cpp:286 src/lincity-ng/MpsInterface.cpp:395
 #: src/lincity-ng/MpsInterface.cpp:523
 msgid "Sport"
 msgstr "Sport"
 
-#: src/lincity/modules/residence.cpp:288
-#: src/lincity/modules/waterwell.cpp:59
+#: src/lincity/modules/residence.cpp:288 src/lincity/modules/waterwell.cpp:59
 #: src/lincity-ng/MpsInterface.cpp:397
 msgid "Pollution"
 msgstr "Miljöförstöring"
@@ -585,15 +612,13 @@ msgstr "% färdig"
 msgid "Water_well"
 msgstr "Vatten_brunn"
 
-#: src/lincity/modules/waterwell.cpp:62
-#: src/lincity/modules/commune.cpp:179
-#: src/lincity/modules/commune.cpp:181
-#: src/lincity/modules/commune.cpp:183
-#: src/lincity/modules/commune.cpp:185
-#: src/lincity/modules/water.cpp:23
-#: src/lincity-ng/MpsInterface.cpp:388
-#: src/lincity-ng/MpsInterface.cpp:391
-#: src/lincity-ng/MpsInterface.cpp:394
+#: src/lincity/modules/waterwell.cpp:62 src/lincity/modules/commune.cpp:179
+#: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
+#: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:23
+#: src/lincity-ng/MpsInterface.cpp:388 src/lincity-ng/MpsInterface.cpp:391
+#: src/lincity-ng/MpsInterface.cpp:394 data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
 msgid "Yes"
 msgstr "Ja"
 
@@ -601,120 +626,88 @@ msgstr "Ja"
 msgid "Drinkable"
 msgstr "Drickbar"
 
-#: src/lincity/modules/market.cpp:1015
-#: src/lincity/modules/port.cpp:286
-#: src/lincity/modules/track.cpp:36
-#: src/lincity/modules/mill.cpp:100
-#: src/lincity/modules/road.cpp:45
-#: src/lincity/modules/rail.cpp:50
+#: src/lincity/modules/market.cpp:1015 src/lincity/modules/port.cpp:286
+#: src/lincity/modules/track.cpp:36 src/lincity/modules/mill.cpp:100
+#: src/lincity/modules/road.cpp:45 src/lincity/modules/rail.cpp:50
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Food"
 msgstr "Mat"
 
-#: src/lincity/modules/market.cpp:1016
-#: src/lincity/modules/university.cpp:66
-#: src/lincity/modules/firestation.cpp:112
-#: src/lincity/modules/windmill.cpp:76
-#: src/lincity/modules/rocket_pad.cpp:195
-#: src/lincity/modules/cricket.cpp:95
-#: src/lincity/modules/track.cpp:37
-#: src/lincity/modules/coalmine.cpp:155
-#: src/lincity/modules/pottery.cpp:110
-#: src/lincity/modules/coal_power.cpp:98
-#: src/lincity/modules/school.cpp:49
-#: src/lincity/modules/road.cpp:46
-#: src/lincity/modules/solar_power.cpp:45
-#: src/lincity/modules/rail.cpp:51
-#: src/lincity/modules/health_centre.cpp:61
+#: src/lincity/modules/market.cpp:1016 src/lincity/modules/university.cpp:66
+#: src/lincity/modules/firestation.cpp:112 src/lincity/modules/windmill.cpp:76
+#: src/lincity/modules/rocket_pad.cpp:195 src/lincity/modules/cricket.cpp:95
+#: src/lincity/modules/track.cpp:37 src/lincity/modules/coalmine.cpp:155
+#: src/lincity/modules/pottery.cpp:110 src/lincity/modules/coal_power.cpp:98
+#: src/lincity/modules/school.cpp:49 src/lincity/modules/road.cpp:46
+#: src/lincity/modules/solar_power.cpp:45 src/lincity/modules/rail.cpp:51
+#: src/lincity/modules/health_centre.cpp:61 data/gui/tradedialog.xml
+#: data/gui/pbar.xml
 msgid "Jobs"
 msgstr "Jobb"
 
-#: src/lincity/modules/market.cpp:1017
-#: src/lincity/modules/blacksmith.cpp:98
+#: src/lincity/modules/market.cpp:1017 src/lincity/modules/blacksmith.cpp:98
 #: src/lincity/modules/heavy_industry.cpp:275
-#: src/lincity/modules/heavy_industry.cpp:287
-#: src/lincity/modules/port.cpp:290
-#: src/lincity/modules/track.cpp:38
-#: src/lincity/modules/commune.cpp:180
-#: src/lincity/modules/pottery.cpp:113
-#: src/lincity/modules/mill.cpp:101
-#: src/lincity/modules/coal_power.cpp:97
-#: src/lincity/modules/road.cpp:47
-#: src/lincity/modules/rail.cpp:52
-#: src/lincity-ng/MpsInterface.cpp:453
+#: src/lincity/modules/heavy_industry.cpp:287 src/lincity/modules/port.cpp:290
+#: src/lincity/modules/track.cpp:38 src/lincity/modules/commune.cpp:180
+#: src/lincity/modules/pottery.cpp:113 src/lincity/modules/mill.cpp:101
+#: src/lincity/modules/coal_power.cpp:97 src/lincity/modules/road.cpp:47
+#: src/lincity/modules/rail.cpp:52 src/lincity-ng/MpsInterface.cpp:453
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Coal"
 msgstr "Kol"
 
-#: src/lincity/modules/market.cpp:1018
-#: src/lincity/modules/blacksmith.cpp:97
+#: src/lincity/modules/market.cpp:1018 src/lincity/modules/blacksmith.cpp:97
 #: src/lincity/modules/university.cpp:67
 #: src/lincity/modules/firestation.cpp:113
-#: src/lincity/modules/rocket_pad.cpp:196
-#: src/lincity/modules/cricket.cpp:96
-#: src/lincity/modules/port.cpp:298
-#: src/lincity/modules/track.cpp:39
-#: src/lincity/modules/pottery.cpp:111
-#: src/lincity/modules/mill.cpp:99
-#: src/lincity/modules/school.cpp:50
-#: src/lincity/modules/road.cpp:48
-#: src/lincity/modules/rail.cpp:53
-#: src/lincity/modules/health_centre.cpp:62
-#: src/lincity-ng/MpsInterface.cpp:457
+#: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/cricket.cpp:96
+#: src/lincity/modules/port.cpp:298 src/lincity/modules/track.cpp:39
+#: src/lincity/modules/pottery.cpp:111 src/lincity/modules/mill.cpp:99
+#: src/lincity/modules/school.cpp:50 src/lincity/modules/road.cpp:48
+#: src/lincity/modules/rail.cpp:53 src/lincity/modules/health_centre.cpp:62
+#: src/lincity-ng/MpsInterface.cpp:457 data/gui/portdialog.xml
+#: data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Goods"
 msgstr "Varor"
 
 #: src/lincity/modules/market.cpp:1019
-#: src/lincity/modules/heavy_industry.cpp:286
-#: src/lincity/modules/port.cpp:294
-#: src/lincity/modules/track.cpp:40
-#: src/lincity/modules/commune.cpp:182
+#: src/lincity/modules/heavy_industry.cpp:286 src/lincity/modules/port.cpp:294
+#: src/lincity/modules/track.cpp:40 src/lincity/modules/commune.cpp:182
 #: src/lincity/modules/pottery.cpp:112
 #: src/lincity/modules/light_industry.cpp:284
-#: src/lincity/modules/recycle.cpp:145
-#: src/lincity/modules/road.cpp:49
-#: src/lincity/modules/rail.cpp:54
+#: src/lincity/modules/recycle.cpp:145 src/lincity/modules/road.cpp:49
+#: src/lincity/modules/rail.cpp:54 data/gui/portdialog.xml
+#: data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Ore"
 msgstr "Malm"
 
-#: src/lincity/modules/market.cpp:1020
-#: src/lincity/modules/rocket_pad.cpp:197
-#: src/lincity/modules/port.cpp:302
-#: src/lincity/modules/track.cpp:41
+#: src/lincity/modules/market.cpp:1020 src/lincity/modules/rocket_pad.cpp:197
+#: src/lincity/modules/port.cpp:302 src/lincity/modules/track.cpp:41
 #: src/lincity/modules/commune.cpp:184
-#: src/lincity/modules/light_industry.cpp:285
-#: src/lincity/modules/road.cpp:50
-#: src/lincity/modules/rail.cpp:55
+#: src/lincity/modules/light_industry.cpp:285 src/lincity/modules/road.cpp:50
+#: src/lincity/modules/rail.cpp:55 data/gui/portdialog.xml
+#: data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Steel"
 msgstr "Stål"
 
-#: src/lincity/modules/market.cpp:1021
-#: src/lincity/modules/track.cpp:42
-#: src/lincity/modules/commune.cpp:186
-#: src/lincity/modules/recycle.cpp:146
-#: src/lincity/modules/road.cpp:51
-#: src/lincity/modules/rail.cpp:56
+#: src/lincity/modules/market.cpp:1021 src/lincity/modules/track.cpp:42
+#: src/lincity/modules/commune.cpp:186 src/lincity/modules/recycle.cpp:146
+#: src/lincity/modules/road.cpp:51 src/lincity/modules/rail.cpp:56
 msgid "Waste"
 msgstr "Sopor"
 
-#: src/lincity/modules/blacksmith.cpp:94
-#: src/lincity/modules/university.cpp:68
+#: src/lincity/modules/blacksmith.cpp:94 src/lincity/modules/university.cpp:68
 #: src/lincity/modules/heavy_industry.cpp:288
 #: src/lincity/modules/pottery.cpp:107
-#: src/lincity/modules/light_industry.cpp:278
-#: src/lincity/modules/mill.cpp:96
-#: src/lincity/modules/recycle.cpp:137
-#: src/lincity/modules/school.cpp:52
+#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:96
+#: src/lincity/modules/recycle.cpp:137 src/lincity/modules/school.cpp:52
 msgid "Capacity"
 msgstr "Kapacitet"
 
-#: src/lincity/modules/blacksmith.cpp:96
-#: src/lincity/modules/university.cpp:65
+#: src/lincity/modules/blacksmith.cpp:96 src/lincity/modules/university.cpp:65
 #: src/lincity/modules/firestation.cpp:111
-#: src/lincity/modules/rocket_pad.cpp:194
-#: src/lincity/modules/cricket.cpp:94
-#: src/lincity/modules/pottery.cpp:109
-#: src/lincity/modules/mill.cpp:98
-#: src/lincity/modules/recycle.cpp:144
-#: src/lincity/modules/school.cpp:48
+#: src/lincity/modules/rocket_pad.cpp:194 src/lincity/modules/cricket.cpp:94
+#: src/lincity/modules/pottery.cpp:109 src/lincity/modules/mill.cpp:98
+#: src/lincity/modules/recycle.cpp:144 src/lincity/modules/school.cpp:48
 #: src/lincity/modules/health_centre.cpp:60
 msgid "Inventory"
 msgstr "Lager"
@@ -744,23 +737,19 @@ msgstr "% fylld"
 msgid "Local Demand"
 msgstr "Lokala krav"
 
-#: src/lincity/modules/substation.cpp:101
-#: src/lincity/modules/windmill.cpp:89
+#: src/lincity/modules/substation.cpp:101 src/lincity/modules/windmill.cpp:89
 msgid "Grid Status"
 msgstr "Rutnätsstatus"
 
-#: src/lincity/modules/substation.cpp:104
-#: src/lincity/modules/windmill.cpp:92
+#: src/lincity/modules/substation.cpp:104 src/lincity/modules/windmill.cpp:92
 msgid "T. Cap."
 msgstr "T. Cap."
 
-#: src/lincity/modules/substation.cpp:107
-#: src/lincity/modules/windmill.cpp:95
+#: src/lincity/modules/substation.cpp:107 src/lincity/modules/windmill.cpp:95
 msgid "A. Cap."
 msgstr "A. Cap."
 
-#: src/lincity/modules/substation.cpp:110
-#: src/lincity/modules/windmill.cpp:86
+#: src/lincity/modules/substation.cpp:110 src/lincity/modules/windmill.cpp:86
 #: src/lincity/modules/windmill.cpp:98
 msgid "Demand"
 msgstr "Krav"
@@ -773,10 +762,8 @@ msgstr "Teknologi producerad"
 msgid "Fire Station"
 msgstr "Brandstation"
 
-#: src/lincity/modules/windmill.cpp:75
-#: src/lincity/modules/organic_farm.cpp:218
-#: src/lincity/modules/recycle.cpp:142
-#: src/lincity/modules/coal_power.cpp:99
+#: src/lincity/modules/windmill.cpp:75 src/lincity/modules/organic_farm.cpp:218
+#: src/lincity/modules/recycle.cpp:142 src/lincity/modules/coal_power.cpp:99
 #: src/lincity/modules/solar_power.cpp:58
 msgid "Tech"
 msgstr "Teknologi"
@@ -814,19 +801,16 @@ msgstr "Lager"
 msgid "Ore Mine"
 msgstr "Malmgruva"
 
-#: src/lincity/modules/oremine.cpp:165
-#: src/lincity/modules/coalmine.cpp:158
+#: src/lincity/modules/oremine.cpp:165 src/lincity/modules/coalmine.cpp:158
 msgid "Stock"
 msgstr "Lager"
 
-#: src/lincity/modules/oremine.cpp:168
-#: src/lincity/modules/coalmine.cpp:160
+#: src/lincity/modules/oremine.cpp:168 src/lincity/modules/coalmine.cpp:160
 #: src/lincity/modules/coalmine.cpp:162
 msgid "Reserve"
 msgstr "Reserv"
 
-#: src/lincity/modules/port.cpp:306
-#: src/lincity-ng/MpsInterface.cpp:541
+#: src/lincity/modules/port.cpp:306 src/lincity-ng/MpsInterface.cpp:541
 msgid "Total"
 msgstr "Totalt"
 
@@ -842,14 +826,13 @@ msgstr "TOM"
 msgid "Activity"
 msgstr "Aktivitet"
 
-#: src/lincity/modules/commune.cpp:179
-#: src/lincity/modules/commune.cpp:181
-#: src/lincity/modules/commune.cpp:183
-#: src/lincity/modules/commune.cpp:185
-#: src/lincity/modules/water.cpp:23
-#: src/lincity-ng/MpsInterface.cpp:388
-#: src/lincity-ng/MpsInterface.cpp:391
-#: src/lincity-ng/MpsInterface.cpp:394
+#: src/lincity/modules/commune.cpp:179 src/lincity/modules/commune.cpp:181
+#: src/lincity/modules/commune.cpp:183 src/lincity/modules/commune.cpp:185
+#: src/lincity/modules/water.cpp:23 src/lincity-ng/MpsInterface.cpp:388
+#: src/lincity-ng/MpsInterface.cpp:391 src/lincity-ng/MpsInterface.cpp:394
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/coal_survey_yn.xml
 msgid "No"
 msgstr "Nej"
 
@@ -893,13 +876,11 @@ msgstr "Återvinningsstation"
 msgid "Coal Power Station"
 msgstr "Kolkraftverk"
 
-#: src/lincity/modules/coal_power.cpp:88
-#: src/lincity/modules/solar_power.cpp:49
+#: src/lincity/modules/coal_power.cpp:88 src/lincity/modules/solar_power.cpp:49
 msgid "Max Output"
 msgstr "Max produktion"
 
-#: src/lincity/modules/coal_power.cpp:93
-#: src/lincity/modules/solar_power.cpp:54
+#: src/lincity/modules/coal_power.cpp:93 src/lincity/modules/solar_power.cpp:54
 msgid "Current Output"
 msgstr "Aktuell produktion"
 
@@ -1023,8 +1004,7 @@ msgstr "För år"
 msgid "Interest"
 msgstr "Ränta"
 
-#: src/lincity-ng/MpsInterface.cpp:509
-#: src/lincity-ng/Dialog.cpp:436
+#: src/lincity-ng/MpsInterface.cpp:509 src/lincity-ng/Dialog.cpp:436
 msgid "Schools"
 msgstr "Skolor"
 
@@ -1048,7 +1028,7 @@ msgstr "Raketer"
 msgid "Fire Stn"
 msgstr "Brandstat"
 
-#: src/lincity-ng/MpsInterface.cpp:539
+#: src/lincity-ng/MpsInterface.cpp:539 data/gui/pbar.xml
 msgid "Population"
 msgstr "Befolkning"
 
@@ -1060,8 +1040,7 @@ msgstr "Bebodda"
 msgid "Homeless"
 msgstr "Hemlösa"
 
-#: src/lincity-ng/MpsInterface.cpp:544
-#: src/lincity-ng/Dialog.cpp:445
+#: src/lincity-ng/MpsInterface.cpp:544 src/lincity-ng/Dialog.cpp:445
 msgid "Shanties"
 msgstr "Kåkstäder"
 
@@ -1077,8 +1056,7 @@ msgstr "Arbetslöshet"
 msgid "Claims"
 msgstr "Kräver"
 
-#: src/lincity-ng/MpsInterface.cpp:548
-#: src/lincity-ng/MpsInterface.cpp:553
+#: src/lincity-ng/MpsInterface.cpp:548 src/lincity-ng/MpsInterface.cpp:553
 msgid "Rate"
 msgstr "Grad"
 
@@ -1126,10 +1104,8 @@ msgstr "Bostadsområde: 400 invånare, hög födelsegrad, högt dödstal"
 msgid " [Click right for help.]"
 msgstr " [Högerklicka för hjälp]"
 
-#: src/lincity-ng/ButtonPanel.cpp:245
-#: src/lincity-ng/ButtonPanel.cpp:288
-#: src/lincity-ng/ButtonPanel.cpp:416
-#: src/lincity-ng/ButtonPanel.cpp:439
+#: src/lincity-ng/ButtonPanel.cpp:245 src/lincity-ng/ButtonPanel.cpp:288
+#: src/lincity-ng/ButtonPanel.cpp:416 src/lincity-ng/ButtonPanel.cpp:439
 #, c-format
 msgid "%s (Techlevel %.1f required.)"
 msgstr "%s (Teknologinivå %.1f krävs.)"
@@ -1211,20 +1187,17 @@ msgstr "Uppskattad rivningskostnad: "
 msgid "Bulldoze Cost: "
 msgstr "Rivningskostnad: "
 
-#: src/lincity-ng/GameView.cpp:1641
-#: src/lincity-ng/GameView.cpp:1654
-#: src/lincity-ng/GameView.cpp:1685
-#: src/lincity-ng/ScreenInterface.cpp:274
+#: src/lincity-ng/GameView.cpp:1641 src/lincity-ng/GameView.cpp:1654
+#: src/lincity-ng/GameView.cpp:1685 src/lincity-ng/ScreenInterface.cpp:274
+#: data/gui/minimap.xml
 msgid "$"
 msgstr "€"
 
-#: src/lincity-ng/GameView.cpp:1643
-#: src/lincity-ng/GameView.cpp:1656
+#: src/lincity-ng/GameView.cpp:1643 src/lincity-ng/GameView.cpp:1656
 msgid "n/a"
 msgstr "ingen"
 
-#: src/lincity-ng/GameView.cpp:1652
-#: src/lincity-ng/GameView.cpp:1685
+#: src/lincity-ng/GameView.cpp:1652 src/lincity-ng/GameView.cpp:1685
 msgid ": Cost to build "
 msgstr ": Kostar att bygga "
 
@@ -1240,8 +1213,7 @@ msgstr "Rivning: ta bort byggnad -kostnad varierar-"
 msgid ", to bulldoze "
 msgstr ", att riva "
 
-#: src/lincity-ng/GameView.cpp:1686
-#: src/lincity-ng/GameView.cpp:1689
+#: src/lincity-ng/GameView.cpp:1686 src/lincity-ng/GameView.cpp:1689
 msgid "$."
 msgstr "€."
 
@@ -1269,7 +1241,7 @@ msgstr "Gruvor"
 msgid "Trade"
 msgstr "Handel"
 
-#: src/lincity-ng/EconomyGraph.cpp:128
+#: src/lincity-ng/EconomyGraph.cpp:128 data/gui/pbar.xml
 msgid "Money"
 msgstr "Pengar"
 
@@ -1471,134 +1443,817 @@ msgstr "Malmgruvor"
 msgid "Communes"
 msgstr "Kolmilor"
 
-#~ msgid "A Fire has started"
-#~ msgstr "En brand har startat"
-#~ msgid "Background Music"
-#~ msgstr "Bakgrundsmusik"
-#~ msgid "Buy"
-#~ msgstr "Köp"
-#~ msgid "Choose Scenario"
-#~ msgstr "Välj scenario"
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "En brand har brutit ut"
 
-#, fuzzy
-#~ msgid "Coal Survey"
-#~ msgstr "Kolkraftverk"
-#~ msgid "Continue"
-#~ msgstr "Fortsätt"
-#~ msgid "Fire Stations available"
-#~ msgstr "Brandstationer tillgängliga"
-#~ msgid "Fire!"
-#~ msgstr "Brand!"
-#~ msgid "Fullscreen"
-#~ msgstr "Helskärm"
-#~ msgid "Go back to Main Menu"
-#~ msgstr "Tillbaka till huvudmenyn"
-#~ msgid "Graphics"
-#~ msgstr "Grafik"
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Bakgrundsmusik"
 
-#, fuzzy
-#~ msgid "Health Centres available"
-#~ msgstr "Sjukhus"
-#~ msgid "Load Game"
-#~ msgstr "Läs in spel"
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Buy"
+msgstr "Köp"
 
-#, fuzzy
-#~ msgid "Modern Windmills available"
-#~ msgstr "ingen mer information tillgänglig"
-#~ msgid "New Game"
-#~ msgstr "Nytt spel"
-#~ msgid "Not Allowed"
-#~ msgstr "Tillåts inte"
-#~ msgid "Ok"
-#~ msgstr "Ok"
-#~ msgid "Okay"
-#~ msgstr "Ok"
-#~ msgid "Options"
-#~ msgstr "Alternativ"
-#~ msgid "Original Idea and Code"
-#~ msgstr "Ursprunglig idé och kod"
-#~ msgid "Parks available"
-#~ msgstr "Parker tillgängliga"
-#~ msgid "Pause the game"
-#~ msgstr "Gör paus i spelet"
-#~ msgid "Press this button to show statistics"
-#~ msgstr "Tryck på denna knapp för att visa statistik"
-#~ msgid "Product"
-#~ msgstr "Produkt"
-#~ msgid "Quit"
-#~ msgstr "Avsluta"
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Välj scenario"
 
-#, fuzzy
-#~ msgid "Rocket Ready"
-#~ msgstr "Raketavfyrningsramp"
-#~ msgid "Save"
-#~ msgstr "Spara"
-#~ msgid "Save Game"
-#~ msgstr "Spara spel"
-#~ msgid "Sell"
-#~ msgstr "Sälj"
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Leta kol"
 
-#, fuzzy
-#~ msgid "Show map outline"
-#~ msgstr "Minikarta: Översiktskarta"
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Fortsätt"
 
-#, fuzzy
-#~ msgid "Show nourishments"
-#~ msgstr "Minikarta: mattäckning"
-#~ msgid "Show resources."
-#~ msgstr "Visa resurser."
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Brandstationer tillgängliga"
 
-#, fuzzy
-#~ msgid "Show sport cover"
-#~ msgstr "Minikarta: sporttäckning"
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire!"
+msgstr "Brand!"
 
-#, fuzzy
-#~ msgid "Solar Power Stations available"
-#~ msgstr "ingen mer information tillgänglig"
-#~ msgid "Sound Effects"
-#~ msgstr "Ljudeffekter"
-#~ msgid "Sound and Music"
-#~ msgstr "Ljud och musik"
-#~ msgid "Start"
-#~ msgstr "Starta"
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Helskärm"
 
-#, fuzzy
-#~ msgid "Trade Settings"
-#~ msgstr "Brandstation"
-#~ msgid "University available"
-#~ msgstr "Universitet tillgängliga"
-#~ msgid "You have won the game."
-#~ msgstr "Du har vunnit spelet."
-#~ msgid "[-] Zoom out"
-#~ msgstr "[-] Zooma ut"
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Gå tillbaka till huvudmenyn"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Grafik"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Sjukhus tillgängliga"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Läs in spel"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Moderna väderkvarnar tillgängliga"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Nytt spel"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Inte tillåtet"
+
+#: data/gui/shfire-uc.xml data/gui/blacksmithup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/solarpowerup.xml
+#: data/gui/shfire-oc.xml data/gui/options.xml data/gui/riverup.xml
+#: data/gui/railwayup.xml data/gui/launch-fail.xml data/gui/ltindustryup.xml
+#: data/gui/mod_wind_up.xml data/gui/no-credit-university.xml
+#: data/gui/coalmineup.xml data/gui/healthup.xml data/gui/warning.xml
+#: data/gui/recycleup.xml data/gui/parkup.xml data/gui/cricketup.xml
+#: data/gui/universityup.xml data/gui/sustain.xml data/gui/launch-evac.xml
+#: data/gui/no-credit-parkland.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/allgone.xml
+#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
+#: data/gui/windmillup.xml data/gui/schoolup.xml data/gui/launch-gone.xml
+#: data/gui/potteryup.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-recycle.xml data/gui/coalpowerup.xml data/gui/too-old.xml
+#: data/gui/fire.xml data/gui/hvindustryup.xml data/gui/nobull-tip.xml
+msgid "Ok"
+msgstr "Ok"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Okej"
+
+#: data/gui/options.xml data/gui/mainmenu.xml
+msgid "Options"
+msgstr "Inställningar"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Ursprungsidé och programmering"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Parker tillgängliga"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Pausa spelet"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Tryck denna knapp för att visa statistik"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Product"
+msgstr "Produkt"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Avsluta"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Raket startklar"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Spara"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Spara spel"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Sell"
+msgstr "Sälj"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Visa översiktskarta"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Visa livsmedel"
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "Visa resurser"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Visa sportområde"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Solkraftverk tillgängliga"
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Ljudeffekter"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Ljud och musik"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Start"
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Handelsinställningar"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Universitet tillgängliga"
+
+#: data/gui/sustain.xml data/gui/launch-gone.xml
+msgid "You have won the game."
+msgstr "Du har vunnit spelet."
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Zooma ut"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"En brand har brutit ut i en kåkstad. Den är inom brandskyddsområdet och "
+"VERKAR vara under kontroll."
+
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"En brand har brutit ut i en kåkstad. Branden är INTE UNDER KONTROLL och kan "
+"sprida sig till andra områden."
+
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/savegame.xml
+#: data/gui/credits.xml
+msgid "Back"
+msgstr "Tillbaka"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Basketbollplaner tillgängliga"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Smedjor tillgängliga"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Riva ett monument kostar mycket pengar."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Riva en flodsektion kostar mycket pengar."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "Riva en kåkstad kostar mycket pengar och kan orsaka en brand."
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Kolkraftverk tillgängliga"
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Kolgruvor tillgängliga"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Programmering"
+
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Tack till"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Leta efter kol?"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Det går bra."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eko"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Ekonomin är godtagbar."
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Start av evakuering går bra"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Spelstatistik"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Inställningar för hamnhandel"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Tung industri tillgängliga"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Import/Export tillgängligt"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Misslyckad start"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Lyckad start"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Starta nu?"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Industri tillgängliga"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "LinCity har fastställt att du har en hållbar ekonomi."
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "Läs in"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Karta"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Verkstäder tillgängliga"
+
+#: data/gui/blacksmithup.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/solarpowerup.xml data/gui/riverup.xml
+#: data/gui/railwayup.xml data/gui/ltindustryup.xml data/gui/mod_wind_up.xml
+#: data/gui/coalmineup.xml data/gui/healthup.xml data/gui/recycleup.xml
+#: data/gui/parkup.xml data/gui/cricketup.xml data/gui/universityup.xml
+#: data/gui/firestationup.xml data/gui/import-exportup.xml
+#: data/gui/windmillup.xml data/gui/schoolup.xml data/gui/potteryup.xml
+#: data/gui/coalpowerup.xml data/gui/hvindustryup.xml
+msgid "New Invention"
+msgstr "Ny uppfinning"
+
+#: data/gui/no-credit-university.xml data/gui/no-credit-parkland.xml
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-recycle.xml
+msgid "No Credit Available"
+msgstr "Ingen kredit tillgänglig"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Ingen hemma"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Keramikfabriker tillgängliga"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Järnvägar tillgängliga"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Återvinningscentraler tillgängliga"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Floder tillgängliga"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Vägar tillgängliga"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Raketramper tillgängliga"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Raket klar för att skjutas upp"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Kör simulationen snabbt"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Kör simulationen med normal hastighet"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Kör simulationen mycket snabbt"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Skolor tillgängliga"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Se hjälpskärmen för mer information om kolgruvor och sökning efter kol."
+
+#: data/gui/blacksmithup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/solarpowerup.xml data/gui/riverup.xml data/gui/railwayup.xml
+#: data/gui/ltindustryup.xml data/gui/mod_wind_up.xml data/gui/healthup.xml
+#: data/gui/recycleup.xml data/gui/parkup.xml data/gui/cricketup.xml
+#: data/gui/universityup.xml data/gui/firestationup.xml data/gui/windmillup.xml
+#: data/gui/schoolup.xml data/gui/potteryup.xml data/gui/coalpowerup.xml
+#: data/gui/hvindustryup.xml
+msgid "See the help screen for more information."
+msgstr "Se hjälpskärmen för mer information."
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Skicka ut prospektörer"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr "Visa inkomst och utgifter. Klicka här igen för att växla mellan vyer."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Visa koldepåerna"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Visa ekonomigrafer"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Visa brandskyddsområde"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Visa sjukvård"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Visa miljöförstöring"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Visa strömförsörjning"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Visa minikartan"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Visa trafikdensitet"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Visa arbetslöshet"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Du kan inte riva en soptipp."
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+"Tyvärr, kan inte läsa in spelet som du begärde därför att det är för "
+"gammalt. Fortsätter spela tidigare spel."
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "Starta med ett tomt fält."
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "Starta med slumpmässig by."
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Stat"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Teknologinivå"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Det finns inget folk kvar i denna stad."
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"Detta kommer att kosta dig 1 miljon. Senare är det gratis att ringa igen."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Total evakuering klar."
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Översättning"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Vill du riva?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/warning.xml data/gui/bulldoze_shanty_yn.xml data/gui/too-old.xml
+msgid "Warning"
+msgstr "Varning"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Varning: Rivning av monument är kostsamt"
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Varning: Riva kåkstäder är farligt."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Varning: Riva vatten är kostsamt"
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Bra jobbat, du har evakuerat allt ditt folk."
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Väderkvarnar tillgängliga"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Bäst att du går och ser efter"
+
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"Du kan avfyra raketen nu eller vänta tills senare. Om du väntar kommer den "
+"fortsätta att kosta dig pengar för att hålla raketen klar. Avfyra den senare "
+"genom att klicka på raketområdet."
+
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Du kan nu importera och exportera kol, varor, malm och stål. Läs "
+"hjälpsidorna för dessa ämnen för att få hjälp hur man använder dom. "
+
+#: data/gui/no-credit-parkland.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga parker på kredit."
+
+#: data/gui/no-credit-recycle.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga återvinningsstationer på kredit."
+
+#: data/gui/no-credit-rocket.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga raketavfyrningsramper på kredit."
+
+#: data/gui/no-credit-solar-power.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga solkraftverk på kredit."
+
+#: data/gui/no-credit-university.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga universitet på kredit."
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Du har evakuerat 1000 personer. Du kanske vill minska storleken av din "
+"ekonomi för att passa den minskade befolkningen. "
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga smedjor. Smedjor "
+"använder jobb och stål för att producera varor."
+
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr "Du har nått fram till teknologinivån som låter dig bygga kolkraftverk."
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga brandstationer. "
+"Brandstationer förebygger de flesta bränder från början. Om du inte haft "
+"några bränder ännu kanske du tror att du inte behöver dom."
+
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga sjukhus. Sjukhus "
+"reducerar antalet folk som dör av miljöförstöring och ökar allmänt "
+"produktiviteten."
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga tung industri "
+"(stålverk). Tung industri producerar stål. "
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga industri. Industri "
+"producerar varor. "
+
+#: data/gui/millup.xml
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga verkstäder. "
+"Verkstäder använder jobb och mat för att producera varor. Tänk på att de kan "
+"använda mycket mat! "
+
+#: data/gui/mod_wind_up.xml
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga moderna och mer "
+"effektiva väderkvarnar. "
+
+#: data/gui/parkup.xml
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga parker. Parker "
+"används för att bekämpa miljöförstöringen. "
+
+#: data/gui/potteryup.xml
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga keramikfabriker. "
+"Keramikfabriker använder jobb och malm för att producera varor. (Du behöver "
+"malmgruvor för att få fram malm) "
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Du har nått fram till teknologinivån som låter dig bygga järnväg. "
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Du har nått fram till teknologinivån som låter dig bygga floder. "
+
+#: data/gui/roadup.xml
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga vägar. Se "
+"hjälpskärmen för mer information."
+
+#: data/gui/rocketup.xml
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga "
+"raketavfyrningsramper. Raketer ger dig möjligheten att evakuera din "
+"befolkning och är ett sätt att \"vinna\" spelet."
+
+#: data/gui/schoolup.xml
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga skolor. Skolor "
+"använder jobb och varor för att öka teknologinivån. "
+
+#: data/gui/solarpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga solkraftverk. "
+
+#: data/gui/universityup.xml
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga universitet. "
+"Universitet producerar professorer som producerar mer teknologi. "
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga väderkvarnar. "
+
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig gräva djupare kolgruvor."
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig att ta fram "
+"återvinningsstationer. Återvinningsstationer återvinner använda varor och "
+"ger dig malm. "
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Du bör starta en karriär någon annanstans."
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Ditt folk har uppfunnit sporten basketboll. Basketbollplaner använder ett "
+"fåtal jobb och varor men gör folk i de angränsande områdena (omkring 10 "
+"punkter i varje riktning) gladare."
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Din raket kraschade kort efter avfyrning. Folk har inte längre någon tilltro "
+"för teknologin för evakuering. Du måste avfyra fem obemannade raketer till "
+"för att återställa förtroendet."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] Zooma in så att mindre byggnader men mer detaljer syns"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Tryck här för att få hjälp"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Göm höga byggnader. "
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Växla mellan minikartans olika översikter. "
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "spara till vald post"
+
 #~ msgid ".   Residences %4d         Markets %4d            Farms %4d"
 #~ msgstr ".     Bostäder %4d       Marknader %4d       Bondgårdar %4d"
+
 #~ msgid ".    Monuments %4d         Schools %4d     Universities %4d"
 #~ msgstr ".     Monument %4d          Skolor %4d      Universitet %4d"
+
 #~ msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
 #~ msgstr ". Brandstation %4d          Parker %4d      Sportarenor %4d"
+
 #~ msgid "Health centres %4d            Tips %4d         Shanties %4d"
 #~ msgstr "       Sjukhus %4d       Soptippar %4d        Kåkstäder %4d"
+
 #~ msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
 #~ msgstr ". Väderkvarnar %4d        Kolkraft %4d         Solkraft %4d"
+
 #~ msgid ".  Substations %4d     Power lines %4d            Ports %4d"
 #~ msgstr ".Relästationer %4d    Kraftledning %4d           Hamnar %4d"
+
 #~ msgid ".       Tracks %4d           Roads %4d             Rail %4d"
 #~ msgstr ".         Spår %4d           Vägar %4d          Järnväg %4d"
+
 #~ msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
 #~ msgstr ".Keramikfabrik %4d         Smedjor %4d       Verkstäder %4d"
+
 #~ msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
 #~ msgstr ".   Industrier %4d   Tung industri %4d      Återvinning %4d"
+
 #~ msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
 #~ msgstr ".    Kolgruvor %4d      Malmgruvor %4d         Kolmilor %4d"
+
 #~ msgid "Saving scene"
 #~ msgstr "Sparar scenario"
+
 #~ msgid "Solar"
 #~ msgstr "Solkraft"
+
 #~ msgid "Output"
 #~ msgstr "Produktion"
+
 #~ msgid "Center"
 #~ msgstr "Centrum"
+
 #~ msgid "NO "
 #~ msgstr "NEJ"
-

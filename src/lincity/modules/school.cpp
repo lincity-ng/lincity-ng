@@ -39,7 +39,8 @@
 #include "lincity/stats.hpp"              // for Stat, Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+
+#define N_(MSG) MSG
 
 
 // school place:

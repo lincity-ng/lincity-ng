@@ -58,7 +58,7 @@
 #include "lincity/stats.hpp"                // for Stats, Stat
 #include "lincity/util.hpp"                 // for current_year, current_month
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "tinygettext/gettext.hpp"          // for _
+#include "lc_gettext.hpp"
 
 using namespace std::placeholders;
 

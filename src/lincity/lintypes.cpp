@@ -35,6 +35,7 @@
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
+#include <gettext.h>
 
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
@@ -45,11 +46,13 @@
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
 #include "modules/all_modules.hpp"        // for Powerline, GROUP_MARKET_RANGE
 #include "stats.hpp"                      // for Stats, Stat
-#include "tinygettext/gettext.hpp"        // for _
 #include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
 #include "util.hpp"                       // for used_in_assert
 #include "world.hpp"                      // for World, Map, MapTile
 #include "xmlloadsave.hpp"                // for xmlStr, unexpectedXmlElement
+
+#define _(MSG) gettext(MSG)
+#define N_(MSG) gettext_noop(MSG)
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 

@@ -18,8 +18,7 @@ function(copy_data_file data_file src_loc dst_loc)
     set(${ARGV3} ${${ARGV3}} PARENT_SCOPE)
   else()
     string(REPLACE "/" "_" tmp_target ${build_path})
-    add_custom_target(${tmp_target} DEPENDS ${build_path})
-    add_dependencies(lincity-ng ${tmp_target})
+    add_custom_target(${tmp_target} ALL DEPENDS ${build_path})
   endif()
   cmake_path(GET install_path PARENT_PATH install_path_parent)
   install(FILES ${build_path} DESTINATION ${install_path_parent})
@@ -30,7 +29,6 @@ file(GLOB_RECURSE allDataFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DE
   help/*
   images/*.png
   images/*.xml
-  locale/*.po
   music/*
   opening/*.scn.gz
   sounds/*
@@ -58,8 +56,7 @@ endforeach()
 copy_data_file(lincity-ng.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
 copy_data_file(lincity-ng.png ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps data_files_out)
 
-add_custom_target(data-files.target DEPENDS ${data_files_out})
-add_dependencies(lincity-ng data-files.target)
+add_custom_target(data-files.target ALL DEPENDS ${data_files_out})
 
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/1328-to-2130.sh
   "#!/usr/bin/env bash\nzcat | sed '3,\$y/ /-/' | xsltproc ${CMAKE_INSTALL_FULL_APPDATADIR}/1328-to-2130.xsl - | gzip -9 -c")

@@ -36,5 +36,7 @@ foreach(guiSourceFile ${guiSourceFiles})
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)
 endforeach()
 
-add_custom_target(guiXml DEPENDS ${guiSourceFiles})
-add_dependencies(lincity-ng guiXml)
+add_custom_target(guiXml ALL DEPENDS ${guiSourceFiles} SOURCES ${guiSourceFiles})
+
+include(TranslateTarget)
+translate_target_xml(guiXml guiXml.pot ${CMAKE_CURRENT_SOURCE_DIR}/gui.its)

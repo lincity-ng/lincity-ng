@@ -32,8 +32,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <utility>                      // for pair, make_pair
 
 #include "Style.hpp"                    // for Style
-#include "tinygettext/gettext.hpp"      // for dictionaryManager
-#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 #include "lincity-ng/Config.hpp"
 
 FontManager* fontManager = 0;
@@ -64,46 +62,14 @@ FontManager::getFont(Style style)
     if(i != fonts.end())
         return i->second;
 
-    TTF_Font* font = 0;
-
-    // If there a special font for the current language use it.
-    std::string language = dictionaryManager->get_language();
     std::filesystem::path fontsDir = getConfig()->appDataDir.get() / "fonts";
-    std::filesystem::path fontfile = fontsDir /
-      (info.name + "-" + language + ".ttf");
-    try{
-        font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
-    } catch(std::exception& ){
-        font = 0;
-    }
-    if(!font){
-        // try short language, eg. "de" instead of "de_CH"
-        std::string::size_type pos = language.find("_");
-        if(pos != std::string::npos) {
-            language = std::string(language, 0, pos);
-            fontfile = fontsDir / (info.name + "-" + language + ".ttf");
-            try{
-                font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
-            } catch(std::exception& ){
-                font = 0;
-            }
-        }
-    }
-    if(!font){
-        // No special font found? Use default font then.
-        fontfile = fontsDir / (info.name + ".ttf");
-        try{
-            font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
-        } catch(std::exception& ){
-            font = 0;
-        }
-    }
+    std::filesystem::path fontfile = fontsDir / (info.name + ".ttf");
+    TTF_Font* font = TTF_OpenFont(fontfile.string().c_str(), info.fontsize);
     if(!font) {
-        // give up.
-        std::stringstream msg;
-        msg << "Error opening font '" << fontfile
-            << "': " << SDL_GetError();
-        throw std::runtime_error(msg.str());
+      std::stringstream msg;
+      msg << "Error opening font " << fontfile
+        << ": " << SDL_GetError();
+      throw std::runtime_error(msg.str());
     }
     if(info.fontstyle != 0)
         TTF_SetFontStyle(font, info.fontstyle);

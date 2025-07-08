@@ -45,6 +45,8 @@ find_package(SDL2_ttf 2.0.12 REQUIRED)
 find_package(LibXml2 REQUIRED) # requires >=2.6.11
 find_package(fmt 9.0.0 REQUIRED)
 find_package(LibXml++-5.0 REQUIRED)
+find_package(Gettext)
+find_package(Intl)
 find_program(GETTEXT_XGETTEXT NAMES xgettext)
 find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
 # find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
@@ -83,6 +85,10 @@ foreach(BType ${BUILD_TYPES})
 	set(CMAKE_C_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BTYPE}}
 		CACHE STRING "Flags used by the C compiler for ${BTYPE} builds.")
 endforeach()
+
+
+### options
+set(ENABLE_NLS "${Intl_FOUND}" CACHE BOOL "Enable native language support")
 
 
 ### compilation options
@@ -130,6 +136,7 @@ if(VERSION_${BUILD_TYPE_UPPER})
 elseif(NOT DEFINED VERSION_${BUILD_TYPE_UPPER})
 	message(WARNING "unrecognized build type")
 endif()
+message(STATUS "LinCity-NG version: ${FULL_PROJECT_VERSION}")
 
 
 ### compute installation directories

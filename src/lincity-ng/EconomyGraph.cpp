@@ -52,7 +52,7 @@
 #include "lincity/stats.hpp"         // for Stats
 #include "lincity/sustainable.hpp"   // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
 #include "lincity/world.hpp"         // for World
-#include "tinygettext/gettext.hpp"   // for _
+#include "lc_gettext.hpp"
 
 EconomyGraph::EconomyGraph() {
     labelTextureMIN = 0;

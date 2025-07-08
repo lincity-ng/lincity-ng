@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAIN_HPP__
 #define __MAIN_HPP__
 
+#include <string>
+
 class Painter;
 
 enum MainState {
@@ -26,6 +28,7 @@ enum MainState {
 
 void videoSizeChanged(int width, int height);
 void resizeVideo(int width, int height, bool fullscreen);
+void setLang(const std::string& lang);
 
 /** global instance of currently used painter object.
  * Note: Don't use this in your components, but the one passed in the draw
