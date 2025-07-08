@@ -7,13 +7,10 @@ add_executable(lincity-ng
 		Dialog.hpp
 		EconomyGraph.cpp
 		EconomyGraph.hpp
-		ErrorInterface.cpp
-		ErrorInterface.hpp
 		Game.cpp
 		Game.hpp
 		GameView.cpp
 		GameView.hpp
-		getBundleSharePath.cpp
 		HelpWindow.cpp
 		HelpWindow.hpp
 		main.cpp
