@@ -23,7 +23,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(lincity-ng
-	VERSION 2.13.1
+	VERSION 2.14.0
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
@@ -60,8 +60,6 @@ if(NOT TARGET LibXslt::xsltproc)
 		set_target_properties(LibXslt::xsltproc PROPERTIES IMPORTED_LOCATION "${LIBXSLT_XSLTPROC_EXECUTABLE}")
 	endif()
 endif()
-include(CheckIncludeFiles)
-check_include_files(dirent.h HAVE_DIRENT_H)
 
 
 ### build configurations
@@ -112,7 +110,7 @@ if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE AND
 	NOT CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-w( |$)"
 )
 	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE}
-		-w -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/iwyu.map)
+		-w -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/mk/iwyu.map)
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 
@@ -151,7 +149,6 @@ set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 ### configure subdirectories
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
-add_subdirectory(doc)
 add_subdirectory(lib)
 
 

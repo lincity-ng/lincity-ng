@@ -9,7 +9,6 @@ set(guiSourceFiles
   helpwindow.xml
   loadgame.xml
   mainmenu.xml
-  messagearea.xml
   minimapswitchbuttons.xml
   minimap.xml
   mps.xml
@@ -19,7 +18,6 @@ set(guiSourceFiles
   pbar.xml
   savegame.xml
   speedpanel.xml
-  too-old.xml
 )
 
 set(xslFiles identity.xsl)

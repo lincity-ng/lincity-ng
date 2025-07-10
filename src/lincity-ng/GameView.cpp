@@ -744,35 +744,21 @@ void GameView::event(const Event& event)
             break;
         }
         case Event::MOUSEBUTTONDOWN: {
-            if(!event.inside) {
-                break;
-            }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
+            if(!event.inside);
+            else if(event.mousebutton == SDL_BUTTON_MIDDLE) {
                 dragging = false;
                 ctrDrag = false;
                 rightButtonDown = true;
                 setPanningCursor();
-                break;
             }
-            if( event.mousebutton == SDL_BUTTON_LEFT ) {
+            else if(event.mousebutton == SDL_BUTTON_LEFT) {
                 roadDragging = false;
                 areaBulldoze = false;
                 ctrDrag = false;
                 leftButtonDown = true;
-                break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
-                if( inCity( getTile( event.mousepos ) ) ) {
-                    // getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
-                }
-            }
-            break;
-        }
+        } break;
         case Event::MOUSEBUTTONUP:
-
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
-                // getMiniMap()->hideMpsEnv();
-            }
 
             if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
@@ -871,10 +857,11 @@ void GameView::event(const Event& event)
               }
             }
             else if(event.mousebutton == SDL_BUTTON_RIGHT) {
-                // show info on the clicked thing
-                MapPoint point = getTile(event.mousepos);
-                if(!inCity(point)) break;
-                game->getMpsMap().query(game->getWorld().map(point));
+              // show info on the clicked thing
+              MapPoint point = getTile(event.mousepos);
+              if(!inCity(point)) break;
+              game->getMpsMap().query(game->getWorld().map(point));
+              game->getMiniMap().switchView("MapMPS");
             }
             break;
         case Event::MOUSEWHEEL:
