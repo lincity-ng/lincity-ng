@@ -13,5 +13,9 @@
 - Removed the `tinygettext` custom gettext implementation.
 - Changed the installation of locale files to binary (.mo) format.
 - Combined the source and GUI translation PO files into one.
+- Fixed Ninja build generation.
 
 ###### Documentation / Translation
+- Added documentation on build configuration options.
+- Added documentation on runtime config options.
+- Moved dependencies list from README.md to a separate file.

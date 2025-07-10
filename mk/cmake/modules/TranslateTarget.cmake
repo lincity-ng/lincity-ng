@@ -19,7 +19,7 @@
  # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ## ---------------------------------------------------------------------- ##
 
-function(translate_target target pot_file)
+function(translate_target target )
   get_target_property(TARGET_SOURCES_REL ${target} SOURCES)
   foreach(SOURCE_PATH ${TARGET_SOURCES_REL})
     cmake_path(ABSOLUTE_PATH SOURCE_PATH
@@ -28,18 +28,18 @@ function(translate_target target pot_file)
     list(APPEND TARGET_SOURCES ${SOURCE_PATH})
   endforeach()
   add_custom_command(
-    OUTPUT ${pot_file}
+    OUTPUT ${target}.pot
     COMMAND ${GETTEXT_XGETTEXT}
-      --keyword='_:1' --keyword='N_:1' -o ${pot_file} ${TARGET_SOURCES}
+      --keyword='_:1' --keyword='N_:1' -o ${target}.pot ${TARGET_SOURCES}
     DEPENDS ${TARGET_SOURCES}
-    COMMENT "generating ${pot_file}"
+    COMMENT "generating ${target}.pot"
   )
-  add_custom_target(${target}.pot
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${pot_file}
+  add_custom_target(${target}.pot.target
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${target}.pot
   )
 endfunction(translate_target)
 
-function(translate_target_xml target pot_file its)
+function(translate_target_xml target its)
   get_target_property(TARGET_SOURCES_REL ${target} SOURCES)
   foreach(SOURCE_PATH ${TARGET_SOURCES_REL})
     cmake_path(ABSOLUTE_PATH SOURCE_PATH
@@ -48,12 +48,12 @@ function(translate_target_xml target pot_file its)
     list(APPEND TARGET_SOURCES ${SOURCE_PATH})
   endforeach()
   add_custom_command(
-    OUTPUT ${pot_file}
-    COMMAND ${GETTEXT_XGETTEXT} --its=${its} -o ${pot_file} ${TARGET_SOURCES}
+    OUTPUT ${target}.pot
+    COMMAND ${GETTEXT_XGETTEXT} --its=${its} -o ${target}.pot ${TARGET_SOURCES}
     DEPENDS ${TARGET_SOURCES} ${its}
-    COMMENT "generating ${pot_file}"
+    COMMENT "generating ${target}.pot"
   )
-  add_custom_target(${target}.pot
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${pot_file}
+  add_custom_target(${target}.pot.target
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${target}.pot
   )
 endfunction(translate_target_xml)

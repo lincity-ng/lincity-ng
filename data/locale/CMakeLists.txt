@@ -38,12 +38,10 @@ set(POT_FILES
   ${CMAKE_BINARY_DIR}/src/lincity/modules/lincity_lib_modules.pot
   ${CMAKE_BINARY_DIR}/share/lincity-ng/gui/guiXml.pot
 )
-set(POT_TARGETS
-  lincity-ng.pot
-  lincity_lib.pot
-  lincity_lib_modules.pot
-  guiXml.pot
-)
+foreach(pot ${POT_FILES})
+  cmake_path(GET pot FILENAME potname)
+  list(APPEND POT_TARGETS ${potname}.target)
+endforeach()
 add_custom_command(
   OUTPUT ${CMAKE_BINARY_DIR}/messages.pot
   COMMAND ${GETTEXT_XGETTEXT} -o ${CMAKE_BINARY_DIR}/messages.pot ${POT_FILES}
