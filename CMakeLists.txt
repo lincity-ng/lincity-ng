@@ -149,6 +149,7 @@ set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
 ### configure subdirectories
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
+add_subdirectory(doc ${CMAKE_INSTALL_DOCDIR})
 add_subdirectory(lib)
 
 

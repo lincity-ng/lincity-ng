@@ -21,7 +21,7 @@ for a different version than what you are building can cause build failures.
 
 ### Dependencies
 
-See [doc/DEPENDENCIES.md](doc/DEPENDENCIES.md) for the list of dependencies.
+See [DEPENDENCIES.md](doc/DEPENDENCIES.md) for the list of dependencies.
 
 ### Building
 
@@ -40,7 +40,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install pat
 cmake --build build --parallel --target package
 ```
 
-See [doc/CONFIGURE_OPTIONS.md](doc/CONFIGURE_OPTIONS.md) for a list of build
+See [CONFIGURE_OPTIONS.md](doc/CONFIGURE_OPTIONS.md) for a list of build
 configuration options.
 
 ### Running
