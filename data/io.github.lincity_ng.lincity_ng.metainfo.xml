@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.lincity_ng.lincity_ng</id>
+  <launchable type="desktop-id">io.github.lincity_ng.lincity_ng.desktop</launchable>
+  <name>LinCity-NG</name>
+  <summary>Plan and build a city</summary>
+  <description>
+    <p>
+      LinCity-NG is a city simulation game where you are required to build and maintain a city.
+      You can win the game either by building a sustainable economy or by evacuating all citizens with spaceships.
+    </p>
+    <p>
+      Bring up in-game help with [F1] for details on how to play.
+    </p>
+  </description>
+  <url type="homepage">https://github.com/lincity-ng/lincity-ng</url>
+  <url type="bugtracker">https://github.com/lincity-ng/lincity-ng/issues</url>
+  <developer id="io.github.lincity_ng">
+    <name>The LinCity-NG team</name>
+  </developer>
+  <project_license>GPL-2.0-or-later</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <content_rating type="oars-1.1" />
+  <requires>
+    <internet>offline-only</internet>
+  </requires>
+  <categories>
+    <category>Game</category>
+    <category>Simulation</category>
+  </categories>
+  <screenshots>
+    <screenshot type="default">
+      <caption>An early game city with a port</caption>
+      <image type="source">https://raw.githubusercontent.com/lincity-ng/lincity-ng/master/contrib/screenshots/screenshot-1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Unlocking blacksmiths</caption>
+      <image type="source">https://raw.githubusercontent.com/lincity-ng/lincity-ng/master/screenshots/screenshot-2.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>A late game city with rockets being built</caption>
+      <image type="source">https://raw.githubusercontent.com/lincity-ng/lincity-ng/master/screenshots/screenshot-3.png</image>
+    </screenshot>
+  </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#0e9206</color>
+    <color type="primary" scheme_preference="dark">#4c3f3e</color>
+  </branding>
+  <releases>
+    <release version="2.14.0" date="2025-07-04"/>
+  </releases>
+</component>

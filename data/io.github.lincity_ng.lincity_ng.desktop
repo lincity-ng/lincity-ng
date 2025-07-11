@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Version=1.5
-Name=Lincity-NG
+Name=LinCity-NG
 GenericName=City Simulation Game
 GenericName[de]=Stadtsimulationsspiel
 GenericName[gd]=Geama samhlachadh baile
@@ -14,7 +14,7 @@ Comment[gd]=Planaig is tog baile agus stiùirich an còmhdhail, an eaconamaidh, 
 Comment[it]=Pianifica e costruisci una città prendendoti cura dei trasporti, dell'economia, dell'elettricità e altro ancora.
 Comment[ru]=Стройте и развивайте город, его экономику, транспорт, инфраструктуру и т.д.
 Comment[tr]=Bir şehir planlayın, inşa edin ve ulaşım, ekonomi, elektrik ve diğer ihtiyaçları ile ilgilenin.
-Icon=lincity-ng
+Icon=io.github.lincity_ng.lincity_ng
 Exec=lincity-ng
 Terminal=false
 StartupNotify=false
