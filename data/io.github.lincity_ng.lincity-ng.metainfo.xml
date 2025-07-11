@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>io.github.lincity_ng.lincity_ng</id>
-  <launchable type="desktop-id">io.github.lincity_ng.lincity_ng.desktop</launchable>
+  <id>io.github.lincity_ng.lincity-ng</id>
+  <launchable type="desktop-id">io.github.lincity_ng.lincity-ng.desktop</launchable>
   <name>LinCity-NG</name>
   <summary>Plan and build a city</summary>
   <description>
