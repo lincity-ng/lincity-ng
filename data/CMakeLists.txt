@@ -56,8 +56,15 @@ foreach(infoFile ${infoFiles})
 endforeach()
 
 copy_data_file(io.github.lincity_ng.lincity_ng.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
-copy_data_file(io.github.lincity_ng.lincity_ng.png ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps data_files_out)
 copy_data_file(io.github.lincity_ng.lincity_ng.metainfo.xml ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/metainfo data_files_out)
+
+install(FILES io.github.lincity_ng.lincity_ng.png
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps"
+)
+install(FILES io.github.lincity_ng.lincity_ng_2x.png
+  RENAME io.github.lincity_ng.lincity_ng.png
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps"
+)
 
 add_custom_target(data-files.target DEPENDS ${data_files_out})
 add_dependencies(lincity-ng data-files.target)
