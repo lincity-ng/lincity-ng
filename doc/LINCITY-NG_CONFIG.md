@@ -16,11 +16,11 @@ The default config file location is system dependent. Typical locations are:
 ## Config File Location
 
 **Command Line Options:** `-c <file>` or `--config <file>`
-</br>
+<br/>
 **Config File Elements:** This option may not be specified in the config file.
-</br>
+<br/>
 **Allowed Values:** file path
-</br>
+<br/>
 **Default:** _system-dependent_
 
 Specifies the configuration file location. This option may only be given once.
@@ -31,11 +31,11 @@ does not exist, then it is created.
 ## Video Mode
 
 **Command Line Options:** `-g`, `--gl`, `-s`, or `--sdl`
-</br>
+<br/>
 **Config File Elements:** `<useOpenGL>`
-</br>
+<br/>
 **Allowed Values:** `yes`/`no`/`default`
-</br>
+<br/>
 **Default:** `no`, i.e. SDL mode
 
 Switches between GL or SDL video mode. If specified more than once on the
@@ -46,11 +46,11 @@ all versions/builds.
 ## Fullscreen/Windowed
 
 **Command Line Options:** `-f`, `--fullscreen`, `-w`, or `--window`
-</br>
+<br/>
 **Config File Elements:** `<fullscreen>`
-</br>
+<br/>
 **Allowed Values:** `yes`/`no`/`default`
-</br>
+<br/>
 **Default:** `yes`, i.e. fullscreen
 
 Toggles fullscreen/windowed display mode. If specified more than once on the
@@ -60,11 +60,11 @@ command line, the last option takes precedence.
 ## Window Size
 
 **Command Line Options:** `-S <width>x<height>` or `--size <width>x<height>`
-</br>
+<br/>
 **Config File Elements:** `<x>` and `<y>`
-</br>
+<br/>
 **Allowed Values:** positive decimal integers
-</br>
+<br/>
 **Default:** 1024x768
 
 Sets the window dimensions for windowed mode. This option has no effect in
@@ -74,11 +74,11 @@ fullscreen mode.
 ## Mute Sound
 
 **Command Line Options:** `-m` or `--mute`
-</br>
+<br/>
 **Config File Elements:** `<soundEnabled>` and `<musicEnabled>`
-</br>
+<br/>
 **Allowed Values:** `yes`/`no`/`default`
-</br>
+<br/>
 **Default:** `yes`, i.e. not muted
 
 Mutes sound effects and/or music.
@@ -87,11 +87,11 @@ Mutes sound effects and/or music.
 ## Sound Volume
 
 **Command Line Options:** _none_
-</br>
+<br/>
 **Config File Elements:** `<soundVolume>` and `<musicVolume>`
-</br>
+<br/>
 **Allowed Values:** integers 0 to 100
-</br>
+<br/>
 **Default:** `100` for sound FX, `50` for music
 
 Sets the sound/music volume percent.
@@ -100,11 +100,11 @@ Sets the sound/music volume percent.
 ## Music Theme
 
 **Command Line Options:** _none_
-</br>
+<br/>
 **Config File Elements:** `<musicTheme>`
-</br>
+<br/>
 **Allowed Values:** string
-</br>
+<br/>
 **Default:** `default`
 
 Sets the music theme. Typically, the only available theme is `default`. However,
@@ -114,11 +114,11 @@ other music themes may be added.
 ## Language
 
 **Command Line Options:** _none_
-</br>
+<br/>
 **Config File Elements:** `<language>`
-</br>
+<br/>
 **Allowed Values:** 2-character language code with an optional region ID
-</br>
+<br/>
 **Default:** `autodetect`
 
 Sets the user's preferred language. If the special value `autodetect` is
@@ -129,11 +129,11 @@ This option has no effect if native language support is disabled for the build.
 ## Map Size
 
 **Command Line Options:** _none_
-</br>
+<br/>
 **Config File Elements:** `<WorldSideLen>`
-</br>
+<br/>
 **Allowed Values:** positive integers
-</br>
+<br/>
 **Default:** `100`
 
 Sets the size of newly generated maps. This does not affect the size of
@@ -143,11 +143,11 @@ pre-built scenarios.
 ## Car Animations
 
 **Command Line Options:** _none_
-</br>
+<br/>
 **Config File Elements:** `<carsEnabled>`
-</br>
+<br/>
 **Allowed Values:** `yes`/`no`/`default`
-</br>
+<br/>
 **Default:** `yes`, i.e. car animations enabled
 
 Enables/disables in-game vehicle animations. These animations are purely
@@ -157,11 +157,11 @@ cosmetic and do not affect gameplay.
 ## App Data Directory
 
 **Command Line Options:** `--app-data-dir <directory>`
-</br>
+<br/>
 **Config File Elements:** `<appDataDir>`
-</br>
+<br/>
 **Allowed Values:** directory path
-</br>
+<br/>
 **Default:** _build-dependent_
 
 Sets the directory location to search for game assets. The default location is
@@ -175,11 +175,11 @@ Typical install prefixes are:
 ## User Data Directory
 
 **Command Line Options:** `--user-data-dir <directory>`
-</br>
+<br/>
 **Config File Elements:** `<userDataDir>`
-</br>
+<br/>
 **Allowed Values:** directory path
-</br>
+<br/>
 **Default:** _system-dependent_
 
 Sets the directory location to search for game assets. The default location is
