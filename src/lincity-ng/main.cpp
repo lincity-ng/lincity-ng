@@ -193,6 +193,8 @@ setLang(const std::string& lang) {
 #else
     _putenv_s("LANGUAGE", "");
 #endif
+  // gettext hacky magic
+  { extern int _nl_msg_cat_cntr; ++_nl_msg_cat_cntr; }
 }
 
 void mainLoop() {
