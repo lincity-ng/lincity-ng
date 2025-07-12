@@ -79,11 +79,17 @@ find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
 
 
 ### compute the LinCity-NG version
-git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
-if(FULL_PROJECT_VERSION)
-	string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)
+set(LINCITYNG_VERSION_SUFFIX "" CACHE STRING "Custom version suffix to use; mostly useful for downstream packaging.")
+
+if (DEFINED LINCITYNG_VERSION_SUFFIX AND NOT (LINCITYNG_VERSION_SUFFIX STREQUAL ""))
+	set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-${LINCITYNG_VERSION_SUFFIX}")
 else()
-	set(FULL_PROJECT_VERSION ${PROJECT_VERSION}-unknown)
+	git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
+	if(FULL_PROJECT_VERSION)
+		string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)
+	else()
+		set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-unknown")
+	endif()
 endif()
 set(BUILD_TYPE_RELEASE "")
 set(BUILD_TYPE_MINSIZEREL "")
