@@ -162,7 +162,7 @@ ScrollView::event(const Event& event)
             return;
         }
         float val = - contents().getPos().y;
-        val -= event.scrolly * 20;
+        val -= event.scrolly_precise * 20;
         if(val < scrollBarComp->getRangeMin())
             val = scrollBarComp->getRangeMin();
         if(val > scrollBarComp->getRangeMax())

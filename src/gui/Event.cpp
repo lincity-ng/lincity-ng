@@ -52,6 +52,7 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEWHEEL:
             type = MOUSEWHEEL;
             scrolly = event.wheel.y;
+            scrolly_precise = event.wheel.preciseY;
             #if SDL_VERSION_ATLEAST(2,26,0)
             mousepos = Vector2(event.wheel.mouseX, event.wheel.mouseY);
             #else
