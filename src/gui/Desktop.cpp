@@ -104,7 +104,8 @@ Desktop::draw(Painter& painter)
             SDL_SetCursor(cursor);
     }
     dirtyRectangles.clear();
-    force_redraw = false;
+    force_redraw = force_redraw_next_frame;
+    force_redraw_next_frame = false;
 }
 
 bool
@@ -220,6 +221,11 @@ Desktop::setDirty(const Rect2D& rect)
     dirtyRectangles.push_back(rect);
 
     Component::setDirty(rect);
+}
+
+void
+Desktop::requestFastNextFrame() {
+    force_redraw_next_frame = true;
 }
 
 /** @file gui/Desktop.cpp */

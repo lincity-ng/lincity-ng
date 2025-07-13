@@ -484,6 +484,9 @@ Game::run() {
         next_task = std::min({next_execute, next_animate, next_gui, next_fps});
         while(true) {
             if(!running) return;
+            if(desktop->needsRedraw())
+              next_task = 0;
+
             SDL_Event event;
             int event_timeout = next_task - SDL_GetTicks();
             if(event_timeout < 0) event_timeout = 0;
@@ -576,16 +579,13 @@ Game::run() {
                 default:
                     break;
             }
-
-            if(desktop->needsRedraw())
-              next_task = 0;
         }
 
         Uint32 tick = SDL_GetTicks();
         get_real_time_with(tick);
         frame++;
 
-        if(tick >= next_gui) { // gui update
+        if(tick >= next_gui || desktop->needsRedraw()) { // gui update
             // fire update event
             gui->event(Event((tick - prev_gui) / 1000.0f));
 

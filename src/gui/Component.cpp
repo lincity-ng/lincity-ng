@@ -204,6 +204,12 @@ Component::setDirty(const Rect2D& rect)
         parent->setChildDirty(this, rect);
 }
 
+void
+Component::requestFastNextFrame() {
+    if(parent)
+        parent->requestFastNextFrame();
+}
+
 Child&
 Component::findChild(Component* component)
 {
