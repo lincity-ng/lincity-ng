@@ -38,7 +38,7 @@
 #include <optional>
 #include <gettext.h>
 #include <locale.h>
-#include <fmt/format.h>
+#include <fmt/base.h>
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
