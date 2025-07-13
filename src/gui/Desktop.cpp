@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>               // for char_traits, basic_string, operator<<
 
 #include "Child.hpp"            // for Childs, Child
+#include "Event.hpp"            // for Event
 #include "ComponentLoader.hpp"  // for createComponent
 #include "Style.hpp"            // for parseStyleDef
 #include "XmlReader.hpp"        // for XmlReader
@@ -81,24 +82,29 @@ Desktop::parse(XmlReader& reader)
 void
 Desktop::event(const Event& event)
 {
+    if (event.type == Event::MOUSEMOTION) {
+        // This is required for smooth mouse motion on VRR screens
+        force_redraw = true;
+    }
     Component::event(event);
 }
 
 bool
 Desktop::needsRedraw() const
 {
-    return dirtyRectangles.size() > 0;
+    return force_redraw || dirtyRectangles.size() > 0;
 }
 
 void
 Desktop::draw(Painter& painter)
 {
-    if(dirtyRectangles.size() > 0) {
+    if(needsRedraw()) {
         Component::draw(painter);
         if(cursor != SDL_GetCursor())
             SDL_SetCursor(cursor);
     }
     dirtyRectangles.clear();
+    force_redraw = false;
 }
 
 bool

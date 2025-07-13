@@ -67,6 +67,7 @@ private:
 
     typedef std::vector<Rect2D> DirtyRectangles;
     DirtyRectangles dirtyRectangles;
+    bool force_redraw = false;
 
     SDL_Cursor *cursor;
     Component *cursorOwner;
