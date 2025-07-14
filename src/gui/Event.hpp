@@ -68,6 +68,8 @@ public:
     Vector2 mousemove;
     /// amount scrolled (vertically) by mouse
     int scrolly;
+    /// amount scrolled (vertically) by mouse; can be non-integer
+    float scrolly_precise;
     /// number of the mousebutton that has been pressed
     int mousebutton;
     /// mouse button state (can be decoded with SDL_BUTTON macros)
