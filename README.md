@@ -102,6 +102,7 @@ cmake --build build --parallel --target package
 ```
 
 #### CMAKE_BUILD_TYPE
+
 The `-DCMAKE_BUILD_TYPE=<build-type>` option at configure time selects which
 debug features and optimization level to use. Values are case-insensitive.
 
@@ -131,6 +132,14 @@ Allowed values are:
 - Specifying any other build type not listed above will prevent
   per-configuration build flags from being used. This may be useful when
   supplying flags via `CMAKE_<LANG>_FLAGS`.
+
+#### LINCITYNG_VERSION_SUFFIX
+
+The `-DLINCITYNG_VERSION_SUFFIX=<suffix>` configure time option is provided
+for packagers to allow marking builds as coming from a specific source. It's
+especially useful when building from a source tarball or with custom patches to
+avoid an `unknown` or `dirty` suffix.
+
 
 ### Running
 
