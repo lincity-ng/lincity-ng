@@ -29,6 +29,7 @@ enum MainState {
 void videoSizeChanged(int width, int height);
 void resizeVideo(int width, int height, bool fullscreen);
 void setLang(const std::string& lang);
+std::string getLang();
 
 /** global instance of currently used painter object.
  * Note: Don't use this in your components, but the one passed in the draw

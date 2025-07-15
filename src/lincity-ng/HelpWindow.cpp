@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Signal.hpp"               // for Signal
 #include "gui/Window.hpp"               // for Window
 #include "gui/WindowManager.hpp"        // for WindowManager
+#include "main.hpp"
 
 using namespace std::placeholders;
 
@@ -100,8 +101,13 @@ std::filesystem::path
 HelpWindow::getHelpFile(const std::string& topic)
 {
   // try in user language
-  std::string language = getConfig()->language.get();
-  if(language == "C" || language == "POSIX") language = "en";
+  std::string language = getLang();
+  if(language == "C" || language == "POSIX"
+    || language.substr(0,2) == "C."
+    || language.substr(0,6) == "POSIX."
+  ) {
+    getConfig()->appDataDir.get() / "help" / "en" / (topic + ".xml");
+  }
 
   std::filesystem::path filename = getConfig()->appDataDir.get() / "help";
   filename /= language;
@@ -110,8 +116,20 @@ HelpWindow::getHelpFile(const std::string& topic)
   if(std::filesystem::exists(filename))
     return filename;
 
+  // try stripping the codeset
+  std::string::size_type pos = language.find(".");
+  if(pos != std::string::npos) {
+    language = std::string(language, 0, pos);
+    filename = getConfig()->appDataDir.get() / "help";
+    filename /= language;
+    filename /= topic;
+    filename += ".xml";
+    if(std::filesystem::exists(filename))
+      return filename;
+  }
+
   // try short language, eg. "de" instead of "de_CH"
-  std::string::size_type pos = language.find("_");
+  pos = language.find("_");
   if(pos != std::string::npos) {
     language = std::string(language, 0, pos);
     filename = getConfig()->appDataDir.get() / "help";
@@ -124,7 +142,7 @@ HelpWindow::getHelpFile(const std::string& topic)
 
   // try english
   filename = getConfig()->appDataDir.get() / "help" / "en";
-  filename += topic;
+  filename /= topic;
   filename += ".xml";
   if(std::filesystem::exists(filename))
     return filename;

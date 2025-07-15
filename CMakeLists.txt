@@ -104,6 +104,18 @@ if(APPLE)
 	add_compile_definitions("APPLE")
 endif()
 
+include(CheckCSourceCompiles)
+set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES})
+check_c_source_compiles("\
+	extern int _nl_msg_cat_cntr; \
+	int main() { \
+		++_nl_msg_cat_cntr; \
+		return 0; \
+	} \
+	"
+	HAVE_NL_MSG_CAT_CNTR
+)
+
 
 ### include what you use
 if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE AND

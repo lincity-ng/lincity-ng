@@ -60,6 +60,7 @@
 #endif
 
 #ifdef WIN32
+#undef bindtextdomain
 #define bindtextdomain wbindtextdomain
 #endif
 
@@ -71,6 +72,7 @@ SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
 // bool restart = false;
 const char *appdatadir;
+std::optional<std::string> oldLanguage = std::nullopt;
 
 void musicHalted() {
     getSound()->changeTrack(NEXT_OR_FIRST_TRACK);
@@ -179,22 +181,55 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
+#ifdef HAVE_NL_MSG_CAT_CNTR
+// glibc gettext magic
+extern "C" int _nl_msg_cat_cntr;
+#endif
 void
 setLang(const std::string& lang) {
-  if(lang != "autodetect")
-#ifndef WIN32
-    setenv("LANGUAGE", lang.c_str(), 1);
-#else
+  if(lang != "autodetect") {
+#ifdef WIN32
     _putenv_s("LANGUAGE", lang.c_str());
-#endif
-  else
-#ifndef WIN32
-    unsetenv("LANGUAGE");
 #else
-    _putenv_s("LANGUAGE", "");
+    setenv("LANGUAGE", lang.c_str(), 1);
 #endif
-  // gettext hacky magic
-  { extern int _nl_msg_cat_cntr; ++_nl_msg_cat_cntr; }
+  }
+  else if(oldLanguage) {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", oldLanguage->c_str());
+#else
+    setenv("LANGUAGE", oldLanguage->c_str(), 1);
+#endif
+  }
+  else {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", "");
+#else
+    unsetenv("LANGUAGE");
+#endif
+  }
+#define GETTEXT_HAS_
+
+#ifdef HAVE_NL_MSG_CAT_CNTR
+  // glibc gettext magic
+  ++_nl_msg_cat_cntr;
+#endif
+}
+
+// This tries to get the same language that as gettext.
+std::string
+getLang() {
+#if defined(ENABLE_NLS) && ENABLE_NLS
+  const char *locale = setlocale(LC_MESSAGES, NULL);
+#else
+  const char *locale = "C.UTF-8";
+#endif
+  assert(locale);
+  if(locale && !strcmp(locale, "C")) return "C";
+  const char *language = getenv("LANGUAGE");
+  if(language && *language) return language;
+  if(locale) return locale;
+  return "";
 }
 
 void mainLoop() {
@@ -215,12 +250,15 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
 
+#if defined(ENABLE_NLS) && ENABLE_NLS
+        if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
         setlocale(LC_ALL, "");
         if(getConfig()->language.get() != "autodetect")
           setLang(getConfig()->language.get());
         bindtextdomain(PACKAGE_NAME,
           (getConfig()->appDataDir.get() / "locale").c_str());
         textdomain(PACKAGE_NAME);
+#endif
 
 #ifndef DEBUG
     } catch(std::exception& e) {
