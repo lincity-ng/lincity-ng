@@ -25,17 +25,16 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
+#include <gettext.h>                      // for gettext, gettext_noop
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
-#include <memory>                         // for __shared_ptr_access
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
-#include <gettext.h>
 
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity

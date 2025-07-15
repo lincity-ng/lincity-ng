@@ -24,15 +24,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "FontManager.hpp"
 
 #include <SDL.h>                  // for SDL_GetError
-#include <SDL_ttf.h>                    // for TTF_OpenFontRW, _TTF_Font
-#include <exception>                    // for exception
-#include <filesystem>
-#include <sstream>                      // for char_traits, basic_ostream
-#include <stdexcept>                    // for runtime_error
-#include <utility>                      // for pair, make_pair
+#include <SDL_ttf.h>              // for TTF_CloseFont, TTF_Font, TTF_OpenFont
+#include <filesystem>             // for path, operator/, operator<<
+#include <sstream>                // for basic_stringstream, basic_ostream
+#include <stdexcept>              // for runtime_error
+#include <utility>                // for pair, make_pair
 
-#include "Style.hpp"                    // for Style
-#include "lincity-ng/Config.hpp"
+#include "Style.hpp"              // for Style
+#include "lincity-ng/Config.hpp"  // for getConfig, Config
 
 FontManager* fontManager = 0;
 

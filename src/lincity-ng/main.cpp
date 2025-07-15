@@ -25,20 +25,21 @@
 #include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <config.h>                              // for PACKAGE_NAME, PACKAG...
+#include <cassert>                               // for assert
+#include <gettext.h>                             // for bindtextdomain, text...
 #include <libxml/parser.h>                       // for xmlCleanupParser
-#include <stdio.h>                               // for NULL
-#include <stdlib.h>                              // for setenv
-#include <filesystem>                            // for operator/, path
+#include <clocale>                               // for NULL, setlocale, LC_ALL
+#include <cstdlib>                               // for getenv, setenv, unse...
+#include <cstring>                               // for strcmp
+#include <filesystem>                            // for path, operator/
 #include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for allocator, unique_ptr
+#include <memory>                                // for unique_ptr
+#include <optional>                              // for optional, nullopt
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
-#include <string>                                // for char_traits, basic_s...
-#include <optional>
-#include <gettext.h>
-#include <locale.h>
+#include <string>                                // for basic_string, char_t...
 
+#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
@@ -51,6 +52,7 @@
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
+
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
 #endif

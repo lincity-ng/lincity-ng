@@ -28,17 +28,16 @@
 #include <cstdlib>                  // for rand
 #include <deque>                    // for deque
 #include <initializer_list>         // for initializer_list
-#include <memory>                   // for __shared_ptr_access
 #include <optional>                 // for optional, nullopt, nullopt_t
 #include <unordered_set>            // for unordered_set
 #include <vector>                   // for vector
 
 #include "MapPoint.hpp"             // for MapPoint, hash
-#include "groups.hpp"               // for GROUP_DESERT, GROUP_WATER, GROUP_...
+#include "groups.hpp"               // for GROUP_BARE, GROUP_DESERT, GROUP_FIRE
 #include "lin-city.hpp"             // for FLAG_FIRE_COVER, FLAG_IS_RIVER
 #include "lintypes.hpp"             // for Construction, ConstructionGroup
 #include "messages.hpp"             // for OutOfMoneyMessage, FireStartedMes...
-#include "modules/all_modules.hpp"  // for Residence
+#include "modules/all_modules.hpp"  // for Residence, FireConstructionGroup
 #include "stats.hpp"                // for Stat, Stats
 #include "world.hpp"                // for Map, World, MapTile
 
