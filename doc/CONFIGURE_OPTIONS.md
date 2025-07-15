@@ -60,6 +60,18 @@ option.
 See also: [CMAKE_INSTALL_PREFIX](https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX.html)
 
 
+#### LINCITYNG_VERSION_SUFFIX
+
+```
+cmake -B build -DLINCITYNG_VERSION_SUFFIX=<suffix>
+```
+
+The `-DLINCITYNG_VERSION_SUFFIX=<suffix>` configure time option is provided
+for packagers to allow marking builds as coming from a specific source. It's
+especially useful when building from a source tarball or with custom patches to
+avoid an `unknown` or `dirty` suffix.
+
+
 ## ENABLE_NLS
 
 ```

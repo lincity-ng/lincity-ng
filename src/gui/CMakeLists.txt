@@ -1,6 +1,6 @@
-set(DISABLE_GL_MODE ON CACHE BOOL "disables GL video mode")
+set(LINCITYNG_DISABLE_GL_MODE ON CACHE BOOL "Disable direct OpenGL renderer.")
 
-if(NOT DISABLE_GL_MODE)
+if(NOT LINCITYNG_DISABLE_GL_MODE)
 	find_package(OpenGL REQUIRED)
 endif()
 
@@ -90,7 +90,7 @@ add_library(lincity_gui  STATIC
 		PainterSDL/TextureManagerSDL.hpp
 )
 
-if(NOT DISABLE_GL_MODE)
+if(NOT LINCITYNG_DISABLE_GL_MODE)
 	target_sources(lincity_gui PRIVATE
 		PainterGL/PainterGL.cpp
 		PainterGL/PainterGL.hpp
@@ -101,7 +101,7 @@ if(NOT DISABLE_GL_MODE)
 	)
 endif()
 
-if(DISABLE_GL_MODE)
+if(LINCITYNG_DISABLE_GL_MODE)
 	target_compile_definitions(lincity_gui PUBLIC DISABLE_GL_MODE)
 endif()
 
@@ -115,7 +115,7 @@ target_link_libraries(lincity_gui
 		PRIVATE
 		gettext
 )
-if(NOT DISABLE_GL_MODE)
+if(NOT LINCITYNG_DISABLE_GL_MODE)
 	target_link_libraries(lincity_gui PUBLIC OpenGL::GL)
 endif()
 
