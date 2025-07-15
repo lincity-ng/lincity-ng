@@ -25,12 +25,12 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
+#include <gettext.h>                      // for gettext, gettext_noop
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
-#include <memory>                         // for __shared_ptr_access
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
@@ -45,11 +45,13 @@
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
 #include "modules/all_modules.hpp"        // for Powerline, GROUP_MARKET_RANGE
 #include "stats.hpp"                      // for Stats, Stat
-#include "tinygettext/gettext.hpp"        // for _
 #include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
 #include "util.hpp"                       // for used_in_assert
 #include "world.hpp"                      // for World, Map, MapTile
 #include "xmlloadsave.hpp"                // for xmlStr, unexpectedXmlElement
+
+#define _(MSG) gettext(MSG)
+#define N_(MSG) gettext_noop(MSG)
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 

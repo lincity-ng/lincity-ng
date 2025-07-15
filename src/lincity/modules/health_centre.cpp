@@ -28,6 +28,7 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
 #include <algorithm>                      // for max, min
 #include <string>                         // for basic_string, allocator
+#include <gettext.h>
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
@@ -37,7 +38,9 @@
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for _, N_
+
+#define _(MSG) gettext(MSG)
+#define N_(MSG) MSG
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(

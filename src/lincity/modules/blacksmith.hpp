@@ -32,12 +32,9 @@
 #include "lincity/commodities.hpp"    // for CommodityRule, Commodity
 #include "lincity/lin-city.hpp"       // for MAX_TECH_LEVEL
 #include "lincity/lintypes.hpp"       // for ConstructionGroup, Construction
-#include "tinygettext/gettext.hpp"    // for N_
 
 class World;
 
-#define GROUP_BLACKSMITH_NAME N_("Blacksmith")
-#define GROUP_BLACKSMITH_NAMEPLURAL N_("Blacksmiths")
 #define GROUP_BLACKSMITH_COLOUR (white(15))
 #define GROUP_BLACKSMITH_COST   5000
 #define GROUP_BLACKSMITH_COST_MUL 25

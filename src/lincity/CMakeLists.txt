@@ -8,8 +8,6 @@ add_library(lincity_lib  STATIC
 		groups.hpp
 		init_game.cpp
 		init_game.hpp
-		lc_locale.cpp
-		lc_locale.hpp
 		lin-city.hpp
 		lintypes.cpp
 		lintypes.hpp
@@ -42,11 +40,11 @@ target_link_libraries(lincity_lib
 		LinCity::lib_modules
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		ZLIB::ZLIB
-		PkgConfig::libXMLPlusPlus
+		LibXml++-5.0::LibXml++-5.0
 		LibXml2::LibXml2
 		PRIVATE
-		tinygettext
 		LinCity::gui
+		gettext
 )
 
 if (NOT WIN32)
@@ -54,3 +52,6 @@ if (NOT WIN32)
 endif()
 
 include_directories(.)
+
+include(TranslateTarget)
+translate_target(lincity_lib lincity_lib.pot)

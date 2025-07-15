@@ -51,9 +51,9 @@
 #include "lincity/lintypes.hpp"             // for ConstructionGroup
 #include "lincity/messages.hpp"             // for NotEnoughTechMessage, Mes...
 #include "lincity/world.hpp"                // for World
-#include "tinygettext/gettext.hpp"          // for _
 #include "lincity/modules/windmill.hpp"
 #include "lincity/modules/windpower.hpp"
+#include "lc_gettext.hpp"
 
 using namespace std::placeholders;
 

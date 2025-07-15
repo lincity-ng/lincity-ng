@@ -68,7 +68,7 @@
 #include "lincity/modules/all_modules.hpp"
 #include "lincity/world.hpp"               // for World, Map, MapTile
 #include "main.hpp"                        // for painter, videoSizeChanged
-#include "tinygettext/gettext.hpp"         // for _
+#include "lc_gettext.hpp"
 
 using namespace std::placeholders;
 

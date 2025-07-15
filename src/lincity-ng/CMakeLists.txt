@@ -13,6 +13,7 @@ add_executable(lincity-ng
 		GameView.hpp
 		HelpWindow.cpp
 		HelpWindow.hpp
+		lc_gettext.hpp
 		main.cpp
 		main.hpp
 		MainLincity.cpp
@@ -49,11 +50,14 @@ target_link_libraries(lincity-ng
 	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
 	PRIVATE
-	tinygettext
 	cfgpath
+	gettext
 	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
 	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 	fmt::fmt
 )
 
 include_directories(.)
+
+include(TranslateTarget)
+translate_target(lincity-ng lincity-ng.pot)

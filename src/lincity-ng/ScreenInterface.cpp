@@ -35,7 +35,7 @@
 #include "lincity/util.hpp"          // for current_month, current_year
 #include "lincity/lintypes.hpp"       // for NUMOF_DAYS_IN_MONTH
 #include "lincity/world.hpp"          // for World
-#include "tinygettext/gettext.hpp"  // for _
+#include "lc_gettext.hpp"
 
 void
 Game::updateDate() const {
