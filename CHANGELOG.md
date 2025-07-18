@@ -7,6 +7,7 @@ date: 2025-07-04
 - Improved terrain/ecology generation algorithms.
 
 ###### User Interface
+- Fixed grid-lines appearing on the map.
 - Fixed duplicate click events in the new-game menu.
 - Added warning dialogs when a construction cannot be built.
 - Reworded most in-game pop-up dialogs.
