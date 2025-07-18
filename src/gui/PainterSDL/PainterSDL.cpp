@@ -57,8 +57,21 @@ PainterSDL::~PainterSDL() { }
 
 void
 PainterSDL::drawTexture(const Texture *texture, Vector2 pos) {
-  Vector2 size((float)texture->getWidth(), (float)texture->getHeight());
-  drawStretchTexture(texture, Rect2D(pos, pos + size));
+  assert(texture);
+  assert(typeid(*texture) == typeid(TextureSDL));
+  const TextureSDL *textureSDL = static_cast<const TextureSDL *>(texture);
+
+  // We need to round the screen position to avoid sampling on pixel boundaries.
+  // Really, we only need to do this when NEAREST sampling is used.
+  Vector2 screenpos = transform.apply(pos);
+  SDL_FRect drect = {
+    .x = std::round(screenpos.x),
+    .y = std::round(screenpos.y),
+    .w = (float)texture->getWidth(),
+    .h = (float)texture->getHeight(),
+  };
+
+  HANDLE_ERR(SDL_RenderCopyF(renderer, textureSDL->tx, NULL, &drect));
 }
 
 void
