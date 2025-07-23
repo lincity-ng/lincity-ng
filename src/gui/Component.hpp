@@ -151,6 +151,13 @@ protected:
     virtual void setDirty(const Rect2D& area);
 
     /**
+     * Schedule next frame to happen early and be a GUI frame.
+     * Useful for smooth animations that are not directly tied to an event,
+     * such as scrolling by holding a button.
+     */
+    virtual void requestFastNextFrame();
+
+    /**
      * Used to parse attributes (from an xml stream for example). Currently
      * parses only the name attribute.
      * @return True if the attribute has been used, false else.

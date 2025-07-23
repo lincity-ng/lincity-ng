@@ -62,11 +62,14 @@ public:
 
 protected:
     void setDirty(const Rect2D& rect);
+    void requestFastNextFrame();
 
 private:
 
     typedef std::vector<Rect2D> DirtyRectangles;
     DirtyRectangles dirtyRectangles;
+    bool force_redraw = false;
+    bool force_redraw_next_frame = false;
 
     SDL_Cursor *cursor;
     Component *cursorOwner;
