@@ -45,7 +45,8 @@
 #include "lincity/world.hpp"                // for World, Map
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
 #include "residence.hpp"                    // for Residence
-#include "tinygettext/gettext.hpp"        // for N_
+
+#define N_(MSG) MSG
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),
