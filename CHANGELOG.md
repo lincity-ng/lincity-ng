@@ -1,3 +1,20 @@
+## Unreleased
+
+###### User Interface
+- Fixed an issue causing some UI components to appear distorted.
+- Added smooth scrolling support for devices where it is available, e.g.
+  touchpads.
+
+###### Internal
+- Added appstream metainfo.
+- Added a CMake option `LINCITYNG_VERSION_SUFFIX` to allow overriding the
+  version suffix. This is mostly useful for packaging, especially when building
+  from a source tarball.
+- Optimized size of image assets.
+- Renamed the desktop file and icon to follow application ID naming.
+- Added a 256x256 version of the icon (upscaled from the existing one).
+
+
 ## LinCity-NG 2.14.0
 
 date: 2025-07-04
