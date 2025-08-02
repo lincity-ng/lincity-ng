@@ -51,6 +51,7 @@ PainterSDL::PainterSDL(SDL_Renderer* _renderer) :
 {
   cliprectStack.push_back(CR_NONE);
   HANDLE_ERR(SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND));
+  HANDLE_ERR(SDL_RenderSetVSync(renderer, 1));
 }
 
 PainterSDL::~PainterSDL() { }

@@ -206,6 +206,7 @@ ScrollBar::event(const Event& event)
             if(newVal != currentVal) {
                 setValue(newVal);
                 valueChanged(this, currentVal);
+                requestFastNextFrame();
             }
             break;
         }
