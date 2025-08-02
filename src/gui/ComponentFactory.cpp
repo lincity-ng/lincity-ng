@@ -27,24 +27,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <filesystem>                   // for operator/, path
 #include <iostream>                     // for basic_ostream, operator<<, cerr
 #include <stdexcept>                    // for runtime_error
+#include <gettext.h>
 
 #include "ComponentLoader.hpp"          // for createComponent
 #include "XmlReader.hpp"                // for XmlReader
 #include "lincity-ng/Config.hpp"        // for getConfig, Config
-#include "tinygettext/tinygettext.hpp"  // for DictionaryManager, Dictionary
-
-tinygettext::DictionaryManager* dictionaryGUIManager = 0;
 
 const char *
-GUI_TRANSLATE(const char * msgid)
-{
-    return dictionaryGUIManager->get_dictionary().translate(msgid);
+GUI_TRANSLATE(const char * msgid) {
+  return gettext(msgid);
 }
 
 std::string
-GUI_TRANSLATE(const std::string& msgid)
-{
-    return dictionaryGUIManager->get_dictionary().translate(msgid);
+GUI_TRANSLATE(const std::string& msgid) {
+  return gettext(msgid.c_str());
 }
 
 ComponentFactories* component_factories = 0;
@@ -159,11 +155,6 @@ void initFactories()
         new INTERN_WindowFactory();
         new INTERN_WindowManagerFactory();
         new ImportFactory();
-
-        dictionaryGUIManager = new tinygettext::DictionaryManager();
-        dictionaryGUIManager->set_charset("UTF-8");
-        dictionaryGUIManager->add_directory(
-          getConfig()->appDataDir.get() / "locale/gui");
 
 #ifdef DEBUG
         initialized = true;

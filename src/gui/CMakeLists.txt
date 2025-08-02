@@ -113,7 +113,7 @@ target_link_libraries(lincity_gui
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 		$<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
 		PRIVATE
-		tinygettext
+		gettext
 )
 if(NOT LINCITYNG_DISABLE_GL_MODE)
 	target_link_libraries(lincity_gui PUBLIC OpenGL::GL)

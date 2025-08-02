@@ -36,7 +36,8 @@
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World
 #include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+
+#define N_(MSG) MSG
 
 RecycleConstructionGroup recycleConstructionGroup(
     N_("Recycling Center"),

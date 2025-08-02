@@ -38,8 +38,8 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for Map, MapTile, World
 #include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
-//#include "lincity-ng/Sound.hpp"
+
+#define N_(MSG) MSG
 
 FireConstructionGroup fireConstructionGroup(
      N_("Fire"),
