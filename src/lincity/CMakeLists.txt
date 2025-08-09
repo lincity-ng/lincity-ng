@@ -46,6 +46,7 @@ target_link_libraries(lincity_lib
   LinCity::gui
   gettext
   xmlutil
+  randutil
 )
 
 if (NOT WIN32)

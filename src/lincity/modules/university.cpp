@@ -35,10 +35,8 @@
 #include "lincity/world.hpp"              // for World
 #include "school.hpp"                     // for SchoolConstructionGroup
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-// university place:
 UniversityConstructionGroup universityConstructionGroup(
     N_("University"),
     N_("Universities"),

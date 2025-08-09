@@ -19,7 +19,7 @@
  # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ## ---------------------------------------------------------------------- ##
 
-function(translate_target target )
+function(translate_target target)
   get_target_property(TARGET_SOURCES_REL ${target} SOURCES)
   foreach(SOURCE_PATH ${TARGET_SOURCES_REL})
     cmake_path(ABSOLUTE_PATH SOURCE_PATH

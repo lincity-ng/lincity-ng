@@ -38,10 +38,8 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-// IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
      N_("Steel Works"),
      N_("Steel Works"),

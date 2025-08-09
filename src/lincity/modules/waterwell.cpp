@@ -31,8 +31,7 @@
 #include "lincity/groups.hpp"         // for GROUP_WATERWELL
 #include "lincity/lin-city.hpp"       // for FLAG_HAS_UNDERGROUND_WATER, FALSE
 #include "lincity/world.hpp"          // for World, Map, MapTile
-
-#define N_(MSG) MSG
+#include "util/gettextutil.hpp"
 
 WaterwellConstructionGroup waterwellConstructionGroup(
   N_("Water Tower"),

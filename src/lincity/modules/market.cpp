@@ -40,8 +40,7 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
-
-#define N_(MSG) MSG
+#include "util/gettextutil.hpp"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),

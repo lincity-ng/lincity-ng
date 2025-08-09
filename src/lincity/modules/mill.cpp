@@ -34,9 +34,7 @@
 #include "lincity/lin-city.hpp"     // for ANIM_THRESHOLD, FALSE
 #include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"        // for World, Map, MapTile
-
-#define N_(MSG) MSG
-
+#include "util/gettextutil.hpp"
 
 MillConstructionGroup millConstructionGroup(
     N_("Textile Mill"),

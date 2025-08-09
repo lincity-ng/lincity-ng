@@ -34,11 +34,8 @@
 #include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, TRUE
 #include "lincity/world.hpp"              // for World
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-
-// SolarPower:
 SolarPowerConstructionGroup solarPowerConstructionGroup(
     N_("Solar Power Plant"),
     N_("Solar Power Plants"),

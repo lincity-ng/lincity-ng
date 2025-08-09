@@ -53,7 +53,7 @@
 #include "lincity/world.hpp"                // for World
 #include "lincity/modules/windmill.hpp"
 #include "lincity/modules/windpower.hpp"
-#include "lc_gettext.hpp"
+#include "util/gettextutil.hpp"
 
 using namespace std::placeholders;
 

@@ -24,7 +24,6 @@
 
 #include "health_centre.hpp"
 
-#include <gettext.h>                      // for gettext
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <algorithm>                      // for max, min
@@ -37,12 +36,9 @@
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/gettextutil.hpp"           // for N_, _
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
-#define _(MSG) gettext(MSG)
-#define N_(MSG) MSG
-
-// Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
      N_("Hospital"),
      N_("Hospitals"),

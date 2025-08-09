@@ -1,10 +1,7 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/util.hpp
+ * src/util/randutil.hpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
  * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,25 +19,31 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LINCITYNG_LINCITY_UTIL_HPP__
-#define __LINCITYNG_LINCITY_UTIL_HPP__
+#ifndef __LINCITYNG_UTIL_RANDUTIL_HPP__
+#define __LINCITYNG_UTIL_RANDUTIL_HPP__
 
-#include <string>  // for string
+#include <random>
 
-#ifdef NDEBUG
-#define used_in_assert maybe_unused
-#else
-#define used_in_assert
-#endif
+class BasicUrbg {
+private:
+  using base_engine = std::default_random_engine;
 
-// TODO: move to NG
-const char *current_month(int current_time);
-int current_year(int current_time);
-//void format_number5(char *str, int num);
-//void format_pos_number4(char *str, int num);
-//void format_power(char *str, size_t size, long power);
-std::string num_to_ansi(long num);
+  BasicUrbg();
+  ~BasicUrbg();
+  BasicUrbg(const BasicUrbg&) = delete;
+  const BasicUrbg& operator=(const BasicUrbg&) = delete;
 
-#endif // __LINCITYNG_LINCITY_UTIL_HPP__
+public:
+  using result_type = base_engine::result_type;
 
-/** @file lincity/lclib.h */
+  result_type operator()();
+  static constexpr result_type min() { return base_engine::min(); }
+  static constexpr result_type max() { return base_engine::max(); }
+
+  static BasicUrbg& get();
+
+private:
+  base_engine base_urbg;
+};
+
+#endif // __LINCITYNG_UTIL_RANDUTIL_HPP__

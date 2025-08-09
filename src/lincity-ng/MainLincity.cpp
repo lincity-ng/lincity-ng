@@ -36,7 +36,7 @@
 #include "lincity/lin-city.hpp"             // for SIM_DELAY_SLOW
 #include "lincity/modules/all_modules.hpp"  // for initializeModules
 #include "lincity/world.hpp"                // for World
-#include "lc_gettext.hpp"
+#include "util/gettextutil.hpp"
 
 extern void init_types(void);
 extern void initFactories(void);

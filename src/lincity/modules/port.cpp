@@ -35,10 +35,8 @@
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-// Port:
 PortConstructionGroup portConstructionGroup(
     N_("Port"),
     N_("Ports"),

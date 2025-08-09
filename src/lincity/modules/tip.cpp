@@ -36,10 +36,8 @@
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-// Tip:
 TipConstructionGroup tipConstructionGroup(
     N_("Land Fill"),
     N_("Land Fills"),

@@ -61,7 +61,7 @@
 #include "lincity/stats.hpp"            // for Stat, Stats
 #include "lincity/world.hpp"            // for World
 #include "main.hpp"                     // for resizeVideo, painter, videoSi...
-#include "lc_gettext.hpp"
+#include "util/gettextutil.hpp"
 #include "config.h"
 
 using namespace std::placeholders;

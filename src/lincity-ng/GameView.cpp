@@ -67,7 +67,7 @@
 #include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
 #include "lincity/transport.hpp"           // for BRIDGE_FACTOR
 #include "lincity/world.hpp"               // for Map, World, MapTile, Ground
-#include "lc_gettext.hpp"
+#include "util/gettextutil.hpp"
 
 using namespace std::placeholders;
 

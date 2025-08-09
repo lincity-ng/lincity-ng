@@ -37,9 +37,7 @@
 #include "lincity/resources.hpp"          // for ExtraFrame
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
-
-#define N_(MSG) MSG
-
+#include "util/gettextutil.hpp"
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
     N_("Farm"),

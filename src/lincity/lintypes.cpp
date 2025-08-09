@@ -25,7 +25,6 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
-#include <gettext.h>                      // for gettext, gettext_noop
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
@@ -47,11 +46,9 @@
 #include "stats.hpp"                      // for Stats, Stat
 #include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
 #include "util.hpp"                       // for used_in_assert
+#include "util/gettextutil.hpp"           // for _
 #include "util/xmlutil.hpp"               // for xmlParse, xmlStr, unexpecte...
 #include "world.hpp"                      // for World, Map, MapTile
-
-#define _(MSG) gettext(MSG)
-#define N_(MSG) gettext_noop(MSG)
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 

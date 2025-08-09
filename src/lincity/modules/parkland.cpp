@@ -31,10 +31,8 @@
 #include "lincity/groups.hpp"         // for GROUP_PARKLAND, GROUP_PARKPOND
 #include "lincity/lin-city.hpp"       // for TRUE, FLAG_HAS_UNDERGROUND_WATER
 #include "lincity/world.hpp"          // for World, Map, MapTile
+#include "util/gettextutil.hpp"
 
-#define N_(MSG) MSG
-
-// Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
      N_("Park"),
      N_("Parks"),

@@ -1,10 +1,7 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/util.hpp
+ * src/util/randutil.cpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
  * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,25 +19,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LINCITYNG_LINCITY_UTIL_HPP__
-#define __LINCITYNG_LINCITY_UTIL_HPP__
+#include "randutil.hpp"
 
-#include <string>  // for string
+#include <algorithm>
+#include <time.h>
+#include <random>
+#include <vector>
 
-#ifdef NDEBUG
-#define used_in_assert maybe_unused
-#else
-#define used_in_assert
-#endif
+BasicUrbg::BasicUrbg() {
+  std::vector<std::random_device::result_type> entropy(9);
+  std::generate(entropy.begin(), entropy.begin() + 8, std::random_device());
+  entropy[8] = time(nullptr);
+  std::seed_seq seed(entropy.begin(), entropy.end());
+  base_urbg.seed(seed);
+}
 
-// TODO: move to NG
-const char *current_month(int current_time);
-int current_year(int current_time);
-//void format_number5(char *str, int num);
-//void format_pos_number4(char *str, int num);
-//void format_power(char *str, size_t size, long power);
-std::string num_to_ansi(long num);
+BasicUrbg::~BasicUrbg() = default;
 
-#endif // __LINCITYNG_LINCITY_UTIL_HPP__
+BasicUrbg&
+BasicUrbg::get() {
+  static thread_local BasicUrbg instance;
+  return instance;
+}
 
-/** @file lincity/lclib.h */
+BasicUrbg::result_type
+BasicUrbg::operator()() {
+  return base_urbg();
+}
