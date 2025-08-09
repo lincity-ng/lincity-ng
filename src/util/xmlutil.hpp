@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/xmlloadsave.hpp
+ * src/util/xmlutil.cpp
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
@@ -19,12 +19,31 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __xmlloadsave_h__
-#define __xmlloadsave_h__
+#ifndef __LINCITYNG_UTIL_XMLUTIL_HPP__
+#define __LINCITYNG_UTIL_XMLUTIL_HPP__
 
-#define LOADSAVE_VERSION_CURRENT 2140
-#define LOADSAVE_VERSION_COMPAT 2130
+#include <libxml++/ustring.h>  // for ustring
+#include <string>              // for string
 
-#endif /* __xmlloadsave_h__ */
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
-/** @file lincity/loadsave.h */
+typedef const unsigned char *xmlStr;
+typedef unsigned char *xmlMStr;
+
+extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
+extern void missingXmlElement(xmlpp::TextReader& xmlReader,
+  const std::string& name);
+
+
+template<typename X>
+extern const xmlStr xmlFormat(const X x);
+
+template<typename X>
+extern const xmlStr xmlFormatHex(const X x);
+
+template<typename X>
+extern X xmlParse(const xmlpp::ustring& s);
+
+#endif // __LINCITYNG_UTIL_XMLUTIL_HPP__

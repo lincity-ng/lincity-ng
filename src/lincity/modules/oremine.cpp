@@ -25,18 +25,18 @@
 #include "oremine.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_OREMINE
-#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE, FLAG...
+#include "lincity/groups.hpp"             // for GROUP_OREMINE, GROUP_WATER
+#include "lincity/lin-city.hpp"           // for ANIM_THRESHOLD, FALSE, FLAG...
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -223,13 +223,13 @@ Oremine::makeLake() {
 }
 
 void Oremine::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_ore_reserve", "%d", total_ore_reserve);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_ore_reserve", xmlFormat<int>(total_ore_reserve));
   Construction::save(xmlWriter);
 }
 
 bool Oremine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
-  if(tag == "total_ore_reserve") total_ore_reserve = std::stoi(xmlReader.read_inner_xml());
+  if(tag == "total_ore_reserve") total_ore_reserve = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

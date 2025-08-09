@@ -25,16 +25,16 @@
 #include "port.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
-#include <string>                         // for basic_string, char_traits
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <string>                         // for basic_string, string, opera...
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_PORT
-#include "lincity/lin-city.hpp"             // for FALSE, MAX_TECH_LEVEL
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/groups.hpp"             // for GROUP_PORT
+#include "lincity/lin-city.hpp"           // for FALSE, MAX_TECH_LEVEL
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
 
 #define N_(MSG) MSG
 
@@ -218,7 +218,7 @@ void Port::report(Mps& mps, bool production) const {
 }
 
 void Port::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech_made", xmlFormat<int>(tech_made));
 
   const std::string givePfx("give_");
   const std::string takePfx("take_");
@@ -230,8 +230,8 @@ void Port::save(xmlTextWriterPtr xmlWriter) const {
     const std::string takeName = takePfx + name;
     const xmlStr giveNameXml = (xmlStr)giveName.c_str();
     const xmlStr takeNameXml = (xmlStr)takeName.c_str();
-    xmlTextWriterWriteFormatElement(xmlWriter, giveNameXml, "%d", rule.give);
-    xmlTextWriterWriteFormatElement(xmlWriter, takeNameXml, "%d", rule.take);
+    xmlTextWriterWriteElement(xmlWriter, giveNameXml, xmlFormat<int>(rule.give));
+    xmlTextWriterWriteElement(xmlWriter, takeNameXml, xmlFormat<int>(rule.take));
   }
 
   Construction::save(xmlWriter);
@@ -246,9 +246,9 @@ bool Port::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
     commodityRuleCount[stuff].maxload
   ) {
     CommodityRule& rule = commodityRuleCount[stuff];
-    give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
+    give ? rule.give : rule.take = xmlParse<int>(xmlReader.read_inner_xml());
   }
-  else if(tag == "tech_made") tech_made = std::stoi(xmlReader.read_inner_xml());
+  else if(tag == "tech_made") tech_made = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

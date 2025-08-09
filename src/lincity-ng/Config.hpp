@@ -24,8 +24,8 @@
 #define __CONFIG_HPP__
 
 #include <filesystem>  // for path
-#include <string>      // for basic_string, string
 #include <optional>
+#include <string>      // for basic_string, string
 
 class Config
 {

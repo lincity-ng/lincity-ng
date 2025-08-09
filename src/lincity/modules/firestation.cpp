@@ -25,10 +25,10 @@
 #include "firestation.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <algorithm>                      // for max, min
 #include <list>                           // for _List_iterator
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator==
 #include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
@@ -36,10 +36,10 @@
 #include "lincity/groups.hpp"             // for GROUP_FIRESTATION
 #include "lincity/lin-city.hpp"           // for ANIM_THRESHOLD, FALSE, FLAG...
 #include "lincity/messages.hpp"           // for OutOfMoneyMessage
-#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
+#include "lincity/resources.hpp"          // for GraphicsInfo, ExtraFrame
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -159,17 +159,17 @@ void FireStation::report(Mps& mps, bool production) const {
 }
 
 void FireStation::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"active",     "%d", active);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"daycount",   "%d", daycount);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"covercount", "%d", covercount);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"active",     xmlFormat<int>(active));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"daycount",   xmlFormat<int>(daycount));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"covercount", xmlFormat<int>(covercount));
   Construction::save(xmlWriter);
 }
 
 bool FireStation::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if     (name == "active")     active     = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "daycount")   daycount   = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "covercount") covercount = std::stoi(xmlReader.read_inner_xml());
+  if     (name == "active")     active     = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "daycount")   daycount   = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "covercount") covercount = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

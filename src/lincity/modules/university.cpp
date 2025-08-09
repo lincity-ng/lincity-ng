@@ -25,16 +25,16 @@
 #include "university.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_UNIVERSITY
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, TRUE
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "school.hpp"                       // for SchoolConstructionGroup
+#include "lincity/groups.hpp"             // for GROUP_UNIVERSITY
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, TRUE
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "school.hpp"                     // for SchoolConstructionGroup
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -117,13 +117,13 @@ void University::report(Mps& mps, bool production) const {
 }
 
 void University::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_tech_made", xmlFormat<int>(total_tech_made));
   Construction::save(xmlWriter);
 }
 
 bool University::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
+  if(name == "total_tech_made") total_tech_made = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

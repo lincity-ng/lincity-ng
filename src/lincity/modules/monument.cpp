@@ -25,17 +25,17 @@
 #include "monument.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
-#include <map>                            // for allocator, map
-#include <string>                         // for basic_string, char_traits
+#include <map>                            // for map
+#include <string>                         // for basic_string, operator==
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_MONUMENT
-#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE, FLAG_...
+#include "lincity/groups.hpp"             // for GROUP_MONUMENT
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_EVACUATE, FLAG_...
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/world.hpp"              // for World
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -156,20 +156,20 @@ Monument::can_bulldoze(Message::ptr& message) const {
 }
 
 void Monument::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_made", "%d", tech_made);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tail_off", "%d", tail_off);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"completion", "%d", completion);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"labor_consumed", "%d", labor_consumed);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech_made", xmlFormat<int>(tech_made));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tail_off", xmlFormat<int>(tail_off));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"completion", xmlFormat<int>(completion));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"labor_consumed", xmlFormat<int>(labor_consumed));
   Construction::save(xmlWriter);
 }
 
 bool Monument::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if     (name == "tech_made")  tech_made      = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "tail_off")   tail_off       = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "completion") completion     = std::stoi(xmlReader.read_inner_xml());
+  if     (name == "tech_made")  tech_made      = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "tail_off")   tail_off       = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "completion") completion     = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "labor_consumed" || name == "jobs_consumed")
-                                labor_consumed = std::stoi(xmlReader.read_inner_xml());
+                                labor_consumed = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

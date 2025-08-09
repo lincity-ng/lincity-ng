@@ -25,7 +25,7 @@
 #include "school.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stddef.h>                       // for NULL
 #include <map>                            // for map
 #include <string>                         // for basic_string, allocator
@@ -38,7 +38,7 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/stats.hpp"              // for Stat, Stats
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -158,13 +158,13 @@ void School::init_resources() {
 }
 
 void School::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_tech_made", "%d", total_tech_made);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_tech_made", xmlFormat<int>(total_tech_made));
   Construction::save(xmlWriter);
 }
 
 bool School::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "total_tech_made") total_tech_made = std::stoi(xmlReader.read_inner_xml());
+  if(name == "total_tech_made") total_tech_made = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

@@ -24,21 +24,21 @@
 
 #include <assert.h>                       // for assert
 #include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
+#include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <limits.h>                       // for INT_MAX, INT_MIN
 #include <stdio.h>                        // for sscanf, NULL
 #include <stdlib.h>                       // for exit
 #include <iostream>                       // for basic_ostream, operator<<
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
-#include <fmt/format.h>
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
-#include "lincity/world.hpp"                // for WORLD_SIDE_LEN
-#include "lincity/xmlloadsave.hpp"          // for xmlStr, unexpectedXmlElement
+#include "lincity/world.hpp"              // for WORLD_SIDE_LEN
+#include "util/xmlutil.hpp"               // for xmlStr, unexpectedXmlElement
 
 template<typename V>
 static std::optional<V> parseValue(const std::string& value);
@@ -526,8 +526,8 @@ saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
   const Config::Option<int>& option
 ) {
   if(option.config)
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
-      "%d", *option.config);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      xmlFormat<int>(*option.config));
   else if(option.default_)
     xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
       (xmlStr)"default");
@@ -539,8 +539,8 @@ saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
   const Config::Option<bool>& option
 ) {
   if(option.config)
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
-      "%s", *option.config?"yes":"no");
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      xmlFormat<std::string>(*option.config?"yes":"no"));
   else if(option.default_)
     xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
       (xmlStr)"default");
@@ -552,8 +552,8 @@ saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
   const Config::Option<std::string>& option
 ) {
   if(option.config)
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
-      "%s", option.config->c_str());
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      xmlFormat<std::string>(option.config->c_str()));
   else if(option.default_)
     xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
       (xmlStr)"default");
@@ -565,8 +565,8 @@ saveOption(xmlTextWriterPtr xmlWriter, const std::string& name,
   const Config::Option<std::filesystem::path>& option
 ) {
   if(option.config)
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)name.c_str(),
-      "%s", option.config->string().c_str());
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
+      xmlFormat<std::string>(option.config->string().c_str()));
   else if(option.default_)
     xmlTextWriterWriteElement(xmlWriter, (xmlStr)name.c_str(),
       (xmlStr)"default");

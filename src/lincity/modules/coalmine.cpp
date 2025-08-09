@@ -25,18 +25,18 @@
 #include "coalmine.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
-#include <map>                            // for allocator, map
+#include <map>                            // for map
 #include <string>                         // for basic_string, operator<
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_COALMINE
-#include "lincity/lin-city.hpp"             // for FALSE, FLAG_EVACUATE
+#include "lincity/groups.hpp"             // for GROUP_COALMINE
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_EVACUATE
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -201,14 +201,16 @@ void Coalmine::place(MapPoint point) {
 }
 
 void Coalmine::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"initial_coal_reserve", "%d", initial_coal_reserve);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"initial_coal_reserve",
+    xmlFormat<int>(initial_coal_reserve));
   Construction::save(xmlWriter);
 }
 
 bool
 Coalmine::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "initial_coal_reserve") initial_coal_reserve = std::stoi(xmlReader.read_inner_xml());
+  if(name == "initial_coal_reserve") initial_coal_reserve =
+    xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

@@ -177,7 +177,7 @@ World::do_fire_health_cricket_power_cover() {
   };
   const int flagNum = 4;
   for(MapTile& tile : map) {
-    int& tileFlags = tile.flags;
+    unsigned int& tileFlags = tile.flags;
     for(int fi = 0; fi < flagNum; fi++) {
       tileFlags =
         (tileFlags & ~coverFlags[fi] & ~checkFlags[fi]) |  // clear

@@ -25,19 +25,19 @@
 #include "coal_power.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
-#include <stdlib.h>                       // for rand, NULL
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <stdlib.h>                       // for rand
 #include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for allocator, vector
+#include <string>                         // for basic_string, operator<
+#include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_COAL_POWER
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/groups.hpp"             // for GROUP_COAL_POWER
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -193,7 +193,7 @@ void Coal_power::place(MapPoint point) {
 }
 
 void Coal_power::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech", xmlFormat(tech));
   Construction::save(xmlWriter);
 }
 
@@ -201,7 +201,7 @@ bool
 Coal_power::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version
 ) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  if(name == "tech") tech = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "mwh_output");
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;

@@ -25,10 +25,10 @@
 #include "windpower.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
 #include <map>                            // for map
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator==
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
@@ -37,7 +37,7 @@
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/stats.hpp"              // for Stat, Stats
 #include "lincity/world.hpp"              // for World
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
 
 #define N_(MSG) MSG
 
@@ -137,13 +137,13 @@ void Windpower::place(MapPoint point) {
 }
 
 void Windpower::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech", xmlFormat<int>(tech));
   Construction::save(xmlWriter);
 }
 
 bool Windpower::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  if(name == "tech") tech = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "mwh_output");
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
