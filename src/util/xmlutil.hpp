@@ -1,10 +1,8 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/lc_locale.hpp
+ * src/util/xmlutil.cpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
+ * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +19,31 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LC_LOCALE_H__
-#define __LC_LOCALE_H__
+#ifndef __LINCITYNG_UTIL_XMLUTIL_HPP__
+#define __LINCITYNG_UTIL_XMLUTIL_HPP__
 
-void lincity_set_locale(void);
+#include <libxml++/ustring.h>  // for ustring
+#include <string>              // for string
 
-#endif
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
-/** @file lincity/lc_locale.h */
+typedef const unsigned char *xmlStr;
+typedef unsigned char *xmlMStr;
+
+extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
+extern void missingXmlElement(xmlpp::TextReader& xmlReader,
+  const std::string& name);
+
+
+template<typename X>
+extern const xmlStr xmlFormat(const X x);
+
+template<typename X>
+extern const xmlStr xmlFormatHex(const X x);
+
+template<typename X>
+extern X xmlParse(const xmlpp::ustring& s);
+
+#endif // __LINCITYNG_UTIL_XMLUTIL_HPP__
