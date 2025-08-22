@@ -321,6 +321,11 @@ Game::executeUserOperation(MapPoint point) {
     }
 
     case UserOperation::ACTION_BULLDOZE: {
+      if(Message::ptr msg; !userOperation.isAllowedHere(*world, point, msg)) {
+        // don't issue a warning if we can't bulldoze anyway
+        break;
+      }
+
       unsigned short grp = world->map(point)->getGroup();
       decltype(warnBullWater) *warnStatus = nullptr;
       switch(grp) {
