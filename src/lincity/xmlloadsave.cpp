@@ -22,40 +22,51 @@
 #include "xmlloadsave.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/parser.h>                // for XML_PARSE_NONET
+#include <libxml++/ustring.h>             // for ustring
+#include <libxml/parser.h>                // for XML_PARSE_NONET, xmlOutputB...
 #include <libxml/xmlIO.h>                 // for xmlOutputBufferClose, xmlOu...
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlreader.h>             // for xmlReaderForIO, xmlTextRead...
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <zlib.h>                         // for gzclose, gzFile, gzopen
 #include <algorithm>                      // for max, min
 #include <array>                          // for array
 #include <cassert>                        // for assert
 #include <cctype>                         // for isspace
-#include <cstring>                        // for NULL, size_t
+#include <charconv>                       // for from_chars_result, from_chars
+#include <cstdio>                         // for NULL, size_t
 #include <deque>                          // for deque
 #include <filesystem>                     // for path
 #include <functional>                     // for function
-#include <iostream>                       // for operator<<, basic_ostream
+#include <iostream>                       // for basic_ostream, operator<<
 #include <list>                           // for list, _List_iterator
-#include <memory>                         // for unique_ptr, shared_ptr
-#include <regex>                          // for match_results, operator==
-#include <set>                            // for _Rb_tree_const_iterator, set
-#include <sstream>                        // for basic_stringstream, basic_o...
+#include <memory>                         // for allocator, unique_ptr, shar...
+#include <regex>                          // for operator==, regex_match, regex
+#include <set>                            // for set
+#include <sstream>                        // for basic_ostringstream
 #include <stdexcept>                      // for runtime_error, invalid_argu...
-#include <string>                         // for basic_string, operator==, stoi
+#include <string>                         // for basic_string, operator==
+#include <system_error>                   // for system_error, make_error_code
 #include <unordered_map>                  // for unordered_map, operator!=
 #include <utility>                        // for pair
 #include <vector>                         // for vector
 
 #include "MapPoint.hpp"                   // for MapPoint
 #include "commodities.hpp"                // for Commodity, CommodityRule
-#include "lin-city.hpp"                     // for VOLATILE_FLAGS, FLAG_CRICKE...
-#include "lintypes.hpp"                     // for xmlTextWriterPtr, Construction
-#include "stats.hpp"                        // for Stats, Stat
-#include "world.hpp"                        // for World, MapTile, Map, Ground
-#include "util.hpp"
+#include "lin-city.hpp"                   // for VOLATILE_FLAGS, FLAG_CRICKE...
+#include "lintypes.hpp"                   // for xmlTextWriterPtr, Construction
+#include "stats.hpp"                      // for Stats, Stat
+#include "util.hpp"                       // for used_in_assert
+#include "util/xmlutil.hpp"               // for xmlParse, xmlStr, xmlFormat
+#include "world.hpp"                      // for World, MapTile, Map, Ground
+
+template<typename X>
+static inline const xmlStr f(const X x) { return xmlFormat(x); }
+template<typename X>
+static inline const xmlStr fx(const X x) { return xmlFormatHex(x); }
+template<typename X>
+static inline X p(const xmlpp::ustring& s) { return xmlParse<X>(s); }
 
 static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world);
 static void loadGlobals(xmlpp::TextReader& xmlReader, World& World,
@@ -138,8 +149,8 @@ World::save(const std::filesystem::path& filename) const {
   xmlTextWriterWriteComment(xmlWriter,
     (xmlStr)"This file is a lincity savegame.");
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"lc-game");
-    xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"ldsv-version", "%u",
-      LOADSAVE_VERSION_CURRENT);
+    xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"ldsv-version",
+      f<unsigned int>(LOADSAVE_VERSION_CURRENT));
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"globals");
       saveGlobals(xmlWriter, *this);
     xmlTextWriterEndElement(xmlWriter);
@@ -203,7 +214,7 @@ World::load(const std::filesystem::path& filename) {
   std::string versionStr = xmlReader.get_attribute("ldsv-version");
   if(versionStr.empty())
     throw std::runtime_error("failed to parse load/save version");
-  unsigned int ldsv_version = std::stoi(versionStr);
+  unsigned int ldsv_version = xmlParse<unsigned int>(versionStr);
   if(ldsv_version > LOADSAVE_VERSION_CURRENT)
     throw std::runtime_error("load/save version too new");
   else if(ldsv_version < LOADSAVE_VERSION_COMPAT)
@@ -248,151 +259,140 @@ World::load(const std::filesystem::path& filename) {
   return world;
 }
 
-void unexpectedXmlElement(xmlpp::TextReader& xmlReader) {
-  std::cerr << "warning: skipping unexpected element <"
-    << xmlReader.get_name() << ">" << std::endl;
-}
-
-void missingXmlElement(xmlpp::TextReader& xmlReader, const std::string& name) {
-  throw std::runtime_error((std::stringstream() <<
-    "missing XML element <" << name << "> in <" << xmlReader.get_name() << ">"
-  ).str());
-}
-
 static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
 
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"given_scene",                 "%s", world.given_scene.c_str());
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_time",                  "%d", world.total_time);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"people_pool",                 "%d", world.people_pool);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_money",                 "%d", world.total_money);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_level",                  "%d", world.tech_level);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"given_scene",                 f(world.given_scene));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_time",                  f(world.total_time));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"people_pool",                 f(world.people_pool));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_money",                 f(world.total_money));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech_level",                  f(world.tech_level));
 
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched",            "%d", world.rockets_launched);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_launched_success",    "%d", world.rockets_launched_success);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_survey_done",            "%d", world.coal_survey_done);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"game_end",                    "%d", world.gameEnd);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"rockets_launched",            f(world.rockets_launched));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"rockets_launched_success",    f(world.rockets_launched_success));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal_survey_done",            f(world.coal_survey_done));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"game_end",                    f(world.gameEnd));
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"money_rates");
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_rate",           "%d", world.money_rates.income_tax);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax_rate",             "%d", world.money_rates.coal_tax);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"dole_rate",                 "%d", world.money_rates.dole);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_cost_rate",       "%d", world.money_rates.transport_cost);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax_rate",            "%d", world.money_rates.goods_tax);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax_rate",           "%d", world.money_rates.export_tax);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_cost_rate",          "%d", world.money_rates.import_cost);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"income_tax_rate",           f(world.money_rates.income_tax));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal_tax_rate",             f(world.money_rates.coal_tax));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"dole_rate",                 f(world.money_rates.dole));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"transport_cost_rate",       f(world.money_rates.transport_cost));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"goods_tax_rate",            f(world.money_rates.goods_tax));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"export_tax_rate",           f(world.money_rates.export_tax));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"import_cost_rate",          f(world.money_rates.import_cost));
   xmlTextWriterEndElement(xmlWriter);
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"taxable");
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"labor",                     "%d", world.taxable.labor);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal",                      "%d", world.taxable.coal);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods",                     "%d", world.taxable.goods);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"trade_ex",                  "%d", world.taxable.trade_ex);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"labor",                     f(world.taxable.labor));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal",                      f(world.taxable.coal));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"goods",                     f(world.taxable.goods));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"trade_ex",                  f(world.taxable.trade_ex));
   xmlTextWriterEndElement(xmlWriter);
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"tradeRules");
     for(Commodity c = STUFF_INIT; c < STUFF_COUNT; c++) {
       const char * const &cname = commodityStandardName(c);
-      xmlTextWriterWriteFormatElement(xmlWriter,
-        (xmlStr)(std::string("import_")+cname+"_enable").c_str(), "%d",
-        world.tradeRule[c].take);
-      xmlTextWriterWriteFormatElement(xmlWriter,
-        (xmlStr)(std::string("export_")+cname+"_enable").c_str(), "%d",
-        world.tradeRule[c].give);
+      xmlTextWriterWriteElement(xmlWriter,
+        (xmlStr)(std::string("import_")+cname+"_enable").c_str(),
+        xmlFormat<int>(world.tradeRule[c].take));
+      xmlTextWriterWriteElement(xmlWriter,
+        (xmlStr)(std::string("export_")+cname+"_enable").c_str(),
+        xmlFormat<int>(world.tradeRule[c].give));
     }
   xmlTextWriterEndElement(xmlWriter);
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"stats");
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"highest_tech_level",        "%d", world.stats.highest_tech_level);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_pollution",           "%d", world.stats.total_pollution);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"highest_tech_level",        f(world.stats.highest_tech_level));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_pollution",           f(world.stats.total_pollution));
 
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"population");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"population_lm",           "%d", world.stats.population.population_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"population_mtd",          "%d", world.stats.population.population_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"housed_lm",               "%d", world.stats.population.housed_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"housed_mtd",              "%d", world.stats.population.housed_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"starving_lm",             "%d", world.stats.population.starving_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"starving_mtd",            "%d", world.stats.population.starving_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployed_lm",           "%d", world.stats.population.unemployed_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployed_mtd",          "%d", world.stats.population.unemployed_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"housing_lm",              "%d", world.stats.population.housing_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"housing_mtd",             "%d", world.stats.population.housing_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"births_lm",               "%d", world.stats.population.births_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"births_mtd",              "%d", world.stats.population.births_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"deaths_lm",               "%d", world.stats.population.deaths_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"deaths_mtd",              "%d", world.stats.population.deaths_m.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unnat_deaths_lm",         "%d", world.stats.population.unnat_deaths_m.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unnat_deaths_mtd",        "%d", world.stats.population.unnat_deaths_m.acc);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"population_lm",           f(world.stats.population.population_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"population_mtd",          f(world.stats.population.population_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"housed_lm",               f(world.stats.population.housed_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"housed_mtd",              f(world.stats.population.housed_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"starving_lm",             f(world.stats.population.starving_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"starving_mtd",            f(world.stats.population.starving_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployed_lm",           f(world.stats.population.unemployed_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployed_mtd",          f(world.stats.population.unemployed_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"housing_lm",              f(world.stats.population.housing_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"housing_mtd",             f(world.stats.population.housing_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"births_lm",               f(world.stats.population.births_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"births_mtd",              f(world.stats.population.births_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"deaths_lm",               f(world.stats.population.deaths_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"deaths_mtd",              f(world.stats.population.deaths_m.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unnat_deaths_lm",         f(world.stats.population.unnat_deaths_m.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unnat_deaths_mtd",        f(world.stats.population.unnat_deaths_m.acc));
 
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"evacuated_total",         "%d", world.stats.population.evacuated_t);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"births_total",            "%d", world.stats.population.births_t);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"pollution_deaths_total",  "%d", world.stats.population.pollution_deaths_t);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"starve_deaths_total",     "%d", world.stats.population.starve_deaths_t);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployed_days_total",   "%d", world.stats.population.unemployed_days_t);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"evacuated_total",         f(world.stats.population.evacuated_t));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"births_total",            f(world.stats.population.births_t));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"pollution_deaths_total",  f(world.stats.population.pollution_deaths_t));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"starve_deaths_total",     f(world.stats.population.starve_deaths_t));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployed_days_total",   f(world.stats.population.unemployed_days_t));
 
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployed_history",      "%f", world.stats.population.unemployed_history);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"pollution_deaths_history", "%f", world.stats.population.pollution_deaths_history);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"starve_deaths_history",   "%f", world.stats.population.starve_deaths_history);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployed_history",      f(world.stats.population.unemployed_history));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"pollution_deaths_history",f(world.stats.population.pollution_deaths_history));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"starve_deaths_history",   f(world.stats.population.starve_deaths_history));
 
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"max_pop_ever",            "%d", world.stats.population.max_pop_ever);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"max_pop_ever",            f(world.stats.population.max_pop_ever));
     xmlTextWriterEndElement(xmlWriter);
 
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"income");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_ly",           "%d", world.stats.income.income_tax.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"income_tax_ytd",          "%d", world.stats.income.income_tax.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax_ly",             "%d", world.stats.income.coal_tax.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal_tax_ytd",            "%d", world.stats.income.coal_tax.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax_ly",            "%d", world.stats.income.goods_tax.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"goods_tax_ytd",           "%d", world.stats.income.goods_tax.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax_ly",           "%d", world.stats.income.export_tax.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"export_tax_ytd",          "%d", world.stats.income.export_tax.acc);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"income_tax_ly",           f(world.stats.income.income_tax.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"income_tax_ytd",          f(world.stats.income.income_tax.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal_tax_ly",             f(world.stats.income.coal_tax.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal_tax_ytd",            f(world.stats.income.coal_tax.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"goods_tax_ly",            f(world.stats.income.goods_tax.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"goods_tax_ytd",           f(world.stats.income.goods_tax.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"export_tax_ly",           f(world.stats.income.export_tax.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"export_tax_ytd",          f(world.stats.income.export_tax.acc));
     xmlTextWriterEndElement(xmlWriter);
 
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"expenses");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"construction_ly",         "%d", world.stats.expenses.construction.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"construction_ytd",        "%d", world.stats.expenses.construction.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coalSurvey_ly",           "%d", world.stats.expenses.coalSurvey.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coalSurvey_ytd",          "%d", world.stats.expenses.coalSurvey.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_ly",               "%d", world.stats.expenses.import.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"import_ytd",              "%d", world.stats.expenses.import.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployment_ly",         "%d", world.stats.expenses.unemployment.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"unemployment_ytd",        "%d", world.stats.expenses.unemployment.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_ly",            "%d", world.stats.expenses.transport.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"transport_ytd",           "%d", world.stats.expenses.transport.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"windmill_ly",             "%d", world.stats.expenses.windmill.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"windmill_ytd",            "%d", world.stats.expenses.windmill.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"university_ly",      "%d", world.stats.expenses.university.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"university_ytd",     "%d", world.stats.expenses.university.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"recycle_ly",              "%d", world.stats.expenses.recycle.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"recycle_ytd",             "%d", world.stats.expenses.recycle.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"deaths_ly",               "%d", world.stats.expenses.deaths.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"deaths_ytd",              "%d", world.stats.expenses.deaths.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"health_ly",               "%d", world.stats.expenses.health.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"health_ytd",              "%d", world.stats.expenses.health.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_ly",              "%d", world.stats.expenses.rockets.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"rockets_ytd",             "%d", world.stats.expenses.rockets.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"school_ly",               "%d", world.stats.expenses.school.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"school_ytd",              "%d", world.stats.expenses.school.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"firestation_ly",          "%d", world.stats.expenses.firestation.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"firestation_ytd",         "%d", world.stats.expenses.firestation.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"cricket_ly",              "%d", world.stats.expenses.cricket.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"cricket_ytd",             "%d", world.stats.expenses.cricket.acc);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"interest_ly",             "%d", world.stats.expenses.interest.stat);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"interest_ytd",            "%d", world.stats.expenses.interest.acc);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"construction_ly",         f(world.stats.expenses.construction.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"construction_ytd",        f(world.stats.expenses.construction.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coalSurvey_ly",           f(world.stats.expenses.coalSurvey.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coalSurvey_ytd",          f(world.stats.expenses.coalSurvey.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"import_ly",               f(world.stats.expenses.import.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"import_ytd",              f(world.stats.expenses.import.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployment_ly",         f(world.stats.expenses.unemployment.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"unemployment_ytd",        f(world.stats.expenses.unemployment.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"transport_ly",            f(world.stats.expenses.transport.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"transport_ytd",           f(world.stats.expenses.transport.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"windmill_ly",             f(world.stats.expenses.windmill.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"windmill_ytd",            f(world.stats.expenses.windmill.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"university_ly",           f(world.stats.expenses.university.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"university_ytd",          f(world.stats.expenses.university.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"recycle_ly",              f(world.stats.expenses.recycle.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"recycle_ytd",             f(world.stats.expenses.recycle.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"deaths_ly",               f(world.stats.expenses.deaths.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"deaths_ytd",              f(world.stats.expenses.deaths.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"health_ly",               f(world.stats.expenses.health.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"health_ytd",              f(world.stats.expenses.health.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"rockets_ly",              f(world.stats.expenses.rockets.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"rockets_ytd",             f(world.stats.expenses.rockets.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"school_ly",               f(world.stats.expenses.school.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"school_ytd",              f(world.stats.expenses.school.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"firestation_ly",          f(world.stats.expenses.firestation.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"firestation_ytd",         f(world.stats.expenses.firestation.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"cricket_ly",              f(world.stats.expenses.cricket.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"cricket_ytd",             f(world.stats.expenses.cricket.acc));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"interest_ly",             f(world.stats.expenses.interest.stat));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"interest_ytd",            f(world.stats.expenses.interest.acc));
     xmlTextWriterEndElement(xmlWriter);
 
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"sustainability");
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"mining_flag",             "%d", world.stats.sustainability.mining_flag);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"mining_years",            "%d", world.stats.sustainability.mining_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"trade_flag",              "%d", world.stats.sustainability.trade_flag);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"trade_years",             "%d", world.stats.sustainability.trade_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"old_money",               "%d", world.stats.sustainability.old_money);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"money_years",             "%d", world.stats.sustainability.money_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"old_population",          "%d", world.stats.sustainability.old_population);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"population_years",        "%d", world.stats.sustainability.population_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"old_tech",                "%d", world.stats.sustainability.old_tech);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech_years",              "%d", world.stats.sustainability.tech_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"fire_years",              "%d", world.stats.sustainability.fire_years);
-      xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"sustainable",             "%d", world.stats.sustainability.sustainable);
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"mining_flag",             f(world.stats.sustainability.mining_flag));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"mining_years",            f(world.stats.sustainability.mining_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"trade_flag",              f(world.stats.sustainability.trade_flag));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"trade_years",             f(world.stats.sustainability.trade_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"old_money",               f(world.stats.sustainability.old_money));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"money_years",             f(world.stats.sustainability.money_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"old_population",          f(world.stats.sustainability.old_population));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"population_years",        f(world.stats.sustainability.population_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"old_tech",                f(world.stats.sustainability.old_tech));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech_years",              f(world.stats.sustainability.tech_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"fire_years",              f(world.stats.sustainability.fire_years));
+      xmlTextWriterWriteElement(xmlWriter, (xmlStr)"sustainable",             f(world.stats.sustainability.sustainable));
     xmlTextWriterEndElement(xmlWriter);
 
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"history");
@@ -412,7 +412,7 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
         xmlTextWriterStartElement(xmlWriter, history.second);
           writeArray(xmlWriter, history.first,
             [](xmlTextWriterPtr xmlWriter, const int& el) {
-              xmlTextWriterWriteFormatString(xmlWriter, "%d", el);
+              xmlTextWriterWriteString(xmlWriter, f(el));
             }
           );
         xmlTextWriterEndElement(xmlWriter);
@@ -434,10 +434,10 @@ static void saveGlobals(xmlTextWriterPtr xmlWriter, const World& world) {
         xmlTextWriterStartElement(xmlWriter, history.second);
           writeArray(xmlWriter, history.first,
             [](xmlTextWriterPtr xmlWriter, const Stats::Inventory<>& el) {
-              xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"amount",
-                "%d", el.amount);
-              xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"capacity",
-                "%d", el.capacity);
+              xmlTextWriterWriteElement(xmlWriter, (xmlStr)"amount",
+                f(el.amount));
+              xmlTextWriterWriteElement(xmlWriter, (xmlStr)"capacity",
+                f(el.capacity));
             }
           );
         xmlTextWriterEndElement(xmlWriter);
@@ -466,16 +466,16 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
     }
 
     const std::string xml_tag = xmlReader.get_name();
-    if(xml_tag == "given_scene")                      world.given_scene = xmlReader.read_inner_xml();
-    else if(xml_tag == "total_time")                  world.total_time = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "people_pool")                 world.people_pool = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "total_money")                 world.stats.total_money = world.total_money = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "tech_level")                  world.stats.tech_level = world.tech_level = std::stoi(xmlReader.read_inner_xml());
+    if(xml_tag == "given_scene")                      world.given_scene = p<std::string>(xmlReader.read_inner_xml());
+    else if(xml_tag == "total_time")                  world.total_time = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "people_pool")                 world.people_pool = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "total_money")                 world.stats.total_money = world.total_money = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "tech_level")                  world.stats.tech_level = world.tech_level = p<int>(xmlReader.read_inner_xml());
 
-    else if(xml_tag == "rockets_launched")            world.rockets_launched = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "coal_survey_done")            world.coal_survey_done = std::stoi(xmlReader.read_inner_xml());
-    else if(xml_tag == "game_end")                    world.gameEnd = std::stoi(xmlReader.read_inner_xml());
+    else if(xml_tag == "rockets_launched")            world.rockets_launched = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "coal_survey_done")            world.coal_survey_done = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "game_end")                    world.gameEnd = p<int>(xmlReader.read_inner_xml());
 
     else if(xml_tag == "money_rates") {
       if(!xmlReader.is_empty_element() && xmlReader.read())
@@ -485,13 +485,13 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
           continue;
         }
         const std::string xml_tag = xmlReader.get_name();
-        if(xml_tag == "income_tax_rate")          world.money_rates.income_tax = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "coal_tax_rate")       world.money_rates.coal_tax = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "dole_rate")           world.money_rates.dole = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "transport_cost_rate") world.money_rates.transport_cost = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "goods_tax_rate")      world.money_rates.goods_tax = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "export_tax_rate")     world.money_rates.export_tax = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "import_cost_rate")    world.money_rates.import_cost = std::stoi(xmlReader.read_inner_xml());
+        if(xml_tag == "income_tax_rate")          world.money_rates.income_tax = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "coal_tax_rate")       world.money_rates.coal_tax = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "dole_rate")           world.money_rates.dole = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "transport_cost_rate") world.money_rates.transport_cost = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "goods_tax_rate")      world.money_rates.goods_tax = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "export_tax_rate")     world.money_rates.export_tax = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "import_cost_rate")    world.money_rates.import_cost = p<int>(xmlReader.read_inner_xml());
         else
           unexpectedXmlElement(xmlReader);
         xmlReader.next();
@@ -506,10 +506,10 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
           continue;
         }
         const std::string xml_tag = xmlReader.get_name();
-        if(xml_tag == "labor")         world.taxable.labor = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "coal")     world.taxable.coal = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "goods")    world.taxable.goods = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "trade_ex") world.taxable.trade_ex = std::stoi(xmlReader.read_inner_xml());
+        if(xml_tag == "labor")         world.taxable.labor = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "coal")     world.taxable.coal = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "goods")    world.taxable.goods = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "trade_ex") world.taxable.trade_ex = p<int>(xmlReader.read_inner_xml());
         else
           unexpectedXmlElement(xmlReader);
         xmlReader.next();
@@ -533,7 +533,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
         ) {
           CommodityRule& rule = world.tradeRule[stuff];
           bool& ixenable = match[1] == "import" ? rule.take : rule.give;
-          ixenable = std::stoi(xmlReader.read_inner_xml());
+          ixenable = p<int>(xmlReader.read_inner_xml());
         }
         else
           unexpectedXmlElement(xmlReader);
@@ -549,8 +549,8 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
           continue;
         }
         const std::string xml_tag = xmlReader.get_name();
-        if(xml_tag == "highest_tech_level")   world.stats.highest_tech_level = std::stoi(xmlReader.read_inner_xml());
-        else if(xml_tag == "total_pollution") world.stats.total_pollution = std::stoi(xmlReader.read_inner_xml());
+        if(xml_tag == "highest_tech_level")   world.stats.highest_tech_level = p<int>(xmlReader.read_inner_xml());
+        else if(xml_tag == "total_pollution") world.stats.total_pollution = p<int>(xmlReader.read_inner_xml());
 
         else if(xml_tag == "population") {
           if(!xmlReader.is_empty_element() && xmlReader.read())
@@ -560,34 +560,34 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               continue;
             }
             const std::string xml_tag = xmlReader.get_name();
-            if(xml_tag == "population_lm")         world.stats.population.population_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "population_mtd")   world.stats.population.population_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "housed_lm")        world.stats.population.housed_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "housed_mtd")       world.stats.population.housed_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "starving_lm")      world.stats.population.starving_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "starving_mtd")     world.stats.population.starving_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unemployed_lm")    world.stats.population.unemployed_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unemployed_mtd")   world.stats.population.unemployed_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "housing_lm")       world.stats.population.housing_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "housing_mtd")      world.stats.population.housing_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "births_lm")        world.stats.population.births_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "births_mtd")       world.stats.population.births_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "deaths_lm")        world.stats.population.deaths_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "deaths_mtd")       world.stats.population.deaths_m.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unnat_deaths_lm")  world.stats.population.unnat_deaths_m.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unnat_deaths_mtd") world.stats.population.unnat_deaths_m.acc = std::stoi(xmlReader.read_inner_xml());
+            if(xml_tag == "population_lm")         world.stats.population.population_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "population_mtd")   world.stats.population.population_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "housed_lm")        world.stats.population.housed_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "housed_mtd")       world.stats.population.housed_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "starving_lm")      world.stats.population.starving_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "starving_mtd")     world.stats.population.starving_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployed_lm")    world.stats.population.unemployed_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployed_mtd")   world.stats.population.unemployed_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "housing_lm")       world.stats.population.housing_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "housing_mtd")      world.stats.population.housing_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "births_lm")        world.stats.population.births_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "births_mtd")       world.stats.population.births_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "deaths_lm")        world.stats.population.deaths_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "deaths_mtd")       world.stats.population.deaths_m.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unnat_deaths_lm")  world.stats.population.unnat_deaths_m.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unnat_deaths_mtd") world.stats.population.unnat_deaths_m.acc = p<int>(xmlReader.read_inner_xml());
 
-            else if(xml_tag == "evacuated_total")  world.stats.population.evacuated_t = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "births_total")     world.stats.population.births_t = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "pollution_deaths_total") world.stats.population.pollution_deaths_t = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "starve_deaths_total") world.stats.population.starve_deaths_t = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unemployed_days_total") world.stats.population.unemployed_days_t = std::stoi(xmlReader.read_inner_xml());
+            else if(xml_tag == "evacuated_total")  world.stats.population.evacuated_t = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "births_total")     world.stats.population.births_t = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "pollution_deaths_total") world.stats.population.pollution_deaths_t = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "starve_deaths_total") world.stats.population.starve_deaths_t = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployed_days_total") world.stats.population.unemployed_days_t = p<int>(xmlReader.read_inner_xml());
 
-            else if(xml_tag == "unemployed_history") world.stats.population.unemployed_history = std::stof(xmlReader.read_inner_xml());
-            else if(xml_tag == "pollution_deaths_history") world.stats.population.pollution_deaths_history = std::stof(xmlReader.read_inner_xml());
-            else if(xml_tag == "starve_deaths_history") world.stats.population.starve_deaths_history = std::stof(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployed_history") world.stats.population.unemployed_history = p<float>(xmlReader.read_inner_xml());
+            else if(xml_tag == "pollution_deaths_history") world.stats.population.pollution_deaths_history = p<float>(xmlReader.read_inner_xml());
+            else if(xml_tag == "starve_deaths_history") world.stats.population.starve_deaths_history = p<float>(xmlReader.read_inner_xml());
 
-            else if(xml_tag == "max_pop_ever")     world.stats.population.max_pop_ever = std::stoi(xmlReader.read_inner_xml());
+            else if(xml_tag == "max_pop_ever")     world.stats.population.max_pop_ever = p<int>(xmlReader.read_inner_xml());
 
             else
               unexpectedXmlElement(xmlReader);
@@ -603,14 +603,14 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               continue;
             }
             const std::string xml_tag = xmlReader.get_name();
-            if(xml_tag == "income_tax_ly")       world.stats.income.income_tax.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "income_tax_ytd") world.stats.income.income_tax.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "coal_tax_ly")    world.stats.income.coal_tax.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "coal_tax_ytd")   world.stats.income.coal_tax.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "goods_tax_ly")   world.stats.income.goods_tax.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "goods_tax_ytd")  world.stats.income.goods_tax.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "export_tax_ly")  world.stats.income.export_tax.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "export_tax_ytd") world.stats.income.export_tax.acc = std::stoi(xmlReader.read_inner_xml());
+            if(xml_tag == "income_tax_ly")       world.stats.income.income_tax.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "income_tax_ytd") world.stats.income.income_tax.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "coal_tax_ly")    world.stats.income.coal_tax.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "coal_tax_ytd")   world.stats.income.coal_tax.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "goods_tax_ly")   world.stats.income.goods_tax.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "goods_tax_ytd")  world.stats.income.goods_tax.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "export_tax_ly")  world.stats.income.export_tax.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "export_tax_ytd") world.stats.income.export_tax.acc = p<int>(xmlReader.read_inner_xml());
             else
               unexpectedXmlElement(xmlReader);
             xmlReader.next();
@@ -625,36 +625,36 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               continue;
             }
             const std::string xml_tag = xmlReader.get_name();
-            if(xml_tag == "construction_ly")       world.stats.expenses.construction.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "construction_ytd") world.stats.expenses.construction.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "coalSurvey_ly")    world.stats.expenses.coalSurvey.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "coalSurvey_ytd")   world.stats.expenses.coalSurvey.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "import_ly")        world.stats.expenses.import.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "import_ytd")       world.stats.expenses.import.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unemployment_ly")  world.stats.expenses.unemployment.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "unemployment_ytd") world.stats.expenses.unemployment.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "transport_ly")     world.stats.expenses.transport.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "transport_ytd")    world.stats.expenses.transport.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "windmill_ly")      world.stats.expenses.windmill.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "windmill_ytd")     world.stats.expenses.windmill.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "university_ly")    world.stats.expenses.university.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "university_ytd")   world.stats.expenses.university.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "recycle_ly")       world.stats.expenses.recycle.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "recycle_ytd")      world.stats.expenses.recycle.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "deaths_ly")        world.stats.expenses.deaths.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "deaths_ytd")       world.stats.expenses.deaths.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "health_ly")        world.stats.expenses.health.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "health_ytd")       world.stats.expenses.health.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "rockets_ly")       world.stats.expenses.rockets.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "rockets_ytd")      world.stats.expenses.rockets.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "school_ly")        world.stats.expenses.school.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "school_ytd")       world.stats.expenses.school.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "firestation_ly")   world.stats.expenses.firestation.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "firestation_ytd")  world.stats.expenses.firestation.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "cricket_ly")       world.stats.expenses.cricket.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "cricket_ytd")      world.stats.expenses.cricket.acc = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "interest_ly")      world.stats.expenses.interest.stat = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "interest_ytd")     world.stats.expenses.interest.acc = std::stoi(xmlReader.read_inner_xml());
+            if(xml_tag == "construction_ly")       world.stats.expenses.construction.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "construction_ytd") world.stats.expenses.construction.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "coalSurvey_ly")    world.stats.expenses.coalSurvey.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "coalSurvey_ytd")   world.stats.expenses.coalSurvey.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "import_ly")        world.stats.expenses.import.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "import_ytd")       world.stats.expenses.import.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployment_ly")  world.stats.expenses.unemployment.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "unemployment_ytd") world.stats.expenses.unemployment.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "transport_ly")     world.stats.expenses.transport.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "transport_ytd")    world.stats.expenses.transport.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "windmill_ly")      world.stats.expenses.windmill.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "windmill_ytd")     world.stats.expenses.windmill.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "university_ly")    world.stats.expenses.university.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "university_ytd")   world.stats.expenses.university.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "recycle_ly")       world.stats.expenses.recycle.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "recycle_ytd")      world.stats.expenses.recycle.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "deaths_ly")        world.stats.expenses.deaths.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "deaths_ytd")       world.stats.expenses.deaths.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "health_ly")        world.stats.expenses.health.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "health_ytd")       world.stats.expenses.health.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "rockets_ly")       world.stats.expenses.rockets.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "rockets_ytd")      world.stats.expenses.rockets.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "school_ly")        world.stats.expenses.school.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "school_ytd")       world.stats.expenses.school.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "firestation_ly")   world.stats.expenses.firestation.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "firestation_ytd")  world.stats.expenses.firestation.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "cricket_ly")       world.stats.expenses.cricket.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "cricket_ytd")      world.stats.expenses.cricket.acc = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "interest_ly")      world.stats.expenses.interest.stat = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "interest_ytd")     world.stats.expenses.interest.acc = p<int>(xmlReader.read_inner_xml());
             else
               unexpectedXmlElement(xmlReader);
             xmlReader.next();
@@ -669,18 +669,18 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               continue;
             }
             const std::string xml_tag = xmlReader.get_name();
-            if(xml_tag == "mining_flag")           world.stats.sustainability.mining_flag = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "mining_years")     world.stats.sustainability.mining_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "trade_flag")       world.stats.sustainability.trade_flag = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "trade_years")      world.stats.sustainability.trade_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "old_money")        world.stats.sustainability.old_money = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "money_years")      world.stats.sustainability.money_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "old_population")   world.stats.sustainability.old_population = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "population_years") world.stats.sustainability.population_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "old_tech")         world.stats.sustainability.old_tech = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "tech_years")       world.stats.sustainability.tech_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "fire_years")       world.stats.sustainability.fire_years = std::stoi(xmlReader.read_inner_xml());
-            else if(xml_tag == "sustainable")      world.stats.sustainability.sustainable = std::stoi(xmlReader.read_inner_xml());
+            if(xml_tag == "mining_flag")           world.stats.sustainability.mining_flag = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "mining_years")     world.stats.sustainability.mining_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "trade_flag")       world.stats.sustainability.trade_flag = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "trade_years")      world.stats.sustainability.trade_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "old_money")        world.stats.sustainability.old_money = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "money_years")      world.stats.sustainability.money_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "old_population")   world.stats.sustainability.old_population = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "population_years") world.stats.sustainability.population_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "old_tech")         world.stats.sustainability.old_tech = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "tech_years")       world.stats.sustainability.tech_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "fire_years")       world.stats.sustainability.fire_years = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "sustainable")      world.stats.sustainability.sustainable = p<int>(xmlReader.read_inner_xml());
             else
               unexpectedXmlElement(xmlReader);
             xmlReader.next();
@@ -713,7 +713,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               std::deque<int>& history = historyIt->second;
               readArray(xmlReader, history,
                 [](xmlpp::TextReader& xmlReader, int& el) {
-                  el = std::stoi(xmlReader.read_inner_xml());
+                  el = p<int>(xmlReader.read_inner_xml());
                 }
               );
             }
@@ -734,9 +734,9 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
                     }
 
                     if(xmlReader.get_name() == "amount")
-                      el.amount = std::stoi(xmlReader.read_inner_xml());
+                      el.amount = p<int>(xmlReader.read_inner_xml());
                     else if(xmlReader.get_name() == "capacity")
-                      el.capacity = std::stoi(xmlReader.read_inner_xml());
+                      el.capacity = p<int>(xmlReader.read_inner_xml());
                     else
                       unexpectedXmlElement(xmlReader);
                     xmlReader.next();
@@ -798,109 +798,109 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
     if(xml_tag == "given_scene")                      world.given_scene = xml_val;
     else if(xml_tag == "global_aridity")              ; // removed
     else if(xml_tag == "global_mountainity")          ; // removed
-    else if(xml_tag == "world_side_len")              world.map = Map(std::stoi(xml_val));
+    else if(xml_tag == "world_side_len")              world.map = Map(p<int>(xml_val));
     else if(xml_tag == "world_id")                    ; // removed
     else if(xml_tag == "old_setup_ground")            ; // removed
     else if(xml_tag == "climate")                     ; // removed
 
-    else if(xml_tag == "main_screen_originx")         world.map.recentPoint.x = std::stoi(xml_val);
-    else if(xml_tag == "main_screen_originy")         world.map.recentPoint.y = std::stoi(xml_val);
-    else if(xml_tag == "total_time")                  world.total_time = std::stoi(xml_val);
+    else if(xml_tag == "main_screen_originx")         world.map.recentPoint.x = p<int>(xml_val);
+    else if(xml_tag == "main_screen_originy")         world.map.recentPoint.y = p<int>(xml_val);
+    else if(xml_tag == "total_time")                  world.total_time = p<int>(xml_val);
 
-    else if(xml_tag == "people_pool")                 world.people_pool = std::stoi(xml_val);
-    else if(xml_tag == "total_money")                 world.stats.total_money = world.total_money = std::stoi(xml_val);
-    else if(xml_tag == "ly_income_tax")               world.stats.income.income_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "income_tax")                  world.taxable.labor = std::stoi(xml_val);
-    else if(xml_tag == "income_tax_rate")             world.money_rates.income_tax = std::stoi(xml_val);
+    else if(xml_tag == "people_pool")                 world.people_pool = p<int>(xml_val);
+    else if(xml_tag == "total_money")                 world.stats.total_money = world.total_money = p<int>(xml_val);
+    else if(xml_tag == "ly_income_tax")               world.stats.income.income_tax.stat = p<int>(xml_val);
+    else if(xml_tag == "income_tax")                  world.taxable.labor = p<int>(xml_val);
+    else if(xml_tag == "income_tax_rate")             world.money_rates.income_tax = p<int>(xml_val);
 
-    else if(xml_tag == "ly_interest")                 world.stats.expenses.interest.stat = std::stoi(xml_val);
-    else if(xml_tag == "ly_coal_tax")                 world.stats.income.coal_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "coal_tax")                    world.taxable.coal = std::stoi(xml_val);
-    else if(xml_tag == "coal_tax_rate")               world.money_rates.coal_tax = std::stoi(xml_val);
+    else if(xml_tag == "ly_interest")                 world.stats.expenses.interest.stat = p<int>(xml_val);
+    else if(xml_tag == "ly_coal_tax")                 world.stats.income.coal_tax.stat = p<int>(xml_val);
+    else if(xml_tag == "coal_tax")                    world.taxable.coal = p<int>(xml_val);
+    else if(xml_tag == "coal_tax_rate")               world.money_rates.coal_tax = p<int>(xml_val);
 
-    else if(xml_tag == "ly_unemployment_cost")        world.stats.expenses.unemployment.stat = std::stoi(xml_val);
-    else if(xml_tag == "unemployment_cost")           uncounted_unemployment = std::stoi(xml_val);
-    else if(xml_tag == "dole_rate")                   world.money_rates.dole = std::stoi(xml_val);
+    else if(xml_tag == "ly_unemployment_cost")        world.stats.expenses.unemployment.stat = p<int>(xml_val);
+    else if(xml_tag == "unemployment_cost")           uncounted_unemployment = p<int>(xml_val);
+    else if(xml_tag == "dole_rate")                   world.money_rates.dole = p<int>(xml_val);
 
-    else if(xml_tag == "ly_transport_cost")           world.stats.expenses.transport.stat = std::stoi(xml_val);
-    else if(xml_tag == "transport_cost")              uncounted_transport = std::stoi(xml_val);
-    else if(xml_tag == "transport_cost_rate")         world.money_rates.transport_cost = std::stoi(xml_val);
-    else if(xml_tag == "ly_goods_tax")                world.stats.income.goods_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "goods_tax")                   world.taxable.goods = std::stoi(xml_val);
-    else if(xml_tag == "goods_tax_rate")              world.money_rates.goods_tax = std::stoi(xml_val);
+    else if(xml_tag == "ly_transport_cost")           world.stats.expenses.transport.stat = p<int>(xml_val);
+    else if(xml_tag == "transport_cost")              uncounted_transport = p<int>(xml_val);
+    else if(xml_tag == "transport_cost_rate")         world.money_rates.transport_cost = p<int>(xml_val);
+    else if(xml_tag == "ly_goods_tax")                world.stats.income.goods_tax.stat = p<int>(xml_val);
+    else if(xml_tag == "goods_tax")                   world.taxable.goods = p<int>(xml_val);
+    else if(xml_tag == "goods_tax_rate")              world.money_rates.goods_tax = p<int>(xml_val);
 
-    else if(xml_tag == "ly_export_tax")               world.stats.income.export_tax.stat = std::stoi(xml_val);
-    else if(xml_tag == "export_tax")                  world.taxable.trade_ex = std::stoi(xml_val);
-    else if(xml_tag == "export_tax_rate")             world.money_rates.export_tax = std::stoi(xml_val);
-    else if(xml_tag == "ly_import_cost")              world.stats.expenses.import.stat = std::stoi(xml_val);
-    else if(xml_tag == "import_cost")                 uncounted_import = std::stoi(xml_val);
-    else if(xml_tag == "import_cost_rate")            world.money_rates.import_cost = std::stoi(xml_val);
+    else if(xml_tag == "ly_export_tax")               world.stats.income.export_tax.stat = p<int>(xml_val);
+    else if(xml_tag == "export_tax")                  world.taxable.trade_ex = p<int>(xml_val);
+    else if(xml_tag == "export_tax_rate")             world.money_rates.export_tax = p<int>(xml_val);
+    else if(xml_tag == "ly_import_cost")              world.stats.expenses.import.stat = p<int>(xml_val);
+    else if(xml_tag == "import_cost")                 uncounted_import = p<int>(xml_val);
+    else if(xml_tag == "import_cost_rate")            world.money_rates.import_cost = p<int>(xml_val);
 
-    else if(xml_tag == "ly_university_cost")          world.stats.expenses.university.stat = std::stoi(xml_val);
-    else if(xml_tag == "university_cost")             uncounted_university = std::stoi(xml_val);
-    else if(xml_tag == "ly_recycle_cost")             world.stats.expenses.recycle.stat = std::stoi(xml_val);
-    else if(xml_tag == "recycle_cost")                uncounted_recycle = std::stoi(xml_val);
-    else if(xml_tag == "ly_school_cost")              world.stats.expenses.school.stat = std::stoi(xml_val);
-    else if(xml_tag == "school_cost")                 uncounted_school = std::stoi(xml_val);
+    else if(xml_tag == "ly_university_cost")          world.stats.expenses.university.stat = p<int>(xml_val);
+    else if(xml_tag == "university_cost")             uncounted_university = p<int>(xml_val);
+    else if(xml_tag == "ly_recycle_cost")             world.stats.expenses.recycle.stat = p<int>(xml_val);
+    else if(xml_tag == "recycle_cost")                uncounted_recycle = p<int>(xml_val);
+    else if(xml_tag == "ly_school_cost")              world.stats.expenses.school.stat = p<int>(xml_val);
+    else if(xml_tag == "school_cost")                 uncounted_school = p<int>(xml_val);
 
-    else if(xml_tag == "ly_health_cost")              world.stats.expenses.health.stat = std::stoi(xml_val);
-    else if(xml_tag == "health_cost")                 uncounted_health = std::stoi(xml_val);
-    else if(xml_tag == "ly_deaths_cost")              world.stats.expenses.deaths.stat = std::stoi(xml_val);
-    else if(xml_tag == "deaths_cost")                 uncounted_deaths = std::stoi(xml_val);
-    else if(xml_tag == "ly_rocket_pad_cost")          world.stats.expenses.rockets.stat = std::stoi(xml_val);
-    else if(xml_tag == "rocket_pad_cost")             uncounted_rockets = std::stoi(xml_val);
+    else if(xml_tag == "ly_health_cost")              world.stats.expenses.health.stat = p<int>(xml_val);
+    else if(xml_tag == "health_cost")                 uncounted_health = p<int>(xml_val);
+    else if(xml_tag == "ly_deaths_cost")              world.stats.expenses.deaths.stat = p<int>(xml_val);
+    else if(xml_tag == "deaths_cost")                 uncounted_deaths = p<int>(xml_val);
+    else if(xml_tag == "ly_rocket_pad_cost")          world.stats.expenses.rockets.stat = p<int>(xml_val);
+    else if(xml_tag == "rocket_pad_cost")             uncounted_rockets = p<int>(xml_val);
 
-    else if(xml_tag == "ly_windmill_cost")            world.stats.expenses.windmill.stat = std::stoi(xml_val);
-    else if(xml_tag == "windmill_cost")               uncounted_windmill = std::stoi(xml_val);
-    else if(xml_tag == "ly_fire_cost")                world.stats.expenses.firestation.stat = std::stoi(xml_val);
-    else if(xml_tag == "fire_cost")                   uncounted_firestation = std::stoi(xml_val);
-    else if(xml_tag == "ly_cricket_cost")             world.stats.expenses.cricket.stat = std::stoi(xml_val);
-    else if(xml_tag == "cricket_cost")                uncounted_cricket = std::stoi(xml_val);
+    else if(xml_tag == "ly_windmill_cost")            world.stats.expenses.windmill.stat = p<int>(xml_val);
+    else if(xml_tag == "windmill_cost")               uncounted_windmill = p<int>(xml_val);
+    else if(xml_tag == "ly_fire_cost")                world.stats.expenses.firestation.stat = p<int>(xml_val);
+    else if(xml_tag == "fire_cost")                   uncounted_firestation = p<int>(xml_val);
+    else if(xml_tag == "ly_cricket_cost")             world.stats.expenses.cricket.stat = p<int>(xml_val);
+    else if(xml_tag == "cricket_cost")                uncounted_cricket = p<int>(xml_val);
 
-    else if(xml_tag == "tech_level")                  world.stats.tech_level = world.tech_level = std::stoi(xml_val);
-    else if(xml_tag == "highest_tech_level")          world.stats.highest_tech_level = std::stoi(xml_val);
-    else if(xml_tag == "tpopulation")                 world.stats.population.housed_m.acc = std::stoi(xml_val);
-    else if(xml_tag == "thousing")                    world.stats.population.housing_m.acc = std::stoi(xml_val);
-    else if(xml_tag == "tstarving_population")        world.stats.population.starving_m.acc = std::stoi(xml_val);
-    else if(xml_tag == "tunemployed_population")      world.stats.population.unemployed_m.acc = std::stoi(xml_val);
+    else if(xml_tag == "tech_level")                  world.stats.tech_level = world.tech_level = p<int>(xml_val);
+    else if(xml_tag == "highest_tech_level")          world.stats.highest_tech_level = p<int>(xml_val);
+    else if(xml_tag == "tpopulation")                 world.stats.population.housed_m.acc = p<int>(xml_val);
+    else if(xml_tag == "thousing")                    world.stats.population.housing_m.acc = p<int>(xml_val);
+    else if(xml_tag == "tstarving_population")        world.stats.population.starving_m.acc = p<int>(xml_val);
+    else if(xml_tag == "tunemployed_population")      world.stats.population.unemployed_m.acc = p<int>(xml_val);
 
-    else if(xml_tag == "total_pollution")             world.stats.total_pollution = std::stoi(xml_val);
-    else if(xml_tag == "rockets_launched")            world.rockets_launched = std::stoi(xml_val);
-    else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = std::stoi(xml_val);
+    else if(xml_tag == "total_pollution")             world.stats.total_pollution = p<int>(xml_val);
+    else if(xml_tag == "rockets_launched")            world.rockets_launched = p<int>(xml_val);
+    else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = p<int>(xml_val);
 
-    else if(xml_tag == "coal_survey_done")            world.coal_survey_done = std::stoi(xml_val);
+    else if(xml_tag == "coal_survey_done")            world.coal_survey_done = p<int>(xml_val);
     else if(xml_tag == "cheat_flag")                  ;
-    else if(xml_tag == "total_pollution_deaths")      world.stats.population.pollution_deaths_t = std::stoi(xml_val);
-    else if(xml_tag == "pollution_deaths_history")    world.stats.population.pollution_deaths_history = std::stof(xml_val);
-    else if(xml_tag == "total_starve_deaths")         world.stats.population.starve_deaths_t = std::stoi(xml_val);
-    else if(xml_tag == "starve_deaths_history")       world.stats.population.starve_deaths_history = std::stof(xml_val);
+    else if(xml_tag == "total_pollution_deaths")      world.stats.population.pollution_deaths_t = p<int>(xml_val);
+    else if(xml_tag == "pollution_deaths_history")    world.stats.population.pollution_deaths_history = p<float>(xml_val);
+    else if(xml_tag == "total_starve_deaths")         world.stats.population.starve_deaths_t = p<int>(xml_val);
+    else if(xml_tag == "starve_deaths_history")       world.stats.population.starve_deaths_history = p<float>(xml_val);
 
-    else if(xml_tag == "total_unemployed_days")       world.stats.population.unemployed_days_t += std::stoi(xml_val);
-    else if(xml_tag == "total_unemployed_years")      world.stats.population.unemployed_days_t += std::stoi(xml_val) * NUMOF_DAYS_IN_YEAR; // deprecated
-    else if(xml_tag == "unemployed_history")          world.stats.population.unemployed_history = std::stof(xml_val);
-    else if(xml_tag == "max_pop_ever")                world.stats.population.max_pop_ever = std::stoi(xml_val);
-    else if(xml_tag == "total_evacuated")             world.stats.population.evacuated_t = std::stoi(xml_val);
-    else if(xml_tag == "total_births")                world.stats.population.births_t = std::stoi(xml_val);
+    else if(xml_tag == "total_unemployed_days")       world.stats.population.unemployed_days_t += p<int>(xml_val);
+    else if(xml_tag == "total_unemployed_years")      world.stats.population.unemployed_days_t += p<int>(xml_val) * NUMOF_DAYS_IN_YEAR; // deprecated
+    else if(xml_tag == "unemployed_history")          world.stats.population.unemployed_history = p<float>(xml_val);
+    else if(xml_tag == "max_pop_ever")                world.stats.population.max_pop_ever = p<int>(xml_val);
+    else if(xml_tag == "total_evacuated")             world.stats.population.evacuated_t = p<int>(xml_val);
+    else if(xml_tag == "total_births")                world.stats.population.births_t = p<int>(xml_val);
 
-    else if(xml_tag == "sust_dig_ore_coal_tip_flag")  world.stats.sustainability.mining_flag = std::stoi(xml_val);
-    else if(xml_tag == "sust_dig_ore_coal_count")     world.stats.sustainability.mining_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_port_count")             world.stats.sustainability.trade_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_money_count")        world.stats.sustainability.money_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_population_count")   world.stats.sustainability.population_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_tech_count")         world.stats.sustainability.tech_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_fire_count")             world.stats.sustainability.fire_years = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_money")              world.stats.sustainability.old_money = std::stoi(xml_val);
-    else if(xml_tag == "sust_port_flag")              world.stats.sustainability.trade_flag = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_population")         world.stats.sustainability.old_population = std::stoi(xml_val);
-    else if(xml_tag == "sust_old_tech")               world.stats.sustainability.old_tech = std::stoi(xml_val);
-    else if(xml_tag == "sustain_flag")                world.stats.sustainability.sustainable = std::stoi(xml_val);
+    else if(xml_tag == "sust_dig_ore_coal_tip_flag")  world.stats.sustainability.mining_flag = p<int>(xml_val);
+    else if(xml_tag == "sust_dig_ore_coal_count")     world.stats.sustainability.mining_years = p<int>(xml_val);
+    else if(xml_tag == "sust_port_count")             world.stats.sustainability.trade_years = p<int>(xml_val);
+    else if(xml_tag == "sust_old_money_count")        world.stats.sustainability.money_years = p<int>(xml_val);
+    else if(xml_tag == "sust_old_population_count")   world.stats.sustainability.population_years = p<int>(xml_val);
+    else if(xml_tag == "sust_old_tech_count")         world.stats.sustainability.tech_years = p<int>(xml_val);
+    else if(xml_tag == "sust_fire_count")             world.stats.sustainability.fire_years = p<int>(xml_val);
+    else if(xml_tag == "sust_old_money")              world.stats.sustainability.old_money = p<int>(xml_val);
+    else if(xml_tag == "sust_port_flag")              world.stats.sustainability.trade_flag = p<int>(xml_val);
+    else if(xml_tag == "sust_old_population")         world.stats.sustainability.old_population = p<int>(xml_val);
+    else if(xml_tag == "sust_old_tech")               world.stats.sustainability.old_tech = p<int>(xml_val);
+    else if(xml_tag == "sustain_flag")                world.stats.sustainability.sustainable = p<int>(xml_val);
 
     else if(xml_tag == "monthgraph_pop")              readArray_old(xmlReader, world.stats.history.pop);
     else if(xml_tag == "monthgraph_starve")           readArray_old(xmlReader, world.stats.history.starve);
     else if(xml_tag == "monthgraph_nojobs")           readArray_old(xmlReader, world.stats.history.nojobs);
     else if(xml_tag == "monthgraph_ppool")            readArray_old(xmlReader, world.stats.history.ppool);
     else if(xml_tag == "pbar") {
-      int id = std::stoi(xmlReader.get_attribute("id"));
+      int id = p<int>(xmlReader.get_attribute("id"));
       switch(id) {
       case 0: break; // pop
       case 1: readPbar_old(xmlReader, world.stats.history.tech); break;
@@ -936,7 +936,7 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
         ixenable = &world.tradeRule[c].give;
       else continue;
 
-      *ixenable = std::stoi(xml_val);
+      *ixenable = p<int>(xml_val);
       goto found_global;
     }
 
@@ -972,13 +972,13 @@ static void loadGlobals_v2130(xmlpp::TextReader& xmlReader, World& world,
 }
 
 static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
-  xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"size", "%d", map.len());
+  xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"size", f(map.len()));
 
   for(const MapTile& tile : map) {
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"MapTile");
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", tile.group);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", tile.point.x);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", tile.point.y);
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"group", f(tile.group));
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"map-x", f(tile.point.x));
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"map-y", f(tile.point.y));
       saveMapTile(xmlWriter, tile);
     xmlTextWriterEndElement(xmlWriter);
   }
@@ -986,16 +986,16 @@ static void saveMap(xmlTextWriterPtr xmlWriter, const Map& map) {
   for(Construction *cst : map.constructions) {
     if(cst->isDead()) continue;
     xmlTextWriterStartElement(xmlWriter, (xmlStr)"Construction");
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"group", "%d", cst->constructionGroup->group);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-x", "%d", cst->point.x);
-      xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"map-y", "%d", cst->point.y);
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"group", f(cst->constructionGroup->group));
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"map-x", f(cst->point.x));
+      xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"map-y", f(cst->point.y));
       cst->save(xmlWriter);
     xmlTextWriterEndElement(xmlWriter);
   }
 
   xmlTextWriterStartElement(xmlWriter, (xmlStr)"recentPoint");
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"x", "%d", map.recentPoint.x);
-    xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"y", "%d", map.recentPoint.y);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"x", f(map.recentPoint.x));
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)"y", f(map.recentPoint.y));
   xmlTextWriterEndElement(xmlWriter);
 }
 
@@ -1006,7 +1006,7 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
   std::list<std::pair<Construction *, MapPoint>> constructions;
 
   if(ldsv_version > 2130) {
-    int mapSize = std::stoi(xmlReader.get_attribute("size"));
+    int mapSize = p<int>(xmlReader.get_attribute("size"));
     map = Map(mapSize);
   }
 
@@ -1022,10 +1022,10 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
     }
 
     if(xmlReader.get_name() == "MapTile") {
-      unsigned short group = std::stoi(xmlReader.get_attribute("group"));
+      unsigned short group = p<int>(xmlReader.get_attribute("group"));
       MapPoint point(
-        std::stoi(xmlReader.get_attribute("map-x")),
-        std::stoi(xmlReader.get_attribute("map-y"))
+        p<int>(xmlReader.get_attribute("map-x")),
+        p<int>(xmlReader.get_attribute("map-y"))
       );
       if(!map.is_inside(point))
         throw std::runtime_error("a MapTile seems to be outside the map");
@@ -1034,10 +1034,10 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
       loadMapTile(xmlReader, tile, ldsv_version);
     }
     else if(xmlReader.get_name() == "Construction") {
-      int group = std::stoi(xmlReader.get_attribute("group"));
+      int group = p<int>(xmlReader.get_attribute("group"));
       MapPoint point(
-        std::stoi(xmlReader.get_attribute("map-x")),
-        std::stoi(xmlReader.get_attribute("map-y"))
+        p<int>(xmlReader.get_attribute("map-x")),
+        p<int>(xmlReader.get_attribute("map-y"))
       );
       ConstructionGroup *cstgrp =
         ConstructionGroup::getConstructionGroup(group);
@@ -1056,11 +1056,11 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
           continue;
         }
         if(xmlReader.get_name() == "x") {
-          map.recentPoint.x = std::stoi(xmlReader.read_inner_xml());
+          map.recentPoint.x = p<int>(xmlReader.read_inner_xml());
           found_x = true;
         }
         else if(xmlReader.get_name() == "y") {
-          map.recentPoint.y = std::stoi(xmlReader.read_inner_xml());
+          map.recentPoint.y = p<int>(xmlReader.read_inner_xml());
           found_y = true;
         }
         else
@@ -1094,24 +1094,24 @@ static void loadMap(xmlpp::TextReader& xmlReader, World& world,
 }
 
 static void saveMapTile(xmlTextWriterPtr xmlWriter, const MapTile& tile) {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"flags",    "0x%x", tile.flags & ~VOLATILE_FLAGS);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"type",       "%d", tile.type);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"air_pol",    "%d", tile.pollution);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ore",        "%d", tile.ore_reserve);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"coal",       "%d", tile.coal_reserve);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"flags",     fx(tile.flags & ~VOLATILE_FLAGS));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"type",       f(tile.type));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"air_pol",    f(tile.pollution));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"ore",        f(tile.ore_reserve));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"coal",       f(tile.coal_reserve));
 
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"altitude",   "%d", tile.ground.altitude);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"ecotable",   "%d", tile.ground.ecotable);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"wastes",     "%d", tile.ground.wastes);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"grd_pol",    "%d", tile.ground.pollution);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_alt",  "%d", tile.ground.water_alt);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_pol",  "%d", tile.ground.water_pol);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_wast", "%d", tile.ground.water_wast);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"water_next", "%d", tile.ground.water_next);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int1",       "%d", tile.ground.int1);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int2",       "%d", tile.ground.int2);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int3",       "%d", tile.ground.int3);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"int4",       "%d", tile.ground.int4);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"altitude",   f(tile.ground.altitude));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"ecotable",   f(tile.ground.ecotable));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"wastes",     f(tile.ground.wastes));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"grd_pol",    f(tile.ground.pollution));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"water_alt",  f(tile.ground.water_alt));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"water_pol",  f(tile.ground.water_pol));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"water_wast", f(tile.ground.water_wast));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"water_next", f(tile.ground.water_next));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"int1",       f(tile.ground.int1));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"int2",       f(tile.ground.int2));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"int3",       f(tile.ground.int3));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"int4",       f(tile.ground.int4));
 }
 
 static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
@@ -1130,7 +1130,7 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
 
     std::string xml_tag = xmlReader.get_name();
     std::string xml_val = xmlReader.read_inner_xml();
-    if     (xml_tag == "flags") {    tile.flags             = std::stoul(xml_val, NULL, 0) & ~VOLATILE_FLAGS;
+    if     (xml_tag == "flags") {    tile.flags             = p<unsigned int>(xml_val) & ~VOLATILE_FLAGS;
       if(ldsv_version <= 2130) {
         tile.flags = 0
           | (tile.flags & 0x00000100 ? FLAG_MARKET_COVER | FLAG_MARKET_COVER_CHECK : 0)
@@ -1143,23 +1143,23 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
           | (tile.flags & 0x20000000 ? FLAG_HAS_UNDERGROUND_WATER : 0);
       }
     }
-    else if(xml_tag == "type")       tile.type              = std::stoi(xml_val);
-    else if(xml_tag == "air_pol")    tile.pollution         = std::stoi(xml_val);
-    else if(xml_tag == "ore")        tile.ore_reserve       = std::stoi(xml_val);
-    else if(xml_tag == "coal")       tile.coal_reserve      = std::stoi(xml_val);
+    else if(xml_tag == "type")       tile.type              = p<int>(xml_val);
+    else if(xml_tag == "air_pol")    tile.pollution         = p<int>(xml_val);
+    else if(xml_tag == "ore")        tile.ore_reserve       = p<int>(xml_val);
+    else if(xml_tag == "coal")       tile.coal_reserve      = p<int>(xml_val);
 
-    else if(xml_tag == "altitude")   tile.ground.altitude   = std::stoi(xml_val);
-    else if(xml_tag == "ecotable")   tile.ground.ecotable   = std::stoi(xml_val);
-    else if(xml_tag == "wastes")     tile.ground.wastes     = std::stoi(xml_val);
-    else if(xml_tag == "grd_pol")    tile.ground.pollution  = std::stoi(xml_val);
-    else if(xml_tag == "water_alt")  tile.ground.water_alt  = std::stoi(xml_val);
-    else if(xml_tag == "water_pol")  tile.ground.water_pol  = std::stoi(xml_val);
-    else if(xml_tag == "water_wast") tile.ground.water_wast = std::stoi(xml_val);
-    else if(xml_tag == "water_next") tile.ground.water_next = std::stoi(xml_val);
-    else if(xml_tag == "int1")       tile.ground.int1       = std::stoi(xml_val);
-    else if(xml_tag == "int2")       tile.ground.int2       = std::stoi(xml_val);
-    else if(xml_tag == "int3")       tile.ground.int3       = std::stoi(xml_val);
-    else if(xml_tag == "int4")       tile.ground.int4       = std::stoi(xml_val);
+    else if(xml_tag == "altitude")   tile.ground.altitude   = p<int>(xml_val);
+    else if(xml_tag == "ecotable")   tile.ground.ecotable   = p<int>(xml_val);
+    else if(xml_tag == "wastes")     tile.ground.wastes     = p<int>(xml_val);
+    else if(xml_tag == "grd_pol")    tile.ground.pollution  = p<int>(xml_val);
+    else if(xml_tag == "water_alt")  tile.ground.water_alt  = p<int>(xml_val);
+    else if(xml_tag == "water_pol")  tile.ground.water_pol  = p<int>(xml_val);
+    else if(xml_tag == "water_wast") tile.ground.water_wast = p<int>(xml_val);
+    else if(xml_tag == "water_next") tile.ground.water_next = p<int>(xml_val);
+    else if(xml_tag == "int1")       tile.ground.int1       = p<int>(xml_val);
+    else if(xml_tag == "int2")       tile.ground.int2       = p<int>(xml_val);
+    else if(xml_tag == "int3")       tile.ground.int3       = p<int>(xml_val);
+    else if(xml_tag == "int4")       tile.ground.int4       = p<int>(xml_val);
     else unexpectedXmlElement(xmlReader);
 
     xmlReader.next();
@@ -1175,8 +1175,8 @@ static void writeArray(xmlTextWriterPtr xmlWriter, const A& array,
   std::function<void(xmlTextWriterPtr, const typename A::value_type&)>
     writeElement
 ) {
-  xmlTextWriterWriteFormatAttribute(xmlWriter, (xmlStr)"size", "%zu",
-    array.size());
+  xmlTextWriterWriteAttribute(xmlWriter, (xmlStr)"size",
+    xmlFormat<std::size_t>(array.size()));
   for(int i = 0; i < array.size(); i++) {
     xmlTextWriterStartElement(xmlWriter,
       (xmlStr)(std::ostringstream() << "index_" << i).str().c_str()
@@ -1224,14 +1224,18 @@ static void readArray(xmlpp::TextReader& xmlReader, A& array,
 }
 
 static void readArray_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) {
-  std::string str = xmlReader.read_inner_xml();
-  while(!str.empty() && std::isspace(static_cast<unsigned char>(str.back())))
-    str.erase(str.size() - 1);
+  const std::string str = xmlReader.read_inner_xml();
+  const char *s = str.data();
+  const char *e = s + str.size();
   array.clear();
-  while(!str.empty()) {
-    std::size_t charcount;
-    array.push_back(std::stoi(str, &charcount));
-    str.erase(0, charcount);
+  while(s < e) {
+    if(std::isspace(static_cast<unsigned char>(*s))) { s++; continue; }
+    int v;
+    std::from_chars_result r = std::from_chars(s, e, v);
+    if(r.ec != std::errc{})
+      throw std::system_error(std::make_error_code(r.ec));
+    s = r.ptr;
+    array.push_back(v);
   }
 }
 
@@ -1250,16 +1254,20 @@ static void readPbar_old(xmlpp::TextReader& xmlReader, std::deque<int>& array) {
     }
 
     if(xmlReader.get_name() == "diff")
-      diff = std::stoi(xmlReader.read_inner_xml());
+      diff = p<int>(xmlReader.read_inner_xml());
     else if(xmlReader.get_name() == "data") {
-      std::string str = xmlReader.read_inner_xml();
-      while(!str.empty() && std::isspace(static_cast<unsigned char>(str.back())))
-        str.erase(str.size() - 1);
+      const std::string str = xmlReader.read_inner_xml();
+      const char *s = str.data();
+      const char *e = s + str.size();
       array.clear();
-      while(!str.empty()) {
-        std::size_t charcount;
-        array.push_front(std::stoi(str, &charcount));
-        str.erase(0, charcount);
+      while(s < e) {
+        if(std::isspace(static_cast<unsigned char>(*s))) { s++; continue; }
+        int v;
+        std::from_chars_result r = std::from_chars(s, e, v);
+        if(r.ec != std::errc{})
+          throw std::system_error(std::make_error_code(r.ec));
+        s = r.ptr;
+        array.push_front(v);
       }
     }
     else
@@ -1292,19 +1300,20 @@ static void readPbar_old(xmlpp::TextReader& xmlReader,
     }
 
     if(xmlReader.get_name() == "diff")
-      diff = std::stoi(xmlReader.read_inner_xml());
+      diff = p<int>(xmlReader.read_inner_xml());
     else if(xmlReader.get_name() == "data") {
-      std::string str = xmlReader.read_inner_xml();
-      while(!str.empty() && std::isspace(static_cast<unsigned char>(str.back())))
-        str.erase(str.size() - 1);
+      const std::string str = xmlReader.read_inner_xml();
+      const char *s = str.data();
+      const char *e = s + str.size();
       array.clear();
-      while(!str.empty()) {
-        std::size_t charcount;
-        array.push_front((Stats::Inventory<>){
-          .amount = std::stoi(str, &charcount),
-          .capacity = 1000
-        });
-        str.erase(0, charcount);
+      while(s < e) {
+        if(std::isspace(static_cast<unsigned char>(*s))) { s++; continue; }
+        int v;
+        std::from_chars_result r = std::from_chars(s, e, v);
+        if(r.ec != std::errc{})
+          throw std::system_error(std::make_error_code(r.ec));
+        s = r.ptr;
+        array.push_front((Stats::Inventory<>){.amount = v, .capacity = 1000});
       }
     }
     else

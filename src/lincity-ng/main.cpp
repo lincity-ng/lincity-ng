@@ -25,18 +25,21 @@
 #include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <config.h>                              // for PACKAGE_NAME, PACKAG...
+#include <cassert>                               // for assert
+#include <gettext.h>                             // for bindtextdomain, text...
 #include <libxml/parser.h>                       // for xmlCleanupParser
-#include <stdio.h>                               // for NULL
-#include <stdlib.h>                              // for setenv
-#include <filesystem>                            // for operator/, path
+#include <clocale>                               // for NULL, setlocale, LC_ALL
+#include <cstdlib>                               // for getenv, setenv, unse...
+#include <cstring>                               // for strcmp
+#include <filesystem>                            // for path, operator/
 #include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for allocator, unique_ptr
+#include <memory>                                // for unique_ptr
+#include <optional>                              // for optional, nullopt
 #include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
-#include <string>                                // for char_traits, basic_s...
-#include <optional>
+#include <string>                                // for basic_string, char_t...
 
+#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
@@ -46,10 +49,10 @@
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "tinygettext/tinygettext.hpp"           // for DictionaryManager
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
+
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
 #endif
@@ -58,15 +61,20 @@
 #include <exception>                             // for exception
 #endif
 
+#ifdef WIN32
+#undef bindtextdomain
+#define bindtextdomain wbindtextdomain
+#endif
+
 extern Config *configPtr;
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
 SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
-tinygettext::DictionaryManager* dictionaryManager = 0;
 // bool restart = false;
 const char *appdatadir;
+std::optional<std::string> oldLanguage = std::nullopt;
 
 void musicHalted() {
     getSound()->changeTrack(NEXT_OR_FIRST_TRACK);
@@ -175,6 +183,57 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
+#ifdef HAVE_NL_MSG_CAT_CNTR
+// glibc gettext magic
+extern "C" int _nl_msg_cat_cntr;
+#endif
+void
+setLang(const std::string& lang) {
+  if(lang != "autodetect") {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", lang.c_str());
+#else
+    setenv("LANGUAGE", lang.c_str(), 1);
+#endif
+  }
+  else if(oldLanguage) {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", oldLanguage->c_str());
+#else
+    setenv("LANGUAGE", oldLanguage->c_str(), 1);
+#endif
+  }
+  else {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", "");
+#else
+    unsetenv("LANGUAGE");
+#endif
+  }
+#define GETTEXT_HAS_
+
+#ifdef HAVE_NL_MSG_CAT_CNTR
+  // glibc gettext magic
+  ++_nl_msg_cat_cntr;
+#endif
+}
+
+// This tries to get the same language that as gettext.
+std::string
+getLang() {
+#if defined(ENABLE_NLS) && ENABLE_NLS
+  const char *locale = setlocale(LC_MESSAGES, NULL);
+#else
+  const char *locale = "C.UTF-8";
+#endif
+  assert(locale);
+  if(locale && !strcmp(locale, "C")) return "C";
+  const char *language = getenv("LANGUAGE");
+  if(language && *language) return language;
+  if(locale) return locale;
+  return "";
+}
+
 void mainLoop() {
   MainMenu(window).run();
 }
@@ -193,30 +252,15 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
 
-        if(getConfig()->language.get() != "autodetect") {
-#if defined (WIN32)
-          _putenv_s("LINCITY_LANG", getConfig()->language.get().c_str());
-#else
-          setenv("LINCITY_LANG", getConfig()->language.get().c_str(), false);
+#if defined(ENABLE_NLS) && ENABLE_NLS
+        if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
+        setlocale(LC_ALL, "");
+        if(getConfig()->language.get() != "autodetect")
+          setLang(getConfig()->language.get());
+        bindtextdomain(PACKAGE_NAME,
+          (getConfig()->appDataDir.get() / "locale").c_str());
+        textdomain(PACKAGE_NAME);
 #endif
-        }
-        dictionaryManager = new tinygettext::DictionaryManager();
-        dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory(getConfig()->appDataDir.get() / "locale");
-        std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
-
-        // char *lc_textdomain_directory[1024];
-        // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
-        //   appdatadir, "/", "locale") < 1024) {
-        //   char *dm = bindtextdomain(PACKAGE, lc_textdomain_directory);
-        //   fprintf(stderr, "Bound textdomain directory is %s\n", dm);
-        //   char *td = textdomain(PACKAGE);
-        //   fprintf(stderr, "Textdomain is %s\n", td);
-        // } else {
-        //   fprintf(stderr, "warning: %s, %s",
-        //     "data directory path name too long",
-        //     "cannot set text domain");
-        // }
 
 #ifndef DEBUG
     } catch(std::exception& e) {
@@ -268,8 +312,6 @@ int main(int argc, char** argv)
     if(SDL_WasInit(0))
         SDL_Quit();
     xmlCleanupParser();
-    delete dictionaryManager;
-    dictionaryManager = 0;
 //     if( restart ){
 // #ifdef WIN32
 //         //Windows has a Problem with Whitespaces.

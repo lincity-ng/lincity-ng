@@ -1,16 +1,61 @@
+# #-#-#-#-#  pl.po (pl)  #-#-#-#-#
+# #-#-#-#-#  pl.po (pl)  #-#-#-#-#
 # translation of pl.po to
 # translation of messages.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Piotr Pacholak <obi.gts@gmail.com>, 2006.
+# #-#-#-#-#  pl.po (pl)  #-#-#-#-#
+# translation of pl.po to
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Piotr Pacholak <obi.gts@gmail.com>, 2006.
+# Michał Drzał <neurotoxic@wp.pl>, 2006.
+#
+# #-#-#-#-#  pl.po (pl)  #-#-#-#-#
+# translation of pl.po to
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Piotr Pacholak <obi.gts@gmail.com>, 2006.
+# Michał Drzał <neurotoxic@wp.pl>, 2006.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  pl.po (pl)  #-#-#-#-#\n"
+"#-#-#-#-#  pl.po (pl)  #-#-#-#-#\n"
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-24 21:11+0100\n"
 "PO-Revision-Date: 2006-12-17 18:35+0100\n"
 "Last-Translator: \n"
+"Language-Team:  <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"#-#-#-#-#  pl.po (pl)  #-#-#-#-#\n"
+"Project-Id-Version: pl\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
+"PO-Revision-Date: 2006-12-17 17:16+0100\n"
+"Last-Translator: Michał Drzał <neurotoxic@wp.pl>\n"
+"Language-Team:  <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"#-#-#-#-#  pl.po (pl)  #-#-#-#-#\n"
+"Project-Id-Version: pl\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
+"PO-Revision-Date: 2006-12-17 17:16+0100\n"
+"Last-Translator: Michał Drzał <neurotoxic@wp.pl>\n"
 "Language-Team:  <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,9 +239,9 @@ msgstr "Wydobycie"
 msgid "Trade"
 msgstr "Handel"
 
-#: src/lincity-ng/EconomyGraph.cpp:128
+#: data/gui/pbar.xml
 msgid "Money"
-msgstr "Zarobki"
+msgstr "Kapitał"
 
 #: src/lincity-ng/EconomyGraph.cpp:130
 msgid "Popul."
@@ -208,6 +253,7 @@ msgstr "Tech."
 
 #: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:382
 #: src/lincity/lintypes.cpp:399 src/lincity/modules/residence.cpp:283
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
 msgid "Fire"
 msgstr "Ogień"
 
@@ -276,7 +322,7 @@ msgid "Bulldoze Cost: "
 msgstr "Koszt wyburzenia:"
 
 #: src/lincity-ng/GameView.cpp:1598 src/lincity-ng/GameView.cpp:1629
-#: src/lincity-ng/ScreenInterface.cpp:274
+#: src/lincity-ng/ScreenInterface.cpp:274 data/gui/minimap.xml
 msgid "$"
 msgstr "PLN"
 
@@ -357,6 +403,9 @@ msgstr "Relacja"
 #: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/launch_rocket_yn.xml
 msgid "No"
 msgstr "Nie"
 
@@ -364,7 +413,9 @@ msgstr "Nie"
 #: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
-#: src/lincity/modules/waterwell.cpp:62
+#: src/lincity/modules/waterwell.cpp:62 data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/coal_survey_yn.xml data/gui/launch_rocket_yn.xml
 msgid "Yes"
 msgstr "Tak"
 
@@ -441,18 +492,20 @@ msgstr "Przychód"
 #: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:101
 #: src/lincity/modules/port.cpp:290 src/lincity/modules/pottery.cpp:113
 #: src/lincity/modules/rail.cpp:52 src/lincity/modules/road.cpp:47
-#: src/lincity/modules/track.cpp:38
+#: src/lincity/modules/track.cpp:38 data/gui/pbar.xml data/gui/portdialog.xml
+#: data/gui/tradedialog.xml
 msgid "Coal"
 msgstr "Węgiel"
 
 #: src/lincity-ng/MpsInterface.cpp:450 src/lincity/modules/blacksmith.cpp:97
 #: src/lincity/modules/cricket.cpp:96 src/lincity/modules/firestation.cpp:113
-#: src/lincity/modules/health_centre.cpp:62
-#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:99
-#: src/lincity/modules/port.cpp:298 src/lincity/modules/pottery.cpp:111
-#: src/lincity/modules/rail.cpp:53 src/lincity/modules/road.cpp:48
-#: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/school.cpp:50
-#: src/lincity/modules/track.cpp:39 src/lincity/modules/university.cpp:67
+#: src/lincity/modules/health_centre.cpp:62 src/lincity/modules/market.cpp:1008
+#: src/lincity/modules/mill.cpp:99 src/lincity/modules/port.cpp:298
+#: src/lincity/modules/pottery.cpp:111 src/lincity/modules/rail.cpp:53
+#: src/lincity/modules/road.cpp:48 src/lincity/modules/rocket_pad.cpp:196
+#: src/lincity/modules/school.cpp:50 src/lincity/modules/track.cpp:39
+#: src/lincity/modules/university.cpp:67 data/gui/pbar.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Goods"
 msgstr "Towary"
 
@@ -529,7 +582,7 @@ msgstr "Remizy strażackie"
 msgid "Recycle"
 msgstr "Zakład recyklingu"
 
-#: src/lincity-ng/MpsInterface.cpp:532
+#: src/lincity-ng/MpsInterface.cpp:532 data/gui/pbar.xml
 msgid "Population"
 msgstr "Populacja"
 
@@ -997,36 +1050,25 @@ msgstr "Skład"
 msgid "Coal Power Station"
 msgstr ""
 
-#: src/lincity/modules/coal_power.cpp:88
-#: src/lincity/modules/solar_power.cpp:49
+#: src/lincity/modules/coal_power.cpp:88 src/lincity/modules/solar_power.cpp:49
 msgid "Max Output"
 msgstr "Maksymalna moc"
 
-#: src/lincity/modules/coal_power.cpp:93
-#: src/lincity/modules/solar_power.cpp:54
+#: src/lincity/modules/coal_power.cpp:93 src/lincity/modules/solar_power.cpp:54
 msgid "Current Output"
 msgstr "Bieżąca moc"
 
-#: src/lincity/modules/coal_power.cpp:98 src/lincity/modules/coalmine.cpp:155
-#: src/lincity/modules/cricket.cpp:95 src/lincity/modules/firestation.cpp:112
-#: src/lincity/modules/health_centre.cpp:61
-#: src/lincity/modules/market.cpp:1006 src/lincity/modules/pottery.cpp:110
-#: src/lincity/modules/rail.cpp:51 src/lincity/modules/road.cpp:46
-#: src/lincity/modules/rocket_pad.cpp:195 src/lincity/modules/school.cpp:49
-#: src/lincity/modules/solar_power.cpp:45 src/lincity/modules/track.cpp:37
-#: src/lincity/modules/university.cpp:66 src/lincity/modules/windmill.cpp:76
+#: data/gui/pbar.xml data/gui/tradedialog.xml
 msgid "Jobs"
-msgstr "Siła robocza"
+msgstr "Siła robocza."
 
 #: src/lincity/modules/coal_power.cpp:99
-#: src/lincity/modules/organic_farm.cpp:212
-#: src/lincity/modules/recycle.cpp:142 src/lincity/modules/solar_power.cpp:58
-#: src/lincity/modules/windmill.cpp:75
+#: src/lincity/modules/organic_farm.cpp:212 src/lincity/modules/recycle.cpp:142
+#: src/lincity/modules/solar_power.cpp:58 src/lincity/modules/windmill.cpp:75
 msgid "Tech"
 msgstr "Tech"
 
-#: src/lincity/modules/coal_power.cpp:100
-#: src/lincity/modules/power_line.cpp:49
+#: src/lincity/modules/coal_power.cpp:100 src/lincity/modules/power_line.cpp:49
 #: src/lincity/modules/solar_power.cpp:59
 #: src/lincity/modules/substation.cpp:113 src/lincity/modules/windmill.cpp:99
 msgid "Grid ID"
@@ -1059,7 +1101,8 @@ msgstr "Aktywność"
 #: src/lincity/modules/market.cpp:1009 src/lincity/modules/port.cpp:294
 #: src/lincity/modules/pottery.cpp:112 src/lincity/modules/rail.cpp:54
 #: src/lincity/modules/recycle.cpp:145 src/lincity/modules/road.cpp:49
-#: src/lincity/modules/track.cpp:40
+#: src/lincity/modules/track.cpp:40 data/gui/pbar.xml data/gui/portdialog.xml
+#: data/gui/tradedialog.xml
 msgid "Ore"
 msgstr "Ruda"
 
@@ -1068,6 +1111,7 @@ msgstr "Ruda"
 #: src/lincity/modules/market.cpp:1010 src/lincity/modules/port.cpp:302
 #: src/lincity/modules/rail.cpp:55 src/lincity/modules/road.cpp:50
 #: src/lincity/modules/rocket_pad.cpp:197 src/lincity/modules/track.cpp:41
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Steel"
 msgstr "Stal"
 
@@ -1095,18 +1139,18 @@ msgstr "Siatka"
 
 #: src/lincity/modules/heavy_industry.cpp:280
 #: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/organic_farm.cpp:211 src/lincity/modules/recycle.cpp:139
+#: src/lincity/modules/residence.cpp:263 src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270 src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285
 msgid "NO"
 msgstr "NIE"
 
 #: src/lincity/modules/heavy_industry.cpp:283
 #: src/lincity/modules/light_industry.cpp:282
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:140 src/lincity/modules/residence.cpp:271
+#: src/lincity/modules/organic_farm.cpp:211 src/lincity/modules/recycle.cpp:140
+#: src/lincity/modules/residence.cpp:271
 msgid "Power"
 msgstr "Energia"
 
@@ -1120,17 +1164,18 @@ msgid "Light Industry"
 msgstr ""
 
 #: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/organic_farm.cpp:211 src/lincity/modules/recycle.cpp:139
+#: src/lincity/modules/residence.cpp:263 src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270 src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285
 msgid "YES"
 msgstr "TAK"
 
 #: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:100
 #: src/lincity/modules/port.cpp:286 src/lincity/modules/rail.cpp:50
 #: src/lincity/modules/road.cpp:45 src/lincity/modules/track.cpp:36
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Food"
 msgstr "Żywność"
 
@@ -1312,6 +1357,782 @@ msgid ""
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
 msgstr ""
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Pusty dom"
+
+#: data/gui/allgone.xml data/gui/blacksmithup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/cricketup.xml data/gui/fire.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/import-exportup.xml data/gui/launch-evac.xml
+#: data/gui/launch-fail.xml data/gui/launch-gone.xml data/gui/launch-good.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml data/gui/nobull-tip.xml
+#: data/gui/options.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/recycleup.xml data/gui/riverup.xml
+#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml data/gui/solarpowerup.xml
+#: data/gui/sustain.xml data/gui/too-old.xml data/gui/universityup.xml
+#: data/gui/warning.xml data/gui/windmillup.xml
+msgid "Ok"
+msgstr "Ok"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "W mieście nie ma już żadnych ludzi."
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Powinieneś rozpocząć nową karierę gdzieś indziej."
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Kuźnie dostępne"
+
+#: data/gui/blacksmithup.xml data/gui/coalmineup.xml data/gui/coalpowerup.xml
+#: data/gui/cricketup.xml data/gui/firestationup.xml data/gui/healthup.xml
+#: data/gui/hvindustryup.xml data/gui/import-exportup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/solarpowerup.xml
+#: data/gui/universityup.xml data/gui/windmillup.xml
+msgid "New Invention"
+msgstr "Nowy wynalazek"
+
+#: data/gui/blacksmithup.xml data/gui/coalpowerup.xml data/gui/cricketup.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/rocketup.xml
+#: data/gui/schoolup.xml data/gui/solarpowerup.xml data/gui/universityup.xml
+#: data/gui/windmillup.xml
+msgid "See the help screen for more information."
+msgstr "Zobacz ekran pomocy w celu uzyskania większej ilości informacji. "
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Osiągnąłeś poziom technologiczny, pozwalający na budowe kuźni. Kuźnie "
+"wymagają stali i siły roboczej do produkowania towarów."
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Wyburzenie pomnika dużo kosztuje."
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Wyburzyć?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/too-old.xml data/gui/warning.xml
+msgid "Warning"
+msgstr "Uwaga"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Uwaga: Wyburzanie pomników jest kosztowne"
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Wyburzenie części rzeki dużo kosztuje."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Uwaga: Wyburzanie jest niebezpieczne"
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "Wyburzenie slumsów dużo kosztuje i może wywołac pożar."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Uwaga: Wyburzanie slumsów jest niebezpieczne"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Złoża węgla"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Wykonać pomiary złóż węgla?"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Wyślij poszukiwaczy"
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"To będzie Cię kosztować jednorazowo 1 milion. Później jest już dostępne za "
+"darmo."
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Kopalnie węgla dostępne"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Zobacz ekran pomoy w celu uzyskania większej ilości informacji na temat "
+"kopalni oraz zasobów węgla"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Osiągnąłeś poziom technologiczny, pozwalający na wydobywanie węgla z "
+"głębszych złóż. "
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Elektrownie węglowe dostępne"
+
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni węglowych."
+
+#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "Wróć"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Programowanie"
+
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Autorzy"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Grafika"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Oryginalny pomysł i programowanie"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Dźwięk i muzyka"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr ""
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Boiska do koszykówki dostępne"
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Twoi ludzie wynaleźli koszykówkę. Boiska do koszykówki wykorzystują niewiele "
+"siły roboczej oraz towarów, a ludzie w okolicy (około 10 pól w każdym "
+"kierunku) są szczęśliwsi."
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Wybuch pożar!"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Powinieneś  się tym zainteresować."
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Remizy strażackie dostępne"
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe remiz strażackich. "
+"Remizy strażackie zapobiegają większości pożarów. Jeśli nie miałeś jeszcze "
+"żadnych pożarów, może Ci się wydawać, że ich nie potrzebujesz."
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Statystyki gry"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Dobrze."
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Szpitale dostępne"
+
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe szpitali. Szpitale "
+"zmniejszają ilość ludzi zabitych przez zanieczyszczenia oraz zwiększają "
+"całkowitą wydajność."
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Ciężki przemysł dostępny"
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów ciężkiego "
+"przemysłu. Zakłady ciężkiego przemysłu produkują stal. "
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Import/Export dostępny"
+
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Teraz możesz importować i eksportować węgiel, towary, rude i stal. "
+"Przeczytaj strony pomocy tych tematów, żeby dowiedzieć się jak to zrobić."
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr " Udane rozpoczęcie ewakuacji."
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Ewakuowałeś 1000 ludzi. Powinieneś zredukować zakres swojej ekonomi by "
+"odpowiadał obecnej populacji."
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Wystrzelenie nie powiodło się"
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Twoja rakieta miała wypadek krótko po starcie. Ludzie nie ufają już "
+"technologii ewakuacji. Musisz wystrzelić pięc lotów bezzałogowych, żeby "
+"przywrócić zaufanie ludzi.  "
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Całkowita ewakuacja zakończona."
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Bardzo dobrze, ewakuowałeś całą populacje."
+
+#: data/gui/launch-gone.xml data/gui/sustain.xml
+msgid "You have won the game."
+msgstr "Wygrałeś."
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Lot przebiega bez zakłóceń."
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Wystrzelenie powiodło się"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Wystrzelić teraz?"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Rakieta gotowa"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Rakiet gotowa do wystrzału"
+
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"Możesz wystrzelić rakietę teraz lub później. Jeśli będziesz czekał, "
+"utrzymywanie rakiety w stanie gotowości będzie Cię kosztować. Możesz ją "
+"potem wystrzelić klikając na kosmodrom."
+
+#: data/gui/loadgame.xml data/gui/mainmenu.xml
+msgid "Load"
+msgstr "Wczytaj"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Wczytaj grę"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Lekki przemysł dostępny"
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów lekkiego "
+"przemysłu. Zakłady lekkiego przemysłu produkują towary. "
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Kontynuuj"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Nowa gra"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Opcje"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Wyjście"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Zapisz"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Fabryki dostępne"
+
+#: data/gui/millup.xml
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe fabryk. Fabryki "
+"dzięki sile roboczej oraz żywności wytwarzają towary. Uważaj! Potrafią "
+"wykorzystać dużą ilość żywności."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eko"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Mapa"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Naciśnij ten przycisk, żeby zobaczyć statystyki"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr ""
+"Pokazuje przychód oraz wydatki. Kliknij na tej karcie w celu przełączenia "
+"widoku."
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Pokazuje wykres ekonomii."
+
+#: data/gui/minimap.xml
+#, fuzzy
+msgid "Show resources."
+msgstr "Pokazuje zasoby."
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Pokazuje minimapę"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Statystyki"
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr ""
+"[+] Przybliżenie widoku - widać mniej budynków, ale są bardziej szczegółowe."
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Oddal widok."
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Pomoc"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Ukrycie wysokich budowli"
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Przełącz widok z minimapy."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Pokazuje złoża węgla"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Pokazuje zasięg remiz strażackich"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Pokazuje mape konturową"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Pokazuje opiekę zdrowotną"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Pokazuje zaopatrzenie w żywność"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Pokazuje poziom zanieczyszczenia"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Pokazuje zaopatrzenie w energię"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Pokazuje zasięg obiektów sportowych"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Pokazuje natężenie ruchu"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Pokazuje bezrobocie"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Nowoczesne fabryki dostępne"
+
+#: data/gui/mod_wind_up.xml
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe nowoczesnych, "
+"bardziej efektywnych wiatraków. "
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Wybierz scenariusz"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Rozpocznij grę"
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "Rozpocznij grę na pustej planszy."
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "Rozpocznij grę z losową osadą."
+
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml
+msgid "No Credit Available"
+msgstr "Brak dostępnego kredytu"
+
+#: data/gui/no-credit-parkland.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy parków na kredyt"
+
+#: data/gui/no-credit-recycle.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy zakładów recyklingu "
+"na kredyt."
+
+#: data/gui/no-credit-rocket.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy kosmodromów  na "
+"kredyt."
+
+#: data/gui/no-credit-solar-power.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy elektrowni "
+"słonecznych na kredyt."
+
+#: data/gui/no-credit-university.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy uniwersytetów na "
+"kredyt."
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Nie dozwolone."
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Niestety, nie możesz wyburzyć wysypiska śmieci."
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Muzyka w tle"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Tryp pełnoekranowy"
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Efekty dźwiękowe"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Parki dostępne"
+
+#: data/gui/parkup.xml
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe parków. Parki "
+"redukują zanieczyszczenie. "
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Poziom technologiczny"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Buy"
+msgstr "Kup"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Ustawienia handlu portowego."
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Product"
+msgstr "Produkt"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Sell"
+msgstr "Sprzedaj"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Garncarnie dostępne"
+
+#: data/gui/potteryup.xml
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe garncarni. Garncarnie "
+"wykorzystują siłę roboczą oraz rudę do wytwarzania towarów. (Musisz mieć "
+"kopalnie rudy, żeby uzyskać rudę) "
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Tory kolejowe dostępne"
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe torów kolejowych. "
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Zakłady recyklingu dostępne"
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów recyklingu. "
+"Zakłady recyklingu przerabiają towary na rudę. "
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Rzeki dostępne"
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Osiągnąłeś poziom technologiczny pozwalający na budowe rzek. "
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Ulice dostępne"
+
+#: data/gui/roadup.xml
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe ulic. Zobacz ekran "
+"pomocy w celu uzyskania większej ilości informacji."
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Kosmodromy dostępne"
+
+#: data/gui/rocketup.xml
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe kosmodromów. Rakiety "
+"pozwalają ewakuować mieszkańców miasta, co jest sposobem na 'przejście' tej "
+"gry."
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Zapisz grę"
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "Zapisz w wybranym slocie"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Szkoły dostępne"
+
+#: data/gui/schoolup.xml
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe szkół. Szkoły "
+"wykorzystują siłę roboczą oraz towary do podnoszenia poziomu "
+"technologicznego."
+
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Pożar ogarnął slumsy. Ogień wymknął się spod kontroli i istnieje szansa jego "
+"rozprzestrzenienia się."
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire!"
+msgstr "Pożar!"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"Pożar ogarnął slumsy. Jest jednak w strefie zabezpieczonej przed ogniem i "
+"wydaje się być pod kontrolą."
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Elektrownie słoneczne dostępne"
+
+#: data/gui/solarpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni "
+"słonecznych. "
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Wróć do głównego menu"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Zatrzymaj grę"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Uruchom symulacje w trybie szybkim"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Uruchom symulacje w trybie normalnym"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Uruchom symulacje w trybie bardzo szybkim"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Gospodarka rentowna."
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "LinCity określa twoją gospodarkę jako rentowną."
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Ustawienia handlu"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Uniwersytety dostępne"
+
+#: data/gui/universityup.xml
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe uniwersytetów. "
+"Uniwersytety produkują jajogłowych, którzy opracowywują nowe technologię."
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Wiatraki dostępne"
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "Osiągnąłeś poziom technologiczny pozwalający na budowe wiatraków. "
 
 #~ msgid "Saving scene"
 #~ msgstr "Zapisywanie sceny"
