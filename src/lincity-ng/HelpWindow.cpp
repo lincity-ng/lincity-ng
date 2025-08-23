@@ -25,6 +25,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <memory>                       // for unique_ptr
 #include <sstream>                      // for basic_ostringstream
 #include <stdexcept>                    // for runtime_error
+#include <fmt/format.h>
+#include <fmt/std.h>
 
 #include "Config.hpp"                   // for getConfig, Config
 #include "Util.hpp"                     // for getButton
@@ -40,6 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/tinygettext.hpp"  // for DictionaryManager
 
 using namespace std::placeholders;
+using namespace std::string_literals;
 
 HelpWindow::HelpWindow(WindowManager* wm) : windowManager(wm) {
   assert(wm);
@@ -99,40 +102,34 @@ HelpWindow::showTopic(const std::string& topic)
 }
 
 std::filesystem::path
-HelpWindow::getHelpFile(const std::string& topic)
-{
+HelpWindow::getHelpFile(const std::string& topic) {
+  const std::filesystem::path helpdir = getConfig()->appDataDir.get() / "help";
+  const std::filesystem::path filename(topic + ".xml");
+  const std::string language = dictionaryManager->get_language();
+  std::filesystem::path filepath;
+
   // try in user language
-  std::filesystem::path filename = getConfig()->appDataDir.get() / "help";
-  filename /= dictionaryManager->get_language();
-  filename /= topic;
-  filename += ".xml";
-  if(std::filesystem::exists(filename))
-    return filename;
+  filepath = helpdir / language / filename;
+  if(std::filesystem::exists(filepath))
+    return filepath;
 
   // try short language, eg. "de" instead of "de_CH"
-  std::string language = dictionaryManager->get_language();
   std::string::size_type pos = language.find("_");
   if(pos != std::string::npos) {
-    language = std::string(language, 0, pos);
-    filename = getConfig()->appDataDir.get() / "help";
-    filename /= language;
-    filename /= topic;
-    filename += ".xml";
-    if(std::filesystem::exists(filename))
-      return filename;
+    filepath = helpdir / std::string(language, 0, pos) / filename;
+    if(std::filesystem::exists(filepath))
+      return filepath;
   }
 
   // try english
-  filename = getConfig()->appDataDir.get() / "help" / "en";
-  filename += topic;
-  filename += ".xml";
-  if(std::filesystem::exists(filename))
-    return filename;
+  filepath = helpdir / "en" / filename;
+  if(std::filesystem::exists(filepath))
+    return filepath;
 
   // give up
-  std::ostringstream msg;
-  msg << "There exists no help file for topic '" << topic << "'";
-  throw std::runtime_error(msg.str());
+  throw std::runtime_error(fmt::format("no help file found for topic {:?} "s +
+    "with language {:?}, and english fallback failed: file doesn't exist: {}",
+    topic, language, filepath));
 }
 
 void
