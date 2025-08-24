@@ -104,7 +104,7 @@ HelpWindow::showTopic(const std::string& topic)
 std::filesystem::path
 HelpWindow::getHelpFile(const std::string& topic) {
   const std::filesystem::path helpdir = getConfig()->appDataDir.get() / "help";
-  const std::filesystem::path filename(topic + ".xml");
+  const std::filesystem::path filename = topic + ".xml";
   const std::string language = dictionaryManager->get_language();
   std::filesystem::path filepath;
 
