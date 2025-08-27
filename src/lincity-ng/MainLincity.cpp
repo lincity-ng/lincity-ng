@@ -29,7 +29,7 @@
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, operator+
 #include <fmt/format.h>
-#include <fmt/std.h>  // IWYU pragma: keep
+#include <fmt/std.h> // IWYU pragma: keep
 
 #include "TimerInterface.hpp"             // for reset_start_time
 #include "gui/DialogBuilder.hpp"          // for DialogBuilder

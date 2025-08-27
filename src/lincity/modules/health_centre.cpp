@@ -25,6 +25,7 @@
 #include "health_centre.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <algorithm>                      // for max, min
 #include <string>                         // for basic_string, operator==
@@ -146,7 +147,7 @@ void HealthCentre::save(xmlTextWriterPtr xmlWriter) const {
 }
 
 bool HealthCentre::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
-  std::string name = xmlReader.get_name();
+  const xmlpp::ustring name = xmlReader.get_name();
   if     (name == "active")     active     = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "daycount")   daycount   = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "covercount") covercount = xmlParse<int>(xmlReader.read_inner_xml());

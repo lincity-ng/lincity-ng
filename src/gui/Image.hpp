@@ -29,7 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"  // for Component
 
 class Texture;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class Image
@@ -40,7 +42,7 @@ public:
     Image();
     virtual ~Image();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void resize(float width, float height);
     void draw(Painter& painter);

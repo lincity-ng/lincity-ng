@@ -40,7 +40,9 @@ class MapTile;
 class Painter;
 class Texture;
 class World;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class MiniMap : public Component
 {
@@ -50,7 +52,7 @@ public:
     MiniMap();
     ~MiniMap();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     virtual void draw(Painter &painter);
     virtual void event(const Event& event);

@@ -23,20 +23,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Image.hpp"
 
-#include <stdio.h>               // for sscanf
-#include <string.h>              // for strcmp
-#include <filesystem>            // for path
-#include <iostream>              // for basic_ostream, operator<<, cerr, str...
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
+#include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdio.h>                        // for stderr
+#include <filesystem>                     // for path
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "Painter.hpp"           // for Painter
-#include "Rect2D.hpp"            // for Rect2D
-#include "Texture.hpp"           // for Texture
-#include "TextureManager.hpp"    // for TextureManager, texture_manager
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "Painter.hpp"                    // for Painter
+#include "Rect2D.hpp"                     // for Rect2D
+#include "Texture.hpp"                    // for Texture
+#include "TextureManager.hpp"             // for TextureManager, texture_man...
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for xmlParse, missingXmlAttribute
 
 Image::Image()
     : texture(0)
@@ -48,73 +48,55 @@ Image::~Image()
 }
 
 void
-Image::parse(XmlReader& reader)
-{
-    bool resizable = false;
+Image::parse(xmlpp::TextReader& reader) {
+  bool resizable = false;
+  bool grey = false;
 
-    bool grey = false;
-
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "src") == 0) {
-            filename=value;
-        } else if(strcmp(attribute, "filter") == 0) {
-            if(strcmp(value, "grey") == 0) {
-                grey = true;
-            } else if(strcmp(value, "no") == 0) {
-                grey = false;
-            } else {
-                std::cerr << "Unknown filter value '" << value << "'.\n";
-                std::cerr << "Should be 'grey' or 'no'.\n";
-            }
-        } else if(strcmp(attribute, "resizable") == 0) {
-            if(strcmp(value, "yes") == 0)
-                resizable = true;
-            else if(strcmp(value, "no") == 0)
-                resizable = false;
-            else
-                std::cerr
-                    << "You should specify 'yes' or 'no' for the resizable"
-                    << "attribute\n";
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "src")
+      filename = xmlParse<std::filesystem::path>(value);
+    else if(name == "filter") {
+      if(value == "gray") {
+        grey = true;
+      } else if(value == "no") {
+        grey = false;
+      } else {
+        fmt::println(stderr,
+          "warning: unknown filter value {:?}. Should be 'grey' or 'no'.",
+          value
+        );
+        assert(false);
+      }
     }
+    else if(name == "resizable")
+      resizable = xmlParse<bool>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-    if(filename == "")
-        throw std::runtime_error("No filename specified for image");
+  if(filename.empty())
+    missingXmlAttribute(reader, "src");
 
-    texture = 0;
-    texture = texture_manager->load(filename,
-				grey ? TextureManager::FILTER_GREY : TextureManager::NO_FILTER);
+  texture = texture_manager->load(filename,
+    grey ? TextureManager::FILTER_GREY : TextureManager::NO_FILTER);
 
-    if(width <= 0 || height <= 0) {
-        width = texture->getWidth();
-        height = texture->getHeight();
-    }
+  if(width <= 0 || height <= 0) {
+      width = texture->getWidth();
+      height = texture->getHeight();
+  }
 
-    if(resizable) {
-      flags |= FLAG_RESIZABLE;
-      texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
-    }
+  if(resizable) {
+    flags |= FLAG_RESIZABLE;
+    texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
+  }
 }
 
 void

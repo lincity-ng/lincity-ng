@@ -21,6 +21,7 @@
 
 #include <functional>  // for function
 #include <list>        // for list
+#include <memory>
 #include <string>      // for string, basic_string
 
 class Document;
@@ -41,7 +42,7 @@ public:
   // DialogBuilder& message(Document *content);
   DialogBuilder& messageAddText(const std::string& content);
   DialogBuilder& messageAddTextBold(const std::string& content);
-  DialogBuilder& image(Image *image);
+  DialogBuilder& image(std::unique_ptr<Image>&& image);
   DialogBuilder& imageFile(const std::string& image);
   DialogBuilder& buttonSet(ButtonSet buttonSet);
   DialogBuilder& windowManager(WindowManager *windowManager);
@@ -56,8 +57,8 @@ public:
 
 private:
   std::string _titleText;
-  Document *_message;
-  Image *_image;
+  std::unique_ptr<Document> _message;
+  std::unique_ptr<Image> _image;
   ButtonSet _buttonSet;
   // std::filesystem::path template;
   WindowManager *_windowManager;

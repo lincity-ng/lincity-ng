@@ -22,14 +22,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @author Matthias Braun
  */
 
-#include <assert.h>     // for assert
-#include <string.h>     // for strcmp, strncmp
-#include <stdexcept>    // for runtime_error
-#include <vector>       // for vector
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <string.h>                       // for NULL
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for move
+#include <vector>                         // for vector
 
 #include "Component.hpp"
-#include "Event.hpp"    // for Event
-#include "Painter.hpp"  // for Painter
+#include "Event.hpp"                      // for Event
+#include "Painter.hpp"                    // for Painter
+#include "util/xmlutil.hpp"               // for xmlParse
 
 Component::Component() :
   parent(0), desktop(NULL), flags(0)
@@ -41,16 +45,16 @@ Component::~Component()
 }
 
 bool
-Component::parseAttribute(const char* attribute, const char* value)
-{
-    if(strcmp(attribute, "name") == 0) {
-        name = value;
-        return true;
-    } else if(strncmp(attribute, "xmlns", 5) == 0) { // can be ignored for now
-        return true;
-    }
-
+Component::parseAttribute(xmlpp::TextReader& reader) {
+  xmlpp::ustring aname = reader.get_name();
+  xmlpp::ustring value = reader.get_value();
+  if(aname == "name")
+    name = xmlParse<std::string>(value);
+  else if(aname.substr(0,5) == "xmlns")
+    ; // can be ignored for now
+  else
     return false;
+  return true;
 }
 
 void
@@ -166,24 +170,22 @@ Component::relative2Global(const Vector2& pos)
 }
 
 Child&
-Component::addChild(Component* component)
-{
-    assert(component->parent == 0);
-
-    childs.push_back(Child(component));
-    component->parent = this;
-    component->desktop = this->desktop;
-    component->setDirty();
-    return childs.back();
+Component::addChild(std::unique_ptr<Component>&& component) {
+  assert(!component->parent);
+  component->parent = this;
+  component->desktop = this->desktop;
+  component->setDirty();
+  childs.push_back(Child(std::move(component)));
+  return childs.back();
 }
 
 void
-Component::resetChild(Child& child, Component* component)
+Component::resetChild(Child& child, std::unique_ptr<Component>&& component)
 {
-    assert(child.component != component);
+    assert(child.component != component.get());
 
     delete child.component;
-    child.component = component;
+    child.component = component.release();
     if(component != 0) {
         component->parent = this;
         component->desktop = this->desktop;

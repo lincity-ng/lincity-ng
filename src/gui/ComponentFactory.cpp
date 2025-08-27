@@ -23,25 +23,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ComponentFactory.hpp"
 
-#include <string.h>                     // for strcmp
-#include <filesystem>                   // for operator/, path
-#include <iostream>                     // for basic_ostream, operator<<, cerr
-#include <stdexcept>                    // for runtime_error
-#include <gettext.h>
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <filesystem>                     // for path, operator/
+#include <memory>                         // for allocator, unique_ptr
 
-#include "ComponentLoader.hpp"          // for createComponent
-#include "XmlReader.hpp"                // for XmlReader
-#include "lincity-ng/Config.hpp"        // for getConfig, Config
-
-const char *
-GUI_TRANSLATE(const char * msgid) {
-  return gettext(msgid);
-}
-
-std::string
-GUI_TRANSLATE(const std::string& msgid) {
-  return gettext(msgid.c_str());
-}
+#include "Component.hpp"                  // for Component
+#include "ComponentLoader.hpp"            // for createComponent
+#include "lincity-ng/Config.hpp"          // for getConfig, Config
+#include "util/xmlutil.hpp"               // for missingXmlAttribute, unexpe...
 
 ComponentFactories* component_factories = 0;
 
@@ -60,32 +50,28 @@ public:
         component_factories->insert(std::make_pair("Import", this));
     }
 
-    Component* createComponent(XmlReader& reader);
+    std::unique_ptr<Component> createComponent(xmlpp::TextReader& reader);
 };
 //static ImportFactory factory_Import;
 
-Component*
-ImportFactory::createComponent(XmlReader& reader)
-{
-    std::string importfile;
+std::unique_ptr<Component>
+ImportFactory::createComponent(xmlpp::TextReader& reader) {
+  std::filesystem::path importfile;
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(name == "src")
+      importfile = xmlParse<std::filesystem::path>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+  if(importfile.empty())
+    missingXmlAttribute(reader, "src");
 
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(strcmp(attribute, "src") == 0) {
-            importfile = value;
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
-    }
-
-    if(importfile == "")
-        throw std::runtime_error("No src attribute specified.");
-    XmlReader nreader(getConfig()->appDataDir.get() / importfile);
-    //std::cout << "importing Factory: " << importfile << std::endl;
-    return ::createComponent((const char*) nreader.getName(), nreader);
+  xmlpp::TextReader nreader(getConfig()->appDataDir.get() / importfile);
+  //std::cout << "importing Factory: " << importfile << std::endl;
+  return ::createComponent(nreader.get_name(), nreader);
 }
 
 //---------------------------------------------------------------------------
@@ -97,22 +83,22 @@ ImportFactory::createComponent(XmlReader& reader)
  * tricks :-/ And have to fill in the list manually here
 **/
 
-#include "Button.hpp"                   // for Button
-#include "CheckButton.hpp"              // for CheckButton
-#include "Desktop.hpp"                  // for Desktop
-#include "Document.hpp"                 // for Document
-#include "FilledRectangle.hpp"          // for FilledRectangle
-#include "Gradient.hpp"                 // for Gradient
-#include "Image.hpp"                    // for Image
-#include "Panel.hpp"                    // for Panel
-#include "Paragraph.hpp"                // for Paragraph
-#include "ScrollBar.hpp"                // for ScrollBar
-#include "ScrollView.hpp"               // for ScrollView
-#include "SwitchComponent.hpp"          // for SwitchComponent
-#include "TableLayout.hpp"              // for TableLayout
-#include "TooltipManager.hpp"           // for TooltipManager
-#include "Window.hpp"                   // for Window
-#include "WindowManager.hpp"            // for WindowManager
+#include "Button.hpp"                     // for Button
+#include "CheckButton.hpp"                // for CheckButton
+#include "Desktop.hpp"                    // for Desktop
+#include "Document.hpp"                   // for Document
+#include "FilledRectangle.hpp"            // for FilledRectangle
+#include "Gradient.hpp"                   // for Gradient
+#include "Image.hpp"                      // for Image
+#include "Panel.hpp"                      // for Panel
+#include "Paragraph.hpp"                  // for Paragraph
+#include "ScrollBar.hpp"                  // for ScrollBar
+#include "ScrollView.hpp"                 // for ScrollView
+#include "SwitchComponent.hpp"            // for SwitchComponent
+#include "TableLayout.hpp"                // for TableLayout
+#include "TooltipManager.hpp"             // for TooltipManager
+#include "Window.hpp"                     // for Window
+#include "WindowManager.hpp"              // for WindowManager
 
 DECLARE_COMPONENT_FACTORY(Button)
 DECLARE_COMPONENT_FACTORY(CheckButton);

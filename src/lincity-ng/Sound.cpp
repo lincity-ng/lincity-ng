@@ -22,26 +22,29 @@
 
 #include "Sound.hpp"
 
-#include <SDL.h>                  // for SDL_GetError, SDL_CreateThread, SDL...
-#include <SDL_mixer.h>            // for Mix_Volume, Mix_FreeMusic, Mix_Play...
-#include <stdio.h>                // for NULL, size_t, fprintf, stderr
-#include <stdlib.h>               // for rand, strtod
-#include <string.h>               // for strcmp
-#include <cassert>                // for assert
-#include <cmath>                  // for round
-#include <iostream>               // for basic_ostream, operator<<, endl, cout
-#include <stdexcept>              // for runtime_error
-#include <utility>                // for pair
-#include <vector>                 // for vector
-#include <optional>
+#include <SDL.h>                          // for SDL_GetError, SDL_CreateThread
+#include <SDL_mixer.h>                    // for Mix_Volume, Mix_FreeMusic
+#include <fmt/base.h>                     // for println
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdio.h>                        // for stderr, size_t, fprintf, NULL
+#include <stdlib.h>                       // for rand
+#include <cassert>                        // for assert
+#include <cmath>                          // for round
+#include <iostream>                       // for basic_ostream, operator<<
+#include <optional>                       // for optional
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
+#include <vector>                         // for vector
+#include <fmt/std.h> // IWYU pragma: keep
 
-#include "Config.hpp"             // for getConfig, Config
-#include "gui/XmlReader.hpp"      // for XmlReader
-#include "libxml/xmlreader.h"     // for XML_READER_TYPE_ELEMENT
-#include "lincity/lin-city.hpp"     // for MAX_TECH_LEVEL
-#include "lincity/lintypes.hpp"     // for Construction
-#include "lincity/resources.hpp"  // for ResourceGroup
-#include "lincity/world.hpp"        // for MapTile
+#include "Config.hpp"                     // for getConfig, Config
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"           // for Construction
+#include "lincity/resources.hpp"          // for ResourceGroup
+#include "lincity/world.hpp"              // for MapTile
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 Sound* soundPtr = 0;
 
@@ -60,89 +63,106 @@ Sound::soundThread(void* ptr)
 
 void
 Sound::loadWaves() {
-    //Load Waves
-    std::filesystem::path directory = getConfig()->appDataDir.get() / "sounds";
-    std::filesystem::path xmlfile = directory / "sounds.xml";
-    XmlReader reader(xmlfile);
-    std::filesystem::path filename;
-    std::filesystem::path fullname;
-    std::vector<ResourceGroup*> resGrpVec;
-    resGrpVec.clear();
-    int resourceID_level = 0;
-    std::string key;
-    Mix_Chunk *chunk;
-    while( reader.read() )
-    {
-        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
-        {
-            const std::string& element = (const char*) reader.getName();
+  // TODO: improve the format of sounds.xml
 
-            if( element == "resourceID")
-            {
-                XmlReader::AttributeIterator iter(reader);
-                while(iter.next())
-                {
-                    const char* name = (const char*) iter.getName();
-                    const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "name" ) == 0 )
-                    {
-                        if(ResourceGroup::resMap.count(value))
-                        {
-                            resGrpVec.push_back( ResourceGroup::resMap[value] );
-                            resourceID_level = reader.getDepth();
-                            if( resGrpVec.back()->sounds_loaded) //could crash if game is already running
-                            {   std::cout << "Warning duplicate resourceID in sounds.xml: " << value << std::endl;}
-                        }
-                        else
-                        {   std::cout << "unknown resourceID: " << value << " in sounds.xml" << std::endl;}
-                    }
-                }
-            }
-            if(reader.getDepth() < resourceID_level-1)
-            {
-                for(size_t i=0; i< resGrpVec.size(); ++i)
-                {   resGrpVec[i]->sounds_loaded = true;}
-                resGrpVec.clear();
-                resourceID_level = 0;
-            }
-            if( element == "sound" )
-            {
-                XmlReader::AttributeIterator iter(reader);
-                while(iter.next())
-                {
-                    const char* name = (const char*) iter.getName();
-                    const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "file" ) == 0 )
-                    {   key = value;}
-                    else
-                    {   std::cout << "unknown attribute " << name << " in sounds.xml" << std::endl;}
-                }
-                fullname = directory / key;
-                chunk = Mix_LoadWAV(fullname.string().c_str());
-                if(!chunk) {
-                    std::cerr << "warning: failed to load sound '" << key
-                        << "': " << Mix_GetError() << std::endl;
-                }
-                if (resourceID_level && resGrpVec.size())
-                {
-                    for(size_t i=0; i< resGrpVec.size(); ++i)
-                    {   resGrpVec[i]->chunks.push_back(chunk);}
-                }
-                else
-                {
-                    std::string idName = getIdName( key );
-                    waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
-                }
-                key.clear();
-            }
-        }
-    } //end xml reader
-    if(resGrpVec.size())
-    {
-        for(size_t i=0; i< resGrpVec.size(); ++i)
-        {   resGrpVec[i]->sounds_loaded = true;}
-        resGrpVec.clear();
+  std::filesystem::path directory = getConfig()->appDataDir.get() / "sounds";
+  std::filesystem::path xmlfile = directory / "sounds.xml";
+  xmlpp::TextReader reader(xmlfile);
+  if(!reader.read())
+    throw std::runtime_error(fmt::format("file is empty: {}", xmlfile));
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+    if(!reader.next())
+      throw std::runtime_error(
+        fmt::format("file doesn't contain XML data: {}", xmlfile));
+  }
+
+  std::filesystem::path filename;
+  std::filesystem::path fullname;
+  std::vector<ResourceGroup*> resGrpVec;
+  resGrpVec.clear();
+  int resourceID_level = 0;
+  std::filesystem::path key;
+  Mix_Chunk *chunk;
+
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "resourceID") {
+      std::string resName;
+
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(name == "name")
+          resName = xmlParse<std::string>(value);
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      if(ResourceGroup::resMap.count(resName))
+      {
+        resGrpVec.push_back(ResourceGroup::resMap[resName]);
+        resourceID_level = reader.get_depth();
+        if(resGrpVec.back()->sounds_loaded) //could crash if game is already running
+          fmt::println(stderr,
+            "warning: duplicate resourceID in sounds.xml: {:?}", resName);
+      }
+      else
+        fmt::println(stderr,
+          "warning: unknown resourceID in sounds.xml: {:?}", resName);
+    }
+    if(reader.get_depth() < resourceID_level-1) {
+      for(size_t i=0; i< resGrpVec.size(); ++i)
+        resGrpVec[i]->sounds_loaded = true;
+      resGrpVec.clear();
+      resourceID_level = 0;
+    }
+    if(element == "sound") {
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(name == "name")
+          key = xmlParse<std::filesystem::path>(value);
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      fullname = directory / key;
+      chunk = Mix_LoadWAV(fullname.string().c_str());
+      if(!chunk) {
+        fmt::println(stderr, "warning: filed to load sound {:?}: {}",
+          key, Mix_GetError());
+      }
+      if (resourceID_level && resGrpVec.size()) {
+        for(size_t i=0; i< resGrpVec.size(); ++i)
+          resGrpVec[i]->chunks.push_back(chunk);
+      }
+      else {
+        std::string idName = getIdName(key);
+        waves.insert(std::pair<std::string,Mix_Chunk*>(idName, chunk));
+      }
+      key.clear();
+    }
+    reader.next();
+  }
+
+  while(reader.next()) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+      continue;
+    unexpectedXmlElement(reader);
+  }
+
+  if(resGrpVec.size()) {
+    for(size_t i=0; i< resGrpVec.size(); ++i)
+      resGrpVec[i]->sounds_loaded = true;
+    resGrpVec.clear();
+  }
 }
 
  /*
@@ -163,49 +183,67 @@ void Sound::loadMusicTheme() {
       std::string("could not load music theme: " + theme));
 
   //Get the number of songs
-  XmlReader reader( xml_name );
+  xmlpp::TextReader reader(xml_name);
+  if(!reader.read())
+    throw std::runtime_error(fmt::format("file is empty: {}", xml_name));
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+    if(!reader.next())
+      throw std::runtime_error(
+        fmt::format("file doesn't contain XML data: {}", xml_name));
+  }
 
-  while(reader.read()) {
-    if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-      const std::string& element = (const char*) reader.getName();
-
-      if(element == "song") {
-        XmlReader::AttributeIterator iter(reader);
-        std::string title;
-        std::filesystem::path filename;
-        float lowest_tech_level = 0.0;
-        float highest_tech_level = 10000.0;
-
-        while(iter.next()) {
-          const char* name = (const char*) iter.getName();
-          const char* value = (const char*) iter.getValue();
-
-          if(strcmp(name, "title") == 0)
-            title = value;
-          else if(strcmp(name, "filename") == 0)
-            filename = themeDir / value;
-          else if(strcmp(name, "highest-tech-level") == 0)
-            highest_tech_level = strtod(value, NULL);
-          else if(strcmp(name, "lowest-tech-level") == 0)
-            lowest_tech_level = strtod(value, NULL);
-        }
-        song tempSong;
-        tempSong.title = title;
-        tempSong.filename = filename;
-        tempSong.trackNumber = totalTracks;
-        tempSong.lowestTechLevel = lowest_tech_level;
-        if(highest_tech_level == 0)
-          highest_tech_level = 10 * MAX_TECH_LEVEL;
-        tempSong.highestTechLevel = highest_tech_level;
-
-        playlist.push_back(tempSong);
-        totalTracks++;
-      }
-      else {
-        std::cerr << "Config::load# Unknown element '" << element << "' in "
-          << theme << "." << std::endl;
-      }
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    xmlpp::ustring element = reader.get_name();
+
+    if(element == "song") {
+      std::string title;
+      std::filesystem::path filename;
+      float lowest_tech_level = 0.0;
+      float highest_tech_level = 10000.0;
+
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(name == "title")
+          title = xmlParse<std::string>(value);
+        else if(name == "filename")
+          filename = themeDir / xmlParse<std::filesystem::path>(value);
+        else if(name == "highest-tech-level")
+          highest_tech_level = xmlParse<float>(value);
+        else if(name == "lowest-tech-level")
+          lowest_tech_level = xmlParse<float>(value);
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      song tempSong;
+      tempSong.title = title;
+      tempSong.filename = filename;
+      tempSong.trackNumber = totalTracks;
+      tempSong.lowestTechLevel = lowest_tech_level;
+      if(highest_tech_level == 0)
+        highest_tech_level = 10 * MAX_TECH_LEVEL;
+      tempSong.highestTechLevel = highest_tech_level;
+
+      playlist.push_back(tempSong);
+      totalTracks++;
+    }
+    else {
+      unexpectedXmlElement(reader);
+    }
+    reader.next();
+  }
+
+  while(reader.next()) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+      continue;
+    unexpectedXmlElement(reader);
   }
 }
 

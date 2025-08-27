@@ -18,25 +18,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "HelpWindow.hpp"
 
-#include <cassert>                      // for assert
-#include <exception>                    // for exception
-#include <functional>                   // for bind, _1, function, _2
-#include <iostream>                     // for basic_ostream, operator<<, cerr
-#include <memory>                       // for unique_ptr
-#include <sstream>                      // for basic_ostringstream
-#include <stdexcept>                    // for runtime_error
+#include <cassert>                  // for assert
+#include <exception>                // for exception
+#include <functional>               // for bind, _1, function, _2
+#include <iostream>                 // for basic_ostream, operator<<, cerr
+#include <memory>                   // for unique_ptr
+#include <sstream>                  // for basic_ostringstream
+#include <stdexcept>                // for runtime_error
+#include <utility>                  // for move
 
-#include "Config.hpp"                   // for getConfig, Config
-#include "Util.hpp"                     // for getButton
-#include "gui/Button.hpp"               // for Button
-#include "gui/Component.hpp"            // for Component
-#include "gui/ComponentLoader.hpp"      // for loadGUIFile
-#include "gui/Document.hpp"             // for Document
-#include "gui/ScrollView.hpp"           // for ScrollView
-#include "gui/Signal.hpp"               // for Signal
-#include "gui/Window.hpp"               // for Window
-#include "gui/WindowManager.hpp"        // for WindowManager
-#include "main.hpp"
+#include "Config.hpp"               // for getConfig, Config
+#include "Util.hpp"                 // for getButton
+#include "gui/Button.hpp"           // for Button
+#include "gui/Component.hpp"        // for Component
+#include "gui/ComponentLoader.hpp"  // for loadGUIFile
+#include "gui/Document.hpp"         // for Document
+#include "gui/ScrollView.hpp"       // for ScrollView
+#include "gui/Signal.hpp"           // for Signal
+#include "gui/Window.hpp"           // for Window
+#include "gui/WindowManager.hpp"    // for WindowManager
+#include "main.hpp"                 // for getLang
+#include "util/ptrutil.hpp"         // for dynamic_unique_cast
 
 using namespace std::placeholders;
 
@@ -62,9 +64,10 @@ HelpWindow::showTopic(const std::string& topic)
         Window* helpWindow = dynamic_cast<Window *>(
           windowManager->findComponent("HelpWindow"));
         if(helpWindow == 0) {
-            helpWindow = dynamic_cast<Window *>(
-              loadGUIFile("gui/helpwindow.xml"));
-            windowManager->addWindow(helpWindow);
+            std::unique_ptr<Window> helpWindowUniq =
+              dynamic_unique_cast<Window>(loadGUIFile("gui/helpwindow.xml"));
+            helpWindow = helpWindowUniq.get();
+            windowManager->addWindow(std::move(helpWindowUniq));
             // connect history back button
             historyBackButton = getButton(*helpWindow, "HistoryBack");
             historyBackButton->clicked.connect(
@@ -73,11 +76,11 @@ HelpWindow::showTopic(const std::string& topic)
         // load new contents
         std::filesystem::path filename = getHelpFile(topic);
         filename = std::filesystem::absolute(filename);
-        std::unique_ptr<Component> contents (loadGUIFile(filename));
-        Document* document = dynamic_cast<Document*> (contents.get());
-        if(document == 0)
-            throw std::runtime_error("Help Contents is not a Document");
-        document->linkClicked.connect(
+        std::unique_ptr<Document> contents = dynamic_unique_cast<Document>(
+          loadGUIFile(filename));
+        if(!contents)
+          throw std::runtime_error("Help Contents is not a Document");
+        contents->linkClicked.connect(
           std::bind(&HelpWindow::linkClicked, this, _1, _2));
 
         // attach to help window
@@ -88,7 +91,7 @@ HelpWindow::showTopic(const std::string& topic)
         ScrollView* scrollView = dynamic_cast<ScrollView*> (helpScrollView);
         if(scrollView == 0)
             throw std::runtime_error("HelpScrollView is not a ScrollView");
-        scrollView->replaceContents(contents.release());
+        scrollView->replaceContents(std::move(contents));
         topicHistory.push(topic);
     } catch(std::exception& e) {
         std::cerr << "Couldn't open HelpWindow: "

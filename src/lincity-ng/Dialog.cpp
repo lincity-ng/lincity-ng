@@ -34,6 +34,7 @@
 #include <iostream>                         // for cerr
 #include <sstream>                          // for basic_stringstream
 #include <stdexcept>                        // for runtime_error
+#include <utility>                          // for move
 #include <vector>                           // for vector
 
 #include "Config.hpp"                       // for getConfig, Config
@@ -58,7 +59,8 @@
 #include "lincity/stats.hpp"                // for Stats, Stat
 #include "lincity/util.hpp"                 // for current_year, current_month
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "util/gettextutil.hpp"
+#include "util/gettextutil.hpp"             // for _
+#include "util/ptrutil.hpp"                 // for dynamic_unique_cast
 
 using namespace std::placeholders;
 
@@ -114,20 +116,21 @@ Dialog::Dialog(Game& game, int type, MapPoint point)
 }
 
 void Dialog::initDialog() {
-    windowManager = 0;
-    myDialogComponent = 0;
-    iAmBlocking = false;
-    windowManager = dynamic_cast<WindowManager*>(
-      game.getGui().findComponent("windowManager"));
-    assert(windowManager);
+  windowManager = nullptr;
+  myDialogComponent = nullptr;
+  iAmBlocking = false;
+  windowManager = dynamic_cast<WindowManager*>(
+    game.getGui().findComponent("windowManager"));
+  assert(windowManager);
 }
 
 Dialog::~Dialog(){
 }
 
-void Dialog::registerDialog(){
-    dialogVector.push_back( this );
-    windowManager->addWindow(static_cast<Window *>(myDialogComponent));
+void Dialog::registerDialog(std::unique_ptr<Window>&& component) {
+  myDialogComponent = component.get();
+  dialogVector.push_back(this);
+  windowManager->addWindow(std::move(component));
 }
 
 void Dialog::unRegisterDialog(){
@@ -149,10 +152,8 @@ void Dialog::askRocket(){
         return;
     }
     try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/launch_rocket_yn.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
+        registerDialog(dynamic_unique_cast<Window>(
+          loadGUIFile("gui/dialogs/launch_rocket_yn.xml")));
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -182,10 +183,8 @@ void Dialog::coalSurvey(){
         return;
     }
     try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/coal_survey_yn.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
+        registerDialog(dynamic_unique_cast<Window>(
+          loadGUIFile("gui/dialogs/coal_survey_yn.xml")));
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -253,10 +252,8 @@ void Dialog::gameStats(){
       windowManager->findComponent("GameStats"));
     if( myDialogComponent == 0){
         try {
-            myDialogComponent = dynamic_cast<Window *>(
-              loadGUIFile( "gui/dialogs/gamestats.xml" ));
-            assert( myDialogComponent != 0);
-            registerDialog();
+            registerDialog(dynamic_unique_cast<Window>(
+              loadGUIFile("gui/dialogs/gamestats.xml")));
         } catch(std::exception& e) {
             std::cerr << "Couldn't display message 'gamestats': "
                 << e.what() << "\n";
@@ -530,10 +527,8 @@ void Dialog::editMarket(){
         return;
     }
     try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/tradedialog.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
+        registerDialog(dynamic_unique_cast<Window>(
+          loadGUIFile("gui/dialogs/tradedialog.xml")));
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -597,10 +592,8 @@ void Dialog::editPort(){
         return;
     }
     try {
-        myDialogComponent = dynamic_cast<Window *>(
-          loadGUIFile( "gui/dialogs/portdialog.xml" ));
-        assert( myDialogComponent != 0);
-        registerDialog();
+        registerDialog(dynamic_unique_cast<Window>(
+          loadGUIFile("gui/dialogs/portdialog.xml")));
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {

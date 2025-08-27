@@ -36,7 +36,6 @@ add_library(lincity_gui  STATIC
   Vector2.cpp
   Window.cpp
   WindowManager.cpp
-  XmlReader.cpp
 
   Button.hpp
   CheckButton.hpp
@@ -73,7 +72,6 @@ add_library(lincity_gui  STATIC
   Vector2.hpp
   Window.hpp
   WindowManager.hpp
-  XmlReader.hpp
 
   # PainterGL/PainterGL.cpp
   # PainterGL/PainterGL.hpp
@@ -109,11 +107,14 @@ add_library(LinCity::gui ALIAS lincity_gui)
 
 target_link_libraries(lincity_gui
   PUBLIC
-  LibXml2::LibXml2
   $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
   $<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
+  xmlutil
+  LibXml++-5.0::LibXml++-5.0
   PRIVATE
+  fmt::fmt
   gettext
+  ptrutil
 )
 if(NOT LINCITYNG_DISABLE_GL_MODE)
   target_link_libraries(lincity_gui PUBLIC OpenGL::GL)

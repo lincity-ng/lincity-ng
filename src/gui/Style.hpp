@@ -29,7 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Color.hpp"  // for Color
 
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class Style
@@ -42,8 +44,8 @@ public:
     Style();
     ~Style();
 
-    void parseAttributes(XmlReader& reader);
-    bool parseAttribute(const char* name, const char* value);
+    bool parseAttribute(xmlpp::TextReader& reader);
+    void parseAttributes(xmlpp::TextReader& reader);
 
     std::string href;
 
@@ -68,7 +70,7 @@ private:
 };
 
 extern std::map<std::string, Style> styleRegistry;
-void parseStyleDef(XmlReader& reader);
+void parseStyleDef(xmlpp::TextReader& reader);
 
 #endif
 

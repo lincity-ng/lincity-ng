@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __WINDOW_MANAGER_HPP__
 
 #include <stddef.h>       // for NULL
+#include <memory>         // for unique_ptr
 #include <vector>         // for vector
 
 #include "Child.hpp"      // for Child
@@ -26,7 +27,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Vector2.hpp"    // for Vector2
 
 class Window;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class WindowManager : public Component
 {
@@ -34,13 +37,13 @@ public:
   WindowManager();
   virtual ~WindowManager();
 
-  void parse(XmlReader& reader);
+  void parse(xmlpp::TextReader& reader);
 
   void resize(float width, float height) override;
   void event(const Event& event) override;
   bool opaque(const Vector2& pos) const override;
 
-  void addWindow(Window *window);
+  void addWindow(std::unique_ptr<Window>&& window);
   void removeWindow(Window *window);
 
 private:
@@ -71,10 +74,10 @@ private:
   bool hasMoved = false;
   static const int grabDist = 1;
 
-  void addWindowInternal(Window *window);
+  void addWindowInternal(std::unique_ptr<Window>&& window);
   void removeWindowInternal(Window *window);
   std::vector<Window *> removeQueue;
-  std::vector<Window *> addQueue;
+  std::vector<std::unique_ptr<Window>> addQueue;
   bool childLock = false;
   void lockChilds();
   void unlockChilds();

@@ -25,7 +25,6 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
-#include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for max, min
@@ -34,6 +33,7 @@
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
 
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity

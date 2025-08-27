@@ -27,7 +27,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Signal.hpp"     // for Signal
 #include "gui/Vector2.hpp"    // for Vector2
 
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class CheckButton : public Component
 {
@@ -35,7 +37,7 @@ public:
     CheckButton();
     virtual ~CheckButton();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void draw(Painter& painter);
     void event(const Event& event);
@@ -69,8 +71,8 @@ public:
     bool isEnabled() const;
 
 private:
-    void setChildImage(Child& child, XmlReader& reader);
-    void setChildText(Child& child, XmlReader& reader);
+    void setChildImage(Child& child, xmlpp::TextReader& reader);
+    void setChildText(Child& child, xmlpp::TextReader& reader);
 
     Child& comp_disabled()
     { return childs[0]; }

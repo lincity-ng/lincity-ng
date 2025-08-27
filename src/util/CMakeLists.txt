@@ -17,4 +17,7 @@ target_include_directories(gettextutil INTERFACE ..)
 add_library(randutil STATIC randutil.cpp randutil.hpp)
 target_include_directories(randutil INTERFACE ..)
 
+add_library(ptrutil INTERFACE ptrutil.hpp)
+target_include_directories(ptrutil INTERFACE ..)
+
 include_directories(.)

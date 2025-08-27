@@ -1,10 +1,7 @@
 /* ---------------------------------------------------------------------- *
- * src/lincity/util.hpp
+ * src/util/ptrutil.cpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 1995-1997 I J Peters
- * Copyright (C) 1997-2005 Greg Sharp
- * Copyright (C) 2000-2004 Corey Keasling
  * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,25 +19,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __LINCITYNG_LINCITY_UTIL_HPP__
-#define __LINCITYNG_LINCITY_UTIL_HPP__
+#ifndef __LINCITYNG_UTIL_PTRUTIL_HPP__
+#define __LINCITYNG_UTIL_PTRUTIL_HPP__
 
-#include <string>
+#include <memory>
 
-#ifdef NDEBUG
-#define used_in_assert maybe_unused
-#else
-#define used_in_assert
-#endif
+template<typename T, typename F>
+std::unique_ptr<T> dynamic_unique_cast(std::unique_ptr<F>&& ptr) {
+  T *p = dynamic_cast<T *>(ptr.get());
+  if(p) ptr.release();
+  return std::unique_ptr<T>(p);
+}
 
-// TODO: move to NG
-const char *current_month(int current_time);
-int current_year(int current_time);
-//void format_number5(char *str, int num);
-//void format_pos_number4(char *str, int num);
-//void format_power(char *str, size_t size, long power);
-std::string num_to_ansi(long num);
-
-#endif // __LINCITYNG_LINCITY_UTIL_HPP__
-
-/** @file lincity/lclib.h */
+#endif // __LINCITYNG_UTIL_PTRUTIL_HPP__

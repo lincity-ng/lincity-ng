@@ -17,18 +17,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "WindowManager.hpp"
 
-#include <SDL.h>                 // for SDL_BUTTON_LEFT, SDL_SYSTEM_CURSOR_S...
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <iostream>              // for char_traits, basic_ostream, operator<<
-#include <stdexcept>             // for runtime_error
-#include <string>                // for basic_string, operator<<, string
+#include <SDL.h>                          // for SDL_SystemCursor, SDL_BUTTO...
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for move
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "Desktop.hpp"           // for Desktop
-#include "Event.hpp"             // for Event
-#include "Rect2D.hpp"            // for Rect2D
-#include "Window.hpp"            // for Window
-#include "XmlReader.hpp"         // for XmlReader
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "Desktop.hpp"                    // for Desktop
+#include "Event.hpp"                      // for Event
+#include "Rect2D.hpp"                     // for Rect2D
+#include "Window.hpp"                     // for Window
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute, une...
 
 // some macros to reduce code duplication when using Vector2
 #define AXIS(P, X, Y) (AXISID?(P Y):(P X))
@@ -45,26 +44,22 @@ WindowManager::~WindowManager() {
 }
 
 void
-WindowManager::parse(XmlReader& reader) {
-  XmlReader::AttributeIterator iter(reader);
-  while(iter.next()) {
-    const char* attribute = (const char*) iter.getName();
-    const char* value = (const char*) iter.getValue();
-
-    if(parseAttribute(attribute, value)) {
-      continue;
-    } else {
-      std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-    }
+WindowManager::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
   }
+  reader.move_to_element();
 
-  int depth = reader.getDepth();
-  while(reader.read() && reader.getDepth() > depth) {
-    if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-      std::string element = (const char*) reader.getName();
-      std::cerr << "Skipping unknown element '" << element << "'.\n";
-      reader.nextNode();
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    unexpectedXmlElement(reader);
+    reader.next();
   }
 }
 
@@ -238,11 +233,11 @@ WindowManager::opaque(const Vector2& pos) const {
 }
 
 void
-WindowManager::addWindow(Window *window) {
+WindowManager::addWindow(std::unique_ptr<Window>&& window) {
   if(childLock)
-    addQueue.push_back(window);
+    addQueue.push_back(std::move(window));
   else
-    addWindowInternal(window);
+    addWindowInternal(std::move(window));
 }
 
 void
@@ -279,8 +274,8 @@ WindowManager::edgeAt(const Child &child, Vector2 pos) const {
 }
 
 void
-WindowManager::addWindowInternal(Window *window) {
-  Child& child = addChild(window);
+WindowManager::addWindowInternal(std::unique_ptr<Window>&& window) {
+  Child& child = addChild(std::move(window));
   child.setPos((getSize() - window->getSize()) / 2);
 }
 
@@ -307,14 +302,13 @@ WindowManager::unlockChilds() {
   childLock = false;
 
   // process pending remove events...
-  using queue_it = std::vector<Window *>::iterator;
-  for(queue_it i = removeQueue.begin(); i != removeQueue.end(); ++i)
+  for(auto i = removeQueue.begin(); i != removeQueue.end(); ++i)
     removeWindowInternal(*i);
   removeQueue.clear();
 
   // process pending child adds...
-  for(queue_it i = addQueue.begin(); i != addQueue.end(); ++i )
-    addWindowInternal(*i);
+  for(auto i = addQueue.begin(); i != addQueue.end(); ++i )
+    addWindowInternal(std::move(*i));
   addQueue.clear();
 }
 

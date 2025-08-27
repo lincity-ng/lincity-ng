@@ -23,7 +23,6 @@
 #define __LINCITYNG_UTIL_XMLUTIL_HPP__
 
 #include <libxml++/ustring.h>  // for ustring
-#include <string>              // for string
 
 namespace xmlpp {
 class TextReader;
@@ -32,9 +31,12 @@ class TextReader;
 typedef const unsigned char *xmlStr;
 typedef unsigned char *xmlMStr;
 
-extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
-extern void missingXmlElement(xmlpp::TextReader& xmlReader,
-  const std::string& name);
+extern void unexpectedXmlElement(xmlpp::TextReader& reader);
+extern void missingXmlElement(xmlpp::TextReader& reader,
+  const xmlpp::ustring& name);
+extern void unexpectedXmlAttribute(xmlpp::TextReader& reader);
+extern void missingXmlAttribute(xmlpp::TextReader& reader,
+  const xmlpp::ustring& name);
 
 
 template<typename X>

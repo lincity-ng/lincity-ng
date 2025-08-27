@@ -23,7 +23,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"  // for Component
 
 class Button;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class Window
@@ -38,7 +40,7 @@ public:
     Window();
     virtual ~Window();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void draw(Painter& painter) override;
     void event(const Event& event) override;

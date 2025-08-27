@@ -21,21 +21,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Gradient.cpp
  */
 
-#include <SDL.h>          // for SDL_BIG_ENDIAN, SDL_BYTEORDER
-#include <assert.h>              // for assert
-#include <math.h>                // for lrintf
-#include <string.h>              // for strcmp
-#include <iostream>              // for char_traits, operator<<, basic_ostream
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
+#include <SDL.h>                          // for SDL_Surface, SDL_CreateRGBS...
+#include <assert.h>                       // for assert
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <math.h>                         // for lrintf
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator==
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "Gradient.hpp"
-#include "Painter.hpp"           // for Painter
-#include "Texture.hpp"           // for Texture
-#include "TextureManager.hpp"    // for TextureManager, texture_manager
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "Painter.hpp"                    // for Painter
+#include "Texture.hpp"                    // for Texture
+#include "TextureManager.hpp"             // for TextureManager, texture_man...
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
 
 #ifdef _MSC_VER
 #define lrintf(x) (long int)x
@@ -49,36 +50,27 @@ Gradient::~Gradient()
 {}
 
 void
-Gradient::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "from") == 0) {
-            from.parse(value);
-        } else if(strcmp(attribute, "to") == 0) {
-            to.parse(value);
-        } else if (strcmp(attribute, "direction") == 0) {
-            if(strcmp(value, "left-right") == 0) {
-                direction = LEFT_RIGHT;
-            } else if (strcmp(value, "top-bottom") == 0) {
-                direction = TOP_BOTTOM;
-            } else {
-                std::stringstream msg;
-                msg << "Invalid gradient direction '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                      << attribute << "'.\n";
-        }
+Gradient::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "from")
+      from.parse(value);
+    else if(name == "to")
+      to.parse(value);
+    else if(name == "direction") {
+      if(value == "left-right") direction = LEFT_RIGHT;
+      else if(value == "top-bottom") direction = TOP_BOTTOM;
+      else throw std::runtime_error(fmt::format(
+        "error: invalid gradient direction: {}", value));
     }
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-    flags |= FLAG_RESIZABLE;
+  flags |= FLAG_RESIZABLE;
 }
 
 void

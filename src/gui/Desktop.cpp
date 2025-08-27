@@ -24,17 +24,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Desktop.hpp"
 
-#include <SDL.h>                // for SDL_GetDefaultCursor, SDL_SystemCursor
-#include <libxml/xmlreader.h>   // for XML_READER_TYPE_ELEMENT
-#include <stddef.h>             // for NULL
-#include <iostream>             // for basic_ostream, operator<<, cerr
-#include <stdexcept>            // for runtime_error
-#include <string>               // for char_traits, basic_string, operator<<
+#include <SDL.h>                          // for SDL_SystemCursor, SDL_GetDe...
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stddef.h>                       // for NULL
+#include <iostream>                       // for basic_ostream, operator<<
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for char_traits, basic_string
 
-#include "Child.hpp"            // for Childs, Child
-#include "ComponentLoader.hpp"  // for createComponent
-#include "Style.hpp"            // for parseStyleDef
-#include "XmlReader.hpp"        // for XmlReader
+#include "Child.hpp"                      // for Childs, Child
+#include "ComponentLoader.hpp"            // for createComponent
+#include "Style.hpp"                      // for parseStyleDef
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
 
 Desktop::Desktop()
 {
@@ -49,33 +50,28 @@ Desktop::~Desktop() {
 }
 
 void
-Desktop::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+Desktop::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
-
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
-
-            if(element == "DefineStyle") {
-                parseStyleDef(reader);
-            } else {
-                Component* component = createComponent(element, reader);
-                addChild(component);
-            }
-        }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "DefineStyle") {
+      parseStyleDef(reader);
+    } else {
+      addChild(createComponent(element, reader));
     }
+    reader.next();
+  }
 }
 
 void

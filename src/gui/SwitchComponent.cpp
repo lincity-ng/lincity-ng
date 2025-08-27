@@ -24,15 +24,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "SwitchComponent.hpp"
 
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <iostream>              // for operator<<, basic_ostream, basic_ios
-#include <vector>                // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <iostream>                       // for basic_ostream, operator<<
+#include <vector>                         // for vector
 
-#include "Child.hpp"             // for Childs, Child
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"   // for createComponent
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "Child.hpp"                      // for Childs, Child
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"            // for createComponent
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
 
 /**
  * Class constructor.
@@ -46,42 +47,28 @@ SwitchComponent::~SwitchComponent()
 {
 }
 
-/**
- * Function for XML parsing.
- *
- * @param reader XmlReader object that represents a XML file.
- */
 void
-SwitchComponent::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+SwitchComponent::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
+  bool first = false;
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    xmlpp::ustring element = reader.get_name();
 
-    int depth = reader.getDepth();
-    bool first = true;
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
-
-            Component* component = createComponent(element, reader);
-            Child& child = addChild(component);
-            if(first) {
-                child.enable(true);
-                first = false;
-            } else {
-                child.enable(false);
-            }
-        }
-    }
+    Child& child = addChild(createComponent(element, reader));
+    child.enable(first);
+    first = false;
+  }
 }
 
 /**

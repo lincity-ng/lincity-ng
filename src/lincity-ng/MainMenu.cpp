@@ -63,6 +63,7 @@
 #include "main.hpp"                     // for resizeVideo, painter, videoSi...
 #include "util/gettextutil.hpp"
 #include "config.h"
+#include "util/ptrutil.hpp"
 
 using namespace std::placeholders;
 using namespace std::string_literals;
@@ -87,7 +88,7 @@ MainMenu::~MainMenu()
 
 void
 MainMenu::loadMainMenu() {
-  menu.reset(dynamic_cast<Desktop *>(loadGUIFile("gui/mainmenu.xml")));
+  menu = dynamic_unique_cast<Desktop>(loadGUIFile("gui/mainmenu.xml"));
   menuSwitch = dynamic_cast<SwitchComponent *>(
     menu->findComponent("menu-switch"));
   assert(menuSwitch);

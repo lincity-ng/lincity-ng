@@ -31,7 +31,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"  // for Component
 
 class Vector2;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 static const Uint32 TOOLTIP_TIME = 500;
 
@@ -44,7 +46,7 @@ public:
     TooltipManager();
     ~TooltipManager();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void resize(float width, float height);
     void event(const Event& event);

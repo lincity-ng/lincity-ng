@@ -55,6 +55,7 @@ target_link_libraries(lincity-ng
   $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
   fmt::fmt
   xmlutil
+  ptrutil
 )
 
 include_directories(.)

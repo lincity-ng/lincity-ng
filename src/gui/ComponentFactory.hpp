@@ -24,10 +24,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COMPONENT_FACTORY_HPP__
 #define __COMPONENT_FACTORY_HPP__
 
-#include <map>                  // for map
-#include <memory>               // for unique_ptr
-#include <string>               // for basic_string, operator<, string
-#include <utility>              // for pair, make_pair
+#include <map>      // for map
+#include <memory>   // for unique_ptr
+#include <string>   // for basic_string, operator<, string
+#include <utility>  // for pair, make_pair
+
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 // IWYU pragma: no_include "Button.hpp"
 // IWYU pragma: no_include "CheckButton.hpp"
@@ -46,11 +50,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // IWYU pragma: no_include "Window.hpp"
 // IWYU pragma: no_include "WindowManager.hpp"
 
-const char * GUI_TRANSLATE(const char * msgid);
-std::string  GUI_TRANSLATE(const std::string& msgid);
-
 class Component;
-class XmlReader;
 
 /**
  * @class Factory
@@ -61,7 +61,8 @@ public:
     virtual ~Factory()
     { }
 
-    virtual Component* createComponent(XmlReader& reader) = 0;
+    virtual std::unique_ptr<Component>
+    createComponent(xmlpp::TextReader& reader) = 0;
 };
 
 typedef std::map<std::string, Factory*> ComponentFactories;
@@ -86,11 +87,11 @@ public:                                                                     \
     component_factories->insert(std::make_pair(#CLASS, this));              \
   }                                                                         \
                                                                             \
-  virtual Component* createComponent(XmlReader& reader)                     \
-  {                                                                         \
-      std::unique_ptr<CLASS> component (new CLASS());                         \
-      component->parse(reader);                                             \
-      return component.release();                                           \
+  virtual std::unique_ptr<Component>                                        \
+  createComponent(xmlpp::TextReader& reader) {                              \
+    std::unique_ptr<CLASS> component(new CLASS());                          \
+    component->parse(reader);                                               \
+    return component;                                                       \
   }                                                                         \
 };
 #define IMPLEMENT_COMPONENT_FACTORY(CLASS)                                  \

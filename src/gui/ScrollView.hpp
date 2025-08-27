@@ -24,11 +24,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SCROLLVIEW_HPP__
 #define __SCROLLVIEW_HPP__
 
+#include <memory>         // for unique_ptr
+
 #include "Child.hpp"      // for Childs, Child (ptr only)
 #include "Component.hpp"  // for Component
 
 class ScrollBar;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class ScrollView
@@ -39,11 +43,11 @@ public:
     ScrollView();
     virtual ~ScrollView();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void resize(float width, float height);
     void event(const Event& event);
-    void replaceContents(Component* component);
+    void replaceContents(std::unique_ptr<Component>&& component);
 
 private:
     void scrollBarChanged(ScrollBar* bar, float newvalue);
@@ -58,4 +62,3 @@ private:
 
 
 /** @file gui/ScrollView.hpp */
-

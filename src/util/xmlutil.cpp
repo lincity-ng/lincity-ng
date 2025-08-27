@@ -25,21 +25,36 @@
 #include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <cassert>                        // for assert
-#include <cstdio>                         // for stderr
 #include <charconv>                       // for from_chars_result, from_chars
 #include <cmath>                          // for fabs, isfinite, signbit
+#include <cstdio>                         // for stderr
+#include <filesystem>                     // for path
 #include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator==
 #include <system_error>                   // for system_error, make_error_code
+#include <fmt/std.h> // IWYU pragma: keep
 
-void unexpectedXmlElement(xmlpp::TextReader& xmlReader) {
+void unexpectedXmlElement(xmlpp::TextReader& reader) {
   fmt::println(stderr, "warning: skipping unexpected element <{}>",
-    xmlReader.get_name());
+    reader.get_name());
   assert(false);
 }
 
-void missingXmlElement(xmlpp::TextReader& xmlReader, const std::string& name) {
+void missingXmlElement(xmlpp::TextReader& reader, const std::string& name) {
   throw std::runtime_error(fmt::format("missing XML element <{}> in <{}>",
-    name, xmlReader.get_name()));
+    name, reader.get_name()));
+}
+
+void unexpectedXmlAttribute(xmlpp::TextReader& reader) {
+  fmt::println(stderr, "warning: skipping unexpected attribute {:?}={:?}",
+    reader.get_name(), reader.get_value());
+  assert(false);
+}
+
+void missingXmlAttribute(xmlpp::TextReader& reader, const std::string& name) {
+  reader.move_to_element();
+  throw std::runtime_error(fmt::format("missing XML attribute {:?} in <{}>",
+    name, reader.get_name()));
 }
 
 template<typename X>
@@ -100,6 +115,11 @@ std::string xmlParse<std::string>(const xmlpp::ustring& s) {
   return s;
 }
 
+template<>
+std::filesystem::path xmlParse<std::filesystem::path>(const xmlpp::ustring& s) {
+  return std::filesystem::path(s);
+}
+
 template const xmlStr xmlFormat<int>(const int);
 template const xmlStr xmlFormat<unsigned int>(const unsigned int);
 template const xmlStr xmlFormat<unsigned short>(const unsigned short);
@@ -107,6 +127,8 @@ template const xmlStr xmlFormat<std::size_t>(const std::size_t);
 template const xmlStr xmlFormat<float>(const float);
 template const xmlStr xmlFormat<bool>(const bool);
 template const xmlStr xmlFormat<std::string>(const std::string);
+template const xmlStr
+xmlFormat<std::filesystem::path>(const std::filesystem::path);
 
 template const xmlStr xmlFormatHex<int>(const int);
 template const xmlStr xmlFormatHex<unsigned int>(const unsigned int);
@@ -121,3 +143,5 @@ template std::size_t xmlParse<std::size_t>(const xmlpp::ustring&);
 template float xmlParse<float>(const xmlpp::ustring&);
 template bool xmlParse<bool>(const xmlpp::ustring&);
 template std::string xmlParse<std::string>(const xmlpp::ustring&);
+template std::filesystem::path
+xmlParse<std::filesystem::path>(const xmlpp::ustring&);

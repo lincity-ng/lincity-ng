@@ -26,10 +26,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"
 #include "Event.hpp"
 
-Child::Child(Component* _component)
-    : useClipRect(false), component(_component)
+Child::Child(std::unique_ptr<Component>&& _component)
+    : useClipRect(false), component(_component.release())
 {
-    enabled = component != 0;
+    enabled = component != nullptr;
 }
 
 Child::~Child()
@@ -73,10 +73,8 @@ Child::enable(bool enabled) {
 }
 
 void
-Child::setComponent(Component* component)
-{
-    delete this->component;
-    this->component = component;
+Child::setComponent(std::unique_ptr<Component>&& component) {
+    this->component = component.release();
     enabled = component != 0;
 }
 
