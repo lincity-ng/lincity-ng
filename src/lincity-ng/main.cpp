@@ -25,10 +25,12 @@
 #include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <cassert>                               // for assert
+#include <fmt/base.h>                            // for println
 #include <gettext.h>                             // for bindtextdomain, text...
 #include <libxml/parser.h>                       // for xmlCleanupParser
+#include <cassert>                               // for assert
 #include <clocale>                               // for NULL, setlocale, LC_ALL
+#include <cstdio>                                // for stderr
 #include <cstdlib>                               // for getenv, setenv, unse...
 #include <cstring>                               // for strcmp
 #include <filesystem>                            // for path, operator/
@@ -39,16 +41,17 @@
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for basic_string, char_t...
 
-#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
+#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
+#include "util/gettextutil.hpp"                  // for _
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
@@ -238,93 +241,72 @@ void mainLoop() {
   MainMenu(window).run();
 }
 
-int main(int argc, char** argv)
-{
-    int result = 0;
+int
+main(int argc, char** argv) {
+  // parse config and command line
+  configPtr = new Config();
+  getConfig()->parseCommandLine(argc, argv);
 
-    configPtr = new Config();
-    getConfig()->parseCommandLine(argc, argv);
-
-#ifndef DEBUG //in debug mode we wanna have a backtrace
-    try {
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ")...\n";
-#else
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
-#endif
-
+  // set the preferred language
 #if defined(ENABLE_NLS) && ENABLE_NLS
-        if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
-        setlocale(LC_ALL, "");
-        if(getConfig()->language.get() != "autodetect")
-          setLang(getConfig()->language.get());
-        bindtextdomain(PACKAGE_NAME,
-          (getConfig()->appDataDir.get() / "locale").c_str());
-        textdomain(PACKAGE_NAME);
+  if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
+  setlocale(LC_ALL, "");
+  if(getConfig()->language.get() != "autodetect")
+    setLang(getConfig()->language.get());
+  bindtextdomain(PACKAGE_NAME,
+    (getConfig()->appDataDir.get() / "locale").c_str());
+  textdomain(PACKAGE_NAME);
 #endif
 
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        return 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        return 1;
-    }
-#endif
+  // show versions or help message if requested
+  if(getConfig()->showVersion.get()) {
+    fmt::println(PRETTY_NAME_VERSION);
+    return 0;
+  }
+  if(getConfig()->showHelp.get()) {
+    Config::printHelp(argv[0]);
+    return 0;
+  }
 
-// in debug mode we want a backtrace of the exceptions so we don't catch them
-#ifndef DEBUG
-    try {
-#endif
-        xmlInitParser ();
-        if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        if(TTF_Init() < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
-        initLincity();
-        std::unique_ptr<Sound> sound;
-        sound.reset(new Sound());
-        //set a function to call when music stops
-        Mix_HookMusicFinished(musicHalted);
-        mainLoop();
-        getConfig()->save();
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        result = 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        result = 1;
-    }
-#endif
-    delete painter;
-    delete fontManager;
-    delete texture_manager;
-    if(TTF_WasInit())
-        TTF_Quit();
-    if(SDL_WasInit(0))
-        SDL_Quit();
-    xmlCleanupParser();
-//     if( restart ){
-// #ifdef WIN32
-//         //Windows has a Problem with Whitespaces.
-//         std::string fixWhiteSpaceInPathnameProblem;
-//         fixWhiteSpaceInPathnameProblem="\"";
-//         fixWhiteSpaceInPathnameProblem+=argv[0];
-//         fixWhiteSpaceInPathnameProblem+="\"";
-//         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
-// #else
-//         execlp( argv[0], argv[0], (char *) NULL );
-// #endif
-//     }
-    return result;
+  // print welcome message
+  fmt::println(stderr, _("starting {} ..."), PRETTY_NAME_VERSION);
+
+  // initialize resources
+  xmlInitParser();
+  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+    std::stringstream msg;
+    msg << "Couldn't initialize SDL: " << SDL_GetError();
+    throw std::runtime_error(msg.str());
+  }
+  if(TTF_Init() < 0) {
+    std::stringstream msg;
+    msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
+    throw std::runtime_error(msg.str());
+  }
+  initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
+  initLincity();
+  std::unique_ptr<Sound> sound;
+  sound.reset(new Sound());
+  //set a function to call when music stops
+  Mix_HookMusicFinished(musicHalted);
+
+  // enter main loop
+  mainLoop();
+
+  // save the current game
+  getConfig()->save();
+
+  // clean up
+  delete painter;
+  delete fontManager;
+  delete texture_manager;
+  if(TTF_WasInit())
+      TTF_Quit();
+  if(SDL_WasInit(0))
+      SDL_Quit();
+  xmlCleanupParser();
+
+  return 0;
 }
 
 

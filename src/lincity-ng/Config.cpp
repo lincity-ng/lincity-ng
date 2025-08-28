@@ -24,15 +24,16 @@
 
 #include <assert.h>                       // for assert
 #include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
+#include <fmt/base.h>
 #include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
-#include <limits.h>                       // for INT_MAX, INT_MIN
-#include <stdlib.h>                       // for exit
-#include <cstdio>                         // for NULL, sscanf
+#include <climits>                        // for INT_MAX, INT_MIN
+#include <cstddef>                        // for NULL
+#include <cstdio>                         // for sscanf
 #include <iostream>                       // for basic_ostream, operator<<
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
@@ -40,6 +41,7 @@
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
 #include "lincity/world.hpp"              // for WORLD_SIDE_LEN
 #include "util/xmlutil.hpp"               // for xmlStr, xmlFormat, xmlParse
+#include "util/gettextutil.hpp"           // for xmlStr, xmlFormat, xmlParse
 
 template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);
@@ -59,6 +61,8 @@ Config::Config() {
   useFullScreen.default_ = true;
   videoX.default_ = 1024;
   videoY.default_ = 768;
+  showVersion.default_ = false;
+  showHelp.default_ = false;
 
   soundVolume.default_ = 100;
   musicVolume.default_ = 50;
@@ -278,41 +282,22 @@ Config::save(std::filesystem::path configFile) {
 
 void
 Config::parseCommandLine(int argc, char** argv) {
-  // first check for --config option
-  for(int argi = 1; argi < argc; argi++) {
-    std::string argStr = argv[argi];
-    if(argStr == "--config" || argStr == "-c") {
-      argi++;
-      if(argi >= argc)
-        throw std::runtime_error("--config needs a parameter");
-      if(configFile.session)
-        throw std::runtime_error("--config may be specified only once");
-      configFile.session = std::filesystem::path(argv[argi]);
-    }
-  }
-
   for(int argi = 1; argi < argc; ++argi) {
     std::string argStr = argv[argi];
 
     if(argStr == "-v" || argStr == "--version") {
-      std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-      exit(0);
+      showVersion.session = true;
     } else if(argStr == "-h" || argStr == "--help") {
-      std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-      std::cout << "Command line overrides configfiles.\n";
-      std::cout << "Known arguments are:\n";
-      std::cout << "-v           --version         show version and exit\n";
-      std::cout << "-h           --help            show this text and exit\n";
-      std::cout << "-g           --gl              use OpenGL\n";
-      std::cout << "-s           --sdl             use SDL\n";
-      std::cout << "-S <size>    --size <size>     specify screensize (eg. -S 1024x768)\n";
-      std::cout << "-w           --window          run in window\n";
-      std::cout << "-f           --fullscreen      run fullscreen\n";
-      std::cout << "-m           --mute            mute audio\n";
-      std::cout << "-c <file>    --config <file>   configuration file location\n";
-      std::cout << "             --app-data <dir>  app data location\n";
-      std::cout << "             --user-data <dir> user data location\n";
-      exit(0);
+      showHelp.session = true;
+    } else if(argStr == "--config" || argStr == "-c") {
+      argi++;
+      if(argi >= argc)
+        throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
+      if(configFile.session)
+        fmt::println(stderr, "warning: --config specified more than once."
+          " Only the last occurance will be loaded.");
+        // throw std::runtime_error("--config may be specified only once");
+      configFile.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "-g" || argStr == "--gl") {
       useOpenGL.session = true;
     } else if(argStr == "-s" || argStr == "--sdl") {
@@ -320,20 +305,16 @@ Config::parseCommandLine(int argc, char** argv) {
     } else if(argStr == "-S" || argStr == "--size") {
       argi++;
       if(argi >= argc)
-        throw std::runtime_error("--size needs a parameter");
+        throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
       argStr = argv[argi];
-      int newX, newY, count;
-      count = sscanf(argStr.c_str(), "%ix%i", &newX, &newY);
-      if( count != 2  ) {
-        std::cerr << "Error: Can not parse --size parameter.\n";
-        exit( 1 );
-      }
-      if(newX <= 0 || newY <= 0) {
-        std::cerr << "Error: Size parameter out of range.\n";
-        exit(1);
-      }
-      videoX.session = newX;
-      videoY.session = newY;
+      int x, y;
+      if(sscanf(argStr.c_str(), "%ix%i", &x, &y) != 2
+        || x <= 0 || y <= 0
+      )
+        throw std::runtime_error(
+          fmt::format("failed to parse --size parameter: {}", argStr));
+      videoX.session = x;
+      videoY.session = y;
     } else if(argStr == "-f" || argStr == "--fullscreen") {
       useFullScreen.session = true;
     } else if(argStr == "-w" || argStr == "--window") {
@@ -344,21 +325,21 @@ Config::parseCommandLine(int argc, char** argv) {
     } else if(argStr == "--config" || argStr == "-c") {
       argi++;
       if(argi >= argc)
-        throw std::runtime_error("--config needs a parameter");
+        throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
       configFile.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "--app-data") {
       argi++;
       if(argi >= argc)
-        throw std::runtime_error("--app-data needs a parameter");
+        throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
       appDataDir.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "--user-data") {
       argi++;
       if(argi >= argc)
-        throw std::runtime_error("--user-data needs a parameter");
+        throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
       userDataDir.session = std::filesystem::path(argv[argi]);
     } else {
-      std::cerr << "Unknown command line argument: " << argStr << "\n";
-      exit(1);
+      throw std::runtime_error(
+        fmt::format("unrecognized argument: {}", argStr));
     }
   }
 
@@ -391,6 +372,37 @@ Config::parseCommandLine(int argc, char** argv) {
       " build. Using SDL mode instead." << std::endl;
   }
 #endif
+}
+
+void
+Config::printHelp(const std::string& command) {
+  std::cout << PRETTY_NAME_VERSION << std::endl
+    << std::endl
+    << fmt::format("{} [-v|-h] [-w|-f] [-m] [-c <config>]", command)
+    << std::endl << std::endl;
+
+  struct Desc { std::string s; std::string l; std::string p; std::string d; };
+  for(const Desc& o : (const Desc[]){
+    {.s="-v",.l="--version",   .d=_("show version and exit")},
+    {.s="-h",.l="--help",      .d=_("show this text and exit")},
+    {.s="-g",.l="--gl",        .d=_("use OpenGL")},
+    {.s="-s",.l="--sdl",       .d=_("use SDL")},
+    {.s="-S",.l="--size",.p=_("<width>x<height>"),
+      .d=_("specify screensize (eg. -S 1024x768)")},
+    {.s="-w",.l="--window",    .d=_("run in window")},
+    {.s="-f",.l="--fullscreen",.d=_("run fullscreen")},
+    {.s="-m",.l="--mute",      .d=_("mute audio")},
+    {.s="-c",.l="--config",.p=_("<file>"),.d=_("configuration file location")},
+    {.l="--app-data",.p=_("<dir>"),.d=_("app data location")},
+    {.l="--user-data",.p=_("<dir>"),.d=_("user data location")},
+  }) {
+    std::string line = fmt::format("{:2}", o.s);
+    if(o.l != "") line += " " + o.l;
+    if(o.p != "") line += " " + o.p;
+    if(line.length() > 20) std::cout << line << std::endl, line = "";
+    line = fmt::format("{:20} {}", line, o.d);
+    std::cout << line << std::endl;
+  }
 }
 
 
