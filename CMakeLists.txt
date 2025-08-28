@@ -23,7 +23,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(lincity-ng
-	VERSION 2.14.0
+	VERSION 2.14.1
 	LANGUAGES CXX C
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"

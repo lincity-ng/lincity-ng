@@ -109,12 +109,11 @@ Image::resize(float width, float height)
 }
 
 void
-Image::draw(Painter& painter)
-{
-    if(width != texture->getWidth() || height != texture->getHeight())
-        painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
-    else
-        painter.drawTexture(texture, Vector2(0, 0));
+Image::draw(Painter& painter) {
+  if(flags & FLAG_RESIZABLE)
+    painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
+  else
+    painter.drawTexture(texture, Vector2(0, 0));
 }
 
 std::string Image::getFilename() const
