@@ -63,7 +63,7 @@ Image::parse(xmlpp::TextReader& reader) {
     else if(name == "src")
       filename = xmlParse<std::filesystem::path>(value);
     else if(name == "filter") {
-      if(value == "gray") {
+      if(value == "grey") {
         grey = true;
       } else if(value == "no") {
         grey = false;

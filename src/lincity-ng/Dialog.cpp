@@ -127,10 +127,10 @@ void Dialog::initDialog() {
 Dialog::~Dialog(){
 }
 
-void Dialog::registerDialog(std::unique_ptr<Window>&& component) {
-  myDialogComponent = component.get();
+void Dialog::registerDialog(std::unique_ptr<Window>&& window) {
+  myDialogComponent = window.get();
   dialogVector.push_back(this);
-  windowManager->addWindow(std::move(component));
+  windowManager->addWindow(std::move(window));
 }
 
 void Dialog::unRegisterDialog(){

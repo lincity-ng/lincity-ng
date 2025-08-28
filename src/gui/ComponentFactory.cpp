@@ -27,6 +27,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <libxml++/ustring.h>             // for ustring
 #include <filesystem>                     // for path, operator/
 #include <memory>                         // for allocator, unique_ptr
+#include <fmt/format.h>
+#include <fmt/std.h> // IWYU pragma: keep
+#include <stdexcept>
 
 #include "Component.hpp"                  // for Component
 #include "ComponentLoader.hpp"            // for createComponent
@@ -61,7 +64,8 @@ ImportFactory::createComponent(xmlpp::TextReader& reader) {
     xmlpp::ustring name = reader.get_name();
     xmlpp::ustring value = reader.get_value();
     if(name == "src")
-      importfile = xmlParse<std::filesystem::path>(value);
+      importfile = getConfig()->appDataDir.get()
+        / xmlParse<std::filesystem::path>(value);
     else
       unexpectedXmlAttribute(reader);
   }
@@ -69,9 +73,25 @@ ImportFactory::createComponent(xmlpp::TextReader& reader) {
   if(importfile.empty())
     missingXmlAttribute(reader, "src");
 
-  xmlpp::TextReader nreader(getConfig()->appDataDir.get() / importfile);
-  //std::cout << "importing Factory: " << importfile << std::endl;
-  return ::createComponent(nreader.get_name(), nreader);
+
+  xmlpp::TextReader nreader(importfile);
+  if(!nreader.read())
+    throw std::runtime_error(fmt::format("file is empty: {}", importfile));
+  while(nreader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+    if(!nreader.next())
+      throw std::runtime_error(
+        fmt::format("file doesn't contain XML data: {}", importfile));
+  }
+
+  std::unique_ptr<Component> component =
+    ::createComponent(nreader.get_name(), nreader);
+
+  while(nreader.next()) {
+    if(nreader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+      continue;
+    unexpectedXmlElement(nreader);
+  }
+  return component;
 }
 
 //---------------------------------------------------------------------------

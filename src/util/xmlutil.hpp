@@ -23,6 +23,7 @@
 #define __LINCITYNG_UTIL_XMLUTIL_HPP__
 
 #include <libxml++/ustring.h>  // for ustring
+#include <string>
 
 namespace xmlpp {
 class TextReader;
@@ -39,11 +40,23 @@ extern void missingXmlAttribute(xmlpp::TextReader& reader,
   const xmlpp::ustring& name);
 
 
-template<typename X>
-extern const xmlStr xmlFormat(const X x);
+// Helps extend the lifetime of a xmlStr beyond the return of xmlFormat
+class xmlStrF {
+public:
+  explicit xmlStrF(xmlpp::ustring str) : str(str) { }
+
+  operator xmlStr() const { return (xmlStr)str.c_str(); }
+  operator xmlpp::ustring() const { return str; }
+
+private:
+  const xmlpp::ustring str;
+};
 
 template<typename X>
-extern const xmlStr xmlFormatHex(const X x);
+extern const xmlStrF xmlFormat(const X x);
+
+template<typename X>
+extern const xmlStrF xmlFormatHex(const X x);
 
 template<typename X>
 extern X xmlParse(const xmlpp::ustring& s);

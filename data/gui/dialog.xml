@@ -13,21 +13,17 @@
     <FilledRectangle color="#ffffffbb"/>
   </background>
   <contents>
-    <TableLayout rows="2" cols="1">
+    <TableLayout rows="2" cols="2">
       <rowsize row="2" fixed="50"/>
+      <colsize col="1" fixed="95"/>
       <cell row="1" col="1">
-        <TableLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" rows="1" cols="2" name="content">
-          <colsize col="1" fixed="95"/>
-          <cell row="1" col="1">
-            <Image name="image" src="images/gui/dialogs/info.png"/>
-          </cell>
-          <cell row="1" col="2">
-            <Document name="message">
-            </Document>
-          </cell>
-        </TableLayout>
+        <Image name="image" src="images/gui/dialogs/info.png"/>
       </cell>
-      <cell row="2" col="1">
+      <cell row="1" col="2">
+        <Document name="message">
+        </Document>
+      </cell>
+      <cell row="2" col="1" colspan="2">
         <SwitchComponent name="buttons">
           <TableLayout name="ok-buttonset" rows="1" cols="1">
             <cell row="1" col="1">

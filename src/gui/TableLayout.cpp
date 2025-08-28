@@ -141,9 +141,9 @@ TableLayout::parse(xmlpp::TextReader& reader) {
         throw std::runtime_error(fmt::format("invalid row: {}", row));
       if(col < 0 || col >= cols)
         throw std::runtime_error(fmt::format("invalid column: {}", col));
-      if(rowspan < 0 || row + rowspan >= rows)
+      if(rowspan < 0 || row + rowspan > rows)
         throw std::runtime_error(fmt::format("invalid rowspan: {}", rowspan));
-      if(colspan < 0 || col + colspan >= cols)
+      if(colspan < 0 || col + colspan > cols)
         throw std::runtime_error(fmt::format("invalid colspan: {}", colspan));
 
       std::unique_ptr<Component> component = parseEmbeddedComponent(reader);

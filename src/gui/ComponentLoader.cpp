@@ -69,8 +69,8 @@ createComponent(const std::string& type, xmlpp::TextReader& reader) {
         std::cout << "\t";
     std::cout << type << ": end" << std::endl;
 */
+    return i->second->createComponent(reader);
     try {
-      return i->second->createComponent(reader);
     } catch(std::exception& e) {
         std::stringstream msg;
         msg << "Error while parsing component '" << type << "': " << e.what();

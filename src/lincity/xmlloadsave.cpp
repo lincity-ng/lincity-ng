@@ -62,9 +62,9 @@
 #include "world.hpp"                      // for World, MapTile, Map, Ground
 
 template<typename X>
-static inline const xmlStr f(const X x) { return xmlFormat(x); }
+static inline const xmlStrF f(const X x) { return xmlFormat(x); }
 template<typename X>
-static inline const xmlStr fx(const X x) { return xmlFormatHex(x); }
+static inline const xmlStrF fx(const X x) { return xmlFormatHex(x); }
 template<typename X>
 static inline X p(const xmlpp::ustring& s) { return xmlParse<X>(s); }
 
@@ -475,7 +475,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
     else if(xml_tag == "rockets_launched")            world.rockets_launched = p<int>(xmlReader.read_inner_xml());
     else if(xml_tag == "rockets_launched_success")    world.rockets_launched_success = p<int>(xmlReader.read_inner_xml());
     else if(xml_tag == "coal_survey_done")            world.coal_survey_done = p<int>(xmlReader.read_inner_xml());
-    else if(xml_tag == "game_end")                    world.gameEnd = p<int>(xmlReader.read_inner_xml());
+    else if(xml_tag == "game_end")                    world.gameEnd = p<bool>(xmlReader.read_inner_xml());
 
     else if(xml_tag == "money_rates") {
       if(!xmlReader.is_empty_element() && xmlReader.read())
@@ -669,9 +669,9 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
               continue;
             }
             const std::string xml_tag = xmlReader.get_name();
-            if(xml_tag == "mining_flag")           world.stats.sustainability.mining_flag = p<int>(xmlReader.read_inner_xml());
+            if(xml_tag == "mining_flag")           world.stats.sustainability.mining_flag = p<bool>(xmlReader.read_inner_xml());
             else if(xml_tag == "mining_years")     world.stats.sustainability.mining_years = p<int>(xmlReader.read_inner_xml());
-            else if(xml_tag == "trade_flag")       world.stats.sustainability.trade_flag = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "trade_flag")       world.stats.sustainability.trade_flag = p<bool>(xmlReader.read_inner_xml());
             else if(xml_tag == "trade_years")      world.stats.sustainability.trade_years = p<int>(xmlReader.read_inner_xml());
             else if(xml_tag == "old_money")        world.stats.sustainability.old_money = p<int>(xmlReader.read_inner_xml());
             else if(xml_tag == "money_years")      world.stats.sustainability.money_years = p<int>(xmlReader.read_inner_xml());
@@ -680,7 +680,7 @@ static void loadGlobals(xmlpp::TextReader& xmlReader, World& world,
             else if(xml_tag == "old_tech")         world.stats.sustainability.old_tech = p<int>(xmlReader.read_inner_xml());
             else if(xml_tag == "tech_years")       world.stats.sustainability.tech_years = p<int>(xmlReader.read_inner_xml());
             else if(xml_tag == "fire_years")       world.stats.sustainability.fire_years = p<int>(xmlReader.read_inner_xml());
-            else if(xml_tag == "sustainable")      world.stats.sustainability.sustainable = p<int>(xmlReader.read_inner_xml());
+            else if(xml_tag == "sustainable")      world.stats.sustainability.sustainable = p<bool>(xmlReader.read_inner_xml());
             else
               unexpectedXmlElement(xmlReader);
             xmlReader.next();
@@ -1130,8 +1130,10 @@ static void loadMapTile(xmlpp::TextReader& xmlReader, MapTile& tile,
 
     std::string xml_tag = xmlReader.get_name();
     std::string xml_val = xmlReader.read_inner_xml();
-    if     (xml_tag == "flags") {    tile.flags             = p<unsigned int>(xml_val) & ~VOLATILE_FLAGS;
-      if(ldsv_version <= 2130) {
+    if     (xml_tag == "flags") {
+      if(ldsv_version > 2130)        tile.flags             = p<unsigned int>(xml_val) & ~VOLATILE_FLAGS;
+      else {
+        tile.flags = (unsigned int)p<int>(xml_val);
         tile.flags = 0
           | (tile.flags & 0x00000100 ? FLAG_MARKET_COVER | FLAG_MARKET_COVER_CHECK : 0)
           | (tile.flags & 0x00100000 ? FLAG_FIRE_COVER | FLAG_FIRE_COVER_CHECK : 0)

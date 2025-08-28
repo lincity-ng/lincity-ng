@@ -74,8 +74,8 @@ Child::enable(bool enabled) {
 
 void
 Child::setComponent(std::unique_ptr<Component>&& component) {
-    this->component = component.release();
-    enabled = component != 0;
+  enabled = !!component;
+  this->component = component.release();
 }
 
 //---------------------------------------------------------------------------

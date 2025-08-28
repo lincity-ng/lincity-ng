@@ -276,7 +276,7 @@ WindowManager::edgeAt(const Child &child, Vector2 pos) const {
 void
 WindowManager::addWindowInternal(std::unique_ptr<Window>&& window) {
   Child& child = addChild(std::move(window));
-  child.setPos((getSize() - window->getSize()) / 2);
+  child.setPos((getSize() - child.getComponent()->getSize()) / 2);
 }
 
 void

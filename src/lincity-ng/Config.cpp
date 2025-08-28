@@ -44,7 +44,7 @@
 template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);
 template<typename V>
-static xmlStr xmlFormatConfig(const std::optional<V>& option);
+static xmlStrF xmlFormatConfig(const std::optional<V>& option);
 static std::optional<int> validateRange(const std::optional<int>& value,
   int minValue = INT_MIN, int maxValue = INT_MAX);
 
@@ -438,8 +438,8 @@ xmlParseConfig(const xmlpp::ustring& s) {
 }
 
 template<typename V>
-static xmlStr xmlFormatConfig(const std::optional<V>& option) {
-  return option ? xmlFormat<V>(*option) : (xmlStr)"default";
+static xmlStrF xmlFormatConfig(const std::optional<V>& option) {
+  return option ? xmlFormat<V>(*option) : xmlStrF("default");
 }
 
 static std::optional<int>

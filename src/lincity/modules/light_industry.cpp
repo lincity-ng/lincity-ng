@@ -207,7 +207,8 @@ void IndustryLight::animate(unsigned long real_time) {
       auto& frit = frits[i];
       int s = frit->resourceGroup->graphicsInfoVector.size();
       int& smoke = frit->frame;
-      if (i >= active) {
+      if(!s);
+      else if(i >= active) {
         smoke = -1;
       }
       else if(smoke < 0 || !(rand() % 1600)) {

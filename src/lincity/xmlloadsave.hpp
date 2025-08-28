@@ -25,6 +25,11 @@
 #define LOADSAVE_VERSION_CURRENT 2140
 #define LOADSAVE_VERSION_COMPAT 2130
 
+// 2140:
+// - updated to be consistent with the new World structure
+// 2130:
+// - migrated to libxml++
+
 #endif /* __xmlloadsave_h__ */
 
 /** @file lincity/loadsave.h */

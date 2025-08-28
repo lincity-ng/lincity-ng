@@ -163,23 +163,18 @@ Paragraph::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
       currentspan->text += std::regex_replace(p, std::basic_regex("\\s+"), " ");
     } break;
     case xmlpp::TextReader::NodeType::EndElement: {
-      std::string node = reader.get_name();
-      if(node != "span" && node != "b" && node != "i" && node != "a"
-        && node != "p"
-      ) {
-        fmt::println(stderr, "error: unexpected xml end element {:?}", node);
-        assert(false);
-        break;
-      }
-
       commit_changes(currentspan,translatable);
       stylestack.pop_back();
-
-      // avoid advancing past the </p> end node
       if(stylestack.empty()) goto done;
+
+      std::string node = reader.get_name();
+      if(node != "span" && node != "b" && node != "i" && node != "a") {
+        fmt::println(stderr, "error: unexpected xml end element {:?}", node);
+        assert(false);
+      }
     } break;
     }
-    reader.next();
+    reader.read();
   }
   done:;
 }

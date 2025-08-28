@@ -270,8 +270,9 @@ BarView::parse(xmlpp::TextReader& reader) {
       width = xmlParse<float>(value);
     else if(name == "height")
       height = xmlParse<float>(value);
-    else if(name == "dir")
-      dir = xmlParse<bool>(value);
+    else if(name == "dir") {
+      dir = xmlParse<int>(value) >= 0;
+    }
     else if(name == "bad")
       bad = xmlParse<bool>(value);
     else

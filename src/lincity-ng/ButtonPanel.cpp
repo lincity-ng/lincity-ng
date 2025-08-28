@@ -191,6 +191,7 @@ ButtonPanel::parse(xmlpp::TextReader& reader) {
         component->resize(width, height);
       addChild(std::move(component));
     }
+    reader.next();
   }
 
   // resolve component names

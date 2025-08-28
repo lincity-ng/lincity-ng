@@ -461,10 +461,9 @@ GameView::preReadImages(void) {
   int resourceID_level = 0;
   std::string key;
 
-  if(!reader.is_empty_element() && reader.read())
-  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+  if(!reader.is_empty_element())
+  while(reader.read()) {
     if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
-      reader.next();
       continue;
     }
     const xmlpp::ustring element = reader.get_name();
@@ -473,9 +472,9 @@ GameView::preReadImages(void) {
       std::string name;
 
       while(reader.move_to_next_attribute()) {
-        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring aname = reader.get_name();
         xmlpp::ustring value = reader.get_value();
-        if(name == "name")
+        if(aname == "name")
           name = xmlParse<std::string>(value);
         else
           unexpectedXmlAttribute(reader);
@@ -483,7 +482,7 @@ GameView::preReadImages(void) {
       reader.move_to_element();
 
       if(name.empty())
-        missingXmlElement(reader, "name");
+        missingXmlAttribute(reader, "name");
 
       if(resourceGroup)
         resourceGroup->images_loaded = true;
@@ -548,7 +547,6 @@ GameView::preReadImages(void) {
       }
       key.clear();
     }
-    reader.next();
   }
 
   while(reader.next()) {

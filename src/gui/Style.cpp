@@ -140,10 +140,10 @@ void parseStyleDef(xmlpp::TextReader& reader) {
   std::string name;
 
   while(reader.move_to_next_attribute()) {
-    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring aname = reader.get_name();
     xmlpp::ustring value = reader.get_value();
     if(style.parseAttribute(reader));
-    else if(name == "name")
+    else if(aname == "name")
       name = xmlParse<std::string>(value);
     else
       unexpectedXmlAttribute(reader);

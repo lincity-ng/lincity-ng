@@ -84,10 +84,9 @@ Sound::loadWaves() {
   std::filesystem::path key;
   Mix_Chunk *chunk;
 
-  if(!reader.is_empty_element() && reader.read())
-  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+  if(!reader.is_empty_element())
+  while(reader.read()) {
     if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
-      reader.next();
       continue;
     }
     xmlpp::ustring element = reader.get_name();
@@ -126,7 +125,7 @@ Sound::loadWaves() {
       while(reader.move_to_next_attribute()) {
         xmlpp::ustring name = reader.get_name();
         xmlpp::ustring value = reader.get_value();
-        if(name == "name")
+        if(name == "file")
           key = xmlParse<std::filesystem::path>(value);
         else
           unexpectedXmlAttribute(reader);
@@ -149,13 +148,6 @@ Sound::loadWaves() {
       }
       key.clear();
     }
-    reader.next();
-  }
-
-  while(reader.next()) {
-    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element)
-      continue;
-    unexpectedXmlElement(reader);
   }
 
   if(resGrpVec.size()) {

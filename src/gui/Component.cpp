@@ -172,10 +172,11 @@ Component::relative2Global(const Vector2& pos)
 Child&
 Component::addChild(std::unique_ptr<Component>&& component) {
   assert(!component->parent);
-  component->parent = this;
-  component->desktop = this->desktop;
-  component->setDirty();
+  Component *comp = component.get();
   childs.push_back(Child(std::move(component)));
+  comp->parent = this;
+  comp->desktop = this->desktop;
+  comp->setDirty();
   return childs.back();
 }
 
@@ -186,10 +187,10 @@ Component::resetChild(Child& child, std::unique_ptr<Component>&& component)
 
     delete child.component;
     child.component = component.release();
-    if(component != 0) {
-        component->parent = this;
-        component->desktop = this->desktop;
-        component->setDirty();
+    if(child.component != 0) {
+        child.component->parent = this;
+        child.component->desktop = this->desktop;
+        child.component->setDirty();
         child.enabled = true;
     }
 }

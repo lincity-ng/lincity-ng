@@ -56,7 +56,7 @@ SwitchComponent::parse(xmlpp::TextReader& reader) {
   }
   reader.move_to_element();
 
-  bool first = false;
+  bool first = true;
   if(!reader.is_empty_element() && reader.read())
   while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
     if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
@@ -68,6 +68,7 @@ SwitchComponent::parse(xmlpp::TextReader& reader) {
     Child& child = addChild(createComponent(element, reader));
     child.enable(first);
     first = false;
+    reader.next();
   }
 }
 
