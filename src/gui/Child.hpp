@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __CHILD_HPP__
 
 #include <vector>       // for vector
+#include <memory>
 
 #include "Rect2D.hpp"   // for Rect2D
 #include "Vector2.hpp"  // for Vector2
@@ -37,14 +38,14 @@ class Component;
 class Child
 {
 public:
-    Child(Component* _component = 0);
+    Child(std::unique_ptr<Component>&& _component = 0);
     ~Child();
 
     Component* getComponent() const
     {
         return component;
     }
-    void setComponent(Component* component);
+    void setComponent(std::unique_ptr<Component>&& component);
 
     void enable(bool enabled);
 

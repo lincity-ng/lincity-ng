@@ -2,7 +2,7 @@
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <Panel width="173" height="103" background="images/gui/speedpanel.png">
 	<TableLayout rows="6" cols="5">
-		<rowsize row="1" fixed=" 5"/>
+		<rowsize row="1" fixed="5"/>
 		<rowsize row="2" fixed="30"/> <!--30-->
 		<rowsize row="3" fixed="18"/> <!--18-->
 		<rowsize row="4" fixed="8"/> <!-- 8-->

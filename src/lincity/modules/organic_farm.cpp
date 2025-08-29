@@ -25,10 +25,10 @@
 #include "organic_farm.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
 #include <list>                           // for _List_iterator
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator==
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
@@ -36,9 +36,8 @@
 #include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, FALSE, FLAG...
 #include "lincity/resources.hpp"          // for ExtraFrame
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
-
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
     N_("Farm"),
@@ -182,13 +181,13 @@ void Organic_farm::place(MapPoint point) {
 }
 
 void Organic_farm::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech", xmlFormat<int>(tech));
   Construction::save(xmlWriter);
 }
 
 bool Organic_farm::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
-  if(tag == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  if(tag == "tech") tech = xmlParse<int>(xmlReader.read_inner_xml());
   else if(tag == "tech_bonus");
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;

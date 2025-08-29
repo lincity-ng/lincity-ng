@@ -25,22 +25,21 @@
 #include "light_industry.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
-#include <stdlib.h>                       // for rand, NULL
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <stdlib.h>                       // for rand
 #include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for allocator, vector
+#include <string>                         // for basic_string, operator==
+#include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/MapPoint.hpp"
-#include "lincity/groups.hpp"               // for GROUP_INDUSTRY_L
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/MapPoint.hpp"           // for MapPoint
+#include "lincity/groups.hpp"             // for GROUP_INDUSTRY_L
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+#include "lincity/world.hpp"              // for World, Map, MapTile
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-// IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
      N_("Light Industry"),
      N_("Light Industries"),
@@ -208,7 +207,8 @@ void IndustryLight::animate(unsigned long real_time) {
       auto& frit = frits[i];
       int s = frit->resourceGroup->graphicsInfoVector.size();
       int& smoke = frit->frame;
-      if (i >= active) {
+      if(!s);
+      else if(i >= active) {
         smoke = -1;
       }
       else if(smoke < 0 || !(rand() % 1600)) {
@@ -283,13 +283,13 @@ IndustryLight::place(MapPoint point) {
 }
 
 void IndustryLight::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech", xmlFormat<int>(tech));
   Construction::save(xmlWriter);
 }
 
 bool IndustryLight::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  if(name == "tech") tech = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "bonus");
   else if(name == "extra_bonus");
   else return Construction::loadMember(xmlReader, ldsv_version);

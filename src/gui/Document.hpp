@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DOCUMENT_HPP__
 #define __DOCUMENT_HPP__
 
+#include <memory>         // for unique_ptr
 #include <string>         // for string
 
 #include "Component.hpp"  // for Component
@@ -31,7 +32,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Style.hpp"      // for Style
 
 class Paragraph;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class Document
@@ -42,11 +45,11 @@ public:
     Document();
     virtual ~Document();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void draw(Painter& painter);
     void resize(float width, float height);
-    void addParagraph(Paragraph* p);
+    void addParagraph(std::unique_ptr<Paragraph> p);
 
     Style style;
     Signal<Paragraph*, const std::string& > linkClicked;

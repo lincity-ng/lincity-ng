@@ -23,6 +23,7 @@
 #ifndef __DIALOG_HPP__
 #define __DIALOG_HPP__
 
+#include <memory>
 #include <string>  // for string
 
 #include "lincity/MapPoint.hpp"
@@ -61,7 +62,7 @@ class Dialog
 
         void initDialog();
         WindowManager* windowManager;
-        Window* myDialogComponent;
+        Window *myDialogComponent;
         MapPoint point;
         Game& game;
 
@@ -76,7 +77,7 @@ class Dialog
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );
         bool iAmBlocking;
-        void registerDialog();
+        void registerDialog(std::unique_ptr<Window>&&);
         void unRegisterDialog();
 };
 

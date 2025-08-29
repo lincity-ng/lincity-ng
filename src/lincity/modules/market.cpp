@@ -25,11 +25,11 @@
 #include "market.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <algorithm>                      // for max, min
 #include <cstdlib>                        // for size_t
 #include <map>                            // for map
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
 
 #include "fire.hpp"                       // for FIRE_ANIMATION_SPEED
@@ -39,8 +39,8 @@
 #include "lincity/lin-city.hpp"           // for FLAG_EVACUATE, ANIM_THRESHOLD
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
+#include "util/gettextutil.hpp"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -327,8 +327,8 @@ void Market::save(xmlTextWriterPtr xmlWriter) const {
     const std::string takeName = takePfx + name;
     const xmlStr giveNameXml = (xmlStr)giveName.c_str();
     const xmlStr takeNameXml = (xmlStr)takeName.c_str();
-    xmlTextWriterWriteFormatElement(xmlWriter, giveNameXml, "%d", rule.give);
-    xmlTextWriterWriteFormatElement(xmlWriter, takeNameXml, "%d", rule.take);
+    xmlTextWriterWriteElement(xmlWriter, giveNameXml, xmlFormat<int>(rule.give));
+    xmlTextWriterWriteElement(xmlWriter, takeNameXml, xmlFormat<int>(rule.take));
   }
 
   Construction::save(xmlWriter);
@@ -343,7 +343,7 @@ bool Market::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version)
     commodityRuleCount[stuff].maxload
   ) {
     CommodityRule& rule = commodityRuleCount[stuff];
-    give ? rule.give : rule.take = std::stoi(xmlReader.read_inner_xml());
+    give ? rule.give : rule.take = xmlParse<int>(xmlReader.read_inner_xml());
   }
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;

@@ -23,27 +23,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ComponentLoader.hpp"
 
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <string.h>              // for strcmp
-#include <exception>             // for exception
-#include <iostream>              // for basic_ostream, operator<<, stringstream
-#include <map>                   // for operator==, _Rb_tree_iterator
-#include <memory>                // for unique_ptr
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
-#include <utility>               // for pair
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <exception>                      // for exception
+#include <map>                            // for operator==
+#include <memory>                         // for unique_ptr, allocator
+#include <sstream>                        // for basic_stringstream, basic_o...
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
+#include <fmt/std.h> // IWYU pragma: keep
 
-#include "Component.hpp"         // for Component
-#include "ComponentFactory.hpp"  // for component_factories, ComponentFactories
-#include "Desktop.hpp"           // for Desktop
-#include "Style.hpp"             // for parseStyleDef
-#include "XmlReader.hpp"         // for XmlReader
-#include "lincity-ng/Config.hpp"
+#include "Component.hpp"                  // for Component
+#include "ComponentFactory.hpp"           // for component_factories, Compon...
+#include "Desktop.hpp"                    // for Desktop
+#include "Style.hpp"                      // for parseStyleDef
+#include "lincity-ng/Config.hpp"          // for getConfig, Config
+#include "util/xmlutil.hpp"               // for unexpectedXmlElement
 
 //void initFactories();
 
-Component* createComponent(const std::string& type, XmlReader& reader)
-{
+std::unique_ptr<Component>
+createComponent(const std::string& type, xmlpp::TextReader& reader) {
     //static int depth = 0;
     //initFactories();
     //Component * component = 0;
@@ -68,57 +69,59 @@ Component* createComponent(const std::string& type, XmlReader& reader)
         std::cout << "\t";
     std::cout << type << ": end" << std::endl;
 */
+    return i->second->createComponent(reader);
     try {
-        return i->second->createComponent(reader);
     } catch(std::exception& e) {
         std::stringstream msg;
         msg << "Error while parsing component '" << type << "': " << e.what();
         throw std::runtime_error(msg.str());
-    } catch(...) {
-        throw;
     }
 }
 
-Component* loadGUIFile(const std::filesystem::path& filename)
-{
-    XmlReader reader(getConfig()->appDataDir.get() / filename);
+std::unique_ptr<Component> loadGUIFile(const std::filesystem::path& filename) {
+  std::filesystem::path fullpath = getConfig()->appDataDir.get() / filename;
+  xmlpp::TextReader reader(fullpath);
 
-    std::string componentName = (const char*) reader.getName();
-    if(componentName == "gui") {
-        std::unique_ptr<Desktop> desktop (new Desktop());
-        desktop->parse(reader);
-        return desktop.release();
-    }
+  // seek to the first XML element
+  if(!reader.read())
+    throw std::runtime_error(fmt::format("file is empty: {}", fullpath));
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+    if(!reader.next())
+      throw std::runtime_error(
+        fmt::format("file doesn't contain XML data: {}", fullpath));
+  }
 
-    std::unique_ptr<Component> component (createComponent(componentName, reader));
-    return component.release();
+  std::string componentName = reader.get_name();
+  if(componentName == "gui") {
+    std::unique_ptr<Desktop> desktop(new Desktop());
+    desktop->parse(reader);
+    return desktop;
+  }
+  else {
+    return createComponent(componentName, reader);
+  }
 }
 
-Component* parseEmbeddedComponent(XmlReader& reader)
-{
-    Component* component = 0;
-    try {
-        int depth = reader.getDepth();
-        while(reader.read() && reader.getDepth() > depth) {
-            if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-                const char* name = (const char*) reader.getName();
-                if(strcmp(name, "DefineStyle") == 0) {
-                    parseStyleDef(reader);
-                } else if(component == 0) {
-                    component = createComponent(name, reader);
-                } else {
-                    std::cerr << "Multiple components specified."
-                        << " Skipping '" << name << "'.\n";
-                    continue;
-                }
-            }
-        }
-    } catch(...) {
-        delete component;
-        throw;
+std::unique_ptr<Component> parseEmbeddedComponent(xmlpp::TextReader& reader) {
+  std::unique_ptr<Component> component;
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    xmlpp::ustring name = reader.get_name();
+    if(name == "DefineStyle") {
+      parseStyleDef(reader);
+    } else if(!component) {
+      component = createComponent(name, reader);
+    } else {
+      unexpectedXmlElement(reader);
+    }
+    reader.next();
+  }
 
-    return component;
+  return component;
 }
 
 

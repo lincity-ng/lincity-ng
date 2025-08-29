@@ -25,21 +25,20 @@
 #include "fire.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
 #include <map>                            // for map
-#include <string>                         // for basic_string, char_traits
-#include <vector>                         // for allocator, vector
+#include <string>                         // for basic_string, operator==
+#include <vector>                         // for vector
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_FIRE
-#include "lincity/lin-city.hpp"             // for FLAG_FIRE_COVER, ANIM_THRES...
-#include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
-#include "lincity/world.hpp"                // for Map, MapTile, World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
-//#include "lincity-ng/Sound.hpp"
+#include "lincity/groups.hpp"             // for GROUP_FIRE
+#include "lincity/lin-city.hpp"           // for FLAG_FIRE_COVER, ANIM_THRES...
+#include "lincity/resources.hpp"          // for ExtraFrame, GraphicsInfo
+#include "lincity/world.hpp"              // for Map, MapTile, World
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
 FireConstructionGroup fireConstructionGroup(
      N_("Fire"),
@@ -164,17 +163,17 @@ Fire::can_bulldoze(Message::ptr& message) const {
 }
 
 void Fire::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"burning_days",       "%d", burning_days);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"smoking_days",       "%d", smoking_days);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"days_before_spread", "%d", days_before_spread);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"burning_days",       xmlFormat<int>(burning_days));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"smoking_days",       xmlFormat<int>(smoking_days));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"days_before_spread", xmlFormat<int>(days_before_spread));
   Construction::save(xmlWriter);
 }
 
 bool Fire::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if     (name == "burning_days")       burning_days       = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "smoking_days")       smoking_days       = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "days_before_spread") days_before_spread = std::stoi(xmlReader.read_inner_xml());
+  if     (name == "burning_days")       burning_days       = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "smoking_days")       smoking_days       = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "days_before_spread") days_before_spread = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }
