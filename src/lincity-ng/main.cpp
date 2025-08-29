@@ -228,7 +228,7 @@ setLang(const std::string& lang) {
 // This tries to get the same language that as gettext.
 std::string
 getLang() {
-#if defined(ENABLE_NLS) && ENABLE_NLS
+#if ENABLE_NLS
   const char *locale = setlocale(LC_MESSAGES, NULL);
 #else
   const char *locale = "C.UTF-8";
@@ -258,7 +258,7 @@ main(int argc, char** argv) {
   getConfig()->parseCommandLine(argc, argv);
 
   // set the preferred language
-#if defined(ENABLE_NLS) && ENABLE_NLS
+#if ENABLE_NLS
   if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
   setlocale(LC_ALL, "");
   if(getConfig()->language.get() != "autodetect")

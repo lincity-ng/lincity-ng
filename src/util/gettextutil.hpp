@@ -22,6 +22,10 @@
 #ifndef __LINCITYNG_LINCITYNG_LCGETTEXT_HPP__
 #define __LINCITYNG_LINCITYNG_LCGETTEXT_HPP__
 
+#ifndef ENABLE_NLS
+#define ENABLE_NLS false
+#endif
+
 #include <gettext.h>
 #include <string>
 

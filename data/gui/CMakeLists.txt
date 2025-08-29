@@ -23,9 +23,15 @@ set(guiSourceFiles
 set(xslFiles identity.xsl)
 
 foreach(guiSourceFile ${guiSourceFiles})
+  if(ENABLE_NLS)
+    set(XML_NLS enabled)
+  else()
+    set(XML_NLS disabled)
+  endif()
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
+      --stringparam NLS ${XML_NLS}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile} ${xslFiles}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Converting ${guiSourceFile}"

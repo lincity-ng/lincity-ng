@@ -38,6 +38,7 @@
 #include <utility>                      // for pair, move
 #include <vector>                       // for vector
 #include <optional>
+#include <string>
 
 #include "Config.hpp"                   // for getConfig, Config
 #include "Game.hpp"                     // for Game
@@ -273,6 +274,7 @@ MainMenu::updateOptionsMenu() {
   mode << getConfig()->worldSize.get();
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
 
+#if ENABLE_NLS
   languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
   currentLanguage = getConfig()->language.get();
   languageParagraph->setText(getConfig()->language.get());
@@ -291,6 +293,7 @@ MainMenu::updateOptionsMenu() {
   }
   languages.insert("autodetect");
   languages.insert("en"); // English is the default when no translation is used
+#endif
 }
 
 void
@@ -322,10 +325,12 @@ MainMenu::loadOptionsMenu() {
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+#if ENABLE_NLS
   currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+#endif
   // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
   // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
@@ -402,9 +407,9 @@ MainMenu::doubleClick(Component *button, std::function<void()> action) {
   }
 }
 
-void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
+void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
     std::string buttonName = button->getName();
-    if( buttonName == "BackgroundMusic"){
+    if(buttonName == "BackgroundMusic") {
       getSound()->playSound("Click");
       getSound()->enableMusic(!getConfig()->musicEnabled.get());
       getConfig()->musicEnabled.sessionToConfig();
@@ -462,12 +467,14 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if(buttonName == "WorldLenNext") {
       changeWorldLen(true);
       getConfig()->worldSize.sessionToConfig();
+#if ENABLE_NLS
     } else if(buttonName == "LanguagePrev") {
       changeLanguage(false);
       getConfig()->language.sessionToConfig();
     } else if(buttonName == "LanguageNext") {
       changeLanguage(true);
       getConfig()->language.sessionToConfig();
+#endif
     } else if(buttonName == "Fullscreen") {
         getSound()->playSound("Click");
         getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
@@ -594,6 +601,7 @@ MainMenu::changeTrack( bool next)
     musicParagraph->setText(getSound()->currentTrack.title);
 }
 
+#if ENABLE_NLS
 void
 MainMenu::changeLanguage(bool next) {
   std::set<std::string>::iterator i =
@@ -616,6 +624,7 @@ MainMenu::changeLanguage(bool next) {
   setLang(newLang);
   getSound()->playSound("Click");
 }
+#endif
 
 void
 MainMenu::quitButtonClicked(Button *) {
@@ -704,6 +713,7 @@ MainMenu::optionsBackButtonClicked(Button *) {
     resizeVideo(getConfig()->videoX.get(), getConfig()->videoY.get(),
       getConfig()->useFullScreen.get());
   }
+#if ENABLE_NLS
   else if(currentLanguage != getConfig()->language.get())
   {
     // TODO: re-parse GUI to update translatable text
@@ -716,12 +726,13 @@ MainMenu::optionsBackButtonClicked(Button *) {
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();
   }
+#endif
   gotoMainMenu();
 }
 
 /**
  * Either create selected random terrain or load a scenario.
- **/
+**/
 void
 MainMenu::newGameStartButtonClicked(Button *) {
   CheckButton *sel = newGameSelection.getSelection();

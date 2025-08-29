@@ -5,7 +5,7 @@
 	xmlns="http://lincity-ng.berlios.de/gui"
 	version="1.0">
 
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 
 	<xsl:template match="/YesNoDialog">
 		<xsl:call-template name="Dialog">
