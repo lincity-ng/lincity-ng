@@ -26,8 +26,9 @@
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
 #include <fmt/base.h>                            // for println
+#include <fmt/format.h>
 #include <gettext.h>                             // for bindtextdomain, text...
-#include <libxml/parser.h>                       // for xmlCleanupParser
+#include <libxml/xmlversion.h>                   // for LIBXML_VERSION
 #include <cassert>                               // for assert
 #include <clocale>                               // for NULL, setlocale, LC_ALL
 #include <cstdio>                                // for stderr
@@ -37,7 +38,6 @@
 #include <iostream>                              // for basic_ostream, opera...
 #include <memory>                                // for unique_ptr
 #include <optional>                              // for optional, nullopt
-#include <sstream>                               // for basic_stringstream
 #include <stdexcept>                             // for runtime_error
 #include <string>                                // for basic_string, char_t...
 
@@ -52,6 +52,10 @@
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
 #include "util/gettextutil.hpp"                  // for _
+
+#if LIBXML_VERSION < 21400
+#include <libxml/parser.h>                       // for xmlInitParser, xmlCl...
+#endif
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
@@ -140,7 +144,7 @@ void initVideo(int width, int height)
                               flags);
 
     if(getConfig()->useFullScreen.get()) {
-      // actual window saze may be different than requested
+      // actual window size may be different than requested
       SDL_GetWindowSize(window, &width, &height);
       getConfig()->videoX.session = width;
       getConfig()->videoY.session = height;
@@ -243,6 +247,12 @@ void mainLoop() {
 
 int
 main(int argc, char** argv) {
+  // initialize XML parser early because it is needed for parsing the config
+  LIBXML_TEST_VERSION;
+#if LIBXML_VERSION < 21400
+  xmlInitParser();
+#endif
+
   // parse config and command line
   configPtr = new Config();
   getConfig()->parseCommandLine(argc, argv);
@@ -272,22 +282,22 @@ main(int argc, char** argv) {
   fmt::println(stderr, _("starting {} ..."), PRETTY_NAME_VERSION);
 
   // initialize resources
-  xmlInitParser();
-  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    std::stringstream msg;
-    msg << "Couldn't initialize SDL: " << SDL_GetError();
-    throw std::runtime_error(msg.str());
-  }
-  if(TTF_Init() < 0) {
-    std::stringstream msg;
-    msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
-    throw std::runtime_error(msg.str());
-  }
+  constexpr Uint32 sdlSubsystems =
+    SDL_INIT_TIMER |
+    SDL_INIT_AUDIO |
+    SDL_INIT_VIDEO |
+    SDL_INIT_EVENTS;
+  if(SDL_Init(sdlSubsystems) < 0)
+    throw std::runtime_error(fmt::format(
+      "failed to initialize SDL: {}", SDL_GetError()));
+  if(TTF_Init() < 0)
+    throw std::runtime_error(fmt::format(
+      "failed to initialize SDL_ttf: {}", TTF_GetError()));
+  SDL_SetHint(SDL_HINT_APP_NAME, PRETTY_NAME);
+  SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
   initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
   initLincity();
-  std::unique_ptr<Sound> sound;
-  sound.reset(new Sound());
-  //set a function to call when music stops
+  std::unique_ptr<Sound> sound(new Sound());
   Mix_HookMusicFinished(musicHalted);
 
   // enter main loop
@@ -300,11 +310,11 @@ main(int argc, char** argv) {
   delete painter;
   delete fontManager;
   delete texture_manager;
-  if(TTF_WasInit())
-      TTF_Quit();
-  if(SDL_WasInit(0))
-      SDL_Quit();
+  TTF_Quit();
+  SDL_Quit();
+#if LIBXML_VERSION < 20911
   xmlCleanupParser();
+#endif
 
   return 0;
 }
