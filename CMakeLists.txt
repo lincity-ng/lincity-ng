@@ -23,18 +23,18 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(lincity-ng
-	VERSION 2.14.1
-	LANGUAGES CXX C
-	DESCRIPTION "A city simulation game"
-	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
+  VERSION 2.14.1
+  LANGUAGES CXX C
+  DESCRIPTION "A city simulation game"
+  HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 set(PROJECT_NAME_PRETTY "LinCity-NG")
 
 
 ### dependencies
 list(APPEND CMAKE_MODULE_PATH
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
+  ${CMAKE_SOURCE_DIR}/mk/cmake/modules
+  ${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
 )
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 find_package(Threads)
@@ -87,7 +87,12 @@ endforeach()
 
 
 ### options
-set(ENABLE_NLS "${Intl_FOUND}" CACHE BOOL "Enable native language support")
+set(ENABLE_NLS "YES" CACHE BOOL "Enable native language support")
+if(ENABLE_NLS AND NOT (Intl_FOUND AND Gettext_FOUND))
+  message(WARNING "Native language support requires gettext and libintl, but"
+    " one or both are missing. To suppress this warning, explicitly disable"
+    " native language support with `-DENABLE_NLS=NO`.")
+endif()
 
 
 ### compilation options
