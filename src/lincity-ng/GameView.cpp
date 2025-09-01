@@ -537,10 +537,7 @@ void GameView::preReadImages(void)
                     {
                         std::cout << "image error: " << key << std::endl;
                     }
-                    if(!xmlX_set)
-                    {   xmlX = int(graphicsInfo->image->w/2);}
-                    if(!xmlY_set)
-                    {   xmlY = int(graphicsInfo->image->h);}
+                    assert(xmlX_set && xmlY_set);
                     graphicsInfo->x = xmlX;
                     graphicsInfo->y = xmlY;
                     ++remaining_images;

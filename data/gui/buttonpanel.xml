@@ -90,7 +90,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="1" col="2" halign="left">
-				<Panel name="BPPointerMenu" width="200" height="50" background="images/gui/buttons/button-border-4.png">
+				<Panel name="BPPointerMenu" width="200" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPointerButton" auto-uncheck="false">
@@ -227,7 +227,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="3" col="2" halign="left">
-				<Panel name="BPFarmMenu"  width="200" height="50" background="images/gui/buttons/button-border-4.png">
+				<Panel name="BPFarmMenu"  width="200" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
 						<CheckButton name="BPMMarketButton" auto-uncheck="false">
@@ -363,7 +363,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="5" col="2" halign="left">
-				<Panel name="BPTransportMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
+				<Panel name="BPTransportMenu"  width="250" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMTrackButton" auto-uncheck="false">
@@ -431,7 +431,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="6" col="2" halign="left">
-				<Panel name="BPPowerMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
+				<Panel name="BPPowerMenu"  width="250" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPowerLineButton" auto-uncheck="false">
@@ -499,7 +499,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="7" col="2" halign="left">
-				<Panel name="BPMiningMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
+				<Panel name="BPMiningMenu"  width="250" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMCommuneButton" auto-uncheck="false">
@@ -567,7 +567,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="8" col="2" halign="left">
-				<Panel name="BPIndustryMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
+				<Panel name="BPIndustryMenu"  width="250" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPotteryButton" auto-uncheck="false">

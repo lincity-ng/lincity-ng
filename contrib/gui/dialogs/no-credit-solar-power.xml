@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="dialogs.xsl" type="text/xsl"?>
-<OkDialog>
-	<title>No Credit Available</title>
-	<image>warning.png</image>	
-	<bold>No Credit Available</bold>
-	<p>You have a budget deficit. The legislative council will not allow you to build
-	solar power stations on credit.</p>
-</OkDialog>

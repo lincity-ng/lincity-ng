@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="dialogs.xsl" type="text/xsl"?>
-<OkDialog>
-	<title>Warning</title>
-	<image>warning.png</image>	
-	<bold>Warning</bold>
-	<p> </p>
-</OkDialog>

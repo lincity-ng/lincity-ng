@@ -9,6 +9,7 @@ project(lincity-ng
 	DESCRIPTION "A city simulation game"
 	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
+set(APPSTREAM_ID "io.github.lincity_ng.lincity-ng")
 
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
