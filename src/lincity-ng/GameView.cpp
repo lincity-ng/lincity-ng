@@ -206,6 +206,7 @@ void GameView::buttonClicked( Button* button ){
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
         setDirty();
+        setMapDirty();
         return;
     }
     if( name == "showTerrainHeight" ){
@@ -941,6 +942,7 @@ void GameView::event(const Event& event)
                     hideHigh = true;
                 }
                 setDirty();
+                setMapDirty();
                 break;
             }
             //overlay MiniMap Information
