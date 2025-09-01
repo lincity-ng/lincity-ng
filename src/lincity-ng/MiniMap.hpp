@@ -31,6 +31,7 @@
 #include "gui/Component.hpp"        // for Component
 #include "gui/Vector2.hpp"          // for Vector2
 #include "lincity/commodities.hpp"  // for Commodity
+#include "gui/Signal.hpp"
 
 class Button;
 class CheckButton;
@@ -70,7 +71,10 @@ public:
 
     void setGame(Game *game);
 
+    void setDirty() { Component::setDirty(); }
     void setMapDirty() { mFullRefresh = true; }
+
+    Signal<> mapChanged;
 
 private:
     void mapViewButtonClicked(CheckButton* button, int);
@@ -80,7 +84,6 @@ private:
     void scrollPageDownButtonClicked(Button* button);
     void scrollPageUpButtonClicked(Button* button);
 
-
     void switchButton(CheckButton* button, int);
     void switchMapViewButton(const std::string &pName);
 
@@ -88,6 +91,7 @@ private:
     Component *findRoot(Component *c);
 //FIXME
     Vector2 mapPointToVector(MapPoint p);
+    void updateStatusMessage();
 
     void constrainPosition();
 
