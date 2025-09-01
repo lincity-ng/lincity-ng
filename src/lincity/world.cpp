@@ -206,12 +206,16 @@ unsigned short MapTile::getTopGroup() const //group of bare land or the actual c
     {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
 }
 
-unsigned short MapTile::getLowerstVisibleGroup() const
-{
-    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
-    {   return group;}
-    else
-    {   return reportingConstruction->constructionGroup->group;}
+unsigned short MapTile::getLowerstVisibleGroup() const {
+  if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
+    return group;
+  else if(reportingConstruction->constructionGroup->group == GROUP_PORT
+    && point.x == reportingConstruction->point.x + 3
+  )
+    // The water section of a port
+    return GROUP_WATER;
+  else
+    return reportingConstruction->constructionGroup->group;
 }
 
 
