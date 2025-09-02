@@ -142,9 +142,7 @@ void GameView::parse(XmlReader& reader)
     ctrDrag = false;
     areaBulldoze = false;
     startRoad = MapPoint(0, 0);
-    rightButtonDown = false;
     tileUnderMouse = MapPoint(0, 0);
-    dragStart = Vector2(0, 0);
     hideHigh = false;
     showTerrainHeight = false;
     cursorSize = 0;
@@ -657,37 +655,28 @@ void
 GameView::event(const Event& event) {
   switch(event.type) {
   case Event::MOUSEMOTION: {
-    mouseScrollState = SCROLL_NONE;
-    if(!dragging) {
-      if(event.mousepos.x < scrollBorder)
-        mouseScrollState |= SCROLL_LEFT;
-      else if(event.mousepos.x > getWidth() - scrollBorder)
-        mouseScrollState |= SCROLL_RIGHT;
-
-      if(event.mousepos.y < scrollBorder)
-        mouseScrollState |= SCROLL_UP;
-      else if(event.mousepos.y > getHeight() - scrollBorder)
-        mouseScrollState |= SCROLL_DOWN;
-    }
-
     if(dragging) {
-      if(fabsf(event.mousemove.x) < 1 && fabsf(event.mousemove.y) < 1)
-        break;
-      // this was most probably a SDL_WarpMouse
-      if(event.mousepos == dragStart)
-        break;
       viewport -= event.mousemove;
       constrainViewportPosition(true);
       viewportUpdated();
+      setPanningCursor();
       setDirty();
       break;
     }
-    if(!rightButtonDown) {
-      // Use `rightButtonDown` instead of `dragging` so releasing and
-      // re-pressing the button does not lose the drag correction. Such
-      // a release and re-press was probably a mistake.
+    else {
       scrollCorrection = Vector2(0,0);
     }
+
+    mouseScrollState = SCROLL_NONE;
+    if(event.mousepos.x < scrollBorder)
+      mouseScrollState |= SCROLL_LEFT;
+    else if(event.mousepos.x > getWidth() - scrollBorder)
+      mouseScrollState |= SCROLL_RIGHT;
+
+    if(event.mousepos.y < scrollBorder)
+      mouseScrollState |= SCROLL_UP;
+    else if(event.mousepos.y > getHeight() - scrollBorder)
+      mouseScrollState |= SCROLL_DOWN;
 
     if(!event.inside) {
       mouseInGameView = false;
@@ -695,11 +684,6 @@ GameView::event(const Event& event) {
     }
     mouseInGameView = true;
 
-    if(!dragging && rightButtonDown) {
-      dragging = true;
-      dragStart = event.mousepos;
-      dragStartTime = SDL_GetTicks(); // Is this unused???
-    }
     MapPoint tile = getTile(event.mousepos);
     if(!roadDragging && leftButtonDown && cursorSize == 1
       && getUserOperation()->action != UserOperation::ACTION_EVACUATE
@@ -739,10 +723,9 @@ GameView::event(const Event& event) {
   case Event::MOUSEBUTTONDOWN: {
     if(!event.inside);
     else if(event.mousebutton == SDL_BUTTON_MIDDLE) {
-      dragging = false;
+      dragging = true;
       ctrDrag = false;
-      rightButtonDown = true;
-      setPanningCursor();
+      mouseScrollState = SCROLL_NONE;
     }
     else if(event.mousebutton == SDL_BUTTON_LEFT) {
       roadDragging = false;
@@ -755,13 +738,10 @@ GameView::event(const Event& event) {
     if(event.mousebutton == SDL_BUTTON_MIDDLE) {
       if(dragging) {
         dragging = false;
-        rightButtonDown = false;
         setDefaultCursor();
-        // getButtonPanel()->selectQueryTool();
         break;
       }
       dragging = false;
-      rightButtonDown = false;
     }
     if(event.mousebutton == SDL_BUTTON_LEFT) {
       if(roadDragging && event.inside) {
