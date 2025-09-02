@@ -59,6 +59,7 @@ find_package(fmt 9.0.0 REQUIRED)
 # seems libxml++ doesn't have a find module, but it provides a pkg-config
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(libXMLPlusPlus REQUIRED IMPORTED_TARGET libxml++-5.0)
+find_package(Git)
 
 # find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
 # The libxslt find module is broken when cross compiling because it looks in the
@@ -175,4 +176,6 @@ if(CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-g( |$)")
 else()
 	set(CPACK_STRIP_FILES TRUE)
 endif()
+configure_file(mk/cmake/LCCPackConfig.cmake.in LCCPackConfig.cmake @ONLY)
+set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/LCCPackConfig.cmake")
 include(CPack)
