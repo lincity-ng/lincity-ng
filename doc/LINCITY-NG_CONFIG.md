@@ -3,9 +3,11 @@
 This is a comprehensive list of configuration options for LinCity-NG.
 
 Most options may be specified on the command line, in a config file, or in the
-in-game options menu. Changes made in the in-game options menu take effect
-immediately, and write the change to the config file to make it persistent.
-Options given on the command line take precedence over the config file.
+in-game options menu. A few options may also be set through environment
+variables. Changes made in the in-game options menu take effect immediately, and
+write the change to the config file to make it persistent. Options given on the
+command line have the highest precedence, followed by environment
+variables, the config file, and finally, option defaults.
 
 The default config file location is system dependent. Typical locations are:
 - Linux: `/home/<user>/.config/lincity-ng.conf`
@@ -17,15 +19,18 @@ The default config file location is system dependent. Typical locations are:
 
 **Command Line Options:** `-c <file>` or `--config <file>`
 <br/>
+**Environment variable:** `LINCITYNG_CONFIG_FILE`
+<br/>
 **Config File Elements:** This option may not be specified in the config file.
 <br/>
 **Allowed Values:** file path
 <br/>
 **Default:** _system-dependent_
 
-Specifies the configuration file location. This option may only be given once.
-If not specified, then a system-dependent default location is used. If the file
-does not exist, then it is created.
+Specifies the configuration file location. If this option is specified more than
+once, only the last value takes effect. If not specified, then a
+system-dependent default location is used. If the file does not exist, then it
+is created.
 
 
 ## Video Mode
@@ -156,7 +161,9 @@ cosmetic and do not affect gameplay.
 
 ## App Data Directory
 
-**Command Line Options:** `--app-data-dir <directory>`
+**Command Line Options:** `--app-data <directory>`
+<br/>
+**Environment variable:** `LINCITYNG_APP_DATA_DIR`
 <br/>
 **Config File Elements:** `<appDataDir>`
 <br/>
@@ -174,7 +181,9 @@ Typical install prefixes are:
 
 ## User Data Directory
 
-**Command Line Options:** `--user-data-dir <directory>`
+**Command Line Options:** `--user-data <directory>`
+<br/>
+**Environment variable:** `LINCITYNG_USER_DATA_DIR`
 <br/>
 **Config File Elements:** `<userDataDir>`
 <br/>

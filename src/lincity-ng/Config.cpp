@@ -281,7 +281,14 @@ Config::save(std::filesystem::path configFile) {
 }
 
 void
-Config::parseCommandLine(int argc, char** argv) {
+Config::init(int argc, char** argv) {
+  if(const char *envConfigFile = getenv("LINCITYNG_CONFIG_FILE"))
+    userDataDir.session = std::filesystem::path(envConfigFile);
+  if(const char *envAppDataDir = getenv("LINCITYNG_APP_DATA_DIR"))
+    appDataDir.session = std::filesystem::path(envAppDataDir);
+  if(const char *envUserDataDir = getenv("LINCITYNG_USER_DATA_DIR"))
+    userDataDir.session = std::filesystem::path(envUserDataDir);
+
   for(int argi = 1; argi < argc; ++argi) {
     std::string argStr = argv[argi];
 
@@ -294,9 +301,7 @@ Config::parseCommandLine(int argc, char** argv) {
       if(argi >= argc)
         throw std::runtime_error(fmt::format("{} needs a parameter", argStr));
       if(configFile.session)
-        fmt::println(stderr, "warning: --config specified more than once."
-          " Only the last occurance will be loaded.");
-        // throw std::runtime_error("--config may be specified only once");
+        fmt::println(stderr, "warning: cannot load more than one config file.");
       configFile.session = std::filesystem::path(argv[argi]);
     } else if(argStr == "-g" || argStr == "--gl") {
       useOpenGL.session = true;
