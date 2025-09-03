@@ -9,6 +9,7 @@
 
 // main install prefix
 #define INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}"
+#cmakedefine LINCITYNG_RELOCATABLE
 
 // per-category install directories relative to INSTALL_PREFIX
 #define INSTALL_BINDIR "${CMAKE_INSTALL_BINDIR}"
