@@ -50,14 +50,35 @@ cmake -B build -DCMAKE_INSTALL_PREFIX=<prefix>
 Sets the installation prefix of the build. The default is system dependent.
 
 The install prefix is compiled into the binary and used at runtime to help find
-the app data directory. If later installed to a different prefix, then the user
-must set the app data directory manually either via the `--app-data-dir` command
-line option or via the [config file](LINCITY-NG_CONFIG.md#app-data-directory).
+the app data directory. If later installed to a different prefix and the build
+is not [relocatable](#LINCITYNG_RELOCATABLE), then the user must set the [app
+data directory](LINCITY-NG_CONFIG.md#app-data-directory) manually.
 
 This may alternatively be specified via the `--install-prefix` command line
 option.
 
 See also: [CMAKE_INSTALL_PREFIX](https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX.html)
+
+
+## LINCITYNG_RELOCATABLE
+
+```
+cmake -B build -DLINCITYNG_RELOCATABLE=<ON/OFF>
+```
+
+Enables/disables building a relocatable binary. A relocatable binary will
+automatically detect the app-data location based on the binary location. This
+makes the package such that it need not necessarily be installed to the
+`CMAKE_INSTALL_PREFIX`, and the installed files may even be moved after
+installation as long as the app data stays alongside the binary. Default is
+`OFF`.
+
+Some systems do not support binary relocation; in that case,
+`CMAKE_INSTALL_PREFIX` is used as a fallback for discovering the app data
+location (which is unlikely to work if the binary is expected to be
+relocatable). Some systems may also not expect a binary behave this way and may
+inadvertently break it by moving/copying the binary away from other installed
+files.
 
 
 #### LINCITYNG_VERSION_SUFFIX
@@ -66,10 +87,9 @@ See also: [CMAKE_INSTALL_PREFIX](https://cmake.org/cmake/help/latest/variable/CM
 cmake -B build -DLINCITYNG_VERSION_SUFFIX=<suffix>
 ```
 
-The `-DLINCITYNG_VERSION_SUFFIX=<suffix>` configure time option is provided
-for packagers to allow marking builds as coming from a specific source. It's
-especially useful when building from a source tarball or with custom patches to
-avoid an `unknown` or `dirty` suffix.
+Thin option is provided for packagers to allow marking builds as coming from a
+specific source. It's especially useful when building from a source tarball or
+with custom patches to avoid an `unknown` or `dirty` suffix.
 
 
 ## ENABLE_NLS
