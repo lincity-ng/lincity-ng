@@ -23,26 +23,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Panel.hpp"
 
-#include <assert.h>              // for assert
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>               // for sscanf
-#include <string.h>              // for strcmp
-#include <filesystem>            // for path
-#include <iostream>              // for basic_ostream, operator<<, stringstream
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
-#include <string>                // for char_traits, allocator, basic_string
-#include <vector>                // for vector
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <filesystem>                     // for path
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator==
+#include <vector>                         // for vector
 
-#include "Child.hpp"             // for Childs, Child
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"   // for createComponent
-#include "Painter.hpp"           // for Painter
-#include "Style.hpp"             // for parseStyleDef
-#include "TextureManager.hpp"    // for TextureManager, texture_manager
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
-#include "Texture.hpp"
+#include "Child.hpp"                      // for Childs, Child
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"            // for createComponent
+#include "Painter.hpp"                    // for Painter
+#include "Style.hpp"                      // for parseStyleDef
+#include "Texture.hpp"                    // for Texture
+#include "TextureManager.hpp"             // for TextureManager, texture_man...
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 /**
  * Class constructor.
@@ -59,72 +56,50 @@ Panel::~Panel()
 {
 }
 
-/**
- * Function for XML parsing.
- *
- * @param reader XmlReader object that represents a XML file.
- */
 void
-Panel::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+Panel::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "background") {
+      std::filesystem::path bgFile = xmlParse<std::filesystem::path>(value);
+      background = texture_manager->load(bgFile);
+      background->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
+    }
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "resizable")
+      (this->*(xmlParse<bool>(value) ? &Panel::setFlags : &Panel::clearFlags))
+        (FLAG_RESIZABLE);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "background") == 0) {
-            background = 0;
-            background = texture_manager->load(value);
-            background->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Parse error when parsing width (" << value << ")";
-                throw std::runtime_error(msg.str());
-           }
-        } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Parse error when parsing height (" << value << ")";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(!strcmp(attribute, "resizable")) {
-          if(!strcmp(value, "yes") || !strcmp(value, "true")) {
-            setFlags(FLAG_RESIZABLE);
-          }
-          else if(!strcmp(value, "no") || !strcmp(value, "false")) {
-            clearFlags(FLAG_RESIZABLE);
-          }
-          else {
-            throw std::runtime_error(std::string() +
-              "invalid value for attribute resizable: '" + value + "'");
-          }
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "DefineStyle") {
+      parseStyleDef(reader);
+    } else {
+      addChild(createComponent(element, reader));
+    }
+    reader.next();
+  }
 
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-      if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-        std::string element = (const char*) reader.getName();
-        if(element == "DefineStyle") {
-          parseStyleDef(reader);
-        } else {
-          Component* component = createComponent(element, reader);
-          addChild(component);
-        }
-      }
-    }
-
-    if(width > 0 && height > 0) {
-      resize(width, height);
-    }
-    else if(!(getFlags() & FLAG_RESIZABLE)) {
-      throw std::runtime_error("invalid width/height");
-    }
+  if(width > 0 && height > 0) {
+    resize(width, height);
+  }
+  else if(!(getFlags() & FLAG_RESIZABLE)) {
+    throw std::runtime_error("invalid width/height");
+  }
 }
 
 /**

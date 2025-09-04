@@ -24,8 +24,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COLOR_HPP__
 #define __COLOR_HPP__
 
-#include <SDL.h>  // for SDL_Color
-#include <stdint.h>      // for uint8_t
+#include <SDL.h>               // for SDL_Color
+#include <libxml++/ustring.h>  // for ustring
+#include <stdint.h>            // for uint8_t
 
 /**
  * @class Color
@@ -60,7 +61,7 @@ public:
      * Alternatively you can use predefined color names (like red,
      * black, yellow). Look in Color.cpp for a list of names.
      */
-    void parse(const char* value);
+    void parse(xmlpp::ustring value);
 
     uint8_t r, g, b, a;
 };

@@ -21,14 +21,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file FilledRectangle.cpp
  */
 
-#include <string.h>              // for strcmp
-#include <iostream>              // for char_traits, operator<<, basic_ostream
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <string>                         // for basic_string, allocator
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "FilledRectangle.hpp"
-#include "Painter.hpp"           // for Painter
-#include "Rect2D.hpp"            // for Rect2D
-#include "XmlReader.hpp"         // for XmlReader
+#include "Painter.hpp"                    // for Painter
+#include "Rect2D.hpp"                     // for Rect2D
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
 
 FilledRectangle::FilledRectangle()
 {}
@@ -37,24 +38,19 @@ FilledRectangle::~FilledRectangle()
 {}
 
 void
-FilledRectangle::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+FilledRectangle::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "color")
+      color.parse(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if (strcmp(attribute, "color") == 0) {
-            color.parse(value);
-        } else {
-            std::cerr << "Unknown attribute '" << attribute
-                      << "' in FilledRectangle.\n";
-        }
-    }
-
-    flags |= FLAG_RESIZABLE;
+  flags |= FLAG_RESIZABLE;
 }
 
 void

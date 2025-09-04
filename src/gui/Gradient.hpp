@@ -32,7 +32,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"  // for Component
 
 class Texture;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class Gradient
@@ -43,7 +45,7 @@ public:
     Gradient();
     virtual ~Gradient();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
     void resize(float width, float height);
     void draw(Painter& painter);
 
@@ -52,7 +54,7 @@ private:
                        uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     void draw_vertical_line(SDL_Surface* surface, int x1, int y1, int y2,
                        uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-    
+
     std::unique_ptr<Texture> texture;
     Color from, to;
     enum Direction {
@@ -66,4 +68,3 @@ private:
 
 
 /** @file gui/Gradient.hpp */
-

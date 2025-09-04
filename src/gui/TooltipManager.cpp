@@ -23,19 +23,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "TooltipManager.hpp"
 
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <iostream>              // for operator<<, basic_ostream, cerr, bas...
-#include <map>                   // for map, _Rb_tree_iterator, operator==
-#include <memory>                // for unique_ptr
-#include <utility>               // for pair
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <iostream>                       // for basic_ostream, operator<<
+#include <map>                            // for map, operator==
+#include <memory>                         // for unique_ptr
+#include <utility>                        // for move, pair
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "Document.hpp"          // for Document
-#include "Event.hpp"             // for Event
-#include "Paragraph.hpp"         // for Paragraph
-#include "Style.hpp"             // for Style, styleRegistry
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "Document.hpp"                   // for Document
+#include "Event.hpp"                      // for Event
+#include "Paragraph.hpp"                  // for Paragraph
+#include "Style.hpp"                      // for Style, styleRegistry
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute, une...
 
 TooltipManager* tooltipManager = 0;
 
@@ -55,29 +55,23 @@ TooltipManager::~TooltipManager()
 }
 
 void
-TooltipManager::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+TooltipManager::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute
-                      << "' in TooltipManager.\n";
-        }
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
-
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            const char* element = (const char*) reader.getName();
-            std::cerr << "Skipping unknown child '" << element
-                      << "in TooltipManager.\n";
-        }
-    }
+    unexpectedXmlElement(reader);
+    reader.next();
+  }
 }
 
 void
@@ -119,7 +113,7 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
         p->setText(text, s->second);
         d->style = s->second;
     }
-    d->addParagraph(p.release());
+    d->addParagraph(std::move(p));
     d->resize(250, -1);
     Vector2 dest = pos + Vector2(-100, 26);
     if(dest.x < 20)
@@ -133,7 +127,7 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
     /* Show minimap tooltip above. Hardcoded size corresponding to .xml  */
     if(dest.x > getWidth() - 310)
         dest.y = pos.y - 20 - d->getHeight();
-    comp_tooltip().setComponent(d.release());
+    comp_tooltip().setComponent(std::move(d));
     comp_tooltip().setPos(dest);
 		setDirty();
 }

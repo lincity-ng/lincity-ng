@@ -23,25 +23,32 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Document.hpp"
 
-#include <assert.h>              // for assert
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
-#include <string.h>              // for strcmp
-#include <filesystem>            // for path
-#include <functional>            // for bind, _1, _2, function
-#include <iostream>              // for basic_ostream, operator<<, cerr
-#include <memory>                // for unique_ptr
-#include <vector>                // for vector
+#include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdio.h>                        // for stderr
+#include <filesystem>                     // for path, operator/
+#include <functional>                     // for bind, _1, _2, function
+#include <iostream>                       // for basic_ostream, operator<<
+#include <memory>                         // for unique_ptr, allocator
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for move
+#include <vector>                         // for vector
+#include <fmt/std.h> // IWYU pragma: keep
 
-#include "Child.hpp"             // for Childs, Child
-#include "Color.hpp"             // for Color
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "DocumentElement.hpp"   // for DocumentElement
-#include "DocumentImage.hpp"     // for DocumentImage
-#include "Painter.hpp"           // for Painter
-#include "Paragraph.hpp"         // for Paragraph
-#include "Rect2D.hpp"            // for Rect2D
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "Child.hpp"                      // for Childs, Child
+#include "Color.hpp"                      // for Color
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "DocumentElement.hpp"            // for DocumentElement
+#include "DocumentImage.hpp"              // for DocumentImage
+#include "Painter.hpp"                    // for Painter
+#include "Paragraph.hpp"                  // for Paragraph
+#include "Rect2D.hpp"                     // for Rect2D
+#include "Vector2.hpp"                    // for Vector2
+#include "lincity-ng/Config.hpp"          // for getConfig, Config
+#include "util/xmlutil.hpp"               // for unexpectedXmlElement, unexp...
 
 using namespace std::placeholders;
 
@@ -55,54 +62,74 @@ Document::~Document()
 }
 
 void
-Document::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+Document::parse(xmlpp::TextReader& reader) {
+  std::filesystem::path srcPath;
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(style.parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "src") == 0) {
-            XmlReader fileReader(value);
-            parse(fileReader);
-            return;
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(style.parseAttribute(reader));
+    else if(name == "src")
+      srcPath = getConfig()->appDataDir.get() /
+        xmlParse<std::filesystem::path>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+
+  if(!srcPath.empty()) {
+    xmlpp::TextReader reader(srcPath);
+
+    // seek to the first XML element
+    if(!reader.read())
+      throw std::runtime_error(fmt::format("file is empty: {}", srcPath));
+    while(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      if(!reader.next())
+        throw std::runtime_error(
+          fmt::format("file doesn't contain XML data: {}", srcPath));
     }
 
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string node = (const char*) reader.getName();
-            if(node == "p" || node=="Paragraph" || node == "li") {
-                std::unique_ptr<Paragraph> paragraph (new Paragraph());
-                if(node != "li") {
-                    paragraph->parse(reader, style);
-                } else {
-                    paragraph->parseList(reader, style);
-                }
-                paragraph->linkClicked.connect(
-                  std::bind(&Document::paragraphLinkClicked, this, _1, _2));
-                addChild(paragraph.release());
-            } else if(node == "img") {
-                std::unique_ptr<DocumentImage> image (new DocumentImage());
-                image->parse(reader, style);
-                addChild(image.release());
-            } else {
-                std::cerr << "Skipping unknown node type '" << node << "'.\n";
-                reader.nextNode();
-            }
-        } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
-            // TODO create anonymous paragraph...
-            std::cerr << "Warning: text outside paragraph not allowed (yet).\n";
-        }
+    parse(reader);
+
+    while(reader.next()) {
+      if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+        continue;
+      unexpectedXmlElement(reader);
     }
+    return;
+  }
+
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      if(reader.get_node_type() == xmlpp::TextReader::NodeType::Text) {
+        fmt::println(stderr, "warning: text outside paragraph not allowed");
+        assert(false);
+      }
+      reader.next();
+      continue;
+    }
+    xmlpp::ustring node = reader.get_name();
+    if(node == "p" || node=="Paragraph" || node == "li") {
+      std::unique_ptr<Paragraph> paragraph(new Paragraph());
+      if(node != "li") {
+        paragraph->parse(reader, style);
+      } else {
+        paragraph->parseList(reader, style);
+      }
+      paragraph->linkClicked.connect(
+        std::bind(&Document::paragraphLinkClicked, this, _1, _2));
+      addChild(std::move(paragraph));
+    } else if(node == "img") {
+      std::unique_ptr<DocumentImage> image(new DocumentImage());
+      image->parse(reader, style);
+      addChild(std::move(image));
+    } else {
+      unexpectedXmlElement(reader);
+    }
+    reader.next();
+  }
 }
 
 void
@@ -151,11 +178,11 @@ Document::resize(float newwidth, float newheight)
 }
 
 void
-Document::addParagraph(Paragraph* paragraph)
+Document::addParagraph(std::unique_ptr<Paragraph> paragraph)
 {
     paragraph->linkClicked.connect(
       std::bind(&Document::paragraphLinkClicked, this, _1, _2));
-    addChild(paragraph);
+    addChild(std::move(paragraph));
     resize(width, height);
 }
 

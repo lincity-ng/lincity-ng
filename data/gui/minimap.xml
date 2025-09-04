@@ -131,7 +131,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/info/hidehigh.png"/>
-						<tooltip translatable="yes">[h] Hide high buildings. </tooltip>
+						<tooltip translatable="yes">[h] Hide high buildings.</tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="4">
@@ -149,7 +149,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/info/mapoverlay.png"/>
-						<tooltip translatable="yes">[v] Cycle through MiniMap overlay modes. </tooltip>
+						<tooltip translatable="yes">[v] Cycle through MiniMap overlay modes.</tooltip>
 					</Button>
 				</cell>
 			</TableLayout>

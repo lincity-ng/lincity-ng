@@ -34,10 +34,11 @@
 #include "lincity/lin-city.hpp"     // for ANIM_THRESHOLD
 #include "lincity/resources.hpp"  // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"        // for World, Map, MapTile
+#include "util/gettextutil.hpp"
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
-  GROUP_BLACKSMITH_NAME,
-  GROUP_BLACKSMITH_NAMEPLURAL,
+  N_("Blacksmith"),
+  N_("Blacksmiths"),
   GROUP_BLACKSMITH_NEED_CREDIT,
   GROUP_BLACKSMITH,
   GROUP_BLACKSMITH_SIZE,

@@ -25,31 +25,41 @@
 #include <SDL.h>                                 // for SDL_GetError, SDL_Se...
 #include <SDL_mixer.h>                           // for Mix_HookMusicFinished
 #include <SDL_ttf.h>                             // for TTF_Init, TTF_Quit
-#include <config.h>                              // for PACKAGE_NAME, PACKAG...
-#include <libxml/parser.h>                       // for xmlCleanupParser
-#include <stdio.h>                               // for NULL
-#include <stdlib.h>                              // for setenv
-#include <filesystem>                            // for operator/, path
+#include <fmt/base.h>                            // for println
+#include <fmt/format.h>
+#include <gettext.h>                             // for bindtextdomain, text...
+#include <libxml/xmlversion.h>                   // for LIBXML_VERSION
+#include <cassert>                               // for assert
+#include <clocale>                               // for NULL, setlocale, LC_ALL
+#include <cstdio>                                // for stderr
+#include <cstdlib>                               // for getenv, setenv, unse...
+#include <cstring>                               // for strcmp
+#include <filesystem>                            // for path, operator/
 #include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for allocator, unique_ptr
-#include <sstream>                               // for basic_stringstream
+#include <memory>                                // for unique_ptr
+#include <optional>                              // for optional, nullopt
 #include <stdexcept>                             // for runtime_error
-#include <string>                                // for char_traits, basic_s...
-#include <optional>
+#include <string>                                // for basic_string, char_t...
 
 #include "Config.hpp"                            // for getConfig, Config
 #include "MainLincity.hpp"                       // for initLincity
 #include "MainMenu.hpp"                          // for MainMenu
 #include "Sound.hpp"                             // for Sound, getSound, Mus...
+#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
 #include "gui/FontManager.hpp"                   // for FontManager, fontMan...
 #include "gui/Painter.hpp"                       // for Painter
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "tinygettext/tinygettext.hpp"           // for DictionaryManager
+#include "util/gettextutil.hpp"                  // for _
+
+#if LIBXML_VERSION < 21400
+#include <libxml/parser.h>                       // for xmlInitParser, xmlCl...
+#endif
 
 #ifndef DISABLE_GL_MODE
 #include <SDL_opengl.h>                          // for glDisable, glLoadIde...
+
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL
 #endif
@@ -58,15 +68,20 @@
 #include <exception>                             // for exception
 #endif
 
+#ifdef WIN32
+#undef bindtextdomain
+#define bindtextdomain wbindtextdomain
+#endif
+
 extern Config *configPtr;
 
 SDL_Window* window = NULL;
 SDL_GLContext window_context = NULL;
 SDL_Renderer* window_renderer = NULL;
 Painter* painter = 0;
-tinygettext::DictionaryManager* dictionaryManager = 0;
 // bool restart = false;
 const char *appdatadir;
+std::optional<std::string> oldLanguage = std::nullopt;
 
 void musicHalted() {
     getSound()->changeTrack(NEXT_OR_FIRST_TRACK);
@@ -129,7 +144,7 @@ void initVideo(int width, int height)
                               flags);
 
     if(getConfig()->useFullScreen.get()) {
-      // actual window saze may be different than requested
+      // actual window size may be different than requested
       SDL_GetWindowSize(window, &width, &height);
       getConfig()->videoX.session = width;
       getConfig()->videoY.session = height;
@@ -175,114 +190,133 @@ void initVideo(int width, int height)
     fontManager = new FontManager();
 }
 
+#ifdef HAVE_NL_MSG_CAT_CNTR
+// glibc gettext magic
+extern "C" int _nl_msg_cat_cntr;
+#endif
+void
+setLang(const std::string& lang) {
+  if(lang != "autodetect") {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", lang.c_str());
+#else
+    setenv("LANGUAGE", lang.c_str(), 1);
+#endif
+  }
+  else if(oldLanguage) {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", oldLanguage->c_str());
+#else
+    setenv("LANGUAGE", oldLanguage->c_str(), 1);
+#endif
+  }
+  else {
+#ifdef WIN32
+    _putenv_s("LANGUAGE", "");
+#else
+    unsetenv("LANGUAGE");
+#endif
+  }
+#define GETTEXT_HAS_
+
+#ifdef HAVE_NL_MSG_CAT_CNTR
+  // glibc gettext magic
+  ++_nl_msg_cat_cntr;
+#endif
+}
+
+// This tries to get the same language that as gettext.
+std::string
+getLang() {
+#if ENABLE_NLS
+  const char *locale = setlocale(LC_MESSAGES, NULL);
+#else
+  const char *locale = "C.UTF-8";
+#endif
+  assert(locale);
+  if(locale && !strcmp(locale, "C")) return "C";
+  const char *language = getenv("LANGUAGE");
+  if(language && *language) return language;
+  if(locale) return locale;
+  return "";
+}
+
 void mainLoop() {
   MainMenu(window).run();
 }
 
-int main(int argc, char** argv)
-{
-    int result = 0;
-
-    configPtr = new Config();
-    getConfig()->parseCommandLine(argc, argv);
-
-#ifndef DEBUG //in debug mode we wanna have a backtrace
-    try {
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ")...\n";
-#else
-        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
+int
+main(int argc, char** argv) {
+  // initialize XML parser early because it is needed for parsing the config
+  LIBXML_TEST_VERSION;
+#if LIBXML_VERSION < 21400
+  xmlInitParser();
 #endif
 
-        if(getConfig()->language.get() != "autodetect") {
-#if defined (WIN32)
-          _putenv_s("LINCITY_LANG", getConfig()->language.get().c_str());
-#else
-          setenv("LINCITY_LANG", getConfig()->language.get().c_str(), false);
-#endif
-        }
-        dictionaryManager = new tinygettext::DictionaryManager();
-        dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory(getConfig()->appDataDir.get() / "locale");
-        std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
+  // parse config and command line
+  configPtr = new Config();
+  getConfig()->parseCommandLine(argc, argv);
 
-        // char *lc_textdomain_directory[1024];
-        // if(snprintf(lc_textdomain_directory, 1024, "%s%c%s",
-        //   appdatadir, "/", "locale") < 1024) {
-        //   char *dm = bindtextdomain(PACKAGE, lc_textdomain_directory);
-        //   fprintf(stderr, "Bound textdomain directory is %s\n", dm);
-        //   char *td = textdomain(PACKAGE);
-        //   fprintf(stderr, "Textdomain is %s\n", td);
-        // } else {
-        //   fprintf(stderr, "warning: %s, %s",
-        //     "data directory path name too long",
-        //     "cannot set text domain");
-        // }
-
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        return 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        return 1;
-    }
+  // set the preferred language
+#if ENABLE_NLS
+  if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
+  setlocale(LC_ALL, "");
+  if(getConfig()->language.get() != "autodetect")
+    setLang(getConfig()->language.get());
+  bindtextdomain(PACKAGE_NAME,
+    (getConfig()->appDataDir.get() / "locale").c_str());
+  textdomain(PACKAGE_NAME);
 #endif
 
-// in debug mode we want a backtrace of the exceptions so we don't catch them
-#ifndef DEBUG
-    try {
+  // show versions or help message if requested
+  if(getConfig()->showVersion.get()) {
+    fmt::println(PRETTY_NAME_VERSION);
+    return 0;
+  }
+  if(getConfig()->showHelp.get()) {
+    Config::printHelp(argv[0]);
+    return 0;
+  }
+
+  // print welcome message
+  fmt::println(stderr, _("starting {} ..."), PRETTY_NAME_VERSION);
+
+  // initialize resources
+  constexpr Uint32 sdlSubsystems =
+    SDL_INIT_TIMER |
+    SDL_INIT_AUDIO |
+    SDL_INIT_VIDEO |
+    SDL_INIT_EVENTS;
+  if(SDL_Init(sdlSubsystems) < 0)
+    throw std::runtime_error(fmt::format(
+      "failed to initialize SDL: {}", SDL_GetError()));
+  if(TTF_Init() < 0)
+    throw std::runtime_error(fmt::format(
+      "failed to initialize SDL_ttf: {}", TTF_GetError()));
+  SDL_SetHint(SDL_HINT_APP_NAME, PRETTY_NAME);
+  SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+  initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
+  initLincity();
+  std::unique_ptr<Sound> sound(new Sound());
+  Mix_HookMusicFinished(musicHalted);
+
+  // enter main loop
+  mainLoop();
+
+  // save the current game
+  getConfig()->save();
+
+  // clean up
+  delete painter;
+  delete fontManager;
+  delete texture_manager;
+  TTF_Quit();
+  SDL_Quit();
+#if LIBXML_VERSION < 20911
+  xmlCleanupParser();
 #endif
-        xmlInitParser ();
-        if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        if(TTF_Init() < 0) {
-            std::stringstream msg;
-            msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
-            throw std::runtime_error(msg.str());
-        }
-        initVideo(getConfig()->videoX.get(), getConfig()->videoY.get());
-        initLincity();
-        std::unique_ptr<Sound> sound;
-        sound.reset(new Sound());
-        //set a function to call when music stops
-        Mix_HookMusicFinished(musicHalted);
-        mainLoop();
-        getConfig()->save();
-#ifndef DEBUG
-    } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";
-        result = 1;
-    } catch(...) {
-        std::cerr << "Unexpected exception.\n";
-        result = 1;
-    }
-#endif
-    delete painter;
-    delete fontManager;
-    delete texture_manager;
-    if(TTF_WasInit())
-        TTF_Quit();
-    if(SDL_WasInit(0))
-        SDL_Quit();
-    xmlCleanupParser();
-    delete dictionaryManager;
-    dictionaryManager = 0;
-//     if( restart ){
-// #ifdef WIN32
-//         //Windows has a Problem with Whitespaces.
-//         std::string fixWhiteSpaceInPathnameProblem;
-//         fixWhiteSpaceInPathnameProblem="\"";
-//         fixWhiteSpaceInPathnameProblem+=argv[0];
-//         fixWhiteSpaceInPathnameProblem+="\"";
-//         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
-// #else
-//         execlp( argv[0], argv[0], (char *) NULL );
-// #endif
-//     }
-    return result;
+
+  return 0;
 }
 
 
