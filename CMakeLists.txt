@@ -93,6 +93,7 @@ if(ENABLE_NLS AND NOT (Intl_FOUND AND Gettext_FOUND))
     " one or both are missing. To suppress this warning, explicitly disable"
     " native language support with `-DENABLE_NLS=NO`.")
 endif()
+set(LINCITYNG_RELOCATABLE "NO" CACHE BOOL "Build a relocatable binary")
 
 
 ### compilation options
