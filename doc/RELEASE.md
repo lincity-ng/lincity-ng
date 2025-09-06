@@ -47,7 +47,7 @@
 20. Publish the GitHub release.
 
 
-## FlatHub Release
+## Flathub Release
 1. Wait for @flathubbot to create a pull request on https://github.com/flathub/io.github.lincity_ng.lincity-ng. If that's not viable for some reason, e.g. the checking process is down or it is an urgent hotfix, send a pull request updating the package URL and SHA256 checksum for LinCity-NG source in `io.github.lincity_ng.lincity-ng.yaml` manually.
 2. Wait for the test build to complete; @flathubbot will leave comments on the pull request as it progresses.
 3. Run the command suggested by the bot to install the built flatpak for testing.
