@@ -22,33 +22,35 @@
 
 #include "PBar.hpp"
 
-#include <assert.h>                  // for assert
-#include <stdio.h>                   // for sscanf
-#include <string.h>                  // for strcmp
-#include <algorithm>                 // for max
-#include <array>                     // for array
-#include <cmath>                     // for sqrt
-#include <deque>                     // for deque
-#include <iomanip>                   // for operator<<, setprecision
-#include <iostream>                  // for basic_ostream, operator<<, cerr
-#include <sstream>                   // for basic_stringstream, basic_ostrin...
-#include <stdexcept>                 // for runtime_error
-#include <string>                    // for char_traits, basic_string, opera...
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <algorithm>                      // for max
+#include <array>                          // for array
+#include <cassert>                        // for assert
+#include <cmath>                          // for sqrt
+#include <deque>                          // for deque
+#include <iomanip>                        // for operator<<, setprecision
+#include <iostream>                       // for basic_ostream, operator<<
+#include <memory>                         // for unique_ptr
+#include <sstream>                        // for basic_ostringstream
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for char_traits, basic_string
+#include <utility>                        // for move
 
-#include "lincity/util.hpp"          // for num_to_ansi
-#include "Game.hpp"                  // for Game
-#include "Util.hpp"                  // for getParagraph
-#include "gui/Color.hpp"             // for Color
-#include "gui/ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"   // for parseEmbeddedComponent
-#include "gui/Painter.hpp"           // for Painter
-#include "gui/Paragraph.hpp"         // for Paragraph
-#include "gui/Rect2D.hpp"            // for Rect2D
-#include "gui/XmlReader.hpp"         // for XmlReader
-#include "lincity/commodities.hpp"   // for Commodity
-#include "lincity/lintypes.hpp"        // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"           // for Stats
-#include "lincity/world.hpp"           // for World
+#include "Game.hpp"                       // for Game
+#include "Util.hpp"                       // for getParagraph
+#include "gui/Color.hpp"                  // for Color
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"        // for parseEmbeddedComponent
+#include "gui/Painter.hpp"                // for Painter
+#include "gui/Paragraph.hpp"              // for Paragraph
+#include "gui/Rect2D.hpp"                 // for Rect2D
+#include "lincity/commodities.hpp"        // for Commodity
+#include "lincity/lintypes.hpp"           // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/util.hpp"               // for num_to_ansi
+#include "lincity/world.hpp"              // for World
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 
 LCPBar::LCPBar() { }
@@ -56,37 +58,31 @@ LCPBar::LCPBar() { }
 LCPBar::~LCPBar() { }
 
 void
-LCPBar::parse(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+LCPBar::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(name, value)) {
-            continue;
-        } else {
-            std::cerr << "Unknown attribute '" << name
-                      << "' skipped in PBar.\n";
-        }
-    }
+  if(getName() == "PBar")
+    bars = {Bar::POP, Bar::TECH, Bar::MONEY,
+      Bar::FOOD, Bar::LABOR, Bar::GOODS, Bar::COAL, Bar::ORE, Bar::STEEL};
+  else if(getName() == "PBar2nd")
+    bars = {Bar::POP, Bar::TECH, Bar::MONEY,
+      Bar::POL, Bar::LOVOLT, Bar::HIVOLT, Bar::WATER, Bar::WASTE, Bar::HOUSE};
+  else {
+    std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";
+    assert(false);
+  }
 
-    if(getName() == "PBar")
-      bars = {Bar::POP, Bar::TECH, Bar::MONEY,
-        Bar::FOOD, Bar::LABOR, Bar::GOODS, Bar::COAL, Bar::ORE, Bar::STEEL};
-    else if(getName() == "PBar2nd")
-      bars = {Bar::POP, Bar::TECH, Bar::MONEY,
-        Bar::POL, Bar::LOVOLT, Bar::HIVOLT, Bar::WATER, Bar::WASTE, Bar::HOUSE};
-    else {
-      std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";
-      assert(false);
-    }
-
-    Component* component = parseEmbeddedComponent(reader);
-    addChild(component);
-
-    width = component->getWidth();
-    height = component->getHeight();
+  std::unique_ptr<Component> component = parseEmbeddedComponent(reader);
+  width = component->getWidth();
+  height = component->getHeight();
+  addChild(std::move(component));
 }
 
 void
@@ -262,51 +258,31 @@ BarView::~BarView()
 }
 
 void
-BarView::parse(XmlReader& reader)
-{
-    dir=true;
-    bad=false;
-    // parse attributes...
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+BarView::parse(xmlpp::TextReader& reader) {
+  dir=true;
+  bad=false;
 
-        if(parseAttribute(name, value)) {
-            continue;
-        } else if(strcmp(name, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "dir") == 0) {
-            if(strcmp(value,"1") == 0) {
-                dir=true;
-            } else {
-                dir=false;
-            }
-        } else if(strcmp(name, "bad") == 0) {
-            if(strcmp(value,"1") == 0) {
-                bad=true;
-            } else {
-                bad=false;
-            }
-        }
-        else {
-            std::cerr << "Unknown attribute '" << name
-                      << "' skipped in BarView.\n";
-        }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "dir") {
+      dir = xmlParse<int>(value) >= 0;
     }
-    if(width <= 0 || height <= 0)
-        throw std::runtime_error("Width or Height invalid");
-    value=0.7;
+    else if(name == "bad")
+      bad = xmlParse<bool>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+
+  if(width <= 0 || height <= 0)
+      throw std::runtime_error("Width or Height invalid");
+  value=0.7;
 }
 
 void BarView::setValue(float v)

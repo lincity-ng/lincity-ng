@@ -33,7 +33,7 @@
 #include "lincity/lin-city.hpp"       // for FALSE
 #include "lincity/resources.hpp"    // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"          // for World
-#include "tinygettext/gettext.hpp"  // for N_
+#include "util/gettextutil.hpp"
 
 SubstationConstructionGroup substationConstructionGroup(
     N_("Power Substation"),

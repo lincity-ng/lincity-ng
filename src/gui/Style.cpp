@@ -23,14 +23,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Style.hpp"
 
-#include <stdio.h>        // for sscanf
-#include <string.h>       // for strcmp, strncmp
-#include <iostream>       // for operator<<, basic_ostream, cerr, stringstream
-#include <sstream>        // for basic_stringstream
-#include <stdexcept>      // for runtime_error
-#include <utility>        // for pair, make_pair
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair, make_pair
 
-#include "XmlReader.hpp"  // for XmlReader
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
+
+using namespace std::string_literals;
 
 std::map<std::string, Style> styleRegistry;
 
@@ -48,150 +49,111 @@ Style::~Style()
 {
 }
 
-void
-Style::parseAttributes(XmlReader& reader)
-{
-    XmlReader::AttributeIterator iter(reader);
-
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(!parseAttribute(attribute, value)) {
-            std::cerr << "Skipping unknown style attribute '"
-                << attribute << "'.\n";
-        }
-    }
-}
-
 bool
-Style::parseAttribute(const char* attribute, const char* value)
-{
-    if(strcmp(attribute, "style") == 0) {
-        std::map<std::string, Style>::iterator i = styleRegistry.find(value);
-        if(i == styleRegistry.end()) {
-            std::stringstream msg;
-            msg << "No style with name '" << value << "' defined.";
-            throw std::runtime_error(msg.str());
-        }
-        *this = i->second;
-    } else if(strcmp(attribute, "font-size") == 0) {
-        if(sscanf(value, "%f", &font_size) != 1) {
-            std::cerr << "Warning problem parsing size '" <<
-                value << "'\n";
-        }
-    } else if(strcmp(attribute, "font-family") == 0) {
-        font_family = value;
-    } else if(strcmp(attribute, "font-style") == 0) {
-        if(strcmp(value, "normal") == 0) {
-            italic = false;
-        } else if(strcmp(value, "italic") == 0) {
-            italic = true;
-        } else {
-            std::cerr << "Invalid value for font-style "
-                << "(only 'normal' and 'italic' allowed)\n";
-        }
-    } else if(strcmp(attribute, "font-weight") == 0) {
-        if(strcmp(value, "normal") == 0) {
-            bold = false;
-        } else if(strcmp(value, "bold") == 0) {
-            bold = true;
-        } else {
-            std::cerr << "Invalid value for font-weight "
-                << "(only 'normal' and 'bold' allowed)\n";
-        }
-    } else if(strcmp(attribute, "halign") == 0) {
-        if(strcmp(value, "left") == 0) {
-            alignment = Style::ALIGN_LEFT;
-        } else if(strcmp(value, "center") == 0) {
-            alignment = Style::ALIGN_CENTER;
-        } else if(strcmp(value, "right") == 0) {
-            alignment = Style::ALIGN_RIGHT;
-        } else {
-            std::cerr << "Invalid value for halign attribute "
-                << "(only 'left', 'center' and 'right' allowed)\n";
-        }
-    } else if(strcmp(attribute, "width") == 0) {
-        if(sscanf(value, "%f", &width) != 1) {
-            std::cerr << "Couldn't parse value for width: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "height") == 0) {
-        if(sscanf(value, "%f", &height) != 1) {
-            std::cerr << "Couldn't parse value for height: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "min-width") == 0) {
-        if(sscanf(value, "%f", &min_width) != 1) {
-            std::cerr << "Couldn't parse value for min-width: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "min-height") == 0) {
-        if(sscanf(value, "%f", &min_height) != 1) {
-            std::cerr << "Couldn't parse value for min-height: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "margin-left") == 0) {
-        if(sscanf(value, "%f", &margin_left) != 1) {
-            std::cerr << "Couldn't parse value for margin-left: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "margin-right") == 0) {
-        if(sscanf(value, "%f", &margin_right) != 1) {
-            std::cerr << "Couldn't parse value for margin-right: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "margin-top") == 0) {
-        if(sscanf(value, "%f", &margin_top) != 1) {
-            std::cerr << "Couldn't parse value for margin-top: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "margin-bottom") == 0) {
-        if(sscanf(value, "%f", &margin_bottom) != 1) {
-            std::cerr << "Couldn't parse value for argin-bottom: '"
-                << value << "'\n";
-        }
-    } else if(strcmp(attribute, "color") == 0) {
-        text_color.parse(value);
-    } else if(strcmp(attribute, "background") == 0) {
-        background.parse(value);
-    } else if(strcmp(attribute, "href") == 0) {
-        href = value;
-    } else if(strncmp(attribute, "xmlns", 5) == 0) {
-        // simply ignore xmlns attributes
-        return true;
-    } else {
-        return false;
-    }
+Style::parseAttribute(xmlpp::TextReader& reader) {
+  xmlpp::ustring name = reader.get_name();
+  xmlpp::ustring value = reader.get_value();
+  if(name == "style") {
+    std::map<std::string, Style>::iterator i = styleRegistry.find(value);
+    if(i == styleRegistry.end())
+      throw std::runtime_error(fmt::format("no style {:?}", value));
+    *this = i->second;
+  }
+  else if(name == "font-size")
+    font_size = xmlParse<float>(value);
+  else if(name == "font-family")
+    font_family = xmlParse<std::string>(value);
+  else if(name == "font-style") {
+    if(value == "normal")
+      italic = false;
+    else if(value == "italic")
+      italic = true;
+    else
+      throw std::runtime_error(fmt::format(
+        "invalid font style {:?}. Expected 'normal' or 'italic'.", value));
+  }
+  else if(name == "font-weight") {
+    if(value == "normal")
+      bold = false;
+    else if(value == "bold")
+      bold = true;
+    else
+      throw std::runtime_error(fmt::format(
+        "invalid font weight {:?}. Expected 'normal' or 'bold'.", value));
+  }
+  else if(name == "halign") {
+    if(value == "left")
+      alignment = Style::ALIGN_LEFT;
+    else if(value == "center")
+      alignment = Style::ALIGN_CENTER;
+    else if(value == "right")
+      alignment = Style::ALIGN_RIGHT;
+    else
+      throw std::runtime_error(fmt::format(
+        "invalid horizontal alignment {:?}"s +
+        ". Expected 'left', 'center', or 'right'.",
+        value
+      ));
+  }
+  else if(name == "width")
+    width = xmlParse<float>(value);
+  else if(name == "height")
+    height = xmlParse<float>(value);
+  else if(name == "min-width")
+    min_width = xmlParse<float>(value);
+  else if(name == "min-height")
+    min_height = xmlParse<float>(value);
+  else if(name == "margin-left")
+    margin_left = xmlParse<float>(value);
+  else if(name == "margin-right")
+    margin_right = xmlParse<float>(value);
+  else if(name == "margin-top")
+    margin_top = xmlParse<float>(value);
+  else if(name == "margin-bottom")
+    margin_bottom = xmlParse<float>(value);
+  else if(name == "color")
+    text_color.parse(value);
+  else if(name == "background")
+    background.parse(value);
+  else if(name == "href")
+    href = xmlParse<std::string>(value);
+  else if(name == "xmlns")
+    ; // ignore xmlns attributes
+  else
+    return false;
 
-    return true;
+  return true;
 }
 
-void parseStyleDef(XmlReader& reader)
-{
-    Style style;
-    std::string name;
-    XmlReader::AttributeIterator iter(reader);
+void
+Style::parseAttributes(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+}
 
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+void parseStyleDef(xmlpp::TextReader& reader) {
+  Style style;
+  std::string name;
 
-        if(style.parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "name") == 0) {
-            name = value;
-        } else {
-            std::cerr << "Unknown attribute '" << attribute
-                << "' in style definition.\n";
-        }
-    }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring aname = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(style.parseAttribute(reader));
+    else if(aname == "name")
+      name = xmlParse<std::string>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-    reader.nextNode();
+  if(name.empty())
+    missingXmlAttribute(reader, "name");
 
-    if(name == "")
-        throw std::runtime_error("Missing name in style definition");
-    styleRegistry.insert(std::make_pair(name, style));
+  styleRegistry.insert(std::make_pair(name, style));
 }
 
 void
@@ -207,4 +169,3 @@ Style::toSpan(void)
 
 
 /** @file gui/Style.cpp */
-

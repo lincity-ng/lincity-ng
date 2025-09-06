@@ -24,27 +24,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Window.hpp"
 
-#include <assert.h>              // for assert
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>               // for sscanf
-#include <string.h>              // for strcmp
-#include <functional>            // for bind, function, _1
-#include <iostream>              // for basic_ostream, operator<<, stringstream
-#include <memory>                // for unique_ptr
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
-#include <string>                // for char_traits, basic_string, operator==
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <functional>                     // for bind, _1, function
+#include <memory>                         // for allocator, unique_ptr
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for operator==, basic_string
+#include <utility>                        // for move
 
-#include "Button.hpp"            // for Button
-#include "Color.hpp"             // for Color
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
-#include "Painter.hpp"           // for Painter
-#include "Rect2D.hpp"            // for Rect2D
-#include "Signal.hpp"            // for Signal
-#include "Vector2.hpp"           // for Vector2
-#include "WindowManager.hpp"     // for WindowManager
-#include "XmlReader.hpp"         // for XmlReader
+#include "Button.hpp"                     // for Button
+#include "Color.hpp"                      // for Color
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"            // for parseEmbeddedComponent
+#include "Painter.hpp"                    // for Painter
+#include "Rect2D.hpp"                     // for Rect2D
+#include "Signal.hpp"                     // for Signal
+#include "Vector2.hpp"                    // for Vector2
+#include "WindowManager.hpp"              // for WindowManager
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 using namespace std::placeholders;
 
@@ -58,96 +56,64 @@ Window::~Window()
 {
 }
 
-/**
- * Parse a given XmlReader objest that represents the map.
- *
- * @param reader Reference to a XmlReader object representing a given XML file.
- */
 void
-Window::parse(XmlReader& reader)
-{
-    // parse attributes...
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+Window::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "border")
+      border = xmlParse<float>(value);
+    else if(name == "titlesize")
+      titlesize = xmlParse<float>(value);
+    else if(name == "resizable")
+      (this->*(xmlParse<bool>(value) ? &Window::setFlags : &Window::clearFlags))(FLAG_RESIZABLE);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(name, value)) {
-            continue;
-        } else if(strcmp(name, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "border") == 0) {
-            if(sscanf(value, "%f", &border) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse border attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "titlesize") == 0) {
-            if(sscanf(value, "%f", &titlesize) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse titlesize attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(!strcmp(name, "resizable")) {
-          if(!strcmp(value, "yes"))
-            setFlags(FLAG_RESIZABLE);
-          else if(!strcmp(value, "no")) {
-            clearFlags(FLAG_RESIZABLE);
-          }
-          else {
-            std::cerr << "warning: unknown value '" << value
-              << "' for attribute '" << name << "'\n";
-          }
-        } else {
-            std::cerr << "Unknown attribute '" << name << "' skipped.\n";
-        }
+  if(width <= 0 || height <= 0)
+    throw std::runtime_error("invalid width / height");
+
+  childs.assign(5, Child());
+
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
-    if(width <= 0 || height <= 0)
-        throw std::runtime_error("Width or Height invalid");
-
-    childs.assign(5, Child());
-
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
-            if(element == "title") {
-                resetChild(title(), parseEmbeddedComponent(reader));
-            } else if(element == "closebutton") {
-                std::unique_ptr<Button> button (new Button());
-                button->parse(reader);
-                resetChild(closeButton(), button.release());
-            } else if(element == "contents") {
-                resetChild(contents(), parseEmbeddedComponent(reader));
-            } else if(element == "background") {
-                resetChild(background(), parseEmbeddedComponent(reader));
-            } else if(element == "title-background") {
-                resetChild(title_background(), parseEmbeddedComponent(reader));
-            } else {
-                std::cerr << "Skipping unknown element '"
-                    << element << "'.\n";
-                reader.nextNode();
-            }
-        }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "title") {
+      resetChild(title(), parseEmbeddedComponent(reader));
+    } else if(element == "closebutton") {
+      std::unique_ptr<Button> button (new Button());
+      button->parse(reader);
+      resetChild(closeButton(), std::move(button));
+    } else if(element == "contents") {
+      resetChild(contents(), parseEmbeddedComponent(reader));
+    } else if(element == "background") {
+      resetChild(background(), parseEmbeddedComponent(reader));
+    } else if(element == "title-background") {
+      resetChild(title_background(), parseEmbeddedComponent(reader));
+    } else {
+      unexpectedXmlElement(reader);
     }
+    reader.next();
+  }
 
-    Component::resize(getSize());
+  Component::resize(getSize());
 
-    // connect signals...
-    if(closeButton().getComponent() != 0) {
-      Button* button = (Button*) closeButton().getComponent();
-      button->clicked.connect(std::bind(&Window::closeButtonClicked, this, _1));
-    }
+  // connect signals...
+  if(closeButton().getComponent()) {
+    Button* button = (Button*) closeButton().getComponent();
+    button->clicked.connect(std::bind(&Window::closeButtonClicked, this, _1));
+  }
 }
 
 /**

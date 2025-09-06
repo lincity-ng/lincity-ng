@@ -37,7 +37,7 @@
 #include "all_buildings.hpp"               // for DAYS_BETWEEN_COVER, DAYS_PER...
 #include "commodities.hpp"               // for CommodityRule, Commodity
 #include "groups.hpp"                      // for GROUP_FIRE, GROUP_MONUMENT
-#include "util.hpp"                 // for LcUrbg
+#include "util/randutil.hpp"                 // for BasicUrbg
 #include "lin-city.hpp"                    // for MAX_TECH_LEVEL, TECH_LEVEL_LOSS
 #include "lintypes.hpp"                    // for Construction, NUMOF_DAYS_IN_...
 #include "messages.hpp"                  // for OutOfMoneyMessage, NoPeopleL...
@@ -234,7 +234,7 @@ World::simulate_mappoints(void) {
   std::vector<decltype(map.constructions)::iterator> ordering(
     map.constructions.size());
   std::iota(ordering.begin(), ordering.end(), map.constructions.begin());
-  std::shuffle(ordering.begin(), ordering.end(), LcUrbg::get());
+  std::shuffle(ordering.begin(), ordering.end(), BasicUrbg::get());
   for(auto cstIt : ordering) {
     Construction *cst = *cstIt;
     if(cst->isDead()) {

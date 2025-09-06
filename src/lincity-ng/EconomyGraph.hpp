@@ -22,26 +22,28 @@
 #ifndef __EconomyGraph_HPP
 #define __EconomyGraph_HPP
 
-#include <deque>
+#include <deque>              // for deque
 #include <string>             // for basic_string, string
 
 #include "gui/Component.hpp"  // for Component
 #include "gui/Style.hpp"      // for Style
 
 class CheckButton;
+class Game;
 class Painter;
 class Paragraph;
 class Rect2D;
 class Texture;
-class XmlReader;
-class Game;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class EconomyGraph : public Component {
 public:
     EconomyGraph();
     ~EconomyGraph();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
     void draw(Painter& painter);
     void newFPS( int frame );
     void setDirty() { Component::setDirty(); }

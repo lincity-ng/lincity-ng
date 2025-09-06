@@ -117,10 +117,12 @@ private:
     void changeResolution( bool next);
     void changeWorldLen(bool next);
 
+#if ENABLE_NLS
     Paragraph* languageParagraph;
     void changeLanguage( bool next);
     std::string currentLanguage;
     std::set<std::string> languages;
+#endif
 };
 
 #endif

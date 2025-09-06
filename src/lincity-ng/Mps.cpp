@@ -23,20 +23,22 @@
 #include "Mps.hpp"
 
 #include <assert.h>                         // for assert
+#include <libxml++/parsers/textreader.h>    // for TextReader
+#include <libxml++/ustring.h>               // for ustring
 #include <algorithm>                        // for max
 #include <deque>                            // for deque, operator!=
 #include <iomanip>                          // for setprecision, _Setprecision
-#include <iostream>                         // for operator<<, ostringstream
 #include <iterator>                         // for advance
+#include <memory>                           // for unique_ptr
 #include <numeric>                          // for accumulate
-#include <sstream>                          // for basic_ostringstream
+#include <sstream>                          // for basic_ostringstream, oper...
+#include <utility>                          // for move
 
 #include "Game.hpp"                         // for Game
 #include "Util.hpp"                         // for getParagraph
 #include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
 #include "gui/ComponentLoader.hpp"          // for parseEmbeddedComponent
 #include "gui/Paragraph.hpp"                // for Paragraph
-#include "gui/XmlReader.hpp"                // for XmlReader
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/commodities.hpp"          // for Commodity
 #include "lincity/groups.hpp"               // for GROUP_DESERT, GROUP_WATER
@@ -46,31 +48,28 @@
 #include "lincity/stats.hpp"                // for Stat, Stats
 #include "lincity/util.hpp"                 // for num_to_ansi, current_year
 #include "lincity/world.hpp"                // for MapTile, World, Ground
-#include "tinygettext/gettext.hpp"          // for N_, _
+#include "util/gettextutil.hpp"             // for N_, _
+#include "util/xmlutil.hpp"                 // for unexpectedXmlAttribute
 
 Mps::Mps() { }
 
 Mps::~Mps() { }
 
 void
-Mps::parse(XmlReader& reader) {
-  XmlReader::AttributeIterator iter(reader);
-  while(iter.next()) {
-    const char* name = (const char*) iter.getName();
-    const char* value = (const char*) iter.getValue();
-
-    if(parseAttribute(name, value)) {
-      continue;
-    } else {
-      std::cerr << "Unknown attribute '" << name
-                << "' skipped in Mps.\n";
-    }
+Mps::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
   }
+  reader.move_to_element();
 
-  Component* component = parseEmbeddedComponent(reader);
-  addChild(component);
+  std::unique_ptr<Component> component = parseEmbeddedComponent(reader);
   width = component->getWidth();
   height = component->getHeight();
+  addChild(std::move(component));
 
   for(int i = 0; i < PARAGRAPH_COUNT; ++i) {
     std::ostringstream compname;

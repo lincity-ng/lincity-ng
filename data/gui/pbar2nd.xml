@@ -65,13 +65,13 @@
           Air Pollution</Paragraph>
         </cell>
         <cell row="4" col="2" halign="right">
-          <BarView name="pbar_barview4a" width="16" height="16" dir="-1" bad="1"/>
+          <BarView name="pbar_barview4a" width="16" height="16" dir="-1" bad="true"/>
         </cell>
         <cell row="4" col="3" halign="right">
           <Paragraph name="pbar_text4" style="ptext">N/A</Paragraph>
         </cell>
         <cell row="4" col="4" halign="right">
-          <BarView name="pbar_barview4b" width="16" height="16" dir="1" bad="1"/>
+          <BarView name="pbar_barview4b" width="16" height="16" dir="1" bad="true"/>
         </cell>
 
         <cell row="5" col="1" halign="left">
@@ -121,13 +121,13 @@
            Waste</Paragraph>
         </cell>
         <cell row="8" col="2" halign="right">
-          <BarView name="pbar_barview8a" width="16" height="16" dir="-1" bad="1"/>
+          <BarView name="pbar_barview8a" width="16" height="16" dir="-1" bad="true"/>
         </cell>
         <cell row="8" col="3" halign="right">
           <Paragraph name="pbar_text8" style="ptext">N/A</Paragraph>
         </cell>
         <cell row="8" col="4" halign="right">
-          <BarView name="pbar_barview8b" width="16" height="16" dir="1" bad="1"/>
+          <BarView name="pbar_barview8b" width="16" height="16" dir="1" bad="true"/>
         </cell>
 
         <cell row="9" col="1" halign="left">

@@ -23,22 +23,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollBar.hpp"
 
-#include <assert.h>              // for assert
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <stdio.h>               // for sscanf
-#include <string.h>              // for strcmp
-#include <functional>            // for bind, _1, function
-#include <iostream>              // for basic_ostream, operator<<, cerr, str...
-#include <memory>                // for unique_ptr
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
-#include <string>                // for char_traits, basic_string, operator==
+#include <assert.h>                       // for assert
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <functional>                     // for bind, _1, function
+#include <memory>                         // for unique_ptr, allocator
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator==
+#include <utility>                        // for move
 
-#include "Button.hpp"            // for Button
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "Event.hpp"             // for Event
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "Button.hpp"                     // for Button
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "Event.hpp"                      // for Event
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for missingXmlElement, unexpect...
 
 using namespace std::placeholders;
 
@@ -55,71 +53,64 @@ ScrollBar::~ScrollBar()
 }
 
 void
-ScrollBar::parse(XmlReader& reader)
-{
-    width = 30; // default width...
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+ScrollBar::parse(xmlpp::TextReader& reader) {
+  width = 30.f;
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width value '"
-                    << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+
+  // we have 3 child components
+  while(childs.size() < 3)
+      childs.push_back(Child());
+
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
     }
-
-    // we have 3 child components
-    while(childs.size() < 3)
-        childs.push_back(Child());
-
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
-            if(element == "button1") {
-                std::unique_ptr<Button> button(new Button());
-                button->parse(reader);
-                resetChild(button1(), button.release());
-            } else if(element == "button2") {
-                std::unique_ptr<Button> button(new Button());
-                button->parse(reader);
-                resetChild(button2(), button.release());
-            } else if(element == "scroller") {
-                std::unique_ptr<Button> button(new Button());
-                button->parse(reader);
-                resetChild(scroller(), button.release());
-            } else {
-                std::cerr << "Skipping unknown element '"
-                    << element << "'.\n";
-                reader.nextNode();
-            }
-        }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "button1") {
+      std::unique_ptr<Button> button(new Button());
+      button->parse(reader);
+      resetChild(button1(), std::move(button));
+    } else if(element == "button2") {
+      std::unique_ptr<Button> button(new Button());
+      button->parse(reader);
+      resetChild(button2(), std::move(button));
+    } else if(element == "scroller") {
+      std::unique_ptr<Button> button(new Button());
+      button->parse(reader);
+      resetChild(scroller(), std::move(button));
+    } else {
+      unexpectedXmlElement(reader);
     }
-    if(scroller().getComponent() == 0 || button1().getComponent() == 0
-            || button2().getComponent() == 0) {
-        throw std::runtime_error("Not all components specified for scrollbar.");
-    }
+    reader.next();
+  }
 
-    Button* b1 = dynamic_cast<Button*> (button1().getComponent());
-    if(!b1)
-        throw std::runtime_error("Button1 of ScrollBar not a button.");
-    b1->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
-    b1->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
-    Button* b2 = dynamic_cast<Button*> (button2().getComponent());
-    if(!b2)
-        throw std::runtime_error("Button2 of ScrollBar not a button.");
-    b2->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
-    b2->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
+  if(!scroller().getComponent())
+    missingXmlElement(reader, "scroller");
+  if(!button1().getComponent())
+    missingXmlElement(reader, "button1");
+  if(!button2().getComponent())
+    missingXmlElement(reader, "button2");
+
+  Button* b1 = dynamic_cast<Button*>(button1().getComponent());
+  if(!b1) throw std::runtime_error("ScrollBar button1 not a button");
+  b1->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
+  b1->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
+  Button* b2 = dynamic_cast<Button*>(button2().getComponent());
+  if(!b2) throw std::runtime_error("ScrollBar button2 not a button");
+  b2->pressed.connect(std::bind(&ScrollBar::buttonPressed, this, _1));
+  b2->released.connect(std::bind(&ScrollBar::buttonReleased, this, _1));
 }
 
 void

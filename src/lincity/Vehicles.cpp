@@ -36,7 +36,7 @@
 #include "groups.hpp"       // for GROUP_ROAD_BRIDGE, GROUP_TRACK_BRIDGE
 #include "lintypes.hpp"     // for Construction
 #include "resources.hpp"    // for ExtraFrame, ResourceGroup
-#include "util.hpp"         // for LcUrbg
+#include "util/randutil.hpp"         // for BasicUrbg
 #include "world.hpp"        // for World, Map, MapTile
 
 Vehicle::Vehicle(World& world, MapPoint point, VehicleModel model0,
@@ -344,7 +344,7 @@ void Vehicle::getNewHeadings() {
     headings[1] ? 1. : 0.,
     headings[2] ? 1. : 0.,
     headings[3] ? 1. : 0.
-  })(LcUrbg::get());
+  })(BasicUrbg::get());
 
   //set the next destination
   switch(choice) {

@@ -27,7 +27,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Color.hpp"      // for Color
 #include "Component.hpp"  // for Component
 
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class FilledRectangle
@@ -38,10 +40,10 @@ public:
     FilledRectangle();
     virtual ~FilledRectangle();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
     void resize(float width, float height);
     void draw(Painter& painter);
-    
+
 private:
     Color color;
 };
@@ -49,4 +51,3 @@ private:
 #endif
 
 /** @file gui/FilledRectangle.hpp */
-

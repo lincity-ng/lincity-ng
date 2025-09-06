@@ -23,84 +23,79 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Color.hpp"
 
-#include <stdio.h>    // for sscanf
-#include <string.h>   // for strcmp
-#include <sstream>    // for char_traits, basic_ostream, operator<<, basic_s...
-#include <stdexcept>  // for runtime_error
-#include <string>     // for allocator, basic_string
+#include <fmt/format.h>  // for format
+#include <charconv>      // for from_chars, from_chars_result
+#include <stdexcept>     // for runtime_error
+#include <string>        // for operator==, basic_string, allocator, char_tr...
+#include <system_error>  // for errc
 
 void
-Color::parse(const char* value)
-{
-    if(value[0] == 0) {
-        throw std::runtime_error("Can't parse empty string to color.");
+Color::parse(xmlpp::ustring value) {
+  if(value.substr(0,1) == "#") {
+    unsigned int red, green, blue, alpha = 0xff;
+    const char *p = value.data();
+    if(value.size() != 7 && value.size() != 9) goto fail;
+    if(std::from_chars(p + 1, p + 3, red, 16).ec != std::errc{}) goto fail;
+    if(std::from_chars(p + 3, p + 5, green, 16).ec != std::errc{}) goto fail;
+    if(std::from_chars(p + 5, p + 7, blue, 16).ec != std::errc{}) goto fail;
+    if(value.size() >= 9
+      && std::from_chars(p + 7, p + 9, alpha, 16).ec != std::errc{}
+    ) {
+      fail:
+      throw std::runtime_error(fmt::format(
+        "failed to parse hex color {:?}", value));
     }
 
-    if(value[0] == '#') {
-        unsigned int red, green, blue, alpha;
-        int res = sscanf(value, "#%2x%2x%2x%2x", &red, &green, &blue, &alpha);
-        if(res < 3) {
-            std::stringstream msg;
-            msg << "Failed to parse color value '" << value << "'.";
-            throw std::runtime_error(msg.str());
-        } else {
-            r = red;
-            g = green;
-            b = blue;
-            if(res == 4)
-                a = alpha;
-            else
-                a = 0xff;
-        }
-    } else if(strcmp(value, "black") == 0) {
-        r = 0;
-        g = 0;
-        b = 0;
-        a = 0xff;
-    } else if(strcmp(value, "green") == 0) {
-        r = 0;
-        g = 0x80;
-        b = 0;
-        a = 0xff;
-    } else if(strcmp(value, "white") == 0) {
-        r = 0xff;
-        g = 0xff;
-        b = 0xff;
-        a = 0xff;
-    } else if(strcmp(value, "blue") == 0) {
-        r = 0x00;
-        g = 0x00;
-        b = 0xff;
-        a = 0xff;
-    } else if(strcmp(value, "yellow") == 0) {
-        r = 0xff;
-        g = 0xff;
-        b = 0;
-        a = 0xff;
-    } else if(strcmp(value, "red") == 0) {
-        r = 0xff;
-        g = 0;
-        b = 0;
-        a = 0xff;
-    } else if(strcmp(value, "brown") == 0) {
-        r = 165;
-        g = 42;
-        b = 42;
-        a = 0xff;
-    } else if(strcmp(value, "orange") == 0) {
-        r = 255;
-        g = 165;
-        b = 0;
-		} else if(strcmp(value, "gray") == 0) {
-				r = 127;
-				g = 127;
-				b = 127;
-    } else {
-        std::stringstream msg;
-        msg << "Unknown color name '" << value << "'.";
-        throw std::runtime_error(msg.str());
-    }
+    r = red;
+    g = green;
+    b = blue;
+    a = alpha;
+  } else if(value == "black") {
+    r = 0;
+    g = 0;
+    b = 0;
+    a = 0xff;
+  } else if(value == "green") {
+    r = 0;
+    g = 0x80;
+    b = 0;
+    a = 0xff;
+  } else if(value == "white") {
+    r = 0xff;
+    g = 0xff;
+    b = 0xff;
+    a = 0xff;
+  } else if(value == "blue") {
+    r = 0x00;
+    g = 0x00;
+    b = 0xff;
+    a = 0xff;
+  } else if(value == "yellow") {
+    r = 0xff;
+    g = 0xff;
+    b = 0;
+    a = 0xff;
+  } else if(value == "red") {
+    r = 0xff;
+    g = 0;
+    b = 0;
+    a = 0xff;
+  } else if(value == "brown") {
+    r = 165;
+    g = 42;
+    b = 42;
+    a = 0xff;
+  } else if(value == "orange") {
+    r = 255;
+    g = 165;
+    b = 0;
+  } else if(value == "gray") {
+		r = 127;
+		g = 127;
+		b = 127;
+  } else {
+    throw std::runtime_error(fmt::format("unknown color {:?}", value));
+  }
 }
 
 /** @file gui/Color.cpp */
-

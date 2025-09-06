@@ -19,68 +19,54 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 /**
  * @author Matthias Braun
  * @file DocumentImage.cpp
- */
+**/
 
 #include "DocumentImage.hpp"
 
-#include <stdio.h>             // for sscanf
-#include <string.h>            // for strcmp
-#include <filesystem>          // for path
-#include <iostream>            // for basic_ostream, operator<<, stringstream
-#include <sstream>             // for basic_stringstream
-#include <stdexcept>           // for runtime_error
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <filesystem>                     // for path
 
-#include "Painter.hpp"         // for Painter
-#include "Texture.hpp"         // for Texture
-#include "TextureManager.hpp"  // for TextureManager, texture_manager
-#include "Vector2.hpp"         // for Vector2
-#include "XmlReader.hpp"       // for XmlReader
+#include "Painter.hpp"                    // for Painter
+#include "Texture.hpp"                    // for Texture
+#include "TextureManager.hpp"             // for TextureManager, texture_man...
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for xmlParse, missingXmlAttribute
 
 DocumentImage::DocumentImage()
-	: texture(0)
+  : texture(0)
 {}
 
 DocumentImage::~DocumentImage()
 {}
 
 void
-DocumentImage::parse(XmlReader& reader, const Style& parentstyle)
-{
-    style = parentstyle;
-    
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+DocumentImage::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
+  style = parentstyle;\
+  std::filesystem::path filename;
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(style.parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "src") == 0) {
-            filename=value;
-            texture = 0;
-            texture = texture_manager->load(value);
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(style.parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "src") {
+      filename = xmlParse<std::filesystem::path>(value);
     }
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+  if(filename.empty())
+    missingXmlAttribute(reader, "src");
 
-    width = texture->getWidth();
-    height = texture->getHeight();
+	texture = texture_manager->load(filename);
+  width = texture->getWidth();
+  height = texture->getHeight();
 }
 
 void
@@ -95,4 +81,3 @@ DocumentImage::draw(Painter& painter)
 
 
 /** @file gui/DocumentImage.cpp */
-
