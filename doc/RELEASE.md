@@ -45,3 +45,11 @@
     - `git push -u upstream master lincity-ng-$version lincity-ng-${version%.*}`
 19. Reload the GitHub draft release and select the tag "lincity-ng-x.x.x".
 20. Publish the GitHub release.
+
+
+## FlatHub Release
+1. Wait for @flathubbot to create a pull request on https://github.com/flathub/io.github.lincity_ng.lincity-ng. If that's not viable for some reason, e.g. the checking process is down or it is an urgent hotfix, send a pull request updating the package URL and SHA256 checksum for LinCity-NG source in `io.github.lincity_ng.lincity-ng.yaml` manually.
+2. Wait for the test build to complete; @flathubbot will leave comments on the pull request as it progresses.
+3. Run the command suggested by the bot to install the built flatpak for testing.
+4. Test the flatpak installation of the game: ensure the game launches, a game can be loaded, and there are no obvious visual defects.
+5. Merge the pull request.
