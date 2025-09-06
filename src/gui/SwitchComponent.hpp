@@ -28,7 +28,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Component.hpp"  // for Component
 
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class SwitchComponent
@@ -45,7 +47,7 @@ public:
     SwitchComponent();
     virtual ~SwitchComponent();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
     void resize(float width, float height);
     bool opaque(const Vector2& pos) const;
 
@@ -57,4 +59,3 @@ public:
 
 
 /** @file gui/SwitchComponent.hpp */
-

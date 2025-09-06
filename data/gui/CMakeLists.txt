@@ -23,9 +23,15 @@ set(guiSourceFiles
 set(xslFiles identity.xsl)
 
 foreach(guiSourceFile ${guiSourceFiles})
+  if(ENABLE_NLS)
+    set(XML_NLS enabled)
+  else()
+    set(XML_NLS disabled)
+  endif()
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile}
     COMMAND LibXslt::xsltproc -o ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} ${guiSourceFile}
+      --stringparam NLS ${XML_NLS}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${guiSourceFile} ${xslFiles}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Converting ${guiSourceFile}"
@@ -34,5 +40,7 @@ foreach(guiSourceFile ${guiSourceFiles})
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${guiSourceFile} DESTINATION ${CMAKE_INSTALL_APPDATADIR}/gui/)
 endforeach()
 
-add_custom_target(guiXml DEPENDS ${guiSourceFiles})
-add_dependencies(lincity-ng guiXml)
+add_custom_target(guiXml ALL DEPENDS ${guiSourceFiles} SOURCES ${guiSourceFiles})
+
+include(TranslateTarget)
+translate_target_xml(guiXml guiXml.pot ${CMAKE_CURRENT_SOURCE_DIR}/gui.its)

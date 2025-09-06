@@ -24,7 +24,7 @@
 #define __BUTTON_PANEL_HPP__
 
 #include <stddef.h>                      // for NULL
-#include <string>                        // for basic_string, string
+#include <string>                        // for string, basic_string
 #include <unordered_map>                 // for unordered_map
 #include <vector>                        // for vector
 
@@ -35,14 +35,16 @@
 
 class CheckButton;
 class Game;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class ButtonPanel : public Component {
 public:
   ButtonPanel();
   virtual ~ButtonPanel();
 
-  void parse(XmlReader& reader);
+  void parse(xmlpp::TextReader& reader);
 
   virtual void draw(Painter &painter);
   virtual bool opaque(const Vector2& pos) const;

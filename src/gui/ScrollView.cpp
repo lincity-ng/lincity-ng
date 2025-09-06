@@ -24,24 +24,24 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "ScrollView.hpp"
 
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT
-#include <functional>            // for bind, function, _1, _2
-#include <iostream>              // for basic_ostream, operator<<, cerr
-#include <memory>                // for unique_ptr
-#include <stdexcept>             // for runtime_error
-#include <string>                // for char_traits, basic_string, operator==
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <functional>                     // for bind, _1, _2, function
+#include <memory>                         // for unique_ptr, allocator
+#include <string>                         // for basic_string, operator==
+#include <utility>                        // for move
 
-#include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "ComponentLoader.hpp"   // for parseEmbeddedComponent
-#include "Event.hpp"             // for Event
-#include "Rect2D.hpp"            // for Rect2D
-#include "ScrollBar.hpp"         // for ScrollBar
-#include "Signal.hpp"            // for Signal
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "ComponentLoader.hpp"            // for parseEmbeddedComponent
+#include "Event.hpp"                      // for Event
+#include "Rect2D.hpp"                     // for Rect2D
+#include "ScrollBar.hpp"                  // for ScrollBar
+#include "Signal.hpp"                     // for Signal
+#include "Vector2.hpp"                    // for Vector2
+#include "util/xmlutil.hpp"               // for missingXmlElement, unexpect...
 
 #ifdef DEBUG
-#include <assert.h>
+#include <assert.h>                       // for assert
 #endif
 
 using namespace std::placeholders;
@@ -57,46 +57,39 @@ ScrollView::~ScrollView()
 }
 
 void
-ScrollView::parse(XmlReader& reader)
-{
-    // parse xml attributes
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
+ScrollView::parse(xmlpp::TextReader& reader) {
+    while(reader.move_to_next_attribute()) {
+      if(parseAttribute(reader));
+      else
+        unexpectedXmlAttribute(reader);
     }
+    reader.move_to_element();
 
     // we need 2 child components
     childs.assign(2, Child());
 
-    // parse xml contents
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
+    if(!reader.is_empty_element() && reader.read())
+    while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+      if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+        reader.next();
+        continue;
+      }
+      xmlpp::ustring element = reader.get_name();
 
-            if(element == "scrollbar") {
-                std::unique_ptr<ScrollBar> scrollbar (new ScrollBar());
-                scrollbar->parse(reader);
-                resetChild(scrollBar(), scrollbar.release());
-            } else if(element == "contents") {
-                resetChild(contents(), parseEmbeddedComponent(reader));
-            } else {
-                std::cerr << "Skipping unknown element '" << element << "'.\n";
-            }
-        }
+      if(element == "scrollbar") {
+        std::unique_ptr<ScrollBar> scrollbar(new ScrollBar());
+        scrollbar->parse(reader);
+        resetChild(scrollBar(), std::move(scrollbar));
+      } else if(element == "contents") {
+        resetChild(contents(), parseEmbeddedComponent(reader));
+      } else {
+        unexpectedXmlElement(reader);
+      }
+      reader.next();
     }
+    if(!scrollBar().getComponent())
+      missingXmlElement(reader, "scrollbar");
 
-    if(scrollBar().getComponent() == 0) {
-        throw std::runtime_error("No ScrollBar specified in ScrollView");
-    }
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
     scrollBarComponent->valueChanged.connect(
       std::bind(&ScrollView::scrollBarChanged, this, _1, _2));
@@ -176,9 +169,9 @@ ScrollView::event(const Event& event)
 }
 
 void
-ScrollView::replaceContents(Component* component)
+ScrollView::replaceContents(std::unique_ptr<Component>&& component)
 {
-    resetChild(contents(), component);
+    resetChild(contents(), std::move(component));
     contents().setPos(Vector2(0, 0));
     resize(width, height);
 }

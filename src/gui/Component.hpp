@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
+#include <memory>       // for unique_ptr
 #include <string>       // for string, basic_string
 
 #include "Child.hpp"    // for Child (ptr only), Childs
@@ -28,6 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class Desktop;
 class Event;
 class Painter;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @author Matthias Braun.
@@ -137,8 +141,8 @@ public:
 protected:
     Childs childs;
 
-    Child& addChild(Component* component);
-    void resetChild(Child& child, Component* component);
+    Child& addChild(std::unique_ptr<Component>&& component);
+    void resetChild(Child& child, std::unique_ptr<Component>&& component);
     void drawChild(Child& child, Painter& painter);
     bool eventChild(Child& child, const Event& event, bool visible = false);
     void setChildDirty(Component* child, const Rect2D& area);
@@ -150,12 +154,7 @@ protected:
     }
     virtual void setDirty(const Rect2D& area);
 
-    /**
-     * Used to parse attributes (from an xml stream for example). Currently
-     * parses only the name attribute.
-     * @return True if the attribute has been used, false else.
-     */
-    virtual bool parseAttribute(const char* attribute, const char* value);
+    virtual bool parseAttribute(xmlpp::TextReader& reader);
 
     void setFlags(int flags)
     {
