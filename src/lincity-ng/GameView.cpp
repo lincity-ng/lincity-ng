@@ -150,10 +150,20 @@ void GameView::parse(XmlReader& reader)
     cursorSize = 0;
 
     mapOverlay = overlayNone;
-    mapMode = MiniMap::NORMAL;
     buttonsConnected = false;
     lastStatusMessage = "";
     refreshMap = true;
+}
+
+void
+GameView::setGame(Game *game) {
+  this->game = game;
+  game->getMiniMap().mapChanged.connect([this](){
+    if(mapOverlay != overlayNone) {
+      setDirty();
+      setMapDirty();
+    }
+  });
 }
 
 World&
@@ -196,6 +206,7 @@ void GameView::buttonClicked( Button* button ){
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
         setDirty();
+        setMapDirty();
         return;
     }
     if( name == "showTerrainHeight" ){
@@ -210,6 +221,7 @@ void GameView::buttonClicked( Button* button ){
     if( name == "mapOverlay" ){
         mapOverlay = (mapOverlay + 1) % (overlayMAX + 1);
         setDirty();
+        setMapDirty();
         return;
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
@@ -240,63 +252,6 @@ void GameView::readOrigin( bool redraw /* = true */ ) {
  */
 void GameView::writeOrigin() {
   getWorld().map.recentPoint = getCenter().x;
-}
-/*
- *  inform GameView about change in Mini Map Mode
- */
-void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
-    switch( mMode ){
-        case MiniMap::NORMAL:
-            printStatusMessage( _("Minimap: outline map") );
-            break;
-        case MiniMap::UB40:
-            printStatusMessage( _("Minimap: unemployment") );
-            break;
-        case MiniMap::POLLUTION:
-            printStatusMessage( _("Minimap: pollution") );
-            break;
-        case MiniMap::STARVE:
-            printStatusMessage( _("Minimap: nourishments") );
-            break;
-        case MiniMap::POWER:
-            printStatusMessage( _("Minimap: power supply") );
-            break;
-        case MiniMap::FIRE:
-            printStatusMessage( _("Minimap: firedepartment cover") );
-            break;
-        case MiniMap::CRICKET:
-            printStatusMessage( _("Minimap: sport cover") );
-            break;
-        case MiniMap::HEALTH:
-            printStatusMessage( _("Minimap: medical care") );
-            break;
-        case MiniMap::COAL:
-            printStatusMessage( _("Minimap: coal deposits") );
-            break;
-        case MiniMap::TRAFFIC:
-        {
-            std::string s1 = _("Minimap: traffic density:");
-            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + " " + s2 );
-        }
-            break;
-        case MiniMap::COMMODITIES:
-        {
-            std::string s1 = _("Minimap: commodities:");
-            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + " " + s2 );
-        }
-            break;
-        default:
-            std::cerr << "Unknown minimap mode " << mMode<<"\n";
-    }
-    if( mapMode == mMode ){
-        return;
-    }
-    mapMode = mMode;
-    if( mapOverlay != overlayNone ){
-        setDirty();
-    }
 }
 
 /*
@@ -987,12 +942,14 @@ void GameView::event(const Event& event)
                     hideHigh = true;
                 }
                 setDirty();
+                setMapDirty();
                 break;
             }
             //overlay MiniMap Information
             if( event.keysym.scancode == SDL_SCANCODE_V ){
                 mapOverlay = (mapOverlay+1)%(overlayMAX+1);
                 setDirty();
+                setMapDirty();
                 break;
             }
             //Zoom
@@ -1732,6 +1689,7 @@ void GameView::showToolInfo( int number /*= 0*/ )
 /*
  * Print a Message to the StatusBar.
  */
+// TODO: this method should be moved to the Game class
 void GameView::printStatusMessage( std::string message ){
     if( message == lastStatusMessage ){
         return;

@@ -601,6 +601,7 @@ Game::run() {
             if(world->isUpdated(World::Updatable::MAP)) {
               getGameView().setDirty();
               getGameView().setMapDirty();
+              getMiniMap().setDirty();
               getMiniMap().setMapDirty();
               world->clearUpdated(World::Updatable::MAP);
             }
