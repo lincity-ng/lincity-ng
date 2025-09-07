@@ -66,7 +66,10 @@ pre-built binary packages:
   distributions, by their very nature, may not offer the latest version of
   LinCity-NG.
 - [Flathub](https://flathub.org/apps/io.github.lincity_ng.lincity-ng). As of
-  version 2.14.1, LinCity-NG is available on Flathub.
+  version 2.14.1, LinCity-NG is available on Flathub. Flatpak release is likely
+  to be more recent than packages from stable distributions, but it requires
+  installation of a Flatpak runtime and the package will likely be larger than
+  other alternatives.
 - [GitHub](https://github.com/lincity-ng/lincity-ng/releases). Binary packages
   for both Linux and Windows are available on GitHub. However, these binaries
   may not work for everyone due to strict library version requirements.
