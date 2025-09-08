@@ -14,10 +14,11 @@ See the in-game help [F1] for how to play.
 
 ## Building and Installation
 
-**Note:**
 For best results, follow the instructions included in your version of the
 source. That is, consult your local version of README.md. Following instructions
 for a different version than what you are building can cause build failures.
+Notably, the build system was changed between versions 2.9.0 and 2.10.0, so
+following instructions for the wrong build system will definitely cause issues.
 
 ### Dependencies
 
@@ -36,7 +37,7 @@ sudo cmake --install build                 # install
 
 To create a package:
 ```
-cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install path>
+cmake -B build --install-prefix <expected install path>
 cmake --build build --parallel --target package
 ```
 
@@ -54,6 +55,25 @@ When the game is installed, you may run it with:
 ```
 lincity-ng
 ```
+
+## Alternative Binary Releases
+
+As an alternative to building from source, there are several places to get
+pre-built binary packages:
+
+- Linux distribution repositories. This is likely the best way to install
+  LinCity-NG pre-built binaries for Linux users. However, LTS and stable
+  distributions, by their very nature, may not offer the latest version of
+  LinCity-NG.
+- [Flathub](https://flathub.org/apps/io.github.lincity_ng.lincity-ng). As of
+  version 2.14.1, LinCity-NG is available on Flathub. Flatpak release is likely
+  to be more recent than packages from stable distributions, but it requires
+  installation of a Flatpak runtime and the package will likely be larger than
+  other alternatives.
+- [GitHub](https://github.com/lincity-ng/lincity-ng/releases). Binary packages
+  for both Linux and Windows are available on GitHub. However, these binaries
+  may not work for everyone due to strict library version requirements.
+
 
 ## Loading games from versions prior to 2.13.0
 
