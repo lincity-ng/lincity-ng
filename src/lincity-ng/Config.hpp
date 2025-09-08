@@ -24,8 +24,8 @@
 #define __CONFIG_HPP__
 
 #include <filesystem>  // for path
-#include <string>      // for basic_string, string
 #include <optional>
+#include <string>      // for basic_string, string
 
 class Config
 {
@@ -59,6 +59,8 @@ public:
   Option<bool> useOpenGL;
   Option<bool> useFullScreen;
   Option<int> videoX, videoY;
+  Option<bool> showHelp;
+  Option<bool> showVersion;
 
   // sound volume 0..100 (0=silent)
   Option<int> soundVolume;
@@ -77,6 +79,8 @@ public:
   void save(std::filesystem::path configPath = std::filesystem::path());
 
   void parseCommandLine(int argc, char** argv);
+
+  static void printHelp(const std::string& command);
 };
 
 extern template class Config::Option<int>;

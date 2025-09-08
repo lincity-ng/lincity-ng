@@ -24,12 +24,13 @@
 
 #include <SDL.h>                            // for Uint16, Uint8, SDL_BUTTON...
 #include <assert.h>                         // for assert
-#include <stdio.h>                          // for sscanf, size_t
-#include <string.h>                         // for strlen, strcmp
+#include <libxml++/parsers/textreader.h>    // for TextReader
+#include <libxml++/ustring.h>               // for ustring
+#include <string.h>                         // for strlen
 #include <array>                            // for array
+#include <cstddef>                          // for size_t
 #include <functional>                       // for bind, _1, function, _2
 #include <iostream>                         // for basic_ostream, operator<<
-#include <sstream>                          // for basic_stringstream
 #include <stdexcept>                        // for runtime_error
 #include <fmt/format.h>
 
@@ -48,7 +49,6 @@
 #include "gui/Signal.hpp"                   // for Signal
 #include "gui/SwitchComponent.hpp"          // for SwitchComponent
 #include "gui/Texture.hpp"                  // for Texture
-#include "gui/XmlReader.hpp"                // for XmlReader
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/all_buildings.hpp"        // for COAL_RESERVE_SIZE
 #include "lincity/commodities.hpp"          // for Commodity, CommodityRule
@@ -58,6 +58,8 @@
 #include "lincity/modules/all_modules.hpp"  // for Powerline, Transport, Fire
 #include "lincity/transport.hpp"            // for TRANSPORT_QUANTA, TRANSPO...
 #include "lincity/world.hpp"                // for MapTile, World, Map
+#include "util/xmlutil.hpp"                 // for xmlParse, unexpectedXmlAt...
+#include "util/gettextutil.hpp"
 
 using namespace std::placeholders;
 
@@ -174,52 +176,32 @@ MiniMap::getWorld() const {
 
 
 void
-MiniMap::parse(XmlReader& reader)
-{
-    // parse attributes...
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+MiniMap::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "border")
+      border = xmlParse<int>(value);
+    else if(name == "tilesize")
+      tilesize = xmlParse<int>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(name, value)) {
-            continue;
-        } else if(strcmp(name, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "border") == 0) {
-            if(sscanf(value, "%d", &border) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse border attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "tilesize") == 0) {
-            if(sscanf(value, "%d", &tilesize) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse tilesize attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else {
-            std::cerr << "Unknown attribute '" << name << "' skipped.\n";
-        }
-    }
-    if(width <= 0 || height <= 0)
-      throw std::runtime_error("Width or Height invalid");
+  if(width <= 0 || height <= 0)
+    throw std::runtime_error("invalid width/height");
 
-    mFullRefresh=true;
-    alreadyAttached=false;
-    inside = false;
+  mFullRefresh=true;
+  alreadyAttached=false;
+  inside = false;
 
-    this->stuff_ID = STUFF_FOOD;
+  this->stuff_ID = STUFF_FOOD;
 }
 
 Component *MiniMap::findRoot(Component *c)

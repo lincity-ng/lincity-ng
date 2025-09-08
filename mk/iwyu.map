@@ -1,6 +1,8 @@
 [
 { symbol: [abs, private, <cstdlib>, public] },
 { symbol: [std::pair, private, <utility>, public] },
+{ include: [<libintl.h>, private, <gettext.h>, public] },
+{ symbol: [ENABLE_NLS, private, '"util/gettextutil.hpp"', public] },
 
 # { include: [ <SDL2_framerate.h>, private, <SDL.h>, public ] },
 # { include: [ <SDL2_gfxPrimitives.h>, private, <SDL.h>, public ] },

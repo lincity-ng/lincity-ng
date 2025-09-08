@@ -36,7 +36,7 @@
 #include "lincity/modules/parkland.hpp"
 #include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "tinygettext/gettext.hpp"          // for N_
+#include "util/gettextutil.hpp"
 
 CommuneConstructionGroup communeConstructionGroup(
     N_("Forest"),

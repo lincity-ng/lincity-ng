@@ -42,9 +42,8 @@
 #include "lincity/stats.hpp"                // for Stat, Stats
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "modules_interfaces.hpp"           // for add_a_shanty, update_shanty
-#include "tinygettext/gettext.hpp"          // for N_
+#include "util/gettextutil.hpp"
 
-// Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
     N_("Shanty Town"),
     N_("Shanty Towns"),

@@ -24,12 +24,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DOCUMENTELEMENT_HPP__
 #define __DOCUMENTELEMENT_HPP__
 
+#include <libxml++/parsers/textreader.h>  // for TextReader
+
 class Style;
-class XmlReader;
 
 /**
  * @class DocumentElement
- * @brief Interface for a component that can be part of a text component. 
+ * @brief Interface for a component that can be part of a text component.
  *
  * This interface gives access to the defined formatting style.
  */
@@ -40,11 +41,10 @@ public:
     {}
 
     virtual const Style& getStyle() const = 0;
-    virtual void parse(XmlReader& reader, const Style& parentstyle) = 0;
+    virtual void parse(xmlpp::TextReader& reader, const Style& parentstyle) = 0;
 };
 
 #endif
 
 
 /** @file gui/DocumentElement.hpp */
-

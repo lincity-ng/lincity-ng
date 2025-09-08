@@ -24,9 +24,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __TEXTBOX_HPP__
 #define __TEXTBOX_HPP__
 
+#include <memory>               // for unique_ptr
 #include <string>               // for string, basic_string
 #include <vector>               // for vector
-#include <memory>
 
 #include "Component.hpp"        // for Component
 #include "DocumentElement.hpp"  // for DocumentElement
@@ -35,7 +35,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Style.hpp"            // for Style
 
 class Texture;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class TextSpan
@@ -64,10 +66,10 @@ public:
     Paragraph();
     virtual ~Paragraph();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
     // hack to parse <li> elements for now...
-    void parseList(XmlReader& reader, const Style& parentstyle);
-    void parse(XmlReader& reader, const Style& parentstyle);
+    void parseList(xmlpp::TextReader& reader, const Style& parentstyle);
+    void parse(xmlpp::TextReader& reader, const Style& parentstyle);
 
     void resize(float width, float height);
     void draw(Painter& painter);

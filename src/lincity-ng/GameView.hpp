@@ -26,7 +26,7 @@
 #include <SDL.h>                  // for Uint32, SDL_Surface, SDL_Thread
 #include <filesystem>             // for path
 #include <memory>                 // for unique_ptr
-#include <string>                 // for basic_string, string
+#include <string>                 // for string, basic_string
 
 #include "MiniMap.hpp"            // for MiniMap
 #include "gui/Component.hpp"      // for Component
@@ -41,7 +41,9 @@ class Rect2D;
 class Texture;
 class UserOperation;
 class World;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class GameView : public Component
 {
@@ -49,7 +51,7 @@ public:
     GameView();
     ~GameView();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void draw(Painter& painter);
     void resize(float width, float height );

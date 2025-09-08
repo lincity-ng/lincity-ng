@@ -24,25 +24,24 @@
 
 #include "track_road_rail.hpp"
 
-#include <stdlib.h>                         // for rand
-#include <cassert>                          // for assert
-#include <map>                              // for map
-#include <string>                           // for basic_string, operator<
-#include <vector>                           // for vector
+#include <cstdlib>                    // for rand
+#include <cassert>                    // for assert
+#include <map>                        // for map
+#include <string>                     // for basic_string, operator<
+#include <vector>                     // for vector
 
-#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Mps.hpp"               // for Mps
-#include "lincity-ng/Sound.hpp"             // for getSound, Sound
-#include "lincity/MapPoint.hpp"             // for MapPoint
-#include "lincity/all_buildings.hpp"        // for DAYS_PER_RAIL_POLLUTION
-#include "lincity/lin-city.hpp"             // for FALSE, ANIM_THRESHOLD
-#include "lincity/messages.hpp"             // for OutOfMoneyMessage
-#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, MapTile, Map
-#include "tinygettext/gettext.hpp"          // for N_, _
+#include "fire.hpp"                   // for FIRE_ANIMATION_SPEED
+#include "lincity-ng/Mps.hpp"         // for Mps
+#include "lincity-ng/Sound.hpp"       // for getSound, Sound
+#include "lincity/MapPoint.hpp"       // for MapPoint
+#include "lincity/all_buildings.hpp"  // for DAYS_PER_RAIL_POLLUTION, DAYS_P...
+#include "lincity/lin-city.hpp"       // for FALSE, ANIM_THRESHOLD, FLAG_POW...
+#include "lincity/messages.hpp"       // for OutOfMoneyMessage
+#include "lincity/resources.hpp"      // for ExtraFrame, ResourceGroup, Grap...
+#include "lincity/stats.hpp"          // for Stats
+#include "lincity/world.hpp"          // for World, MapTile, Map
+#include "util/gettextutil.hpp"       // for N_, _
 
-// Track:
 TransportConstructionGroup trackConstructionGroup(
     N_("Track"),
     N_("Tracks"),

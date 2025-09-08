@@ -25,7 +25,6 @@
 #ifndef __LINCITYNG_LINCITY_UTIL_HPP__
 #define __LINCITYNG_LINCITY_UTIL_HPP__
 
-#include <random>
 #include <string>
 
 #ifdef NDEBUG
@@ -41,28 +40,6 @@ int current_year(int current_time);
 //void format_pos_number4(char *str, int num);
 //void format_power(char *str, size_t size, long power);
 std::string num_to_ansi(long num);
-
-class LcUrbg {
-private:
-  using base_engine = std::default_random_engine;
-
-  LcUrbg();
-  ~LcUrbg();
-  LcUrbg(const LcUrbg&) = delete;
-  const LcUrbg& operator=(const LcUrbg&) = delete;
-
-public:
-  using result_type = base_engine::result_type;
-
-  result_type operator()();
-  static constexpr result_type min() { return base_engine::min(); }
-  static constexpr result_type max() { return base_engine::max(); }
-
-  static LcUrbg& get();
-
-private:
-  base_engine base_urbg;
-};
 
 #endif // __LINCITYNG_LINCITY_UTIL_HPP__
 

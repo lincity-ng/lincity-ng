@@ -29,16 +29,16 @@
 #include <array>               // for array
 #include <cstring>             // for NULL
 #include <iostream>            // for basic_ostream, operator<<, cout, endl
-#include <list>                // for list
+#include <list>                // for _List_iterator, list
 #include <map>                 // for map
-#include <string>              // for basic_string, char_traits, operator<<
+#include <string>              // for basic_string, char_traits, string, ope...
 #include <vector>              // for vector
 
 #include "MapPoint.hpp"        // for MapPoint
 #include "commodities.hpp"     // for Commodity, CommodityRule, operator++
 #include "messages.hpp"        // for Message
 #include "resources.hpp"       // for ResourceGroup, ExtraFrame (ptr only)
-#include "world.hpp"             // for World
+#include "world.hpp"           // for World
 
 class ConstructionGroup;
 class Mps;
@@ -136,7 +136,7 @@ public:
   ResourceGroup *soundGroup;
 
   MapPoint point;
-  int flags = 0;              //flags are defined in lin-city.h
+  unsigned int flags = 0;              //flags are defined in lin-city.h
   World& world;
 
   // std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff

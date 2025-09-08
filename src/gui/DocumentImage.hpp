@@ -40,7 +40,7 @@ public:
     DocumentImage();
     virtual ~DocumentImage();
 
-    void parse(XmlReader& reader, const Style& style);
+    void parse(xmlpp::TextReader& reader, const Style& style);
 
     void resize(float width, float height);
     void draw(Painter& painter);

@@ -1,54 +1,59 @@
 add_executable(lincity-ng
-    ButtonPanel.cpp
-		ButtonPanel.hpp
-		Config.cpp
-		Config.hpp
-		Dialog.cpp
-		Dialog.hpp
-		EconomyGraph.cpp
-		EconomyGraph.hpp
-		Game.cpp
-		Game.hpp
-		GameView.cpp
-		GameView.hpp
-		HelpWindow.cpp
-		HelpWindow.hpp
-		main.cpp
-		main.hpp
-		MainLincity.cpp
-		MainLincity.hpp
-		MainMenu.cpp
-		MainMenu.hpp
-		MapPoint.hpp
-		MiniMap.cpp
-		MiniMap.hpp
-		Mps.cpp
-		Mps.hpp
-		PBar.cpp
-		PBar.hpp
-		ScreenInterface.cpp
-		Sound.cpp
-		Sound.hpp
-		TimerInterface.cpp
-		TimerInterface.hpp
-		UserOperation.cpp
-		UserOperation.hpp
-		Util.cpp
-		Util.hpp
+  ButtonPanel.cpp
+  ButtonPanel.hpp
+  Config.cpp
+  Config.hpp
+  Dialog.cpp
+  Dialog.hpp
+  EconomyGraph.cpp
+  EconomyGraph.hpp
+  Game.cpp
+  Game.hpp
+  GameView.cpp
+  GameView.hpp
+  HelpWindow.cpp
+  HelpWindow.hpp
+  main.cpp
+  main.hpp
+  MainLincity.cpp
+  MainLincity.hpp
+  MainMenu.cpp
+  MainMenu.hpp
+  MapPoint.hpp
+  MiniMap.cpp
+  MiniMap.hpp
+  Mps.cpp
+  Mps.hpp
+  PBar.cpp
+  PBar.hpp
+  ScreenInterface.cpp
+  Sound.cpp
+  Sound.hpp
+  TimerInterface.cpp
+  TimerInterface.hpp
+  UserOperation.cpp
+  UserOperation.hpp
+  Util.cpp
+  Util.hpp
 )
 
 target_link_libraries(lincity-ng
-	PUBLIC
-	LinCity::lib
-	LinCity::gui
-	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-	$<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
-	PRIVATE
-	tinygettext
-	cfgpath
-	$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
-	$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
-	fmt::fmt
+  PUBLIC
+  LinCity::lib
+  LinCity::gui
+  $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+  $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+  PRIVATE
+  cfgpath
+  gettextutil
+  $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+  $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
+  fmt::fmt
+  xmlutil
+  ptrutil
 )
 
 include_directories(.)
+
+include(TranslateTarget)
+translate_target(lincity-ng lincity-ng.pot)

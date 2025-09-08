@@ -29,15 +29,14 @@
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, operator+
 #include <fmt/format.h>
-#include <fmt/std.h>  // IWYU pragma: keep
+#include <fmt/std.h> // IWYU pragma: keep
 
 #include "TimerInterface.hpp"             // for reset_start_time
 #include "gui/DialogBuilder.hpp"          // for DialogBuilder
-#include "lincity/lc_locale.hpp"            // for lincity_set_locale
 #include "lincity/lin-city.hpp"             // for SIM_DELAY_SLOW
 #include "lincity/modules/all_modules.hpp"  // for initializeModules
 #include "lincity/world.hpp"                // for World
-#include "tinygettext/gettext.hpp"
+#include "util/gettextutil.hpp"
 
 extern void init_types(void);
 extern void initFactories(void);
@@ -91,9 +90,6 @@ std::unique_ptr<World> loadCityNG(const std::filesystem::path& filename) {
 
 void initLincity()
 {
-    /* I18n */
-    lincity_set_locale();
-
     /* Set up the paths to certain files and directories */
     // init_path_strings();
 

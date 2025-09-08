@@ -28,7 +28,7 @@
 
 #include "lincity/all_buildings.hpp"  // for GROUP_BARE_BUL_COST, GROUP_BARE_C...
 #include "lincity/groups.hpp"         // for GROUP_BARE, GROUP_DESERT, GROUP_TREE
-#include "tinygettext/gettext.hpp"  // for N_
+#include "util/gettextutil.hpp"
 
 TileConstructionGroup waterConstructionGroup(
   N_("Water"),

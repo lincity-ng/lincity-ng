@@ -21,11 +21,11 @@
 
 #include "DialogBuilder.hpp"
 
-#include <stddef.h>             // for NULL
 #include <filesystem>           // for path
 #include <map>                  // for map
 #include <memory>               // for unique_ptr
 #include <stdexcept>            // for runtime_error
+#include <utility>              // for move
 
 #include "Button.hpp"           // for Button
 #include "Child.hpp"            // for Child
@@ -39,18 +39,15 @@
 #include "SwitchComponent.hpp"  // for SwitchComponent
 #include "Window.hpp"           // for Window
 #include "WindowManager.hpp"    // for WindowManager
+#include "util/ptrutil.hpp"     // for dynamic_unique_cast
 
-WindowManager *DialogBuilder::defaultWm = NULL;
+WindowManager *DialogBuilder::defaultWm = nullptr;
 
-DialogBuilder::DialogBuilder() :
-  _image(NULL), _windowManager(NULL)
-{
-  _message = new Document();
+DialogBuilder::DialogBuilder() : _windowManager(nullptr) {
+  _message.reset(new Document());
 }
 
 DialogBuilder::~DialogBuilder() {
-  delete _message;
-  delete _image;
 }
 
 DialogBuilder&
@@ -62,27 +59,27 @@ DialogBuilder::titleText(const std::string& title) {
 
 DialogBuilder&
 DialogBuilder::messageAddText(const std::string& content) {
-  Paragraph *par = new Paragraph();
+  std::unique_ptr<Paragraph> par(new Paragraph());
   Style& messageStyle = styleRegistry.at("message");
   par->setText(content, messageStyle);
-  _message->addParagraph(par);
+  _message->addParagraph(std::move(par));
 
   return *this;
 }
 
 DialogBuilder&
 DialogBuilder::messageAddTextBold(const std::string& content) {
-  Paragraph *par = new Paragraph();
+  std::unique_ptr<Paragraph> par(new Paragraph());
   Style& messageBoldStyle = styleRegistry.at("messagebold");
   par->setText(content, messageBoldStyle);
-  _message->addParagraph(par);
+  _message->addParagraph(std::move(par));
 
   return *this;
 }
 
 DialogBuilder&
-DialogBuilder::image(Image *image) {
-  _image = image;
+DialogBuilder::image(std::unique_ptr<Image>&& image) {
+  _image = std::move(image);
 
   return *this;
 }
@@ -90,7 +87,7 @@ DialogBuilder::image(Image *image) {
 DialogBuilder&
 DialogBuilder::imageFile(const std::string& image) {
   if(!_image) {
-    _image = new Image();
+    _image.reset(new Image());
   }
   _image->setFile(image);
 
@@ -134,8 +131,8 @@ DialogBuilder::onNo(std::function<void()> callback) {
 
 void
 DialogBuilder::build() {
-  std::unique_ptr<Window> dialog(dynamic_cast<Window *>(
-    loadGUIFile("gui/dialog.xml")));
+  std::unique_ptr<Window> dialog = dynamic_unique_cast<Window>(
+    loadGUIFile("gui/dialog.xml"));
   Paragraph *title = dynamic_cast<Paragraph *>(dialog->findComponent("title"));
   Child *messageChild = dialog->findComponent("message")->getParentChild();
   Child *imageChild = dialog->findComponent("image")->getParentChild();
@@ -144,12 +141,10 @@ DialogBuilder::build() {
 
   title->setText(_titleText);
 
-  messageChild->setComponent(_message);
-  _message = NULL;
+  messageChild->setComponent(std::move(_message));
 
   if(_image) {
-    imageChild->setComponent(_image);
-    _image = NULL;
+    imageChild->setComponent(std::move(_image));
   }
 
   if(!_windowManager)
@@ -193,7 +188,7 @@ DialogBuilder::build() {
   }
 
   dialog->resize(dialog->getWidth(), dialog->getHeight()); // force relayout
-  _windowManager->addWindow(dialog.release());
+  _windowManager->addWindow(std::move(dialog));
 }
 
 void

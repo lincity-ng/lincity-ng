@@ -7,11 +7,12 @@ to program, and no way is lesser or greater than another.
 
 - You can [contribute code](#contributing-code) if you know how to program C++.
   You can add features, fix bugs, or just generally improve the code base.
-- You can test the game. I actually do not play LinCity-NG very much -- mostly I
-  enjoy coding it -- so I can miss even obvious issues. If you report issues,
-  and suggest improvements, that is very helpful. It is especially helpful to
-  test the latest `master` branch or even unmerged pull requests, so issues can
-  be caught early, before they are rolled out to other users.
+- You can [test the game](#Testing). I actually do not play LinCity-NG very much
+  -- mostly I enjoy coding it -- so I can miss even obvious issues. If you
+  report issues, and suggest improvements, that is very helpful. It is
+  especially helpful to test the latest `master` branch or even unmerged pull
+  requests, so issues can be caught early, before they are rolled out to other
+  users.
 - You can make the game portable by developing, testing, or packaging it for
   other platforms. I use Arch Linux to develop LinCity-NG, and I do not have
   access to other platforms such as Windows or Mac, so without help, I am unable
@@ -255,30 +256,27 @@ Here are some pointers for testing effectively:
 
 Here is the general workflow for translating LinCity-NG:
 1. Fork and clone the lincity-ng repo
-2. Install [gettext](https://www.gnu.org/software/gettext/). It is important you
-   do this before configuring for the first time.
+2. Install [gettext](https://www.gnu.org/software/gettext/).
 3. Configure the build:
    ```
    cmake -B build
    ```
-4. Get translatable strings and generate the `messages.pot` files:
+4. Generate an up-to-date PO template file:
    ```
-   cmake --build build -t messages.pot
+   cmake --build build -t generate_pot
    ```
 5. Create/Update the translation with the new strings:
    - If you are creating a new translation:
      ```
      LANG=<2-character language handle e.g. 'en'>
-     msginit -i build/share/lincity-ng/locale/messages.pot -o data/locale/$LANG.po
-     msginit -i build/share/lincity-ng/locale/gui/messages.pot -o data/locale/gui/$LANG.po
+     msginit -i build/messages.pot -o data/locale/$LANG.po
      ```
    - If you are updating an existing translation:
      ```
      LANG=<2-character language handle e.g. 'en'>
-     msgmerge -U data/locale/$LANG.po build/share/lincity-ng/locale/messages.pot
-     msgmerge -U data/locale/gui/$LANG.po build/share/lincity-ng/locale/gui/messages.pot
+     msgmerge -U data/locale/$LANG.po build/messages.pot
      ```
-6. Edit the .po files with [a PO editor](
+6. Update and review translations in the .po file with [a PO editor](
    https://www.gnu.org/software/trans-coord/manual/web-trans/html_node/PO-Editors.html)
    or with your favorite text editor.
 7. If you want to edit the help texts, then create a directory with your

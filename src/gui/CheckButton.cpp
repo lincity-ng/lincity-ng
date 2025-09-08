@@ -19,27 +19,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "CheckButton.hpp"
 
-#include <SDL.h>                     // for SDL_GetTicks, SDL_BUTTON_LEFT
-#include <ctype.h>                   // for isspace
-#include <stdio.h>                   // for sscanf
-#include <string.h>                  // for strcmp
-#include <iostream>                  // for operator<<, basic_ostream, cerr
-#include <memory>                    // for unique_ptr
-#include <sstream>                   // for basic_stringstream
-#include <stdexcept>                 // for runtime_error
+#include <SDL.h>                          // for SDL_GetTicks, SDL_BUTTON_LEFT
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <memory>                         // for unique_ptr
+#include <utility>                        // for move
+#include <vector>                         // for vector
 
-#include "Child.hpp"                 // for Child, Childs
-#include "Component.hpp"             // for Component, Component::FLAG_RESIZ...
-#include "Signal.hpp"                // for Signal
-#include "Vector2.hpp"               // for Vector2
-#include "gui/ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONE...
-#include "gui/Event.hpp"             // for Event
-#include "gui/Image.hpp"             // for Image
-#include "gui/Painter.hpp"           // for Painter
-#include "gui/Paragraph.hpp"         // for Paragraph
-#include "gui/TooltipManager.hpp"    // for tooltipManager, TOOLTIP_TIME
-#include "gui/XmlReader.hpp"         // for XmlReader
-#include "libxml/xmlreader.h"        // for XML_READER_TYPE_ELEMENT, XML_REA...
+#include "Child.hpp"                      // for Child, Childs
+#include "Component.hpp"                  // for Component, Component::FLAG_...
+#include "Signal.hpp"                     // for Signal
+#include "Vector2.hpp"                    // for Vector2
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Event.hpp"                  // for Event
+#include "gui/Image.hpp"                  // for Image
+#include "gui/Painter.hpp"                // for Painter
+#include "gui/Paragraph.hpp"              // for Paragraph
+#include "gui/TooltipManager.hpp"         // for tooltipManager, TOOLTIP_TIME
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlElement
 
 CheckButton::CheckButton() :
   autoCheck(true),
@@ -49,199 +47,110 @@ CheckButton::CheckButton() :
 
 CheckButton::~CheckButton() {}
 
-static void
-setBoolAttribute(const char *attr, const char *value, bool *dest) {
-  if(strcmp(value, "true") == 0) {
-    *dest = true;
-  } else if(strcmp(value, "false") == 0) {
-    *dest = false;
-  } else {
-    std::cerr << "Unknown value '" << value
-      << "' for attribute '" << attr
-      << "'. Should be 'true' or 'false'.\n";
+void
+CheckButton::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else if(name == "auto-check")
+      autoCheck = xmlParse<bool>(value);
+    else if(name == "auto-uncheck")
+      autoUncheck = xmlParse<bool>(value);
+    else if(name == "lower")
+      lowerOnClick = xmlParse<bool>(value);
+    else if(name == "checked")
+      mchecked = xmlParse<bool>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
+
+  // we need 6 child components
+  childs.assign(6, Child());
+
+  // parse contents of the xml-element
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
+    }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "image") {
+      setChildImage(comp_normal(), reader);
+    } else if(element == "text") {
+      setChildText(comp_normal(), reader);
+    } else if(element == "image-hover") {
+      setChildImage(comp_hover(), reader);
+    } else if(element == "image-checked") {
+      setChildImage(comp_checked(), reader);
+    } else if(element == "text-hover") {
+      setChildText(comp_hover(), reader);
+    } else if(element == "image-clicked") {
+      setChildImage(comp_clicked(), reader);
+    } else if(element == "text-clicked") {
+      setChildText(comp_clicked(), reader);
+    } else if(element == "image-caption") {
+      setChildImage(comp_caption(), reader);
+    } else if(element == "image-disabled") {
+      setChildImage(comp_disabled(), reader);
+    } else if(element == "text-caption") {
+      setChildText(comp_caption(), reader);
+    } else if (element == "tooltip") {
+      tooltip = _(reader.read_inner_xml());
+    } else {
+      unexpectedXmlElement(reader);
+    }
+    reader.next();
+  }
+
+  if(!comp_normal().getComponent())
+    missingXmlElement(reader, "image");
+
+  // if no width/height was specified we use the one from the biggest image
+  if(width <= 0 || height <= 0) {
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+      Component* component = i->getComponent();
+      if(!component) continue;
+      if(component->getFlags() & FLAG_RESIZABLE)
+        component->resize(-1, -1);
+
+      if(component->getWidth() > width)
+        width = component->getWidth();
+      if(component->getHeight() > height)
+        height = component->getHeight();
+    }
+  }
+
+  // place components at the middle of the button
+  for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+    Child& child = *i;
+    if(!child.getComponent()) continue;
+    Component* component = child.getComponent();
+
+    child.setPos((size - component->getSize()) / 2);
   }
 }
 
 void
-CheckButton::parse(XmlReader& reader)
-{
-    // parse xml attributes
-    //std::cout << "parsing Checkbutton ...";
-    //std::cout.flush();
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height '" << value << "'.";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(attribute, "auto-check") == 0) {
-          setBoolAttribute(attribute, value, &autoCheck);
-        } else if(strcmp(attribute, "auto-uncheck") == 0) {
-          setBoolAttribute(attribute, value, &autoUncheck);
-        } else if(strcmp(attribute, "lower") == 0) {
-          setBoolAttribute(attribute, value, &lowerOnClick);
-        } else if(strcmp(attribute, "direction") == 0) {
-            // skip
-        } else if(strcmp(attribute, "checked") == 0) {
-          setBoolAttribute(attribute, value, &mchecked);
-        } else {
-            std::cerr << "Skipping unknown attribute '"
-                << attribute << "'.\n";
-        }
-    }
-
-    // we need 6 child components
-    childs.assign(6, Child());
-
-    // parse contents of the xml-element
-    bool parseTooltip = false;
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            std::string element = (const char*) reader.getName();
-            if(element == "image") {
-                if(comp_normal().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_normal defined.\n";
-                setChildImage(comp_normal(), reader);
-            } else if(element == "text") {
-                if(comp_normal().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_normal defined.\n";
-                setChildText(comp_normal(), reader);
-            } else if(element == "image-hover") {
-                if(comp_hover().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_hover defined.\n";
-                setChildImage(comp_hover(), reader);
-            } else if(element == "image-checked") {
-                if(comp_checked().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_hover defined.\n";
-                setChildImage(comp_checked(), reader);
-            } else if(element == "text-hover") {
-                if(comp_hover().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_hover defined.\n";
-                setChildText(comp_hover(), reader);
-            } else if(element == "image-clicked") {
-                if(comp_clicked().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_clicked defined.\n";
-                setChildImage(comp_clicked(), reader);
-            } else if(element == "text-clicked") {
-                if(comp_clicked().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for state "
-                        "comp_clicked defined.\n";
-                setChildText(comp_clicked(), reader);
-            } else if(element == "image-caption") {
-                if(comp_caption().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for comp_caption "
-                        "defined.\n";
-                setChildImage(comp_caption(), reader);
-            } else if(element == "image-disabled") {
-                if(comp_disabled().getComponent() != 0)
-                    std::cerr << "Warning: More than 1 component for "
-                        "comp_disabled defined.\n";
-                setChildImage(comp_disabled(), reader);
-            } else if(element == "text-caption") {
-                if(comp_caption().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for comp_caption "
-                        "defined.\n";
-                setChildText(comp_caption(), reader);
-            } else if (element == "tooltip") {
-                parseTooltip = true;
-            } else {
-                std::cerr << "Skipping unknown element '" << element << "'.\n";
-            }
-        } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
-             std::string element = (const char*) reader.getName();
-             if(element == "tooltip")
-                 parseTooltip = false;
-        } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
-            if(!parseTooltip)
-                continue;
-
-            const char* p = GUI_TRANSLATE((const char*) reader.getValue());
-
-            // skip trailing spaces
-            while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
-                ++p;
-
-            bool lastspace = tooltip != "";
-            for( ; *p != 0; ++p) {
-                if(isspace(static_cast<unsigned char>(*p))) {
-                    if(!lastspace) {
-                        lastspace = true;
-                        tooltip += ' ';
-                    }
-                } else {
-                    lastspace = false;
-                    tooltip += *p;
-                }
-            }
-        }
-    }
-
-    if(comp_normal().getComponent() == 0)
-        throw std::runtime_error("No component for state comp_normal defined.");
-
-    // if no width/height was specified we use the one from the biggest image
-    if(width <= 0 || height <= 0) {
-        for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-            Component* component = i->getComponent();
-            if(!component)
-                continue;
-            if(component->getFlags() & FLAG_RESIZABLE)
-                component->resize(-1, -1);
-
-            if(component->getWidth() > width)
-                width = component->getWidth();
-            if(component->getHeight() > height)
-                height = component->getHeight();
-        }
-    }
-
-    // place components at the middle of the button
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        Child& child = *i;
-        if(!child.getComponent())
-            continue;
-        Component* component = child.getComponent();
-
-        child.setPos( Vector2 ((width - component->getWidth())/2,
-                               (height - component->getHeight())/2));
-    }
-    //std::cout << " done" << std::endl;
+CheckButton::setChildImage(Child& child, xmlpp::TextReader& reader) {
+  if(child.getComponent())
+    unexpectedXmlElement(reader);
+  std::unique_ptr<Image> image(new Image());
+  image->parse(reader);
+  resetChild(child, std::move(image));
 }
 
 void
-CheckButton::setChildImage(Child& child, XmlReader& reader)
-{
-    std::unique_ptr<Image> image(new Image());
-    image->parse(reader);
-    resetChild(child, image.release());
-}
-
-void
-CheckButton::setChildText(Child& child, XmlReader& reader)
-{
-    std::unique_ptr<Paragraph> paragraph(new Paragraph());
-    paragraph->parse(reader);
-    resetChild(child, paragraph.release());
+CheckButton::setChildText(Child& child, xmlpp::TextReader& reader) {
+  std::unique_ptr<Paragraph> paragraph(new Paragraph());
+  paragraph->parse(reader);
+  resetChild(child, std::move(paragraph));
 }
 
 void

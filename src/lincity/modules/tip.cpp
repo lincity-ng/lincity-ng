@@ -25,20 +25,19 @@
 #include "tip.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator==
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"               // for GROUP_TIP
-#include "lincity/lin-city.hpp"             // for FALSE, FLAG_NEVER_EVACUATE
+#include "lincity/groups.hpp"             // for GROUP_TIP
+#include "lincity/lin-city.hpp"           // for FALSE, FLAG_NEVER_EVACUATE
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
-// Tip:
 TipConstructionGroup tipConstructionGroup(
     N_("Land Fill"),
     N_("Land Fills"),
@@ -132,15 +131,15 @@ Tip::can_bulldoze(Message::ptr& message) const {
 }
 
 void Tip::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"total_waste",    "%d", total_waste);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"degration_days", "%d", degration_days);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"total_waste",    xmlFormat<int>(total_waste));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"degration_days", xmlFormat<int>(degration_days));
   Construction::save(xmlWriter);
 }
 
 bool Tip::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if     (name == "total_waste")    total_waste    = std::stoi(xmlReader.read_inner_xml());
-  else if(name == "degration_days") degration_days = std::stoi(xmlReader.read_inner_xml());
+  if     (name == "total_waste")    total_waste    = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(name == "degration_days") degration_days = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

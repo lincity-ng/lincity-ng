@@ -22,37 +22,35 @@
 
 #include "EconomyGraph.hpp"
 
-#include <SDL.h>                     // for SDL_Surface
-#include <SDL_ttf.h>                 // for TTF_RenderUTF8_Blended, TTF_Font
-#include <stdio.h>                   // for sscanf, NULL
-#include <string.h>                  // for strcmp
-#include <algorithm>                 // for min, max
-#include <cassert>                   // for assert
-#include <cmath>                     // for log, sqrt
-#include <deque>                     // for deque
-#include <iostream>                  // for basic_ostream, operator<<, strin...
-#include <sstream>                   // for basic_stringstream
-#include <stdexcept>                 // for runtime_error
+#include <SDL.h>                          // for SDL_Surface
+#include <SDL_ttf.h>                      // for TTF_RenderUTF8_Blended, TTF...
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <algorithm>                      // for min, max
+#include <cassert>                        // for assert
+#include <cmath>                          // for log, sqrt
+#include <cstddef>                        // for NULL
+#include <deque>                          // for deque
 
-#include "Game.hpp"                  // for Game
-#include "Util.hpp"                  // for getCheckButton
-#include "gui/CheckButton.hpp"       // for CheckButton
-#include "gui/Color.hpp"             // for Color
-#include "gui/ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/FontManager.hpp"       // for FontManager, fontManager
-#include "gui/Painter.hpp"           // for Painter
-#include "gui/Paragraph.hpp"         // for Paragraph
-#include "gui/Rect2D.hpp"            // for Rect2D
-#include "gui/Style.hpp"             // for Style
-#include "gui/Texture.hpp"           // for Texture
-#include "gui/TextureManager.hpp"    // for TextureManager, texture_manager
-#include "gui/Vector2.hpp"           // for Vector2
-#include "gui/XmlReader.hpp"         // for XmlReader
-#include "lincity/lintypes.hpp"      // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"         // for Stats
-#include "lincity/sustainable.hpp"   // for SUST_FIRE_YEARS_NEEDED, SUST_MON...
-#include "lincity/world.hpp"         // for World
-#include "tinygettext/gettext.hpp"   // for _
+#include "Game.hpp"                       // for Game
+#include "Util.hpp"                       // for getCheckButton
+#include "gui/CheckButton.hpp"            // for CheckButton
+#include "gui/Color.hpp"                  // for Color
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/FontManager.hpp"            // for FontManager, fontManager
+#include "gui/Painter.hpp"                // for Painter
+#include "gui/Paragraph.hpp"              // for Paragraph
+#include "gui/Rect2D.hpp"                 // for Rect2D
+#include "gui/Style.hpp"                  // for Style
+#include "gui/Texture.hpp"                // for Texture
+#include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
+#include "gui/Vector2.hpp"                // for Vector2
+#include "lincity/lintypes.hpp"           // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/sustainable.hpp"        // for SUST_FIRE_YEARS_NEEDED, SUS...
+#include "lincity/world.hpp"              // for World
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 EconomyGraph::EconomyGraph() {
     labelTextureMIN = 0;
@@ -85,62 +83,52 @@ EconomyGraph::setGame(Game *game) {
   this->game = game;
 }
 
-void EconomyGraph::parse( XmlReader& reader ){
-    XmlReader::AttributeIterator iter( reader );
-    while(iter.next()) {
-        const char* name = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+void
+EconomyGraph::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        if(parseAttribute(name, value)){
-            continue;
-        } else if(strcmp(name, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse width attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else if(strcmp(name, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
-                std::stringstream msg;
-                msg << "Couldn't parse height attribute (" << value << ").";
-                throw std::runtime_error(msg.str());
-            }
-        } else {
-            std::cerr << "Unknown attribute '" << name
-                      << "' skipped in EconomyGraph.\n";
-        }
-    }
-    //Generate Labels for Sustainability Graph
-    Style labelStyle;
-    labelStyle.font_family = "sans";
-    labelStyle.font_size = 10;
-    TTF_Font* font = fontManager->getFont( labelStyle );
-    SDL_Surface* labelXXX;
-		   /* MIN=Mining, PRT=Import/export from port,
-		      MNY=Money, POP=Population, TEC=Technology,
-		      FIR=Fire coverage
-		   */
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Mining"), labelStyle.text_color.getSDLColor() );
-    labelTextureMIN = texture_manager->create( labelXXX );
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Trade"), labelStyle.text_color.getSDLColor() );
-    labelTexturePRT = texture_manager->create( labelXXX );
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Money"), labelStyle.text_color.getSDLColor() );
-    labelTextureMNY = texture_manager->create( labelXXX );
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Popul."), labelStyle.text_color.getSDLColor() );
-    labelTexturePOP = texture_manager->create( labelXXX );
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Techn."), labelStyle.text_color.getSDLColor() );
-    labelTextureTEC = texture_manager->create( labelXXX );
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Fire"), labelStyle.text_color.getSDLColor() );
-    labelTextureFIR = texture_manager->create( labelXXX );
+  //Generate Labels for Sustainability Graph
+  Style labelStyle;
+  labelStyle.font_family = "sans";
+  labelStyle.font_size = 10;
+  TTF_Font* font = fontManager->getFont( labelStyle );
+  SDL_Surface* labelXXX;
+  /*  MIN=Mining, PRT=Import/export from port,
+      MNY=Money, POP=Population, TEC=Technology,
+      FIR=Fire coverage
+  */
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Mining"), labelStyle.text_color.getSDLColor() );
+  labelTextureMIN = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Trade"), labelStyle.text_color.getSDLColor() );
+  labelTexturePRT = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Money"), labelStyle.text_color.getSDLColor() );
+  labelTextureMNY = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Popul."), labelStyle.text_color.getSDLColor() );
+  labelTexturePOP = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Techn."), labelStyle.text_color.getSDLColor() );
+  labelTextureTEC = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Fire"), labelStyle.text_color.getSDLColor() );
+  labelTextureFIR = texture_manager->create( labelXXX );
 
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Economy Overview:"), labelStyle.text_color.getSDLColor() );
-    labelTextureEconomy = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Economy Overview:"), labelStyle.text_color.getSDLColor() );
+  labelTextureEconomy = texture_manager->create( labelXXX );
 
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Sustainability:"), labelStyle.text_color.getSDLColor() );
-    labelTextureSustainability = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Sustainability:"), labelStyle.text_color.getSDLColor() );
+  labelTextureSustainability = texture_manager->create( labelXXX );
 
-    labelXXX = TTF_RenderUTF8_Blended( font, _("Frames per Second:"), labelStyle.text_color.getSDLColor() );
-    labelTextureFPS = texture_manager->create( labelXXX );
+  labelXXX = TTF_RenderUTF8_Blended( font, _("Frames per Second:"), labelStyle.text_color.getSDLColor() );
+  labelTextureFPS = texture_manager->create( labelXXX );
 }
 
 void

@@ -1,4 +1,4 @@
-/* ---------------------------------------------------------------------- *
+/* ---------------------------------------------------------------------- *xmlFormat
  * src/lincity/lintypes.cpp
  * This file is part of Lincity-NG.
  *
@@ -25,16 +25,15 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
-#include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
-#include <memory>                         // for __shared_ptr_access
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
+#include <libxml++/parsers/textreader.h>  // for TextReader
 
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
@@ -45,11 +44,11 @@
 #include "lincity-ng/Sound.hpp"           // for getSound, Sound
 #include "modules/all_modules.hpp"        // for Powerline, GROUP_MARKET_RANGE
 #include "stats.hpp"                      // for Stats, Stat
-#include "tinygettext/gettext.hpp"        // for _
 #include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
 #include "util.hpp"                       // for used_in_assert
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlParse, xmlStr, unexpecte...
 #include "world.hpp"                      // for World, Map, MapTile
-#include "xmlloadsave.hpp"                // for xmlStr, unexpectedXmlElement
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
 
@@ -202,13 +201,13 @@ void Construction::report_commodities(void) {
 }
 
 void Construction::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter,
-    (xmlStr)"flags", "0x%x", flags & ~VOLATILE_FLAGS);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"flags",
+    xmlFormatHex(flags & ~VOLATILE_FLAGS));
   for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
     if(!constructionGroup->commodityRuleCount[stuff].maxload) continue;
     xmlStr name = (xmlStr)commodityStandardName(stuff);
-    xmlTextWriterWriteFormatElement(xmlWriter,
-      name, "%d", commodityCount[stuff]);
+    xmlTextWriterWriteElement(xmlWriter, (xmlStr)commodityStandardName(stuff),
+      xmlFormat<int>(commodityCount[stuff]));
   }
 }
 
@@ -239,12 +238,14 @@ bool
 Construction::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version
 ) {
   std::string name = xmlReader.get_name();
-  Commodity stuff = commodityFromStandardName(name.c_str());
+  Commodity stuff = commodityFromStandardName(
+    xmlParse<std::string>(name).c_str());
   if(stuff != STUFF_COUNT) {
-    commodityCount[stuff] = std::stoi(xmlReader.read_inner_xml());
+    commodityCount[stuff] = xmlParse<int>(xmlReader.read_inner_xml());
   }
   else if(name == "flags") {
-    flags = std::stoul(xmlReader.read_inner_xml(), NULL, 0) & ~VOLATILE_FLAGS;
+    flags = xmlParse<unsigned int>(xmlReader.read_inner_xml())
+      & ~VOLATILE_FLAGS;
     if(ldsv_version <= 2130) {
       flags = 0
         | (flags & 0x00000020 ? FLAG_FED : 0)

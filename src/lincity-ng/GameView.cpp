@@ -22,53 +22,57 @@
 
 #include "GameView.hpp"
 
-#include <SDL.h>                         // for SDL_Scancode, SDL_BUTTON_LEFT
-#include <SDL_image.h>                   // for IMG_Load
-#include <assert.h>                      // for assert
-#include <stdio.h>                       // for size_t, sscanf, NULL
-#include <string.h>                      // for strcmp
-#include <cmath>                         // for sqrt, fabs, fabsf, floorf
-#include <exception>                     // for exception
-#include <functional>                    // for bind, _1, function
-#include <iostream>                      // for basic_ostream, operator<<
-#include <iterator>                      // for advance
-#include <list>                          // for _List_iterator, list, operat...
-#include <map>                           // for _Rb_tree_iterator, map, oper...
-#include <sstream>                       // for basic_stringstream
-#include <utility>                       // for pair
-#include <vector>                        // for vector
+#include <SDL.h>                          // for SDL_Scancode, SDL_BUTTON_LEFT
+#include <SDL_image.h>                    // for IMG_Load
+#include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdio.h>                        // for stderr
+#include <cmath>                          // for sqrt, fabs, fabsf, floorf
+#include <cstddef>                        // for size_t, NULL
+#include <exception>                      // for exception
+#include <functional>                     // for bind, _1, function
+#include <iostream>                       // for operator<<, basic_ostream
+#include <iterator>                       // for advance
+#include <list>                           // for _List_iterator, list, opera...
+#include <map>                            // for map, operator!=
+#include <sstream>                        // for basic_stringstream
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
+#include <vector>                         // for vector
+#include <fmt/std.h> // IWYU pragma: keep
 
-#include "Config.hpp"                    // for getConfig, Config
-#include "Dialog.hpp"                    // for blockingDialogIsOpen
-#include "Game.hpp"                      // for Game
-#include "MiniMap.hpp"                   // for MiniMap, getMiniMap
-#include "Mps.hpp"                       // for MpsMap
-#include "Util.hpp"                      // for getButton, getParagraph
-#include "gui/Button.hpp"                // for Button
-#include "gui/Color.hpp"                 // for Color
-#include "gui/ComponentFactory.hpp"      // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/Desktop.hpp"               // for Desktop
-#include "gui/Event.hpp"                 // for Event
-#include "gui/Painter.hpp"               // for Painter
-#include "gui/Paragraph.hpp"             // for Paragraph
-#include "gui/Rect2D.hpp"                // for Rect2D
-#include "gui/Signal.hpp"                // for Signal
-#include "gui/Texture.hpp"               // for Texture
-#include "gui/TextureManager.hpp"        // for TextureManager, texture_manager
-#include "gui/XmlReader.hpp"             // for XmlReader
-#include "libxml/xmlreader.h"            // for XML_READER_TYPE_ELEMENT
-#include "lincity-ng/UserOperation.hpp"  // for UserOperation
-#include "lincity/all_buildings.hpp"       // for GROUP_WATER_BUL_COST, GROUP_...
-#include "lincity/commodities.hpp"       // for commodityNames
-#include "lincity/groups.hpp"              // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lin-city.hpp"            // for FLAG_POWER_CABLES_0, FLAG_PO...
-#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
-#include "lincity/messages.hpp"          // for Message
-#include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
-#include "lincity/transport.hpp"           // for BRIDGE_FACTOR
-#include "lincity/world.hpp"               // for Map, World, MapTile, Ground
-#include "tinygettext/gettext.hpp"       // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
+#include "Config.hpp"                     // for getConfig, Config
+#include "Dialog.hpp"                     // for blockingDialogIsOpen
+#include "Game.hpp"                       // for Game
+#include "MiniMap.hpp"                    // for MiniMap, getMiniMap
+#include "Mps.hpp"                        // for MpsMap
+#include "Util.hpp"                       // for getButton, getParagraph
+#include "gui/Button.hpp"                 // for Button
+#include "gui/Color.hpp"                  // for Color
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/Desktop.hpp"                // for Desktop
+#include "gui/Event.hpp"                  // for Event
+#include "gui/Painter.hpp"                // for Painter
+#include "gui/Paragraph.hpp"              // for Paragraph
+#include "gui/Rect2D.hpp"                 // for Rect2D
+#include "gui/Signal.hpp"                 // for Signal
+#include "gui/Texture.hpp"                // for Texture
+#include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
+#include "lincity-ng/UserOperation.hpp"   // for UserOperation
+#include "lincity/all_buildings.hpp"      // for GROUP_WATER_BUL_COST, GROUP...
+#include "lincity/commodities.hpp"        // for commodityNames
+#include "lincity/groups.hpp"             // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.hpp"           // for FLAG_POWER_CABLES_0, FLAG_P...
+#include "lincity/lintypes.hpp"           // for ConstructionGroup, Construc...
+#include "lincity/messages.hpp"           // for Message
+#include "lincity/modules/tile.hpp"       // for TileConstructionGroup, bare...
+#include "lincity/transport.hpp"          // for BRIDGE_FACTOR
+#include "lincity/world.hpp"              // for Map, World, MapTile, Ground
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 using namespace std::placeholders;
 
@@ -104,53 +108,48 @@ int GameView::gameViewThread( void* data )
     return 0;
 }
 
-void GameView::parse(XmlReader& reader)
-{
-    //Read from config
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+void
+GameView::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-        //check if Attribute handled by parent
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "GameView::parse# Skipping unknown attribute '" << attribute << "'.\n";
-        }
-    }
-    // no more elements to parse
-    blankGraphicsInfo.texture = readTexture( "blank.png" );
-    blankGraphicsInfo.x = blankGraphicsInfo.texture->getWidth() / 2;
-    blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
+  blankGraphicsInfo.texture = readTexture( "blank.png" );
+  blankGraphicsInfo.x = blankGraphicsInfo.texture->getWidth() / 2;
+  blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
 
-    stopThread = false;
-    loaderThread = SDL_CreateThread( gameViewThread, "Loader", this );
+  stopThread = false;
+  loaderThread = SDL_CreateThread( gameViewThread, "Loader", this );
 
-    //GameView is resizable
-    setFlags(FLAG_RESIZABLE);
+  //GameView is resizable
+  setFlags(FLAG_RESIZABLE);
 
-    //start at location from savegame
-    zoom = defaultZoom;
-    tileWidth = defaultTileWidth * zoom;
-    tileHeight = defaultTileHeight * zoom;
+  //start at location from savegame
+  zoom = defaultZoom;
+  tileWidth = defaultTileWidth * zoom;
+  tileHeight = defaultTileHeight * zoom;
 
-    mouseInGameView = false;
-    dragging = false;
-    leftButtonDown = false;
-    roadDragging = false;
-    ctrDrag = false;
-    areaBulldoze = false;
-    startRoad = MapPoint(0, 0);
-    tileUnderMouse = MapPoint(0, 0);
-    hideHigh = false;
-    showTerrainHeight = false;
-    cursorSize = 0;
+  mouseInGameView = false;
+  dragging = false;
+  leftButtonDown = false;
+  roadDragging = false;
+  ctrDrag = false;
+  areaBulldoze = false;
+  startRoad = MapPoint(0, 0);
+  tileUnderMouse = MapPoint(0, 0);
+  hideHigh = false;
+  showTerrainHeight = false;
+  cursorSize = 0;
 
-    mapOverlay = overlayNone;
-    buttonsConnected = false;
-    lastStatusMessage = "";
-    refreshMap = true;
+  mapOverlay = overlayNone;
+  buttonsConnected = false;
+  lastStatusMessage = "";
+  refreshMap = true;
 }
 
 void
@@ -395,115 +394,126 @@ SDL_Surface* GameView::readImage(const std::filesystem::path& filename) {
  *  demand in the main Tread.
 **/
 
-void GameView::preReadImages(void)
-{
-    XmlReader reader(getConfig()->appDataDir.get() /
-      "images" / "tiles" / "images.xml");
+void
+GameView::preReadImages(void) {
+  // TODO: Improve the format of images.xml so it doesn't rely on the order of
+  //       elements.
 
-    ResourceGroup *resourceGroup = 0;
-    int resourceID_level = 0;
-    std::string key;
+  std::filesystem::path fullpath = getConfig()->appDataDir.get() /
+    "images" / "tiles" / "images.xml";
+  xmlpp::TextReader reader(fullpath);
+  if(!reader.read())
+    throw std::runtime_error(fmt::format("file is empty: {}", fullpath));
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+    if(!reader.next())
+      throw std::runtime_error(
+        fmt::format("file doesn't contain XML data: {}", fullpath));
+  }
 
-    while( reader.read() )
-    {
-        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
-        {
-            const std::string& element = (const char*) reader.getName();
+  ResourceGroup *resourceGroup = 0;
+  int resourceID_level = 0;
+  std::string key;
 
-            if( element == "resourceID")
-            {
-                XmlReader::AttributeIterator iter(reader);
-                while(iter.next())
-                {
-                    const char* name = (const char*) iter.getName();
-                    const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "name" ) == 0 )
-                    {
-                        if(resourceGroup)
-                        {   resourceGroup->images_loaded = true;}
-
-                        if(ResourceGroup::resMap.count(value))
-                        {
-                            resourceGroup = ResourceGroup::resMap[value];
-                            resourceID_level = reader.getDepth();
-                            if(resourceGroup->images_loaded)
-                            {
-                                std::cout << "Duplicate resourceID in images.xml: " << value << std::endl;
-                                assert(false);
-                            }
-                        }
-                        else
-                        {
-                            std::cout << "unknown resourceID: " << value << " in images.xml" << std::endl;
-                            resourceGroup = 0;
-                            resourceID_level = 0;
-                        }
-                    }
-                }
-            }
-            //check if we are still inside context of last resorceID
-            if(reader.getDepth() < resourceID_level-1)
-            {
-                resourceGroup->images_loaded = true;
-                resourceGroup = 0;
-                resourceID_level = 0;
-            }
-            if( element == "image" )
-            {
-                XmlReader::AttributeIterator iter(reader);
-                int xmlX = 64;
-                int xmlY = 32;
-                bool xmlX_set = false;
-                bool xmlY_set = false;
-                while(iter.next())
-                {
-                    const char* name = (const char*) iter.getName();
-                    const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "file" ) == 0 )
-                    {   key = value;}
-                    else if( strcmp(name, "x" ) == 0 )
-                    {
-                        if(sscanf(value, "%i", &xmlX) != 1)
-                        {
-                            std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in x attribute.\n";
-                        }
-                        else
-                        {   xmlX_set = true;}
-                    }
-                   else if(strcmp(name, "y") == 0 )
-                    {
-                        if(sscanf(value, "%i", &xmlY) != 1)
-                        {
-                            std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in y attribute.\n";
-                        }
-                        else
-                        {   xmlY_set = true;}
-                    }
-                }
-
-                if (resourceID_level && resourceGroup)
-                {
-                    resourceGroup->growGraphicsInfoVector();
-                    GraphicsInfo *graphicsInfo = &(resourceGroup->graphicsInfoVector.back());
-                    graphicsInfo->image = readImage( key );
-                    if(!graphicsInfo->image)
-                    {
-                        std::cout << "image error: " << key << std::endl;
-                    }
-                    assert(xmlX_set && xmlY_set);
-                    graphicsInfo->x = xmlX;
-                    graphicsInfo->y = xmlY;
-                    ++remaining_images;
-                }
-                key.clear();
-            }
-        }
+  if(!reader.is_empty_element())
+  while(reader.read()) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      continue;
     }
-    if(resourceGroup)
-    {
+    const xmlpp::ustring element = reader.get_name();
+
+    if(element == "resourceID") {
+      std::string name;
+
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring aname = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(aname == "name")
+          name = xmlParse<std::string>(value);
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      if(name.empty())
+        missingXmlAttribute(reader, "name");
+
+      if(resourceGroup)
         resourceGroup->images_loaded = true;
+
+      if(ResourceGroup::resMap.count(name)) {
+        resourceGroup = ResourceGroup::resMap[name];
+        resourceID_level = reader.get_depth();
+        if(resourceGroup->images_loaded) {
+          fmt::println(stderr,
+            "warning: duplicate resourceID in images.xml: {}", name);
+          assert(false);
+        }
+      }
+      else {
+        fmt::println(stderr,
+          "warning: unknown resourceID in images.xml: {}", name);
         resourceGroup = 0;
+        resourceID_level = 0;
+      }
     }
+    //check if we are still inside context of last resorceID
+    if(reader.get_depth() < resourceID_level-1) {
+      resourceGroup->images_loaded = true;
+      resourceGroup = 0;
+      resourceID_level = 0;
+    }
+    if(element == "image") {
+      int xmlX = 64;
+      int xmlY = 32;
+      bool hasX = false, hasY = false;
+
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(name == "file")
+          key = xmlParse<std::string>(value);
+        else if(name == "x") {
+          xmlX = xmlParse<int>(value);
+          hasX = true;
+        }
+        else if(name == "y") {
+          xmlY = xmlParse<int>(value);
+          hasY = true;
+        }
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      if(resourceID_level && resourceGroup) {
+        resourceGroup->growGraphicsInfoVector();
+        GraphicsInfo *graphicsInfo = &(resourceGroup->graphicsInfoVector.back());
+        graphicsInfo->image = readImage( key );
+        if(!graphicsInfo->image) {
+          fmt::println(stderr, "error: failed to read image {}", key);
+        }
+        assert(hasX && hasY);
+        if(!hasX) xmlX = int(graphicsInfo->image->w/2);
+        if(!hasY) xmlY = int(graphicsInfo->image->h);
+        graphicsInfo->x = xmlX;
+        graphicsInfo->y = xmlY;
+        ++remaining_images;
+      }
+      key.clear();
+    }
+  }
+
+  while(reader.next()) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element)
+      continue;
+    unexpectedXmlElement(reader);
+  }
+
+  if(resourceGroup)
+  {
+      resourceGroup->images_loaded = true;
+      resourceGroup = 0;
+  }
 }
 
 
@@ -1537,7 +1547,7 @@ void GameView::draw(Painter& painter)
         else if( getUserOperation()->action == UserOperation::ACTION_BUILD)
         {
             std::string buildingName =  getUserOperation()->constructionGroup->name;
-            prize << dictionaryManager->get_dictionary().translate( buildingName );
+            prize << _(buildingName);
             prize << _(": Cost to build ");
             if( cost > 0 ) {
                 prize << cost << _("$");

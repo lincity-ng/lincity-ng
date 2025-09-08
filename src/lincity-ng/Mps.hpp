@@ -31,7 +31,9 @@
 class Game;
 class MapTile;
 class Paragraph;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * The MPS component is more or less a text component with 13 lines that
@@ -42,7 +44,7 @@ public:
   Mps();
   ~Mps();
 
-  void parse(XmlReader& reader);
+  void parse(xmlpp::TextReader& reader);
 
   void reset();
   void clear();

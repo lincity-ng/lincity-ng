@@ -23,27 +23,30 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Paragraph.hpp"
 
-#include <SDL.h>                 // for SDL_Surface, SDL_FreeSurface, Sint16
-#include <SDL_ttf.h>             // for TTF_FontHeight, TTF_FontAscent, TTF_...
-#include <ctype.h>               // for isspace
-#include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
-#include <string.h>              // for strcmp, size_t, NULL
-#include <iostream>              // for basic_ostream, operator<<, cerr, str...
-#include <map>                   // for map, _Rb_tree_iterator, operator==
-#include <sstream>               // for basic_stringstream
-#include <stdexcept>             // for runtime_error
-#include <utility>               // for pair
-#include <memory>
+#include <SDL.h>                          // for SDL_Surface, SDL_FreeSurface
+#include <SDL_ttf.h>                      // for TTF_FontHeight, TTF_FontAscent
+#include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <cstdio>                         // for stderr
+#include <map>                            // for map, operator==
+#include <memory>                         // for unique_ptr, allocator
+#include <regex>                          // for basic_regex, regex_replace
+#include <sstream>                        // for basic_stringstream, operator<<
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair
 
-#include "Color.hpp"             // for Color
-#include "ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONENT_F...
-#include "Event.hpp"             // for Event
-#include "FontManager.hpp"       // for FontManager, fontManager
-#include "Painter.hpp"           // for Painter
-#include "Texture.hpp"           // for Texture
-#include "TextureManager.hpp"    // for TextureManager, texture_manager
-#include "Vector2.hpp"           // for Vector2
-#include "XmlReader.hpp"         // for XmlReader
+#include "Color.hpp"                      // for Color
+#include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
+#include "Event.hpp"                      // for Event
+#include "FontManager.hpp"                // for FontManager, fontManager
+#include "Painter.hpp"                    // for Painter
+#include "Texture.hpp"                    // for Texture
+#include "TextureManager.hpp"             // for TextureManager, texture_man...
+#include "Vector2.hpp"                    // for Vector2
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for unexpectedXmlAttribute, xml...
 
 Paragraph::Paragraph()
     : texture(0)
@@ -59,13 +62,13 @@ Paragraph::~Paragraph()
 }
 
 void
-Paragraph::parse(XmlReader& reader)
+Paragraph::parse(xmlpp::TextReader& reader)
 {
     parse(reader, style);
 }
 
 void
-Paragraph::parseList(XmlReader& reader, const Style& )
+Paragraph::parseList(xmlpp::TextReader& reader, const Style& )
 {
     // query for "list" style
     std::map<std::string, Style>::iterator i
@@ -88,132 +91,92 @@ void
 Paragraph::commit_changes(
   std::unique_ptr<TextSpan>& currentspan, bool translatable
 ) {
-  if(currentspan) {
-    if(translatable) {
-      currentspan->text = GUI_TRANSLATE(currentspan->text);
-    }
-    textspans.push_back(std::unique_ptr<TextSpan>(currentspan.release()));
-    //std::cout << "new span: " << currentspan->text << std::endl;
-    // currentspan = nullptr;
+  if(!currentspan) return;
+  if(translatable) {
+    currentspan->text = _(currentspan->text);
   }
+  textspans.push_back(std::unique_ptr<TextSpan>(currentspan.release()));
 }
 
 void
-Paragraph::parse(XmlReader& reader, const Style& parentstyle)
-{
-    bool translatable = false;
+Paragraph::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
+  bool translatable = false;
+  style = parentstyle;
 
-    style = parentstyle;
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(style.parseAttribute(reader));
+    else if(name == "translatable")
+      translatable = xmlParse<bool>(value);
+    else
+      unexpectedXmlAttribute(reader);
+  }
+  reader.move_to_element();
 
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
+  std::vector<Style> stylestack;
+  stylestack.push_back(style);
+  stylestack.back().toSpan();
 
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else if(style.parseAttribute(attribute, value)) {
-            continue;
-        } else if(strcmp(attribute, "translatable") == 0) {
-            translatable = true;
-        } else {
-            std::cerr << "Skipping unknown attribut '" << attribute << "'.\n";
-        }
-    }
+  std::unique_ptr<TextSpan> currentspan;
 
-    std::vector<Style> stylestack;
-    stylestack.push_back(style);
-    stylestack.back().toSpan();
-
-    std::unique_ptr<TextSpan> currentspan;
-
-    std::string currenthref;
-    int depth = reader.getDepth();
-    while(reader.read() && reader.getDepth() > depth) {
-      switch(reader.getNodeType()) {
-      case XML_READER_TYPE_ELEMENT: {
-        std::string node((const char*) reader.getName());
-        if(node == "span" || node == "i" || node == "b"
-            || node == "a") {
-          commit_changes(currentspan,translatable);
-
-          Style style(stylestack.back());
-          if (node == "a") {
-            style.text_color.parse("blue");
-          } else if(node == "i") {
-            style.italic = true;
-          } else if(node == "b") {
-            style.bold = true;
-          }
-
-          currenthref = "";
-          XmlReader::AttributeIterator iter(reader);
-          while(iter.next()) {
-            const char* attribute = (const char*) iter.getName();
-            const char* value = (const char*) iter.getValue();
-            if(style.parseAttribute(attribute, value))
-              continue;
-            else if(strcmp(attribute, "href") == 0) {
-              currenthref = value;
-            } else {
-              std::cerr << "Unknown attribute '" << attribute
-                << "' in textspan node.\n";
-            }
-          }
-          style.parseAttributes(reader);
-          // TODO parse style attributes...
-          stylestack.push_back(style);
-        } else {
-          std::cerr << "Skipping unknown node '" << node << "'.\n";
-          reader.nextNode();
-        }
-      } break;
-      case XML_READER_TYPE_TEXT: {
-        if(!currentspan) {
-          currentspan.reset(new TextSpan());
-          currentspan->style = stylestack.back();
-        }
-
-        const char* p = (const char*) reader.getValue();
-        // skip leading spaces...
-        // while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
-        //   ++p;
-
-        bool lastspace = false;
-        for( ; *p != 0; ++p) {
-          if(isspace(static_cast<unsigned char>(*p))) {
-            if(!lastspace) {
-              lastspace = true;
-              currentspan->text += ' ';
-            }
-          } else {
-            lastspace = false;
-            currentspan->text += *p;
-            //std::cout << "growing span: " << currentspan->text << std::endl;
-          }
-        }
-      } break;
-      case XML_READER_TYPE_END_ELEMENT: {
-        std::string node((const char*) reader.getName());
-        if(node == "span" || node == "b" || node == "i"
-            || node == "a") {
-          commit_changes(currentspan,translatable);
-          stylestack.pop_back();
-        } else {
-          std::cerr << "Internal error: unknown node end: '" <<
-            node << "'.\n";
-        }
-      } break;
+  if(!reader.is_empty_element() && reader.read())
+  while(true) {
+    switch(reader.get_node_type()) {
+    case xmlpp::TextReader::NodeType::Element: {
+      xmlpp::ustring node = reader.get_name();
+      if(node != "span" && node != "i" && node != "b" && node != "a") {
+        unexpectedXmlElement(reader);
+        break;
       }
-    }
 
-    if(currentspan) {
-      if(translatable) {
-        currentspan->text = GUI_TRANSLATE(currentspan->text);
+      commit_changes(currentspan,translatable);
+
+      Style style(stylestack.back());
+      if (node == "a") {
+        style.text_color.parse("blue");
+      } else if(node == "i") {
+        style.italic = true;
+      } else if(node == "b") {
+        style.bold = true;
       }
-      //std::cout << "completed span: " << currentspan->text << std::endl;
-      textspans.push_back(std::unique_ptr<TextSpan>(currentspan.release()));
+
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(style.parseAttribute(reader));
+        else
+          unexpectedXmlAttribute(reader);
+      }
+      reader.move_to_element();
+
+      stylestack.push_back(style);
+    } break;
+    case xmlpp::TextReader::NodeType::Text: {
+      if(!currentspan) {
+        currentspan.reset(new TextSpan());
+        currentspan->style = stylestack.back();
+      }
+
+      std::string p = xmlParse<std::string>(reader.get_value());
+      currentspan->text += std::regex_replace(p, std::basic_regex("\\s+"), " ");
+    } break;
+    case xmlpp::TextReader::NodeType::EndElement: {
+      commit_changes(currentspan,translatable);
+      stylestack.pop_back();
+      if(stylestack.empty()) goto done;
+
+      std::string node = reader.get_name();
+      if(node != "span" && node != "b" && node != "i" && node != "a") {
+        fmt::println(stderr, "error: unexpected xml end element {:?}", node);
+        assert(false);
+      }
+    } break;
     }
+    reader.read();
+  }
+  done:;
 }
 
 /**

@@ -25,9 +25,9 @@
 #include "windmill.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <list>                           // for _List_iterator
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, operator==
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
@@ -37,9 +37,8 @@
 #include "lincity/resources.hpp"          // for ExtraFrame
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
-
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
 WindmillConstructionGroup windmillConstructionGroup(
   N_("Windmill"),
@@ -134,13 +133,13 @@ void Windmill::place(MapPoint point) {
 }
 
 void Windmill::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech", "%d", tech);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech", xmlFormat<int>(tech));
   Construction::save(xmlWriter);
 }
 
 bool Windmill::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "tech") tech = std::stoi(xmlReader.read_inner_xml());
+  if(name == "tech") tech = xmlParse<int>(xmlReader.read_inner_xml());
   else if(name == "kwh_output");
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;

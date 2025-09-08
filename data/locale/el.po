@@ -1,5 +1,21 @@
+# #-#-#-#-#  el.po (LinCity NG)  #-#-#-#-#
+# #-#-#-#-#  el.po (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# #-#-#-#-#  el.po (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  el.po (LinCity NG)  #-#-#-#-#\n"
+"#-#-#-#-#  el.po (LinCity NG)  #-#-#-#-#\n"
 "Project-Id-Version: LinCity NG\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-02 19:07+0200\n"
@@ -11,6 +27,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Greek\n"
 "X-Poedit-Country: Greece\n"
+"#-#-#-#-#  el.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jul  2 19:07:53 2009\n"
+"PO-Revision-Date: 2009-07-02 22:38+0200\n"
+"Last-Translator: Yannis Kaskamanidis <ttnfy17@yahoo.gr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  el.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jul  2 19:07:53 2009\n"
+"PO-Revision-Date: 2009-07-02 22:38+0200\n"
+"Last-Translator: Yannis Kaskamanidis <ttnfy17@yahoo.gr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: src/lincity/loadsave.cpp:130
 #, c-format
@@ -21,14 +57,12 @@ msgstr "Αποθήκευση αρχείου <%s> - "
 msgid "Can't open save file!"
 msgstr "Αδυναμία ανοίγματος αποθηκευμένου αρχείου!"
 
-#: src/lincity/loadsave.cpp:293
-#: src/lincity/old_ldsvguts.cpp:130
+#: src/lincity/loadsave.cpp:293 src/lincity/old_ldsvguts.cpp:130
 #, c-format
 msgid "Can't open <%s> (gzipped)"
 msgstr "Αδυναμία ανοίγματος <%s> (gzipped)"
 
-#: src/lincity/fileutil.cpp:233
-#: src/lincity/fileutil.cpp:277
+#: src/lincity/fileutil.cpp:233 src/lincity/fileutil.cpp:277
 msgid "Error. Can't find LINCITY_HOME"
 msgstr "Σφάλμα. Δεν μπορεί να βρεθεί το LINCITY_HOME"
 
@@ -36,8 +70,7 @@ msgstr "Σφάλμα. Δεν μπορεί να βρεθεί το LINCITY_HOME"
 msgid "Error verifying package. Can't find colour.pal."
 msgstr "Σφάλμα επαλήθευσης πακέτου. Αδυναμία εύρεσης παλέτας χρωμάτων."
 
-#: src/lincity/fileutil.cpp:476
-#: src/lincity/fileutil.cpp:484
+#: src/lincity/fileutil.cpp:476 src/lincity/fileutil.cpp:484
 #, c-format
 msgid "Couldn't create the save directory '%s'\n"
 msgstr "Αδυναμία δημιουργίας φακέλου αποθήκευσης '%s'\n"
@@ -52,8 +85,14 @@ msgid "Loading scene"
 msgstr "Φόρτωση τοπίου"
 
 #: src/lincity/simulate.cpp:81
-msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
-msgstr "Αναβάθμιση από παλιό παιχνίδι. Έχετε 10 χρόνια να φτιάξετε πηγάδια νερού όπου χρειάζονταν. Μετά θα συμβεί λιμός! Πρέπει να ελέγξετε τη μικρογραφία του χάρτη και να διαβάσετε τη σελίδα βοήθειας :-)"
+msgid ""
+"Upgrading from old game. You have 10 years to build water wells where "
+"needed. After, starvation will occur!  You should check starvation minimap, "
+"and read waterwell help page :-)"
+msgstr ""
+"Αναβάθμιση από παλιό παιχνίδι. Έχετε 10 χρόνια να φτιάξετε πηγάδια νερού "
+"όπου χρειάζονταν. Μετά θα συμβεί λιμός! Πρέπει να ελέγξετε τη μικρογραφία "
+"του χάρτη και να διαβάσετε τη σελίδα βοήθειας :-)"
 
 #: src/lincity/power.cpp:298
 msgid "You have too many power grids. Join some of them"
@@ -61,7 +100,9 @@ msgstr "Έχετε πάρα πολλά δίκτυα μεταφοράς ενέρ�
 
 #: src/lincity/engine.cpp:152
 msgid "Port must be connected to river all along right side."
-msgstr "Για να μπορέσετε να κατασκευάσετε ένα λιμάνι θα πρέπει να το τοποθετήσετε σε μια αριστερή ευθύγραμμη όχθη ποταμού."
+msgstr ""
+"Για να μπορέσετε να κατασκευάσετε ένα λιμάνι θα πρέπει να το τοποθετήσετε σε "
+"μια αριστερή ευθύγραμμη όχθη ποταμού."
 
 #: src/lincity/engine.cpp:164
 msgid "You can't build a water well here: it is all desert."
@@ -69,19 +110,27 @@ msgstr "Δεν μπορείτε να φτιάξετε πηγάδι νερού ε
 
 #: src/lincity/engine.cpp:178
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr "Δεν μπορείτε να φτιάξετε εδώ μια χωματερή: αυτή η περιοχή ήταν κάποτε χωματερή."
+msgstr ""
+"Δεν μπορείτε να φτιάξετε εδώ μια χωματερή: αυτή η περιοχή ήταν κάποτε "
+"χωματερή."
 
 #: src/lincity/engine.cpp:193
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Δεν μπορείτε να φτιάξετε εδώ ένα μεταλλείο: αυτή η περιοχή ήταν κάποτε χωματερή."
+msgstr ""
+"Δεν μπορείτε να φτιάξετε εδώ ένα μεταλλείο: αυτή η περιοχή ήταν κάποτε "
+"χωματερή."
 
 #: src/lincity/engine.cpp:204
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr "Δεν μπορείτε να φτιάξετε ένα μεταλλείο εδώ: δεν έχει απομείνει μετάλλευμα σε αυτό το μέρος."
+msgstr ""
+"Δεν μπορείτε να φτιάξετε ένα μεταλλείο εδώ: δεν έχει απομείνει μετάλλευμα σε "
+"αυτό το μέρος."
 
 #: src/lincity/engine.cpp:214
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr "Δεν μπορείτε να φτιάξετε εδώ ένα πάρκο: είναι έρημος και τα πάρκα χρειάζονται νερό."
+msgstr ""
+"Δεν μπορείτε να φτιάξετε εδώ ένα πάρκο: είναι έρημος και τα πάρκα "
+"χρειάζονται νερό."
 
 #: src/lincity/engine.cpp:229
 msgid "Too many substations + windmills. You cannot build one more"
@@ -92,8 +141,13 @@ msgid "Too many markets. You cannot build one more"
 msgstr "Πάρα πολλά καταστήματα. Δεν μπορείτε να φτιάξετε ένα ακόμη."
 
 #: src/lincity/engine.cpp:262
-msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "ΣΦΑΛΜΑ: η ομάδα δεν υπάρχει. Αυτό δεν πρέπει να συμβαίνει. Παρακαλώ συμπληρώστε μια αναφορά σφάλματος προς την ομάδα του lincity-ng, με το αποθηκευμένο παιχνίδι και τι κάνατε :-) "
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"ΣΦΑΛΜΑ: η ομάδα δεν υπάρχει. Αυτό δεν πρέπει να συμβαίνει. Παρακαλώ "
+"συμπληρώστε μια αναφορά σφάλματος προς την ομάδα του lincity-ng, με το "
+"αποθηκευμένο παιχνίδι και τι κάνατε :-) "
 
 #: src/lincity/engine.cpp:582
 msgid "It's at a power line."
@@ -223,8 +277,7 @@ msgstr "Γραμμή ηλεκτρικού ρεύματος"
 msgid "Solar PS"
 msgstr "Τροφοδοσία ρεύματος με ηλιακή ενέργεια"
 
-#: src/lincity/lintypes.cpp:55
-#: src/lincity/modules/substation.cpp:93
+#: src/lincity/lintypes.cpp:55 src/lincity/modules/substation.cpp:93
 msgid "Substation"
 msgstr "Υποσταθμός"
 
@@ -236,8 +289,7 @@ msgstr "Κατοικημένη περιοχή LL"
 msgid "Farm"
 msgstr "Αγρόκτημα"
 
-#: src/lincity/lintypes.cpp:88
-#: src/lincity/modules/market.cpp:1011
+#: src/lincity/lintypes.cpp:88 src/lincity/modules/market.cpp:1011
 #: src/lincity-ng/Dialog.cpp:632
 msgid "Market"
 msgstr "Αγορά"
@@ -266,13 +318,11 @@ msgstr "Δρόμος"
 msgid "Lt. Industry"
 msgstr "Ελαφρά βιομηχανία"
 
-#: src/lincity/lintypes.cpp:165
-#: src/lincity/modules/university.cpp:59
+#: src/lincity/lintypes.cpp:165 src/lincity/modules/university.cpp:59
 msgid "University"
 msgstr "Πανεπιστήμιο"
 
-#: src/lincity/lintypes.cpp:176
-#: src/lincity/modules/commune.cpp:175
+#: src/lincity/lintypes.cpp:176 src/lincity/modules/commune.cpp:175
 msgid "Commune"
 msgstr "Κοινότητα"
 
@@ -284,8 +334,7 @@ msgstr "Μεταλλωρυχείο"
 msgid "Rubbish tip"
 msgstr "Χωματερή"
 
-#: src/lincity/lintypes.cpp:209
-#: src/lincity/modules/port.cpp:281
+#: src/lincity/lintypes.cpp:209 src/lincity/modules/port.cpp:281
 #: src/lincity-ng/Dialog.cpp:686
 msgid "Port"
 msgstr "Λιμάνι"
@@ -294,18 +343,15 @@ msgstr "Λιμάνι"
 msgid "Hv. Industry"
 msgstr "Βαριά βιομηχανία"
 
-#: src/lincity/lintypes.cpp:231
-#: src/lincity/modules/parkland.cpp:21
+#: src/lincity/lintypes.cpp:231 src/lincity/modules/parkland.cpp:21
 msgid "Park"
 msgstr "Πάρκο"
 
-#: src/lincity/lintypes.cpp:242
-#: src/lincity-ng/MpsInterface.cpp:539
+#: src/lincity/lintypes.cpp:242 src/lincity-ng/MpsInterface.cpp:539
 msgid "Recycle"
 msgstr "Ανακύκλωση"
 
-#: src/lincity/lintypes.cpp:253
-#: src/lincity/modules/water.cpp:20
+#: src/lincity/lintypes.cpp:253 src/lincity/modules/water.cpp:20
 #: src/lincity/modules/residence.cpp:264
 msgid "Water"
 msgstr "Νερό"
@@ -318,24 +364,20 @@ msgstr "Κέντρο υγείας"
 msgid "Rocket pad"
 msgstr "Εξέδρα διαστημόπλοιου"
 
-#: src/lincity/lintypes.cpp:286
-#: src/lincity/modules/windmill.cpp:74
+#: src/lincity/lintypes.cpp:286 src/lincity/modules/windmill.cpp:74
 #: src/lincity-ng/MpsInterface.cpp:529
 msgid "Windmill"
 msgstr "Ανεμόμυλοι"
 
-#: src/lincity/lintypes.cpp:297
-#: src/lincity/modules/monument.cpp:51
+#: src/lincity/lintypes.cpp:297 src/lincity/modules/monument.cpp:51
 msgid "Monument"
 msgstr "Μνημείο"
 
-#: src/lincity/lintypes.cpp:308
-#: src/lincity/modules/school.cpp:43
+#: src/lincity/lintypes.cpp:308 src/lincity/modules/school.cpp:43
 msgid "School"
 msgstr "Σχολείο"
 
-#: src/lincity/lintypes.cpp:319
-#: src/lincity/modules/blacksmith.cpp:91
+#: src/lincity/lintypes.cpp:319 src/lincity/modules/blacksmith.cpp:91
 msgid "Blacksmith"
 msgstr "Σιδηρουργείο"
 
@@ -343,8 +385,7 @@ msgstr "Σιδηρουργείο"
 msgid "Mill"
 msgstr "Μύλος"
 
-#: src/lincity/lintypes.cpp:341
-#: src/lincity/modules/pottery.cpp:105
+#: src/lincity/lintypes.cpp:341 src/lincity/modules/pottery.cpp:105
 msgid "Pottery"
 msgstr "Εργαστήριο αγγειοπλαστικής"
 
@@ -352,8 +393,7 @@ msgstr "Εργαστήριο αγγειοπλαστικής"
 msgid "Fire sta'n"
 msgstr "Πυροσβεστικός σταθμός"
 
-#: src/lincity/lintypes.cpp:363
-#: src/lincity/modules/cricket.cpp:92
+#: src/lincity/lintypes.cpp:363 src/lincity/modules/cricket.cpp:92
 msgid "Sports field"
 msgstr "Χώρος άθλησης"
 
@@ -365,12 +405,9 @@ msgstr "Καμμένος"
 msgid "Shanty town"
 msgstr "Παραγκούπολη"
 
-#: src/lincity/lintypes.cpp:399
-#: src/lincity/modules/residence.cpp:283
-#: src/lincity-ng/MpsInterface.cpp:403
-#: src/lincity-ng/EconomyGraph.cpp:134
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
 msgid "Fire"
-msgstr "Πυρκ."
+msgstr "Πυρκαγιά"
 
 #: src/lincity/lintypes.cpp:411
 msgid "Used"
@@ -480,22 +517,18 @@ msgstr "Δεκ"
 msgid "Water_well"
 msgstr "Πηγάδι νερού"
 
-#: src/lincity/modules/waterwell.cpp:59
-#: src/lincity/modules/residence.cpp:288
-#: src/lincity/modules/parkland.cpp:24
-#: src/lincity-ng/MpsInterface.cpp:411
+#: src/lincity/modules/waterwell.cpp:59 src/lincity/modules/residence.cpp:288
+#: src/lincity/modules/parkland.cpp:24 src/lincity-ng/MpsInterface.cpp:411
 msgid "Pollution"
 msgstr "Ρύπανση"
 
-#: src/lincity/modules/waterwell.cpp:62
-#: src/lincity/modules/water.cpp:23
-#: src/lincity/modules/commune.cpp:180
-#: src/lincity/modules/commune.cpp:182
-#: src/lincity/modules/commune.cpp:184
-#: src/lincity/modules/commune.cpp:186
-#: src/lincity-ng/MpsInterface.cpp:402
-#: src/lincity-ng/MpsInterface.cpp:405
-#: src/lincity-ng/MpsInterface.cpp:408
+#: src/lincity/modules/waterwell.cpp:62 src/lincity/modules/water.cpp:23
+#: src/lincity/modules/commune.cpp:180 src/lincity/modules/commune.cpp:182
+#: src/lincity/modules/commune.cpp:184 src/lincity/modules/commune.cpp:186
+#: src/lincity-ng/MpsInterface.cpp:402 src/lincity-ng/MpsInterface.cpp:405
+#: src/lincity-ng/MpsInterface.cpp:408 data/gui/bulldoze_monument_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_shanty_yn.xml
 msgid "Yes"
 msgstr "Ναι"
 
@@ -508,53 +541,39 @@ msgid "Health Centre"
 msgstr "Κέντρο υγείας"
 
 #: src/lincity/modules/health_centre.cpp:60
-#: src/lincity/modules/rocket_pad.cpp:194
-#: src/lincity/modules/recycle.cpp:144
-#: src/lincity/modules/mill.cpp:98
-#: src/lincity/modules/university.cpp:65
-#: src/lincity/modules/cricket.cpp:94
-#: src/lincity/modules/pottery.cpp:109
+#: src/lincity/modules/rocket_pad.cpp:194 src/lincity/modules/recycle.cpp:144
+#: src/lincity/modules/mill.cpp:98 src/lincity/modules/university.cpp:65
+#: src/lincity/modules/cricket.cpp:94 src/lincity/modules/pottery.cpp:109
 #: src/lincity/modules/blacksmith.cpp:96
-#: src/lincity/modules/firestation.cpp:111
-#: src/lincity/modules/school.cpp:48
+#: src/lincity/modules/firestation.cpp:111 src/lincity/modules/school.cpp:48
 msgid "Inventory"
 msgstr "Απογραφή"
 
 #: src/lincity/modules/health_centre.cpp:61
-#: src/lincity/modules/rocket_pad.cpp:195
-#: src/lincity/modules/windmill.cpp:76
-#: src/lincity/modules/coalmine.cpp:155
-#: src/lincity/modules/market.cpp:1016
-#: src/lincity/modules/road.cpp:46
-#: src/lincity/modules/rail.cpp:51
+#: src/lincity/modules/rocket_pad.cpp:195 src/lincity/modules/windmill.cpp:76
+#: src/lincity/modules/coalmine.cpp:155 src/lincity/modules/market.cpp:1016
+#: src/lincity/modules/road.cpp:46 src/lincity/modules/rail.cpp:51
 #: src/lincity/modules/coal_power.cpp:98
 #: src/lincity/modules/light_industry.cpp:287
-#: src/lincity/modules/university.cpp:66
-#: src/lincity/modules/cricket.cpp:95
-#: src/lincity/modules/track.cpp:37
-#: src/lincity/modules/pottery.cpp:110
+#: src/lincity/modules/university.cpp:66 src/lincity/modules/cricket.cpp:95
+#: src/lincity/modules/track.cpp:37 src/lincity/modules/pottery.cpp:110
 #: src/lincity/modules/firestation.cpp:112
-#: src/lincity/modules/organic_farm.cpp:220
-#: src/lincity/modules/school.cpp:49
-#: src/lincity/modules/solar_power.cpp:45
+#: src/lincity/modules/organic_farm.cpp:220 src/lincity/modules/school.cpp:49
+#: src/lincity/modules/solar_power.cpp:45 data/gui/pbar.xml
+#: data/gui/tradedialog.xml
 msgid "Jobs"
 msgstr "Εργασία"
 
 #: src/lincity/modules/health_centre.cpp:62
-#: src/lincity/modules/rocket_pad.cpp:196
-#: src/lincity/modules/market.cpp:1018
-#: src/lincity/modules/port.cpp:298
-#: src/lincity/modules/road.cpp:48
-#: src/lincity/modules/rail.cpp:53
-#: src/lincity/modules/mill.cpp:99
-#: src/lincity/modules/university.cpp:67
-#: src/lincity/modules/cricket.cpp:96
-#: src/lincity/modules/track.cpp:39
-#: src/lincity/modules/pottery.cpp:111
+#: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/market.cpp:1018
+#: src/lincity/modules/port.cpp:298 src/lincity/modules/road.cpp:48
+#: src/lincity/modules/rail.cpp:53 src/lincity/modules/mill.cpp:99
+#: src/lincity/modules/university.cpp:67 src/lincity/modules/cricket.cpp:96
+#: src/lincity/modules/track.cpp:39 src/lincity/modules/pottery.cpp:111
 #: src/lincity/modules/blacksmith.cpp:97
-#: src/lincity/modules/firestation.cpp:113
-#: src/lincity/modules/school.cpp:50
-#: src/lincity-ng/MpsInterface.cpp:471
+#: src/lincity/modules/firestation.cpp:113 src/lincity/modules/school.cpp:50
+#: src/lincity-ng/MpsInterface.cpp:471 data/gui/pbar.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Goods"
 msgstr "Αγαθά"
 
@@ -566,19 +585,11 @@ msgstr "Βάση εκτόξευσης πυραύλου"
 msgid "Completion"
 msgstr "Ολοκλήρωση"
 
-#: src/lincity/modules/rocket_pad.cpp:197
-#: src/lincity/modules/market.cpp:1020
-#: src/lincity/modules/port.cpp:302
-#: src/lincity/modules/road.cpp:50
-#: src/lincity/modules/rail.cpp:55
-#: src/lincity/modules/light_industry.cpp:286
-#: src/lincity/modules/commune.cpp:185
-#: src/lincity/modules/track.cpp:41
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
-msgstr "Ατσάλι"
+msgstr "Χάλυβας"
 
-#: src/lincity/modules/windmill.cpp:75
-#: src/lincity/modules/recycle.cpp:142
+#: src/lincity/modules/windmill.cpp:75 src/lincity/modules/recycle.cpp:142
 #: src/lincity/modules/coal_power.cpp:99
 #: src/lincity/modules/light_industry.cpp:277
 #: src/lincity/modules/organic_farm.cpp:218
@@ -594,43 +605,36 @@ msgstr "Τοπική κατάσταση"
 msgid "Prod."
 msgstr "Παραγωγή"
 
-#: src/lincity/modules/windmill.cpp:86
-#: src/lincity/modules/windmill.cpp:98
+#: src/lincity/modules/windmill.cpp:86 src/lincity/modules/windmill.cpp:98
 #: src/lincity/modules/substation.cpp:110
 msgid "Demand"
 msgstr "Αίτημα"
 
-#: src/lincity/modules/windmill.cpp:89
-#: src/lincity/modules/substation.cpp:101
+#: src/lincity/modules/windmill.cpp:89 src/lincity/modules/substation.cpp:101
 msgid "Grid Status"
 msgstr "Κατάσταση πλέγματος"
 
-#: src/lincity/modules/windmill.cpp:92
-#: src/lincity/modules/substation.cpp:104
+#: src/lincity/modules/windmill.cpp:92 src/lincity/modules/substation.cpp:104
 msgid "T. Cap."
 msgstr "T. Cap."
 
-#: src/lincity/modules/windmill.cpp:95
-#: src/lincity/modules/substation.cpp:107
+#: src/lincity/modules/windmill.cpp:95 src/lincity/modules/substation.cpp:107
 msgid "A. Cap."
 msgstr "A. Cap."
 
-#: src/lincity/modules/windmill.cpp:99
-#: src/lincity/modules/coal_power.cpp:100
-#: src/lincity/modules/substation.cpp:113
-#: src/lincity/modules/power_line.cpp:49
+#: src/lincity/modules/windmill.cpp:99 src/lincity/modules/coal_power.cpp:100
+#: src/lincity/modules/substation.cpp:113 src/lincity/modules/power_line.cpp:49
 #: src/lincity/modules/solar_power.cpp:59
 msgid "Grid ID"
 msgstr "Πλέγμα ID"
 
-#: src/lincity/modules/water.cpp:23
-#: src/lincity/modules/commune.cpp:180
-#: src/lincity/modules/commune.cpp:182
-#: src/lincity/modules/commune.cpp:184
-#: src/lincity/modules/commune.cpp:186
-#: src/lincity-ng/MpsInterface.cpp:402
-#: src/lincity-ng/MpsInterface.cpp:405
-#: src/lincity-ng/MpsInterface.cpp:408
+#: src/lincity/modules/water.cpp:23 src/lincity/modules/commune.cpp:180
+#: src/lincity/modules/commune.cpp:182 src/lincity/modules/commune.cpp:184
+#: src/lincity/modules/commune.cpp:186 src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity-ng/MpsInterface.cpp:405 src/lincity-ng/MpsInterface.cpp:408
+#: data/gui/bulldoze_monument_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "No"
 msgstr "Όχι"
 
@@ -643,45 +647,33 @@ msgid "Recycling Center"
 msgstr "Κέντρο ανακύκλωσης"
 
 #: src/lincity/modules/recycle.cpp:137
-#: src/lincity/modules/heavy_industry.cpp:288
-#: src/lincity/modules/mill.cpp:96
+#: src/lincity/modules/heavy_industry.cpp:288 src/lincity/modules/mill.cpp:96
 #: src/lincity/modules/light_industry.cpp:279
-#: src/lincity/modules/university.cpp:68
-#: src/lincity/modules/pottery.cpp:107
-#: src/lincity/modules/blacksmith.cpp:94
-#: src/lincity/modules/school.cpp:52
+#: src/lincity/modules/university.cpp:68 src/lincity/modules/pottery.cpp:107
+#: src/lincity/modules/blacksmith.cpp:94 src/lincity/modules/school.cpp:52
 msgid "Capacity"
 msgstr "Χωρητικότητα"
 
-#: src/lincity/modules/recycle.cpp:139
-#: src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267
-#: src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273
-#: src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282
-#: src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
+#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
+#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
+#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
 #: src/lincity/modules/light_industry.cpp:282
 #: src/lincity/modules/organic_farm.cpp:217
 msgid "YES"
 msgstr "ΝΑΙ"
 
-#: src/lincity/modules/recycle.cpp:139
-#: src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267
-#: src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273
-#: src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282
-#: src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
+#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
+#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
+#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
 #: src/lincity/modules/heavy_industry.cpp:280
 #: src/lincity/modules/light_industry.cpp:282
 #: src/lincity/modules/organic_farm.cpp:217
 msgid "NO"
 msgstr "ΟΧΙ"
 
-#: src/lincity/modules/recycle.cpp:140
-#: src/lincity/modules/residence.cpp:271
+#: src/lincity/modules/recycle.cpp:140 src/lincity/modules/residence.cpp:271
 #: src/lincity/modules/heavy_industry.cpp:283
 #: src/lincity/modules/light_industry.cpp:283
 #: src/lincity/modules/organic_farm.cpp:217
@@ -690,23 +682,18 @@ msgstr "Ενέργεια"
 
 #: src/lincity/modules/recycle.cpp:145
 #: src/lincity/modules/heavy_industry.cpp:286
-#: src/lincity/modules/market.cpp:1019
-#: src/lincity/modules/port.cpp:294
-#: src/lincity/modules/road.cpp:49
-#: src/lincity/modules/rail.cpp:54
+#: src/lincity/modules/market.cpp:1019 src/lincity/modules/port.cpp:294
+#: src/lincity/modules/road.cpp:49 src/lincity/modules/rail.cpp:54
 #: src/lincity/modules/light_industry.cpp:285
-#: src/lincity/modules/commune.cpp:183
-#: src/lincity/modules/track.cpp:40
-#: src/lincity/modules/pottery.cpp:112
+#: src/lincity/modules/commune.cpp:183 src/lincity/modules/track.cpp:40
+#: src/lincity/modules/pottery.cpp:112 data/gui/pbar.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Ore"
 msgstr "Μετάλλευμα"
 
-#: src/lincity/modules/recycle.cpp:146
-#: src/lincity/modules/market.cpp:1021
-#: src/lincity/modules/road.cpp:51
-#: src/lincity/modules/rail.cpp:56
-#: src/lincity/modules/commune.cpp:187
-#: src/lincity/modules/track.cpp:42
+#: src/lincity/modules/recycle.cpp:146 src/lincity/modules/market.cpp:1021
+#: src/lincity/modules/road.cpp:51 src/lincity/modules/rail.cpp:56
+#: src/lincity/modules/commune.cpp:187 src/lincity/modules/track.cpp:42
 msgid "Waste"
 msgstr "Σκουπίδια"
 
@@ -714,13 +701,11 @@ msgstr "Σκουπίδια"
 msgid "Coal Mine"
 msgstr "Ανθρακωρυχείο"
 
-#: src/lincity/modules/coalmine.cpp:158
-#: src/lincity/modules/oremine.cpp:165
+#: src/lincity/modules/coalmine.cpp:158 src/lincity/modules/oremine.cpp:165
 msgid "Stock"
 msgstr "Απόθεμα"
 
-#: src/lincity/modules/coalmine.cpp:160
-#: src/lincity/modules/coalmine.cpp:162
+#: src/lincity/modules/coalmine.cpp:160 src/lincity/modules/coalmine.cpp:162
 #: src/lincity/modules/oremine.cpp:168
 msgid "Reserve"
 msgstr "Απόθεμα"
@@ -745,8 +730,7 @@ msgstr "Σίτιση"
 msgid "Employed"
 msgstr "Εργαζόμενος"
 
-#: src/lincity/modules/residence.cpp:276
-#: src/lincity-ng/MpsInterface.cpp:416
+#: src/lincity/modules/residence.cpp:276 src/lincity-ng/MpsInterface.cpp:416
 msgid "good"
 msgstr "αγαθό"
 
@@ -762,8 +746,7 @@ msgstr "Εργασία"
 msgid "Health Cvr"
 msgstr "Υγεία Cvr"
 
-#: src/lincity/modules/residence.cpp:286
-#: src/lincity-ng/MpsInterface.cpp:409
+#: src/lincity/modules/residence.cpp:286 src/lincity-ng/MpsInterface.cpp:409
 #: src/lincity-ng/MpsInterface.cpp:537
 msgid "Sport"
 msgstr "Αθλητισμός"
@@ -783,17 +766,13 @@ msgstr "Βαριά βιομηχανία"
 
 #: src/lincity/modules/heavy_industry.cpp:275
 #: src/lincity/modules/heavy_industry.cpp:287
-#: src/lincity/modules/market.cpp:1017
-#: src/lincity/modules/port.cpp:290
-#: src/lincity/modules/road.cpp:47
-#: src/lincity/modules/rail.cpp:52
-#: src/lincity/modules/coal_power.cpp:97
-#: src/lincity/modules/mill.cpp:101
-#: src/lincity/modules/commune.cpp:181
-#: src/lincity/modules/track.cpp:38
-#: src/lincity/modules/pottery.cpp:113
-#: src/lincity/modules/blacksmith.cpp:98
-#: src/lincity-ng/MpsInterface.cpp:467
+#: src/lincity/modules/market.cpp:1017 src/lincity/modules/port.cpp:290
+#: src/lincity/modules/road.cpp:47 src/lincity/modules/rail.cpp:52
+#: src/lincity/modules/coal_power.cpp:97 src/lincity/modules/mill.cpp:101
+#: src/lincity/modules/commune.cpp:181 src/lincity/modules/track.cpp:38
+#: src/lincity/modules/pottery.cpp:113 src/lincity/modules/blacksmith.cpp:98
+#: src/lincity-ng/MpsInterface.cpp:467 data/gui/pbar.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Coal"
 msgstr "Άνθρακας"
 
@@ -806,17 +785,14 @@ msgstr "Πλέγμα"
 msgid "Store"
 msgstr "Απόθεμα"
 
-#: src/lincity/modules/market.cpp:1015
-#: src/lincity/modules/port.cpp:286
-#: src/lincity/modules/road.cpp:45
-#: src/lincity/modules/rail.cpp:50
-#: src/lincity/modules/mill.cpp:100
-#: src/lincity/modules/track.cpp:36
+#: src/lincity/modules/market.cpp:1015 src/lincity/modules/port.cpp:286
+#: src/lincity/modules/road.cpp:45 src/lincity/modules/rail.cpp:50
+#: src/lincity/modules/mill.cpp:100 src/lincity/modules/track.cpp:36
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Food"
 msgstr "Τροφή"
 
-#: src/lincity/modules/port.cpp:306
-#: src/lincity-ng/MpsInterface.cpp:555
+#: src/lincity/modules/port.cpp:306 src/lincity-ng/MpsInterface.cpp:555
 msgid "Total"
 msgstr "Σύνολο"
 
@@ -824,13 +800,11 @@ msgstr "Σύνολο"
 msgid "Coal Power Station"
 msgstr "Ατμοηλεκτρικός σταθμός"
 
-#: src/lincity/modules/coal_power.cpp:88
-#: src/lincity/modules/solar_power.cpp:49
+#: src/lincity/modules/coal_power.cpp:88 src/lincity/modules/solar_power.cpp:49
 msgid "Max Output"
 msgstr "Μέγιστη παραγωγή"
 
-#: src/lincity/modules/coal_power.cpp:93
-#: src/lincity/modules/solar_power.cpp:54
+#: src/lincity/modules/coal_power.cpp:93 src/lincity/modules/solar_power.cpp:54
 msgid "Current Output"
 msgstr "Τρέχουσα παραγωγή"
 
@@ -953,7 +927,8 @@ msgstr "Πληθυσμός %d από τους οποίους %d δεν είνα�
 #: src/lincity-ng/Dialog.cpp:388
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d"
-msgstr "Μέγιστος πληθυσμός %d Κάτοικοι προς μετεγκατάσταση %d Σύνολο γεννήσεων %d"
+msgstr ""
+"Μέγιστος πληθυσμός %d Κάτοικοι προς μετεγκατάσταση %d Σύνολο γεννήσεων %d"
 
 #: src/lincity-ng/Dialog.cpp:392
 #, c-format
@@ -1000,8 +975,7 @@ msgstr "Πηγάδια"
 msgid "Monuments"
 msgstr "Μνημεία"
 
-#: src/lincity-ng/Dialog.cpp:436
-#: src/lincity-ng/MpsInterface.cpp:523
+#: src/lincity-ng/Dialog.cpp:436 src/lincity-ng/MpsInterface.cpp:523
 msgid "Schools"
 msgstr "Σχολεία"
 
@@ -1029,8 +1003,7 @@ msgstr "Κέντρα υγείας"
 msgid "Tips"
 msgstr "Συμβουλές"
 
-#: src/lincity-ng/Dialog.cpp:445
-#: src/lincity-ng/MpsInterface.cpp:558
+#: src/lincity-ng/Dialog.cpp:445 src/lincity-ng/MpsInterface.cpp:558
 msgid "Shanties"
 msgstr "Παραγκουπόλεις"
 
@@ -1154,20 +1127,17 @@ msgstr "Εκτιμώμενο κόστος κατεδάφισης/διαμόρφ�
 msgid "Bulldoze Cost: "
 msgstr "Κόστος κατεδάφισης/διαμόρφωσης:"
 
-#: src/lincity-ng/GameView.cpp:1670
-#: src/lincity-ng/GameView.cpp:1683
-#: src/lincity-ng/GameView.cpp:1714
-#: src/lincity-ng/ScreenInterface.cpp:274
+#: src/lincity-ng/GameView.cpp:1670 src/lincity-ng/GameView.cpp:1683
+#: src/lincity-ng/GameView.cpp:1714 src/lincity-ng/ScreenInterface.cpp:274
+#: data/gui/minimap.xml
 msgid "$"
 msgstr "€"
 
-#: src/lincity-ng/GameView.cpp:1672
-#: src/lincity-ng/GameView.cpp:1685
+#: src/lincity-ng/GameView.cpp:1672 src/lincity-ng/GameView.cpp:1685
 msgid "n/a"
 msgstr "n/a"
 
-#: src/lincity-ng/GameView.cpp:1681
-#: src/lincity-ng/GameView.cpp:1714
+#: src/lincity-ng/GameView.cpp:1681 src/lincity-ng/GameView.cpp:1714
 msgid ": Cost to build "
 msgstr ": Κόστος κατασκευής"
 
@@ -1183,8 +1153,7 @@ msgstr "Μπουλντόζα: κατεδάφιση/αφαίρεση κτιρίω
 msgid ", to bulldoze "
 msgstr ", για κατεδάφιση/διαμόρφωση"
 
-#: src/lincity-ng/GameView.cpp:1715
-#: src/lincity-ng/GameView.cpp:1718
+#: src/lincity-ng/GameView.cpp:1715 src/lincity-ng/GameView.cpp:1718
 msgid "$."
 msgstr "€."
 
@@ -1348,7 +1317,7 @@ msgstr "Διαστημόπλοια"
 msgid "Fire Stn"
 msgstr "Σταθμοί πυροσβ."
 
-#: src/lincity-ng/MpsInterface.cpp:553
+#: src/lincity-ng/MpsInterface.cpp:553 data/gui/pbar.xml
 msgid "Population"
 msgstr "Πληθυσμός"
 
@@ -1372,8 +1341,7 @@ msgstr "Ανεργία"
 msgid "Claims"
 msgstr "Αξιώσεις"
 
-#: src/lincity-ng/MpsInterface.cpp:562
-#: src/lincity-ng/MpsInterface.cpp:567
+#: src/lincity-ng/MpsInterface.cpp:562 src/lincity-ng/MpsInterface.cpp:567
 msgid "Rate"
 msgstr "Ρυθμός"
 
@@ -1393,9 +1361,9 @@ msgstr "Ανθρακ."
 msgid "Trade"
 msgstr "Εμπόρ."
 
-#: src/lincity-ng/EconomyGraph.cpp:128
+#: data/gui/pbar.xml
 msgid "Money"
-msgstr "Χρήμ."
+msgstr "Χρήματα"
 
 #: src/lincity-ng/EconomyGraph.cpp:130
 msgid "Popul."
@@ -1431,36 +1399,40 @@ msgstr "Μπουλντόζα"
 
 #: src/lincity-ng/ButtonPanel.cpp:203
 msgid "Residential: 50 denizens, low birthrate, high deathrate"
-msgstr "Κατοικημένη περιοχή: 50 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 50 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:204
 msgid "Residential: 100 denizens, high birthrate, low deathrate"
-msgstr "Κατοικημένη περιοχή: 100 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 100 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:205
 msgid "Residential: 200 denizens, high birthrate, high deathrate"
-msgstr "Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:206
 msgid "Residential: 100 denizens, low birthrate, high deathrate"
-msgstr "Κατοικημένη περιοχή: 100 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 100 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:207
 msgid "Residential: 200 denizens, high birthrate, low deathrate"
-msgstr "Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:208
 msgid "Residential: 400 denizens, high birthrate, high deathrate"
-msgstr "Κατοικημένη περιοχή: 400 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
+msgstr ""
+"Κατοικημένη περιοχή: 400 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
 
 #: src/lincity-ng/ButtonPanel.cpp:217
 msgid " [Click right for help.]"
 msgstr " [Δεξί κλικ για βοήθεια]"
 
-#: src/lincity-ng/ButtonPanel.cpp:245
-#: src/lincity-ng/ButtonPanel.cpp:288
-#: src/lincity-ng/ButtonPanel.cpp:416
-#: src/lincity-ng/ButtonPanel.cpp:439
+#: src/lincity-ng/ButtonPanel.cpp:245 src/lincity-ng/ButtonPanel.cpp:288
+#: src/lincity-ng/ButtonPanel.cpp:416 src/lincity-ng/ButtonPanel.cpp:439
 #, c-format
 msgid "%s (Techlevel %.1f required.)"
 msgstr "%s (Τεχνολ. επίπεδο %.1f απαιτείται.)"
@@ -1474,35 +1446,852 @@ msgstr "%s απενεργοποιήθηκε (φόρτωση παλιού παι�
 msgid "MM"
 msgstr "ΜΜ"
 
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Μια πυρκαγιά έχει εκδηλωθεί"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"Μια πυρκαγιά έχει εκδηλωθεί σε μια παραγκούπολη. Η περιοχή καλύπτεται από "
+"πυροσβεστική υπηρεσία και η πυρκαγιά ΦΑΙΝΕΤΑΙ να είναι υπό έλεγχο."
+
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Μια πυρκαγιά έχει εκδηλωθεί σε μια παραγκούπολη. Η πυρκαγιά ΕΙΝΑΙ ΕΚΤΟΣ "
+"ΕΛΕΓΧΟΥ και ενδέχεται να εξαπλωθεί και σε άλλες περιοχές."
+
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "Πίσω"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Μουσική παρασκηνίου"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Διαθέσιμα γήπεδα μπάσκετ"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Διαθέσιμα σιδηρουργεία"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Η κατεδάφιση ενός μνημείου κοστίζει πολλά χρήματα."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Η διαμόρφωση ενός τμήματος του ποταμού κοστίζει πολλά χρήματα."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr ""
+"Η κατεδάφιση μιας παραγκούπολης κοστίζει πολλά χρήματα και ενδέχεται να "
+"προκαλέσει πυρκαγιά."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Buy"
+msgstr "Αγορά"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Επιλογή σεναρίου"
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Διαθέσιμος Ατμοηλεκτρικός Σταθμός"
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Διαθέσιμο ανθρακωρυχείο"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Χαρτογράφηση άνθρακα"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Κώδικας"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Συνέχεια"
+
+#: data/gui/mainmenu.xml data/gui/creditslist.xml
+msgid "Credits"
+msgstr "Συντελεστές"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Να γίνει χαρτογράφηση του άνθρακα;"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Πάει καλά."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eco"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Αειφόρος οικονομική ανάπτυξη"
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Σωστή εκτόξευση μετεγκατάστασης "
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Διάθεσιμοι πυροσβεστικοί σταθμοί"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire!"
+msgstr "Πυρκαγιά!"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Πλήρης οθόνη"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Στατιστικά παιχνιδιού"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Επιστροφή στο Κύριο Μενού"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Γραφικά"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Ρυθμίσεις εμπορίου του λιμανιού"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Διαθέσιμα κέντρα υγείας"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Διαθέσιμη βαριά βιομηχανία"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Διαθέσιμες εισαγωγές/εξαγωγές"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Αποτυχημένη εκτόξευση"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Επιτυχημένη εκτόξευση"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Εκτόξευση τώρα;"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Διαθέσιμη ελαφρά βιομηχανία"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "Το Lincity διαπίστωσε ότι η οικονομία σας είναι αειφόρος."
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "Φόρτωση"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Φόρτωση παιχνιδιού"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Χάρτης"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Διαθέσιμοι μύλοι"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Διαθέσιμοι σύγχρονοι ανεμόμυλοι"
+
+#: data/gui/newgame.xml data/gui/mainmenu.xml
+msgid "New Game"
+msgstr "Νέο παιχνίδι"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/parkup.xml data/gui/solarpowerup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
+msgid "New Invention"
+msgstr "Νέα εφεύρεση"
+
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml
+msgid "No Credit Available"
+msgstr "Δεν υπάρχουν διαθέσιμες πιστώσεις"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Κανένας δεν βρίσκεται στο σπίτι"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Δεν επιτρέπεται"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/windmillup.xml
+#: data/gui/options.xml data/gui/ltindustryup.xml data/gui/cricketup.xml
+#: data/gui/coalmineup.xml data/gui/launch-good.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
+#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
+#: data/gui/no-credit-university.xml data/gui/no-credit-recycle.xml
+#: data/gui/launch-fail.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/warning.xml data/gui/shfire-oc.xml
+#: data/gui/too-old.xml
+msgid "Ok"
+msgstr "Εντάξει"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Εντάξει"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Επιλογές"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Αυθεντική ιδέα και κώδικας"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Διαθέσιμα πάρκα"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Παύση του παιχνιδιού"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Διαθέσιμα εργαστήρια αγγειοπλαστικής"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Πατήστε αυτό το πλήκτρο για να εμφανιστούν τα στατιστικά"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Product"
+msgstr "Προϊόν"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Διαθέσιμοι σιδηρόδρομοι"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Διαθέσιμα κέντρα ανακύκλωσης"
+
+#: data/gui/options.xml
+msgid "Resolution"
+msgstr "Ανάλυση"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Διαθέσιμα ποτάμια"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Διαθέσιμοι δρόμοι"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Διαθέσιμη βάση εκτόξευσης διαστημόπλοιου"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Το διαστημόπλοιο είναι έτοιμο"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Το διαστημόπλοιο είναι έτοιμο για εκτόξευση"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Εκτέλεση της προσομοίωσης με γρήγορη ταχύτητα"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Εκτέλεση της προσομοίωσης με κανονική ταχύτητα"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Εκτέλεση της προσομοίωσης με πολύ γρήγορη ταχύτητα"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Αποθήκευση παιχνιδιού"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Διαθέσιμα σχολεία"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Δείτε τη βοήθεια για περισσότερες πληροφορίες σχετικά με τα ανθρακωρυχεία "
+"και τη χαρτογράφηση του άνθρακα."
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/mod_wind_up.xml
+msgid "See the help screen for more information."
+msgstr "Δείτε τη βοήθεια για περισσότερες πληροφορίες."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Sell"
+msgstr "Πώληση"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Αποπομπή των γεωλόγων."
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr ""
+"Εμφάνιση εσόδων και εξόδων. Κάντε κλικ πάλι σε αυτή την καρτέλα για να δείτε "
+"και άλλες πληροφορίες σχετικές με τον οικισμό σας."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Αποθέματα άνθρακα"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Εμφάνιση γραφημάτων οικονομίας."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Πυροσβεστική κάλυψη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Εμφάνιση χρήσης γης"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Ιατροφαρμακευτική κάλυψη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Κάλυψη πείνας"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Κάλυψη μόλυνσης"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Ενεργειακή κάλυψη"
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "Εμφάνιση πόρων"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Αθλητική κάλυψη"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Εμφάνιση μικρογραφίας του χάρτη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Κάλυψη μεταφορών"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Κάλυψη ανεργίας"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Διαθέσιμοι σταθμοί παραγωγής ηλεκτρισμού από ηλιακή ενέργεια"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Συγνώμη, αλλά δεν μπορείτε να διαμορφώσετε έναν σκουπιδότοπο."
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+"Συγνώμη, το παιχνίδι που επιθυμείτε είναι πολύ παλιό. Δεν μπορεί να "
+"φορτωθεί. Παίξτε με το προηγούμενο παιχνίδι."
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Ηχητικά εφέ"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Ήχος και μουσική"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Έναρξη"
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "Έναρξη με άδειο πεδίο"
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "Έναρξη με τυχαίο οικισμό"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Στατ"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Τεχν. επίπεδο"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Δεν απέμειναν κάτοικοι σε αυτόν τον οικισμό."
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"Αυτή η ενέργεια θα σας κοστίσει 1 εκατομμύριο. Μετά από αυτό μπορείτε να "
+"επαναλάβετε την ενέργεια δωρεάν."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Ολοκληρώθηκε η πλήρης μετεγκατάσταση."
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Ρυθμίσεις εμπορίου"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Μεταφράσεις"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Διαθέσιμο πανεπιστήμιο"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Θέλετε να κατεδαφίσετε/διαμορφώσετε;"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Προειδοποίηση: Η κατεδάφιση μνημείων είναι ακριβή."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Προειδοποίηση: Η κατεδάφιση παραγκουπόλεων είνα επικίνδυνη."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Προειδοποίηση: Η διαμόρφωση των ποταμών είναι ακριβή."
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Συγχαρητήρια, ολοκληρώσατε τη μετεγκατάσταση όλων των κατοίκων."
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Διαθέσιμοι ανεμόμυλοι"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Καλύτερα να πάτε και να δείτε γι' αυτό"
+
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"Μπορείτε να εκτοξεύσετε το διαστημόπλοιο τώρα ή να το αφήσετε για αργότερα. "
+"Εάν περίμενετε, θα συνεχίσει να σας κοστίζει χρήματα ώστε να κρατάτε το "
+"διαστημόπλοιο σε ετοιμότητα. Εκτοξεύστε το αργότερα κάνοντας κλικ στην βάση "
+"του διαστημόπλοιου."
+
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Μπορείτε να εισάγετε και να εξάγετε άνθρακα, αγαθά, μεταλλεύματα και ατσάλι. "
+"Διαβάστε τις σελίδες βοήθειας γι' αυτά τα ζητήματα, ώστε να δείτε πώς θα τα "
+"χρησιμοποιήσετε."
+
+#: data/gui/no-credit-parkland.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας "
+"επιτρέψει να δημιουργήσετε πάρκα με πίστωση."
+
+#: data/gui/no-credit-recycle.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας "
+"επιτρέψει να δημιουργήσετε κέντρα ανακύκλωσης με πίστωση."
+
+#: data/gui/no-credit-rocket.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας "
+"επιτρέψει να κατασκευάσετε βάση εκτόξευσης διαστημόπλοιων με πίστωση."
+
+#: data/gui/no-credit-solar-power.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας "
+"επιτρέψει να δημιουργήσετε ηλιακούς σταθμούς παραγωγής ρεύματος με πίστωση."
+
+#: data/gui/no-credit-university.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας "
+"επιτρέψει να κατασκευάσετε πανεπιστήμια με πίστωση."
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Έχετε μετεγκαταστήσει 1000 κατοίκους. Θα μπορούσατε να μειώσετε το μέγεθος "
+"της οικονομίας σας, ώστε να είναι ανάλογο με τον μειωμένο πληθυσμό που "
+"προέκυψε."
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημουργήσετε "
+"σιδηρουργεία. Τα σιδηρουργεία απαιτούν εργασία και ατσάλι για να παράγουν "
+"αγαθά. "
+
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"ατμοηλεκτρικούς σταθμούς παραγωγής ηλεκτρικού ρεύματος."
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"σταθμούς πυροσβεστικής. Οι σταθμοί αυτοί αποτρέπουν τις περισσότερες "
+"πυρκαγιές. Εάν δεν είχατε καθόλου πυρκαγιές ως τώρα, αυτό δεν σημαίνει ότι "
+"δεν τους χρειάζεστε."
+
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"κέντρα υγείας. Τα κέντρα υγείας συμβάλλουν στη μείωση του αριθμού των "
+"θανάτων που οφείλονται στη μόλυνση και αυξάνουν συνολικά την παραγωγικότητα "
+"του πληθυσμού."
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε "
+"βαριά βιομηχανία (χαλυβουργεία). Η βαριά βιομηχανία παράγει ατσάλι."
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε "
+"ελαφρά βιομηχανία. Η ελαφρά βιομηχανία παράγει αγαθά."
+
+#: data/gui/millup.xml
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"μύλους. Οι μύλοι απαιτούν εργασία και τρόφιμα για να παράγουν αγαθά. "
+"Προσέξτε, μπορεί να απαιτούν μεγάλες ποσότητες φαγητού!"
+
+#: data/gui/mod_wind_up.xml
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"σύγχρονους, περισσότερο αποτελεσματικούς ανεμόμυλους."
+
+#: data/gui/parkup.xml
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε "
+"πάρκα. Τα πάρκα απορροφούν αφομοιώνουν την ατμοσφαιρική μόλυνση."
+
+#: data/gui/potteryup.xml
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"εργαστήρια αγγειοπλαστικής. Τα εργαστήρια αυτά απαιτούν εργασία και "
+"μεταλλεύματα για να παράγουν αγαθά. (Χρειάζεστε μεταλλωρυχεία για να έχετε "
+"διαθέσιμα μεταλλεύματα.)"
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"σιδηρόδρομους."
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε "
+"ποτάμια."
+
+#: data/gui/roadup.xml
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"δρόμους. Δείτε την οθόνη βοήθειας για περισσότερες πληροφορίες."
+
+#: data/gui/rocketup.xml
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"βάση εκτόξευσης διαστημόπλοιων. Τα διαστημόπλοια σας δίνουν τη δυνατότητα να "
+"μετεγκαταστήσετε τους κατοίκους του οικισμού σας και είναι ένας τρόπος να "
+"'κερδίσετε' το παιχνίδι."
+
+#: data/gui/schoolup.xml
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"σχολεία. Τα σχολεία απαιτούν εργασία και αγαθά για να αυξήσουν το "
+"τεχνολογικό επίπεδο."
+
+#: data/gui/solarpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"ηλιακούς σταθμούς παραγωγής ενέργειας."
+
+#: data/gui/universityup.xml
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"πανεπιστήμια. Τα πανεπιστήμια προάγουν τη διδακτορική έρευνα που με τη σειρά "
+"της παράγει περισσότερη τεχνολογία."
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"ανεμόμυλους."
+
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε "
+"ανθρακωρυχεία σε μεγάλο βάθος. "
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε "
+"κέντρα ανακύκλωσης. Τα κέντρα ανακύκλωσης παράγουν μεταλλεύματα από "
+"χρησιμοποιημένα αγαθά."
+
+#: data/gui/sustain.xml data/gui/launch-gone.xml
+msgid "You have won the game."
+msgstr "Κερδίσατε το παιχνίδι!"
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Ίσως πρέπει να αρχίσετε μια νέα καριέρα κάπου αλλού."
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Οι κάτοικοι του οικισμού σας επινόησαν το μπάσκετ. Τα γήπεδα μπάσκετ "
+"απαιτούν λίγη εργασία και αγαθά και κάνουν τους κατοίκους της γύρω περιοχής "
+"(περίπου 10 μονάδες σε κάθε κατεύθυνση) περισσότερο ευτυχισμένους."
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Το διαστημόπλοιό σας εξερράγη λίγο μετά την εκτόξευση. Οι κάτοικοι δεν θα "
+"εμπιστεύονται πλέον την τεχνολογία για να μετεγκατασταθούν. Θα πρέπει να "
+"εκτοξεύσετε περισσότερα από πέντε μη επανδρωμένα διαστημόπλοια για να "
+"ξανακερδίσετε την εμπιστοσύνη τους."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr ""
+"[+] Μεγέθυνση της προβολής, έτσι ώστε λιγότερα κτίρια, αλλά περισσότερες "
+"πληροφορίες να είναι ορατές."
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Σμίκρυνση"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Πατήστε αυτό το πλήκτρο για να λάβετε βοήθεια."
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Απόκρυψη ψηλών κτιρίων."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr ""
+"[v] Διαδοχικές προβολές των λειτουργιών κάλυψης της μικρογραφίας του χάρτη."
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "Αποθήκευση στην επιλεγμένη υποδοχή"
+
 #~ msgid "Center"
 #~ msgstr "Κέντρο"
+
 #~ msgid "Industry"
 #~ msgstr "Βιομηχανία"
+
 #~ msgid "Output"
 #~ msgstr "Παραγωγή"
+
 #~ msgid "NO "
 #~ msgstr "ΟΧΙ"
+
 #~ msgid "Solar"
 #~ msgstr "Ηλιακή"
+
 #~ msgid ".   Residences %4d         Markets %4d            Farms %4d"
 #~ msgstr "Κατοικημένες περιοχές %4d Αγορές %4d Αγροκτήματα %4d"
+
 #~ msgid ".    Monuments %4d         Schools %4d     Universities %4d"
 #~ msgstr "Μνημεία %4d Σχολεία %4d Πανεπιστήμια %4d"
+
 #~ msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
 #~ msgstr "Σταθμοί πυροσβεστικής %4d Πάρκα %4d Χώροι άθλησης %4d"
+
 #~ msgid "Health centres %4d            Tips %4d         Shanties %4d"
 #~ msgstr "Κέντρα υγείας %4d Χωματερές %4d Παραγκουπόλεις %4d"
+
 #~ msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
 #~ msgstr "Ανεμόμυλοι %4d Ενέργεια άνθρακα %4d Ηλιακή ενέργεια %4d"
+
 #~ msgid ".  Substations %4d     Power lines %4d            Ports %4d"
 #~ msgstr "Υποσταθμοί %4d Γραμμές ενέργειας %4d Λιμάνια %4d"
+
 #~ msgid ".       Tracks %4d           Roads %4d             Rail %4d"
 #~ msgstr "Απλοί δρόμοι %4d Δρόμοι %4d Σιδηρόδρομοι %4d"
+
 #~ msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
 #~ msgstr "Εργαστήρια αγγειοπλαστικής %4dΣιδηρουργεία %4d Μύλοι %4d"
+
 #~ msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
 #~ msgstr ""
 #~ "Ελαφρές βιομηχανίες %4d Βαριές βιομηχανίες %4d Κέντρα ανακύκλωσης %4d"
+
 #~ msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
 #~ msgstr "Ανθρακωρυχεία %4dΜεταλλωρυχεία %4d Κοινότητες %4d"
-

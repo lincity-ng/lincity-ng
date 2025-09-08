@@ -22,38 +22,39 @@
 
 #include "ButtonPanel.hpp"
 
-#include <SDL.h>                            // for SDL_BUTTON_RIGHT, SDL_BUT...
-#include <assert.h>                         // for assert
-#include <stdio.h>                          // for sscanf
-#include <string.h>                         // for strcmp
-#include <functional>                       // for _Bind, bind, function, _2
-#include <iostream>                         // for basic_ostream, operator<<
-#include <list>                             // for list, _List_iterator
-#include <memory>                           // for unique_ptr, dynamic_point...
-#include <sstream>                          // for basic_stringstream, basic...
-#include <stdexcept>                        // for runtime_error
-#include <utility>                          // for pair
-#include <iomanip>
+#include <SDL.h>                          // for SDL_BUTTON_RIGHT, SDL_BUTTO...
+#include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <fmt/format.h>                   // for format
+#include <libxml++/parsers/textreader.h>  // for TextReader
+#include <libxml++/ustring.h>             // for ustring
+#include <stdio.h>                        // for stderr
+#include <functional>                     // for _Bind, bind, _2, function, _1
+#include <iomanip>                        // for operator<<, setprecision
+#include <list>                           // for list, _List_iterator
+#include <memory>                         // for dynamic_pointer_cast, uniqu...
+#include <sstream>                        // for basic_stringstream, operator<<
+#include <stdexcept>                      // for runtime_error
+#include <utility>                        // for pair, move
 
-#include "Game.hpp"                         // for Game
-#include "UserOperation.hpp"                // for UserOperation
-#include "Util.hpp"                         // for getCheckButton
-#include "gui/CheckButton.hpp"              // for CheckButton
-#include "gui/Child.hpp"                    // for Childs, Child
-#include "gui/ComponentFactory.hpp"         // for IMPLEMENT_COMPONENT_FACTORY
-#include "gui/ComponentLoader.hpp"          // for loadGUIFile, parseEmbedde...
-#include "gui/Image.hpp"                    // for Image
-#include "gui/Signal.hpp"                   // for Signal
-#include "gui/XmlReader.hpp"                // for XmlReader
-#include "libxml/xmlreader.h"               // for XML_READER_TYPE_ELEMENT
-#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP...
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL
-#include "lincity/lintypes.hpp"             // for ConstructionGroup
-#include "lincity/messages.hpp"             // for NotEnoughTechMessage, Mes...
-#include "lincity/world.hpp"                // for World
-#include "tinygettext/gettext.hpp"          // for _
-#include "lincity/modules/windmill.hpp"
-#include "lincity/modules/windpower.hpp"
+#include "Game.hpp"                       // for Game
+#include "UserOperation.hpp"              // for UserOperation
+#include "Util.hpp"                       // for getCheckButton
+#include "gui/CheckButton.hpp"            // for CheckButton
+#include "gui/Child.hpp"                  // for Childs, Child
+#include "gui/ComponentFactory.hpp"       // for IMPLEMENT_COMPONENT_FACTORY
+#include "gui/ComponentLoader.hpp"        // for parseEmbeddedComponent
+#include "gui/Image.hpp"                  // for Image
+#include "gui/Signal.hpp"                 // for Signal
+#include "lincity/groups.hpp"             // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL
+#include "lincity/lintypes.hpp"           // for ConstructionGroup
+#include "lincity/messages.hpp"           // for NotEnoughTechMessage, OutOf...
+#include "lincity/modules/windmill.hpp"   // for WindmillConstructionGroup
+#include "lincity/modules/windpower.hpp"  // for WindpowerConstructionGroup
+#include "lincity/world.hpp"              // for World
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
 
 using namespace std::placeholders;
 
@@ -78,134 +79,119 @@ ButtonPanel::~ButtonPanel() {
 }
 
 void
-ButtonPanel::parse(XmlReader& reader) {
-  // parse top-level attributes
-  XmlReader::AttributeIterator iter(reader);
-  while(iter.next()) {
-    const char* attribute = (const char*) iter.getName();
-    const char* value = (const char*) iter.getValue();
-
-    if(parseAttribute(attribute, value)) {
-      continue;
-    } else if(strcmp(attribute, "width") == 0) {
-      if(sscanf(value, "%f", &width) != 1) {
-        std::stringstream msg;
-        msg << "Parse error when parsing width (" << value << ")";
-        throw std::runtime_error(msg.str());
-      }
-    } else if(strcmp(attribute, "height") == 0) {
-      if(sscanf(value, "%f", &height) != 1) {
-        std::stringstream msg;
-        msg << "Parse error when parsing height (" << value << ")";
-        throw std::runtime_error(msg.str());
-      }
-    } else {
-      std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-    }
+ButtonPanel::parse(xmlpp::TextReader& reader) {
+  while(reader.move_to_next_attribute()) {
+    xmlpp::ustring name = reader.get_name();
+    xmlpp::ustring value = reader.get_value();
+    if(parseAttribute(reader));
+    else if(name == "width")
+      width = xmlParse<float>(value);
+    else if(name == "height")
+      height = xmlParse<float>(value);
+    else
+      unexpectedXmlAttribute(reader);
   }
+  reader.move_to_element();
 
   // parse child elements
   std::list<Menu *> menusTmp;
-  int depth = reader.getDepth();
-  while(reader.read() && reader.getDepth() > depth) {
-    if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-      const std::string& element = (const char*) reader.getName();
-      if(element == "menu") {
-        Menu *menu = new Menu();
-        menusTmp.push_back(menu);
+  if(!reader.is_empty_element() && reader.read())
+  while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+    if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+      reader.next();
+      continue;
+    }
+    xmlpp::ustring element = reader.get_name();
+    if(element == "menu") {
+      Menu *menu = new Menu();
+      menusTmp.push_back(menu);
 
-        // parse menu attributes
-        XmlReader::AttributeIterator iter(reader);
-        while(iter.next()) {
-          std::string attribute = (const char *)iter.getName();
-          std::string value = (const char *)iter.getValue();
-          if(attribute == "button-name") {
-            menu->button = reinterpret_cast<CheckButton *>(
-              new std::string(value));
-          }
-          else if(attribute == "drawer-name") {
-            menu->drawer = reinterpret_cast<CheckButton *>(
-              new std::string(value));
-          }
-          else if(attribute == "default") {
-            menu->activeTool = reinterpret_cast<Tool *>(
-              new std::string(value));
-          }
-          else {
-            std::cerr << "Skipping unknown attribute '"
-              << attribute << "'.\n";
-          }
-        }
-
-        // parse menu elements
-        int depth = reader.getDepth();
-        while(reader.read() && reader.getDepth() > depth) {
-          if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-            const std::string& element = (const char*) reader.getName();
-            if(element == "tool") {
-              Tool *tool = new Tool();
-              tool->menu = menu;
-              menu->tools.push_back(tool);
-              tool->operation.action = UserOperation::ACTION_BUILD;
-
-              // parse tool attributes
-              XmlReader::AttributeIterator iter(reader);
-              while(iter.next()) {
-                std::string attribute = (const char *)iter.getName();
-                std::string value = (const char *)iter.getValue();
-                if(attribute == "name") {
-                  tool->button = reinterpret_cast<CheckButton *>(
-                    new std::string(value));
-                }
-                else if(attribute == "action") {
-                  if(value == "QUERY")
-                    tool->operation.action = UserOperation::ACTION_QUERY;
-                  else if(value == "EVACUATE")
-                    tool->operation.action = UserOperation::ACTION_EVACUATE;
-                  else if(value == "BULLDOZE")
-                    tool->operation.action = UserOperation::ACTION_BULLDOZE;
-                  else if(value == "FLOOD")
-                    tool->operation.action = UserOperation::ACTION_FLOOD;
-                  else if(value == "BUILD")
-                    tool->operation.action = UserOperation::ACTION_BUILD;
-                  else
-                    tool->operation.action = UserOperation::ACTION_UNKNOWN;
-                }
-                else if(attribute == "grpid") {
-                  tool->operation.constructionGroup =
-                    ConstructionGroup::getConstructionGroup(std::stoi(value));
-                }
-                else if(attribute == "help") {
-                  tool->helpName = value;
-                }
-                else {
-                  std::cerr << "Skipping unknown attribute '"
-                    << attribute << "'.\n";
-                }
-              }
-
-              // parse tool elements (tools don't have nested elements (yet))
-              int depth = reader.getDepth();
-              while(reader.read() && reader.getDepth() > depth) {
-                const std::string& element = (const char*) reader.getName();
-                std::cerr << "Skipping unknown element '"
-                  << element << "'.\n";
-              }
-            }
-            else {
-              std::cerr << "Skipping unknown element '"
-                << element << "'.\n";
-            }
-          }
-        }
+      while(reader.move_to_next_attribute()) {
+        xmlpp::ustring name = reader.get_name();
+        xmlpp::ustring value = reader.get_value();
+        if(name == "button-name")
+          menu->button = reinterpret_cast<CheckButton *>(
+            new std::string(value));
+        else if(name == "drawer-name")
+          menu->drawer = reinterpret_cast<CheckButton *>(
+            new std::string(value));
+        else if(name == "default")
+          menu->activeTool = reinterpret_cast<Tool *>(
+            new std::string(value));
+        else
+          unexpectedXmlAttribute(reader);
       }
-      else {
-          Component* component = parseEmbeddedComponent(reader);
-          addChild(component);
-          if(component->getFlags() & FLAG_RESIZABLE)
-              component->resize(width, height);
+      reader.move_to_element();
+
+      if(!reader.is_empty_element() && reader.read())
+      while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+        if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+          reader.next();
+          continue;
+        }
+        xmlpp::ustring element = reader.get_name();
+        if(element == "tool") {
+          Tool *tool = new Tool();
+          tool->menu = menu;
+          menu->tools.push_back(tool);
+          tool->operation.action = UserOperation::ACTION_BUILD;
+
+          while(reader.move_to_next_attribute()) {
+            xmlpp::ustring name = reader.get_name();
+            xmlpp::ustring value = reader.get_value();
+            if(name == "name")
+              tool->button = reinterpret_cast<CheckButton *>(
+                new std::string(value));
+            else if(name == "action") {
+              if(value == "QUERY")
+                tool->operation.action = UserOperation::ACTION_QUERY;
+              else if(value == "EVACUATE")
+                tool->operation.action = UserOperation::ACTION_EVACUATE;
+              else if(value == "BULLDOZE")
+                tool->operation.action = UserOperation::ACTION_BULLDOZE;
+              else if(value == "FLOOD")
+                tool->operation.action = UserOperation::ACTION_FLOOD;
+              else if(value == "BUILD")
+                tool->operation.action = UserOperation::ACTION_BUILD;
+              else
+                throw std::runtime_error(fmt::format(
+                  "unrecognized action {:?}", value));
+            }
+            else if(name == "grpid")
+              tool->operation.constructionGroup =
+                ConstructionGroup::getConstructionGroup(
+                  xmlParse<unsigned short>(value));
+            else if(name == "help")
+              tool->helpName = xmlParse<std::string>(value);
+            else
+              unexpectedXmlAttribute(reader);
+          }
+          reader.move_to_element();
+
+          if(!reader.is_empty_element() && reader.read())
+          while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {
+            if(reader.get_node_type() != xmlpp::TextReader::NodeType::Element) {
+              reader.next();
+              continue;
+            }
+            // parse tool elements (tools don't have nested elements (yet))
+            unexpectedXmlElement(reader);
+            reader.next();
+          }
+        }
+        else {
+          unexpectedXmlElement(reader);
+        }
+        reader.next();
       }
     }
+    else if(element == "content") {
+      std::unique_ptr<Component> component = parseEmbeddedComponent(reader);
+      if(component->getFlags() & FLAG_RESIZABLE)
+        component->resize(width, height);
+      addChild(std::move(component));
+    }
+    reader.next();
   }
 
   // resolve component names
@@ -220,22 +206,22 @@ ButtonPanel::parse(XmlReader& reader) {
       if(menu->button)
         menus[menu->button] = menu;
       else
-        std::cerr << "error: could not find menu button '"
-          << *buttonName << "'\n";
+        fmt::println(stderr, "error: could not find menu button {:?}",
+          *buttonName);
     }
     else {
-      std::cerr << "error: no button-name provided for this menu\n";
+      fmt::println(stderr, "error: no button-name provided for this menu");
     }
 
     if(menu->drawer) {
       menu->drawer = findComponent(*drawerName);
 
       if(!menu->drawer)
-        std::cerr << "error: could not find menu drawer '"
-          << *drawerName << "'\n";
+        fmt::println(stderr, "error: could not find menu drawer {:?}",
+          *drawerName);
     }
     else {
-      std::cerr << "error: no drawer-name provided for this menu\n";
+      fmt::println(stderr, "error: no drawer-name provided for this menu");
     }
 
     menu->activeTool = NULL;
@@ -253,11 +239,11 @@ ButtonPanel::parse(XmlReader& reader) {
           tools[tool->button] = tool;
         }
         else
-          std::cerr << "error: could not find tool button '"
-            << *buttonName << "'\n";
+          fmt::println(stderr, "error: could not find tool button {:?}",
+            *buttonName);
       }
       else {
-        std::cerr << "error: no name provided for this tool\n";
+        fmt::println(stderr, "error: no name provided for this tool");
       }
 
       delete buttonName;
@@ -265,10 +251,10 @@ ButtonPanel::parse(XmlReader& reader) {
 
     if(!menu->activeTool) {
       if(activeName)
-        std::cerr << "error: could not find default tool '"
-          << *buttonName << "'\n";
+        fmt::println(stderr, "error: could not find default tool {:?}",
+          *buttonName);
       else
-        std::cerr << "error: no default tool provided for this menu\n";
+        fmt::println(stderr, "error: no default tool provided for this menu");
     }
 
     delete buttonName;

@@ -85,7 +85,7 @@ public:
   Construction *reportingConstruction;  //the construction covering the tile
   unsigned short type;                  //type of terrain (underneath constructions)
   unsigned short group;                 //group of the terrain (underneath constructions)
-  int flags;                            //flags are defined in lin-city.h
+  unsigned int flags;                   //flags are defined in lin-city.h
   // TODO: prevent access to coal_reserve when coal_survey_done == false
   unsigned short coal_reserve;          //underground coal
   unsigned short ore_reserve;           //underground ore

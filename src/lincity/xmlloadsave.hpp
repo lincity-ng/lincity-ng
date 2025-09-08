@@ -22,21 +22,13 @@
 #ifndef __xmlloadsave_h__
 #define __xmlloadsave_h__
 
-#include <string>
-
-namespace xmlpp {
-class TextReader;
-}  // namespace xmlpp
-
 #define LOADSAVE_VERSION_CURRENT 2140
 #define LOADSAVE_VERSION_COMPAT 2130
 
-typedef const unsigned char *xmlStr;
-typedef unsigned char *xmlMStr;
-
-extern void unexpectedXmlElement(xmlpp::TextReader& xmlReader);
-extern void missingXmlElement(xmlpp::TextReader& xmlReader,
-  const std::string& name);
+// 2140:
+// - updated to be consistent with the new World structure
+// 2130:
+// - migrated to libxml++
 
 #endif /* __xmlloadsave_h__ */
 

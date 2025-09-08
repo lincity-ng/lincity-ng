@@ -25,17 +25,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __TABLELAYOUT_HPP__
 
 #include <stddef.h>       // for size_t
+#include <memory>         // for unique_ptr
 #include <vector>         // for vector
 
 #include "Component.hpp"  // for Component
 
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class TableLayout
  * @brief This components allows to layout child-components in a
- * flat-rectangular table. 
- * 
+ * flat-rectangular table.
+ *
  * You can setup an arbitrary number of rows and columns (you need at
  * least 1 of course). You specify the sizing properties for each row and column
  * (see layouting algorithm below)
@@ -60,7 +63,7 @@ public:
     TableLayout();
     ~TableLayout();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void resize(float width, float height);
     void draw(Painter& painter);
@@ -78,7 +81,7 @@ public:
         float val;
         float realval;
     };
-    
+
     struct Cell
     {
         Cell(int _childid = -1)
@@ -87,7 +90,7 @@ public:
         { }
 
         enum Alignment { LEFT = 0, CENTER = 1, RIGHT = 2,
-                         TOP = 0, BOTTOM = 2 };                  
+                         TOP = 0, BOTTOM = 2 };
         int childid;
         Alignment halign;
         Alignment valign;
@@ -96,11 +99,12 @@ public:
     };
     void addRow(const RowColProperties& props);
     void addColumn(const RowColProperties& props);
-    void addComponent(size_t col, size_t row, Component* component);
+    void addComponent(size_t col, size_t row,
+      std::unique_ptr<Component>&& component);
 
 private:
     void removeComponents();
-    int parseProperties(XmlReader& reader, RowColProperties& props);
+    void parseRowColProperties(xmlpp::TextReader& reader, bool isRow);
 
     typedef std::vector<RowColProperties> Properties;
     Properties rowproperties;
@@ -115,4 +119,3 @@ private:
 
 
 /** @file gui/TableLayout.hpp */
-

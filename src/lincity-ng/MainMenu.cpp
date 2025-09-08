@@ -38,6 +38,7 @@
 #include <utility>                      // for pair, move
 #include <vector>                       // for vector
 #include <optional>
+#include <string>
 
 #include "Config.hpp"                   // for getConfig, Config
 #include "Game.hpp"                     // for Game
@@ -61,10 +62,12 @@
 #include "lincity/stats.hpp"            // for Stat, Stats
 #include "lincity/world.hpp"            // for World
 #include "main.hpp"                     // for resizeVideo, painter, videoSi...
-#include "tinygettext/gettext.hpp"      // for _, dictionaryManager
-#include "tinygettext/tinygettext.hpp"  // for DictionaryManager
+#include "util/gettextutil.hpp"
+#include "config.h"
+#include "util/ptrutil.hpp"
 
 using namespace std::placeholders;
+using namespace std::string_literals;
 
 extern std::string autoLanguage;
 
@@ -86,7 +89,7 @@ MainMenu::~MainMenu()
 
 void
 MainMenu::loadMainMenu() {
-  menu.reset(dynamic_cast<Desktop *>(loadGUIFile("gui/mainmenu.xml")));
+  menu = dynamic_unique_cast<Desktop>(loadGUIFile("gui/mainmenu.xml"));
   menuSwitch = dynamic_cast<SwitchComponent *>(
     menu->findComponent("menu-switch"));
   assert(menuSwitch);
@@ -270,12 +273,27 @@ MainMenu::updateOptionsMenu() {
   mode.str("");
   mode << getConfig()->worldSize.get();
   getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
+
+#if ENABLE_NLS
   languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
   currentLanguage = getConfig()->language.get();
   languageParagraph->setText(getConfig()->language.get());
-  languages = dictionaryManager->get_languages();
-  languages.insert( "autodetect" );
-  languages.insert( "en" ); // English is the default when no translation is used
+  languages.clear();
+  for(const auto& ent : std::filesystem::directory_iterator(
+    getConfig()->appDataDir.get() / "locale")
+  ) {
+    if(!std::filesystem::exists(
+      ent.path() / "LC_MESSAGES" / (PACKAGE_NAME + ".mo"s))
+    ) continue;
+    std::string lang = ent.path().filename().generic_string();
+    languages.insert(lang);
+#ifdef DEBUG
+    std::cerr << "debug: detected available locale: " << lang << std::endl;
+#endif
+  }
+  languages.insert("autodetect");
+  languages.insert("en"); // English is the default when no translation is used
+#endif
 }
 
 void
@@ -307,10 +325,12 @@ MainMenu::loadOptionsMenu() {
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+#if ENABLE_NLS
   currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
   currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
+#endif
   // currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
   // currentCheckButton->clicked.connect(std::bind(&MainMenu::optionsMenuButtonClicked, this, _1, _2));
   // currentCheckButton = getCheckButton(*optionsMenu, "SeedMode");
@@ -387,9 +407,9 @@ MainMenu::doubleClick(Component *button, std::function<void()> action) {
   }
 }
 
-void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
+void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
     std::string buttonName = button->getName();
-    if( buttonName == "BackgroundMusic"){
+    if(buttonName == "BackgroundMusic") {
       getSound()->playSound("Click");
       getSound()->enableMusic(!getConfig()->musicEnabled.get());
       getConfig()->musicEnabled.sessionToConfig();
@@ -447,12 +467,14 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if(buttonName == "WorldLenNext") {
       changeWorldLen(true);
       getConfig()->worldSize.sessionToConfig();
+#if ENABLE_NLS
     } else if(buttonName == "LanguagePrev") {
       changeLanguage(false);
       getConfig()->language.sessionToConfig();
     } else if(buttonName == "LanguageNext") {
       changeLanguage(true);
       getConfig()->language.sessionToConfig();
+#endif
     } else if(buttonName == "Fullscreen") {
         getSound()->playSound("Click");
         getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
@@ -579,6 +601,7 @@ MainMenu::changeTrack( bool next)
     musicParagraph->setText(getSound()->currentTrack.title);
 }
 
+#if ENABLE_NLS
 void
 MainMenu::changeLanguage(bool next) {
   std::set<std::string>::iterator i =
@@ -598,8 +621,10 @@ MainMenu::changeLanguage(bool next) {
   std::string newLang = *i;
   languageParagraph->setText(newLang);
   getConfig()->language.session = newLang;
+  setLang(newLang);
   getSound()->playSound("Click");
 }
+#endif
 
 void
 MainMenu::quitButtonClicked(Button *) {
@@ -688,25 +713,26 @@ MainMenu::optionsBackButtonClicked(Button *) {
     resizeVideo(getConfig()->videoX.get(), getConfig()->videoY.get(),
       getConfig()->useFullScreen.get());
   }
+#if ENABLE_NLS
   else if(currentLanguage != getConfig()->language.get())
   {
-    // TODO: implement changing the language on the go
-    //       For now, show warning in a language the user may not understand.
+    // TODO: re-parse GUI to update translatable text
     DialogBuilder()
       .titleText(_("Warning"))
       .messageAddTextBold(_("Restart Required"))
       .messageAddText(_("Changing the language requires restarting LinCity"
-        " for changes to take effect."))
+        " for changes to take full effect."))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK)
       .build();
   }
+#endif
   gotoMainMenu();
 }
 
 /**
  * Either create selected random terrain or load a scenario.
- **/
+**/
 void
 MainMenu::newGameStartButtonClicked(Button *) {
   CheckButton *sel = newGameSelection.getSelection();

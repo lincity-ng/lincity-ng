@@ -24,14 +24,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SCROLLBAR_HPP__
 #define __SCROLLBAR_HPP__
 
-#include <vector>         // for vector
-
-#include "Child.hpp"      // for Child (ptr only), Childs
+#include "Child.hpp"      // for Childs, Child (ptr only)
 #include "Component.hpp"  // for Component
 #include "Signal.hpp"     // for Signal
 
 class Button;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * @class ScrollBar
@@ -42,14 +42,14 @@ public:
     ScrollBar();
     virtual ~ScrollBar();
 
-    void parse(XmlReader& reader);
+    void parse(xmlpp::TextReader& reader);
 
     void resize(float width, float height);
     void draw(Painter& painter);
     void event(const Event& event);
 
     void setRange(float min, float max);
-    
+
     float getRangeMin() const
     {
         return minVal;
@@ -69,14 +69,14 @@ public:
 private:
     void buttonPressed(Button* button);
     void buttonReleased(Button* button);
-    
+
     Child& button1()
     { return childs[0]; }
     Child& button2()
     { return childs[1]; }
     Child& scroller()
     { return childs[2]; }
-    
+
     float minVal;
     float maxVal;
     float currentVal;
@@ -91,4 +91,3 @@ private:
 
 
 /** @file gui/ScrollBar.hpp */
-

@@ -141,6 +141,7 @@
             </CheckButton>
         </cell>
 
+        <if-NLS value="enabled">
         <!-- Language -->
         <cell row="8" col="2" valign="center" halign="left">
             <Paragraph style="listtitle" translatable="yes">Language</Paragraph>
@@ -156,7 +157,7 @@
                     </CheckButton>
                 </cell>
                 <cell row="1" col ="2" halign="center" >
-                    <Paragraph name="languageParagraph">autodetect</Paragraph>
+                    <Paragraph name="languageParagraph"></Paragraph>
                 </cell>
                 <cell row="1" col ="3" halign="left" >
                     <CheckButton name="LanguageNext">
@@ -165,6 +166,7 @@
                 </cell>
             </TableLayout>
         </cell>
+        </if-NLS>
 
         <!-- BackButton -->
         <cell row="9" col="2" colspan="2" halign="right">

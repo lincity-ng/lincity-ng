@@ -26,26 +26,26 @@
 
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
 #include <algorithm>                      // for min
-#include <iostream>                       // for char_traits, basic_ostream
+#include <iostream>                       // for basic_ostream, operator<<
 #include <list>                           // for _List_iterator
-#include <set>                            // for _Rb_tree_const_iterator, set
+#include <set>                            // for set
 #include <stdexcept>                      // for runtime_error
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, char_traits
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_RESIDENCE_HH, GROUP_R...
-#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIM_THRESHOLD
+#include "lincity/groups.hpp"             // for GROUP_RESIDENCE_HH, GROUP_R...
+#include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, ANIM_THRESHOLD
 #include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
 #include "lincity/resources.hpp"          // for ExtraFrame
-#include "lincity/stats.hpp"                // for Stats
-#include "lincity/world.hpp"                // for World, Map
-#include "lincity/xmlloadsave.hpp"          // for xmlStr
-#include "residence.hpp"                    // for Residence
-#include "tinygettext/gettext.hpp"        // for N_
+#include "lincity/stats.hpp"              // for Stats
+#include "lincity/world.hpp"              // for World, Map
+#include "residence.hpp"                  // for Residence
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),
@@ -275,9 +275,9 @@ void RocketPad::report(Mps& mps, bool production) const {
 }
 
 void RocketPad::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"tech",  "%d", tech);
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"steps", "%d", steps);
-  const char *stStr;
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"tech",  xmlFormat<int>(tech));
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"steps", xmlFormat<int>(steps));
+  std::string stStr;
   switch(stage) {
   case BUILDING: stStr = "building"; break;
   case AWAITING:
@@ -287,16 +287,16 @@ void RocketPad::save(xmlTextWriterPtr xmlWriter) const {
   default:
     throw std::runtime_error("unknown rocket stage");
   }
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"stage", "%s", stStr);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"stage", xmlFormat<std::string>(stStr));
   Construction::save(xmlWriter);
 }
 
 bool RocketPad::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
-  if     (tag == "tech")  tech  = std::stoi(xmlReader.read_inner_xml());
-  else if(tag == "steps") steps = std::stoi(xmlReader.read_inner_xml());
+  if     (tag == "tech")  tech  = xmlParse<int>(xmlReader.read_inner_xml());
+  else if(tag == "steps") steps = xmlParse<int>(xmlReader.read_inner_xml());
   else if(tag == "stage") {
-    std::string stStr = xmlReader.read_inner_xml();
+    std::string stStr = xmlParse<std::string>(xmlReader.read_inner_xml());
     if     (stStr == "building") stage = BUILDING;
     else if(stStr == "awaiting") stage = AWAITING;
     else if(stStr == "done")     stage = DONE;

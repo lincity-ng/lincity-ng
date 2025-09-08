@@ -24,17 +24,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __COMPONENTLOADER_HPP__
 #define __COMPONENTLOADER_HPP__
 
-#include <string>
-#include <filesystem>
+#include <filesystem>  // for path
+#include <memory>      // for unique_ptr
+#include <string>      // for string
 
 class Component;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 /**
  * Loads a gui-definition xml-file from disk and returns the toplevel
  * component
- */
-Component* loadGUIFile(const std::filesystem::path& filename);
+**/
+std::unique_ptr<Component> loadGUIFile(const std::filesystem::path& filename);
 
 /**
  * Parse a component embedded in the current xml element
@@ -44,13 +47,14 @@ Component* loadGUIFile(const std::filesystem::path& filename);
  * </Contents>
  * the Image component is embedded in the Contents element.
  */
-Component* parseEmbeddedComponent(XmlReader& reader);
+std::unique_ptr<Component> parseEmbeddedComponent(xmlpp::TextReader& reader);
 
 /**
  * Given the name of the component and an xml-reader, this function will parse
  * the component and return it.
- */
-Component* createComponent(const std::string& type, XmlReader& reader);
+**/
+std::unique_ptr<Component>
+createComponent(const std::string& type, xmlpp::TextReader& reader);
 
 #endif
 

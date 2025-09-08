@@ -28,7 +28,9 @@
 #include "gui/Component.hpp"  // for Component
 
 class Game;
-class XmlReader;
+namespace xmlpp {
+class TextReader;
+}  // namespace xmlpp
 
 class LCPBar : public Component
 {
@@ -36,7 +38,7 @@ public:
   LCPBar();
   ~LCPBar();
 
-  void parse(XmlReader& reader);
+  void parse(xmlpp::TextReader& reader);
 
   void refresh();
   void setGame(Game *game);
@@ -58,7 +60,7 @@ public:
   BarView();
   ~BarView();
 
-  void parse(XmlReader& reader);
+  void parse(xmlpp::TextReader& reader);
 
   void setValue(float v);
   virtual void draw(Painter &painter);

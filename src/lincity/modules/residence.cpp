@@ -25,18 +25,18 @@
 #include "residence.hpp"
 
 #include <libxml++/parsers/textreader.h>  // for TextReader
-#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteFormatEle...
+#include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for rand
 #include <iostream>                       // for basic_ostream, operator<<
-#include <string>                         // for basic_string, allocator
+#include <string>                         // for basic_string, char_traits
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint, operator<<
 #include "lincity/lin-city.hpp"           // for FALSE, FLAG_EMPLOYED, FLAG_FED
 #include "lincity/stats.hpp"              // for Stats, Stat
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "lincity/xmlloadsave.hpp"        // for xmlStr
-#include "tinygettext/gettext.hpp"        // for N_
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
+#include "util/gettextutil.hpp"
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
     N_("Residence"),
@@ -409,13 +409,13 @@ void Residence::report(Mps& mps, bool production) const {
 }
 
 void Residence::save(xmlTextWriterPtr xmlWriter) const {
-  xmlTextWriterWriteFormatElement(xmlWriter, (xmlStr)"local_population", "%d", local_population);
+  xmlTextWriterWriteElement(xmlWriter, (xmlStr)"local_population", xmlFormat<int>(local_population));
   Construction::save(xmlWriter);
 }
 
 bool Residence::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string name = xmlReader.get_name();
-  if(name == "local_population") local_population = std::stoi(xmlReader.read_inner_xml());
+  if(name == "local_population") local_population = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);
   return true;
 }

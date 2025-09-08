@@ -68,7 +68,8 @@
 #include "lincity/modules/all_modules.hpp"
 #include "lincity/world.hpp"               // for World, Map, MapTile
 #include "main.hpp"                        // for painter, videoSizeChanged
-#include "tinygettext/gettext.hpp"         // for _
+#include "util/gettextutil.hpp"
+#include "util/ptrutil.hpp"
 
 using namespace std::placeholders;
 
@@ -124,7 +125,7 @@ void Game::testAllHelpFiles(){
 
 void
 Game::loadGui() {
-  gui.reset(loadGUIFile("gui/app.xml"));
+  gui = dynamic_unique_cast<Desktop>(loadGUIFile("gui/app.xml"));
 
   gameview = dynamic_cast<GameView *>(gui->findComponent("GameView"));
   minimap = dynamic_cast<MiniMap *>(gui->findComponent("MiniMap"));

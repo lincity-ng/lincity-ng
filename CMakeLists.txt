@@ -1,28 +1,68 @@
+## ---------------------------------------------------------------------- ##
+ # CMakeLists.txt
+ # This file is part of Lincity-NG.
+ #
+ # Copyright (C) 2023      Edu Garcia
+ # Copyright (C) 2023-2025 David Bears <dbear4q@gmail.com>
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License along
+ # with this program; if not, write to the Free Software Foundation, Inc.,
+ # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+## ---------------------------------------------------------------------- ##
+
 cmake_minimum_required(VERSION 3.21)
 
-set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-set(X_VCPKG_APPLOCAL_DEPS_INSTALL ON)
-
 project(lincity-ng
-	VERSION 2.14.1
-	LANGUAGES CXX C
-	DESCRIPTION "A city simulation game"
-	HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
+  VERSION 2.14.1
+  LANGUAGES CXX C
+  DESCRIPTION "A city simulation game"
+  HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
+set(PROJECT_NAME_PRETTY "LinCity-NG")
 set(APPSTREAM_ID "io.github.lincity_ng.lincity-ng")
 
-set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
+### dependencies
 list(APPEND CMAKE_MODULE_PATH
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules
-	${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
+  ${CMAKE_SOURCE_DIR}/mk/cmake/modules
+  ${CMAKE_SOURCE_DIR}/mk/cmake/modules/SDL2
 )
+set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+find_package(Threads)
+find_package(ZLIB 1.0 REQUIRED)
+find_package(SDL2 2.0.18 REQUIRED)
+find_package(SDL2_image 2.0.0 REQUIRED)
+find_package(SDL2_mixer 2.0.0 REQUIRED)
+find_package(SDL2_ttf 2.0.12 REQUIRED)
+find_package(LibXml2 REQUIRED) # requires >=2.6.11
+find_package(fmt 9.0.0 REQUIRED)
+find_package(LibXml++-5.0 REQUIRED)
+find_package(Gettext)
+find_package(Intl)
+find_program(GETTEXT_XGETTEXT NAMES xgettext)
+find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
+# find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
+# The libxslt find module is broken when cross compiling because it looks in the
+# target environment instead of the host. The workaround is to find only the
+# xsltproc program.
+if(NOT TARGET LibXslt::xsltproc)
+	find_program(LIBXSLT_XSLTPROC_EXECUTABLE NAMES xsltproc REQUIRED)
+	if(LIBXSLT_XSLTPROC_EXECUTABLE)
+		add_executable(LibXslt::xsltproc IMPORTED)
+		set_target_properties(LibXslt::xsltproc PROPERTIES IMPORTED_LOCATION "${LIBXSLT_XSLTPROC_EXECUTABLE}")
+	endif()
+endif()
 
-include(CheckIncludeFiles)
-include(GNUInstallDirs)
-include(GetGitRevisionDescription)
 
 ### build configurations
 set(BUILD_TYPES Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
@@ -47,68 +87,20 @@ foreach(BType ${BUILD_TYPES})
 endforeach()
 
 
-# find dependencies
-set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
-find_package(Threads)
-find_package(ZLIB 1.0 REQUIRED)
-find_package(SDL2 2.0.18 REQUIRED)
-find_package(SDL2_image 2.0.0 REQUIRED)
-find_package(SDL2_mixer 2.0.0 REQUIRED)
-find_package(SDL2_ttf 2.0.12 REQUIRED)
-find_package(LibXml2 REQUIRED) # requires >=2.6.11
-find_package(fmt 9.0.0 REQUIRED)
-# seems libxml++ doesn't have a find module, but it provides a pkg-config
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(libXMLPlusPlus REQUIRED IMPORTED_TARGET libxml++-5.0)
-
-# find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
-# The libxslt find module is broken when cross compiling because it looks in the
-# target environment instead of the host. The workaround is to find only the
-# xsltproc program.
-if(NOT TARGET LibXslt::xsltproc)
-	if(NOT DEFINED LIBXSLT_XSLTPROC_EXECUTABLE)
-		find_program(LIBXSLT_XSLTPROC_EXECUTABLE NAMES xsltproc REQUIRED)
-	endif()
-	if(DEFINED LIBXSLT_XSLTPROC_EXECUTABLE)
-		add_executable(LibXslt::xsltproc IMPORTED)
-		set_target_properties(LibXslt::xsltproc PROPERTIES IMPORTED_LOCATION "${LIBXSLT_XSLTPROC_EXECUTABLE}")
-	endif()
+### options
+set(ENABLE_NLS "YES" CACHE BOOL "Enable native language support")
+if(ENABLE_NLS AND NOT (Intl_FOUND AND Gettext_FOUND))
+  message(WARNING "Native language support requires gettext and libintl, but"
+    " one or both are missing. To suppress this warning, explicitly disable"
+    " native language support with `-DENABLE_NLS=NO`.")
 endif()
-
-find_program(GETTEXT_XGETTEXT NAMES xgettext)
-find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
+set(LINCITYNG_RELOCATABLE "NO" CACHE BOOL "Build a relocatable binary")
 
 
-### compute the LinCity-NG version
-set(LINCITYNG_VERSION_SUFFIX "" CACHE STRING "Custom version suffix to use; mostly useful for downstream packaging.")
-
-if (DEFINED LINCITYNG_VERSION_SUFFIX AND NOT (LINCITYNG_VERSION_SUFFIX STREQUAL ""))
-	set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-${LINCITYNG_VERSION_SUFFIX}")
-else()
-	git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
-	if(FULL_PROJECT_VERSION)
-		string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)
-	else()
-		set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-unknown")
-	endif()
-endif()
-set(BUILD_TYPE_RELEASE "")
-set(BUILD_TYPE_MINSIZEREL "")
-set(BUILD_TYPE_RELWITHDEBINFO "debinfo")
-set(BUILD_TYPE_BETATEST "beta")
-set(BUILD_TYPE_DEBUG "debug")
-set(BUILD_TYPE_DEBUGOPT "debug")
-if(BUILD_TYPE_${BUILD_TYPE_UPPER})
-	set(FULL_PROJECT_VERSION ${FULL_PROJECT_VERSION}-${BUILD_TYPE_${BUILD_TYPE_UPPER}})
-endif()
-
-
-set(CMAKE_INSTALL_APPDATADIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME})
-set(CMAKE_INSTALL_FULL_APPDATADIR ${CMAKE_INSTALL_FULL_DATADIR}/${CMAKE_PROJECT_NAME})
-set(CMAKE_BINARY_BINDIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-set(CMAKE_BINARY_DATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR})
-set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
-
+### compilation options
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options("-fmacro-prefix-map=${CMAKE_SOURCE_DIR}=.")
 if(UNIX)
 	add_compile_definitions("UNIX")
@@ -120,6 +112,20 @@ if(APPLE)
 	add_compile_definitions("APPLE")
 endif()
 
+include(CheckCSourceCompiles)
+set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES})
+check_c_source_compiles("\
+	extern int _nl_msg_cat_cntr; \
+	int main() { \
+		++_nl_msg_cat_cntr; \
+		return 0; \
+	} \
+	"
+	HAVE_NL_MSG_CAT_CNTR
+)
+
+
+### include what you use
 if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE AND
 	NOT CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-w( |$)"
 )
@@ -128,10 +134,53 @@ if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE AND
 	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 
+
+### compute LinCity-NG version
+set(LINCITYNG_VERSION_SUFFIX "" CACHE STRING
+	"Custom version suffix to use; mostly useful for downstream packaging."
+)
+include(GetGitRevisionDescription)
+if(DEFINED LINCITYNG_VERSION_SUFFIX AND NOT (LINCITYNG_VERSION_SUFFIX STREQUAL ""))
+	set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-${LINCITYNG_VERSION_SUFFIX}")
+else()
+	git_describe_working_tree(FULL_PROJECT_VERSION --match lincity-ng-*)
+	if(FULL_PROJECT_VERSION)
+		string(SUBSTRING ${FULL_PROJECT_VERSION} 11 -1 FULL_PROJECT_VERSION)
+	else()
+		set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-unknown")
+	endif()
+endif()
+set(VERSION_RELEASE "")
+set(VERSION_MINSIZEREL "")
+set(VERSION_RELWITHDEBINFO "debinfo")
+set(VERSION_BETATEST "beta")
+set(VERSION_DEBUG "debug")
+set(VERSION_DEBUGOPT "debug")
+if(VERSION_${BUILD_TYPE_UPPER})
+	set(FULL_PROJECT_VERSION ${FULL_PROJECT_VERSION}-${VERSION_${BUILD_TYPE_UPPER}})
+elseif(NOT DEFINED VERSION_${BUILD_TYPE_UPPER})
+	message(WARNING "unrecognized build type")
+endif()
+message(STATUS "LinCity-NG version: ${FULL_PROJECT_VERSION}")
+
+
+### compute installation directories
+include(GNUInstallDirs)
+set(CMAKE_INSTALL_APPDATADIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME})
+set(CMAKE_INSTALL_FULL_APPDATADIR ${CMAKE_INSTALL_FULL_DATADIR}/${CMAKE_PROJECT_NAME})
+set(CMAKE_BINARY_BINDIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+set(CMAKE_BINARY_DATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR})
+set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
+
+
+### configure subdirectories
 add_subdirectory(src)
 add_subdirectory(data ${CMAKE_INSTALL_APPDATADIR})
-add_subdirectory(external)
+add_subdirectory(doc ${CMAKE_INSTALL_DOCDIR})
+add_subdirectory(lib)
 
+
+### runtime dependency installation for Windows
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_BINDIR})
 install(TARGETS lincity-ng
 	RUNTIME_DEPENDENCY_SET dll_dependencies
@@ -161,6 +210,7 @@ endif()
 # endif()
 
 
+### packaging
 set(CPACK_GENERATOR TXZ)
 if(WIN32)
 	set(CPACK_GENERATOR ZIP)
