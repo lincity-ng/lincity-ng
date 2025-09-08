@@ -23,10 +23,11 @@
 #include "MiniMap.hpp"
 
 #include <SDL.h>                            // for Uint16, Uint8, SDL_BUTTON...
-#include <assert.h>                         // for assert
+#include <cassert>                          // for assert
+#include <fmt/format.h>                     // for format
 #include <libxml++/parsers/textreader.h>    // for TextReader
 #include <libxml++/ustring.h>               // for ustring
-#include <string.h>                         // for strlen
+#include <cstring>                          // for strlen
 #include <array>                            // for array
 #include <cstddef>                          // for size_t
 #include <functional>                       // for bind, _1, function, _2
@@ -58,6 +59,7 @@
 #include "lincity/transport.hpp"            // for TRANSPORT_QUANTA, TRANSPO...
 #include "lincity/world.hpp"                // for MapTile, World, Map
 #include "util/xmlutil.hpp"                 // for xmlParse, unexpectedXmlAt...
+#include "util/gettextutil.hpp"
 
 using namespace std::placeholders;
 
@@ -159,7 +161,10 @@ MiniMap::toggleStuffID(int step)
         {   ++pos;}
         stuff_ID = commodities[pos+step];
     }
-    game->getGameView().setMapMode( mMode );
+    setDirty();
+    setMapDirty();
+    mapChanged();
+    updateStatusMessage();
 }
 
 World&
@@ -424,8 +429,10 @@ void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
     mMode=newMode;
     //switchMapViewButton(name);
     switchView("MiniMap");
-    game->getGameView().setMapMode( mMode );
-    mFullRefresh=true;
+    setDirty();
+    setMapDirty();
+    mapChanged();
+    updateStatusMessage();
 }
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
@@ -957,7 +964,7 @@ void MiniMap::event(const Event& event) {
             return;
         }
         if(!inside) { //mouse just enterd the minimap, show current mapmode
-            game->getGameView().setMapMode(mMode);
+            updateStatusMessage();
             inside = true;
         }
         return;
@@ -995,6 +1002,52 @@ void MiniMap::event(const Event& event) {
         //moved 'm' and 'n' for pagescrolling to Gameview
     }
 */
+}
+
+void
+MiniMap::updateStatusMessage() {
+  std::string m;
+  switch(mMode) {
+  case MiniMap::NORMAL:
+    m = _("Minimap: outline map");
+    break;
+  case MiniMap::UB40:
+    m = _("Minimap: unemployment");
+    break;
+  case MiniMap::POLLUTION:
+    m = _("Minimap: pollution");
+    break;
+  case MiniMap::STARVE:
+    m = _("Minimap: nourishments");
+    break;
+  case MiniMap::POWER:
+    m = _("Minimap: power supply");
+    break;
+  case MiniMap::FIRE:
+    m = _("Minimap: firedepartment cover");
+    break;
+  case MiniMap::CRICKET:
+    m = _("Minimap: sport cover");
+    break;
+  case MiniMap::HEALTH:
+    m = _("Minimap: medical care");
+    break;
+  case MiniMap::COAL:
+    m = _("Minimap: coal deposits");
+    break;
+  case MiniMap::TRAFFIC: {
+    m = _("Minimap: traffic density");
+  } // fallthrough
+  case MiniMap::COMMODITIES: {
+    if(m.empty())
+      m = _("Minimap: commodities");
+    m = fmt::format("{}: {}", m, commodityNames[stuff_ID]);
+  } break;
+  default:
+    std::cerr << "error: unknown minimap mode: " << mMode << std::endl;
+    assert(false);
+  }
+  game->getGameView().printStatusMessage(m);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(MiniMap)

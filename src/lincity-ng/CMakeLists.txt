@@ -37,11 +37,6 @@ add_executable(lincity-ng
   Util.hpp
 )
 
-if (WIN32)
-  set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_SOURCE_DIR}/contrib/win32/lincity-ng.rc")
-  target_sources(lincity-ng PUBLIC ${APP_ICON_RESOURCE_WINDOWS})
-endif()
-
 target_link_libraries(lincity-ng
   PUBLIC
   LinCity::lib

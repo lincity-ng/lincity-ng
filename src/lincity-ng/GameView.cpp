@@ -29,7 +29,7 @@
 #include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
-#include <stdio.h>                        // for stderr
+#include <cstdio>                         // for stderr
 #include <cmath>                          // for sqrt, fabs, fabsf, floorf
 #include <cstddef>                        // for size_t, NULL
 #include <exception>                      // for exception
@@ -63,7 +63,6 @@
 #include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
 #include "lincity-ng/UserOperation.hpp"   // for UserOperation
 #include "lincity/all_buildings.hpp"      // for GROUP_WATER_BUL_COST, GROUP...
-#include "lincity/commodities.hpp"        // for commodityNames
 #include "lincity/groups.hpp"             // for GROUP_DESERT, GROUP_WATER
 #include "lincity/lin-city.hpp"           // for FLAG_POWER_CABLES_0, FLAG_P...
 #include "lincity/lintypes.hpp"           // for ConstructionGroup, Construc...
@@ -141,18 +140,26 @@ GameView::parse(xmlpp::TextReader& reader) {
   ctrDrag = false;
   areaBulldoze = false;
   startRoad = MapPoint(0, 0);
-  rightButtonDown = false;
   tileUnderMouse = MapPoint(0, 0);
-  dragStart = Vector2(0, 0);
   hideHigh = false;
   showTerrainHeight = false;
   cursorSize = 0;
 
   mapOverlay = overlayNone;
-  mapMode = MiniMap::NORMAL;
   buttonsConnected = false;
   lastStatusMessage = "";
   refreshMap = true;
+}
+
+void
+GameView::setGame(Game *game) {
+  this->game = game;
+  game->getMiniMap().mapChanged.connect([this](){
+    if(mapOverlay != overlayNone) {
+      setDirty();
+      setMapDirty();
+    }
+  });
 }
 
 World&
@@ -195,6 +202,7 @@ void GameView::buttonClicked( Button* button ){
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
         setDirty();
+        setMapDirty();
         return;
     }
     if( name == "showTerrainHeight" ){
@@ -209,6 +217,7 @@ void GameView::buttonClicked( Button* button ){
     if( name == "mapOverlay" ){
         mapOverlay = (mapOverlay + 1) % (overlayMAX + 1);
         setDirty();
+        setMapDirty();
         return;
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
@@ -239,63 +248,6 @@ void GameView::readOrigin( bool redraw /* = true */ ) {
  */
 void GameView::writeOrigin() {
   getWorld().map.recentPoint = getCenter().x;
-}
-/*
- *  inform GameView about change in Mini Map Mode
- */
-void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
-    switch( mMode ){
-        case MiniMap::NORMAL:
-            printStatusMessage( _("Minimap: outline map") );
-            break;
-        case MiniMap::UB40:
-            printStatusMessage( _("Minimap: unemployment") );
-            break;
-        case MiniMap::POLLUTION:
-            printStatusMessage( _("Minimap: pollution") );
-            break;
-        case MiniMap::STARVE:
-            printStatusMessage( _("Minimap: nourishments") );
-            break;
-        case MiniMap::POWER:
-            printStatusMessage( _("Minimap: power supply") );
-            break;
-        case MiniMap::FIRE:
-            printStatusMessage( _("Minimap: firedepartment cover") );
-            break;
-        case MiniMap::CRICKET:
-            printStatusMessage( _("Minimap: sport cover") );
-            break;
-        case MiniMap::HEALTH:
-            printStatusMessage( _("Minimap: medical care") );
-            break;
-        case MiniMap::COAL:
-            printStatusMessage( _("Minimap: coal deposits") );
-            break;
-        case MiniMap::TRAFFIC:
-        {
-            std::string s1 = _("Minimap: traffic density:");
-            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + " " + s2 );
-        }
-            break;
-        case MiniMap::COMMODITIES:
-        {
-            std::string s1 = _("Minimap: commodities:");
-            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + " " + s2 );
-        }
-            break;
-        default:
-            std::cerr << "Unknown minimap mode " << mMode<<"\n";
-    }
-    if( mapMode == mMode ){
-        return;
-    }
-    mapMode = mMode;
-    if( mapOverlay != overlayNone ){
-        setDirty();
-    }
 }
 
 /*
@@ -539,6 +491,7 @@ GameView::preReadImages(void) {
         if(!graphicsInfo->image) {
           fmt::println(stderr, "error: failed to read image {}", key);
         }
+        assert(hasX && hasY);
         if(!hasX) xmlX = int(graphicsInfo->image->w/2);
         if(!hasY) xmlY = int(graphicsInfo->image->h);
         graphicsInfo->x = xmlX;
@@ -659,430 +612,340 @@ bool GameView::constrainViewportPosition(bool useScrollCorrection) {
   }
 }
 
-/*
- * Process event
- */
-void GameView::event(const Event& event)
-{
-    switch(event.type) {
-        case Event::MOUSEMOTION: {
-            mouseScrollState = SCROLL_NONE;
-            if(!dragging) {
-                if( event.mousepos.x < scrollBorder ) {
-                    mouseScrollState |= SCROLL_LEFT;
-                } else if( event.mousepos.x > getWidth() - scrollBorder ) {
-                    mouseScrollState |= SCROLL_RIGHT;
-                }
-                if( event.mousepos.y < scrollBorder ) {
-                    mouseScrollState |= SCROLL_UP;
-                } else if( event.mousepos.y > getHeight() - scrollBorder ) {
-                    mouseScrollState |= SCROLL_DOWN;
-                }
-            }
-
-            if( dragging ) {
-                if(fabsf(event.mousemove.x) < 1 && fabsf(event.mousemove.y) < 1)
-                    break;
-                // this was most probably a SDL_WarpMouse
-                if(event.mousepos == dragStart)
-                    break;
-                viewport -= event.mousemove;
-                constrainViewportPosition(true);
-                viewportUpdated();
-                setDirty();
-                break;
-            }
-            if(!rightButtonDown) {
-              // Use `rightButtonDown` instead of `dragging` so releasing and
-              // re-pressing the button does not lose the drag correction. Such
-              // a release and re-press was probably a mistake.
-              scrollCorrection = Vector2(0,0);
-            }
-
-            if(!event.inside) {
-                mouseInGameView = false;
-                break;
-            }
-            mouseInGameView = true;
-
-            if( !dragging && rightButtonDown ) {
-                dragging = true;
-                dragStart = event.mousepos;
-                dragStartTime = SDL_GetTicks(); // Is this unused???
-            }
-            MapPoint tile = getTile(event.mousepos);
-            if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
-            (getUserOperation()->action != UserOperation::ACTION_EVACUATE))
-            {
-                roadDragging = true;
-                startRoad = tile;
-                areaBulldoze = (SDL_GetModState() & KMOD_CTRL);
-            }
-
-            if( roadDragging && ( cursorSize != 1 ) )
-            {
-                roadDragging = false;
-                areaBulldoze = false;
-                ctrDrag = false;
-            }
-            // bulldoze at once while still dragging
-
-            if(roadDragging && !areaBulldoze
-              && getUserOperation()->action == UserOperation::ACTION_BULLDOZE
-            ) {
-              if(tile != startRoad) {
-                game->executeUserOperation(startRoad);
-                startRoad = tile;
-              }
-            }
-
-            if(tileUnderMouse != tile) {
-                tileUnderMouse = tile;
-                setDirty();
-                //update mps target
-                if(getUserOperation()->action == UserOperation::ACTION_EVACUATE)
-                  game->getMpsMap().setTile(
-                    game->getWorld().map.is_visible(tile)
-                    ? game->getWorld().map(tile)
-                    : nullptr
-                  );
-            }
-
-            break;
-        }
-        case Event::MOUSEBUTTONDOWN: {
-            if(!event.inside);
-            else if(event.mousebutton == SDL_BUTTON_MIDDLE) {
-                dragging = false;
-                ctrDrag = false;
-                rightButtonDown = true;
-                setPanningCursor();
-            }
-            else if(event.mousebutton == SDL_BUTTON_LEFT) {
-                roadDragging = false;
-                areaBulldoze = false;
-                ctrDrag = false;
-                leftButtonDown = true;
-            }
-        } break;
-        case Event::MOUSEBUTTONUP:
-
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
-                if ( dragging ) {
-                    dragging = false;
-                    rightButtonDown = false;
-                    setDefaultCursor();
-                    // getButtonPanel()->selectQueryTool();
-                    break;
-                }
-                dragging = false;
-                rightButtonDown = false;
-            }
-            if( event.mousebutton == SDL_BUTTON_LEFT ){
-                if ( roadDragging && event.inside )
-                {
-                    MapPoint endRoad = getTile( event.mousepos );
-                    roadDragging = false;
-                    areaBulldoze = false;
-                    leftButtonDown = false;
-                    if( cursorSize != 1 ){//roadDragging was aborted with Escape
-                        break;
-                    }
-                    if(blockingDialogIsOpen)
-                      break;
-
-                    //build last tile first to play the sound
-                    Message::ptr dummyMsg;
-                    // check if allowed to avoid many dialogs for bulk ops
-                    if(getUserOperation()->isAllowedHere(
-                      game->getWorld(), endRoad, dummyMsg)
-                    ) {
-                      game->executeUserOperation(endRoad);
-                    }
-                    MapPoint currentTile = startRoad;
-                    int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
-                    int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    if(getUserOperation()->action ==
-                      UserOperation::ACTION_BULLDOZE
-                    ) {
-                      for(currentTile.x = startRoad.x;
-                        currentTile.x != endRoad.x + stepx;
-                        currentTile.x += stepx
-                      )
-                      for(currentTile.y = startRoad.y;
-                        currentTile.y != endRoad.y + stepy;
-                        currentTile.y += stepy
-                      ) {
-                        if(getUserOperation()->isAllowedHere(
-                          game->getWorld(), currentTile, dummyMsg)
-                        ) {
-                          game->executeUserOperation(currentTile);
-                        }
-                      }
-                    }
-                    else if(getUserOperation()->action ==
-                      UserOperation::ACTION_BUILD
-                    ) {
-                      int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
-                      int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
-                      int* l1 = ctrDrag ? &endRoad.y :&endRoad.x;
-                      int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
-                      int* s1 = ctrDrag ? &stepy: &stepx;
-                      int* s2 = ctrDrag ? &stepx: &stepy;
-
-                      while(*v1 != *l1) {
-                        if(getUserOperation()->isAllowedHere(
-                          game->getWorld(), currentTile, dummyMsg)
-                        ) {
-                          game->executeUserOperation(currentTile);
-                        }
-                        *v1 += *s1;
-                      }
-                      while(*v2 != *l2) {
-                        if(getUserOperation()->isAllowedHere(
-                          game->getWorld(), currentTile, dummyMsg)
-                        ) {
-                          game->executeUserOperation(currentTile);
-                        }
-                        *v2 += *s2;
-                      }
-                    }
-                    break;
-                }
-                roadDragging = false;
-                ctrDrag = false;
-                areaBulldoze = false;
-                leftButtonDown = false;
-            }
-            if(!event.inside) {
-                break;
-            }
-
-            if(event.mousebutton == SDL_BUTTON_LEFT) {
-              if(!blockingDialogIsOpen) {
-                game->executeUserOperation(getTile(event.mousepos));
-              }
-            }
-            else if(event.mousebutton == SDL_BUTTON_RIGHT) {
-              // show info on the clicked thing
-              MapPoint point = getTile(event.mousepos);
-              if(!inCity(point)) break;
-              game->getMpsMap().query(game->getWorld().map(point));
-              game->getMiniMap().switchView("MapMPS");
-            }
-            break;
-        case Event::MOUSEWHEEL:
-            if (!event.inside || event.scrolly == 0)
-                break;
-            if (event.scrolly > 0)
-                zoomMouse(sqrt(2.f), event.mousepos);
-            else
-                zoomMouse(sqrt(0.5), event.mousepos);
-            break;
-        case Event::WINDOWLEAVE:
-            mouseInGameView = false;
-            mouseScrollState = SCROLL_NONE;
-            break;
-        case Event::WINDOWENTER:
-            break;
-
-        case Event::KEYDOWN:
-            if( event.keysym.scancode == SDL_SCANCODE_LCTRL || event.keysym.scancode == SDL_SCANCODE_RCTRL ){
-                if (roadDragging)
-                {   ctrDrag = !ctrDrag;}
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
-                event.keysym.scancode == SDL_SCANCODE_UP ||
-                event.keysym.scancode == SDL_SCANCODE_W
-            ){
-                keyScrollState |= SCROLL_UP;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
-                event.keysym.scancode == SDL_SCANCODE_DOWN ||
-                event.keysym.scancode == SDL_SCANCODE_S
-            ){
-                keyScrollState |= SCROLL_DOWN;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
-                event.keysym.scancode == SDL_SCANCODE_LEFT ||
-                event.keysym.scancode == SDL_SCANCODE_A
-            ){
-                keyScrollState |= SCROLL_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
-                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
-                event.keysym.scancode == SDL_SCANCODE_D
-            ){
-                keyScrollState |= SCROLL_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_7 ){
-                keyScrollState |= SCROLL_UP_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_9 ){
-                keyScrollState |= SCROLL_UP_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_1 ){
-                keyScrollState |= SCROLL_DOWN_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_3 ){
-                keyScrollState |= SCROLL_DOWN_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_LSHIFT ){
-                keyScrollState |= SCROLL_LSHIFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_RSHIFT ){
-                keyScrollState |= SCROLL_RSHIFT;
-                break;
-            }
-
-
-            // use G to show ground info aka MpsEnv without middle mouse button
-            if( event.keysym.scancode == SDL_SCANCODE_G){
-                // if( inCity(tileUnderMouse) ) {
-                //     getMiniMap()->showMpsEnv( tileUnderMouse );
-                // }
-                break;
-            }
-            // hotkeys for scrolling pages up and down
-            if(event.keysym.scancode == SDL_SCANCODE_N)
-            {
-                getMiniMap()->scrollPageDown(true);
-                break;
-            }
-            if (event.keysym.scancode == SDL_SCANCODE_M)
-            {
-                getMiniMap()->scrollPageDown(false);
-                break;
-            }
-            break;
-        case Event::KEYUP:
-/*
-            //TEst
-            if( event.keysym.scancode == SDL_SCANCODE_X ){
-                writeOrigin();
-                readOrigin();
-                break;
-            }
-*/
-
-            if(event.keysym.scancode == SDL_SCANCODE_G) {
-              MpsMap& mps = game->getMpsMap();
-              if(mps.page == MpsMap::Page::GROUND)
-                mps.page = MpsMap::Page::INVENTORY;
-              else
-                mps.page = MpsMap::Page::GROUND;
-              mps.refresh();
-              game->getMiniMap().switchView("MapMPS");
-              break;
-            }
-            //Hide High Buildings
-            if( event.keysym.scancode == SDL_SCANCODE_H ){
-                if( hideHigh ){
-                    hideHigh = false;
-                } else {
-                    hideHigh = true;
-                }
-                setDirty();
-                break;
-            }
-            //overlay MiniMap Information
-            if( event.keysym.scancode == SDL_SCANCODE_V ){
-                mapOverlay = (mapOverlay+1)%(overlayMAX+1);
-                setDirty();
-                break;
-            }
-            //Zoom
-            if( event.keysym.sym == SDLK_KP_PLUS ){
-                zoomIn();
-                break;
-            }
-            if( event.keysym.sym == SDLK_KP_MINUS ){
-                zoomOut();
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_RETURN
-                    || event.keysym.scancode == SDL_SCANCODE_RETURN2) {
-                resetZoom();
-                break;
-            }
-            //Scroll
-            if( event.keysym.scancode == SDL_SCANCODE_KP_8 ||
-                event.keysym.scancode == SDL_SCANCODE_UP ||
-                event.keysym.scancode == SDL_SCANCODE_W
-            ){
-                keyScrollState &= ~SCROLL_UP;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_2 ||
-                event.keysym.scancode == SDL_SCANCODE_DOWN ||
-                event.keysym.scancode == SDL_SCANCODE_S
-            ){
-                keyScrollState &= ~SCROLL_DOWN;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_4 ||
-                event.keysym.scancode == SDL_SCANCODE_LEFT ||
-                event.keysym.scancode == SDL_SCANCODE_A
-            ){
-                keyScrollState &= ~SCROLL_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_6 ||
-                event.keysym.scancode == SDL_SCANCODE_RIGHT ||
-                event.keysym.scancode == SDL_SCANCODE_D
-            ){
-                keyScrollState &= ~SCROLL_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_7 ){
-                keyScrollState &= ~SCROLL_UP_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_9 ){
-                keyScrollState &= ~SCROLL_UP_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_1 ){
-                keyScrollState &= ~SCROLL_DOWN_LEFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_KP_3 ){
-                keyScrollState &= ~SCROLL_DOWN_RIGHT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_LSHIFT ){
-                keyScrollState &= ~SCROLL_LSHIFT;
-                break;
-            }
-            if( event.keysym.scancode == SDL_SCANCODE_RSHIFT ){
-                keyScrollState &= ~SCROLL_RSHIFT;
-                break;
-            }
-
-            if ( event.keysym.scancode == SDL_SCANCODE_KP_5 ) {
-                show(MapPoint(getWorld().map.len() / 2, getWorld().map.len() / 2));
-                setDirty();
-                break;
-            }
-            break;
-
-        case Event::UPDATE:
-            scroll(event.elapsedTime);
-            break;
-
-        default:
-            break;
+void
+GameView::event(const Event& event) {
+  switch(event.type) {
+  case Event::MOUSEMOTION: {
+    if(dragging) {
+      viewport -= event.mousemove;
+      constrainViewportPosition(true);
+      viewportUpdated();
+      setPanningCursor();
+      setDirty();
+      break;
     }
+    else {
+      scrollCorrection = Vector2(0,0);
+    }
+
+    mouseScrollState = SCROLL_NONE;
+    if(event.mousepos.x < scrollBorder)
+      mouseScrollState |= SCROLL_LEFT;
+    else if(event.mousepos.x > getWidth() - scrollBorder)
+      mouseScrollState |= SCROLL_RIGHT;
+
+    if(event.mousepos.y < scrollBorder)
+      mouseScrollState |= SCROLL_UP;
+    else if(event.mousepos.y > getHeight() - scrollBorder)
+      mouseScrollState |= SCROLL_DOWN;
+
+    if(!event.inside) {
+      mouseInGameView = false;
+      break;
+    }
+    mouseInGameView = true;
+
+    MapPoint tile = getTile(event.mousepos);
+    if(!roadDragging && leftButtonDown && cursorSize == 1
+      && getUserOperation()->action != UserOperation::ACTION_EVACUATE
+    ) {
+      roadDragging = true;
+      startRoad = tile;
+      areaBulldoze = (SDL_GetModState() & KMOD_CTRL);
+    }
+
+    if(roadDragging && cursorSize != 1) {
+      roadDragging = false;
+      areaBulldoze = false;
+      ctrDrag = false;
+    }
+    // bulldoze at once while still dragging
+
+    if(roadDragging && !areaBulldoze
+      && getUserOperation()->action == UserOperation::ACTION_BULLDOZE
+      && tile != startRoad
+    ) {
+      game->executeUserOperation(startRoad);
+      startRoad = tile;
+    }
+
+    if(tileUnderMouse != tile) {
+      tileUnderMouse = tile;
+      setDirty();
+      //update mps target
+      if(getUserOperation()->action == UserOperation::ACTION_EVACUATE)
+        game->getMpsMap().setTile(
+          game->getWorld().map.is_visible(tile)
+          ? game->getWorld().map(tile)
+          : nullptr
+        );
+    }
+  } break;
+  case Event::MOUSEBUTTONDOWN: {
+    if(!event.inside);
+    else if(event.mousebutton == SDL_BUTTON_MIDDLE) {
+      dragging = true;
+      ctrDrag = false;
+      mouseScrollState = SCROLL_NONE;
+    }
+    else if(event.mousebutton == SDL_BUTTON_LEFT) {
+      roadDragging = false;
+      areaBulldoze = false;
+      ctrDrag = false;
+      leftButtonDown = true;
+    }
+  } break;
+  case Event::MOUSEBUTTONUP: {
+    if(event.mousebutton == SDL_BUTTON_MIDDLE) {
+      if(dragging) {
+        dragging = false;
+        setDefaultCursor();
+        break;
+      }
+      dragging = false;
+    }
+    if(event.mousebutton == SDL_BUTTON_LEFT) {
+      if(roadDragging && event.inside) {
+        MapPoint endRoad = getTile(event.mousepos);
+        roadDragging = false;
+        areaBulldoze = false;
+        leftButtonDown = false;
+        if(cursorSize != 1)
+          //roadDragging was aborted with Escape
+          break;
+        if(blockingDialogIsOpen)
+          break;
+
+        //build last tile first to play the sound
+        Message::ptr dummyMsg;
+        // check if allowed to avoid many dialogs for bulk ops
+        if(getUserOperation()->isAllowedHere(
+          game->getWorld(), endRoad, dummyMsg)
+        ) {
+          game->executeUserOperation(endRoad);
+        }
+        MapPoint currentTile = startRoad;
+        int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
+        int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
+        if(getUserOperation()->action ==
+          UserOperation::ACTION_BULLDOZE
+        ) {
+          for(currentTile.x = startRoad.x;
+            currentTile.x != endRoad.x + stepx;
+            currentTile.x += stepx
+          )
+          for(currentTile.y = startRoad.y;
+            currentTile.y != endRoad.y + stepy;
+            currentTile.y += stepy
+          ) {
+            if(getUserOperation()->isAllowedHere(
+              game->getWorld(), currentTile, dummyMsg)
+            ) {
+              game->executeUserOperation(currentTile);
+            }
+          }
+        }
+        else if(getUserOperation()->action ==
+          UserOperation::ACTION_BUILD
+        ) {
+          int* v1 = ctrDrag ? &currentTile.y : &currentTile.x;
+          int* v2 = ctrDrag ? &currentTile.x : &currentTile.y;
+          int* l1 = ctrDrag ? &endRoad.y : &endRoad.x;
+          int* l2 = ctrDrag ? &endRoad.x : &endRoad.y;
+          int* s1 = ctrDrag ? &stepy : &stepx;
+          int* s2 = ctrDrag ? &stepx : &stepy;
+
+          while(*v1 != *l1) {
+            if(getUserOperation()->isAllowedHere(
+              game->getWorld(), currentTile, dummyMsg)
+            ) {
+              game->executeUserOperation(currentTile);
+            }
+            *v1 += *s1;
+          }
+          while(*v2 != *l2) {
+            if(getUserOperation()->isAllowedHere(
+              game->getWorld(), currentTile, dummyMsg)
+            ) {
+              game->executeUserOperation(currentTile);
+            }
+            *v2 += *s2;
+          }
+        }
+        break;
+      }
+      roadDragging = false;
+      ctrDrag = false;
+      areaBulldoze = false;
+      leftButtonDown = false;
+    }
+    if(!event.inside)
+      break;
+
+    if(event.mousebutton == SDL_BUTTON_LEFT) {
+      if(!blockingDialogIsOpen) {
+        game->executeUserOperation(getTile(event.mousepos));
+      }
+    }
+    else if(event.mousebutton == SDL_BUTTON_RIGHT) {
+      // show info on the clicked thing
+      MapPoint point = getTile(event.mousepos);
+      if(!inCity(point)) break;
+      game->getMpsMap().query(game->getWorld().map(point));
+      game->getMiniMap().switchView("MapMPS");
+    }
+  } break;
+  case Event::MOUSEWHEEL: {
+    if(!event.inside || event.scrolly == 0)
+      break;
+    if(event.scrolly > 0)
+      zoomMouse(sqrt(2.f), event.mousepos);
+    else
+      zoomMouse(sqrt(0.5), event.mousepos);
+  } break;
+  case Event::WINDOWLEAVE: {
+    mouseInGameView = false;
+    mouseScrollState = SCROLL_NONE;
+  } break;
+  case Event::WINDOWENTER:
+    break;
+  case Event::KEYDOWN: {
+    switch(event.keysym.scancode) {
+    case SDL_SCANCODE_LCTRL:
+    case SDL_SCANCODE_RCTRL:
+      if(roadDragging)
+        ctrDrag = !ctrDrag;
+      break;
+    case SDL_SCANCODE_KP_8:
+    case SDL_SCANCODE_UP:
+    case SDL_SCANCODE_W:
+      keyScrollState |= SCROLL_UP;
+      break;
+    case SDL_SCANCODE_KP_2:
+    case SDL_SCANCODE_DOWN:
+    case SDL_SCANCODE_S:
+      keyScrollState |= SCROLL_DOWN;
+      break;
+    case SDL_SCANCODE_KP_4:
+    case SDL_SCANCODE_LEFT:
+    case SDL_SCANCODE_A:
+      keyScrollState |= SCROLL_LEFT;
+      break;
+    case SDL_SCANCODE_KP_6:
+    case SDL_SCANCODE_RIGHT:
+    case SDL_SCANCODE_D:
+      keyScrollState |= SCROLL_RIGHT;
+      break;
+    case SDL_SCANCODE_KP_7:
+      keyScrollState |= SCROLL_UP_LEFT;
+      break;
+    case SDL_SCANCODE_KP_9:
+      keyScrollState |= SCROLL_UP_RIGHT;
+      break;
+    case SDL_SCANCODE_KP_1:
+      keyScrollState |= SCROLL_DOWN_LEFT;
+      break;
+    case SDL_SCANCODE_KP_3:
+      keyScrollState |= SCROLL_DOWN_RIGHT;
+      break;
+    case SDL_SCANCODE_LSHIFT:
+      keyScrollState |= SCROLL_LSHIFT;
+      break;
+    case SDL_SCANCODE_RSHIFT:
+      keyScrollState |= SCROLL_RSHIFT;
+      break;
+    case SDL_SCANCODE_N:
+      getMiniMap()->scrollPageDown(true);
+      break;
+    case SDL_SCANCODE_M:
+      getMiniMap()->scrollPageDown(false);
+      break;
+    }
+  } break;
+  case Event::KEYUP: {
+    switch(event.keysym.scancode) {
+    case SDL_SCANCODE_G: {
+      MpsMap& mps = game->getMpsMap();
+      if(mps.page == MpsMap::Page::GROUND)
+        mps.page = MpsMap::Page::INVENTORY;
+      else
+        mps.page = MpsMap::Page::GROUND;
+      mps.refresh();
+      game->getMiniMap().switchView("MapMPS");
+      break;
+    }
+    case SDL_SCANCODE_H: {
+      hideHigh = !hideHigh;
+      setDirty();
+      setMapDirty();
+    } break;
+    case SDL_SCANCODE_V: {
+      mapOverlay = (mapOverlay+1)%(overlayMAX+1);
+      setDirty();
+      setMapDirty();
+    } break;
+    //Zoom
+    case SDL_SCANCODE_KP_PLUS:
+      zoomIn();
+      break;
+    case SDL_SCANCODE_KP_MINUS:
+      zoomOut();
+      break;
+    case SDL_SCANCODE_RETURN:
+    case SDL_SCANCODE_RETURN2:
+      resetZoom();
+      break;
+    //Scroll
+    case SDL_SCANCODE_KP_8:
+    case SDL_SCANCODE_UP:
+    case SDL_SCANCODE_W:
+      keyScrollState &= ~SCROLL_UP;
+      break;
+    case SDL_SCANCODE_KP_2:
+    case SDL_SCANCODE_DOWN:
+    case SDL_SCANCODE_S:
+      keyScrollState &= ~SCROLL_DOWN;
+      break;
+    case SDL_SCANCODE_KP_4:
+    case SDL_SCANCODE_LEFT:
+    case SDL_SCANCODE_A:
+      keyScrollState &= ~SCROLL_LEFT;
+      break;
+    case SDL_SCANCODE_KP_6:
+    case SDL_SCANCODE_RIGHT:
+    case SDL_SCANCODE_D:
+      keyScrollState &= ~SCROLL_RIGHT;
+      break;
+    case SDL_SCANCODE_KP_7:
+      keyScrollState &= ~SCROLL_UP_LEFT;
+      break;
+    case SDL_SCANCODE_KP_9:
+      keyScrollState &= ~SCROLL_UP_RIGHT;
+      break;
+    case SDL_SCANCODE_KP_1:
+      keyScrollState &= ~SCROLL_DOWN_LEFT;
+      break;
+    case SDL_SCANCODE_KP_3:
+      keyScrollState &= ~SCROLL_DOWN_RIGHT;
+      break;
+    case SDL_SCANCODE_LSHIFT:
+      keyScrollState &= ~SCROLL_LSHIFT;
+      break;
+    case SDL_SCANCODE_RSHIFT:
+      keyScrollState &= ~SCROLL_RSHIFT;
+      break;
+    case SDL_SCANCODE_KP_5: {
+      show(MapPoint(getWorld().map.len() / 2, getWorld().map.len() / 2));
+      setDirty();
+    } break;
+    }
+  } break;
+  case Event::UPDATE: {
+    scroll(event.elapsedTime);
+  } break;
+  default:
+    break;
+  }
 }
 
 void GameView::setPanningCursor() {
@@ -1738,6 +1601,7 @@ void GameView::showToolInfo( int number /*= 0*/ )
 /*
  * Print a Message to the StatusBar.
  */
+// TODO: this method should be moved to the Game class
 void GameView::printStatusMessage( std::string message ){
     if( message == lastStatusMessage ){
         return;

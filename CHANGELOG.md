@@ -1,3 +1,34 @@
+## Unreleased
+
+###### User Interface
+- Fixed map overlay updates not triggering re-draw.
+- Changed the bulldoze warning to not issue when bulldozing isn't allowed
+  anyway.
+- Added partial language switching without restarting the game. (GUI components
+  that were already translated are not (yet) re-translated into the new
+  language. A restart is still required for that.) Notably, the pop-up dialog
+  suggesting to the user to restart the game now uses the new language.
+- Changed the app icon for the Windows version to match the (newer) icon for the
+  Linux version.
+
+###### Internal
+- Fixed Ninja build generation.
+- Added a build option to make a relocatable binary.
+- Added gettext/libintl optional library dependency.
+- Removed the `tinygettext` gettext implementation.
+- Changed the installation of locale files to binary (.mo) format.
+- Combined the source and GUI translation PO files into one.
+- Migrated GUI module from libxml2 to libxml++.
+- Added locale-independent formatting and parsing for XML.
+
+###### Documentation / Translation
+- Fixed the english fallback for help pages.
+- Reformatted the `--help` output, and added a brief command-line template.
+- Added documentation on build configuration options.
+- Added documentation on runtime config options.
+- Moved dependencies list from README.md to a separate file.
+
+
 ## LinCity-NG 2.14.1
 
 date: 2025-08-07
@@ -195,7 +226,7 @@ git: f42e76c3
   blacksmiths to display more than 100% busy.
 
 
-## LinCity NG 2.11.0
+## LinCity-NG 2.11.0
 
 date: 2024-06-24 <br/>
 tag: lincity-ng-2.11.0 <br/>
@@ -245,7 +276,7 @@ git: afaede3d
 - Blacksmiths may display more than 100% busy.
 
 
-## LinCity NG 2.10.2
+## LinCity-NG 2.10.2
 
 date: 2024-04-19 <br/>
 tag: lincity-ng-2.10.2 <br/>
@@ -256,7 +287,7 @@ git: a6101294
   components especially dialogs.
 
 
-## LinCity NG 2.10.1
+## LinCity-NG 2.10.1
 
 date: 2024-03-16 <br/>
 tag: lincity-ng-2.10.1 <br/>
@@ -268,10 +299,10 @@ git: 3b8c58bf
 
 ###### Documentation / Translation
 - Added a note in the readme to warn users of different build instructions for
-  different versions of LinCity NG.
+  different versions of LinCity-NG.
 
 
-## LinCity NG 2.10.0
+## LinCity-NG 2.10.0
 
 date: 2024-03-08 <br/>
 tag: lincity-ng-2.10.0 <br/>
@@ -368,7 +399,7 @@ git: f03cbe18
 - Does not autodetect screen size on startup in fullscreen.
 
 
-## LinCity NG 2.9.0
+## LinCity-NG 2.9.0
 
 date: 2023-12-18 <br/>
 tag: lincity-ng-2.9.0 <br/>
@@ -386,7 +417,7 @@ git: ff3e337b
 - Migraded to SDL2 as backend for interaction with user.
 
 
-## LinCity NG 2.9.0-beta
+## LinCity-NG 2.9.0-beta
 
 date: 2013-12-22 <br/>
 tag: lincity-ng-2.9.0-beta <br/>
@@ -399,7 +430,7 @@ svn: r1797
 - less bugs
 
 
-## LinCity NG 2.0.0
+## LinCity-NG 2.0.0
 
 date: 2009-01-25 <br/>
 tag: lincity-ng-2.0.0 <br/>
@@ -414,7 +445,7 @@ svn: r1518
 - less bugs
 
 
-## LinCity NG 1.97.0-beta
+## LinCity-NG 1.97.0-beta
 
 date: 2008-12-24 <br/>
 tag: lincity-ng-1.97.0-beta <br/>
@@ -425,7 +456,7 @@ svn: r1474
 - up to date English documentation
 
 
-## LinCity NG 1.92.0-beta
+## LinCity-NG 1.92.0-beta
 
 date: 2008-09-13 <br/>
 tag: lincity-ng-1.92.0-beta <br/>
@@ -439,7 +470,7 @@ svn: r1456
 - documentation is NOT up to date
 
 
-## LinCity NG 1.1.2
+## LinCity-NG 1.1.2
 
 date: 2007-11-04 <br/>
 tag: lincity-ng-1.1.2 <br/>
@@ -452,7 +483,7 @@ svn: r1270
 - Show range for windmill and coal mine while building.
 
 
-## LinCity NG 1.1.1
+## LinCity-NG 1.1.1
 
 date: 2007-08-19 <br/>
 tag: lincity-ng-1.1.1 <br/>
@@ -471,7 +502,7 @@ svn: r1263
 - Reuse open statistics dialog
 
 
-## LinCity NG 1.1.0
+## LinCity-NG 1.1.0
 
 date: 2007-02-19 <br/>
 tag: lincity-ng-1.1.0 <br/>
@@ -486,7 +517,7 @@ svn: r1139
 - German online help
 
 
-## LinCity NG 1.0.3
+## LinCity-NG 1.0.3
 
 date: 2006-04-14 <br/>
 tag: lincity-ng-1.0.3 <br/>
@@ -500,7 +531,7 @@ svn: r1089
 - Separate menus for loading and saving games.
 
 
-## LinCity NG 1.0.2
+## LinCity-NG 1.0.2
 
 date: 2005-11-09 <br/>
 tag: lincity-ng-1.0.2 <br/>
@@ -514,7 +545,7 @@ svn: r1063
 - Fixed: unwanted double-clicks in file menu
 
 
-## LinCity NG 1.0.1
+## LinCity-NG 1.0.1
 
 date: 2005-07-13 <br/>
 tag: lincity-ng-1.0.1 <br/>
@@ -530,7 +561,7 @@ svn: r1038
 - Fixed: Crash when empty scenario is selected.
 
 
-## LinCity NG 1.0.0
+## LinCity-NG 1.0.0
 
 date: 2005-06-20 <br/>
 tag: lincity-ng-1.0.0 <br/>

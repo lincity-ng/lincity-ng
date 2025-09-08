@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 #include <SDL.h>                          // for SDL_GetTicks, Uint32
-#include <assert.h>                       // for assert
+#include <cassert>                        // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
 #include <memory>                         // for unique_ptr

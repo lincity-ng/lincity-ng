@@ -22,7 +22,6 @@
 
 #include "Config.hpp"
 
-#include <assert.h>                       // for assert
 #include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
 #include <fmt/base.h>
 #include <fmt/format.h>                   // for format
@@ -31,17 +30,19 @@
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <cassert>                        // for assert
 #include <climits>                        // for INT_MAX, INT_MIN
-#include <cstddef>                        // for NULL
 #include <cstdio>                         // for sscanf
 #include <iostream>                       // for basic_ostream, operator<<
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
+#include <SDL.h>
+#include <fmt/std.h> // IWYU pragma: keep
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
 #include "lincity/world.hpp"              // for WORLD_SIDE_LEN
 #include "util/xmlutil.hpp"               // for xmlStr, xmlFormat, xmlParse
-#include "util/gettextutil.hpp"           // for xmlStr, xmlFormat, xmlParse
+#include "util/gettextutil.hpp"
 
 template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);
@@ -74,26 +75,44 @@ Config::Config() {
   worldSize.default_ = WORLD_SIDE_LEN;
   language.default_ = "autodetect";
 
-  {
+  { // configFile.default_
     char configFileStr[MAX_PATH];
     get_user_config_file(configFileStr, MAX_PATH, PACKAGE_NAME);
     if(*configFileStr)
       configFile.default_ = std::filesystem::path(configFileStr);
     else
-      std::cerr << "warning: "
-        << "failed to compute default config file location" << std::endl;
+      fmt::println(stderr, "failed to compute default config file location");
   }
-  {
+  { // userDataDir.default_
     char userDataDirStr[MAX_PATH];
     get_user_data_folder(userDataDirStr, MAX_PATH, PACKAGE_NAME);
     if(*userDataDirStr)
       userDataDir.default_ = std::filesystem::path(userDataDirStr);
     else
-      std::cerr << "warning: "
-        << "failed to compute default user data directory location"
-        << std::endl;
+      fmt::println(stderr,
+        "warning: failed to compute default user data directory location");
   }
-  appDataDir.default_ = std::filesystem::path(INSTALL_FULL_APPDATADIR);
+  { // appDataDir.default_
+    appDataDir.default_ = std::filesystem::path(INSTALL_FULL_APPDATADIR);
+
+    #ifdef LINCITYNG_RELOCATABLE
+    const std::filesystem::path invBin =
+      std::filesystem::path().lexically_relative(INSTALL_BINDIR);
+    const std::filesystem::path basePath(SDL_GetBasePath());
+    const std::filesystem::path relocPrefix =
+      (basePath / invBin).lexically_normal();
+    if(!relocPrefix.empty()) {
+      appDataDir.default_ = relocPrefix / INSTALL_APPDATADIR;
+    }
+    else {
+      fmt::println(stderr,
+        "error: failed to compute the relocation prefix: {}\n"
+        "  Falling back to the install prefix.",
+        SDL_GetError()
+      );
+    }
+    #endif
+  }
 }
 
 Config::~Config() {}
@@ -102,8 +121,7 @@ void Config::load(std::filesystem::path configFile) {
   if(configFile.empty())
     configFile = this->configFile.get();
   if(!std::filesystem::exists(configFile)) {
-    std::cerr << "info: config file does not exist: "
-      << configFile.string() << std::endl;
+    fmt::println(stderr, "info: config file does not exist: {}", configFile);
     return;
   }
 
@@ -357,24 +375,27 @@ Config::init(int argc, char** argv) {
 #endif
 
   if(!std::filesystem::is_directory(appDataDir.get())) {
-    std::cerr << "error: app data location is not a directory: "
-      << appDataDir.get().string() << std::endl
-      << "  Use `--app-data` to set the correct app data location."
-      << " Otherwise, LinCity-NG will likely crash." << std::endl;
+    fmt::println(stderr, "error: app data location is not a directory: {}"
+      "\n  Use `--app-data` to set the correct app data location."
+      " Otherwise, LinCity-NG will likely crash.",
+      appDataDir.get()
+    );
   }
 
   if(!std::filesystem::is_directory(userDataDir.get())) {
-    std::cerr << "error: user data location is not a directory: "
-      << userDataDir.get().string() << std::endl
-      << "  Use `--user-data` to set the correct user data location."
-      << std::endl;
+    fmt::println(stderr, "error: user data location is not a directory: {}"
+      "\n  Use `--user-data` to set the correct app data location.",
+      userDataDir.get()
+    );
   }
 
 #ifdef DISABLE_GL_MODE
   if(useOpenGL.get()) {
     useOpenGL.session = false;
-    std::cerr << "warning: GL mode was requested, but it is disabled for this"
-      " build. Using SDL mode instead." << std::endl;
+    fmt::println(stderr,
+      "warning: GL mode was requested, but it is disabled for this build."
+      " Using SDL mode instead."
+    );
   }
 #endif
 }

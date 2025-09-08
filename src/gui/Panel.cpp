@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Panel.hpp"
 
-#include <assert.h>                       // for assert
+#include <cassert>                        // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
 #include <filesystem>                     // for path
@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "ComponentLoader.hpp"            // for createComponent
 #include "Painter.hpp"                    // for Painter
+#include "Rect2D.hpp"                     // for Rect2D
 #include "Style.hpp"                      // for parseStyleDef
 #include "Texture.hpp"                    // for Texture
 #include "TextureManager.hpp"             // for TextureManager, texture_man...
@@ -110,7 +111,7 @@ void
 Panel::draw(Painter& painter)
 {
     if(background)
-        painter.drawTexture(background, Vector2(0, 0));
+        painter.drawStretchTexture(background, Rect2D(0, 0, width, height));
 
     Component::draw(painter);
 }

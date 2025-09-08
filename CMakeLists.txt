@@ -29,6 +29,7 @@ project(lincity-ng
   HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 set(PROJECT_NAME_PRETTY "LinCity-NG")
+set(APPSTREAM_ID "io.github.lincity_ng.lincity-ng")
 
 
 ### dependencies
@@ -50,6 +51,7 @@ find_package(Gettext)
 find_package(Intl)
 find_program(GETTEXT_XGETTEXT NAMES xgettext)
 find_program(INCLUDE_WHAT_YOU_USE NAMES include-what-you-use)
+find_package(Git)
 # find_package(LibXslt NO_CMAKE_FIND_ROOT_PATH)
 # The libxslt find module is broken when cross compiling because it looks in the
 # target environment instead of the host. The workaround is to find only the
@@ -93,6 +95,7 @@ if(ENABLE_NLS AND NOT (Intl_FOUND AND Gettext_FOUND))
     " one or both are missing. To suppress this warning, explicitly disable"
     " native language support with `-DENABLE_NLS=NO`.")
 endif()
+set(LINCITYNG_RELOCATABLE "NO" CACHE BOOL "Build a relocatable binary")
 
 
 ### compilation options
@@ -224,4 +227,6 @@ if(CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-g( |$)")
 else()
 	set(CPACK_STRIP_FILES TRUE)
 endif()
+configure_file(mk/cmake/LCCPackConfig.cmake.in LCCPackConfig.cmake @ONLY)
+set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/LCCPackConfig.cmake")
 include(CPack)

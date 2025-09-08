@@ -20,16 +20,22 @@ foreach(dataFile ${allDataFiles})
   copy_data_file(${dataFile} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_APPDATADIR} data_files_out)
 endforeach()
 
-copy_data_file(io.github.lincity_ng.lincity-ng.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
-copy_data_file(io.github.lincity_ng.lincity-ng.metainfo.xml ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/metainfo data_files_out)
-# copy_data_file(lincity-ng.png ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps data_files_out)
+
+copy_data_file(${APPSTREAM_ID}.desktop ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/applications data_files_out)
+copy_data_file(${APPSTREAM_ID}.metainfo.xml ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_DATADIR}/metainfo data_files_out)
 copy_data_file(lincity-ng.6 ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_INSTALL_MANDIR} data_files_out)
 
-install(FILES io.github.lincity_ng.lincity-ng.png
+# app icon for Windows
+if(WIN32)
+  file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${APPSTREAM_ID}.ico.rc "appicon ICON \"${CMAKE_CURRENT_SOURCE_DIR}/${APPSTREAM_ID}.ico\"")
+  target_sources(lincity-ng PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/${APPSTREAM_ID}.ico.rc)
+endif()
+
+install(FILES ${APPSTREAM_ID}.png
   DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps"
 )
-install(FILES io.github.lincity_ng.lincity-ng_2x.png
-  RENAME io.github.lincity_ng.lincity-ng.png
+install(FILES ${APPSTREAM_ID}_2x.png
+  RENAME ${APPSTREAM_ID}.png
   DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps"
 )
 
