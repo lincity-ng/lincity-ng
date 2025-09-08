@@ -158,10 +158,8 @@ private:
     bool stopThread;
 
     MapPoint tileUnderMouse;
-    Vector2 dragStart;
     bool mouseInGameView;
-    bool dragging, rightButtonDown;
-    Uint32 dragStartTime;
+    bool dragging;
     Vector2 scrollCorrection;
 
     bool roadDragging, ctrDrag, leftButtonDown;
