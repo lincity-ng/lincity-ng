@@ -78,7 +78,7 @@ public:
   void load(std::filesystem::path configPath = std::filesystem::path());
   void save(std::filesystem::path configPath = std::filesystem::path());
 
-  void parseCommandLine(int argc, char** argv);
+  void init(int argc, char** argv);
 
   static void printHelp(const std::string& command);
 };

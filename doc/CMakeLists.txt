@@ -22,7 +22,7 @@
 include(CopyDataFile)
 
 set(docFiles
-  doc/CONFIGURE_OPTIONS.md
+  doc/BUILD_OPTIONS.md
   doc/DEPENDENCIES.md
   doc/LINCITY-NG_CONFIG.md
 

@@ -255,7 +255,7 @@ main(int argc, char** argv) {
 
   // parse config and command line
   configPtr = new Config();
-  getConfig()->parseCommandLine(argc, argv);
+  getConfig()->init(argc, argv);
 
   // set the preferred language
 #if ENABLE_NLS
