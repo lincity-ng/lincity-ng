@@ -74,9 +74,6 @@ public:
     //size in Tiles of marking under Cursor
     void setCursorSize( int size );
 
-    //inform GameView about change in Mini Map Mode
-    void setMapMode( MiniMap::DisplayMode mMode );
-
     //Show informations about selected Tool (and price to build several tiles)
     void showToolInfo( int number = 0 );
 
@@ -93,7 +90,7 @@ public:
     //check if tile is in city
     bool inCity( MapPoint tile );
 
-    void setGame(Game *game) { this->game = game; }
+    void setGame(Game *game);
 
     bool textures_ready;
     //bool economyGraph_open;
@@ -177,7 +174,6 @@ private:
 
     bool hideHigh, showTerrainHeight;
     int mapOverlay;
-    MiniMap::DisplayMode mapMode;
     static const int overlayNone = 0;
     static const int overlayOn = 1;
     static const int overlayOnly = 2;
