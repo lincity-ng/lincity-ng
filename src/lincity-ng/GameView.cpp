@@ -553,6 +553,7 @@ void GameView::scroll(float elapsedTime)
 
     viewportUpdated();
     setDirty();
+    requestFastNextFrame();
 }
 
 bool GameView::constrainViewportPosition(bool useScrollCorrection) {
