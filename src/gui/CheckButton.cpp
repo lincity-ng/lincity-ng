@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <memory>                    // for unique_ptr
 #include <sstream>                   // for basic_stringstream
 #include <stdexcept>                 // for runtime_error
+#include <vector>                    // for vector
 
 #include "Child.hpp"                 // for Child, Childs
 #include "Component.hpp"             // for Component, Component::FLAG_RESIZ...

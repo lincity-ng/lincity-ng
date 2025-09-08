@@ -24,9 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __SCROLLBAR_HPP__
 #define __SCROLLBAR_HPP__
 
-#include <vector>         // for vector
-
-#include "Child.hpp"      // for Child (ptr only), Childs
+#include "Child.hpp"      // for Childs, Child (ptr only)
 #include "Component.hpp"  // for Component
 #include "Signal.hpp"     // for Signal
 

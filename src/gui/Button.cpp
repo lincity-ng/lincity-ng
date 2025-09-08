@@ -21,16 +21,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @file Button.cpp
  */
 
-#include <SDL.h>           // for SDL_GetTicks
+#include <SDL.h>                 // for SDL_GetTicks, Uint32
 #include <assert.h>              // for assert
 #include <ctype.h>               // for isspace
 #include <libxml/xmlreader.h>    // for XML_READER_TYPE_ELEMENT, XML_READER_...
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
-#include <iostream>              // for operator<<, basic_ostream, cerr, bas...
-#include <memory>                // for allocator, unique_ptr
+#include <iostream>              // for operator<<, basic_ostream, cerr, str...
+#include <memory>                // for unique_ptr
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
+#include <vector>                // for vector
 
 #include "Button.hpp"
 #include "ComponentFactory.hpp"  // for GUI_TRANSLATE, IMPLEMENT_COMPONENT_F...

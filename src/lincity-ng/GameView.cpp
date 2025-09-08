@@ -25,15 +25,15 @@
 #include <SDL.h>                         // for SDL_Scancode, SDL_BUTTON_LEFT
 #include <SDL_image.h>                   // for IMG_Load
 #include <assert.h>                      // for assert
-#include <stdio.h>                       // for size_t, sscanf, NULL
+#include <stdio.h>                       // for sscanf, size_t, NULL
 #include <string.h>                      // for strcmp
-#include <cmath>                         // for sqrt, fabs, fabsf, floorf
+#include <cmath>                         // for sqrt, fabs, floorf, hypot
 #include <exception>                     // for exception
-#include <functional>                    // for bind, _1, function
+#include <functional>                    // for bind, function, _1
 #include <iostream>                      // for basic_ostream, operator<<
 #include <iterator>                      // for advance
 #include <list>                          // for _List_iterator, list, operat...
-#include <map>                           // for _Rb_tree_iterator, map, oper...
+#include <map>                           // for map, operator!=
 #include <sstream>                       // for basic_stringstream
 #include <utility>                       // for pair
 #include <vector>                        // for vector
@@ -41,7 +41,7 @@
 #include "Config.hpp"                    // for getConfig, Config
 #include "Dialog.hpp"                    // for blockingDialogIsOpen
 #include "Game.hpp"                      // for Game
-#include "MiniMap.hpp"                   // for MiniMap, getMiniMap
+#include "MiniMap.hpp"                   // for getMiniMap, MiniMap
 #include "Mps.hpp"                       // for MpsMap
 #include "Util.hpp"                      // for getButton, getParagraph
 #include "gui/Button.hpp"                // for Button
@@ -58,15 +58,14 @@
 #include "gui/XmlReader.hpp"             // for XmlReader
 #include "libxml/xmlreader.h"            // for XML_READER_TYPE_ELEMENT
 #include "lincity-ng/UserOperation.hpp"  // for UserOperation
-#include "lincity/all_buildings.hpp"       // for GROUP_WATER_BUL_COST, GROUP_...
-#include "lincity/commodities.hpp"       // for commodityNames
-#include "lincity/groups.hpp"              // for GROUP_DESERT, GROUP_WATER
-#include "lincity/lin-city.hpp"            // for FLAG_POWER_CABLES_0, FLAG_PO...
-#include "lincity/lintypes.hpp"            // for ConstructionGroup, Construction
+#include "lincity/all_buildings.hpp"     // for GROUP_WATER_BUL_COST, GROUP_...
+#include "lincity/groups.hpp"            // for GROUP_DESERT, GROUP_WATER
+#include "lincity/lin-city.hpp"          // for FLAG_POWER_CABLES_0, FLAG_PO...
+#include "lincity/lintypes.hpp"          // for ConstructionGroup, Construction
 #include "lincity/messages.hpp"          // for Message
 #include "lincity/modules/tile.hpp"      // for TileConstructionGroup, bareC...
-#include "lincity/transport.hpp"           // for BRIDGE_FACTOR
-#include "lincity/world.hpp"               // for Map, World, MapTile, Ground
+#include "lincity/transport.hpp"         // for BRIDGE_FACTOR
+#include "lincity/world.hpp"             // for Map, World, MapTile, Ground
 #include "tinygettext/gettext.hpp"       // for _, dictionaryManager
 #include "tinygettext/tinygettext.hpp"   // for Dictionary, DictionaryManager
 

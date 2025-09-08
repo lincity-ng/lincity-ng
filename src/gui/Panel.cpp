@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>               // for sscanf
 #include <string.h>              // for strcmp
 #include <filesystem>            // for path
-#include <iostream>              // for basic_ostream, operator<<, stringstream
+#include <iostream>              // for operator<<, basic_ostream, stringstream
 #include <sstream>               // for basic_stringstream
 #include <stdexcept>             // for runtime_error
 #include <string>                // for char_traits, allocator, basic_string
@@ -38,11 +38,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentFactory.hpp"  // for IMPLEMENT_COMPONENT_FACTORY
 #include "ComponentLoader.hpp"   // for createComponent
 #include "Painter.hpp"           // for Painter
+#include "Rect2D.hpp"            // for Rect2D
 #include "Style.hpp"             // for parseStyleDef
+#include "Texture.hpp"           // for Texture
 #include "TextureManager.hpp"    // for TextureManager, texture_manager
 #include "Vector2.hpp"           // for Vector2
 #include "XmlReader.hpp"         // for XmlReader
-#include "Texture.hpp"
 
 /**
  * Class constructor.

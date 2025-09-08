@@ -26,9 +26,8 @@
 #include <SDL.h>                  // for Uint32, SDL_Surface, SDL_Thread
 #include <filesystem>             // for path
 #include <memory>                 // for unique_ptr
-#include <string>                 // for basic_string, string
+#include <string>                 // for string, basic_string
 
-#include "MiniMap.hpp"            // for MiniMap
 #include "gui/Component.hpp"      // for Component
 #include "gui/Vector2.hpp"        // for Vector2
 #include "lincity/MapPoint.hpp"   // for MapPoint

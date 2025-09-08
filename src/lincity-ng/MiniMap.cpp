@@ -24,6 +24,7 @@
 
 #include <SDL.h>                            // for Uint16, Uint8, SDL_BUTTON...
 #include <assert.h>                         // for assert
+#include <fmt/format.h>                     // for format
 #include <stdio.h>                          // for sscanf, size_t
 #include <string.h>                         // for strlen, strcmp
 #include <array>                            // for array
@@ -31,7 +32,6 @@
 #include <iostream>                         // for basic_ostream, operator<<
 #include <sstream>                          // for basic_stringstream
 #include <stdexcept>                        // for runtime_error
-#include <fmt/format.h>
 
 #include "Dialog.hpp"                       // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                         // for Game
@@ -58,6 +58,7 @@
 #include "lincity/modules/all_modules.hpp"  // for Powerline, Transport, Fire
 #include "lincity/transport.hpp"            // for TRANSPORT_QUANTA, TRANSPO...
 #include "lincity/world.hpp"                // for MapTile, World, Map
+#include "tinygettext/gettext.hpp"          // for _
 
 using namespace std::placeholders;
 
