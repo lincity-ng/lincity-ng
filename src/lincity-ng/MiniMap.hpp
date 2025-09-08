@@ -29,9 +29,9 @@
 
 #include "gui/Color.hpp"            // for Color
 #include "gui/Component.hpp"        // for Component
+#include "gui/Signal.hpp"
 #include "gui/Vector2.hpp"          // for Vector2
 #include "lincity/commodities.hpp"  // for Commodity
-#include "gui/Signal.hpp"
 
 class Button;
 class CheckButton;

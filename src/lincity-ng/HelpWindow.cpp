@@ -18,16 +18,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "HelpWindow.hpp"
 
-#include <cassert>                  // for assert
-#include <exception>                // for exception
-#include <functional>               // for bind, _1, function, _2
-#include <iostream>                 // for basic_ostream, operator<<, cerr
-#include <memory>                   // for unique_ptr
-#include <sstream>                  // for basic_ostringstream
-#include <stdexcept>                // for runtime_error
-#include <utility>                  // for move
-#include <fmt/format.h>
-#include <fmt/std.h>
+#include <fmt/format.h>                 // for format
+#include <fmt/std.h> // IWYU pragma: keep
+#include <cassert>                      // for assert
+#include <exception>                    // for exception
+#include <functional>                   // for bind, _1, function, _2
+#include <iostream>                     // for basic_ostream, operator<<, cerr
+#include <memory>                       // for unique_ptr
+#include <stdexcept>                    // for runtime_error
+#include <utility>                      // for move
 
 #include "Config.hpp"               // for getConfig, Config
 #include "Util.hpp"                 // for getButton

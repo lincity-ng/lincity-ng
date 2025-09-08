@@ -22,7 +22,6 @@
 
 #include "Config.hpp"
 
-#include <assert.h>                       // for assert
 #include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
 #include <fmt/base.h>
 #include <fmt/format.h>                   // for format
@@ -31,20 +30,19 @@
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <cassert>                        // for assert
 #include <climits>                        // for INT_MAX, INT_MIN
-#include <cstddef>                        // for NULL
 #include <cstdio>                         // for sscanf
 #include <iostream>                       // for basic_ostream, operator<<
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
-#include <cstdlib>
 #include <SDL.h>
 #include <fmt/std.h> // IWYU pragma: keep
 
 #include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
 #include "lincity/world.hpp"              // for WORLD_SIDE_LEN
 #include "util/xmlutil.hpp"               // for xmlStr, xmlFormat, xmlParse
-#include "util/gettextutil.hpp"           // for xmlStr, xmlFormat, xmlParse
+#include "util/gettextutil.hpp"
 
 template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);

@@ -23,16 +23,16 @@
 #include "MiniMap.hpp"
 
 #include <SDL.h>                            // for Uint16, Uint8, SDL_BUTTON...
-#include <assert.h>                         // for assert
+#include <cassert>                          // for assert
+#include <fmt/format.h>                     // for format
 #include <libxml++/parsers/textreader.h>    // for TextReader
 #include <libxml++/ustring.h>               // for ustring
-#include <string.h>                         // for strlen
+#include <cstring>                          // for strlen
 #include <array>                            // for array
 #include <cstddef>                          // for size_t
 #include <functional>                       // for bind, _1, function, _2
 #include <iostream>                         // for basic_ostream, operator<<
 #include <stdexcept>                        // for runtime_error
-#include <fmt/format.h>
 
 #include "Dialog.hpp"                       // for Dialog, ASK_COAL_SURVEY
 #include "Game.hpp"                         // for Game

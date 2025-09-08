@@ -1,3 +1,19 @@
+## Unreleased
+
+###### User Interface
+- Fixed map overlay updates not triggering re-draw.
+- Changed the bulldoze warning to not issue when bulldozing isn't allowed
+  anyway.
+- Changed the app icon for the Windows version to match the (newer) icon for the
+  Linux version.
+
+###### Internal
+- Added a build option to make a relocatable binary.
+
+###### Documentation / Translation
+- Fixed the english fallback for help pages.
+
+
 ## LinCity-NG 2.14.1
 
 date: 2025-08-07

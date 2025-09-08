@@ -29,7 +29,7 @@
 #include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
-#include <stdio.h>                        // for stderr
+#include <cstdio>                         // for stderr
 #include <cmath>                          // for sqrt, fabs, fabsf, floorf
 #include <cstddef>                        // for size_t, NULL
 #include <exception>                      // for exception
@@ -63,7 +63,6 @@
 #include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
 #include "lincity-ng/UserOperation.hpp"   // for UserOperation
 #include "lincity/all_buildings.hpp"      // for GROUP_WATER_BUL_COST, GROUP...
-#include "lincity/commodities.hpp"        // for commodityNames
 #include "lincity/groups.hpp"             // for GROUP_DESERT, GROUP_WATER
 #include "lincity/lin-city.hpp"           // for FLAG_POWER_CABLES_0, FLAG_P...
 #include "lincity/lintypes.hpp"           // for ConstructionGroup, Construc...
