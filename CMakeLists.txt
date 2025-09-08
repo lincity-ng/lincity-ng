@@ -29,6 +29,7 @@ project(lincity-ng
   HOMEPAGE_URL "https://github.com/lincity-ng/lincity-ng"
 )
 set(PROJECT_NAME_PRETTY "LinCity-NG")
+set(APPSTREAM_ID "io.github.lincity_ng.lincity-ng")
 
 
 ### dependencies

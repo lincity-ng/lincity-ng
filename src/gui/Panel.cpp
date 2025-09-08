@@ -110,7 +110,7 @@ void
 Panel::draw(Painter& painter)
 {
     if(background)
-        painter.drawTexture(background, Vector2(0, 0));
+        painter.drawStretchTexture(background, Rect2D(0, 0, width, height));
 
     Component::draw(painter);
 }

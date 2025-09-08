@@ -26,6 +26,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>                  // for basic_ostringstream
 #include <stdexcept>                // for runtime_error
 #include <utility>                  // for move
+#include <fmt/format.h>
+#include <fmt/std.h>
 
 #include "Config.hpp"               // for getConfig, Config
 #include "Util.hpp"                 // for getButton
@@ -41,6 +43,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "util/ptrutil.hpp"         // for dynamic_unique_cast
 
 using namespace std::placeholders;
+using namespace std::string_literals;
 
 HelpWindow::HelpWindow(WindowManager* wm) : windowManager(wm) {
   assert(wm);
@@ -101,59 +104,56 @@ HelpWindow::showTopic(const std::string& topic)
 }
 
 std::filesystem::path
-HelpWindow::getHelpFile(const std::string& topic)
-{
-  // try in user language
-  std::string language = getLang();
+HelpWindow::getHelpFile(const std::string& topic) {
+  const std::filesystem::path helpdir = getConfig()->appDataDir.get() / "help";
+  const std::filesystem::path filename = topic + ".xml";
+  const std::string language = getLang();
+  std::filesystem::path filepath;
+
   if(language == "C" || language == "POSIX"
     || language.substr(0,2) == "C."
     || language.substr(0,6) == "POSIX."
   ) {
-    getConfig()->appDataDir.get() / "help" / "en" / (topic + ".xml");
+    filepath = helpdir / "en" / filename;
+    if(std::filesystem::exists(filepath))
+      return filepath;
+
+    throw std::runtime_error(fmt::format(
+      "no help file found for topic {:?}: file doesn't exist: {}",
+      topic, filepath
+    ));
   }
 
-  std::filesystem::path filename = getConfig()->appDataDir.get() / "help";
-  filename /= language;
-  filename /= topic;
-  filename += ".xml";
-  if(std::filesystem::exists(filename))
-    return filename;
+  // try in user language
+  filepath = helpdir / language / filename;
+  if(std::filesystem::exists(filepath))
+    return filepath;
 
   // try stripping the codeset
-  std::string::size_type pos = language.find(".");
-  if(pos != std::string::npos) {
-    language = std::string(language, 0, pos);
-    filename = getConfig()->appDataDir.get() / "help";
-    filename /= language;
-    filename /= topic;
-    filename += ".xml";
+  std::string::size_type codesetPos = language.find(".");
+  if(codesetPos != std::string::npos) {
+    filepath = helpdir / language.substr(0, codesetPos) / filename;
     if(std::filesystem::exists(filename))
       return filename;
   }
 
-  // try short language, eg. "de" instead of "de_CH"
-  pos = language.find("_");
-  if(pos != std::string::npos) {
-    language = std::string(language, 0, pos);
-    filename = getConfig()->appDataDir.get() / "help";
-    filename /= language;
-    filename /= topic;
-    filename += ".xml";
-    if(std::filesystem::exists(filename))
-      return filename;
+  // try stripping the region, eg. "de" instead of "de_CH"
+  std::string::size_type regionPos = language.find("_");
+  if(regionPos < codesetPos) {
+    filepath = helpdir / language.substr(0, regionPos) / filename;
+    if(std::filesystem::exists(filepath))
+      return filepath;
   }
 
   // try english
-  filename = getConfig()->appDataDir.get() / "help" / "en";
-  filename /= topic;
-  filename += ".xml";
-  if(std::filesystem::exists(filename))
-    return filename;
+  filepath = helpdir / "en" / filename;
+  if(std::filesystem::exists(filepath))
+    return filepath;
 
   // give up
-  std::ostringstream msg;
-  msg << "There exists no help file for topic '" << topic << "'";
-  throw std::runtime_error(msg.str());
+  throw std::runtime_error(fmt::format("no help file found for topic {:?} "s +
+    "with language {:?}, and english fallback failed: file doesn't exist: {}",
+    topic, language, filepath));
 }
 
 void
