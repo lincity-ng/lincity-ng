@@ -29,6 +29,7 @@
 #include <deque>  // for deque
 
 #include "commodities.hpp"
+#include "groups.hpp"
 
 #define NUM_PBARS 15
 #define PPOP    0
@@ -168,6 +169,8 @@ public:
   };
 
   std::array<Inventory<Stat<>>, STUFF_COUNT> inventory;
+
+  std::array<unsigned int, NUM_OF_GROUPS> groupCount;
 
   struct {
     // previously "monthgraph"

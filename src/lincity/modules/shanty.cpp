@@ -68,7 +68,7 @@ Construction *ShantyConstructionGroup::createConstruction(World& world) {
 void add_a_shanty(World& world) {
     MapPoint p;
     std::optional<MapPoint> r;
-    int numof_shanties = shantyConstructionGroup.count;
+    int numof_shanties = world.stats.groupCount[GROUP_SHANTY];
     const int len = world.map.len();
     p.x = rand() % len;
     p.y = rand() % len;
@@ -111,8 +111,8 @@ void add_a_shanty(World& world) {
 }
 
 void update_shanty(World& world) {
-  int numof_communes = communeConstructionGroup.count;
-  int numof_shanties = shantyConstructionGroup.count;
+  int numof_communes = world.stats.groupCount[GROUP_COMMUNE];
+  int numof_shanties = world.stats.groupCount[GROUP_SHANTY];
   const int len = world.map.len();
   //Foersts make new people? Why not
   //people_pool += .3 * numof_communes;

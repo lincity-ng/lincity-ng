@@ -182,29 +182,7 @@ public:
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
         int cost, int tech, int range
-    ) {
-        this->name = name;
-        this->name_plural = name_plural;
-        this->no_credit = no_credit;
-        this->group = group;
-        this->size = size;
-        this->colour = colour;
-        this->cost_mul = cost_mul;
-        this->bul_cost = bul_cost;
-        this->fire_chance = fire_chance;
-        this->cost = cost;
-        this->tech = tech;
-        this->range = range;
-        this->count = 0;
-
-        for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
-          this->commodityRuleCount[stuff] = (CommodityRule){
-            .maxload = 0,
-            .take = false,
-            .give = false
-          };
-        }
-    }
+    );
     virtual ~ConstructionGroup() {}
 
     std::array<CommodityRule, STUFF_COUNT> commodityRuleCount;
@@ -245,7 +223,6 @@ public:
     int cost;                   /* group cost */
     int tech;                   /* group tech */
     int range;                  /* range beyond size*/
-    int count;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {

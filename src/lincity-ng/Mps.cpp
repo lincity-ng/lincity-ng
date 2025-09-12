@@ -26,6 +26,7 @@
 #include <libxml++/parsers/textreader.h>    // for TextReader
 #include <libxml++/ustring.h>               // for ustring
 #include <algorithm>                        // for max
+#include <array>                            // for array
 #include <deque>                            // for deque, operator!=
 #include <iomanip>                          // for setprecision, _Setprecision
 #include <iterator>                         // for advance
@@ -41,7 +42,7 @@
 #include "gui/Paragraph.hpp"                // for Paragraph
 #include "lincity/MapPoint.hpp"             // for MapPoint
 #include "lincity/commodities.hpp"          // for Commodity
-#include "lincity/groups.hpp"               // for GROUP_DESERT, GROUP_WATER
+#include "lincity/groups.hpp"               // for GROUP_DESERT, GROUP_SHANTY
 #include "lincity/lin-city.hpp"             // for FLAG_IS_LAKE, FLAG_IS_RIVER
 #include "lincity/lintypes.hpp"             // for NUMOF_DAYS_IN_MONTH, Cons...
 #include "lincity/modules/all_modules.hpp"  // for TileConstructionGroup
@@ -480,7 +481,7 @@ MpsFinance::refreshPopulation() {
   add_sd(N_("Homeless"),
     (stats.population.population_m - stats.population.housed_m)
     / NUMOF_DAYS_IN_MONTH);
-  add_sd(N_("Shanties"), shantyConstructionGroup.count);
+  add_sd(N_("Shanties"), stats.groupCount[GROUP_SHANTY]);
 
   add_sddp(N_("Unemployment"),
     stats.population.unemployed_m / NUMOF_DAYS_IN_MONTH,
