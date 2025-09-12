@@ -22,10 +22,14 @@
 #ifndef __LINCITYNG_LINCITY_MAPPOINT_HPP__
 #define __LINCITYNG_LINCITY_MAPPOINT_HPP__
 
-#include <cstddef>      // for size_t
-#include <ostream>      // for ostream
+#include <fmt/base.h>     // for formatter
+#include <fmt/ostream.h>  // for ostream_formatter
+#include <cstddef>        // for size_t
+#include <ostream>        // for ostream
 
-namespace std { template<class Key> struct hash; }  // IWYU pragma: keep
+namespace std {
+template<class Key> struct hash; // IWYU pragma: keep
+}  // namespace std
 
 class MapPoint {
 public:
@@ -52,5 +56,8 @@ template<>
 struct std::hash<MapPoint> {
   std::size_t operator()(MapPoint point) const;
 };
+
+template<>
+struct fmt::formatter<MapPoint> : ostream_formatter {};
 
 #endif // __LINCITYNG_LINCITY_MAPPOINT_HPP__

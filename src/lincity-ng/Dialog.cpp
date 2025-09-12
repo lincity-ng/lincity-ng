@@ -53,9 +53,10 @@
 #include "gui/WindowManager.hpp"            // for WindowManager
 #include "lincity/MapPoint.hpp"             // for MapPoint, operator<<
 #include "lincity/commodities.hpp"          // for CommodityRule, Commodity
+#include "lincity/groups.hpp"               // for GROUP_BLACKSMITH, GROUP_C...
 #include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, RESULTS_F...
 #include "lincity/lintypes.hpp"             // for Construction, NUMOF_DAYS_...
-#include "lincity/modules/all_modules.hpp"  // for Market, ResidenceConstruc...
+#include "lincity/modules/all_modules.hpp"  // for Market, Port, RocketPad
 #include "lincity/stats.hpp"                // for Stats, Stat
 #include "lincity/util.hpp"                 // for current_year, current_month
 #include "lincity/world.hpp"                // for World, Map, MapTile
@@ -316,74 +317,74 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-      residenceLLConstructionGroup.count +
-      residenceMLConstructionGroup.count +
-      residenceHLConstructionGroup.count +
-      residenceLHConstructionGroup.count +
-      residenceMHConstructionGroup.count +
-      residenceHHConstructionGroup.count);
-    setTableRC("statistic", 1, 2, _("Markets"), marketConstructionGroup.count);
-    setTableRC("statistic", 1, 3, _("Farms"), organic_farmConstructionGroup.count);
+      world.stats.groupCount[GROUP_RESIDENCE_LL] +
+      world.stats.groupCount[GROUP_RESIDENCE_ML] +
+      world.stats.groupCount[GROUP_RESIDENCE_HL] +
+      world.stats.groupCount[GROUP_RESIDENCE_LH] +
+      world.stats.groupCount[GROUP_RESIDENCE_MH] +
+      world.stats.groupCount[GROUP_RESIDENCE_HH]);
+    setTableRC("statistic", 1, 2, _("Markets"), world.stats.groupCount[GROUP_MARKET]);
+    setTableRC("statistic", 1, 3, _("Farms"), world.stats.groupCount[GROUP_ORGANIC_FARM]);
 
-    setTableRC("statistic", 2, 1, _("Water wells"), waterwellConstructionGroup.count);
-    setTableRC("statistic", 2, 2, _("Windmills"), windmillConstructionGroup.count);
+    setTableRC("statistic", 2, 1, _("Water wells"), world.stats.groupCount[GROUP_WATERWELL]);
+    setTableRC("statistic", 2, 2, _("Windmills"), world.stats.groupCount[GROUP_WINDMILL]);
     setTableRC("statistic", 2, 3, "", "");
 
     setTableRC("statistic", 3, 1, "", "");
     setTableRC("statistic", 3, 2, "", "");
     setTableRC("statistic", 3, 3, "", "");
 
-    setTableRC("statistic", 4, 1, _("Monuments"), monumentConstructionGroup.count);
-    setTableRC("statistic", 4, 2, _("Schools"), schoolConstructionGroup.count);
-    setTableRC("statistic", 4, 3, _("Universities"), universityConstructionGroup.count);
+    setTableRC("statistic", 4, 1, _("Monuments"), world.stats.groupCount[GROUP_MONUMENT]);
+    setTableRC("statistic", 4, 2, _("Schools"), world.stats.groupCount[GROUP_SCHOOL]);
+    setTableRC("statistic", 4, 3, _("Universities"), world.stats.groupCount[GROUP_UNIVERSITY]);
 
-    setTableRC("statistic", 5, 1, _("Fire stations"), fireStationConstructionGroup.count);
+    setTableRC("statistic", 5, 1, _("Fire stations"), world.stats.groupCount[GROUP_FIRESTATION]);
     setTableRC("statistic", 5, 2, _("Parks"),
-      parklandConstructionGroup.count +
-      parkpondConstructionGroup.count);
-    setTableRC("statistic", 5, 3, _("Sports fields"), cricketConstructionGroup.count);
+      world.stats.groupCount[GROUP_PARKLAND] +
+      world.stats.groupCount[GROUP_PARKPOND]);
+    setTableRC("statistic", 5, 3, _("Sports fields"), world.stats.groupCount[GROUP_CRICKET]);
 
-    setTableRC("statistic", 6, 1, _("Health centres"), healthCentreConstructionGroup.count);
-    setTableRC("statistic", 6, 2, _("Tips"), tipConstructionGroup.count);
-    setTableRC("statistic", 6, 3, _("Shanties"), shantyConstructionGroup.count);
+    setTableRC("statistic", 6, 1, _("Health centres"), world.stats.groupCount[GROUP_HEALTH]);
+    setTableRC("statistic", 6, 2, _("Tips"), world.stats.groupCount[GROUP_TIP]);
+    setTableRC("statistic", 6, 3, _("Shanties"), world.stats.groupCount[GROUP_SHANTY]);
 
     setTableRC("statistic", 7, 1, "", "");
     setTableRC("statistic", 7, 2, "", "");
     setTableRC("statistic", 7, 3, "", "");
 
-    setTableRC("statistic", 8, 1, _("Wind powers"), windpowerConstructionGroup.count);
-    setTableRC("statistic", 8, 2, _("Coal powers"), coal_powerConstructionGroup.count);
-    setTableRC("statistic", 8, 3, _("Solar powers"), solarPowerConstructionGroup.count);
+    setTableRC("statistic", 8, 1, _("Wind powers"), world.stats.groupCount[GROUP_WIND_POWER]);
+    setTableRC("statistic", 8, 2, _("Coal powers"), world.stats.groupCount[GROUP_COAL_POWER]);
+    setTableRC("statistic", 8, 3, _("Solar powers"), world.stats.groupCount[GROUP_SOLAR_POWER]);
 
-    setTableRC("statistic", 9, 1, _("Substations"), substationConstructionGroup.count);
-    setTableRC("statistic", 9, 2, _("Power lines"), powerlineConstructionGroup.count);
-    setTableRC("statistic", 9, 3, _("Ports"), portConstructionGroup.count);
+    setTableRC("statistic", 9, 1, _("Substations"), world.stats.groupCount[GROUP_SUBSTATION]);
+    setTableRC("statistic", 9, 2, _("Power lines"), world.stats.groupCount[GROUP_POWER_LINE]);
+    setTableRC("statistic", 9, 3, _("Ports"), world.stats.groupCount[GROUP_PORT]);
 
     setTableRC("statistic", 10, 1, _("Tracks"),
-      trackConstructionGroup.count +
-      trackbridgeConstructionGroup.count);
+      world.stats.groupCount[GROUP_TRACK] +
+      world.stats.groupCount[GROUP_TRACK_BRIDGE]);
     setTableRC("statistic", 10, 2, _("Roads"),
-      roadConstructionGroup.count +
-      roadbridgeConstructionGroup.count);
+      world.stats.groupCount[GROUP_ROAD] +
+      world.stats.groupCount[GROUP_ROAD_BRIDGE]);
     setTableRC("statistic", 10, 3, _("Rail"),
-      railConstructionGroup.count +
-      railbridgeConstructionGroup.count);
+      world.stats.groupCount[GROUP_RAIL] +
+      world.stats.groupCount[GROUP_RAIL_BRIDGE]);
 
     setTableRC("statistic", 11, 1, "", "");
     setTableRC("statistic", 11, 2, "", "");
     setTableRC("statistic", 11, 3, "", "");
 
-    setTableRC("statistic", 12, 1, _("Potteries"), potteryConstructionGroup.count);
-    setTableRC("statistic", 12, 2, _("Blacksmiths"), blacksmithConstructionGroup.count);
-    setTableRC("statistic", 12, 3, _("Mills"), millConstructionGroup.count);
+    setTableRC("statistic", 12, 1, _("Potteries"), world.stats.groupCount[GROUP_POTTERY]);
+    setTableRC("statistic", 12, 2, _("Blacksmiths"), world.stats.groupCount[GROUP_BLACKSMITH]);
+    setTableRC("statistic", 12, 3, _("Mills"), world.stats.groupCount[GROUP_MILL]);
 
-    setTableRC("statistic", 13, 1, _("Light inds"), industryLightConstructionGroup.count);
-    setTableRC("statistic", 13, 2, _("Heavy inds"), industryHeavyConstructionGroup.count);
-    setTableRC("statistic", 13, 3, _("Recyclers"), recycleConstructionGroup.count);
+    setTableRC("statistic", 13, 1, _("Light inds"), world.stats.groupCount[GROUP_INDUSTRY_L]);
+    setTableRC("statistic", 13, 2, _("Heavy inds"), world.stats.groupCount[GROUP_INDUSTRY_H]);
+    setTableRC("statistic", 13, 3, _("Recyclers"), world.stats.groupCount[GROUP_RECYCLE]);
 
-    setTableRC("statistic", 14, 1, _("Coal mines"), coalmineConstructionGroup.count);
-    setTableRC("statistic", 14, 2, _("Ore mines"), oremineConstructionGroup.count);
-    setTableRC("statistic", 14, 3, _("Forests"), communeConstructionGroup.count);
+    setTableRC("statistic", 14, 1, _("Coal mines"), world.stats.groupCount[GROUP_COALMINE]);
+    setTableRC("statistic", 14, 2, _("Ore mines"), world.stats.groupCount[GROUP_OREMINE]);
+    setTableRC("statistic", 14, 3, _("Forests"), world.stats.groupCount[GROUP_COMMUNE]);
 
     setTableRC("statistic", 15, 1, "", "");
     setTableRC("statistic", 15, 2, "", "");
@@ -454,67 +455,67 @@ void Dialog::saveGameStats(){
     results << "" << std::endl;
 
     snprintf(outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-      residenceLLConstructionGroup.count
-        + residenceMLConstructionGroup.count
-        + residenceHLConstructionGroup.count
-        + residenceLHConstructionGroup.count
-        + residenceMHConstructionGroup.count
-        + residenceHHConstructionGroup.count,
-      marketConstructionGroup.count,
-      organic_farmConstructionGroup.count);
+      world.stats.groupCount[GROUP_RESIDENCE_LL]
+        + world.stats.groupCount[GROUP_RESIDENCE_ML]
+        + world.stats.groupCount[GROUP_RESIDENCE_HL]
+        + world.stats.groupCount[GROUP_RESIDENCE_LH]
+        + world.stats.groupCount[GROUP_RESIDENCE_MH]
+        + world.stats.groupCount[GROUP_RESIDENCE_HH],
+      world.stats.groupCount[GROUP_MARKET],
+      world.stats.groupCount[GROUP_ORGANIC_FARM]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "   Water wells %4d     Wind powers %4d",
-      waterwellConstructionGroup.count,
-      windpowerConstructionGroup.count);
+      world.stats.groupCount[GROUP_WATERWELL],
+      world.stats.groupCount[GROUP_WIND_POWER]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d",
-      monumentConstructionGroup.count,
-      schoolConstructionGroup.count,
-      universityConstructionGroup.count);
+      world.stats.groupCount[GROUP_MONUMENT],
+      world.stats.groupCount[GROUP_SCHOOL],
+      world.stats.groupCount[GROUP_UNIVERSITY]);
     results << outf << std::endl;
     snprintf(outf, maxlength, " Fire stations %4d           Parks %4d    Sports fields %4d",
-      fireStationConstructionGroup.count,
-      parklandConstructionGroup.count + parkpondConstructionGroup.count,
-      cricketConstructionGroup.count);
+      world.stats.groupCount[GROUP_FIRESTATION],
+      world.stats.groupCount[GROUP_PARKLAND] + world.stats.groupCount[GROUP_PARKPOND],
+      world.stats.groupCount[GROUP_CRICKET]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "Health centres %4d            Tips %4d         Shanties %4d",
-      healthCentreConstructionGroup.count,
-      tipConstructionGroup.count,
-      shantyConstructionGroup.count);
+      world.stats.groupCount[GROUP_HEALTH],
+      world.stats.groupCount[GROUP_TIP],
+      world.stats.groupCount[GROUP_SHANTY]);
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf(outf, maxlength, "     Windmills %4d     Coal powers %4d     Solar powers %4d",
-      windmillConstructionGroup.count,
-      coal_powerConstructionGroup.count,
-      solarPowerConstructionGroup.count);
+      world.stats.groupCount[GROUP_WINDMILL],
+      world.stats.groupCount[GROUP_COAL_POWER],
+      world.stats.groupCount[GROUP_SOLAR_POWER]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "   Substations %4d     Power lines %4d            Ports %4d",
-      substationConstructionGroup.count,
-      powerlineConstructionGroup.count,
-      portConstructionGroup.count);
+      world.stats.groupCount[GROUP_SUBSTATION],
+      world.stats.groupCount[GROUP_POWER_LINE],
+      world.stats.groupCount[GROUP_PORT]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "        Tracks %4d           Roads %4d             Rail %4d",
-      trackConstructionGroup.count + trackbridgeConstructionGroup.count,
-      roadConstructionGroup.count + roadbridgeConstructionGroup.count,
-      railConstructionGroup.count + railbridgeConstructionGroup.count);
+      world.stats.groupCount[GROUP_TRACK] + world.stats.groupCount[GROUP_TRACK_BRIDGE],
+      world.stats.groupCount[GROUP_ROAD] + world.stats.groupCount[GROUP_ROAD_BRIDGE],
+      world.stats.groupCount[GROUP_RAIL] + world.stats.groupCount[GROUP_RAIL_BRIDGE]);
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf(outf, maxlength, "     Potteries %4d     Blacksmiths %4d            Mills %4d",
-      potteryConstructionGroup.count,
-      blacksmithConstructionGroup.count,
-      millConstructionGroup.count);
+      world.stats.groupCount[GROUP_POTTERY],
+      world.stats.groupCount[GROUP_BLACKSMITH],
+      world.stats.groupCount[GROUP_MILL]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "    Light inds %4d      Heavy inds %4d        Recyclers %4d",
-      industryLightConstructionGroup.count,
-      industryHeavyConstructionGroup.count,
-      recycleConstructionGroup.count);
+      world.stats.groupCount[GROUP_INDUSTRY_L],
+      world.stats.groupCount[GROUP_INDUSTRY_H],
+      world.stats.groupCount[GROUP_RECYCLE]);
     results << outf << std::endl;
     snprintf(outf, maxlength, "    Coal mines %4d       Ore mines %4d         Communes %4d",
-      coalmineConstructionGroup.count,
-      oremineConstructionGroup.count,
-      communeConstructionGroup.count);
+      world.stats.groupCount[GROUP_COALMINE],
+      world.stats.groupCount[GROUP_OREMINE],
+      world.stats.groupCount[GROUP_COMMUNE]);
     results << outf << std::endl;
     results << "" << std::endl;
 

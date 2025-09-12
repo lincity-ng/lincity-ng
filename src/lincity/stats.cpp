@@ -27,6 +27,8 @@
 #include "commodities.hpp"  // for Commodity, operator++
 
 Stats::Stats() {
+  for(unsigned int& gc : groupCount) gc = 0;
+
   history.pop.resize(190);
   history.starve.resize(190);
   history.nojobs.resize(190);

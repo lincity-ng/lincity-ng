@@ -23,8 +23,9 @@
 #include "Config.hpp"
 
 #include <cfgpath.h>                      // for MAX_PATH, get_user_config_file
-#include <fmt/base.h>
+#include <fmt/base.h>                     // for println
 #include <fmt/format.h>                   // for format
+#include <fmt/std.h> // IWYU pragma: keep
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
@@ -32,17 +33,19 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <cassert>                        // for assert
 #include <climits>                        // for INT_MAX, INT_MIN
-#include <cstdio>                         // for sscanf
-#include <iostream>                       // for basic_ostream, operator<<
+#include <cstdio>                         // for stderr, NULL, sscanf
+#include <iostream>                       // for basic_ostream, endl, operat...
 #include <memory>                         // for shared_ptr
 #include <stdexcept>                      // for runtime_error
-#include <SDL.h>
-#include <fmt/std.h> // IWYU pragma: keep
 
-#include "config.h"                       // for PACKAGE_NAME, PACKAGE_VERSION
+#include "config.h"                       // for PACKAGE_NAME, INSTALL_FULL_...
 #include "lincity/world.hpp"              // for WORLD_SIDE_LEN
-#include "util/xmlutil.hpp"               // for xmlStr, xmlFormat, xmlParse
-#include "util/gettextutil.hpp"
+#include "util/gettextutil.hpp"           // for _
+#include "util/xmlutil.hpp"               // for xmlStrF, xmlStr, xmlFormat
+
+#ifdef LINCITYNG_RELOCATABLE
+#include <SDL.h>                          // for SDL_GetBasePath
+#endif
 
 template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);

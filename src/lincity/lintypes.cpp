@@ -25,16 +25,20 @@
 #include "lintypes.hpp"
 
 #include <assert.h>                       // for assert
+#include <fmt/base.h>                     // for println
+#include <fmt/format.h>                   // for native_formatter::format
+#include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
-#include <stdlib.h>                       // for rand
+#include <cstdio>                         // for stderr
+#include <cstdlib>                        // for rand
 #include <algorithm>                      // for max, min
 #include <iostream>                       // for basic_ostream, operator<<
 #include <set>                            // for set
 #include <stdexcept>                      // for logic_error, runtime_error
 #include <utility>                        // for pair
 #include <vector>                         // for vector
-#include <libxml++/parsers/textreader.h>  // for TextReader
 
+#include "MapPoint.hpp"                   // for MapPoint, operator<<
 #include "Vehicles.hpp"                   // for Vehicle, VehicleStrategy
 #include "commodities.hpp"                // for CommodityRule, Commodity
 #include "groups.hpp"                     // for GROUP_POWER_LINE, GROUP_FIRE
@@ -47,7 +51,7 @@
 #include "transport.hpp"                  // for TRANSPORT_QUANTA, TRANSPORT...
 #include "util.hpp"                       // for used_in_assert
 #include "util/gettextutil.hpp"           // for _
-#include "util/xmlutil.hpp"               // for xmlParse, xmlStr, unexpecte...
+#include "util/xmlutil.hpp"               // for xmlParse, xmlStr, xmlStrF
 #include "world.hpp"                      // for World, Map, MapTile
 
 extern int simDelay; // is defined in lincity-ng/MainLincity.cpp
@@ -289,7 +293,7 @@ void Construction::place(MapPoint point) {
   world.map(point)->construction = this;
   world.map.constructions.insert(this); //register for Simulation
   world.map.recentPoint = MapPoint(point);
-  constructionGroup->count++;
+  world.stats.groupCount[constructionGroup->group]++;
 
   //now look for neighbors
   neighborize();
@@ -318,7 +322,14 @@ void Construction::detach()
   if(world.map(point)->construction == this) {
     world.map(point)->construction = NULL;
     world.map(point)->killframe(frameIt);
-    constructionGroup->count--;
+    world.stats.groupCount[constructionGroup->group]--;
+  }
+  else {
+    fmt::println(stderr,
+      "warning: detaching {} at {}, but it doesn't seem to be on the map.",
+      constructionGroup->name, point
+    );
+    assert(false);
   }
 
   int size = constructionGroup->size;
@@ -833,6 +844,37 @@ void Construction::playSound()
 
 
 //ConstructionGroup Declarations
+
+ConstructionGroup::ConstructionGroup(
+  const std::string& name,
+  const std::string& name_plural,
+  bool no_credit,
+  unsigned short group,
+  unsigned short size, int colour,
+  int cost_mul, int bul_cost, int fire_chance,
+  int cost, int tech, int range
+) {
+  this->name = name;
+  this->name_plural = name_plural;
+  this->no_credit = no_credit;
+  this->group = group;
+  this->size = size;
+  this->colour = colour;
+  this->cost_mul = cost_mul;
+  this->bul_cost = bul_cost;
+  this->fire_chance = fire_chance;
+  this->cost = cost;
+  this->tech = tech;
+  this->range = range;
+
+  for(Commodity stuff = STUFF_INIT; stuff < STUFF_COUNT; stuff++) {
+    this->commodityRuleCount[stuff] = (CommodityRule){
+      .maxload = 0,
+      .take = false,
+      .give = false
+    };
+  }
+}
 
 int ConstructionGroup::getCosts(const World& world) const {
   return static_cast<int>(cost *

@@ -22,54 +22,53 @@
 
 #include "Game.hpp"
 
-#include <SDL.h>                           // for SDL_KeyCode, Uint32, SDL_E...
-#include <assert.h>                        // for assert
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-#include <stddef.h>                        // for NULL
-#include <algorithm>                       // for min
-#include <filesystem>                      // for path, operator/, directory...
-#include <functional>                      // for function, bind, _1
-#include <initializer_list>                // for initializer_list
-#include <iostream>                        // for basic_ostream, operator<<
-#include <list>
-#include <stdexcept>                       // for runtime_error
-#include <typeinfo>                        // for type_info
-#include <utility>                         // for move
-#include <optional>
+#include <SDL.h>                            // for SDL_KeyCode, Uint32, SDL_...
+#include <assert.h>                         // for assert
+#include <fmt/format.h>                     // for format, native_formatter:...
+#include <stddef.h>                         // for NULL
+#include <algorithm>                        // for min
+#include <filesystem>                       // for path, operator/, director...
+#include <functional>                       // for function, bind, _1
+#include <initializer_list>                 // for initializer_list
+#include <iostream>                         // for basic_ostream, operator<<
+#include <list>                             // for list
+#include <optional>                         // for optional
+#include <stdexcept>                        // for runtime_error
+#include <typeinfo>                         // for type_info
+#include <utility>                          // for move
 
-#include "ButtonPanel.hpp"                 // for ButtonPanel
-#include "Config.hpp"                      // for getConfig, Config
-#include "Dialog.hpp"                      // for Dialog, closeAllDialogs
-#include "EconomyGraph.hpp"                // for EconomyGraph
-#include "GameView.hpp"                    // for GameView
-#include "HelpWindow.hpp"                  // for HelpWindow
-#include "MainLincity.hpp"                 // for saveCityNG, loadCityNG
-#include "MiniMap.hpp"                     // for MiniMap
-#include "Mps.hpp"                         // for MpsMap, MpsFinance
-#include "PBar.hpp"                        // for LCPBar
-#include "Sound.hpp"                       // for getSound, Sound
-#include "TimerInterface.hpp"              // for get_real_time_with
-#include "Util.hpp"                        // for getButton
-#include "gui/Button.hpp"                  // for Button
-#include "gui/Component.hpp"               // for Component
-#include "gui/ComponentLoader.hpp"         // for loadGUIFile
-#include "gui/Desktop.hpp"                 // for Desktop
-#include "gui/DialogBuilder.hpp"           // for DialogBuilder
-#include "gui/Event.hpp"                   // for Event
-#include "gui/Painter.hpp"                 // for Painter
-#include "gui/Signal.hpp"                  // for Signal
-#include "gui/WindowManager.hpp"           // for WindowManager
-#include "lincity/MapPoint.hpp"            // for MapPoint, operator<<
-#include "lincity/groups.hpp"              // for GROUP_MARKET, GROUP_MONUMENT
-#include "lincity/lin-city.hpp"            // for ANIMATE_DELAY, MAX_TECH_LEVEL
-#include "lincity/lintypes.hpp"            // for ConstructionGroup, Constru...
-#include "lincity/messages.hpp"            // for dynamic_message_cast, Message
-#include "lincity/modules/all_modules.hpp"
-#include "lincity/world.hpp"               // for World, Map, MapTile
-#include "main.hpp"                        // for painter, videoSizeChanged
-#include "util/gettextutil.hpp"
-#include "util/ptrutil.hpp"
+#include "ButtonPanel.hpp"                  // for ButtonPanel
+#include "Config.hpp"                       // for getConfig, Config
+#include "Dialog.hpp"                       // for Dialog, closeAllDialogs
+#include "EconomyGraph.hpp"                 // for EconomyGraph
+#include "GameView.hpp"                     // for GameView
+#include "HelpWindow.hpp"                   // for HelpWindow
+#include "MainLincity.hpp"                  // for saveCityNG, loadCityNG
+#include "MiniMap.hpp"                      // for MiniMap
+#include "Mps.hpp"                          // for MpsMap, MpsFinance
+#include "PBar.hpp"                         // for LCPBar
+#include "Sound.hpp"                        // for getSound, Sound
+#include "TimerInterface.hpp"               // for get_real_time_with
+#include "Util.hpp"                         // for getButton
+#include "gui/Button.hpp"                   // for Button
+#include "gui/Component.hpp"                // for Component
+#include "gui/ComponentLoader.hpp"          // for loadGUIFile
+#include "gui/Desktop.hpp"                  // for Desktop
+#include "gui/DialogBuilder.hpp"            // for DialogBuilder
+#include "gui/Event.hpp"                    // for Event
+#include "gui/Painter.hpp"                  // for Painter
+#include "gui/Signal.hpp"                   // for Signal
+#include "gui/WindowManager.hpp"            // for WindowManager
+#include "lincity/MapPoint.hpp"             // for MapPoint, operator<<
+#include "lincity/groups.hpp"               // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIMATE_D...
+#include "lincity/lintypes.hpp"             // for ConstructionGroup, Constr...
+#include "lincity/messages.hpp"             // for dynamic_message_cast, Mes...
+#include "lincity/modules/all_modules.hpp"  // for RocketPad, ParklandConstr...
+#include "lincity/world.hpp"                // for World, Map, MapTile
+#include "main.hpp"                         // for painter, videoSizeChanged
+#include "util/gettextutil.hpp"             // for _
+#include "util/ptrutil.hpp"                 // for dynamic_unique_cast
 
 using namespace std::placeholders;
 
@@ -752,7 +751,7 @@ Game::handleMessage(Message::ptr message_) {
           " and is ready for takeoff. You may choose to launch now or later. If"
           " you choose to wait, beware it costs money to keep the rocket in"
           " tip-top shape until launch day."),
-        fmt::streamed(message->getPoint())))
+        message->getPoint()))
       .messageAddText(_("Launch now?"))
       .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
       .buttonSet(DialogBuilder::ButtonSet::YESNO)
