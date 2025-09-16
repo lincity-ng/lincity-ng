@@ -40,7 +40,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release --install-prefix <expected install pat
 cmake --build build --parallel --target package
 ```
 
-See [CONFIGURE_OPTIONS.md](doc/CONFIGURE_OPTIONS.md) for a list of build
+See [BUILD_OPTIONS.md](doc/BUILD_OPTIONS.md) for a list of build
 configuration options.
 
 ### Running
