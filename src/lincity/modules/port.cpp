@@ -239,12 +239,12 @@ bool Port::loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) {
   std::string tag = xmlReader.get_name();
   bool give;
   Commodity stuff;
-  if(((give = tag.find("give_")) == 0 || tag.find("take_") == 0) &&
+  if(((give = tag.find("give_") == 0) || tag.find("take_") == 0) &&
     (stuff = commodityFromStandardName(tag.substr(5).c_str())) != STUFF_COUNT &&
     commodityRuleCount[stuff].maxload
   ) {
     CommodityRule& rule = commodityRuleCount[stuff];
-    give ? rule.give : rule.take = xmlParse<int>(xmlReader.read_inner_xml());
+    (give ? rule.give : rule.take) = xmlParse<int>(xmlReader.read_inner_xml());
   }
   else if(tag == "tech_made") tech_made = xmlParse<int>(xmlReader.read_inner_xml());
   else return Construction::loadMember(xmlReader, ldsv_version);

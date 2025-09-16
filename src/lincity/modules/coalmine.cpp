@@ -84,7 +84,7 @@ void Coalmine::update() {
     MAX_COAL_AT_MINE * TARGET_COAL_LEVEL/100 - COAL_PER_RESERVE
   ) {
     if(world.map(mine_cur)->coal_reserve <= 0) {
-      for(mine_cur = MapPoint(0,0); mine_cur.y < mine_se.y ; mine_cur.y++)
+      for(mine_cur = mine_nw; mine_cur.y < mine_se.y ; mine_cur.y++)
       for(mine_cur.x = mine_nw.x; mine_cur.x < mine_se.x ; mine_cur.x++) {
         if(world.map(mine_cur)->coal_reserve > 0)
           goto do_mine;
@@ -107,7 +107,7 @@ void Coalmine::update() {
     TARGET_COAL_LEVEL * MAX_COAL_AT_MINE/100 + COAL_PER_RESERVE
   ) {
     if(world.map(mine_cur)->coal_reserve >= COAL_RESERVE_SIZE) {
-      for(mine_cur = MapPoint(0,0); mine_cur.y < mine_se.y ; mine_cur.y++)
+      for(mine_cur = mine_nw; mine_cur.y < mine_se.y ; mine_cur.y++)
       for(mine_cur.x = mine_nw.x; mine_cur.x < mine_se.x ; mine_cur.x++) {
         if(world.map(mine_cur)->coal_reserve < COAL_RESERVE_SIZE)
           goto do_unmine;
