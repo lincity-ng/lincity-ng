@@ -40,6 +40,8 @@
     - build/linux/lincity-ng-x.x.x-Source.tar.xz.sha256
     - build/win64/lincity-ng-x.x.x-win64.zip
     - build/win64/lincity-ng-x.x.x-win64.zip.sha256
+    - build/win64/lincity-ng-x.x.x-win64.exe
+    - build/win64/lincity-ng-x.x.x-win64.exe.sha256
 17. Double-check that all previous steps are complete.
 18. Push to GitHub.
     - `git push -u upstream master lincity-ng-$version lincity-ng-${version%.*}`
