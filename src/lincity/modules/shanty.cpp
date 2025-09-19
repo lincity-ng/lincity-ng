@@ -31,6 +31,7 @@
 #include <optional>
 #include <string>                           // for basic_string, operator<
 #include <vector>                           // for vector
+#include <random>
 
 #include "commune.hpp"                      // for CommuneConstructionGroup
 #include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
@@ -43,6 +44,7 @@
 #include "lincity/world.hpp"                // for World, Map, MapTile
 #include "modules_interfaces.hpp"           // for add_a_shanty, update_shanty
 #include "util/gettextutil.hpp"
+#include "util/randutil.hpp"
 
 ShantyConstructionGroup shantyConstructionGroup(
     N_("Shanty Town"),
@@ -206,6 +208,16 @@ void Shanty::update()
         world.map(point.s().e())->pollution += commodityCount[STUFF_WASTE];
         levelStuff(STUFF_WASTE, 0);
         start_burning_waste = true;
+
+        double uncontrolledP = WASTE_BURN_UNCONTROLLED
+          * constructionGroup->fire_chance / 100;
+        if(std::bernoulli_distribution(uncontrolledP)(BasicUrbg::get())
+          && !(world.map(point)->flags & FLAG_FIRE_COVER)
+        ) {
+          torch();
+          world.pushMessage(
+            FireStartedMessage::create(point, *constructionGroup));
+        }
     }
 
     if(world.total_time % 100 == 99) {

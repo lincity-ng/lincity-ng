@@ -42,37 +42,6 @@
 #include "world.hpp"                // for Map, World, MapTile
 
 void
-World::fire_area(MapPoint loc) {
-  /* this happens when a rocket crashes or on random_fire. */
-  MapTile& tile = *map(loc);
-  if(tile.getGroup() == GROUP_WATER || tile.getGroup() == GROUP_FIRE)
-    return;
-  Construction *cst = tile.reportingConstruction;
-  if(cst) {
-    //fire is an unatural death for one in two
-    if(tile.is_residence()) {
-      Residence *residence = dynamic_cast<Residence*>(cst);
-      int casualities = residence->local_population/2;
-      residence->local_population -= casualities;
-      stats.population.unnat_deaths_m += casualities;
-      stats.population.deaths_m += casualities;
-    }
-
-    unsigned short size = cst->constructionGroup->size;
-    cst->detach();
-    for(unsigned short i = 0; i < size; ++i)
-    for(unsigned short j = 0; j < size; ++j) {
-      MapPoint p(cst->point.s(i).e(j));
-      fireConstructionGroup.placeItem(*this, p);
-    }
-    map.connect_transport(cst->point.x - 2, cst->point.y - 2,
-      cst->point.x + size + 1, cst->point.y + size + 1);
-    map.desert_water_frontiers(cst->point, cst->point.s(size).e(size));
-    setUpdated(World::Updatable::MAP);
-  }
-}
-
-void
 World::income(int amt, Stat<int>& account) {
   assert(amt >= 0);
   int newBal = total_money + amt;
@@ -87,9 +56,8 @@ void
 World::expense(int amt, Stat<int>& account, bool allowCredit) {
   assert(amt >= 0);
   int newBal = total_money - amt;
-  if(allowCredit ? newBal < -2000000000 || newBal > total_money : newBal < 0) {
+  if(newBal < (allowCredit ? -2000000000 : 0) || newBal > total_money)
     throw OutOfMoneyMessage::create(allowCredit)->exception();
-  }
   total_money = newBal;
   account += amt;
   setUpdated(Updatable::MONEY);
@@ -192,13 +160,15 @@ World::do_random_fire() {
   if(!map.is_visible(loc))
     return;
 
-  const ConstructionGroup& cstGrp = *map(loc)->getConstructionGroup();
+  Construction *cst = map(loc)->reportingConstruction;
+  if(!cst) return; // no building to burn down
+  const ConstructionGroup& cstGrp = *cst->constructionGroup;
   if(rand() % 100 >= cstGrp.fire_chance)
     return;
   if(map(loc)->flags & FLAG_FIRE_COVER)
     return;
 
-  fire_area(loc);
+  cst->torch();
   pushMessage(FireStartedMessage::create(loc, cstGrp));
 }
 

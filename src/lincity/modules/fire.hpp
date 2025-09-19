@@ -82,6 +82,7 @@ public:
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
     virtual bool can_bulldoze(Message::ptr& message) const override;
+    virtual void torch() override;
 
     int burning_days;
     int smoking_days;

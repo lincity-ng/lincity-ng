@@ -31,6 +31,7 @@
 #include <map>                            // for map
 #include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
+#include <random>
 
 #include "fire.hpp"                       // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"             // for Mps
@@ -41,6 +42,7 @@
 #include "lincity/world.hpp"              // for World, Map, MapTile
 #include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
 #include "util/gettextutil.hpp"
+#include "util/randutil.hpp"
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -163,9 +165,19 @@ void Market::update()
 
     if(world.total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
-        start_burning_waste = true;
-        world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
-        consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
+      start_burning_waste = true;
+      world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
+      consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
+
+      double uncontrolledP = WASTE_BURN_UNCONTROLLED
+        * constructionGroup->fire_chance / 100;
+      if(std::bernoulli_distribution(uncontrolledP)(BasicUrbg::get())
+        && !(world.map(point)->flags & FLAG_FIRE_COVER)
+      ) {
+        torch();
+        world.pushMessage(
+          FireStartedMessage::create(point, *constructionGroup));
+      }
     }
 
     //monthly update

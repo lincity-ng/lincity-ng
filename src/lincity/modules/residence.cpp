@@ -398,6 +398,18 @@ void Residence::update()
     }
 }
 
+void
+Residence::torch() {
+  // people die in the fire
+  int casualities = local_population / 2;
+  world.stats.population.unnat_deaths_m += casualities;
+  world.stats.population.deaths_m += casualities;
+  world.people_pool += local_population - casualities;
+  local_population = 0; // so the deleter doesn't double-count
+
+  Construction::torch();
+}
+
 void Residence::report(Mps& mps, bool production) const {
   mps.add_s(constructionGroup->name);
   mps.add_sddp(N_("Tenants"), local_population, max_population);

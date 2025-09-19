@@ -56,6 +56,7 @@
 
 //used on markets, transport, shanties when burning waste
 #define WASTE_BURN_TIME 350
+#define WASTE_BURN_UNCONTROLLED .001
 
 /* interest rate *10  ie 10 is 1% */
 #define INTEREST_RATE 15
