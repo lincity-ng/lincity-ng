@@ -27,14 +27,13 @@
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
-#include <stdlib.h>                       // for rand
 #include <algorithm>                      // for min
 #include <iostream>                       // for basic_ostream, operator<<
 #include <list>                           // for _List_iterator
+#include <random>                         // for normal_distribution, bernou...
 #include <set>                            // for set
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, char_traits
-#include <random>
 
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
@@ -43,11 +42,11 @@
 #include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
 #include "lincity/resources.hpp"          // for ExtraFrame
 #include "lincity/stats.hpp"              // for Stats
-#include "lincity/world.hpp"              // for World, Map
+#include "lincity/world.hpp"              // for World, Map, MapTile
 #include "residence.hpp"                  // for Residence
-#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
-#include "util/gettextutil.hpp"
-#include "util/randutil.hpp"
+#include "util/gettextutil.hpp"           // for N_
+#include "util/randutil.hpp"              // for BasicUrbg
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStrF
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),

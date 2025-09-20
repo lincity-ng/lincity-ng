@@ -29,20 +29,21 @@
 #include <algorithm>                      // for max, min
 #include <cstdlib>                        // for size_t
 #include <map>                            // for map
+#include <random>                         // for bernoulli_distribution
 #include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
-#include <random>
 
 #include "fire.hpp"                       // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"             // for Mps
 #include "lincity/MapPoint.hpp"           // for MapPoint
 #include "lincity/groups.hpp"             // for GROUP_MARKET
 #include "lincity/lin-city.hpp"           // for FLAG_EVACUATE, ANIM_THRESHOLD
+#include "lincity/messages.hpp"           // for FireStartedMessage
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
-#include "util/gettextutil.hpp"
-#include "util/randutil.hpp"
+#include "util/gettextutil.hpp"           // for N_
+#include "util/randutil.hpp"              // for BasicUrbg
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlStrF
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
