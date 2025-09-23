@@ -123,19 +123,12 @@ World::save(const std::filesystem::path& filename) const {
     throw std::runtime_error("failed to create XML text writer");
   }
   std::shared_ptr<xmlTextWriter> xmlWriterCloser(xmlWriter,
-#if LIBXML_VERSION >= 21300
     [&xmlStatus](xmlTextWriterPtr xmlWriter) {
+      #if LIBXML_VERSION >= 21300
       xmlStatus = xmlTextWriterClose(xmlWriter);
+      #endif
       xmlFreeTextWriter(xmlWriter);
     }
-#else
-    [&xmlStatus, &xmlWriterBuffer](xmlTextWriterPtr xmlWriter) {
-      xmlStatus = xmlOutputBufferClose(xmlWriterBuffer);
-      if(xmlStatus < 0) xmlStatus = -xmlStatus;
-      else xmlStatus = XML_ERR_OK;
-      xmlFreeTextWriter(xmlWriter);
-    }
-#endif
   );
 
 #ifdef DEBUG
