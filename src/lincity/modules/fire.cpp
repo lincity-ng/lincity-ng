@@ -124,10 +124,14 @@ void Fire::spread() {
 
   // TODO: spread should be faster than do_random_fire
   // TODO: fire cover should only slow down spread -- not stop it
+  if(!world.map.is_visible(loc))
+    return;
   if(rand() % 100 >= world.map(loc)->getConstructionGroup()->fire_chance)
     return;
   if(world.map(loc)->flags & FLAG_FIRE_COVER)
     return;
+
+  world.fire_area(loc);
 }
 
 void Fire::animate(unsigned long real_time) {
