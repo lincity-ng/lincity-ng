@@ -1,19 +1,13 @@
 ## Unreleased
 
 ###### User Interface
-- Fixed map overlay updates not triggering re-draw.
-- Changed the bulldoze warning to not issue when bulldozing isn't allowed
-  anyway.
 - Added partial language switching without restarting the game. (GUI components
   that were already translated are not (yet) re-translated into the new
   language. A restart is still required for that.) Notably, the pop-up dialog
   suggesting to the user to restart the game now uses the new language.
-- Changed the app icon for the Windows version to match the (newer) icon for the
-  Linux version.
 
 ###### Internal
 - Fixed Ninja build generation.
-- Added a build option to make a relocatable binary.
 - Added gettext/libintl optional library dependency.
 - Removed the `tinygettext` gettext implementation.
 - Changed the installation of locale files to binary (.mo) format.
@@ -22,11 +16,35 @@
 - Added locale-independent formatting and parsing for XML.
 
 ###### Documentation / Translation
-- Fixed the english fallback for help pages.
 - Reformatted the `--help` output, and added a brief command-line template.
 - Added documentation on build configuration options.
 - Added documentation on runtime config options.
 - Moved dependencies list from README.md to a separate file.
+
+
+## LinCity-NG 2.14.2
+
+date: 2025-09-22
+
+###### Gameplay
+- Fixed coal mines mining from the wrong tiles.
+- Fixed fires not spreading.
+
+###### User Interface
+- Fixed port load/save corruption of trade rules.
+- Fixed map overlay updates not triggering re-draw.
+- Changed the bulldoze warning to not issue when bulldozing isn't allowed
+  anyway.
+- Changed the app icon for the Windows version to match the (newer) icon for the
+  Linux version.
+
+###### Internal
+- Fixed a segfault when saving a game with libxml2 <2.13.0.
+- Added a build option to make a relocatable binary.
+- Added NSIS installer for Windows relocatable builds.
+
+###### Documentation / Translation
+- Fixed the english fallback for help pages.
 
 
 ## LinCity-NG 2.14.1
