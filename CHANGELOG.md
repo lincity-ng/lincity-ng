@@ -1,6 +1,13 @@
-## Unreleased
+## LinCity-NG 2.14.2
+
+date: 2025-09-22
+
+###### Gameplay
+- Fixed coal mines mining from the wrong tiles.
+- Fixed fires not spreading.
 
 ###### User Interface
+- Fixed port load/save corruption of trade rules.
 - Fixed map overlay updates not triggering re-draw.
 - Changed the bulldoze warning to not issue when bulldozing isn't allowed
   anyway.
@@ -8,7 +15,9 @@
   Linux version.
 
 ###### Internal
+- Fixed a segfault when saving a game with libxml2 <2.13.0.
 - Added a build option to make a relocatable binary.
+- Added NSIS installer for Windows relocatable builds.
 
 ###### Documentation / Translation
 - Fixed the english fallback for help pages.
