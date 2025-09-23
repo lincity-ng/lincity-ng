@@ -16,17 +16,17 @@
  9. Add a release tag to data/io.github.lincity_ng.lincity-ng.metainfo.xml with the date.
 10. Stage changes and commit.
     - `git add .`
-    - `git commit -m "version x.x.x"`
+    - `git commit -m "version $version"`
 11. Create a signed tag for the release.
-    - `git tag -sm "LinCity-NG x.x.x" lincity-ng-x.x.x`
+    - `git tag -sm "LinCity-NG $version" lincity-ng-$version`
 12. Configure and build Linux and Windows release packages and a source package.
     - `cmake -B build/linux/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DLINCITYNG_RELOCATABLE=ON`
     - `cmake --build build/linux/ -j12 -t package package_source`
     - `x86_64-w64-mingw32-cmake -B build/win64/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH="C:\\Program Files\\lincity-ng" -DLINCITYNG_RELOCATABLE=ON`
     - `cmake --build build/win64/ -j12 -t package`
 13. Test Linux and Windows release builds.
-    - `./build/linux/bin/lincity-ng --config run/lincity-ng.config`
-    - `x86_64-w64-mingw32-wine ./build/win64/bin/lincity-ng.exe --config run/lincity-ng.config`
+    - `./build/linux/bin/lincity-ng --config run/lincity-ng-reloc.config`
+    - `x86_64-w64-mingw32-wine ./build/win64/bin/lincity-ng.exe --config run/lincity-ng-reloc.config`
     - Ensure the game launches, a game can be loaded, and there are no obvious visual defects.
 14. If releasing all changes currently on master, update the master branch.
     - `git branch --points-at HEAD^ | grep -xFqe '  master' && git branch -f master`
