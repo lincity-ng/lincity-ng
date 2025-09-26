@@ -14,6 +14,7 @@
  7. Version bump CMakeLists.txt.
  8. Change the top header of CHANGELOG.md from "Unreleased" to "LinCity-NG x.x.x" and add the date underneath. If there are security fixes, add "[SECURITY]" to the header.
  9. Add a release tag to data/io.github.lincity_ng.lincity-ng.metainfo.xml with the date.
+    - `xsltproc --stringparam version $version --stringparam date $(date -uI) -o data/io.github.lincity_ng.lincity-ng.metainfo.xml contrib/add-release.xsl data/io.github.lincity_ng.lincity-ng.metainfo.xml`
 10. Stage changes and commit.
     - `git add .`
     - `git commit -m "version x.x.x"`
