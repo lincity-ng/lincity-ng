@@ -149,7 +149,16 @@ Document::resize(float newwidth, float newheight)
         if(compwidth < 0)
             compwidth = 0;
 
-        component->resize(compwidth, -1);
+        if(dynamic_cast<DocumentImage *>(component)) {
+          // we don't want to up-scale images
+          component->resize(-1, -1);
+          if(component->getWidth() > compwidth)
+            component->resize(compwidth, -1);
+        }
+        else {
+          component->resize(compwidth, -1);
+        }
+
         float posx = element->getStyle().margin_left;
         switch(element->getStyle().alignment)
         {

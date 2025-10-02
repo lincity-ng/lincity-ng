@@ -42,7 +42,7 @@ DocumentImage::~DocumentImage()
 
 void
 DocumentImage::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
-  style = parentstyle;\
+  style = parentstyle;
   std::filesystem::path filename;
 
   while(reader.move_to_next_attribute()) {
@@ -70,13 +70,43 @@ DocumentImage::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
 }
 
 void
-DocumentImage::resize(float , float )
-{}
+DocumentImage::resize(float newWidth, float newHeight) {
+  if(newWidth == -1.f && newHeight == -1.f) {
+    width = texture->getWidth();
+    height = texture->getHeight();
+  }
+  else if(newHeight == -1.f) {
+    if(newWidth > texture->getWidth()) {
+      width = texture->getWidth();
+      height = texture->getHeight();
+    }
+    else {
+      width = newWidth;
+      height = newWidth * texture->getHeight() / texture->getWidth();
+    }
+  }
+  else if(newWidth == -1.f) {
+    if(newHeight > texture->getHeight()) {
+      width = texture->getWidth();
+      height = texture->getHeight();
+    }
+    else {
+      width = newHeight * texture->getWidth() / texture->getHeight();
+      height = newHeight;
+    }
+  }
+  else {
+    width = newWidth;
+    height = newHeight;
+  }
+
+  setDirty();
+}
 
 void
 DocumentImage::draw(Painter& painter)
 {
-    painter.drawTexture(texture, Vector2(0, 0));
+    painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
 }
 
 
