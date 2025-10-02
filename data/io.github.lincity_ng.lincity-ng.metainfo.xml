@@ -20,7 +20,7 @@
   </developer>
   <project_license>GPL-2.0-or-later</project_license>
   <metadata_license>CC0-1.0</metadata_license>
-  <content_rating type="oars-1.1" />
+  <content_rating type="oars-1.1"/>
   <requires>
     <internet>offline-only</internet>
   </requires>
