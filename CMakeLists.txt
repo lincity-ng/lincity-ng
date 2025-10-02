@@ -128,11 +128,14 @@ check_c_source_compiles("\
 
 ### include what you use
 if(NOT CMAKE_CROSSCOMPILING AND INCLUDE_WHAT_YOU_USE AND
-	NOT CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-w( |$)"
+  NOT CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-w( |$)"
 )
-	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE}
-		-w -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/mk/iwyu.map)
-	set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
+  set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE}
+    -w
+    -Xiwyu "--mapping_file=${CMAKE_SOURCE_DIR}/mk/iwyu.map"
+    -Xiwyu --verbose=3
+  )
+  set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${CMAKE_CXX_INCLUDE_WHAT_YOU_USE})
 endif()
 
 

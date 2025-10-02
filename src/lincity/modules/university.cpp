@@ -29,13 +29,12 @@
 #include <string>                         // for basic_string, allocator
 
 #include "lincity-ng/Mps.hpp"             // for Mps
-#include "lincity/groups.hpp"             // for GROUP_UNIVERSITY
+#include "lincity/groups.hpp"             // for GROUP_UNIVERSITY, GROUP_SCHOOL
 #include "lincity/lin-city.hpp"           // for MAX_TECH_LEVEL, TRUE
 #include "lincity/stats.hpp"              // for Stats
 #include "lincity/world.hpp"              // for World
-#include "school.hpp"                     // for SchoolConstructionGroup
-#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
-#include "util/gettextutil.hpp"
+#include "util/gettextutil.hpp"           // for N_
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStrF
 
 UniversityConstructionGroup universityConstructionGroup(
     N_("University"),
@@ -59,7 +58,9 @@ Construction *UniversityConstructionGroup::createConstruction(World& world) {
 bool
 UniversityConstructionGroup::can_build(const World& world, Message::ptr& message
 ) const {
-  if(schoolConstructionGroup.count/4 - universityConstructionGroup.count < 1) {
+  if(world.stats.groupCount[GROUP_SCHOOL]/4
+    - world.stats.groupCount[GROUP_UNIVERSITY] < 1
+  ) {
     message = NotEnoughStudentsMessage::create();
     return false;
   }
