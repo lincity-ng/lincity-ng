@@ -125,12 +125,14 @@ void Fire::spread() {
   // TODO: fire cover should only slow down spread -- not stop it
   if(!world.map.is_visible(loc))
     return;
-  if(rand() % 100 >= world.map(loc)->getConstructionGroup()->fire_chance)
+  Construction *cst = world.map(loc)->reportingConstruction;
+  if(!cst) return;
+  if(rand() % 100 >= cst->constructionGroup->fire_chance)
     return;
   if(world.map(loc)->flags & FLAG_FIRE_COVER)
     return;
 
-  world.fire_area(loc);
+  cst->torch();
 }
 
 void Fire::animate(unsigned long real_time) {
@@ -164,6 +166,12 @@ Fire::can_bulldoze(Message::ptr& message) const {
   message = CannotBulldozeThisEverMessage::create(
     point, fireConstructionGroup);
   return false;
+}
+
+void
+Fire::torch() {
+  // seeing how it's already on fire...
+  return;
 }
 
 void Fire::save(xmlTextWriterPtr xmlWriter) const {

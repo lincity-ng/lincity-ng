@@ -27,10 +27,10 @@
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
-#include <stdlib.h>                       // for rand
 #include <algorithm>                      // for min
 #include <iostream>                       // for basic_ostream, operator<<
 #include <list>                           // for _List_iterator
+#include <random>                         // for normal_distribution, bernou...
 #include <set>                            // for set
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, char_traits
@@ -42,10 +42,11 @@
 #include "lincity/messages.hpp"           // for RocketResultMessage, OutOfM...
 #include "lincity/resources.hpp"          // for ExtraFrame
 #include "lincity/stats.hpp"              // for Stats
-#include "lincity/world.hpp"              // for World, Map
+#include "lincity/world.hpp"              // for World, Map, MapTile
 #include "residence.hpp"                  // for Residence
-#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStr
-#include "util/gettextutil.hpp"
+#include "util/gettextutil.hpp"           // for N_
+#include "util/randutil.hpp"              // for BasicUrbg
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlParse, xmlStrF
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     N_("Rocket Pad"),
@@ -175,52 +176,44 @@ void RocketPad::launch_rocket() {
 }
 
 void RocketPad::compute_launch_result() {
-    int i, r, xx, yy, xxx, yyy;
-    world.rockets_launched++;
-    /* The first five failures gives 49.419 % chances of 5 success
-     * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
-     */
-    r = rand() % MAX_TECH_LEVEL;
-    if(r > world.tech_level || r > tech
-      || rand() % 100 > world.rockets_launched * 15 + 25
-    ) {
-        /* the launch failed */
-        world.pushMessage(RocketResultMessage::create(
-          point, RocketResultMessage::LaunchResult::FAIL));
-        // TODO: getSound()->playSound( "RocketExplosion" );
-        world.rockets_launched_success = 0;
-        xx = ((rand() % 40) - 20) + point.x;
-        yy = ((rand() % 40) - 20) + point.y;
-        for (i = 0; i < 20; i++)
-        {
-            xxx = ((rand() % 20) - 10) + xx;
-            yyy = ((rand() % 20) - 10) + yy;
-            if (xxx > 0 && xxx < (world.map.len() - 1)
-                && yyy > 0 && yyy < (world.map.len() - 1))
-            {
-                /* don't crash on it's own area */
-                if(xxx >= point.x && xxx < point.x + constructionGroup->size
-                  && yyy >= point.y && yyy < point.y + constructionGroup->size
-                )
-                  continue;
-                world.fire_area(MapPoint(xxx, yyy));
-                /* make a sound perhaps */
-            }
-        }
+  world.rockets_launched++;
+  // The first five failures gives 49.419 % chances of 5 success
+  // TODO: build anticipation with 3,2,1,0 and animation of rocket with sound...
+  double successP =
+    (double)std::min({tech, world.tech_level, MAX_TECH_LEVEL}) / MAX_TECH_LEVEL
+    * std::min(1., world.rockets_launched * .15 + .25);
+  if(std::bernoulli_distribution(successP)(BasicUrbg::get())) {
+    // TODO: getSound()->playSound( "RocketTakeoff" );
+    world.rockets_launched_success++;
+    /* TODO: Maybe should generate some pollution ? */
+    if(world.rockets_launched_success > 5) {
+      remove_people(1000);
     }
-    else
-    {
-        // TODO: getSound()->playSound( "RocketTakeoff" );
-        world.rockets_launched_success++;
-        /* TODO: Maybe should generate some pollution ? */
-        if(world.rockets_launched_success > 5) {
-          remove_people(1000);
-        }
-        else {
-          world.pushMessage(RocketResultMessage::create(
-            point, RocketResultMessage::LaunchResult::SUCCESS));
-        }
+    else {
+      world.pushMessage(RocketResultMessage::create(
+        point, RocketResultMessage::LaunchResult::SUCCESS));
     }
+  }
+  else {
+    /* the launch failed */
+    world.pushMessage(RocketResultMessage::create(
+      point, RocketResultMessage::LaunchResult::FAIL));
+    // TODO: getSound()->playSound( "RocketExplosion" );
+    world.rockets_launched_success = 0;
+
+    MapPoint crashCenter = point
+      .e(std::normal_distribution(0., 20.)(BasicUrbg::get()))
+      .s(std::normal_distribution(0., 20.)(BasicUrbg::get()));
+    for(int i = 0; i < 20; i++) {
+      MapPoint crashFire = crashCenter
+        .e(std::normal_distribution(.0, 10.)(BasicUrbg::get()))
+        .s(std::normal_distribution(.0, 10.)(BasicUrbg::get()));
+      if(!world.map.is_visible(crashFire)) continue;
+      Construction *cst = world.map(crashFire)->reportingConstruction;
+      if(!cst) continue;
+      cst->torch();
+    }
+  }
 }
 
 void RocketPad::remove_people(int num)

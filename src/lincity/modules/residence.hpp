@@ -207,6 +207,8 @@ public:
     virtual void save(xmlTextWriterPtr xmlWriter) const override;
     virtual bool loadMember(xmlpp::TextReader& xmlReader, unsigned int ldsv_version) override;
 
+    virtual void torch() override;
+
     int local_population;
     int max_population;
     int desireability;

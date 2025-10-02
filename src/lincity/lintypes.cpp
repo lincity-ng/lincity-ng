@@ -314,6 +314,20 @@ Construction::bulldoze() {
   detach();
 }
 
+void
+Construction::torch() {
+  detach();
+  unsigned short size = constructionGroup->size;
+  for(MapPoint p(point); p.y < point.y + size; p.y++)
+  for(p.x = point.x; p.x < point.x + size; p.x++) {
+    fireConstructionGroup.placeItem(world, p);
+  }
+  world.map.connect_transport(point.x - 2, point.y - 2,
+    point.x + size + 1, point.y + size + 1);
+  world.map.desert_water_frontiers(point, point.s(size).e(size));
+  world.setUpdated(World::Updatable::MAP);
+}
+
 //use this before deleting a construction. Construction requests check independently against NULL
 void Construction::detach()
 {

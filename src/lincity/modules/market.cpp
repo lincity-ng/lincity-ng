@@ -29,6 +29,7 @@
 #include <algorithm>                      // for max, min
 #include <cstdlib>                        // for size_t
 #include <map>                            // for map
+#include <random>                         // for bernoulli_distribution
 #include <string>                         // for basic_string, operator<
 #include <vector>                         // for vector
 
@@ -37,10 +38,12 @@
 #include "lincity/MapPoint.hpp"           // for MapPoint
 #include "lincity/groups.hpp"             // for GROUP_MARKET
 #include "lincity/lin-city.hpp"           // for FLAG_EVACUATE, ANIM_THRESHOLD
+#include "lincity/messages.hpp"           // for FireStartedMessage
 #include "lincity/resources.hpp"          // for ExtraFrame, ResourceGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
-#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlParse
-#include "util/gettextutil.hpp"
+#include "util/gettextutil.hpp"           // for N_
+#include "util/randutil.hpp"              // for BasicUrbg
+#include "util/xmlutil.hpp"               // for xmlFormat, xmlStr, xmlStrF
 
 MarketConstructionGroup marketConstructionGroup(
      N_("Market"),
@@ -163,9 +166,19 @@ void Market::update()
 
     if(world.total_time % 50)
     if(commodityCount[STUFF_WASTE] >= 85 * MAX_WASTE_IN_MARKET / 100) {
-        start_burning_waste = true;
-        world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
-        consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
+      start_burning_waste = true;
+      world.map(point.s().e())->pollution += MAX_WASTE_IN_MARKET/20;
+      consumeStuff(STUFF_WASTE, (7 * MAX_WASTE_IN_MARKET) / 10);
+
+      double uncontrolledP = WASTE_BURN_UNCONTROLLED
+        * constructionGroup->fire_chance / 100;
+      if(std::bernoulli_distribution(uncontrolledP)(BasicUrbg::get())
+        && !(world.map(point)->flags & FLAG_FIRE_COVER)
+      ) {
+        torch();
+        world.pushMessage(
+          FireStartedMessage::create(point, *constructionGroup));
+      }
     }
 
     //monthly update

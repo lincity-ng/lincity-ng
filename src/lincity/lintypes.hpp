@@ -96,6 +96,21 @@ protected:
 
 public:
   /**
+   * Saves all persistent, non-derived members as XML elements to the provided
+   * xmlWriter.
+   *
+   * Note: In general, XML elements, along with their attributes, are
+   * caller-owned. A callee is expected to populate an element with child
+   * elements. For example, a `Map` may own a `Construction`, so
+   * `Map::save` may create a `<construction>` XML start element, add some
+   * attributes to it, like x/y position, and then call `Construction::save`
+   * to populate the `<construction>` element with child elements.
+   * `Construction::save` is NOT the owner of the `<construction>` element and
+   * should neither create it nor add attributes to it.
+  **/
+  virtual void save(xmlTextWriterPtr xmlWriter) const;
+
+  /**
    * Called when this construction is placed onto the map and before any
    * simulation or animation steps to initialize derived (i.e. based on loaded
    * members) and/or position-dependent state.
@@ -115,20 +130,7 @@ public:
 
   virtual void bulldoze();
 
-  /**
-   * Saves all persistent, non-derived members as XML elements to the provided
-   * xmlWriter.
-   *
-   * Note: In general, XML elements, along with their attributes, are
-   * caller-owned. A callee is expected to populate an element with child
-   * elements. For example, a `Map` may own a `Construction`, so
-   * `Map::save` may create a `<construction>` XML start element, add some
-   * attributes to it, like x/y position, and then call `Construction::save`
-   * to populate the `<construction>` element with child elements.
-   * `Construction::save` is NOT the owner of the `<construction>` element and
-   * should neither create it nor add attributes to it.
-  **/
-  virtual void save(xmlTextWriterPtr xmlWriter) const;
+  virtual void torch();
 
 
 

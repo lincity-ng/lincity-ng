@@ -267,7 +267,6 @@ public:
 
 
 
-  void fire_area(MapPoint loc);
   void income(int amt, Stat<int>& account);
   void expense(int amt, Stat<int>& account, bool allowCredit = true);
   void place_item(ConstructionGroup& cstGrp, MapPoint loc);

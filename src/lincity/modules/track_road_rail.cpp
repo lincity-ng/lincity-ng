@@ -29,6 +29,7 @@
 #include <map>                        // for map
 #include <string>                     // for basic_string, operator<
 #include <vector>                     // for vector
+#include <random>
 
 #include "fire.hpp"                   // for FIRE_ANIMATION_SPEED
 #include "lincity-ng/Mps.hpp"         // for Mps
@@ -41,6 +42,7 @@
 #include "lincity/stats.hpp"          // for Stats
 #include "lincity/world.hpp"          // for World, MapTile, Map
 #include "util/gettextutil.hpp"       // for N_, _
+#include "util/randutil.hpp"
 
 TransportConstructionGroup trackConstructionGroup(
     N_("Track"),
@@ -258,6 +260,15 @@ void Transport::update()
     consumeStuff(STUFF_WASTE, WASTE_BURN_ON_TRANSPORT);
     world.map(point)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
     start_burning_waste = true;
+
+    double uncontrolledP = WASTE_BURN_UNCONTROLLED
+      * constructionGroup->fire_chance / 100;
+    if(std::bernoulli_distribution(uncontrolledP)(BasicUrbg::get())
+      && !(world.map(point)->flags & FLAG_FIRE_COVER)
+    ) {
+      torch();
+      world.pushMessage(FireStartedMessage::create(point, *constructionGroup));
+    }
   }
 
   if(world.total_time % 100 == 99) {

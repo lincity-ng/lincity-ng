@@ -31,6 +31,7 @@
 #include <libxml/xmlerror.h>              // for XML_ERR_OK
 #include <libxml/xmlversion.h>            // for LIBXML_VERSION
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
+#include <stdlib.h>                       // for getenv
 #include <cassert>                        // for assert
 #include <climits>                        // for INT_MAX, INT_MIN
 #include <cstdio>                         // for stderr, NULL, sscanf

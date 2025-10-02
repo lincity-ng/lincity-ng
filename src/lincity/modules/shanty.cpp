@@ -24,25 +24,28 @@
 
 #include "shanty.hpp"
 
-#include <stdio.h>                          // for fprintf, stderr, printf
-#include <stdlib.h>                         // for rand
-#include <cassert>
-#include <map>                              // for map
-#include <optional>
-#include <string>                           // for basic_string, operator<
-#include <vector>                           // for vector
+#include <stdio.h>                 // for fprintf, stderr, printf
+#include <stdlib.h>                // for rand
+#include <cassert>                 // for assert
+#include <map>                     // for map
+#include <optional>                // for optional, operator==
+#include <random>                  // for bernoulli_distribution
+#include <string>                  // for basic_string, operator<
+#include <vector>                  // for vector
 
-#include "commune.hpp"                      // for CommuneConstructionGroup
-#include "fire.hpp"                         // for FIRE_ANIMATION_SPEED
-#include "lincity-ng/Mps.hpp"               // for Mps
-#include "lincity/MapPoint.hpp"             // for MapPoint
-#include "lincity/groups.hpp"               // for GROUP_SHANTY, GROUP_MARKET
-#include "lincity/lin-city.hpp"             // for ANIM_THRESHOLD, FALSE
-#include "lincity/resources.hpp"            // for ExtraFrame, ResourceGroup
-#include "lincity/stats.hpp"                // for Stat, Stats
-#include "lincity/world.hpp"                // for World, Map, MapTile
-#include "modules_interfaces.hpp"           // for add_a_shanty, update_shanty
-#include "util/gettextutil.hpp"
+#include "commune.hpp"             // for CommuneConstructionGroup, COMMUNE_POP
+#include "fire.hpp"                // for Fire, FireConstructionGroup, FIRE_...
+#include "lincity-ng/Mps.hpp"      // for Mps
+#include "lincity/MapPoint.hpp"    // for MapPoint
+#include "lincity/groups.hpp"      // for GROUP_SHANTY, GROUP_MARKET
+#include "lincity/lin-city.hpp"    // for ANIM_THRESHOLD, FALSE, FLAG_FIRE_C...
+#include "lincity/messages.hpp"    // for FireStartedMessage
+#include "lincity/resources.hpp"   // for ExtraFrame, GraphicsInfo, Resource...
+#include "lincity/stats.hpp"       // for Stat, Stats
+#include "lincity/world.hpp"       // for World, Map, MapTile
+#include "modules_interfaces.hpp"  // for add_a_shanty, update_shanty
+#include "util/gettextutil.hpp"    // for N_
+#include "util/randutil.hpp"       // for BasicUrbg
 
 ShantyConstructionGroup shantyConstructionGroup(
     N_("Shanty Town"),
@@ -206,6 +209,16 @@ void Shanty::update()
         world.map(point.s().e())->pollution += commodityCount[STUFF_WASTE];
         levelStuff(STUFF_WASTE, 0);
         start_burning_waste = true;
+
+        double uncontrolledP = WASTE_BURN_UNCONTROLLED
+          * constructionGroup->fire_chance / 100;
+        if(std::bernoulli_distribution(uncontrolledP)(BasicUrbg::get())
+          && !(world.map(point)->flags & FLAG_FIRE_COVER)
+        ) {
+          torch();
+          world.pushMessage(
+            FireStartedMessage::create(point, *constructionGroup));
+        }
     }
 
     if(world.total_time % 100 == 99) {
