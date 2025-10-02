@@ -436,11 +436,6 @@ Config::printHelp(const std::string& command) {
 }
 
 
-template class Config::Option<int>;
-template class Config::Option<bool>;
-template class Config::Option<std::string>;
-template class Config::Option<std::filesystem::path>;
-
 template<typename T>
 Config::Option<T>::Option() :
   default_(std::nullopt)
@@ -495,5 +490,10 @@ validateRange(const std::optional<int>& value,
   }
   return value;
 }
+
+template class Config::Option<int>;
+template class Config::Option<bool>;
+template class Config::Option<std::string>;
+template class Config::Option<std::filesystem::path>;
 
 /** @file lincity-ng/Config.cpp */
