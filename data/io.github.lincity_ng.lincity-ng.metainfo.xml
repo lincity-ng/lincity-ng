@@ -47,8 +47,8 @@
     <color type="primary" scheme_preference="dark">#4c3f3e</color>
   </branding>
   <releases>
-    <release version="2.14.0" date="2025-07-04"/>
-    <release version="2.14.1" date="2025-08-07"/>
     <release version="2.14.2" date="2025-09-22"/>
+    <release version="2.14.1" date="2025-08-07"/>
+    <release version="2.14.0" date="2025-07-04"/>
   </releases>
 </component>
