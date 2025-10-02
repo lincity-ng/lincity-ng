@@ -152,7 +152,7 @@ def xml(base, fname, lang):
     else:
       string+="%s\n"%i
 
-  string+="</Document>"
+  string+="</Document>\n"
   return string
 
 
