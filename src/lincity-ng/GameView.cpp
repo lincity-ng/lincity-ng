@@ -1009,8 +1009,8 @@ void GameView::viewportUpdated()
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-Vector2 GameView::getScreenPoint(MapPoint mp)
-{
+Vector2
+GameView::getScreenPoint(MapPoint mp) {
     Vector2 point;
     point.x = (mp.x - mp.y) * ( tileWidth / 2 );
     point.y = (mp.x + mp.y) * ( tileHeight / 2 );
@@ -1023,8 +1023,8 @@ Vector2 GameView::getScreenPoint(MapPoint mp)
         point.y -= (float) ( (getWorld().map(mp)->ground.altitude) * scale3d) * zoom  / (float) getWorld().map.alt_step ;
     }
 
-    //on Screen
-    point -= viewport;
+    // Rounding the viewport prevents shimmering when panning.
+    point -= viewport.rounded();
 
     return point;
 }
@@ -1147,43 +1147,40 @@ void GameView::fetchTextures() {
 
 
 
-void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo *graphicsInfo)
-{
-    Rect2D tilerect( 0, 0, tileWidth, tileHeight );
-    Vector2 tileOnScreenPoint = getScreenPoint( tile );
-    // Test if we have to convert Preloaded Image to Texture
-    if( !graphicsInfo->texture ) //&& !economyGraph_open
-    {
-        if(graphicsInfo->image)
-        {
-            graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-            if(graphicsInfo->texture) { //Image was erased by texture_manager->create.
-              graphicsInfo->texture->setScaleMode(Texture::ScaleMode::NEAREST);
-              graphicsInfo->image = 0;
-            }
-            --remaining_images;
-        }
+void
+GameView::drawTexture(
+  Painter& painter,
+  const MapPoint &tile,
+  GraphicsInfo *graphicsInfo
+) {
+  // Test if we have to convert Preloaded Image to Texture
+  if(!graphicsInfo->texture) {
+    if(graphicsInfo->image) {
+      graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
+      if(graphicsInfo->texture) { //Image was erased by texture_manager->create.
+        graphicsInfo->texture->setScaleMode(Texture::ScaleMode::NEAREST);
+        graphicsInfo->image = 0;
+      }
+      --remaining_images;
     }
-    if (graphicsInfo->texture)
-    {
-        tileOnScreenPoint.x -= graphicsInfo->x * zoom;
-        tileOnScreenPoint.y -= graphicsInfo->y * zoom;
-        tilerect.move( tileOnScreenPoint );
-        tilerect.setSize(graphicsInfo->texture->getWidth() * zoom,
-            graphicsInfo->texture->getHeight() * zoom);
-        painter.drawStretchTexture(graphicsInfo->texture, tilerect);
-    }
+  }
+  if(graphicsInfo->texture) {
+    Rect2D tilerect;
+    tilerect.p1 = getScreenPoint(tile);
+    tilerect.p1 -= Vector2(graphicsInfo->x, graphicsInfo->y) * zoom;
+    tilerect.setSize(
+      graphicsInfo->texture->getWidth() * zoom,
+      graphicsInfo->texture->getHeight() * zoom);
+    painter.drawStretchTexture(graphicsInfo->texture, tilerect);
+  }
 }
 
 
-void GameView::drawTile(Painter& painter, const MapPoint &tile)
-{
-
+void GameView::drawTile(Painter& painter, const MapPoint &tile) {
     //is Tile in City? If not draw Blank
-    if( ! inCity( tile ) )
-    {
-        drawTexture(painter, tile, &blankGraphicsInfo);
-        return;
+    if(!inCity(tile)) {
+      drawTexture(painter, tile, &blankGraphicsInfo);
+      return;
     }
 
     //Texture* texture = 0;
@@ -1430,7 +1427,7 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if(!mapTexture || refreshMap) {
+    if(refreshMap) {
       if(!mapTexture
         || mapTexture->getWidth() != (int)getWidth()
         || mapTexture->getHeight() != (int)getHeight()
@@ -1443,18 +1440,20 @@ void GameView::draw(Painter& painter)
       painter.clear();
 
       if(mapOverlay != overlayOnly) {
-        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int k = 0; k <= lowerLeftTile.y - upperLeftTile.y; k++)
+        for(int j = 0; j < 2; j++)
         for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
-          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-          currentTile.y = upperLeftTile.y - i + k / 2;
+          currentTile.x = upperLeftTile.x + i + k + j;
+          currentTile.y = upperLeftTile.y - i + k;
           drawTile(painter, currentTile);
         }
       }
       if(mapOverlay != overlayNone) {
-        for(int k = 0; k <= 2 * (lowerLeftTile.y - upperLeftTile.y); k++)
+        for(int k = 0; k <= lowerLeftTile.y - upperLeftTile.y; k++)
+        for(int j = 0; j < 2; j++)
         for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++) {
-          currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-          currentTile.y = upperLeftTile.y - i + k / 2;
+          currentTile.x = upperLeftTile.x + i + k + j;
+          currentTile.y = upperLeftTile.y - i + k;
           drawOverlay(painter, currentTile);
         }
       }

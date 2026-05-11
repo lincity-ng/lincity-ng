@@ -23,6 +23,7 @@
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
+#include <cmath>
 #include <ostream>
 
 class Rect2D;
@@ -120,6 +121,16 @@ public:
   }
 
   // ... add the other operators as needed, I'm too lazy now ...
+
+  Vector2& round() {
+    x = roundf(x);
+    y = roundf(y);
+    return *this;
+  }
+
+  Vector2 rounded() const {
+    return Vector2(*this).round();
+  }
 
   const Vector2& constrain(const Rect2D &bounds);
 
