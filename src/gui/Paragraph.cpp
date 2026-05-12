@@ -186,19 +186,17 @@ Paragraph::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
  * when doing so and test it alot, as the code very easily breaks...
  */
 void
-Paragraph::resize(float width, float height)
-{
+Paragraph::resize(float width, float height) {
     // free old texture
     if(texture)
     {
         delete texture;
-        texture = 0;
+        texture = nullptr;
     }
 
     if(width == 0 || textspans.empty()) {
         this->width = 0;
         this->height = 0;
-        texture = 0;
         return;
     }
 
@@ -258,7 +256,7 @@ Paragraph::resize(float width, float height)
         {
             render = true;
             linefeed = true;
-            // we have to leave out the last word (which made it too width)
+            // we have to leave out the last word (which made it too wide)
             if(lastp-linestart > 0 || pos.x != 0) {
                 line = std::string(*text, linestart, lastp-linestart);
                 // set new linestart and set p back
@@ -412,22 +410,24 @@ Paragraph::resize(float width, float height)
     }
 
     height = pos.y + style.margin_top + style.margin_bottom;
-    if(height < style.min_height)
-    {   height = style.min_height;}
+    if(height < style.min_height) {
+      height = style.min_height;
+    }
+    if(width < 0) {
+      width = lineimages[0]->w;
+    }
 
     // check height defined in style
-    if(height == 0) {
-        this->width = this->height = 0;
-        for(std::vector<SDL_Surface*>::iterator i = lineimages.begin();
-                i != lineimages.end(); ++i)
-            SDL_DestroySurface(*i);
-        return;
+    if(width < 1 || height < 1) {
+      this->width = this->height = 0;
+      for(std::vector<SDL_Surface*>::iterator i = lineimages.begin();
+        i != lineimages.end(); ++i
+      )
+        SDL_DestroySurface(*i);
+      return;
     }
 
     /* Step2: compose all lines to the final image */
-    if(width < 0) {
-        width = lineimages[0]->w;
-    }
     SDL_Surface* result = SDL_CreateSurface((int) width, (int) height,
                                             SDL_PIXELFORMAT_ABGR8888);
     if(result == 0) {
