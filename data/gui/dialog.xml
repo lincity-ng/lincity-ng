@@ -7,7 +7,7 @@
     </Document>
   </title>
   <title-background>
-    <Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
+    <Gradient from="#ff0000ff" to="#88776655" angle="1.047197551196598"/>
   </title-background>
   <background>
     <FilledRectangle color="#ffffffbb"/>

@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -873,9 +873,11 @@ MainMenu::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+                case SDL_EVENT_WINDOW_RESIZED: {
+                  menu->resize(event.window.data1, event.window.data2);
+                } break;
+                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
                     videoSizeChanged(event.window.data1, event.window.data2);
-                    menu->resize(event.window.data1, event.window.data2);
                     getConfig()->videoX.session = event.window.data1;
                     getConfig()->videoY.session = event.window.data2;
                     getConfig()->videoX.sessionToConfig();
@@ -891,16 +893,19 @@ MainMenu::run() {
                         }
                         getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
                     }
-                    break;
+                } break;
+                case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+                  float scale = SDL_GetWindowDisplayScale(window);
+                  menu->setScale(Vector2(scale, scale));
+                } break;
                 case SDL_EVENT_MOUSE_MOTION:
                 case SDL_EVENT_MOUSE_BUTTON_UP:
                 case SDL_EVENT_MOUSE_BUTTON_DOWN:
                 case SDL_EVENT_MOUSE_WHEEL:
-                case SDL_EVENT_KEY_DOWN:{
+                case SDL_EVENT_KEY_DOWN: {
                     Event gui_event(event);
                     menu->event(gui_event);
-                    break;
-                }
+                } break;
                 case SDL_EVENT_KEY_UP: {
                     Event gui_event(event);
                     //In menu ESC as well as ^c exits the game.
@@ -911,8 +916,7 @@ MainMenu::run() {
                         break;
                     }
                     menu->event(gui_event);
-                    break;
-                }
+                } break;
                 case SDL_EVENT_QUIT:
                     state = State::QUIT;
                     break;

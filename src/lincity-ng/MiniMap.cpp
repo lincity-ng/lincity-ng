@@ -650,9 +650,9 @@ void MiniMap::draw(Painter &painter) {
 }
 
 void MiniMap::refreshTexture(Painter& painter) {
-  const int textureSize = (game->getWorld().map.len() - 2) * tilesize;
-  if(!mTexture || mTexture->getWidth() != textureSize) {
-    mTexture = painter.createTargetTexture(textureSize, textureSize);
+  if(!mTexture) {
+    const float textureSize = (game->getWorld().map.len() - 2) * tilesize;
+    mTexture = painter.createTargetTexture(Vector2(textureSize, textureSize));
   }
 
   painter.pushRenderTarget(mTexture.get());

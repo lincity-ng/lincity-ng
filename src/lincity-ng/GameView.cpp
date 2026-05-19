@@ -150,6 +150,7 @@ GameView::parse(xmlpp::TextReader& reader) {
   buttonsConnected = false;
   lastStatusMessage = "";
   refreshMap = true;
+  refreshMapSize = true;
 }
 
 void
@@ -967,6 +968,7 @@ void GameView::resize(float newwidth , float newheight )
     if(width < 0) width = 0;
     if(height < 0) height = 0;
     viewportUpdated();
+    refreshMapSize = true;
     setDirty();
 }
 
@@ -1430,12 +1432,11 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if(!mapTexture || refreshMap) {
-      if(!mapTexture
-        || mapTexture->getWidth() != (int)getWidth()
-        || mapTexture->getHeight() != (int)getHeight()
-      ) {
-        mapTexture = painter.createTargetTexture(getWidth(), getHeight());
+    if(refreshMap) {
+      if(refreshMapSize) {
+        mapTexture = painter.createTargetTexture(getSize());
+        if(!mapTexture) goto no_map_texture;
+        refreshMapSize = false;
       }
 
       painter.pushRenderTarget(mapTexture.get());
@@ -1462,6 +1463,7 @@ void GameView::draw(Painter& painter)
       refreshMap = false;
     }
     painter.drawTexture(mapTexture.get(), Vector2(0,0));
+    no_map_texture:;
 
     int cost = 0;
     //display commodities continously

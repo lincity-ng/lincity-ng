@@ -1,26 +1,25 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-Copyright (C) 2026 Marc Young <myoung008@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-/**
- * @author Matthias Braun
- * @file Gradient.cpp
- */
+/* ---------------------------------------------------------------------- *
+ * src/gui/Gradient.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
+ * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include <SDL3/SDL.h>                     // for SDL_Surface, SDL_CreateRGBS...
 #include <assert.h>                       // for assert
@@ -38,14 +37,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "TextureManager.hpp"             // for TextureManager, texture_man...
 #include "Vector2.hpp"                    // for Vector2
 #include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
+#include "Desktop.hpp"
 
 #ifdef _MSC_VER
 #define lrintf(x) (long int)x
 #endif
 
 Gradient::Gradient()
-    : direction(LEFT_RIGHT)
-{}
+  : angle(0.f)
+{ }
 
 Gradient::~Gradient()
 {}
@@ -60,12 +60,8 @@ Gradient::parse(xmlpp::TextReader& reader) {
       from.parse(value);
     else if(name == "to")
       to.parse(value);
-    else if(name == "direction") {
-      if(value == "left-right") direction = LEFT_RIGHT;
-      else if(value == "top-bottom") direction = TOP_BOTTOM;
-      else throw std::runtime_error(fmt::format(
-        "error: invalid gradient direction: {}", value));
-    }
+    else if(name == "angle")
+      angle = xmlParse<float>(value);
     else
       unexpectedXmlAttribute(reader);
   }
@@ -75,102 +71,76 @@ Gradient::parse(xmlpp::TextReader& reader) {
 }
 
 void
-Gradient::resize(float width, float height)
-{
-    assert(direction == LEFT_RIGHT || direction == TOP_BOTTOM);
-    if(width < 0) width = 0;
-    if(height < 0) height = 0;
-    float w = direction == LEFT_RIGHT ? width : height;
-    float dr = ((float) to.r - (float) from.r) / w;
-    float dg = ((float) to.g - (float) from.g) / w;
-    float db = ((float) to.b - (float) from.b) / w;
-    float da = ((float) to.a - (float) from.a) / w;
+Gradient::resize(float width, float height) {
+  if(width < 0) width = 0;
+  if(height < 0) height = 0;
 
+  const Vector2 scale = getScale();
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    SDL_Surface* surface = SDL_CreateSurface((int) width, (int) height,
-                                             SDL_PIXELFORMAT_RGBA8888);
+  constexpr SDL_PixelFormat pixfmt = SDL_PIXELFORMAT_RGBA8888;
 #else
-    SDL_Surface* surface = SDL_CreateSurface((int) width, (int) height,
-                                             SDL_PIXELFORMAT_ABGR8888);
+  constexpr SDL_PixelFormat pixfmt = SDL_PIXELFORMAT_ABGR8888;
 #endif
-    if(surface == 0)
-        throw std::runtime_error("Couldn't create SDL_Surface for gradient. "
-                                 "(Out of memory?");
-
-    float r = from.r;
-    float g = from.g;
-    float b = from.b;
-    float a = from.a;
-    if(direction == LEFT_RIGHT) {
-        for(int x = 0; x < (int) width; ++x) {
-            draw_vertical_line(surface, x, 0, (int) height,
-                               lrintf(r), lrintf(g),
-                               lrintf(b), lrintf(a));
-            r += dr;
-            g += dg;
-            b += db;
-            a += da;
-        }
-    } else {
-        for(int y = 0; y < (int) height; ++y) {
-            draw_horizontal_line(surface, 0, y, (int) width,
-                                 lrintf(r), lrintf(g),
-                                 lrintf(b), lrintf(a));
-            r += dr;
-            g += dg;
-            b += db;
-            a += da;
-        }
-    }
-
-    texture.reset(texture_manager->create(surface));
+  const SDL_PixelFormatDetails *fmtDetail = SDL_GetPixelFormatDetails(pixfmt);
+  SDL_Surface* surface = SDL_CreateSurface(
+    (int)std::roundf(width * scale.x),
+    (int)std::roundf(height * scale.y),
+    pixfmt
+  );
+  if(!surface)
+    throw std::runtime_error("Couldn't create SDL_Surface for gradient.");
+  if(!surface->w || !surface->h) {
+    texture.reset();
     this->width = width;
     this->height = height;
+    return;
+  }
+
+
+  int lenx = surface->w - 1; // `to` color lands in the center of the last pixel
+  int leny = surface->h - 1;
+  float cos = std::cosf(angle);
+  float sin = std::sinf(angle);
+  float dist = lenx * cos + leny * sin; // length of the gradient
+  float dx = dist ? cos / dist : 0.f;
+  float dy = dist ? sin / dist : 0.f;
+  float drdx = (to.r - from.r) * dx;
+  float dgdx = (to.g - from.g) * dx;
+  float dbdx = (to.b - from.b) * dx;
+  float dadx = (to.a - from.a) * dx;
+  float drdy = (to.r - from.r) * dy;
+  float dgdy = (to.g - from.g) * dy;
+  float dbdy = (to.b - from.b) * dy;
+  float dady = (to.a - from.a) * dy;
+  float originr = (-lenx * drdx - leny * drdy + to.r + from.r) / 2.f;
+  float origing = (-lenx * dgdx - leny * dgdy + to.g + from.g) / 2.f;
+  float originb = (-lenx * dbdx - leny * dbdy + to.b + from.b) / 2.f;
+  float origina = (-lenx * dadx - leny * dady + to.a + from.a) / 2.f;
+
+  for(int j = 0; j < surface->h; j++) {
+    float originrx = originr + j * drdy;
+    float origingx = origing + j * dgdy;
+    float originbx = originb + j * dbdy;
+    float originax = origina + j * dady;
+    uint32_t *row = (uint32_t *)(surface->pixels + j * surface->pitch);
+    for(int i = 0; i < surface->w; i++) {
+      row[i] =
+        (uint32_t)std::roundf(originrx + i * drdx) << fmtDetail->Rshift |
+        (uint32_t)std::roundf(origingx + i * dgdx) << fmtDetail->Gshift |
+        (uint32_t)std::roundf(originbx + i * dbdx) << fmtDetail->Bshift |
+        (uint32_t)std::roundf(originax + i * dadx) << fmtDetail->Ashift;
+    }
+  }
+
+  texture.reset(texture_manager->create(surface));
+  this->width = width;
+  this->height = height;
 }
 
 void
-Gradient::draw(Painter& painter)
-{
+Gradient::draw(Painter& painter) {
+  if(texture)
     painter.drawTexture(texture.get(), Vector2(0, 0));
-}
-
-inline void
-Gradient::draw_horizontal_line(SDL_Surface* surface, int x1, int y1, int x2,
-                               uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-    const SDL_PixelFormatDetails *format = SDL_GetPixelFormatDetails(surface->format);
-
-    uint32_t col = (uint32_t) r << format->Rshift
-        | (uint32_t) g << format->Gshift
-        | (uint32_t) b << format->Bshift
-        | (uint32_t) a << format->Ashift;
-
-    uint8_t* pix = (uint8_t*) surface->pixels + (y1*surface->pitch) + x1*4;
-    for(int x = x1; x < x2; ++x) {
-        uint32_t* p = (uint32_t*) pix;
-        *p = col;
-        pix += 4;
-    }
-}
-
-inline void
-Gradient::draw_vertical_line(SDL_Surface* surface, int x1, int y1, int y2,
-                             uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-    const SDL_PixelFormatDetails *format = SDL_GetPixelFormatDetails(surface->format);
-
-    uint32_t col = (uint32_t) r << format->Rshift
-        | (uint32_t) g << format->Gshift
-        | (uint32_t) b << format->Bshift
-        | (uint32_t) a << format->Ashift;
-    int pitch = surface->pitch;
-
-    uint8_t* pix = (uint8_t*) surface->pixels + (y1*pitch) + x1*4;
-    for(int y = y1; y < y2; ++y) {
-        uint32_t* p = (uint32_t*) pix;
-        *p = col;
-        pix += pitch;
-    }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Gradient)

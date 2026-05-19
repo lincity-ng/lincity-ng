@@ -38,8 +38,8 @@ public:
   virtual ~Texture()
   { }
 
-  virtual int getWidth() const = 0;
-  virtual int getHeight() const = 0;
+  virtual float getWidth() const = 0;
+  virtual float getHeight() const = 0;
 
   enum class ScaleMode {
     NEAREST, LINEAR, ANISOTROPIC

@@ -34,6 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Event.hpp"                      // for Event
 #include "Painter.hpp"                    // for Painter
 #include "util/xmlutil.hpp"               // for xmlParse
+#include "Desktop.hpp"
 
 Component::Component() :
   parent(0), desktop(NULL), flags(0)
@@ -157,6 +158,11 @@ Component::getParentChild() const {
       return &pc;
   assert(false); // we must be a child of our parent
   return NULL;
+}
+
+Vector2
+Component::getScale() const {
+  return desktop ? desktop->getScale() : Vector2(1, 1);
 }
 
 Vector2

@@ -103,7 +103,8 @@ EconomyGraph::parse(xmlpp::TextReader& reader) {
   Style labelStyle;
   labelStyle.font_family = "sans";
   labelStyle.font_size = 10;
-  TTF_Font* font = fontManager->getFont( labelStyle );
+  const Vector2 scale = getScale();
+  TTF_Font* font = fontManager->getFont(labelStyle, scale);
   SDL_Surface* labelXXX;
   /*  MIN=Mining, PRT=Import/export from port,
       MNY=Money, POP=Population, TEC=Technology,

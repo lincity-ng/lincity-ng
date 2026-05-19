@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,11 +58,13 @@ public:
   void setFillColor(Color color) override;
   void setLineColor(Color color) override;
 
-  std::unique_ptr<Texture> createTargetTexture(int w, int h) override;
+  std::unique_ptr<Texture> createTargetTexture(Vector2 size) override;
   void pushRenderTarget(Texture *target) override;
   void popRenderTarget() override;
 
   void updateScreen() override;
+
+  void setScale(Vector2 scale) override;
 
   void translate(Vector2 tl) override;
   void pushTransform() override;
@@ -71,21 +73,26 @@ public:
   void pushClipRect(const Rect2D& region) override;
   void popClipRect() override;
 
-
 private:
   SDL_Renderer* renderer;
 
   struct Transform {
     Vector2 translation;
 
-    Vector2 apply(const Vector2& v) const {
-      return v - translation;
+    Vector2 apply(Vector2 v) const {
+      return v + translation;
+    }
+
+    void translate(Vector2 t) {
+      translation = apply(t);
     }
   };
   // the stack used by push-/popTransform
   std::vector<Transform> transformStack;
   // the currently active transform
   Transform transform;
+
+  Vector2 scale; // display scale for high DPI rendering
 
   std::deque<TextureSDL *> targetStack;
 

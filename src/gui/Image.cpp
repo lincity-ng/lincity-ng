@@ -93,7 +93,6 @@ Image::parse(xmlpp::TextReader& reader) {
       width = texture->getWidth();
       height = texture->getHeight();
   }
-
   if(resizable) {
     flags |= FLAG_RESIZABLE;
     texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
@@ -129,8 +128,8 @@ void Image::setFile(const std::filesystem::path &pfilename)
     texture = texture_manager->load(pfilename.string());
 
     if(width <= 0 || height <= 0) {
-      width = texture->getWidth() + 1;
-      height = texture->getHeight() + 1;
+      width = texture->getWidth();
+      height = texture->getHeight();
     }
     if(flags & FLAG_RESIZABLE) {
       texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);

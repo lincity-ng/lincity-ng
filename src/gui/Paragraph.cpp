@@ -219,7 +219,8 @@ Paragraph::resize(float width, float height)
 
     const TextSpan* span = i->get();
     const std::string* text = &(span->text);
-    TTF_Font* font = fontManager->getFont(span->style);
+    const Vector2 scale = getScale();
+    TTF_Font* font = fontManager->getFont(span->style, scale);
     std::string::size_type p = 0;
     std::string::size_type linestart = 0;
     lineheight = TTF_GetFontHeight(font);
@@ -405,7 +406,7 @@ Paragraph::resize(float width, float height)
             {   break;}
             span = i->get();
             text = &(span->text);
-            font = fontManager->getFont(span->style);
+            font = fontManager->getFont(span->style, scale);
             linestart = p = 0;
             line = "";
         }

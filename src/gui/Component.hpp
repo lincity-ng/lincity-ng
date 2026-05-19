@@ -133,6 +133,8 @@ public:
     }
     Child *getParentChild() const;
 
+    Vector2 getScale() const;
+
     /**
      * Maps a relative coordinate from this component to a global one.
      */
