@@ -58,13 +58,14 @@ public:
   void setFillColor(Color color) override;
   void setLineColor(Color color) override;
 
-  std::unique_ptr<Texture> createTargetTexture(Vector2 size) override;
+  std::unique_ptr<Texture> createTargetTexture(int w, int h) override;
   void pushRenderTarget(Texture *target) override;
   void popRenderTarget() override;
 
   void updateScreen() override;
 
   void setScale(Vector2 scale) override;
+  Vector2 getScale();
 
   void translate(Vector2 tl) override;
   void pushTransform() override;
@@ -91,8 +92,6 @@ private:
   std::vector<Transform> transformStack;
   // the currently active transform
   Transform transform;
-
-  Vector2 scale; // display scale for high DPI rendering
 
   std::deque<TextureSDL *> targetStack;
 

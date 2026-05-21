@@ -22,13 +22,12 @@
 ** ---------------------------------------------------------------------- */
 
 #include <SDL3/SDL.h>                     // for SDL_Surface, SDL_CreateRGBS...
-#include <assert.h>                       // for assert
-#include <fmt/format.h>                   // for format
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
-#include <math.h>                         // for lrintf
 #include <stdexcept>                      // for runtime_error
 #include <string>                         // for basic_string, operator==
+#include <cmath>
+#include <cstdint>
 
 #include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "Gradient.hpp"
@@ -37,11 +36,6 @@
 #include "TextureManager.hpp"             // for TextureManager, texture_man...
 #include "Vector2.hpp"                    // for Vector2
 #include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
-#include "Desktop.hpp"
-
-#ifdef _MSC_VER
-#define lrintf(x) (long int)x
-#endif
 
 Gradient::Gradient()
   : angle(0.f)
@@ -90,6 +84,7 @@ Gradient::resize(float width, float height) {
   if(!surface)
     throw std::runtime_error("Couldn't create SDL_Surface for gradient.");
   if(!surface->w || !surface->h) {
+    SDL_DestroySurface(surface);
     texture.reset();
     this->width = width;
     this->height = height;
@@ -122,7 +117,8 @@ Gradient::resize(float width, float height) {
     float origingx = origing + j * dgdy;
     float originbx = originb + j * dbdy;
     float originax = origina + j * dady;
-    uint32_t *row = (uint32_t *)(surface->pixels + j * surface->pitch);
+    uint32_t *row =
+      (uint32_t *)((uint8_t *)surface->pixels + j * surface->pitch);
     for(int i = 0; i < surface->w; i++) {
       row[i] =
         (uint32_t)std::roundf(originrx + i * drdx) << fmtDetail->Rshift |
@@ -133,6 +129,7 @@ Gradient::resize(float width, float height) {
   }
 
   texture.reset(texture_manager->create(surface));
+  SDL_DestroySurface(surface);
   this->width = width;
   this->height = height;
 }
@@ -141,6 +138,17 @@ void
 Gradient::draw(Painter& painter) {
   if(texture)
     painter.drawTexture(texture.get(), Vector2(0, 0));
+}
+
+void
+Gradient::event(const Event& event) {
+  switch(event.type) {
+  case Event::DISPLAYSCALE: {
+    reLayout();
+  } break;
+  }
+
+  Component::event(event);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Gradient)

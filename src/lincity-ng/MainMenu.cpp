@@ -66,6 +66,7 @@
 #include "util/gettextutil.hpp"
 #include "config.h"
 #include "util/ptrutil.hpp"
+#include "gui/Vector2.hpp"
 
 using namespace std::placeholders;
 using namespace std::string_literals;
@@ -854,6 +855,8 @@ MainMenu::run() {
     {
       int width, height;
       SDL_GetWindowSize(window, &width, &height);
+      float scale = SDL_GetWindowDisplayScale(window);
+      menu->setScale(Vector2(scale, scale));
       menu->resize(width, height);
     }
     int frame = 0;
@@ -965,6 +968,8 @@ MainMenu::launchGame() {
   game->run();
   state = State::MENU;
   switchMenu(mainMenu);
+  float scale = SDL_GetWindowDisplayScale(window);
+  menu->setScale(Vector2(scale, scale));
   DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
     menu->findComponent("windowManager")));
 }

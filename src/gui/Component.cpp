@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Desktop.hpp"
 
 Component::Component() :
-  parent(0), desktop(NULL), flags(0)
+  parent(nullptr), desktop(nullptr), flags(0)
 {
 }
 
@@ -124,11 +124,8 @@ Component::event(const Event& event) {
 }
 
 void
-Component::reLayout()
-{
-    if(getFlags() & FLAG_RESIZABLE) {
-        resize(getWidth(), getHeight());
-    }
+Component::reLayout() {
+  resize(width, height);
 }
 
 Component*
@@ -162,7 +159,7 @@ Component::getParentChild() const {
 
 Vector2
 Component::getScale() const {
-  return desktop ? desktop->getScale() : Vector2(1, 1);
+  return getDesktop() ? desktop->getScale() : Vector2(1, 1);
 }
 
 Vector2

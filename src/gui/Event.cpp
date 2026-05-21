@@ -66,6 +66,9 @@ Event::Event(SDL_Event& event)
         case SDL_EVENT_WINDOW_MOUSE_LEAVE:
             type = WINDOWLEAVE;
             break;
+        case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+          type = DISPLAYSCALE;
+        } break;
         default:
             assert(false);
     }

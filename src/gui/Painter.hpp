@@ -57,7 +57,7 @@ public:
   virtual void setLineColor(Color color) = 0;
 
   // render target
-  virtual std::unique_ptr<Texture> createTargetTexture(Vector2 size) = 0;
+  virtual std::unique_ptr<Texture> createTargetTexture(int w, int h) = 0;
   virtual void pushRenderTarget(Texture *target) = 0;
   virtual void popRenderTarget() = 0;
 

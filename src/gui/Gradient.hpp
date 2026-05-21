@@ -23,12 +23,11 @@
 #ifndef __GRADIENT_HPP__
 #define __GRADIENT_HPP__
 
-#include <SDL3/SDL.h>     // for SDL_Surface
-#include <stdint.h>       // for uint8_t
 #include <memory>         // for unique_ptr
 
 #include "Color.hpp"      // for Color
 #include "Component.hpp"  // for Component
+#include "Event.hpp"
 
 class Texture;
 namespace xmlpp {
@@ -45,8 +44,9 @@ public:
     virtual ~Gradient();
 
     void parse(xmlpp::TextReader& reader);
-    void resize(float width, float height);
-    void draw(Painter& painter);
+    void resize(float width, float height) override;
+    void draw(Painter& painter) override;
+    void event(const Event& event) override;
 
 private:
 

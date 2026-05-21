@@ -35,8 +35,7 @@
  */
 class Texture {
 public:
-  virtual ~Texture()
-  { }
+  virtual ~Texture() { }
 
   virtual float getWidth() const = 0;
   virtual float getHeight() const = 0;

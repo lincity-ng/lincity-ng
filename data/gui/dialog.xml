@@ -17,7 +17,7 @@
       <rowsize row="2" fixed="50"/>
       <colsize col="1" fixed="95"/>
       <cell row="1" col="1">
-        <Image name="image" src="images/gui/dialogs/info.png"/>
+        <Image name="image" src="images/gui/dialogs/info.png" width="50" height="100" lockRatio="yes"/>
       </cell>
       <cell row="1" col="2">
         <Document name="message">
@@ -29,9 +29,9 @@
             <cell row="1" col="1">
               <Button name="ok-button">
                 <text-caption style="dialogbutton" translatable="yes">Ok</text-caption>
-                <image src="images/gui/dialogs/yesbutton.png"/>
-                <image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
-                <image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+                <image src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-hover src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-clicked src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
               </Button>
             </cell>
           </TableLayout>
@@ -39,17 +39,17 @@
             <cell row="1" col="1">
               <Button name="no-button">
                 <text-caption style="dialogbutton" translatable="yes">No</text-caption>
-                <image src="images/gui/dialogs/nobutton.png"/>
-                <image-hover src="images/gui/dialogs/nobutton-hover.png"/>
-                <image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
+                <image src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-hover src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-clicked src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
               </Button>
             </cell>
             <cell row="1" col="2">
               <Button name="yes-button">
                 <text-caption style="dialogbutton" translatable="yes">Yes</text-caption>
-                <image src="images/gui/dialogs/yesbutton.png"/>
-                <image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
-                <image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+                <image src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-hover src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+                <image-clicked src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
               </Button>
             </cell>
           </TableLayout>

@@ -945,6 +945,9 @@ GameView::event(const Event& event) {
   case Event::UPDATE: {
     scroll(event.elapsedTime);
   } break;
+  case Event::DISPLAYSCALE: {
+    refreshMap = refreshMapSize = true;
+  } break;
   default:
     break;
   }
@@ -961,7 +964,7 @@ void GameView::setDefaultCursor() {
 /*
  * Parent tells us to change size.
  */
-void GameView::resize(float newwidth , float newheight )
+void GameView::resize(float newwidth, float newheight)
 {
     width = newwidth;
     height = newheight;
@@ -1011,8 +1014,7 @@ void GameView::viewportUpdated()
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-Vector2 GameView::getScreenPoint(MapPoint mp)
-{
+Vector2 GameView::getScreenPoint(MapPoint mp) {
     Vector2 point;
     point.x = (mp.x - mp.y) * ( tileWidth / 2 );
     point.y = (mp.x + mp.y) * ( tileHeight / 2 );
@@ -1026,7 +1028,9 @@ Vector2 GameView::getScreenPoint(MapPoint mp)
     }
 
     //on Screen
-    point -= viewport;
+    Vector2 scale = getScale();
+    point.x -= std::roundf(viewport.x * scale.x) / scale.x;
+    point.y -= std::roundf(viewport.y * scale.y) / scale.y;
 
     return point;
 }
@@ -1149,10 +1153,10 @@ void GameView::fetchTextures() {
 
 
 
-void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo *graphicsInfo)
-{
-    Rect2D tilerect( 0, 0, tileWidth, tileHeight );
-    Vector2 tileOnScreenPoint = getScreenPoint( tile );
+void
+GameView::drawTexture(Painter& painter, const MapPoint &tile,
+  GraphicsInfo *graphicsInfo
+) {
     // Test if we have to convert Preloaded Image to Texture
     if( !graphicsInfo->texture ) //&& !economyGraph_open
     {
@@ -1166,8 +1170,9 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
             --remaining_images;
         }
     }
-    if (graphicsInfo->texture)
-    {
+    if(graphicsInfo->texture) {
+        Rect2D tilerect(0, 0, tileWidth, tileHeight);
+        Vector2 tileOnScreenPoint = getScreenPoint( tile );
         tileOnScreenPoint.x -= graphicsInfo->x * zoom;
         tileOnScreenPoint.y -= graphicsInfo->y * zoom;
         tilerect.move( tileOnScreenPoint );
@@ -1433,13 +1438,16 @@ void GameView::draw(Painter& painter)
     lowerLeftTile.y +=  extratiles;
 
     if(refreshMap) {
+      Vector2 scale = getScale();
       if(refreshMapSize) {
-        mapTexture = painter.createTargetTexture(getSize());
+        mapTexture = painter.createTargetTexture(
+          std::roundf(width * scale.x), std::roundf(height * scale.y));
         if(!mapTexture) goto no_map_texture;
         refreshMapSize = false;
       }
 
       painter.pushRenderTarget(mapTexture.get());
+      painter.setScale(scale);
       painter.setFillColor(Color(0,0,0));
       painter.clear();
 
@@ -1462,7 +1470,7 @@ void GameView::draw(Painter& painter)
       painter.popRenderTarget();
       refreshMap = false;
     }
-    painter.drawTexture(mapTexture.get(), Vector2(0,0));
+    painter.drawStretchTexture(mapTexture.get(), Rect2D(Vector2(0,0), size));
     no_map_texture:;
 
     int cost = 0;

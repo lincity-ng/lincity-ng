@@ -52,6 +52,7 @@
 #include "lincity/world.hpp"              // for World
 #include "util/gettextutil.hpp"           // for _
 #include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
+#include "gui/Event.hpp"
 
 EconomyGraph::EconomyGraph() {
     labelTextureMIN = 0;
@@ -99,38 +100,39 @@ EconomyGraph::parse(xmlpp::TextReader& reader) {
   }
   reader.move_to_element();
 
-  //Generate Labels for Sustainability Graph
+  createLabels();
+}
+
+void
+EconomyGraph::createLabels() {
   Style labelStyle;
   labelStyle.font_family = "sans";
   labelStyle.font_size = 10;
   const Vector2 scale = getScale();
   TTF_Font* font = fontManager->getFont(labelStyle, scale);
-  SDL_Surface* labelXXX;
-  /*  MIN=Mining, PRT=Import/export from port,
-      MNY=Money, POP=Population, TEC=Technology,
-      FIR=Fire coverage
-  */
-  labelXXX = TTF_RenderText_Blended( font, _("Mining"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureMIN = texture_manager->create( labelXXX );
-  labelXXX = TTF_RenderText_Blended( font, _("Trade"), 0, labelStyle.text_color.getSDLColor() );
-  labelTexturePRT = texture_manager->create( labelXXX );
-  labelXXX = TTF_RenderText_Blended( font, _("Money"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureMNY = texture_manager->create( labelXXX );
-  labelXXX = TTF_RenderText_Blended( font, _("Popul."), 0, labelStyle.text_color.getSDLColor() );
-  labelTexturePOP = texture_manager->create( labelXXX );
-  labelXXX = TTF_RenderText_Blended( font, _("Techn."), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureTEC = texture_manager->create( labelXXX );
-  labelXXX = TTF_RenderText_Blended( font, _("Fire"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureFIR = texture_manager->create( labelXXX );
 
-  labelXXX = TTF_RenderText_Blended( font, _("Economy Overview:"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureEconomy = texture_manager->create( labelXXX );
-
-  labelXXX = TTF_RenderText_Blended( font, _("Sustainability:"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureSustainability = texture_manager->create( labelXXX );
-
-  labelXXX = TTF_RenderText_Blended( font, _("Frames per Second:"), 0, labelStyle.text_color.getSDLColor() );
-  labelTextureFPS = texture_manager->create( labelXXX );
+  struct Label {
+    Label(const std::string& text, Texture*& texture)
+      : text(text), texture(texture) { }
+    std::string text;
+    Texture*& texture;
+  };
+  for(const Label& label : {
+    Label(_("Mining"), labelTextureMIN),
+    Label(_("Money"), labelTextureMNY),
+    Label(_("Popul"), labelTexturePOP),
+    Label(_("Techn"), labelTextureTEC),
+    Label(_("Fire"), labelTextureFIR),
+    Label(_("Economy Overview:"), labelTextureEconomy),
+    Label(_("Sustainability:"), labelTextureSustainability),
+    Label(_("Frames per Second:"), labelTextureFPS),
+  }) {
+    delete label.texture;
+    SDL_Surface* labelSurface = TTF_RenderText_Blended(
+      font, label.text.c_str(), 0, labelStyle.text_color.getSDLColor());
+    label.texture = texture_manager->create(labelSurface);
+    SDL_DestroySurface(labelSurface);
+  }
 }
 
 void
@@ -400,6 +402,17 @@ EconomyGraph::draw(Painter& painter) {
 
   y += border;
   assert(y == getHeight());
+}
+
+void
+EconomyGraph::event(const Event& event) {
+  switch(event.type) {
+  case Event::DISPLAYSCALE: {
+    createLabels();
+  } break;
+  }
+
+  Component::event(event);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph)

@@ -65,6 +65,7 @@ PainterSDL::drawTexture(const Texture *texture, Vector2 pos) {
   // We need to round the screen position to avoid sampling on pixel boundaries.
   // Really, we only need to do this when NEAREST sampling is used.
   Vector2 screenpos = transform.apply(pos);
+  Vector2 scale = getScale();
   SDL_FRect drect = {
     .x = std::roundf(screenpos.x),
     .y = std::roundf(screenpos.y),
@@ -250,19 +251,17 @@ PainterSDL::updateClipRect() {
   }
   else {
     SDL_Rect clip = {
-      .x = (int)std::roundf(cliprectStack.back().p1.x * scale.x),
-      .y = (int)std::roundf(cliprectStack.back().p1.y * scale.y),
-      .w = (int)std::roundf(cliprectStack.back().getWidth() * scale.x),
-      .h = (int)std::roundf(cliprectStack.back().getHeight() * scale.y),
+      .x = (int)std::roundf(cliprectStack.back().p1.x),
+      .y = (int)std::roundf(cliprectStack.back().p1.y),
+      .w = (int)std::roundf(cliprectStack.back().getWidth()),
+      .h = (int)std::roundf(cliprectStack.back().getHeight()),
     };
     HANDLE_ERR(SDL_SetRenderClipRect(renderer, &clip));
   }
 }
 
 std::unique_ptr<Texture>
-PainterSDL::createTargetTexture(Vector2 size) {
-  int w = (int)std::roundf(size.x * scale.x);
-  int h = (int)std::roundf(size.y * scale.y);
+PainterSDL::createTargetTexture(int w, int h) {
   if(!w || !h) return std::unique_ptr<Texture>();
   SDL_Texture *texture = SDL_CreateTexture(renderer,
     SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, w, h);
@@ -292,8 +291,6 @@ PainterSDL::pushRenderTarget(Texture *target) {
   targetStack.push_back(t);
   HANDLE_ERR(SDL_SetRenderTarget(renderer, t->tx));
 
-  HANDLE_ERR(SDL_SetRenderScale(renderer, scale.x, scale.y));
-
   cliprectStack.push_back(CR_NONE);
   HANDLE_ERR(SDL_SetRenderClipRect(renderer, NULL));
 
@@ -316,8 +313,14 @@ PainterSDL::popRenderTarget() {
 
 void
 PainterSDL::setScale(Vector2 scale) {
-  this->scale = scale;
   HANDLE_ERR(SDL_SetRenderScale(renderer, scale.x, scale.y));
+}
+
+Vector2
+PainterSDL::getScale() {
+  Vector2 scale;
+  HANDLE_ERR(SDL_GetRenderScale(renderer, &scale.x, &scale.y));
+  return scale;
 }
 
 

@@ -129,7 +129,8 @@ public:
     }
     Component* findComponent(const std::string& name);
     Desktop* getDesktop() const {
-        return desktop;
+      if(!desktop && parent) desktop = parent->getDesktop();
+      return desktop;
     }
     Child *getParentChild() const;
 
@@ -169,7 +170,7 @@ protected:
     }
 
     Component* parent;
-    Desktop *desktop;
+    mutable Desktop *desktop;
     int flags;
     Vector2 size;
     float &width = size.x;

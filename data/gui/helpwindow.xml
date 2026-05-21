@@ -6,10 +6,10 @@
       <colsize col="1" fixed="25"/>
       <cell row="1" col="1"  halign="right">
         <Button name="HistoryBack">
-          <image src="images/gui/buttons/round/button-round-20.png"/>
-          <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
-          <image-caption src="images/gui/back.png"/>
+          <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+          <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
+          <image-caption src="images/gui/back.png" width="11" height="15"/>
         </Button>
       </cell>
       <cell row="1" col="2">
@@ -22,9 +22,9 @@
     <Gradient from="#ff0000ff" to="#88776655" angle="1.047197551196598"/>
   </title-background>
   <closebutton>
-    <image src="images/gui/window/window_close.png"/>
-    <image-hover src="images/gui/window/window_close_hover.png"/>
-    <image-clicked src="images/gui/window/window_close_clicked.png"/>
+    <image src="images/gui/window/window_close.png" width="20" height="20"/>
+    <image-hover src="images/gui/window/window_close_hover.png" width="20" height="20"/>
+    <image-clicked src="images/gui/window/window_close_clicked.png" width="20" height="20"/>
   </closebutton>
   <background>
     <FilledRectangle color="#ffffffbb"/>
@@ -33,21 +33,21 @@
     <ScrollView name="HelpScrollView">
       <scrollbar width="20">
         <button1>
-          <image src="images/gui/buttons/round/button-round-20.png"/>
-          <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
-          <image-caption src="images/gui/scrollbar/arrow_up.png"/>
+          <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+          <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
+          <image-caption src="images/gui/scrollbar/arrow_up.png" width="15" height="13"/>
         </button1>
         <button2>
-          <image src="images/gui/buttons/round/button-round-20.png"/>
-          <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
-          <image-caption src="images/gui/scrollbar/arrow_down.png"/>
+          <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+          <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
+          <image-caption src="images/gui/scrollbar/arrow_down.png" width="15" height="13"/>
         </button2>
         <scroller>
-          <image src="images/gui/buttons/round/button-round-20.png"/>
-          <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+          <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+          <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+          <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
         </scroller>
       </scrollbar>
     </ScrollView>

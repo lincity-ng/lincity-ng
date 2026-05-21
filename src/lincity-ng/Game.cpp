@@ -471,6 +471,8 @@ Game::run() {
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
       throw std::runtime_error("Toplevel component is not a Desktop");
+    float scale = SDL_GetWindowDisplayScale(window);
+    desktop->setScale(Vector2(scale, scale));
     gui->resize(getConfig()->videoX.get(), getConfig()->videoY.get());
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
@@ -510,13 +512,11 @@ Game::run() {
                 case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
                   float scale = SDL_GetWindowDisplayScale(window);
                   desktop->setScale(Vector2(scale, scale));
-                } break;
+                } // fallthrough
                 case SDL_EVENT_WINDOW_MOUSE_ENTER:
                 case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
-                    Event gui_event(event);
-                    gui->event(gui_event);
-                    break;
-                    }
+                    desktop->event(Event(event));
+                } break;
                 case SDL_EVENT_KEY_UP: {
                   Event gui_event(event);
                   if(gui_event.key == SDLK_ESCAPE) {
