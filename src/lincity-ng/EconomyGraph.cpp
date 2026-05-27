@@ -119,6 +119,7 @@ EconomyGraph::createLabels() {
   };
   for(const Label& label : {
     Label(_("Mining"), labelTextureMIN),
+    Label(_("Trade"), labelTexturePRT),
     Label(_("Money"), labelTextureMNY),
     Label(_("Popul"), labelTexturePOP),
     Label(_("Techn"), labelTextureTEC),
@@ -402,17 +403,6 @@ EconomyGraph::draw(Painter& painter) {
 
   y += border;
   assert(y == getHeight());
-}
-
-void
-EconomyGraph::event(const Event& event) {
-  switch(event.type) {
-  case Event::DISPLAYSCALE: {
-    createLabels();
-  } break;
-  }
-
-  Component::event(event);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph)

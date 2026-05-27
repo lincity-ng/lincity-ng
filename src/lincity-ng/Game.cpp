@@ -471,12 +471,17 @@ Game::run() {
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
       throw std::runtime_error("Toplevel component is not a Desktop");
-    float scale = SDL_GetWindowDisplayScale(window);
-    desktop->setScale(Vector2(scale, scale));
-    gui->resize(getConfig()->videoX.get(), getConfig()->videoY.get());
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
     world->setUpdated(World::Updatable::MONEY);
+    {
+      int width, height;
+      SDL_GetWindowSize(window, &width, &height);
+      float scale = SDL_GetWindowDisplayScale(window);
+      desktop->setScale(Vector2(scale, scale));
+      desktop->resize(width, height);
+      desktop->reLayoutDeep();
+    }
 
     getButtonPanel().selectQueryTool();
 
@@ -512,7 +517,8 @@ Game::run() {
                 case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
                   float scale = SDL_GetWindowDisplayScale(window);
                   desktop->setScale(Vector2(scale, scale));
-                } // fallthrough
+                  desktop->reLayoutDeep();
+                } break;
                 case SDL_EVENT_WINDOW_MOUSE_ENTER:
                 case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
                     desktop->event(Event(event));

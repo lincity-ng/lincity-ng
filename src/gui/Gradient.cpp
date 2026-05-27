@@ -140,17 +140,6 @@ Gradient::draw(Painter& painter) {
     painter.drawTexture(texture.get(), Vector2(0, 0));
 }
 
-void
-Gradient::event(const Event& event) {
-  switch(event.type) {
-  case Event::DISPLAYSCALE: {
-    reLayout();
-  } break;
-  }
-
-  Component::event(event);
-}
-
 IMPLEMENT_COMPONENT_FACTORY(Gradient)
 
 /** @file gui/Gradient.cpp */

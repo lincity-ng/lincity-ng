@@ -128,6 +128,16 @@ Component::reLayout() {
   resize(width, height);
 }
 
+void
+Component::reLayoutDeep() {
+  for(Childs::reverse_iterator i = childs.rbegin(); i != childs.rend(); ++i) {
+    if(i->enabled && i->component)
+      i->component->reLayoutDeep();
+  }
+
+  reLayout();
+}
+
 Component*
 Component::findComponent(const std::string& name)
 {
@@ -176,26 +186,15 @@ Child&
 Component::addChild(std::unique_ptr<Component>&& component) {
   assert(!component->parent);
   Component *comp = component.get();
-  childs.push_back(Child(std::move(component)));
-  comp->parent = this;
-  comp->desktop = this->desktop;
-  comp->setDirty();
+  childs.push_back(Child(this, std::move(component)));
   return childs.back();
 }
 
 void
-Component::resetChild(Child& child, std::unique_ptr<Component>&& component)
-{
-    assert(child.component != component.get());
-
-    delete child.component;
-    child.component = component.release();
-    if(child.component != 0) {
-        child.component->parent = this;
-        child.component->desktop = this->desktop;
-        child.component->setDirty();
-        child.enabled = true;
-    }
+Component::resetChild(Child& child, std::unique_ptr<Component>&& component) {
+  assert(child.component != component.get() || !child.component);
+  assert(child.parent == this);
+  child.setComponent(std::move(component));
 }
 
 void
@@ -236,7 +235,8 @@ Component::setChildDirty(Component* childComponent, const Rect2D& area)
         return;
     }
 
-    assert(false);
+    // Maybe the child is being constructed and not yet in the childs list.
+    setDirty();
 }
 
 

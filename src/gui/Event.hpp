@@ -54,8 +54,6 @@ public:
         WINDOWENTER,
         /// window lost mouse focus
         WINDOWLEAVE,
-        /// display scale changed
-        DISPLAYSCALE,
     };
     /// Create an update Event
     Event(float elapsedTime);

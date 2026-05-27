@@ -858,6 +858,7 @@ MainMenu::run() {
       float scale = SDL_GetWindowDisplayScale(window);
       menu->setScale(Vector2(scale, scale));
       menu->resize(width, height);
+      menu->reLayoutDeep();
     }
     int frame = 0;
     Uint32 next_gui = 0, next_fps = 0;
@@ -900,6 +901,7 @@ MainMenu::run() {
                 case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
                   float scale = SDL_GetWindowDisplayScale(window);
                   menu->setScale(Vector2(scale, scale));
+                  menu->reLayoutDeep();
                 } break;
                 case SDL_EVENT_MOUSE_MOTION:
                 case SDL_EVENT_MOUSE_BUTTON_UP:
@@ -970,6 +972,10 @@ MainMenu::launchGame() {
   switchMenu(mainMenu);
   float scale = SDL_GetWindowDisplayScale(window);
   menu->setScale(Vector2(scale, scale));
+  int w, h;
+  SDL_GetWindowSize(window, &w, &h);
+  menu->resize(w, h);
+  menu->reLayoutDeep();
   DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
     menu->findComponent("windowManager")));
 }

@@ -80,7 +80,7 @@ Window::parse(xmlpp::TextReader& reader) {
   if(width <= 0 || height <= 0)
     throw std::runtime_error("invalid width / height");
 
-  childs.assign(5, Child());
+  childs.assign(5, Child(this));
 
   if(!reader.is_empty_element() && reader.read())
   while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {

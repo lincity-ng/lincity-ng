@@ -46,7 +46,6 @@ public:
     void parse(xmlpp::TextReader& reader);
     void resize(float width, float height) override;
     void draw(Painter& painter) override;
-    void event(const Event& event) override;
 
 private:
 

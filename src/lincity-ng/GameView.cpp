@@ -945,9 +945,6 @@ GameView::event(const Event& event) {
   case Event::UPDATE: {
     scroll(event.elapsedTime);
   } break;
-  case Event::DISPLAYSCALE: {
-    refreshMap = refreshMapSize = true;
-  } break;
   default:
     break;
   }

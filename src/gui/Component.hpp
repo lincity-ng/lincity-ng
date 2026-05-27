@@ -78,6 +78,7 @@ public:
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();
+    void reLayoutDeep();
 
     /**
      * @return true if the component is opaque at this place.
@@ -176,6 +177,8 @@ protected:
     float &width = size.x;
     float &height = size.y;
     std::string name;
+
+    friend Child;
 };
 
 #endif

@@ -26,10 +26,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Component.hpp"
 #include "Event.hpp"
 
-Child::Child(std::unique_ptr<Component>&& _component)
-    : useClipRect(false), component(_component.release())
+Child::Child(Component *parent, std::unique_ptr<Component>&& component)
+    : useClipRect(false), parent(parent)
 {
-    enabled = component != nullptr;
+  assert(parent);
+  setComponent(std::move(component));
 }
 
 Child::~Child()
@@ -59,11 +60,14 @@ Child::enable(bool enabled) {
   if(enabled == this->enabled)
     return;
 
-  // Somewhat hacky way to tell the component that they definitely lost mouse
-  // focus. This is necessary because, once disabled, they cannot receive
-  // MOUSEMOTION events which could be necessary to tell a component they are no
-  // longer hovered.
-  if(!enabled) {
+  if(enabled) {
+    component->reLayoutDeep();
+  }
+  else {
+    // Somewhat hacky way to tell the component that they definitely lost mouse
+    // focus. This is necessary because, once disabled, they cannot receive
+    // MOUSEMOTION events which could be necessary to tell a component they are no
+    // longer hovered.
     Event event(Event::MOUSEMOTION);
     event.inside = false;
     component->event(event);
@@ -74,8 +78,15 @@ Child::enable(bool enabled) {
 
 void
 Child::setComponent(std::unique_ptr<Component>&& component) {
+  if(this->component) delete this->component;
   enabled = !!component;
   this->component = component.release();
+  if(this->component) {
+    this->component->parent = parent;
+    this->component->desktop = parent->desktop;
+    this->component->setDirty();
+    this->component->reLayoutDeep();
+  }
 }
 
 //---------------------------------------------------------------------------

@@ -66,7 +66,7 @@ ScrollView::parse(xmlpp::TextReader& reader) {
     reader.move_to_element();
 
     // we need 2 child components
-    childs.assign(2, Child());
+    childs.assign(2, Child(this));
 
     if(!reader.is_empty_element() && reader.read())
     while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {

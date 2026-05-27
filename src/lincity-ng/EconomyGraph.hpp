@@ -45,7 +45,6 @@ public:
 
     void parse(xmlpp::TextReader& reader);
     void draw(Painter& painter);
-    void event(const Event& event) override;
     void newFPS( int frame );
     void setDirty() { Component::setDirty(); }
 

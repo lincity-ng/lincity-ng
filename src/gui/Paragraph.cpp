@@ -470,9 +470,6 @@ void
 Paragraph::event(const Event& event)
 {
   switch(event.type) {
-  case Event::DISPLAYSCALE: {
-    reLayout();
-  } break;
   case Event::MOUSEMOTION:
   case Event::MOUSEBUTTONDOWN: {
     if(!event.inside) break;
