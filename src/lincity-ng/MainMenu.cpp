@@ -854,10 +854,10 @@ MainMenu::run() {
 
     {
       int width, height;
-      SDL_GetWindowSize(window, &width, &height);
+      SDL_GetWindowSizeInPixels(window, &width, &height);
       float scale = SDL_GetWindowDisplayScale(window);
       menu->setScale(Vector2(scale, scale));
-      menu->resize(width, height);
+      menu->resize(width / scale, height / scale);
       menu->reLayoutDeep();
     }
     int frame = 0;
@@ -877,11 +877,12 @@ MainMenu::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_RESIZED: {
-                  menu->resize(event.window.data1, event.window.data2);
-                } break;
                 case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
                     videoSizeChanged(event.window.data1, event.window.data2);
+                    Vector2 scale = menu->getScale();
+                    menu->resize(
+                      event.window.data1 / scale.x,
+                      event.window.data2 / scale.y);
                     getConfig()->videoX.session = event.window.data1;
                     getConfig()->videoY.session = event.window.data2;
                     getConfig()->videoX.sessionToConfig();
@@ -901,6 +902,9 @@ MainMenu::run() {
                 case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
                   float scale = SDL_GetWindowDisplayScale(window);
                   menu->setScale(Vector2(scale, scale));
+                  int width, height;
+                  SDL_GetWindowSizeInPixels(window, &width, &height);
+                  menu->resize(width / scale, height / scale);
                   menu->reLayoutDeep();
                 } break;
                 case SDL_EVENT_MOUSE_MOTION:

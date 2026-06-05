@@ -476,10 +476,10 @@ Game::run() {
     world->setUpdated(World::Updatable::MONEY);
     {
       int width, height;
-      SDL_GetWindowSize(window, &width, &height);
+      SDL_GetWindowSizeInPixels(window, &width, &height);
       float scale = SDL_GetWindowDisplayScale(window);
       desktop->setScale(Vector2(scale, scale));
-      desktop->resize(width, height);
+      desktop->resize(width / scale, height / scale);
       desktop->reLayoutDeep();
     }
 
@@ -504,11 +504,12 @@ Game::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_RESIZED: {
-                  desktop->resize(event.window.data1, event.window.data2);
-                } break;
                 case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
                     videoSizeChanged(event.window.data1, event.window.data2);
+                    Vector2 scale = desktop->getScale();
+                    desktop->resize(
+                      event.window.data1 / scale.x,
+                      event.window.data2 / scale.y);
                     getConfig()->videoX.session = event.window.data1;
                     getConfig()->videoY.session = event.window.data2;
                     getConfig()->videoX.sessionToConfig();
@@ -517,6 +518,9 @@ Game::run() {
                 case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
                   float scale = SDL_GetWindowDisplayScale(window);
                   desktop->setScale(Vector2(scale, scale));
+                  int width, height;
+                  SDL_GetWindowSizeInPixels(window, &width, &height);
+                  desktop->resize(width / scale, height / scale);
                   desktop->reLayoutDeep();
                 } break;
                 case SDL_EVENT_WINDOW_MOUSE_ENTER:
