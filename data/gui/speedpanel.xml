@@ -58,7 +58,7 @@
 				<image src="images/gui/buttons/round/button-round-30.png" width="30" height="30"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-30.png" width="30" height="30"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-30.png" width="30" height="30"/>
-				<image-caption src="images/gui/buttonpanel/menu/game_menu.png" width="32" height="32"/>
+				<image-caption src="images/gui/speed/game_menu.png" width="32" height="32"/>
 	 			<tooltip translatable="yes">Go back to Main Menu</tooltip>
 			</Button>
 		</cell>
