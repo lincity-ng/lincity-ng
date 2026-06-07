@@ -8,7 +8,7 @@
 <li><a href="query">Auswahlwerkzeug</a></li>
 <li><a href="bulldoze">Bulldozer</a></li>
 
-<p><b><a href="tutorial">Tutorium</a></b></p>
+<p><b><a href="tutorial">Einführung</a></b></p>
 <li><a href="tutorial-aim">Spielziel</a></li>
 <li><a href="tutorial-overview">Bildschirmelemente</a></li>
 <li><a href="tutorial-basics">Erste Schritte</a></li>
@@ -16,13 +16,13 @@
 <li><a href="tutorial-scenario">Szenarien</a></li>
 
 <p><b>Verwaltung</b></p>
-<li><a href="button-index">Symbol Verzeichnis</a></li>
+<li><a href="button-index">Symbol-Verzeichnis</a></li>
 <li><a href="housing">Bevölkerungsanzeige</a></li>
 <li><a href="dialogs">Informationssystem</a></li>
 <li><a href="economy">Wirtschaftsübersicht</a></li>
-<li><a href="export">Import und Export Gebiete</a></li>
+<li><a href="export">Import- und Export-Gebiete</a></li>
 <li><a href="finance">Finanzübersicht</a></li>
-<li><a href="help">Lincity Hilfe</a></li>
+<li><a href="help">Lincity-Hilfe</a></li>
 <li><a href="labor">Arbeitsplätze</a></li>
 <li><a href="sustain">Nachhaltigkeitsanzeige</a></li>
 <li><a href="tech-level">Technologieniveau</a></li>
@@ -31,10 +31,10 @@
 <li><a href="river">Wasser</a></li>
 <li><a href="pbar">Statistik</a></li>
 <li><a href="pollution">Verschmutzung</a></li>
-<li><a href="other-costs">Andere Kosten</a></li>
+<li><a href="other-costs">Sonstige Kosten</a></li>
 
 <p><b>Geschwindigkeiten</b></p>
-<li><a href="pause">Pause Knopf</a></li>
+<li><a href="pause">Pause-Knopf</a></li>
 <li><a href="slow">Langsam</a></li>
 <li><a href="medium">Normal</a></li>
 <li><a href="fast">Schnell</a></li>
@@ -42,24 +42,24 @@
 <p style="hsubtitle">Verkehr</p>
 <li><a href="track">Wege</a></li>
 <li><a href="road">Straßen</a></li>
-<li><a href="rail">Schienen</a></li>
+<li><a href="rail">Eisenbahn</a></li>
 <li><a href="port">Hafen</a></li>
 <li><a href="rocket">Raketenbasis</a></li>
 <li><a href="transport">Verkehr</a></li>
 
 <p style="hsubtitle">Gebäude</p>
-<p><b>Produktive Gebäude</b></p>
+<p><b>Produktionsgebäude</b></p>
 <li><a href="blacksmith">Schmiede</a></li>
-<li><a href="coalmine">Kohlegrube</a></li>
+<li><a href="coalmine">Kohlebergwerk</a></li>
 <li><a href="commune">Köhlerei</a></li>
 <li><a href="waterwell">Brunnen</a></li>
 <li><a href="farm">Bauernhof</a></li>
 <li><a href="windmill">Windmühle</a></li>
-<li><a href="mill">Spinnerei</a></li>
+<li><a href="mill">Fabrik</a></li>
 <li><a href="industryh">Schwerindustrie (Stahl)</a></li>
-<li><a href="industryl">Leichtindustrie Gebiet</a></li>
+<li><a href="industryl">Leichtindustrie</a></li>
 <li><a href="pottery">Töpferei</a></li>
-<li><a href="oremine">Erzmine</a></li>
+<li><a href="oremine">Erzbergwerk</a></li>
 
 <p><b>Energie</b></p>
 <li><a href="substation">Umspannwerk</a></li>
@@ -74,9 +74,9 @@
 <li><a href="health">Krankenhaus</a></li>
 <li><a href="firestation">Feuerwehr</a></li>
 <li><a href="market">Markt</a></li>
-<li><a href="recycle">Wertstoffhof</a></li>
+<li><a href="recycle">Recyclingzentrum</a></li>
 <li><a href="school">Schule</a></li>
-<li><a href="tip">Deponie (Müllhalde)</a></li>
+<li><a href="tip">Mülldeponie</a></li>
 <li><a href="park">Parks</a></li>
 
 <p style="hsubtitle">Ressourcen</p>
@@ -86,15 +86,15 @@
 <li><a href="goods">Waren</a></li>
 <li><a href="steel">Stahl</a></li>
 
-<p style="hsubtitle">Layer</p>
-<li><a href="msb-coal">Kohle Layer</a></li>
-<li><a href="msb-cricket">Sport Layer</a></li>
-<li><a href="msb-fire">Feuer Layer</a></li>
-<li><a href="msb-health">Gesundheits Layer</a></li>
-<li><a href="msb-normal">Normaler Layer</a></li>
-<li><a href="msb-pol">Verschmutzungs Layer</a></li>
-<li><a href="msb-power">Energie Layer</a></li>
-<li><a href="msb-starve">Hunger Layer</a></li>
-<li><a href="msb-transport">Verkehrs- und Markt Layer</a></li>
-<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+<p style="hsubtitle">Ebenen</p>
+<li><a href="msb-coal">Kohle-Ebene</a></li>
+<li><a href="msb-cricket">Sport-Ebene</a></li>
+<li><a href="msb-fire">Feuer-Ebene</a></li>
+<li><a href="msb-health">Gesundheits-Ebene</a></li>
+<li><a href="msb-normal">Normale Ebene</a></li>
+<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
+<li><a href="msb-power">Energie-Ebene</a></li>
+<li><a href="msb-starve">Hunger-Ebene</a></li>
+<li><a href="msb-transport">Transport-Ebene</a></li>
+<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
 </Document>

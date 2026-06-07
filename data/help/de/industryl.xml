@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Leichte Industrie</p>
-	<p style="hp">Die leichte Industrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
-	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der hauptsächliche Ausstoß der leichten Industrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, sowie von den zur Verfügung stehenden Arbeitskräften.</p>
-	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen um Erz, Stahl und Waren zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
+	<p style="htitle">Leichtindustrie</p>
+	<p style="hp">Die Leichtindustrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
+	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der hauptsächliche Ausstoß der Leichtindustrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, sowie von den zur Verfügung stehenden Arbeitskräften.</p>
+	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen, um Erz, Stahl und Waren zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
 	<p style="hp">Diese Gebiete können <b>NUR</b> an der oberen linken Ecke mit dem Verkehr verbunden werden. Es gibt eine Abzweigung im Verkehrsweg, wenn das Gebäude angeschlossen ist.</p>
 	
-	<p style="hp">Dies ist die leichte Industrie</p>
+	<p style="hp">Dies ist die Leichtindustrie</p>
 	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>

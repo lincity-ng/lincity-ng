@@ -2,20 +2,20 @@
 <Document style="helpdocument">
 	<p style="htitle">Bulldozer</p>
 
-    <p style="hp">Um ein Gebiet abzureißen klicken Sie auf
-        das Bulldozer Symbol und anschließend auf das Gebiet, das
-        Sie abreißen wollen. Abreißen kostet Geld, wieviel sehen
+    <p style="hp">Um ein Gebiet abzureißen, klicken Sie auf
+        das Bulldozersymbol und anschließend auf das Gebiet, das
+        Sie abreißen wollen. Abreißen kostet Geld. Wieviel, sehen
         sie beim Bau im unteren Bereich des Bildschirms, neben den
         Baukosten.</p>
 
     <p style="hp">Manche Dinge, wie z.B. Denkmäler, sind sehr
         teuer beim Abreißen. Dies liegt daran, dass dabei nicht
         nur die eigentlichen Kosten für das Abreißen berechnet
-        werden, sondern auch die "politischen Kosten" mit einbezogen
+        werden, sondern auch die »politischen Kosten« mit einbezogen
         werden. Als Beispiel: Beim Abriss eines Denkmals wird es
-        Demonstranten geben, genauso wie Gerichtskosten etc.</p>
+        Demonstranten geben, genauso wie Gerichtskosten, usw.</p>
 
-    <p style="hp">Dies ist das Bulldozer Symbol</p>
+    <p style="hp">Dies ist das Bulldozersymbol</p>
 
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 	<p style="hsubtitle">Siehe auch:</p>

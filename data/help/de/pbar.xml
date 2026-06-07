@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Statusanzeige</p>
-	<p style="hp">Diese Anzeige liegt auf der "Stat." Registerkarte.
+	<p style="htitle">Statistikanzeige</p>
+	<p style="hp">Diese Anzeige liegt auf der »Stat.«-Registerkarte.
     Sie zeigt die Änderungen an Ressourcen und den Lagerbestand in Märkten.</p>
 	<p style="hp">Ein roter Balken links bedeutet Abnahme, ein grüner Balken
     rechts bedeutet Zunahme. Die Länge des Balkens gibt den Betrag 

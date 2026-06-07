@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Energie</p>
+	<p style="hp">Energie gibt es in zwei Arten: Niedrigspannung und Hochspannung. Niedrigspannungsenergie fließt in unterirdischen Kabeln entlang des Transportnetzes ihrer Stadt. Hochspannungsenergie fließt durch oberirsche Stromleitungen.</p>
+	<p style="hp">Niedrigspannung wird von klassischen Windmühlen oder Umspannwerken produziert. Sie kann Wohngebiete, Bauernhöfe, Textilfabriken, Leichtindustrien und Schwerindustrien (auch bekannt als »Stahlwerke«) versorgen.</p>
+	<p style="hp">Hochspannung wird von Kohle-, Solar oder Windkraftwerken produziert und kann entweder zu Umspannwerken oder direkt zu Leicht- oder Schwerindustrien (auch bekannt als »Stahlwerke«) geliefert werden.</p>
+
+  <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="windmill">Windmühlen</a></li>
+	<li><a href="residential">Wohngebiet</a></li>
+	<li><a href="commune">Wälder</a></li>
+	<li><a href="farm">Bauernhöfe</a></li>
+	<li><a href="powerline">Stromleitungen</a></li>
+	<li><a href="powerscoal">Kohlekraftwerk</a></li>
+	<li><a href="powerssolar">Solarkraftwerk</a></li>
+	<li><a href="substation">Umspannwerke</a></li>
+	<li><a href="industryl">Leichtindustrien</a></li>
+	<li><a href="industryh">Schwerindustrie (Stahlwerke)</a></li>
+</Document>

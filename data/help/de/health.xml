@@ -13,20 +13,20 @@
         weniger krankgeschrieben.)</p>
 
     <p style="hp">Krankenhäuser sind sehr teuer, 60.000€ pro
-        Jahr. Sie reduzieren jedoch die Kosten von "unnatürlichen
-        Todesfällen" und können extra Steuern einbringen (solange
-        es Arbeit für die Leute gibt).</p>
+        Jahr. Sie reduzieren jedoch die Kosten von »unnatürlichen
+        Todesfällen« und können extra Steuern einbringen (solange
+        es Arbeit für die Einwohner gibt).</p>
 
     <p style="hp">Nach dem Bau eines Krankenhauses braucht es
-        ungefähr drei Monate bis dieses mit all seinen Geräten
+        ungefähr drei Monate, bis dieses mit all seinen Geräten
         einsatzbereit ist. Zum Betrieb benötigt es Waren.</p>
 
     <p style="hp">Krankenhäuser müssen nicht an das
         Verkehrssystem angebunden werden, sie müssen dann jedoch in
         der Reichweite eines Markts liegen.</p>
 
-        <p style="hp">Um zu sehen welche Gebiete vom Krankenhaus
-        abgedeckt werden, klicken Sie auf das Gesundheits
+        <p style="hp">Um zu sehen, welche Gebiete vom Krankenhaus
+        abgedeckt werden, klicken Sie auf das Gesundheits-
         Symbol unter der Miniaturansicht. Die Bereiche, die
         normal dargestellt werden, sind von einem Krankenhaus
         abgedeckt.</p>
@@ -35,7 +35,7 @@
 	<img src="images/tiles/health.png" halign="center"/>
 	<p style="hp">und das sein Symbol</p>
 	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
-	<p style="hp">und dies das Layer Symbol</p>
+	<p style="hp">und dies das Ansichts-Symbol</p>
 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>
@@ -44,5 +44,5 @@
 	<li><a href="labor">Arbeitsplätze</a></li>
 	<li><a href="goods">Waren</a></li>
 	<li><a href="transport">Verkehr</a></li>
-	<li><a href="msb-health">Gesundheits Layer</a></li>
+	<li><a href="msb-health">Gesundheits-Ebene</a></li>
 </Document>

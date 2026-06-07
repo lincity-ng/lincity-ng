@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Symbol Verzeichnis</p>
+	<p style="htitle">Symbol-Verzeichnis</p>
 
 	<!--<p style="subtitle">Energie</p>-->
 	<img src="images/gui/buttonpanel/power/powerlines.png"/>
@@ -8,7 +8,7 @@
 	<img src="images/gui/buttonpanel/power/solarpower.png"/>
 	<p><a href="powerssolar">Solarkraftwerk</a></p>
 	<img src="images/gui/buttonpanel/power/substation.png"/>
-	<p><a href="substation">Umspannhäuschen</a></p>
+	<p><a href="substation">Umspannwerk</a></p>
 	<img src="images/gui/buttonpanel/power/coalpower.png"/>
 	<p><a href="powerscoal">Kohlekraftwerk</a></p>
 	<img src="images/gui/buttonpanel/power/windmills.png"/>
@@ -29,7 +29,7 @@
 	<img src="images/gui/buttonpanel/industry/market.png"/>
 	<p><a href="market">Markt</a></p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
-	<p><a href="industryl">Industriegebiet</a></p>
+	<p><a href="industryl">Leichtindustrie</a></p>
 	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
 	<p><a href="industryh">Schwerindustrie</a></p>
 	<img src="images/gui/buttonpanel/industry/pottery.png"/>
@@ -53,13 +53,13 @@
 	
 	<!--<p style="subtitle">Minen</p>-->
 	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
-	<p><a href="coalmine">Kohlegrube</a></p>
+	<p><a href="coalmine">Kohlebergwerk</a></p>
 	<img src="images/gui/buttonpanel/mining/commune.png"/>
 	<p><a href="commune">Köhlerei</a></p>
 	<img src="images/gui/buttonpanel/mining/oremine.png"/>
-	<p><a href="oremine">Erzmine</a></p>
+	<p><a href="oremine">Erzbergwerk</a></p>
 	<img src="images/gui/buttonpanel/mining/recycling.png"/>
-	<p><a href="recycle">Wertstoffhof</a></p>
+	<p><a href="recycle">Recyclingzentrum</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
 	<img src="images/gui/buttonpanel/misc/university.png"/>
@@ -67,7 +67,7 @@
 	<img src="images/gui/buttonpanel/misc/health.png"/>
 	<p><a href="health">Krankenhaus</a></p>	
 	<img src="images/gui/buttonpanel/parks/monument.png"/>
-	<p><a href="monument">Monument</a></p>
+	<p><a href="monument">Denkmal</a></p>
 	<img src="images/gui/buttonpanel/misc/book.png"/>
 	<p><a href="school">Schule</a></p>
 	<img src="images/gui/buttonpanel/misc/fire.png"/>
@@ -85,5 +85,5 @@
 	<img src="images/gui/buttonpanel/parks/water.png"/>
 	<p><a href="river">Wasser</a></p>
 	<img src="images/gui/buttonpanel/parks/mills.png"/>
-	<p><a href="mill">Spinnerei</a></p>
+	<p><a href="mill">Fabrik</a></p>
 </Document>

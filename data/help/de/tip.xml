@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Müllkippe</p>
-	<p style="hp">Müllkippen sind Plätze, an denen Abfall deponiert werden kann.
+	<p style="htitle">Mülldeponie</p>
+	<p style="hp">Mülldeponien sind Plätze, an denen Abfall deponiert werden kann.
     Wenn sich zu viel Abfall in den Märkten sammelt, sind diese gezwungen, einen Teil 
     davon zu verbrennen. Das erzeugt recht viel Verschmutzung, weshalb Sie das vermeiden sollten.</p>
-	<p style="hp">Während sich die Müllkippe füllt, wird sie langsam zu einem Hügel. 
-    Wenn die Deponie voll ist wird der Hügel begrünt.</p>
+	<p style="hp">Während sich die Mülldeponie füllt, wird sie langsam zu einem Hügel. 
+    Wenn die Deponie voll ist, wird der Hügel begrünt.</p>
 	<p style="hp">Verkehrsanbindung wie üblich über die Nordwestecke.</p>
-	<p style="hp">Sie können erkennen, ob die Müllkippe in Betrieb ist, indem
+	<p style="hp">Sie können erkennen, ob die Mülldeponie in Betrieb ist, indem
     Sie sie anklicken.</p>
 	
-	<p style="hp">So sieht eine Müllkippe aus</p>
+	<p style="hp">So sieht eine Mülldeponie aus</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">und so das Symbol</p>
 	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>

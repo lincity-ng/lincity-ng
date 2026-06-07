@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Kohle</p>
-	<p style="hp">Kohle wird von Kohlekraftwerken verwendet um Strom zu produzieren (Energie). Es wird außerdem von Töpfereien, Spinnereien und Schmieden verwendet um Waren herzustellen. Die Schwerindustrie wird Kohle benutzen, wenn sie keinen Strom bekommt.</p>
-	<p style="hp">Kohle wird unter der Erde in Kohlegruben abgebaut. Das Kohlevorkommen unter der Erde ist begrenzt! (Die vorhandenen Kohlereserven werden angezeigt, wenn man auf eine Kohlegrube klickt.)</p>
-	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In Wirklichkeit handelt es sich dabei um Holzkohle die aus der Verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug ist für ein paar Töpfereien und Schmieden.</p>
+	<p style="hp">Kohle wird von Kohlekraftwerken verwendet, um Strom zu produzieren (Energie). Es wird außerdem von Töpfereien, Fabriken und Schmieden verwendet, um Waren herzustellen. Die Schwerindustrie wird Kohle benutzen, wenn sie keinen Strom bekommt.</p>
+	<p style="hp">Kohle wird unter der Erde in Kohlebergwerken abgebaut. Das Kohlevorkommen unter der Erde ist begrenzt! (Die vorhandenen Kohlereserven werden angezeigt, wenn man auf ein Kohlebergwerk klickt.)</p>
+	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In Wirklichkeit handelt es sich dabei um Holzkohle, die aus der Verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug für ein paar Töpfereien und Schmieden ist.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="coalmine">Kohlegrube</a></li>
+	<li><a href="coalmine">Kohlebergwerk</a></li>
 	<li><a href="powerscoal">Kohlekraftwerk</a></li>
 	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="pottery">Töpferei</a></li>
 	<li><a href="blacksmith">Schmiede</a></li>
-	<li><a href="msb-coal">Kohle Layer</a></li>
+	<li><a href="msb-coal">Kohle-Ebene</a></li>
 </Document>

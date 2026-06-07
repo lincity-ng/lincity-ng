@@ -3,24 +3,24 @@
 <p style="htitle">Bildschirmelemente</p>
 
 <p style="hp"><b>Links oben</b> sind die Symbole für die verschiedenen
-Werkzeuge zum Erbauen, Überprüfen und Abreißen von Gebäuden. Ein Linksklick
+Werkzeuge zum Bauen, Abfragen und Abreißen von Gebäuden. Ein Linksklick
 öffnet das Untermenü jeder Gebäudegruppe, ein Rechtsklick wählt das
 vordere Werkzeug aus. Im Untermenü öffnet ein Rechtsklick die Hilfeseite
 zum jeweiligen Werkzeug. Lassen Sie den Mauszeiger kurz über einem
-Schalter Stehen, um den Tooltip anzeigen zu lassen.</p>
+Schalter stehen, um einen Hilfetext anzeigen zu lassen.</p>
 
 <p style="hp"><b>Links unten</b> ist die Einstellung für die
-Spielgeschwindigkeit </p>
+Spielgeschwindigkeit.</p>
 
 <p style="hp"><b>Rechts unten</b> sind alle
-"Informationswerkzeuge": Die Minikarte mit vier Registerkarten, darunter kleine
+»Informationswerkzeuge«: Die Minikarte mit vier Registerkarten, darunter kleine
 Symbole, mit denen verschiedene Informationen auf der Minikarte angezeigt werden.
 </p> 
 
 <p style="hp">Siehe auch:</p>
 <li><a href="keys">Maus und Tastatur</a></li>
 
-<p style="hp"><a href="tutorial">Tutorium</a></p>
+<p style="hp"><a href="tutorial">Einführung</a></p>
 	<li><a href="tutorial-aim">Spielziel</a></li>
 	<li>Bildschirmelemente</li>
 	<li><a href="tutorial-basics">Erste Schritte</a></li>

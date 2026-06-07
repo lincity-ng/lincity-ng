@@ -3,7 +3,7 @@
 	<p style="htitle">Feuerwehr</p>
 
     <p style="hp">Feuerwehren verhindern das Ausbrechen
-        und Ausbreiten von Feuern in ihrem Einzugsbereich. Um
+        und Ausbreiten von Feuer in ihrem Einzugsbereich. Um
         ihrer Arbeit nachzukommen, brauchen sie Waren und
         Arbeitsplätze. Sie müssen <b>nicht</b> ans Verkehrsnetz
         angebunden sein, aber sie müssen in der Reichweite eines
@@ -12,26 +12,26 @@
 
     <p style="hp">Wenn Sie eine Feuerwehr bauen, wird diese noch
         nicht gleich einsatzbereit sein, es dauert gewöhnlich drei
-        Monate bis sie komplett eingerichtet ist und somit einen
+        Monate, bis sie komplett eingerichtet ist und somit einen
         wirksamen Schutz gewährleisten kann.</p>
 
-    <p style="hp">Um zu sehen welche Bereiche von der Feuerwehr
-        abgedeckt werden, klicken Sie einfach auf das Feuerwehr
-        Symbol unter der <i>Miniaturansicht</i>. Gebiete die
+    <p style="hp">Um zu sehen, welche Bereiche von der Feuerwehr
+        abgedeckt werden, klicken Sie einfach auf das Feuerwehr-Symbol
+        unter der <i>Miniaturansicht</i>. Gebiete, die
         vor Feuer geschützt sind, werden normal angezeigt,
         ungeschützte Gebiete werden dunkelgrün dargestellt.</p>
 
     <p style="hp">Feuerwehren steigern die Attraktivität der
         Wohngebiete in ihrem Bereich.</p>
 
-    <p style="hp">Feuerwehren haben eine Animationssequenz um zu
+    <p style="hp">Feuerwehren haben eine Animationssequenz, um zu
         zeigen, dass sie arbeiten.</p>
 
 	<p style="hp">Dies ist eine Feuerwehr</p>
 	<img src="images/tiles/firestation1.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
-	<p style="hp">und dies das Layer Symbol</p>
+	<p style="hp">und dies das Layersymbol</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>
@@ -39,5 +39,5 @@
 	<li><a href="goods">Waren</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="labor">Arbeitsplätze</a></li>
-	<li><a href="msb-fire">Feuer Layer</a></li>
+	<li><a href="msb-fire">Feuer-Ebene</a></li>
 </Document>

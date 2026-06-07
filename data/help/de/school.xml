@@ -2,18 +2,18 @@
 <Document style="helpdocument">
 	<p style="htitle">Schulen</p>
 	<p style="hp">Schulen benötigen ähnlich wie Universitäten Arbeiter und
-    Waren um Technologie zu erzeugen. Sie brauchen viel weniger
-    Arbeiter und Waren als die Unis, erzeugen aber auch viel weniger
+    Waren, um Technologie zu erzeugen. Sie brauchen viel weniger
+    Arbeiter und Waren als die Universitäten, erzeugen aber auch viel weniger
     Technologie. Wenn Sie die Wahl zwischen vier oder fünf Schulen
-    oder einer einzigen Uni in der gleichen Gegend haben sind Sie
-    mit der Uni fast immer besser dran.</p>
+    oder einer einzigen Universität in der gleichen Gegend haben, sind Sie
+    mit der Universität fast immer besser dran.</p>
 	<p style="hp">Schulen müssen nicht mit Transportwegen verbunden
-    sein, aber sie müssen sich in Reichweite eines Marktes befinden
+    sein, aber sie müssen sich in Reichweite eines Marktes befinden,
     um sich mit den für den Schulbetrieb benötigten Waren und Arbeitern
     auszustatten.</p>
-	<p style="hp">Schulen zu betreiben kostet Geld. Sie können die
+	<p style="hp">Der Schulbetrieb kostet Geld. Sie können die
     Gesamtkosten des <b>letzten</b> Jahres dem Jahresabschluss entnehmen.</p>
-	<p style="hp">Ob eine Schule in Betrieb ist können Sie wie üblich durch 
+	<p style="hp">Ob eine Schule in Betrieb ist, können Sie wie üblich durch 
     Anklicken der Schule erkennen.</p>
 	<p style="hp">Das ist eine Schule</p>
 	<img src="images/tiles/school0.png" halign="center"/>

@@ -3,12 +3,12 @@
 	<p style="htitle">Wohngebiete</p>
     <p style="hp">Hier wohnt die Bevölkerung. Um die Leute dazu
     zu bringen, sich in dieser Gegend niederzulassen, müssen
-    sie mit Nahrung und Wasser versorgt werden.  Es hilft auch,
+    sie mit Nahrung und Wasser versorgt werden. Es hilft auch,
     ihnen Arbeitsplätze und Waren zur Verfügung zu stellen.
     Wohngebiete müssen dazu im Bereich eines Marktes liegen,
     oder mit einem Transportweg verbunden sein. Auch müssen sie
     im Bereich eines Brunnens liegen. Es gibt drei verschiedene
-    Arten von Wohngebieten: welche mit geringer, mittlerer und
+    Arten von Wohngebieten: Welche mit geringer, mittlerer und
     hoher Siedlungsdichte. Jede Art hat eine unterschiedliche
     Geburten- und Sterberate. Dadurch können Sie das Wachstum Ihrer
     Bevölkerung beeinflussen.</p>
@@ -20,18 +20,18 @@
     Geburten- und eine niedrige Sterberate und das Gebäude mit der hohen Dichte 
     hat sowohl eine hohe Geburten- als auch Sterberate. Die modernen Häuser
     verhalten sich genauso, nur finden in ihnen jeweils mehr Leute Platz als
-    im entsprechenden altmodischen Haus.</p>
-	<p style="hp">Dies ist die hightech Version des Gebäudes mit geringer Siedlungsdichte</p>
+    in den entsprechenden altmodischen Häusern.</p>
+	<p style="hp">Dies ist die moderne Version des Gebäudes mit geringer Siedlungsdichte</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
-	<p style="hp">und das zugehörige Symbol</p>
+	<p style="hp">und dies ist das zugehörige Symbol</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
-	<p style="hp">mittlere Siedlungsdichte (hightech)</p>
+	<p style="hp">mittlere Siedlungsdichte (modern)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
-	<p style="hp">und das zugehörige Symbol</p>
+	<p style="hp">und dies ist zugehörige Symbol</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
-	<p style="hp">hohe Siedlungsdichte (hightech)</p>
+	<p style="hp">hohe Siedlungsdichte (modern)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
-	<p style="hp">und das zugehörige Symbol</p>
+	<p style="hp">und dies ist zugehörige Symbol</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>

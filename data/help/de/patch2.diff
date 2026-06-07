@@ -1,0 +1,2532 @@
+diff --git a/data/help/de/blacksmith.xml b/data/help/de/blacksmith.xml
+index be6a802e..8c7ff0d4 100644
+--- a/data/help/de/blacksmith.xml
++++ b/data/help/de/blacksmith.xml
+@@ -3,7 +3,7 @@
+ 	<p style="htitle">Schmiede</p>
+ 	<p style="hp">Schmieden wandeln Stahl und Kohle in Waren um. Sie werden gerade am Anfang des Spiels Verwendung finden. Sie bieten natürlich auch Arbeitsplätze.</p>
+ 	<p style="hp">Bevor Sie Stahlwerke haben, müssen Sie sich auf die Köhlereien verlassen. 5 oder 6 Köhlereien pro Schmiede sind empfohlen.</p>
+-	<p style="hp">Schmieden brauchen keinen Anschluss ans Verkehrsnetz. Sie können alles, was sie brauchen von einem Markt beziehen, der in ihrer Reichweite ist.</p>
++	<p style="hp">Schmieden brauchen keinen Anschluss ans Verkehrsnetz. Sie können alles, was sie brauchen, von einem Markt beziehen, der in ihrer Reichweite ist.</p>
+ 	<p style="hp">Indem Sie auf die Schmiede linksklicken, können Sie sehen, ob diese arbeitet und ausgelastet ist.</p>
+ 
+ 	<p style="hp">Dies ist eine Schmiede</p>
+diff --git a/data/help/de/bulldoze.xml b/data/help/de/bulldoze.xml
+index 8bbf5154..49bd47bf 100644
+--- a/data/help/de/bulldoze.xml
++++ b/data/help/de/bulldoze.xml
+@@ -2,20 +2,20 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Bulldozer</p>
+ 
+-    <p style="hp">Um ein Gebiet abzureißen klicken Sie auf
+-        das Bulldozer Symbol und anschließend auf das Gebiet, das
+-        Sie abreißen wollen. Abreißen kostet Geld, wieviel sehen
++    <p style="hp">Um ein Gebiet abzureißen, klicken Sie auf
++        das Bulldozersymbol und anschließend auf das Gebiet, das
++        Sie abreißen wollen. Abreißen kostet Geld. Wieviel, sehen
+         sie beim Bau im unteren Bereich des Bildschirms, neben den
+         Baukosten.</p>
+ 
+     <p style="hp">Manche Dinge, wie z.B. Denkmäler, sind sehr
+         teuer beim Abreißen. Dies liegt daran, dass dabei nicht
+         nur die eigentlichen Kosten für das Abreißen berechnet
+-        werden, sondern auch die "politischen Kosten" mit einbezogen
++        werden, sondern auch die »politischen Kosten« mit einbezogen
+         werden. Als Beispiel: Beim Abriss eines Denkmals wird es
+-        Demonstranten geben, genauso wie Gerichtskosten etc.</p>
++        Demonstranten geben, genauso wie Gerichtskosten, usw.</p>
+ 
+-    <p style="hp">Dies ist das Bulldozer Symbol</p>
++    <p style="hp">Dies ist das Bulldozersymbol</p>
+ 
+ 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/button-index.xml b/data/help/de/button-index.xml
+index 9d9a2b62..19337c76 100644
+--- a/data/help/de/button-index.xml
++++ b/data/help/de/button-index.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Symbol Verzeichnis</p>
++	<p style="htitle">Symbol-Verzeichnis</p>
+ 
+ 	<!--<p style="subtitle">Energie</p>-->
+ 	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+@@ -8,7 +8,7 @@
+ 	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+ 	<p><a href="powerssolar">Solarkraftwerk</a></p>
+ 	<img src="images/gui/buttonpanel/power/substation.png"/>
+-	<p><a href="substation">Umspannhäuschen</a></p>
++	<p><a href="substation">Umspannwerk</a></p>
+ 	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+ 	<p><a href="powerscoal">Kohlekraftwerk</a></p>
+ 	<img src="images/gui/buttonpanel/power/windmills.png"/>
+@@ -29,7 +29,7 @@
+ 	<img src="images/gui/buttonpanel/industry/market.png"/>
+ 	<p><a href="market">Markt</a></p>
+ 	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+-	<p><a href="industryl">Industriegebiet</a></p>
++	<p><a href="industryl">Leichtindustrie</a></p>
+ 	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+ 	<p><a href="industryh">Schwerindustrie</a></p>
+ 	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+@@ -53,13 +53,13 @@
+ 	
+ 	<!--<p style="subtitle">Minen</p>-->
+ 	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+-	<p><a href="coalmine">Kohlegrube</a></p>
++	<p><a href="coalmine">Kohlebergwerk</a></p>
+ 	<img src="images/gui/buttonpanel/mining/commune.png"/>
+ 	<p><a href="commune">Köhlerei</a></p>
+ 	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+-	<p><a href="oremine">Erzmine</a></p>
++	<p><a href="oremine">Erzbergwerk</a></p>
+ 	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+-	<p><a href="recycle">Wertstoffhof</a></p>
++	<p><a href="recycle">Recyclingzentrum</a></p>
+ 
+ 	<!--<p style="subtitle">Misc</p>-->
+ 	<img src="images/gui/buttonpanel/misc/university.png"/>
+@@ -67,7 +67,7 @@
+ 	<img src="images/gui/buttonpanel/misc/health.png"/>
+ 	<p><a href="health">Krankenhaus</a></p>	
+ 	<img src="images/gui/buttonpanel/parks/monument.png"/>
+-	<p><a href="monument">Monument</a></p>
++	<p><a href="monument">Denkmal</a></p>
+ 	<img src="images/gui/buttonpanel/misc/book.png"/>
+ 	<p><a href="school">Schule</a></p>
+ 	<img src="images/gui/buttonpanel/misc/fire.png"/>
+@@ -85,5 +85,5 @@
+ 	<img src="images/gui/buttonpanel/parks/water.png"/>
+ 	<p><a href="river">Wasser</a></p>
+ 	<img src="images/gui/buttonpanel/parks/mills.png"/>
+-	<p><a href="mill">Spinnerei</a></p>
++	<p><a href="mill">Fabrik</a></p>
+ </Document>
+diff --git a/data/help/de/coal.xml b/data/help/de/coal.xml
+index 4e10cc22..773f4798 100644
+--- a/data/help/de/coal.xml
++++ b/data/help/de/coal.xml
+@@ -1,15 +1,15 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Kohle</p>
+-	<p style="hp">Kohle wird von Kohlekraftwerken verwendet um Strom zu produzieren (Energie). Es wird außerdem von Töpfereien, Spinnereien und Schmieden verwendet um Waren herzustellen. Die Schwerindustrie wird Kohle benutzen, wenn sie keinen Strom bekommt.</p>
+-	<p style="hp">Kohle wird unter der Erde in Kohlegruben abgebaut. Das Kohlevorkommen unter der Erde ist begrenzt! (Die vorhandenen Kohlereserven werden angezeigt, wenn man auf eine Kohlegrube klickt.)</p>
+-	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In Wirklichkeit handelt es sich dabei um Holzkohle die aus der Verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug ist für ein paar Töpfereien und Schmieden.</p>
++	<p style="hp">Kohle wird von Kohlekraftwerken verwendet, um Strom zu produzieren (Energie). Es wird außerdem von Töpfereien, Fabriken und Schmieden verwendet, um Waren herzustellen. Die Schwerindustrie wird Kohle benutzen, wenn sie keinen Strom bekommt.</p>
++	<p style="hp">Kohle wird unter der Erde in Kohlebergwerken abgebaut. Das Kohlevorkommen unter der Erde ist begrenzt! (Die vorhandenen Kohlereserven werden angezeigt, wenn man auf ein Kohlebergwerk klickt.)</p>
++	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In Wirklichkeit handelt es sich dabei um Holzkohle, die aus der Verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug für ein paar Töpfereien und Schmieden ist.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="coalmine">Kohlegrube</a></li>
++	<li><a href="coalmine">Kohlebergwerk</a></li>
+ 	<li><a href="powerscoal">Kohlekraftwerk</a></li>
+ 	<li><a href="commune">Köhlerei</a></li>
+ 	<li><a href="pottery">Töpferei</a></li>
+ 	<li><a href="blacksmith">Schmiede</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/coalmine.xml b/data/help/de/coalmine.xml
+index 4bc019f6..b8d06290 100644
+--- a/data/help/de/coalmine.xml
++++ b/data/help/de/coalmine.xml
+@@ -1,17 +1,17 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Kohlegrube</p>
+-	<p style="hp">Kohlegruben bauen unter der Erde Kohle ab. Sie müssen in der Nähe einer Kohleader gebaut werden, damit Sie produktiv arbeiten. Um zu sehen wo eine Kohleader liegt, müssen Sie auf den Kohle-Button unter der Miniaturansicht klicken.</p>
+-	<p style="hp">Beim ersten mal kostet dies 1 Million €, anschließend ist die Ansicht kostenlos. Sie müssen die Ansicht nicht verwenden, müssen dann aber nach dem trial und error Prinzip vorgehen um auf gut Glück eine Ader zu finden.</p>
+-	<p style="hp">Kohlegruben brauchen Arbeitsplätze, damit Kohle abgebaut werden kann.</p>
++	<p style="htitle">Kohlebergwerk</p>
++	<p style="hp">Kohlebergwerke bauen unter der Erde Kohle ab. Sie müssen in der Nähe einer Kohleader gebaut werden, damit sie produktiv arbeiten. Um zu sehen, wo eine Kohleader liegt, müssen Sie auf den Kohleknopf unter der Miniaturansicht klicken.</p>
++	<p style="hp">Beim ersten mal kostet dies 1 Million €, anschließend ist die Ansicht kostenlos. Sie müssen die Ansicht nicht verwenden, müssen dann aber versuchen, auf gut Glück eine Ader zu finden.</p>
++	<p style="hp">Kohlebergwerke brauchen Arbeitsplätze, damit Kohle abgebaut werden kann.</p>
+ 
+-	<p style="hp">Dies ist eine Kohlegrube</p>
++	<p style="hp">Dies ist ein Kohlebergwerk</p>
+ 	<img src="images/tiles/coalmine-full.png" halign="center"/>
+-	<p style="hp">und das ihr Symbol</p>
++	<p style="hp">und das sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+ 
+-	<p style="hp">Die Grafik zeigt die Anzahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager der Kohlegrube komplett gefüllt.</p>
+-	<p style="hp">Ein klick auf die Kohlemine verrät, wieviel Kohle sich im Lager befindet und (noch viel wichtiger!) wieviel Kohle die Ader noch zu bieten hat.</p>
++	<p style="hp">Die Grafik zeigt die Anzahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager des Kohlebergwerks komplett gefüllt.</p>
++	<p style="hp">Ein Klick auf das Kohlebergwerk verrät, wieviel Kohle sich im Lager befindet und (noch viel wichtiger!) wieviel Kohle die Ader noch zu bieten hat.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="coal">Kohle</a></li>
+diff --git a/data/help/de/commodities.xml b/data/help/de/commodities.xml
+new file mode 100644
+index 00000000..e74d2a66
+--- /dev/null
++++ b/data/help/de/commodities.xml
+@@ -0,0 +1,22 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Verbrauchsgüter</p>
++	<p style="hp">
++Verbrauchsgüter sind die Dinge, welche in Ihrer Stadt produziert, transportiert, gelagert, verarbeitet werden können. Die Statusanzeige jedes Gebäudes oder Transportfelds listet immer die relevanten Verbrauchsgüter auf. Die Pfeile am Anfang der Linien zeigen Rohstoffe, Produkte und transportierbare Güter an.</p>
++	<p style="hp">
++In den meisten Fällen muss mindestens 5% des Rohstoffs verfügbar sein, damit sie zu 5% Produkten umgewandelt werden können.</p>
++	<p style="hp">Die zweite Registerkarte der Übersichtskarte zeigt stadtweite Statistiken und ihre neuesten Änderungen mit Fortschrittsbalken an. Gemeinsam mit der Transport-Ebene können diese Ihnen viel über Ihre wirtschaftliche Entwicklung sagen.</p>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="pbar">Statistiken</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="food">Nahrung</a></li>
++	<li><a href="labor">Arbeit</a></li>
++	<li><a href="goods">Waren</a></li>
++	<li><a href="waste">Müll</a></li>
++	<li><a href="ore">Erz</a></li>
++	<li><a href="steel">Stahl</a></li>
++	<li><a href="coal">Kohle</a></li>
++	<li><a href="water">Wasser</a></li>
++	<li><a href="power">Energie</a></li>
++</Document>
+diff --git a/data/help/de/commune.xml b/data/help/de/commune.xml
+index f1e294e8..1888c8b5 100644
+--- a/data/help/de/commune.xml
++++ b/data/help/de/commune.xml
+@@ -1,11 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Köhlerei</p>
+-	<p style="hp">Köhlereien sind Plätze, auf denen durch das Verbrennen von Bäumen Holzkohle (lincity-NG unterscheidet nicht zwischen den einzelnen Arten.) gewonnen wird. Sie produzieren außerdem kleine Mengen an Erz und Stahl.</p>
+-	<p style="hp">Sie werden wahrscheinlich "ein paar" Köhlereien brauchen um genug Kohle und Stahl für z.B. Töpfereien, Schmieden und Spinnereien zu produzieren.</p>
+-	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr Produziert, wird sie geschlossen und sie verwandelt sich in einen Park.</p>
++	<p style="hp">Köhlereien sind Plätze, auf denen durch das Verbrennen von Bäumen Holzkohle gewonnen wird (Lincity-NG unterscheidet nicht zwischen den einzelnen Kohlearten). Sie produzieren außerdem kleine Mengen an Erz und Stahl.</p>
++	<p style="hp">Sie werden wahrscheinlich »ein paar« Köhlereien brauchen, um genug Kohle und Stahl für z.B. Töpfereien, Schmieden und Fabriken zu produzieren.</p>
++	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr produziert, wird sie geschlossen und sie verwandelt sich in einen Park.</p>
+ 	<p style="hp">Köhlereien können an jeder Stelle mit dem Verkehr verbunden werden, nicht nur am Tor!</p>
+-	<p style="hp">Die Produktion der Köhlerei hängt vom Grundwasser ab. Felder mit Grundwasser sind grün, die anderen gelb-braun wie die Wüste.</p>
++	<p style="hp">Die Produktion der Köhlerei hängt vom Grundwasser ab. Felder mit Grundwasser sind grün, die anderen gelbbraun wie die Wüste.</p>
+ 	
+ 	<p style="hp">Dies ist eine Köhlerei</p>
+ 	<img src="images/tiles/commune1.png" halign="center"/>
+@@ -15,7 +15,7 @@
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="pottery">Töpferei</a></li>
+ 	<li><a href="blacksmith">Schmiede</a></li>
+-	<li><a href="mill">Spinnerei</a></li>
+-	<li><a href="oremine">Erzmine</a></li>
++	<li><a href="mill">Fabrik</a></li>
++	<li><a href="oremine">Erzbergwerk</a></li>
+ 	<li><a href="steel">Stahl</a></li>
+ </Document>
+diff --git a/data/help/de/controls.xml b/data/help/de/controls.xml
+new file mode 100644
+index 00000000..5cc6ae91
+--- /dev/null
++++ b/data/help/de/controls.xml
+@@ -0,0 +1,40 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Steuerung</p>
++	<p style="hp">Drücken Sie »F1«, um das Hilfefenster zu öffnen.</p>
++
++	<p style="hsubtitle">Kartennavigation</p>
++	<p style="hp">Bewegen Sie sich in der Karte mit den Pfeiltasten, dem Ziffernblock (»1«, »2«, »3«, »4«, »5«, »6«, »7«, »8«, »9«) oder WASD herum. Halten Sie Umschalt, um sich schneller zu bewegen.</p>
++	<p style="hp">Verschieben Sie die Ansicht, indem Sie mit der mittleren Maustaste ziehen.</p>
++	<p style="hp">Bewegen Sie die Maus zur Bildschirmkante, um sich in diese Richtung zu bewegen.</p>
++	<p style="hp">Gehen Sie zur Mitte der Karte, indem Sie »5« auf dem Ziffernblock drücken.</p>
++	<p style="hp">Klicken Sie auf die Übersichtskarte, um sich zum gewählten Teil der Karte zu bewegen.</p>
++	<p style="hp">Drücken Sie »P«, um den Bildschirm auf einer Baustelle zu zentrieren. (Kann nützlich sein, um ein kleines Dorf in einer großen Karte zu finden.) Drücken Sie »P« erneut, um durch verschiedene zu zentrierende Baustellen zu wechseln.</p>
++	<p style="hp">Vergrößern oder verkleinern Sie die Ansicht (Zoom) mit »+« oder »-« auf dem Ziffernblock. Drücken Sie Enter auf dem Ziffernblock, um den Zoom auf 100% zurückzusetzen.</p>
++
++	<p style="hsubtitle">Bauen</p>
++	<p style="hp">Benutzen Sie die Maus (linke Taste), um ein Modul aus dem Menü der linken Seite auszuwählen. Sobald ein Modul ausgewählt wurde, linksklicken Sie auf die Karte, um es zu bauen.
++	<p style="hp">Drücken Sie »B«, um zum Bulldozerwerkzeug zu wechseln. Mit dem aktivierten Bulldozerwerkzeug klicken Sie mit der linken Maustaste auf ein Gebäude, um es abzureißen. Drücken Sie »B« erneut, um zurück zu wechseln.</p>
++
++	<p style="hsubtitle">Abfragewerkzeug</p>
++	<p style="hp">Drücken Sie Esc, um das Abfragewerkzeug zu aktivieren. Benutzen Sie das Abfragewerkzeug, indem Sie auf ein Gebäude linksklicken, um Informationen darüber anzeigen zu lassen. Wird das selbe Gebäude erneut angeklickt, wird die Art der angezeigten Information gewechselt. Sie können das Abfragewerkzeug benutzen, ohne es zu aktivieren, indem Sie die rechte Maustaste statt der linken benutzen.</p>
++	<p style="hp">Hinweis: Auf Märkten und Häfen wird der zweite Klick das Handelsdialogfenster öffnen.</p>
++	<p style="hp">Drücken Sie »G«, um Informationen (z.B. Verschmutzungsinformationen) über die Kachel unterhalb eines Gebäudes anzuzeigen oder diese Information wieder zu verbergen.</p>
++
++	<p style="hsubtitle">Übersichtskarte und Ansicht</p>
++	<p style="hp">Drücken Sie »1« bis »9« oder das rückwärts geneigte Hochkomma (»`«), um den Übersichtskartenmodus auszuwählen. Mit der »7« wird zwischen den Verkehrs- und Verbrauchsgütermodi gewechselt. Sie können außerden den Modus wechseln, indem Sie die Knöpfe unterhalb der Übersichtskarte anklicken.</p>
++	<p style="hp">Wenn der Übersichtskartenmodus für den Verkehr oder Verbrauchsgüter aktiv ist, können Sie durch die Verbrauchsgüter wechseln, indem Sie auf die Übersichtskarte zeigen und scrollen. Sie können auch die Verbrauchsgüter wechseln, indem Sie den Pfeil nach oben oder unten in der oberen rechten Ecke der Übersichtskarte anklicken, oder die Tasten »M« oder »N« drücken.</p>
++	<p style="hp">Drücken Sie »H«, um hohe Gebäude anzuzeigen/zu verbergen.</p>
++	<p style="hp">Drücken Sie »V«, um durch Ansichtsmodi zu wechseln (aus -&gt; transparent -&gt; undurchsichtig -&gt; aus.</p>
++
++	<p style="hsubtitle">Simulation</p>
++	<p style="hp">Drücken Sie die Knöpfe in der linken unteren Bildschirmecke, um die Simulationsgeschwindigkeit zu ändern oder ins Hauptmenü zu verlassen. Im Hauptmenü können Sie Ihren Fortschritt speichern.</p>
++	<p style="hp">Drücken Sie »F12« zum Schnellspeichern.</p>
++	<p style="hp">Drücken Sie »F9« zum Schnellladen.</p>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="button-index">Symbol-Verzeichnis</a></li>
++	<li><a href="bulldoze">Bulldozer</a></li>
++	<li><a href="query">Abfrage</a></li>
++	<li><a href="mini-screen">Übersichtskarte</a></li>
++</Document>
+diff --git a/data/help/de/cricket.xml b/data/help/de/cricket.xml
+index f7feeddc..8bf3a93e 100644
+--- a/data/help/de/cricket.xml
++++ b/data/help/de/cricket.xml
+@@ -1,18 +1,18 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Sportplatz</p>
+-	<p style="hp">Sportplätze bieten Sport und Unterhaltung für Ihre Einwohner. Sportplätze benötigen Waren und Arbeitsplätze um zu funktionieren. Sie müssen nicht zwingend ans Verkehrsnetz angebunden sein, brauchen dann jedoch einen Markt in ihrer Nähe, der sie mit Arbeitsplätzen und Waren versorgt. Außerdem produziert ihr Betrieb laufende Kosten.</p>
+-	<p style="hp">Wenn Sie einen Sportplatz bauen, wird er noch nicht sofort "in Betrieb" gehen. Es dauert ungefähr drei Monate bis alle Geräte (z.B: Basketball Körbe) installiert sind.</p>
+-	<p style="hp">Um zu sehen welchen Bereich Ihr Sportplatz abdeckt, klicken Sie auf das Sportplatz Symbol unterhalb der Miniaturansicht. Gebiete, die abgedeckt sind werden normal dargestellt, der nicht abgedeckte Teil wird dunkelgrün dargestellt.
++	<p style="hp">Sportplätze bieten Sport und Unterhaltung für Ihre Einwohner. Sportplätze benötigen Waren und Arbeitsplätze, um zu funktionieren. Sie müssen nicht zwingend ans Verkehrsnetz angebunden sein, brauchen dann jedoch einen Markt in ihrer Nähe, der sie mit Arbeitsplätzen und Waren versorgt. Außerdem verursacht ihr Betrieb laufende Kosten.</p>
++	<p style="hp">Wenn Sie einen Sportplatz bauen, wird er noch nicht sofort »in Betrieb« gehen. Es dauert ungefähr drei Monate, bis alle Geräte (z.B. Basketballkörbe) installiert sind.</p>
++	<p style="hp">Um zu sehen, welchen Bereich Ihr Sportplatz abdeckt, klicken Sie auf das Sportplatzsymbol unterhalb der Miniaturansicht. Gebiete, die abgedeckt sind, werden normal dargestellt; der nicht abgedeckte Teil wird dunkelgrün dargestellt.
+ 	</p>
+ 	<p style="hp">Sportplätze steigern die Attraktivität der Wohngebiete in ihrem Bereich.</p>
+-	<p style="hp">Sportplätze zeigen eine Animationssequenz um zu zeigen das sie arbeiten.</p>
++	<p style="hp">Sportplätze zeigen eine Animationssequenz, um zu zeigen das sie aktiv sind.</p>
+ 
+ 	<p style="hp">Dies ist ein Sportplatz</p>
+ 	<img src="images/tiles/cricket1.png" halign="center"/>
+ 	<p style="hp">und das sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+-	<p style="hp">und dies das Layer Symbol</p>
++	<p style="hp">und dies das Layersymbol</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+@@ -20,5 +20,5 @@
+ 	<li><a href="goods">Waren</a></li>
+ 	<li><a href="market">Markt</a></li>
+ 	<li><a href="labor">Arbeitsplätze</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/dialogs.xml b/data/help/de/dialogs.xml
+index f436de69..ad1c11c3 100644
+--- a/data/help/de/dialogs.xml
++++ b/data/help/de/dialogs.xml
+@@ -1,15 +1,15 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Informationen zu den Tabs</p>
+-    <p>Map-Tab</p>
++    <p>Karten-Tab</p>
+     <li><a href="mini-screen">Miniaturansicht</a></li>
+-    <p>Markt-Tab</p>
+-	<li><a href="pbar">Ressourcen Statusbar</a></li>
++    <p>Statistik-Tab</p>
++	<li><a href="pbar">Ressourcenstatusleiste</a></li>
+     <p>€-Tab</p>
+ 	<li><a href="finance">Finanzen</a></li>
+ 	<li><a href="other-costs">Sonstige Kosten</a></li>
+ 	<li><a href="housing">Bevölkerung</a></li>
+-    <p>Eco-Tab</p>
++    <p>Wirtschafts-Tab</p>
+ 	<li><a href="economy">Wirtschaftsübersicht</a></li>
+ 	<li><a href="sustain">Nachhaltigkeit</a></li>
+ </Document>
+diff --git a/data/help/de/economy.xml b/data/help/de/economy.xml
+index e372757b..0a7e7280 100644
+--- a/data/help/de/economy.xml
++++ b/data/help/de/economy.xml
+@@ -3,29 +3,29 @@
+ 	<p style="htitle">Wirtschaftsübersicht</p>
+ 	<p style="hp">Dieses Diagramm enthält vier farbige Linien. Sie zeigen die wichtigsten Wirtschaftsfaktoren.</p>
+ 	<li>
+-		<span color="brown">Bevölkerung</span>	(Braun) 
++		<span color="brown">Bevölkerung</span> (Braun)
+         Die braune Linie repräsentiert die Bevölkerung.
+ 	</li>
+ 	<li>
+-		<span color="blue">Heimatlos</span> (Blau) 
++		<span color="blue">Obdachlos</span> (Blau)
+         Die blaue Linie repräsentiert das Bedürfnis 
+         nach einer Behausung. Die Höhe dieser Linie ist
+-	proportional zur Quadratwurzel der Heimatlosen
++	proportional zur Quadratwurzel der obdachlosen
+ 	Bevölkerung.
+ 	</li>
+ 	<li>
+-		<span color="yellow">Arbeitslosigkeit</span> (Gelb) 
+-        Die soliden Hintergrund "Balken" zeigen, dass es
++		<span color="yellow">Arbeitslosigkeit</span> (Gelb)
++        Die ausgefüllten Hintergrund-»Balken« zeigen, dass es
+ 	Arbeitslosigkeit gibt. Der Maßstab dieser Balken
+ 	ändert sich mit der Bevölkerung. Diese Balken sind
+-	solide, damit Sie ihre Aufmerksamkeit auf sie richten!
++	ausgefüllt, um die Aufmerksamkeit auf sich zu ziehen.
+ 	</li>
+ 	<li>
+-		<span color="red">Hungernd</span> (Rot) 
+-        Die soliden roten "Balken" zeigen, dass in Ihrer
++		<span color="red">Hungernd</span> (Rot)
++        Die ausgefüllten roten »Balken« zeigen, dass in Ihrer
+ 	Stadt Menschen an Hunger leiden und/oder verhungern!
+ 	Der Maßstab dieser Balken ändert sich mit der
+-	Bevölkerung. Diese Balken übermalen die Arbeitslosigkeit
+-	da sie die wichtigste Linie sind!
++	Bevölkerung. Diese Balken übermalen die Arbeitslosigkeit,
++	da sie am Wichtigsten sind!
+ 	</li>
+ </Document>
+diff --git a/data/help/de/evacuate.xml b/data/help/de/evacuate.xml
+new file mode 100644
+index 00000000..82ddea9c
+--- /dev/null
++++ b/data/help/de/evacuate.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Räumung</p>
++	<p style="hp">Um ein Gebäude zu räumen, wählen Sie den Räumungsknopf aus, dann benutzen Sie den Besen, um alle wertvollen Verbrauchsgüter zu räumen. Die Räumung ist kostenlos und verschiebt alle gelagerten Dinge auf benachbarte Transportkacheln und Märkte in der Nachbarschaft.</p>
++	<p style="hp">Die Konsequenzen reichen vom Produktionsstopp, Verschmutzung und/oder einer Hungersnot der örtlichen Einwohner.</p>
++	<p style="hp">Einige Gebäude, wie Wege, Straßen, Eisenbahnschienen, Müllkippen und andere können nicht geräumt werden.</p>
++	<p style="hp">Erschöpfte Erz- und Kohlebergwerkte werden vor ihrem Einsturz automatisch geräumt.</p>
++
++  <p style="hp">Dies ist das Räumungssymbol</p>
++   <img src="images/gui/buttonpanel/base/broom.png" halign="center"/>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="bulldoze">Bulldozer</a></li>
++</Document>
+diff --git a/data/help/de/export.xml b/data/help/de/export.xml
+index 44b5be4e..5824fdbc 100644
+--- a/data/help/de/export.xml
++++ b/data/help/de/export.xml
+@@ -1,10 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Import und Export Gebiete</p>
+-	<p style="hp">Import und Export funktionieren auf die selbe Weise, außer dass das erste Geld kostet und das zweite Geld einbringt. Beides benötigt einen Hafen, aus diesem Grund wird nur der Export im Detail betrachten:</p>
++	<p style="htitle">Import- und Export-Gebiete</p>
++	<p style="hp">Import und Export funktionieren auf die selbe Weise, außer dass das erste Geld kostet und das zweite Geld einbringt. Beides benötigt einen Hafen, aus diesem Grund wird im Folgenden nur der Export im Detail betrachtet:</p>
+ 	<p style="hp">Um zu exportieren, braucht der Hafen einen Anschluss an die Straße.</p>
+ 	<p style="hp">Sie <b>müssen</b> die ganze rechte Seite lang mit dem Wasser verbunden sein.</p>
+-	<p style="hp">Das "Exportgebiet" wird sich soviel nehmen wie es bekommt. Wenn Sie exportieren wollen, aber die Menge beschränken, sollten sie evtl. einen Verkehrsanschluss mit weniger Kapazität verwenden oder einen langen Weg zum Hafen bauen. Oder Sie lassen die Produkte zuerst durch einen Markt gehen. Sie müssen experimentieren bis Sie die richtigen Export Einstellungen haben.</p>
++	<p style="hp">Das »Exportgebiet« wird sich soviel nehmen, wie es bekommt. Wenn Sie exportieren wollen, aber die Menge beschränken, sollten sie evtl. einen Verkehrsanschluss mit weniger Kapazität verwenden oder einen langen Weg zum Hafen bauen. Oder Sie lassen die Produkte zuerst durch einen Markt gehen. Sie müssen experimentieren, bis Sie die richtigen Exporteinstellungen haben.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="port">Hafen</a></li>
+diff --git a/data/help/de/farm.xml b/data/help/de/farm.xml
+index bea4ae9d..d8bf50e7 100644
+--- a/data/help/de/farm.xml
++++ b/data/help/de/farm.xml
+@@ -1,14 +1,14 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Bauernhof</p>
+-	<p style="hp">Bauernhöfe produzieren Essen für ihre Bevölkerung und Rohstoffe für Spinnereien. Bauern können das Essen an Märkte verkaufen, sie transportieren es mit dem Traktor, weshalb sie nicht ans Verkehrsnetz angeschlossen sein müssen. Sie können den Verkehr aber auch zum Verkauf nutzen, natürlich müssen Sie dabei sichergehen, dass der Markt in Reichweite liegt.</p>
++	<p style="hp">Bauernhöfe produzieren Nahrung für ihre Bevölkerung und Rohstoffe für Fabriken. Bauern können das Essen an Märkte verkaufen, sie transportieren es mit dem Traktor, weshalb sie nicht ans Verkehrsnetz angeschlossen sein müssen. Sie können den Verkehr aber auch zum Verkauf nutzen, natürlich müssen Sie dabei sichergehen, dass der Markt in Reichweite liegt.</p>
+ 	
+-	<p style="hp">Dies ist eine Farm</p>
++	<p style="hp">Dies ist ein Bauernhof</p>
+ 	<img src="images/tiles/farm0.png" halign="center"/>
+-	<p style="hp">und das ihr Symbol</p>
++	<p style="hp">und das seinSymbol</p>
+ 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+ 	
+-	<p style="hp">Bauernhöfe brauchen Arbeitsplätze um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen steigert die Produktion ebenfalls. Energie beinhaltet auch "altmodische" Windmühlen, die helfen mehr Essen zu produzieren und dabei keine Verschmutzung verursachen.</p>
++	<p style="hp">Bauernhöfe brauchen Arbeitsplätze, um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen, steigert die Produktion ebenfalls. Energie beinhaltet auch »altmodische« Windmühlen, die helfen, mehr Nahrung zu produzieren und dabei keine Verschmutzung verursachen.</p>
+ 	<p style="hp">Die landwirtschaftliche Produktion hängt vom Grundwasser ab, 
+     Felder mit Grundwasser sind grün, andere gelbbraun wie die Wüste.</p>
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/fast.xml b/data/help/de/fast.xml
+index 05921847..e4e583e5 100644
+--- a/data/help/de/fast.xml
++++ b/data/help/de/fast.xml
+@@ -2,7 +2,7 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Schnell</p>
+ 	<img src="images/gui/speed/faster.png"/>
+-	<p style="hp">Dies ist der "Schnell"-Knopf. Er lässt das Spiel am schnellsten laufen.
++	<p style="hp">Dies ist der »Schnell«-Knopf. Er lässt das Spiel am schnellsten laufen.
+      Vorsicht auf schnellen Rechnern, Probleme können schnell eskalieren.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/finance.xml b/data/help/de/finance.xml
+index 7da32d17..1cbc81e8 100644
+--- a/data/help/de/finance.xml
++++ b/data/help/de/finance.xml
+@@ -2,8 +2,8 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Finanzübersicht</p>
+ 	<p style="hp">Dies ist die Finanzübersicht.</p>
+-	<p style="hp">Die Finanzübersicht wird jeden Januar aktualisiert. Die Zahlen unter "Einkommen" und "Ausgaben" zeigen die Einnahmen und Ausgaben des letzten Jahres.</p>
+-	<p style="hp">Die Zahl neben "Netto" gibt die totale Bewegung an. Es gibt gewisse Dinge, die Sie nicht tun können, wenn sie "in den roten Zahlen" sind.</p>
++	<p style="hp">Die Finanzübersicht wird jeden Januar aktualisiert. Die Zahlen unter »Einkommen« und »Ausgaben« zeigen die Einnahmen und Ausgaben des letzten Jahres.</p>
++	<p style="hp">Die Zahl neben »Netto« gibt die totale Bewegung an. Es gibt gewisse Dinge, die Sie nicht tun können, wenn sie »in den roten Zahlen« sind.</p>
+ 	<!-- Im deutschen werden keine Abkürzungen benutzt.. die Einträge sind selbsterklärend...
+ 	<p style="hp">Die Bedeutung der Abkürzungen sind:</p>
+ 	<p style="hp">Income:</p>
+diff --git a/data/help/de/firestation.xml b/data/help/de/firestation.xml
+index 67ac742b..8da45fd9 100644
+--- a/data/help/de/firestation.xml
++++ b/data/help/de/firestation.xml
+@@ -3,7 +3,7 @@
+ 	<p style="htitle">Feuerwehr</p>
+ 
+     <p style="hp">Feuerwehren verhindern das Ausbrechen
+-        und Ausbreiten von Feuern in ihrem Einzugsbereich. Um
++        und Ausbreiten von Feuer in ihrem Einzugsbereich. Um
+         ihrer Arbeit nachzukommen, brauchen sie Waren und
+         Arbeitsplätze. Sie müssen <b>nicht</b> ans Verkehrsnetz
+         angebunden sein, aber sie müssen in der Reichweite eines
+@@ -12,26 +12,26 @@
+ 
+     <p style="hp">Wenn Sie eine Feuerwehr bauen, wird diese noch
+         nicht gleich einsatzbereit sein, es dauert gewöhnlich drei
+-        Monate bis sie komplett eingerichtet ist und somit einen
++        Monate, bis sie komplett eingerichtet ist und somit einen
+         wirksamen Schutz gewährleisten kann.</p>
+ 
+-    <p style="hp">Um zu sehen welche Bereiche von der Feuerwehr
+-        abgedeckt werden, klicken Sie einfach auf das Feuerwehr
+-        Symbol unter der <i>Miniaturansicht</i>. Gebiete die
++    <p style="hp">Um zu sehen, welche Bereiche von der Feuerwehr
++        abgedeckt werden, klicken Sie einfach auf das Feuerwehr-Symbol
++        unter der <i>Miniaturansicht</i>. Gebiete, die
+         vor Feuer geschützt sind, werden normal angezeigt,
+         ungeschützte Gebiete werden dunkelgrün dargestellt.</p>
+ 
+     <p style="hp">Feuerwehren steigern die Attraktivität der
+         Wohngebiete in ihrem Bereich.</p>
+ 
+-    <p style="hp">Feuerwehren haben eine Animationssequenz um zu
++    <p style="hp">Feuerwehren haben eine Animationssequenz, um zu
+         zeigen, dass sie arbeiten.</p>
+ 
+ 	<p style="hp">Dies ist eine Feuerwehr</p>
+ 	<img src="images/tiles/firestation1.png" halign="center"/>
+ 	<p style="hp">und das ihr Symbol</p>
+ 	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+-	<p style="hp">und dies das Layer Symbol</p>
++	<p style="hp">und dies das Layersymbol</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+@@ -39,5 +39,5 @@
+ 	<li><a href="goods">Waren</a></li>
+ 	<li><a href="market">Markt</a></li>
+ 	<li><a href="labor">Arbeitsplätze</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/food.xml b/data/help/de/food.xml
+index b09948ae..f6cbbe4b 100644
+--- a/data/help/de/food.xml
++++ b/data/help/de/food.xml
+@@ -2,12 +2,12 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Nahrung</p>
+ 	<p style="hp">Nahrung wird auf Bauernhöfen angebaut oder kann über einen Hafen importiert werden.</p>
+-	<p style="hp">Ihre Bewohner brauchen Nahrung um zu überleben. Wenn Sie sie hungern lassen werden sie die Stadt verlassen oder gar zu Tode verhungern.</p>
+-	<p style="hp">Spinnereien benötigen ebenfalls Nahrung. Sie wandeln z.B. Schafe in Kleider um. Sie können u.U. <i>sehr viel</i> Nahrung verbrauchen - geben sie Acht darauf!</p>
++	<p style="hp">Ihre Bewohner brauchen Nahrung, um zu überleben. Wenn Sie sie hungern lassen, werden sie die Stadt verlassen oder gar zu Tode verhungern.</p>
++	<p style="hp">Fabriken benötigen ebenfalls Nahrung. Sie wandeln z.B. Schafe in Kleider um. Sie können u.U. <i>sehr viel</i> Nahrung verbrauchen – geben sie Acht darauf!</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="farm">Bauernhof</a></li>
+ 	<li><a href="port">Hafen</a></li>
+-	<li><a href="mill">Spinnerei</a></li>
++	<li><a href="mill">Fabrik</a></li>
+ 	<li><a href="steel">Stahl</a></li>
+ </Document>
+diff --git a/data/help/de/goods.xml b/data/help/de/goods.xml
+index 4b8ad7d1..0a06748e 100644
+--- a/data/help/de/goods.xml
++++ b/data/help/de/goods.xml
+@@ -3,12 +3,12 @@
+ 	<p style="htitle">Waren</p>
+ 	<p style="hp">Waren werden für den Betrieb der meisten Gebäude benötigt. Außerdem mag die Bevölkerung gerne viel davon und fühlt sich von Plätzen angezogen, wo sie selbige bekommen kann.</p>
+ 	<p style="hp">Waren werden versteuert. Wenn Sie viel produzieren, helfen Sie damit Ihren Finanzen.</p>
+-	<p style="hp">Waren werden von Töpfereien, Schmieden, Spinnereien und Leichtindustrie hergestellt.</p>
++	<p style="hp">Waren werden von Töpfereien, Schmieden, Fabriken und der Leichtindustrie hergestellt.</p>
+ 	<p style="hp">Jedoch <b>nicht</b> von der Schwerindustrie, diese stellt lediglich Stahl her.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="pottery">Töpferei</a></li>
+ 	<li><a href="blacksmith">Schmiede</a></li>
+-	<li><a href="mills">Spinnerei</a></li>
++	<li><a href="mills">Fabrik</a></li>
+ 	<li><a href="industryl">Leichtindustrie</a></li>
+ </Document>
+diff --git a/data/help/de/health.xml b/data/help/de/health.xml
+index 9c453f02..195244dc 100644
+--- a/data/help/de/health.xml
++++ b/data/help/de/health.xml
+@@ -13,20 +13,20 @@
+         weniger krankgeschrieben.)</p>
+ 
+     <p style="hp">Krankenhäuser sind sehr teuer, 60.000€ pro
+-        Jahr. Sie reduzieren jedoch die Kosten von "unnatürlichen
+-        Todesfällen" und können extra Steuern einbringen (solange
+-        es Arbeit für die Leute gibt).</p>
++        Jahr. Sie reduzieren jedoch die Kosten von »unnatürlichen
++        Todesfällen« und können extra Steuern einbringen (solange
++        es Arbeit für die Einwohner gibt).</p>
+ 
+     <p style="hp">Nach dem Bau eines Krankenhauses braucht es
+-        ungefähr drei Monate bis dieses mit all seinen Geräten
++        ungefähr drei Monate, bis dieses mit all seinen Geräten
+         einsatzbereit ist. Zum Betrieb benötigt es Waren.</p>
+ 
+     <p style="hp">Krankenhäuser müssen nicht an das
+         Verkehrssystem angebunden werden, sie müssen dann jedoch in
+         der Reichweite eines Markts liegen.</p>
+ 
+-        <p style="hp">Um zu sehen welche Gebiete vom Krankenhaus
+-        abgedeckt werden, klicken Sie auf das Gesundheits
++        <p style="hp">Um zu sehen, welche Gebiete vom Krankenhaus
++        abgedeckt werden, klicken Sie auf das Gesundheits-
+         Symbol unter der Miniaturansicht. Die Bereiche, die
+         normal dargestellt werden, sind von einem Krankenhaus
+         abgedeckt.</p>
+@@ -35,7 +35,7 @@
+ 	<img src="images/tiles/health.png" halign="center"/>
+ 	<p style="hp">und das sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+-	<p style="hp">und dies das Layer Symbol</p>
++	<p style="hp">und dies das Ansichts-Symbol</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+@@ -44,5 +44,5 @@
+ 	<li><a href="labor">Arbeitsplätze</a></li>
+ 	<li><a href="goods">Waren</a></li>
+ 	<li><a href="transport">Verkehr</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/help.xml b/data/help/de/help.xml
+index 47b3c216..9296cf14 100644
+--- a/data/help/de/help.xml
++++ b/data/help/de/help.xml
+@@ -1,19 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Lincity Hilfe</p>
++	<p style="htitle">Lincity-Hilfe</p>
+ 
+-    <p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken Sie auf
+-    eines der blauen Wörter unten um Informationen zu einem Thema angezeigt
++    <p style="hp">Willkommen zum Lincity-Hilfesystem. Bitte klicken Sie auf
++    eines der blauen Wörter unten, um Informationen zu einem Thema angezeigt
+     zu bekommen. Mit dem Pfeil links oben können Sie zum vorherigen Thema
+     zurückblättern.</p>
+ 
+-    <li><a href="tutorial">Tutorium</a></li>
++    <li><a href="tutorial">Einführung</a></li>
+     <li><a href="keys">Tastaturbefehle</a></li>
+ 	<li><a href="button-index">Hilfe zu den Gebäuden</a></li>
+ 	<li><a href="mini-screen">Hilfe zur Miniaturkarte</a></li>
+     <li><a href="dialogs">Hilfe zu den Dialogen</a></li>
+ 	<p style="hp"></p>
+-        <p style="hp">Während des Spiels können Sie sich mit dem "Hilfe"-Knopf
++        <p style="hp">Während des Spiels können Sie sich mit dem »Hilfe«-Knopf
+         Informationen zu den jeweiligen Objekten verschaffen. Ein Rechtsklick
+         öffnet zu den meisten Knöpfen die entsprechende Hilfeseite.</p>
+     <li><a href="index">Index</a></li>
+diff --git a/data/help/de/housing.xml b/data/help/de/housing.xml
+index 6374e77a..f26c95b8 100644
+--- a/data/help/de/housing.xml
++++ b/data/help/de/housing.xml
+@@ -3,14 +3,14 @@
+ 	<p style="htitle">Bevölkerungsanzeige</p>
+ 	<p style="hp">Die Bevölkerungsanzeige wird erreicht, indem man mehrmals auf das €-Symbol über der Miniaturansicht klickt</p>
+ 	<p style="hp">Die Anzeige zeigt folgende Statistiken:</p>
+-	<li>Gesamt - Zeigt die Gesamtbevölkerung in ihrer Stadt. Dies zählt Einwohner mit und ohne Wohnung.</li>
+-	<li>mit Wohnung - Zeigt die Anzahl der Einwohner mit einer Wohnung.</li>
+-	<li>Obdachlos - Zeigt die Anzahl der Leute ohne Wohnung.</li>
++	<li>Gesamt – Zeigt die Gesamtbevölkerung in ihrer Stadt. Dies zählt Einwohner mit und ohne Wohnung.</li>
++	<li>Mit Wohnung – Zeigt die Anzahl der Einwohner mit einer Wohnung.</li>
++	<li>Obdachlos – Zeigt die Anzahl der Einwohner ohne Wohnung.</li>
+ 	<li>Barackensiedlungen: Zeigt die Anzahl der Barackensiedlungen in der Stadt.</li>
+-	<li>Unn Tdsfl - Zeigt die Anzahl der unnatürlichen Todesfälle, also die Leute die im letzten Monat durch Hunger oder Verschmutzung zu Tode gekommen sind.</li>
+-	<li>Arbeitslosigkeit - Ansprüche zeigt die absolute Zahl, die im letzten Monat Anspruch auf Arbeitslosengeld hatten.
++	<li>Unnat. Todesfälle – Zeigt die Anzahl der unnatürlichen Todesfälle, also die Einwohner, die im letzten Monat durch Hunger oder Verschmutzung zu Tode gekommen sind.</li>
++	<li>Arbeitslosigkeit – Zeigt die absolute Zahl derer, die im letzten Monat Anspruch auf Arbeitslosengeld hatten.
+         Die Rate ist der Prozentsatz der Einwohner, die ohne Arbeit sind. </li>
+-	<li>Verhungert - Fälle zeigt die tatsächlichen Todesfälle an, Rate den Prozentsatz der hungernden Bevölkerung.</li>
++	<li>Verhungert – Fälle zeigt die tatsächlichen Todesfälle an, Rate den Prozentsatz der hungernden Bevölkerung.</li>
+ 
+     <p style="hp">Durch Klick auf den Reiter können Sie zwischen den 
+         verschiedenen Finanzansichten wechseln.</p>
+diff --git a/data/help/de/index.xml b/data/help/de/index.xml
+index 3196ceac..4ebca9cf 100644
+--- a/data/help/de/index.xml
++++ b/data/help/de/index.xml
+@@ -8,7 +8,7 @@
+ <li><a href="query">Auswahlwerkzeug</a></li>
+ <li><a href="bulldoze">Bulldozer</a></li>
+ 
+-<p><b><a href="tutorial">Tutorium</a></b></p>
++<p><b><a href="tutorial">Einführung</a></b></p>
+ <li><a href="tutorial-aim">Spielziel</a></li>
+ <li><a href="tutorial-overview">Bildschirmelemente</a></li>
+ <li><a href="tutorial-basics">Erste Schritte</a></li>
+@@ -16,13 +16,13 @@
+ <li><a href="tutorial-scenario">Szenarien</a></li>
+ 
+ <p><b>Verwaltung</b></p>
+-<li><a href="button-index">Symbol Verzeichnis</a></li>
++<li><a href="button-index">Symbol-Verzeichnis</a></li>
+ <li><a href="housing">Bevölkerungsanzeige</a></li>
+ <li><a href="dialogs">Informationssystem</a></li>
+ <li><a href="economy">Wirtschaftsübersicht</a></li>
+-<li><a href="export">Import und Export Gebiete</a></li>
++<li><a href="export">Import- und Export-Gebiete</a></li>
+ <li><a href="finance">Finanzübersicht</a></li>
+-<li><a href="help">Lincity Hilfe</a></li>
++<li><a href="help">Lincity-Hilfe</a></li>
+ <li><a href="labor">Arbeitsplätze</a></li>
+ <li><a href="sustain">Nachhaltigkeitsanzeige</a></li>
+ <li><a href="tech-level">Technologieniveau</a></li>
+@@ -31,10 +31,10 @@
+ <li><a href="river">Wasser</a></li>
+ <li><a href="pbar">Statistik</a></li>
+ <li><a href="pollution">Verschmutzung</a></li>
+-<li><a href="other-costs">Andere Kosten</a></li>
++<li><a href="other-costs">Sonstige Kosten</a></li>
+ 
+ <p><b>Geschwindigkeiten</b></p>
+-<li><a href="pause">Pause Knopf</a></li>
++<li><a href="pause">Pause-Knopf</a></li>
+ <li><a href="slow">Langsam</a></li>
+ <li><a href="medium">Normal</a></li>
+ <li><a href="fast">Schnell</a></li>
+@@ -42,24 +42,24 @@
+ <p style="hsubtitle">Verkehr</p>
+ <li><a href="track">Wege</a></li>
+ <li><a href="road">Straßen</a></li>
+-<li><a href="rail">Schienen</a></li>
++<li><a href="rail">Eisenbahn</a></li>
+ <li><a href="port">Hafen</a></li>
+ <li><a href="rocket">Raketenbasis</a></li>
+ <li><a href="transport">Verkehr</a></li>
+ 
+ <p style="hsubtitle">Gebäude</p>
+-<p><b>Produktive Gebäude</b></p>
++<p><b>Produktionsgebäude</b></p>
+ <li><a href="blacksmith">Schmiede</a></li>
+-<li><a href="coalmine">Kohlegrube</a></li>
++<li><a href="coalmine">Kohlebergwerk</a></li>
+ <li><a href="commune">Köhlerei</a></li>
+ <li><a href="waterwell">Brunnen</a></li>
+ <li><a href="farm">Bauernhof</a></li>
+ <li><a href="windmill">Windmühle</a></li>
+-<li><a href="mill">Spinnerei</a></li>
++<li><a href="mill">Fabrik</a></li>
+ <li><a href="industryh">Schwerindustrie (Stahl)</a></li>
+-<li><a href="industryl">Leichtindustrie Gebiet</a></li>
++<li><a href="industryl">Leichtindustrie</a></li>
+ <li><a href="pottery">Töpferei</a></li>
+-<li><a href="oremine">Erzmine</a></li>
++<li><a href="oremine">Erzbergwerk</a></li>
+ 
+ <p><b>Energie</b></p>
+ <li><a href="substation">Umspannwerk</a></li>
+@@ -74,9 +74,9 @@
+ <li><a href="health">Krankenhaus</a></li>
+ <li><a href="firestation">Feuerwehr</a></li>
+ <li><a href="market">Markt</a></li>
+-<li><a href="recycle">Wertstoffhof</a></li>
++<li><a href="recycle">Recyclingzentrum</a></li>
+ <li><a href="school">Schule</a></li>
+-<li><a href="tip">Deponie (Müllhalde)</a></li>
++<li><a href="tip">Mülldeponie</a></li>
+ <li><a href="park">Parks</a></li>
+ 
+ <p style="hsubtitle">Ressourcen</p>
+@@ -86,15 +86,15 @@
+ <li><a href="goods">Waren</a></li>
+ <li><a href="steel">Stahl</a></li>
+ 
+-<p style="hsubtitle">Layer</p>
+-<li><a href="msb-coal">Kohle Layer</a></li>
+-<li><a href="msb-cricket">Sport Layer</a></li>
+-<li><a href="msb-fire">Feuer Layer</a></li>
+-<li><a href="msb-health">Gesundheits Layer</a></li>
+-<li><a href="msb-normal">Normaler Layer</a></li>
+-<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-<li><a href="msb-power">Energie Layer</a></li>
+-<li><a href="msb-starve">Hunger Layer</a></li>
+-<li><a href="msb-transport">Verkehrs- und Markt Layer</a></li>
+-<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++<p style="hsubtitle">Ebenen</p>
++<li><a href="msb-coal">Kohle-Ebene</a></li>
++<li><a href="msb-cricket">Sport-Ebene</a></li>
++<li><a href="msb-fire">Feuer-Ebene</a></li>
++<li><a href="msb-health">Gesundheits-Ebene</a></li>
++<li><a href="msb-normal">Normale Ebene</a></li>
++<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++<li><a href="msb-power">Energie-Ebene</a></li>
++<li><a href="msb-starve">Hunger-Ebene</a></li>
++<li><a href="msb-transport">Transport-Ebene</a></li>
++<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/industryh.xml b/data/help/de/industryh.xml
+index 6274460e..d8f54b38 100644
+--- a/data/help/de/industryh.xml
++++ b/data/help/de/industryh.xml
+@@ -4,9 +4,9 @@
+ 	<p style="hp">Die Schwerindustrie produziert Stahl aus Erz, Energie und Arbeitsplätzen. Das Erz wird direkt vom Verkehrsnetz bezogen, genauso wird der produzierte Stahl ans Verkehrsnetz übergeben. Arbeitsplätze werden über einen örtlichen Markt bezogen. Mit dem Verkehr verbunden wird die Schwerindustrie an der linken oberen Ecke.</p>
+ 	<p style="hp">Die Energie kann auf zwei verschiedene Art und Weisen zugeführt werden: 
+ 		1. Durch Kohle, die direkt aus dem Verkehrsnetz bezogen wird
+-		2. Über das Stromnetz, hierzu muss mind. ein Umspannhäuschen in der Reichweite sein. (Windmühlen können <b>keine</b> Energie an die Schwerindustrie liefern, sie sind zu schwach.)</p>
+-	<p style="hp">Die Schwerindustrie verschmutzt die Umwelt</p>
+-	<p style="hp">Sie können auf die gewöhnliche Weise sehen ob die Schwerindustrie arbeitet: Indem Sie darauf klicken - außerdem ist sie animiert.</p>
++		2. Über das Stromnetz, hierzu muss mind. ein Umspannwerk in der Reichweite sein. (Windmühlen können <b>keine</b> Energie an die Schwerindustrie liefern, sie sind zu schwach.)</p>
++	<p style="hp">Die Schwerindustrie verschmutzt die Umwelt.</p>
++	<p style="hp">Sie können auf die gewöhnliche Weise sehen, ob die Schwerindustrie arbeitet: Indem Sie darauf klicken – außerdem ist sie animiert.</p>
+ 	
+ 	<p style="hp">Dies ist ein Gebäude der Schwerindustrie</p>
+ 	<img src="images/tiles/industryhl1.png" halign="center"/>
+diff --git a/data/help/de/industryl.xml b/data/help/de/industryl.xml
+index 3cf43f90..ff76f3ba 100644
+--- a/data/help/de/industryl.xml
++++ b/data/help/de/industryl.xml
+@@ -1,12 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Leichte Industrie</p>
+-	<p style="hp">Die leichte Industrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
+-	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der hauptsächliche Ausstoß der leichten Industrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, sowie von den zur Verfügung stehenden Arbeitskräften.</p>
+-	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen um Erz, Stahl und Waren zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
++	<p style="htitle">Leichtindustrie</p>
++	<p style="hp">Die Leichtindustrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
++	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der hauptsächliche Ausstoß der Leichtindustrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, sowie von den zur Verfügung stehenden Arbeitskräften.</p>
++	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen, um Erz, Stahl und Waren zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
+ 	<p style="hp">Diese Gebiete können <b>NUR</b> an der oberen linken Ecke mit dem Verkehr verbunden werden. Es gibt eine Abzweigung im Verkehrsweg, wenn das Gebäude angeschlossen ist.</p>
+ 	
+-	<p style="hp">Dies ist die leichte Industrie</p>
++	<p style="hp">Dies ist die Leichtindustrie</p>
+ 	<img src="images/tiles/industryl-low.png" halign="center"/>
+ 	<p style="hp">und das ihr Symbol</p>
+ 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+diff --git a/data/help/de/keys.xml b/data/help/de/keys.xml
+index 0d08ec08..50f1bc1f 100644
+--- a/data/help/de/keys.xml
++++ b/data/help/de/keys.xml
+@@ -6,24 +6,24 @@
+     <p style="hp"><b>Esc</b>: Aktiviert das Abfragewerkzeug</p>
+     <p style="hp"><b>b</b>: Schaltet zwischen dem aktuellen Cursor und dem Bulldozer um</p>
+     <p style="hp"><b>h</b>: Blendet hohe Gebäude aus bzw. wieder ein</p>
+-    <p style="hp"><b>v</b>: Überträgt das Minimap-Schema auf das Spiel (Transparent-Deckend-Aus)</p>
++    <p style="hp"><b>v</b>: Überträgt das Minikarten-Schema auf das Spiel (transparent, undurchsichtig, aus)</p>
+     <p style="hp"><b>KP_PLUS</b>: Vergrößern</p>
+     <p style="hp"><b>KP_MINUS</b>: Verkleinern</p>
+     <p style="hp"><b>KP_ENTER</b>: 100% Ansicht</p>
+     <p style="hsubtitle"><b>Navigation</b></p>
+-    <p style="hp"><b>KP5</b>:  Springt in die Mitte der Karte</p>  
+-    <p style="hp"><b>KP9</b>:  Fährt in den Norden der Ansicht</p>
+-    <p style="hp"><b>KP1</b>:  Fährt in den Süden der Ansicht</p>
+-    <p style="hp"><b>KP7</b>:  Fährt in den Westen der Ansicht</p>
+-    <p style="hp"><b>KP3</b>:  Fährt in den Osten der Ansicht</p>
+-    <p style="hp"><b>KP2</b>:  Fährt in den Südosten der Ansicht</p> 
+-    <p style="hp"><b>KP4</b>:  Fährt in den Südwesten der Ansicht</p> 
+-    <p style="hp"><b>KP6</b>:  fährt in den Nordosten der Ansicht</p> 
+-    <p style="hp"><b>KP8</b>:  Fährt in den Nordwesten der Ansicht</p> 
+-    <p style="hp">(Wenn gleichzeitig Shift gedrückt wird, geht's schneller)</p>
+-    <p style="hsubtitle"><b>Laden und Speichern</b></p>
+-    <p style="hp"><b>F12</b>:  Schnell speichern</p> 
+-    <p style="hp"><b>F9</b>:  Schnell laden</p> 
++    <p style="hp"><b>KP5</b>: Springt in die Mitte der Karte</p>  
++    <p style="hp"><b>KP9</b>: Fährt in den Norden der Ansicht</p>
++    <p style="hp"><b>KP1</b>: Fährt in den Süden der Ansicht</p>
++    <p style="hp"><b>KP7</b>: Fährt in den Westen der Ansicht</p>
++    <p style="hp"><b>KP3</b>: Fährt in den Osten der Ansicht</p>
++    <p style="hp"><b>KP2</b>: Fährt in den Südosten der Ansicht</p> 
++    <p style="hp"><b>KP4</b>: Fährt in den Südwesten der Ansicht</p> 
++    <p style="hp"><b>KP6</b>: fährt in den Nordosten der Ansicht</p> 
++    <p style="hp"><b>KP8</b>: Fährt in den Nordwesten der Ansicht</p> 
++    <p style="hp">(Wenn gleichzeitig Umschalt gedrückt wird, geht's schneller)</p>
++    <p style="hsubtitle"><b>Laden und speichern</b></p>
++    <p style="hp"><b>F12</b>: Schnell speichern</p> 
++    <p style="hp"><b>F9</b>: Schnell laden</p> 
+ 
+     <p style="htitle">Maus</p>
+     <p style="hp"><b>Rechtsklick:</b></p>
+@@ -32,8 +32,8 @@
+     <p style="hp"><b>Mittlere Maustaste:</b></p>
+     <p style="hp">(gedrückt): Zeigt Informationen zum Feld unterhalb des Cursors an (keine Gebäudeinformation!).</p>
+     <p style="hp"><b>Linksklick:</b></p>
+-    <p style="hp">Minimap: Springt in der Ansicht zur entsprechenden Stelle.</p>
+-    <p style="hp">Ansicht: Führt eine Aktion, entsprechend dem gewählten Werkzeug aus (z.B.planieren, bauen, Informationen anzeigen ...)</p>
++    <p style="hp">Minikarte: Springt in der Ansicht zur entsprechenden Stelle.</p>
++    <p style="hp">Ansicht: Führt eine Aktion, entsprechend dem gewählten Werkzeug aus (z.B. abreißen, bauen, Informationen anzeigen, ...)</p>
+     <p style="hsubtitle"><b>Mausrad:</b></p>
+     <p style="hp"><b>hoch:</b> Vergrößern</p>
+     <p style="hp"><b>runter:</b> Verkleinern</p>
+diff --git a/data/help/de/labor.xml b/data/help/de/labor.xml
+index 8d0fa3a5..5ddae91d 100644
+--- a/data/help/de/labor.xml
++++ b/data/help/de/labor.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Arbeitsplätze</p>
+-	<p style="hp">Menschen, die in Wohngebieten wohnen, stellen Arbeitsplätze "zur Verfügung". Arbeitsplätze werden von den meisten Gebäuden benötigt um korrekt zu funktionieren. Einige Gebäude, z.B. Denkmäler benötigen diese Arbeitsplätze nur, wenn sie sich im Bau befinden.</p>
+-	<p style="hp">Arbeitsplätze werden über den Markt "verteilt"; Sie müssen einen Markt in einem Gebiet bauen in dem Sie die Arbeitskräfte brauchen (z.b. in der Nähe von Industrie). Der Markt "bezieht" seine Arbeitskräfte auf zwei Wegen. 1.: Über das direkte Einzugsgebiet in dem der Markt steht (Wohngebiete), 2.: falls der Markt im Wohngebiet voll ist, werden die Arbeitskräfte über das Verkehrsnetz zu einem anderen Markt fahren, der weniger gut besetzt ist. Falls jedoch alle Märkte voll besetzt sind, werden die Leute arbeitslos</p>
++	<p style="hp">Menschen, die in Wohngebieten wohnen, stellen Arbeitsplätze »zur Verfügung«. Arbeitsplätze werden von den meisten Gebäuden benötigt, um korrekt zu funktionieren. Einige Gebäude, z.B. Denkmäler benötigen diese Arbeitsplätze nur, wenn sie sich im Bau befinden.</p>
++	<p style="hp">Arbeitsplätze werden über den Markt »verteilt«; Sie müssen einen Markt in einem Gebiet bauen, in dem Sie die Arbeitskräfte brauchen (z.B. in der Nähe von Industrie). Der Markt »bezieht« seine Arbeitskräfte auf zwei Wegen. 1.: Über das direkte Einzugsgebiet, in dem der Markt steht (Wohngebiete), 2.: falls der Markt im Wohngebiet voll ist, werden die Arbeitskräfte über das Verkehrsnetz zu einem anderen Markt fahren, der weniger gut besetzt ist. Falls jedoch alle Märkte voll besetzt sind, werden die Einwohner arbeitslos</p>
+ 	<p style="hp">Ein Krankenhaus im Einzugsgebiet des Wohngebiets erhöht die Anzahl der zur Verfügung stehenden Arbeitskräfte.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/market.xml b/data/help/de/market.xml
+index 80eae3e1..e21ee024 100644
+--- a/data/help/de/market.xml
++++ b/data/help/de/market.xml
+@@ -3,30 +3,30 @@
+ 	<p style="htitle">Markt</p>
+ 
+     <p style="hp">In LinCity sind Märkte ein Schlüsselgebäude.
+-    Sie sind Arbeitsamt, Warenlager und Einkaufszentrum in einem -
+-    kurz: Überall findet sich ein "Markt". Sie kaufen und verkaufen
++    Sie sind Arbeitsamt, Warenlager und Einkaufszentrum in einem –
++    kurz: Überall findet sich ein »Markt«. Sie kaufen und verkaufen
+     Nahrung, Arbeitsplätze, Kohle, Waren, Erz und Stahl an die
+     anliegenden Gebiete und ins Verkehrsnetz. Als Beispiel: Die
+     Wohngebiete versorgen den Markt mit Arbeitskräften und
+     der Markt versorgt das im Bau befindliche Denkmal mit
+-    Arbeitskräften. <b>HINWEIS</b>, die Wohngebiete werden nicht
++    Arbeitskräften. <b>HINWEIS</b>: die Wohngebiete werden nicht
+     mehr versorgt, wenn sie mehr oder weniger an/auf der Grenze zum
+     Einzugsbereich des Markts liegen.</p>
+ 
+     <p style="hp">Im Einzugsbereich eines Marktes können Waren direkt 
+     zwischen dem Markt und anderen Gebäuden ausgetauscht werden, ohne dass 
+-    eine Verkehrsverbindung bestehen muss. Augenommen hiervon sind
++    eine Verkehrsverbindung bestehen muss. Ausgenommen hiervon sind
+     Großverbraucher. Bei diesen wird aber in der Beschreibung extra auf die
+-    erforderliche Verkehrsverbindung hingewiesen. Im <a href="msb-transport">
+-    Verkehrs- und Markt Layer </a> können Sie sehen, ob sich Gebäude im
+-    Einzugsbereich eines Marktes befinden.</p>
++    erforderliche Verkehrsverbindung hingewiesen. In der
++    <a href="msb-transport">Transport-Ebene</a> können Sie sehen, ob sich
++    Gebäude im Einzugsbereich eines Marktes befinden.</p>
+ 
+    <li>Bewohner können Nahrung, Waren und Arbeitsplätze über die Märkte, in
+        deren Einzugsbereich sich ihr Wohngebiet befindet, beziehen.</li>
+    <li>Alle Gebäude, die Arbeitskräfte benötigen, erhalten diese von 
+        den Märkten.</li>
+    <li>Bauernhöfe verkaufen ihre Nahrung direkt an Märkte.</li>
+-   <li>Spinnereien, Töpfereien und Schmieden verkaufen ihre Waren direkt
++   <li>Fabriken, Töpfereien und Schmieden verkaufen ihre Waren direkt
+        an Märkte, von dort beziehen sie auch ihre Rohstoffe.</li>
+    <p style="hp">Falls sie sich nicht im Einzugsbereich eines Marktes befinden,
+        brauchen diese Gebäude eine <a href="transport">Verkehrsverbindung</a>.</p>
+@@ -35,18 +35,18 @@
+        Spielfeldecke ist eine <a href="pbar">Statusanzeige</a>, die eine
+        Übersicht über Ihre Märkte bietet.</p>
+ 
+-	<p style="hsubtitle">Einstellen was der Markt kauft und verkauft</p>
+-	<p style="hp">Sie können festlegen was ein Markt kauft indem Sie doppelt auf ihn klicken und das selektieren was Sie den Markt kaufen bzw. verkaufen lassen möchten. In der Standardeinstellung wird alles gehandelt.</p>
++	<p style="hsubtitle">Einstellen, was der Markt kauft und verkauft</p>
++	<p style="hp">Sie können festlegen was ein Markt kauft, indem Sie doppelt auf ihn klicken und das auswählen, was Sie den Markt kaufen bzw. verkaufen lassen möchten. In der Standardeinstellung wird alles gehandelt.</p>
+ 	<p style="hp">Dies ist ein Markt</p>
+ 	<img src="images/tiles/market-empty.png" halign="center"/>
+ 	<p style="hp">und das sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+ 	
+-	<p style="hp">Bedeutet das der Handel erlaubt ist:</p>
++	<p style="hp">Bedeutet, dass der Handel erlaubt ist:</p>
+ 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+-	<p style="hp">Bedeutet das der Handel <b>nicht</b> erlaubt ist:</p>
++	<p style="hp">Bedeutet, dass der Handel <b>nicht</b> erlaubt ist:</p>
+ 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+-	<p style="hp">Die Nummern zwischen den Worten kaufen und verkaufen sind die Koordinaten des Markts.</p>
++	<p style="hp">Die Nummern zwischen den Wörtern »kaufen« und »verkaufen« sind die Koordinaten des Markts.</p>
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="food">Nahrung</a></li>
+ 	<li><a href="labor">Arbeitsplätze</a></li>
+diff --git a/data/help/de/medium.xml b/data/help/de/medium.xml
+index 26c6ff6c..bf544611 100644
+--- a/data/help/de/medium.xml
++++ b/data/help/de/medium.xml
+@@ -2,7 +2,7 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Normale Geschwindigkeit</p>
+ 	<img src="images/gui/speed/fast.png"/>
+-	<p style="hp">Dies ist der Knopf für die Normale Geschwindigkeit. Dieser bewirkt, dass das Spiel mit mittlerer Geschwindigkeit läuft. Auf langsamen Maschinen hat der Knopf u.U. keinen Effekt.</p>
++	<p style="hp">Dies ist der Knopf für die normale Geschwindigkeit. Dieser bewirkt, dass das Spiel mit mittlerer Geschwindigkeit läuft. Auf langsamen Maschinen hat der Knopf u.U. keinen Effekt.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="slow">Langsam</a></li>
+diff --git a/data/help/de/mill.xml b/data/help/de/mill.xml
+index cdfc71d4..53fbca7a 100644
+--- a/data/help/de/mill.xml
++++ b/data/help/de/mill.xml
+@@ -1,13 +1,13 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Mühle</p>
+-	<p style="hp">Mühlen wandeln Nahrung, Kohle und Labor in Waren um. Nahrung?... nun ja, Wolle und Stoff werden in diesem Spiel als Nahrung gezählt.</p>
+-	<p style="hp">Mühlen verbrauchen eine ganze Menge Nahrung, so kann es leicht passieren, dass es zu Engpässen kommt, wenn Sie nicht vorsichtig sind! (Das ist weniger ein Problem, wenn Sie Windmühlen haben, da diese die Bauernhöfe mit Energie versorgen können, welche diese effizienter macht.)</p>
+-	<p style="hp">Mühlen müssen nicht ans Verkehrsnetz angeschlossen sein, aber in Reichweite eines Markts stehen, der sie mit Kohle, Arbeitskräften und Nahrung versorgt. An den Rauchwolken über dem Gebäude können Sie sehen, ob es arbeitet oder nicht.</p>
++	<p style="htitle">Fabrik</p>
++	<p style="hp">Fabriken wandeln Nahrung, Kohle und Arbeit in Waren um. Nahrung? Nun ja, Wolle und Stoff werden in diesem Spiel als Nahrung gezählt.</p>
++	<p style="hp">Fabriken verbrauchen eine ganze Menge Nahrung, so kann es leicht passieren, dass es zu Engpässen kommt, wenn Sie nicht vorsichtig sind! (Das ist weniger ein Problem, wenn Sie Windmühlen haben, da diese die Bauernhöfe mit Energie versorgen können, welche diese effizienter macht.)</p>
++	<p style="hp">Fabriken müssen nicht ans Verkehrsnetz angeschlossen sein, aber in Reichweite eines Markts stehen, der sie mit Kohle, Arbeitskräften und Nahrung versorgt. An den Rauchwolken über dem Gebäude können Sie sehen, ob es arbeitet oder nicht.</p>
+ 
+-	<p style="hp">Dies ist eine arbeitende Mühle</p>
++	<p style="hp">Dies ist eine arbeitende Fabrik</p>
+ 	<img src="images/tiles/mill1.png" halign="center"/>
+-	<p style="hp">Dies ist eine <b>nicht</b> arbeitende Mühle</p>
++	<p style="hp">Dies ist eine <b>nicht</b> arbeitende Fabrik</p>
+ 	<img src="images/tiles/mill0.png" halign="center"/>
+ 	<p style="hp">und dies ihr Symbol</p>
+ 	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+diff --git a/data/help/de/mini-screen.xml b/data/help/de/mini-screen.xml
+index 2d63106e..3bc9e7e3 100644
+--- a/data/help/de/mini-screen.xml
++++ b/data/help/de/mini-screen.xml
+@@ -2,21 +2,21 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Miniaturansicht</p>
+ 	<p style="hp">Die Miniaturansicht zeigt in verkleinerter Fassung das komplette Spielgebiet. Die Buttons darunter geben Ihnen wichtige Informationen über die Situation in Ihrer Stadt, z.B. Verschmutzung, gesundheitliche Versorgung, etc.</p>
+-	<p style="hp">Klicken Sie auf den <i>Hilfe Knopf</i> und anschließend auf die Layer-Symbole unterhalb der Miniaturansicht um weitere Informationen über sie zu erhalten.</p>
++	<p style="hp">Klicken Sie auf den <i>Hilfeknopf</i> und anschließend auf die Ansichtssymbole unterhalb der Miniaturansicht, um weitere Informationen über sie zu erhalten.</p>
+ 	<p style="hp">Das weiße Quadrat zeigt den aktuellen Bildschirmausschnitt.</p>
+-    <p style="hp">Mit 'v' oder dem großen Kopf am linken unteren Eck der Minikarte können Sie die Minikarte über die Hauptkarte legen.</p>
++    <p style="hp">Mit »v« oder dem großen Kopf am linken unteren Eck der Minikarte können Sie die Minikarte über die Hauptkarte legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzung Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzung-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+ 
+ 
+diff --git a/data/help/de/monument.xml b/data/help/de/monument.xml
+index a2ad4e22..6a76f388 100644
+--- a/data/help/de/monument.xml
++++ b/data/help/de/monument.xml
+@@ -2,7 +2,7 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Denkmal</p>
+ 	<p style="hp">Denkmäler sind ein wichtiger Platz für die Inspiration und die Studien von Erfindern. Jedes Denkmal wird die Rate, mit der die Technologie wächst, steigern, jedoch wird sie ab 40% Technologieniveau auf 0 fallen. Ab diesem Punkt können nur noch Schulen und Universitäten das Technologieniveau steigern.</p>
+-	<p style="hp">Um ein Denkmal zu bauen braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Labor mehr benötigt werden.</p>
++	<p style="hp">Um ein Denkmal zu bauen, braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich, um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Arbeiter mehr benötigt werden.</p>
+ 	<p style="hp">Sie können sehen, wie weit der Bau vorangeschritten ist, indem Sie auf das Denkmal klicken und im Statusfenster nachsehen. Bis das Denkmal bei 100% ist, gibt es insgesamt 6 Grafiken.</p>
+ 	<p style="hp"><b>Tipp</b>: Um zu verhindern, dass der Bau eines Denkmals zuviele Arbeitskräfte in einer Region kostet, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden.</p>
+ 
+diff --git a/data/help/de/msb-coal.xml b/data/help/de/msb-coal.xml
+index 5dc7a843..e8b4396e 100644
+--- a/data/help/de/msb-coal.xml
++++ b/data/help/de/msb-coal.xml
+@@ -1,35 +1,35 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Kohle Layer</p>
++	<p style="htitle">Kohle-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+ 
+-    <p style="hp">Der Kohle Layer zeigt die Kohlereserven nahe
+-        der Stadt. Die Kohleadern werden in Rot und Grün auf grauem Grund
+-        angezeigt. Sie müssen eine Kohlegrube in die Nähe einer
+-        Ader bauen um effektiv Kohle abbauen zu können.</p>
++    <p style="hp">Die Kohle-Ebene zeigt die Kohlereserven nahe
++        der Stadt. Die Kohleadern werden in rot und grün auf grauem Grund
++        angezeigt. Sie müssen ein Kohlebergwerk in die Nähe einer
++        Ader bauen, um effektiv Kohle abbauen zu können.</p>
+ 
+-    <p style="hp">Das erste Mal, wenn Sie diesen
+-        Layer aktivieren, wird Ihnen eine Million €
++    <p style="hp">Das erste Mal, wenn Sie diese
++        Ansicht aktivieren, wird Ihnen eine Million €
+         abgezogen, um die unterirdischen Untersuchungen zu
+-        finanzieren. Anschließend ist die Betrachtung des Layers
++        finanzieren. Anschließend ist die Betrachtung der Ansicht
+         kostenlos.</p>
+ 
+-    <p style="hp">Linksklick auf die Miniaturansicht um
++    <p style="hp">Linksklick auf die Miniaturansicht, um
+         zur entsprechenden Stelle auf der Hauptansicht zu
+-        springen. Linksklick auf ein anderes Symbol aktiviert einen
+-        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
+         Hauptansicht legen.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+ 
+diff --git a/data/help/de/msb-cricket.xml b/data/help/de/msb-cricket.xml
+index 95f75ee7..cc3a8e80 100644
+--- a/data/help/de/msb-cricket.xml
++++ b/data/help/de/msb-cricket.xml
+@@ -1,21 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Sport Layer</p>
++	<p style="htitle">Sport-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+ 	<p style="hp">Gebiete, die einen Sportplatz in ihrem Einzugsbereich haben, werden dunkelgrün dargestellt.</p>
+ 	<p style="hp">Gebiete, die nicht im Einzugsbereich liegen, werden normal angezeigt.</p>
+ 	<p style="hp">Beachten Sie, dass Sportplätze drei Monate brauchen, bis sie ihren Betrieb aufnehmen.</p>
+-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
++	<p style="hp">Linksklick auf die Miniaturansicht, um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert eine andere Ebene. Mit »v« können Sie die aktive Ebene auf die Hauptansicht legen.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-fire.xml b/data/help/de/msb-fire.xml
+index 9c446e7e..26b0a2df 100644
+--- a/data/help/de/msb-fire.xml
++++ b/data/help/de/msb-fire.xml
+@@ -1,21 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Feuer Layer</p>
++	<p style="htitle">Feuer-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+ 	<p style="hp">Gebiete, die im Einzugsbereich einer Feuerwehr liegen, werden dunkelgrün dargestellt.</p>
+ 	<p style="hp">Gebiete, die nicht im Einzugsbereich liegen, werden normal dargestellt.</p>
+ 	<p style="hp">Beachten Sie, dass Feuerwehren drei Monate brauchen, bis sie voll funktionsfähig sind.</p>
+-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
++	<p style="hp">Linksklick auf die Miniaturansicht, um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert eine andere Ebene. Mit »v« können Sie die aktive Ebene auf die Hauptansicht legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-health.xml b/data/help/de/msb-health.xml
+index a9680ffc..ed087be6 100644
+--- a/data/help/de/msb-health.xml
++++ b/data/help/de/msb-health.xml
+@@ -1,21 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Gesundheits Layer</p>
++	<p style="htitle">Gesundheits-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+ 	<p style="hp">Gebiete, die im Einzugsbereich eines Krankenhauses liegen, werden dunkelgrün dargestellt.</p>
+ 	<p style="hp">Gebiete, die nicht im Einzugsbereich liegen, werden normal dargestellt.</p>
+ 	<p style="hp">Beachten Sie, dass Krankenhäuser drei Monate brauchen, bis sie ihren Betrieb aufnehmen.</p>
+-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
++	<p style="hp">Linksklick auf die Miniaturansicht, um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert eine andere Ebene. Mit »v« können Sie die aktive Ebene auf die Hauptansicht legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-normal.xml b/data/help/de/msb-normal.xml
+index f08e115e..1dd2708c 100644
+--- a/data/help/de/msb-normal.xml
++++ b/data/help/de/msb-normal.xml
+@@ -1,24 +1,24 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Normaler Layer</p>
++	<p style="htitle">Normale Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
+-	<p style="hp">Der Normale Layer zeigt Straßen, Wasser und Grünflächen in der Stadt.</p>
++	<p style="hp">Die normale Ebene zeigt Straßen, Wasser und Grünflächen in der Stadt.</p>
+ 
+-    <p style="hp">Linksklick auf die Miniaturansicht um
++    <p style="hp">Linksklick auf die Miniaturansicht, um
+         zur entsprechenden Stelle auf der Hauptansicht zu
+-        springen. Linksklick auf ein anderes Symbol aktiviert einen
+-        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
+         Hauptansicht legen.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-pol.xml b/data/help/de/msb-pol.xml
+index 612cd2b7..329ddd44 100644
+--- a/data/help/de/msb-pol.xml
++++ b/data/help/de/msb-pol.xml
+@@ -1,21 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Verschmutzungs Layer</p>
++	<p style="htitle">Verschmutzungs-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+-	<p style="hp">Der Verschmutzungs Layer zeigt den Grad der Verschmutzung in der Stadt an.</p>
++	<p style="hp">Der Verschmutzungs-Ebene zeigt den Grad der Verschmutzung in der Stadt an.</p>
+ 	<p style="hp">Die Verschmutzung wird mit folgenden Farben stärker: Hellgrün -> Dunkelgrün -> Dunkleres Grün -> Dunkelrot -> Helleres Rot -> Hellrot.</p>
+-	<p style="hp">In den Wohngebieten, die als Rot dargestellt werden, leiden die Leute unter Krankheiten und es sinkt die Attraktivität der Region.</p>
+-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
++	<p style="hp">In den Wohngebieten, die als rot dargestellt werden, leiden die Einwohner unter Krankheiten und es sinkt die Attraktivität der Region.</p>
++	<p style="hp">Linksklick auf die Miniaturansicht, um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert eine andere Ebene. Mit »v« können Sie die aktive Ebene auf die Hauptansicht legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-power">Energie Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-power.xml b/data/help/de/msb-power.xml
+index 4d2509d9..ecf89427 100644
+--- a/data/help/de/msb-power.xml
++++ b/data/help/de/msb-power.xml
+@@ -1,30 +1,30 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Energie Layer</p>
++	<p style="htitle">Energie-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+ 
+     <p style="hp">Gebäude, die mechanische Energie von altmodischen Windmühlen
+         benutzen, werden dunkelgrün dargestellt.</p>
+ 
+-	<p style="hp">Die Gebäude, die am Stromnetz hängen werden hellgrün dargestellt.</p>
++	<p style="hp">Die Gebäude, die am Stromnetz hängen, werden hellgrün dargestellt.</p>
+ 
+ 	<p style="hp">Die unversorgten Gebäude werden rot dargestellt.</p>
+ 
+-    <p style="hp">Linksklick auf die Miniaturansicht um
++    <p style="hp">Linksklick auf die Miniaturansicht, um
+         zur entsprechenden Stelle auf der Hauptansicht zu
+-        springen. Linksklick auf ein anderes Symbol aktiviert einen
+-        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
+         Hauptansicht legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="mini-screen">Miniaturansicht</a></li>
+-	<li><a href="msb-coal">Kohle Layer</a></li>
+-	<li><a href="msb-cricket">Sport Layer</a></li>
+-	<li><a href="msb-fire">Feuer Layer</a></li>
+-	<li><a href="msb-health">Gesundheits Layer</a></li>
+-	<li><a href="msb-normal">Normaler Layer</a></li>
+-	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+-	<li><a href="msb-starve">Hunger Layer</a></li>
+-	<li><a href="msb-transport">Verkehrs Layer</a></li>
+-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/msb-starve.xml b/data/help/de/msb-starve.xml
+index 30cd55d7..0f01b371 100644
+--- a/data/help/de/msb-starve.xml
++++ b/data/help/de/msb-starve.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Ernährungsübersichtskarte</p>
++	<p style="htitle">Hunger-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+-	<p style="hp">In der Ernährungsübersicht werden nur Wohngebiete 
++	<p style="hp">In der Hunger-Ebene werden nur Wohngebiete 
+     berücksichtigt.</p>
+ 	<p style="hp">Hellgrün bedeutet, dass genügend Nahrung von den Märkten und 
+     Wasser von erreichbaren Brunnen für alle Bewohner
+@@ -10,19 +10,21 @@
+      an.</p>
+     <p style="hp">Der Einzugsbereich von Brunnen wird dunkelblau angezeigt.</p>
+ 
+-	<p style="hp">Linksklick auf die Minikarte bewegt die Hauptansicht zur
+-    gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
+-    drücken Sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
++    <p style="hp">Linksklick auf die Miniaturansicht, um
++        zur entsprechenden Stelle auf der Hauptansicht zu
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
++        Hauptansicht legen.</p>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="mini-screen">Minikarte</a></li>
+-	<li><a href="msb-coal">Kohlenflözekarte</a></li>
+-	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
+-	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
+-	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
+-	<li><a href="msb-normal">Normale Ansicht</a></li>
+-	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
+-	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
+-	<li><a href="msb-transport">Transportübersicht</a></li>
+-	<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
++	<li><a href="mini-screen">Miniaturansicht</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
++
+ </Document>
+diff --git a/data/help/de/msb-transport.xml b/data/help/de/msb-transport.xml
+index a06d8180..2d98bdb4 100644
+--- a/data/help/de/msb-transport.xml
++++ b/data/help/de/msb-transport.xml
+@@ -1,29 +1,29 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Transportübersicht</p>
++	<p style="htitle">Transport-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+-	<p style="hp">Die Transportminikarte zeigt die Menge von Waren,
+-    die sich auf den <a href="track">Wegen</a>, <a href="road">Straßen </a>
+-    und <a href="rail">Eisenbahnen </a> der Stadt befinden.</p>
++	<p style="hp">Die Transport-Ebene zeigt die Menge von Waren,
++    die sich auf den <a href="track">Wegen</a>, <a href="road">Straßen</a>
++    und <a href="rail">Eisenbahnen</a> der Stadt befinden.</p>
+ 	<p style="hp">Die bläulichen Farben sind Gebäude, die sich in der
+-    Reichweite eines <a href="market">Marktes </a> befinden.</p>
++    Reichweite eines <a href="market">Marktes</a> befinden.</p>
+ 
+-    <p style="hp">Linksklick auf die Miniaturansicht um
++    <p style="hp">Linksklick auf die Miniaturansicht, um
+         zur entsprechenden Stelle auf der Hauptansicht zu
+-        springen. Linksklick auf ein anderes Symbol aktiviert einen
+-        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
+         Hauptansicht legen.</p>
+ 
+-
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="mini-screen">Minikarte</a></li>
+-	<li><a href="msb-coal">Kohlenflözekarte</a></li>
+-	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
+-	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
+-	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
+-	<li><a href="msb-normal">Normale Ansicht</a></li>
+-	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
+-	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
+-	<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
+-	<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
++	<li><a href="mini-screen">Miniaturansicht</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
++	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
++
+ </Document>
+diff --git a/data/help/de/msb-ub40.xml b/data/help/de/msb-ub40.xml
+index 1ecfd49f..51a292c6 100644
+--- a/data/help/de/msb-ub40.xml
++++ b/data/help/de/msb-ub40.xml
+@@ -1,24 +1,26 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Arbeitslosenübersicht</p>
++	<p style="htitle">Arbeitslosigkeits-Ebene</p>
+ 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+-	<p style="hp">Die Arbeitslosenübersicht erfasst nur Wohngebiete.</p>
++	<p style="hp">Die Arbeitslosigkeits-Ebene erfasst nur Wohngebiete.</p>
+ 	<p style="hp">Hellgrün bedeutet keine Arbeitslosigkeit, dunkelgrün bis
+     hellrot zeigt zunehmende Anzahl von Arbeitslosen an.</p>
+ 	
+-	<p style="hp">Linksklick auf die Minikarte bewegt die Hauptansicht zur
+-    gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
+-    drücken Sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
+-	
++    <p style="hp">Linksklick auf die Miniaturansicht, um
++        zur entsprechenden Stelle auf der Hauptansicht zu
++        springen. Linksklick auf ein anderes Symbol aktiviert eine
++        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
++        Hauptansicht legen.</p>
++
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="mini-screen">Minikarte</a></li>
+-	<li><a href="msb-coal">Kohlenflözekarte</a></li>
+-	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
+-	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
+-	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
+-	<li><a href="msb-normal">Normale Ansicht</a></li>
+-	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
+-	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
+-	<li><a href="msb-transport">Transportübersicht</a></li>
+-	<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
++	<li><a href="mini-screen">Miniaturansicht</a></li>
++	<li><a href="msb-coal">Kohle-Ebene</a></li>
++	<li><a href="msb-cricket">Sport-Ebene</a></li>
++	<li><a href="msb-fire">Feuer-Ebene</a></li>
++	<li><a href="msb-health">Gesundheits-Ebene</a></li>
++	<li><a href="msb-normal">Normale Ebene</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
++	<li><a href="msb-transport">Transport-Ebene</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/ore.xml b/data/help/de/ore.xml
+index c177ca00..6bfc7701 100644
+--- a/data/help/de/ore.xml
++++ b/data/help/de/ore.xml
+@@ -2,15 +2,15 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Erz</p>
+ 	<p style="hp">Erz ist einer der Rohstoffe in diesem Spiel.
+-    Köhlereien, Erzgruben und Recyclinghöfe erzeugen Erz.</p>
+-	<p style="hp">Töpfereien, Industriebetriebe und Schwerindustrie benötigen
++    Köhlereien, Erzbergwerke und Recyclingzentren produzieren Erz.</p>
++	<p style="hp">Töpfereien, Leichtindustrie und Schwerindustrie benötigen
+     Erz.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="commune">Köhlerei</a></li>
+-	<li><a href="oremine">Erzgrube</a></li>
+-	<li><a href="recycle">Recyclinghöfe</a></li>
++	<li><a href="oremine">Erzbergwerk</a></li>
++	<li><a href="recycle">Recyclingzentren</a></li>
+ 	<li><a href="pottery">Töpfereien</a></li>
+-	<li><a href="indistryl">Industriebetriebe</a></li>
++	<li><a href="indistryl">Leichtindustrie</a></li>
+ 	<li><a href="indistryh">Schwerindustrie</a></li>
+ </Document>
+diff --git a/data/help/de/oremine.xml b/data/help/de/oremine.xml
+index ef32b850..89e8f2e9 100644
+--- a/data/help/de/oremine.xml
++++ b/data/help/de/oremine.xml
+@@ -1,19 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Erzgruben</p>
+-	<p style="hp">Erzgruben stellen Erz zur Herstellung von Waren und
+-    Stahl zur Verfügung. Sie können Erzgruben überall errichten. Das Erz
++	<p style="htitle">Erzbergwerke</p>
++	<p style="hp">Erzbergwerke stellen Erz zur Herstellung von Waren und
++    Stahl zur Verfügung. Sie können Erzbergwerke überall errichten. Das Erz
+     im Boden wird langsam abgebaut werden; die Grube abreißen und eine neue
+-    an die gleiche Stelle stellen bringt nicht mehr Erz.</p>
++    an die gleiche Stelle stellen, bringt kein neues Erz.</p>
+ 	<p style="hp">Sobald eine Grube erschöpft ist, wird ihr Gebiet zu einem See.
+-    Um das Land neu erschließen zu können müssen sie 16 Wasserfelder
++    Um das Land neu erschließen zu können, müssen sie 16 Wasserfelder
+     zuschütten!</p>
+-	<p style="hp">Transportwege verbinden sich mit der Nordwestecke der
+-    Grube.</p>
++	<p style="hp">Transportwege verbinden sich mit der Nordwestecke des
++    Bergwerks.</p>
+ 	
+-	<p style="hp">Das ist eine Erzgrube</p>
++	<p style="hp">Das ist ein Erzbergwerk</p>
+ 	<img src="images/tiles/oremine1.png" halign="center"/>
+-	<p style="hp">und das das Symbol</p>
++	<p style="hp">und dies ist sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/other-costs.xml b/data/help/de/other-costs.xml
+index d68159b7..ff5ca830 100644
+--- a/data/help/de/other-costs.xml
++++ b/data/help/de/other-costs.xml
+@@ -3,7 +3,7 @@
+ 	<p style="htitle">Sonstige Kosten</p>
+ 	<p style="hp">Dieser Teil der Finanzansicht zeigt sonstige Ausgaben.</p>
+ 	<p style="hp">Es wird eine genauere Aufschlüsselung der Ausgaben, die
+-    auf der Gewinn- und Verlustrechnung als 'Sonstige Ausgaben' auftauchen, dargestellt.</p>
++    auf der Gewinn- und Verlustrechnung als »Sonstige Ausgaben« auftauchen, dargestellt.</p>
+ 	<p style="hp">Durch Klick auf den Reiter können Sie zwischen den 
+     verschiedenen Finanzansichten wechseln.</p>
+ </Document>
+diff --git a/data/help/de/park.xml b/data/help/de/park.xml
+index 83eaed86..fc8d0c42 100644
+--- a/data/help/de/park.xml
++++ b/data/help/de/park.xml
+@@ -3,15 +3,15 @@
+ 	<p style="htitle">Parks</p>
+ 	<p style="hp">Parks funktionieren ganz einfach: sie reduzieren Verschmutzung.</p>
+ 	<p style="hp">Eine ganze Menge Gebiete erzeugen Verschmutzung. Beispielsweise
+-    Straßen, Eisenbahnen, Kohlebergwerke, Industriegebiete, Schwerindustrie  
++    Straßen, Eisenbahnen, Kohlebergwerke, Leichtindustrie, Schwerindustrie  
+     und Kohlekraftwerke. Manche erzeugen mehr Verschmutzung als andere.</p>
+-	<p style="hp">Sie können Parks verwenden um Ihre Wohngebiete
++	<p style="hp">Sie können Parks verwenden, um Ihre Wohngebiete
+     abzuschirmen, oder um zu verhindern, dass sich die Verschmutzung 
+     über ihr Entstehungsgebiet hinaus ausbreitet. </p>
+ 	<p style="hp">Der Wind kommt <b>von</b> Südwest, also sollten Sie die Parks
+     entsprechend bauen.</p>
+-	<p style="hp">Parks benötigen Grundwasser, sie können also nur auf "grünen"
+-    Feldern gebaut werden.</p>
++	<p style="hp">Parks benötigen Grundwasser, sie können also nur auf Grünflächen
++    gebaut werden.</p>
+ 	
+ 	<p style="hp">Das ist ein Park</p>
+ 	<img src="images/tiles/parkland-plane.png" halign="center"/>
+@@ -24,5 +24,5 @@
+ 	<li><a href="rail">Eisenbahnen</a></li>
+ 	<li><a href="coalmine">Kohlebergwerke</a></li>
+ 	<li><a href="industryh">Schwerindustrie</a></li>
+-	<li><a href="industryl">Industriegebiete</a></li>
++	<li><a href="industryl">Leichtindustrie</a></li>
+ </Document>
+diff --git a/data/help/de/pbar.xml b/data/help/de/pbar.xml
+index 8d4706c5..0256ccaa 100644
+--- a/data/help/de/pbar.xml
++++ b/data/help/de/pbar.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Statusanzeige</p>
+-	<p style="hp">Diese Anzeige liegt auf der "Stat." Registerkarte.
++	<p style="htitle">Statistikanzeige</p>
++	<p style="hp">Diese Anzeige liegt auf der »Stat.«-Registerkarte.
+     Sie zeigt die Änderungen an Ressourcen und den Lagerbestand in Märkten.</p>
+ 	<p style="hp">Ein roter Balken links bedeutet Abnahme, ein grüner Balken
+     rechts bedeutet Zunahme. Die Länge des Balkens gibt den Betrag 
+diff --git a/data/help/de/pollution.xml b/data/help/de/pollution.xml
+index 0811ebd2..2f66e593 100644
+--- a/data/help/de/pollution.xml
++++ b/data/help/de/pollution.xml
+@@ -4,26 +4,26 @@
+ 	<p style="hp">Viele Gebiete verursachen Verschmutzung. Besonders viel
+     wird durch die folgenden Gebäude erzeugt:</p>
+ 	<li>Schwerindustrie</li>
+-	<li>Industriebetriebe</li>
++	<li>Leichtwerke</li>
+ 	<li>Kohlekraftwerke</li>
+ 	<li>Märkte, deren Müllager voll ist.</li>
+ 	<li>Straßen und Eisenbahnen, besonders wenn sie voll Müll sind.</li>
+-	<p style="hp">Leute wohnen nicht gerne in verschmutzten Gegenden.
++	<p style="hp">Einwohner wohnen nicht gerne in verschmutzten Gegenden.
+     Entweder ziehen sie aus, oder sie werden sogar krank und sterben.</p>
+ 	<p style="hp">Der Wind kommt hauptsächlich aus dem Südwesten, also
+     zieht die Verschmutzung eher nach Nordosten.</p>
+-	<p style="hp">Normalerweise sollten Sie so bauen, dass Ihre Leute
++	<p style="hp">Normalerweise sollten Sie so bauen, dass Ihre Einwohner
+     keiner Verschmutzung ausgesetzt werden. Das ist aber nicht immer möglich.
+    In diesem Fall können Sie Parks als Barrieren verwenden, je mehr Parks,
+     desto mehr Schutz.</p>
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="industryh">Schwerindustrie</a></li>
+-	<li><a href="industryl">Industriebetriebe</a></li>
++	<li><a href="industryl">Leichtindustrie</a></li>
+ 	<li><a href="powerscoal">Kohlekraftwerke</a></li>
+-	<li><a href="coalmine">Kohleminen</a></li>
++	<li><a href="coalmine">Kohlebergwerke</a></li>
+ 	<li><a href="market">Märkte</a></li>
+ 	<li><a href="rail">Eisenbahnen</a></li>
+ 	<li><a href="road">Straßen</a></li>
+ 	<li><a href="park">Parks</a></li>
+-	<li><a href="msb-pol">Verschmutzungskarte</a></li>
++	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/power.xml b/data/help/de/power.xml
+new file mode 100644
+index 00000000..d4d4d68a
+--- /dev/null
++++ b/data/help/de/power.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Energie</p>
++	<p style="hp">Energie gibt es in zwei Arten: Niedrigspannung und Hochspannung. Niedrigspannungsenergie fließt in unterirdischen Kabeln entlang des Transportnetzes ihrer Stadt. Hochspannungsenergie fließt durch oberirsche Stromleitungen.</p>
++	<p style="hp">Niedrigspannung wird von klassischen Windmühlen oder Umspannwerken produziert. Sie kann Wohngebiete, Bauernhöfe, Textilfabriken, Leichtindustrien und Schwerindustrien (auch bekannt als »Stahlwerke«) versorgen.</p>
++	<p style="hp">Hochspannung wird von Kohle-, Solar oder Windkraftwerken produziert und kann entweder zu Umspannwerken oder direkt zu Leicht- oder Schwerindustrien (auch bekannt als »Stahlwerke«) geliefert werden.</p>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="commodities">Verbrauchsgüter</a></li>
++	<li><a href="windmill">Windmühlen</a></li>
++	<li><a href="residential">Wohngebiet</a></li>
++	<li><a href="commune">Wälder</a></li>
++	<li><a href="farm">Bauernhöfe</a></li>
++	<li><a href="powerline">Stromleitungen</a></li>
++	<li><a href="powerscoal">Kohlekraftwerk</a></li>
++	<li><a href="powerssolar">Solarkraftwerk</a></li>
++	<li><a href="substation">Umspannwerke</a></li>
++	<li><a href="industryl">Leichtindustrien</a></li>
++	<li><a href="industryh">Schwerindustrie (Stahlwerke)</a></li>
++</Document>
+diff --git a/data/help/de/powerline.xml b/data/help/de/powerline.xml
+index 0513499a..91852035 100644
+--- a/data/help/de/powerline.xml
++++ b/data/help/de/powerline.xml
+@@ -2,15 +2,15 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Stromleitungen</p>
+ 	<p style="hp">Stromleitungen leiten den Strom von Kohle- und 
+-    Solarkraftwerken zu den Umspannhäuschen. Stromleitungen werden 
++    Solarkraftwerken zu den Umspannwerken. Stromleitungen werden 
+     an der Nordwestecke dieser Gebäude angeschlossen. Auch die moderne
+     Form der Windmühle erzeugt Strom.</p>
+ 	<p style="hp">Stromleitungen <b>unterqueren</b> Wege, Straßen
+      Eisenbahnschienen und Wasser jeweils mit der Breite von einem Feld.
+-    Wenn eine Stromleitung also auf beide Seiten einer Straße gestellt wird
++    Wenn eine Stromleitung also auf beide Seiten einer Straße gestellt wird,
+     zählen sie als verbunden. Meistens müssen sie trotzdem einen Teil des
+-    Flusses zuschütten um Ihn mit einer Stromleitung zu queren, was recht teuer
+-    ist. Stromleitungen gelten nur in in gerader Linie als verbunden.</p>
++    Flusses zuschütten, um ihn mit einer Stromleitung zu überqueren, was recht teuer
++    ist. Stromleitungen gelten nur in gerader Linie als verbunden.</p>
+ 
+ 	<p style="hp">Eine Stromleitung</p>
+ 	<img src="images/tiles/powerlvd.png" halign="center"/>
+@@ -20,8 +20,8 @@
+ 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="substation">Umspannhäuschen</a></li>
++	<li><a href="substation">Umspannwerke</a></li>
+ 	<li><a href="powerssolar">Solarkraftwerk</a></li>
+-	<li><a href="msb-power">Stromversorgungskarte</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
+ </Document>
+ 
+diff --git a/data/help/de/powerscoal.xml b/data/help/de/powerscoal.xml
+index 59707366..b01aa427 100644
+--- a/data/help/de/powerscoal.xml
++++ b/data/help/de/powerscoal.xml
+@@ -20,5 +20,5 @@
+ 	<li><a href="transport">Transport</a></li>
+ 	<li><a href="tech-level">Technologieniveau</a></li>
+ 	<li><a href="powerline">Stromleitungen</a></li>
+-	<li><a href="msb-power">Stromversorgungskarte</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/powerssolar.xml b/data/help/de/powerssolar.xml
+index bb7b5b98..a1d62ff3 100644
+--- a/data/help/de/powerssolar.xml
++++ b/data/help/de/powerssolar.xml
+@@ -13,10 +13,10 @@
+ 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="substation">Umspannhäuschen</a></li>
++	<li><a href="substation">Umspannwerke</a></li>
+ 	<li><a href="powerline">Stromleitungen</a></li>
+ 	<li><a href="residential">Wohngebiete</a></li>
+ 	<li><a href="tech-level">Technologieniveau</a></li>
+-	<li><a href="msb-power">Stromversorgungskarte</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
+ 	<li><a href="windmill">Windmühlen</a></li>
+ </Document>
+diff --git a/data/help/de/query.xml b/data/help/de/query.xml
+index dad63b72..0ebf127f 100644
+--- a/data/help/de/query.xml
++++ b/data/help/de/query.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Abfragewerkzeug</p>
+-	<p style="hp">Um Informationen über ein Gebäude zu erhalten klicken
++	<p style="hp">Um Informationen über ein Gebäude zu erhalten, klicken
+     Sie es mit diesem Werkzeug an.</p>
+ 	<p style="hp">Die Informationen werden rechts unten anstelle der Minikarte
+     angezeigt.</p>
+diff --git a/data/help/de/rail.xml b/data/help/de/rail.xml
+index 2c148926..3dd4699e 100644
+--- a/data/help/de/rail.xml
++++ b/data/help/de/rail.xml
+@@ -6,9 +6,9 @@
+     teuer, sowohl in der Anschaffung als auch im Unterhalt. Aber sie sind es
+     wert, wenn Sie viel über eine weite Strecke transportieren müssen.</p>
+ 
+-	<p style="hp">Das ist eine Schiene</p>
++	<p style="hp">Das ist eine Eisenbahnschiene</p>
+ 	<img src="images/tiles/railud.png" halign="center"/>
+-	<p style="hp">und das das Symbol</p>
++	<p style="hp">und dies ist ihr Symbol</p>
+ 	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/recycle.xml b/data/help/de/recycle.xml
+index 867bf2e2..ad4d8363 100644
+--- a/data/help/de/recycle.xml
++++ b/data/help/de/recycle.xml
+@@ -1,23 +1,23 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Recyclinghöfe</p>
+-	<p style="hp">Gebrauchte Waren erzeugen Abfall.</p>
+-	<p style="hp">Auf Recyclinghöfen werden gebrauchte Waren zu Erz verarbeitet.
++	<p style="htitle">Recyclingzentren</p>
++	<p style="hp">Gebrauchte Waren erzeugen Müll.</p>
++	<p style="hp">Auf Recyclingzentren werden gebrauchte Waren zu Erz verarbeitet.
+     Sie werden an der Nordwestecke mit Transportwegen verbunden. Es werden
+-    Arbeiter und Geld benötigt um Abfall einzusammeln und ihn in Erz
++    Arbeiter und Geld benötigt, um Müll einzusammeln und ihn in Erz
+     umzuwandeln.</p>
+-	<p style="hp">Auch wenn Ihre Recyclinghöfe keinen Wirkungsgrad von 100%
++	<p style="hp">Auch wenn Ihre Recyclingzentren keinen Wirkungsgrad von 100%
+     haben, können Sie eine nachhaltige Wirtschaft betreiben, indem Sie
+-    mittels Spinnereien die 'verlorenen' Waren ersetzen. </p>
++    mittels Fabriken die »verlorenen« Waren ersetzen. </p>
+ 	
+-	<p style="hp">Das ist ein Recyclinghof</p>
++	<p style="hp">Das ist ein Recyclingzentrum</p>
+ 	<img src="images/tiles/recycle-centre.png" halign="center"/>
+-	<p style="hp">und das das Symbol</p>
++	<p style="hp">und dies ist sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+ 	
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="goods">Waren</a></li>
+ 	<li><a href="ore">Erz</a></li>
+ 	<li><a href="transport">Transport</a></li>
+-    <li><a href="sustain">nachhaltige Wirtschaft</a></li>
++    <li><a href="sustain">Nachhaltige Wirtschaft</a></li>
+ </Document>
+diff --git a/data/help/de/residential.xml b/data/help/de/residential.xml
+index 5a09f18f..3d1256db 100644
+--- a/data/help/de/residential.xml
++++ b/data/help/de/residential.xml
+@@ -3,12 +3,12 @@
+ 	<p style="htitle">Wohngebiete</p>
+     <p style="hp">Hier wohnt die Bevölkerung. Um die Leute dazu
+     zu bringen, sich in dieser Gegend niederzulassen, müssen
+-    sie mit Nahrung und Wasser versorgt werden.  Es hilft auch,
++    sie mit Nahrung und Wasser versorgt werden. Es hilft auch,
+     ihnen Arbeitsplätze und Waren zur Verfügung zu stellen.
+     Wohngebiete müssen dazu im Bereich eines Marktes liegen,
+     oder mit einem Transportweg verbunden sein. Auch müssen sie
+     im Bereich eines Brunnens liegen. Es gibt drei verschiedene
+-    Arten von Wohngebieten: welche mit geringer, mittlerer und
++    Arten von Wohngebieten: Welche mit geringer, mittlerer und
+     hoher Siedlungsdichte. Jede Art hat eine unterschiedliche
+     Geburten- und Sterberate. Dadurch können Sie das Wachstum Ihrer
+     Bevölkerung beeinflussen.</p>
+@@ -20,18 +20,18 @@
+     Geburten- und eine niedrige Sterberate und das Gebäude mit der hohen Dichte 
+     hat sowohl eine hohe Geburten- als auch Sterberate. Die modernen Häuser
+     verhalten sich genauso, nur finden in ihnen jeweils mehr Leute Platz als
+-    im entsprechenden altmodischen Haus.</p>
+-	<p style="hp">Dies ist die hightech Version des Gebäudes mit geringer Siedlungsdichte</p>
++    in den entsprechenden altmodischen Häusern.</p>
++	<p style="hp">Dies ist die moderne Version des Gebäudes mit geringer Siedlungsdichte</p>
+ 	<img src="images/tiles/reslowhi.png" halign="center"/>
+-	<p style="hp">und das zugehörige Symbol</p>
++	<p style="hp">und dies ist das zugehörige Symbol</p>
+ 	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+-	<p style="hp">mittlere Siedlungsdichte (hightech)</p>
++	<p style="hp">mittlere Siedlungsdichte (modern)</p>
+ 	<img src="images/tiles/resmedhi.png" halign="center"/>
+-	<p style="hp">und das zugehörige Symbol</p>
++	<p style="hp">und dies ist zugehörige Symbol</p>
+ 	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+-	<p style="hp">hohe Siedlungsdichte (hightech)</p>
++	<p style="hp">hohe Siedlungsdichte (modern)</p>
+ 	<img src="images/tiles/reshihi.png" halign="center"/>
+-	<p style="hp">und das zugehörige Symbol</p>
++	<p style="hp">und dies ist zugehörige Symbol</p>
+ 	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+diff --git a/data/help/de/river.xml b/data/help/de/river.xml
+index 8ac7bedd..1020b31d 100644
+--- a/data/help/de/river.xml
++++ b/data/help/de/river.xml
+@@ -1,19 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Flüsse / Wasser</p>
+-	<p style="hp">Flüsse sind meistens im Weg. Es ist sehr teuer sie 
++	<p style="htitle">Flüsse/Wasser</p>
++	<p style="hp">Flüsse sind meistens im Weg. Es ist sehr teuer, sie 
+     zuzuschütten. Sie werden gebraucht, da Häfen am Fluss liegen
+     müssen.</p>
+ 	<p style="hp">Es gibt zwei Arten von Gewässern. Seen sind alle
+     Wasserflächen, die <b>nicht</b> mit den Flüssen verbunden sind.
+     Der Fluss ist zunächst alles Wasser, das zu Spielbeginn da war.
+-    Beispiel: Sobald eine Erzgrube leer ist läuft sie mit Wasser voll.
++    Beispiel: Sobald eine Erzgrube leer ist, läuft sie mit Wasser voll.
+     Falls sie mit dem Fluss verbunden ist, ist die neue Wasserfläche 
+     Teil des Flusses, ansonsten ein See.</p>
+-    <p style="hp">Wenn ein Stück des Flusses zugeschüttet wird
+-        bleiben beide Wasserteile immer noch Teil des Flusses. </p>
+-    <p style="hp">Um eine Brücke zu errichten bauen Sie den Transportweg
+-    auf das Wasser.</p>
++    <p style="hp">Wenn ein Teil des Flusses zugeschüttet wird,
++        bleiben beide Wasserteile immer noch Teil des Flusses.</p>
++    <p style="hp">Um eine Brücke zu errichten, bauen Sie den Transportweg
++    auf dem Wasser.</p>
+ 	<p style="hp">Sobald eine Wasserfläche einmal Teil des Flusses ist,
+     kann sie <b>nicht</b> wieder in einen See verwandelt werden. Wasser,
+     das Teil des Flusses ist, wird im <a href="query">Abfragewerkzeug</a>
+diff --git a/data/help/de/road.xml b/data/help/de/road.xml
+index 1d1acc14..5e340539 100644
+--- a/data/help/de/road.xml
++++ b/data/help/de/road.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Straßen</p>
+-	<p style="hp">Auf Straßen passt mehr als auf Wege, aber weniger als auf
++	<p style="hp">Auf Straßen passt mehr als auf Wegen, aber weniger als auf
+     Eisenbahnen. Auch erzeugen sie mehr Verschmutzung als Eisenbahnen. 
+     Allerdings sind sie in der Anschaffung und im Unterhalt günstiger,
+     so dass sie durchaus ihre Existenzberechtigung haben.</p>
+diff --git a/data/help/de/rocket.xml b/data/help/de/rocket.xml
+index c3ac7255..e4050cc4 100644
+--- a/data/help/de/rocket.xml
++++ b/data/help/de/rocket.xml
+@@ -1,12 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+ 	<p style="htitle">Raketenbasis</p>
+-	<p style="hp">Raketenbasen erlauben es Ihnen Ihre Bevölkerung auf einen anderen Planeten zu evakuieren und dadurch das Spiel zu gewinnen.</p>
++	<p style="hp">Raketenbasen erlauben es Ihnen, Ihre Bevölkerung auf einen anderen Planeten zu evakuieren und dadurch das Spiel zu gewinnen.</p>
+ 	<p style="hp">Sie müssen fünf erfolgreiche unbemannte Raketenstarts haben, bevor Sie mit der Evakuierung beginnen können. Jede erfolgreich gestartete Evakuierungsrakete kann 1000 Menschen transportieren.</p>
+ 	<p style="hp">Falls ein Start fehlschlägt, müssen Sie weitere 5 unbemannte Raketen abschicken, bevor Sie weiter evakuieren können.</p>
+-	<p style="hp">Das Technologieniveau ist ausschlaggebend für den Erfolg eines Raketenstarts. Ein 80%iges Technologieniveau bedeutet, das nur 4 von 5 Raketen erfolgreich starten. Ein 100%iges Technologieniveau dagegen bedeutet, dass jede Rakete in den Himmel kommt (Beachte: Bei den <i>ersten 5</i> Starts kann es trotzdem zu Abstürzen kommen!).</p>
+-	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Waren, Arbeitskräfte und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefgragt, ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen, können Sie durch Klicken auf die Rakete diesen Dialog erneut anzeigen.</p>
+-	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht abgeschossen wurde, benötigt sie zwar keinen Stahl, keine Waren und Arbeitskräfte mehr, kostet aber trotzdem sehr viel Geld.</p>
++	<p style="hp">Das Technologieniveau ist ausschlaggebend für den Erfolg eines Raketenstarts. Ein 80%iges Technologieniveau bedeutet, das nur 4 von 5 Raketen erfolgreich starten. Ein 100%iges Technologieniveau dagegen bedeutet, dass jede Rakete in den Himmel kommt. (Beachten Sie: Bei den <i>ersten 5</i> Starts kann es trotzdem zu Abstürzen kommen!)</p>
++	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Waren, Arbeitskräfte und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefragt, ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen, können Sie durch Klicken auf die Rakete diesen Dialog erneut anzeigen.</p>
++	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht gestartet wurde, benötigt sie zwar keinen Stahl, keine Waren und Arbeitskräfte mehr, aber sie kostet trotzdem sehr viel Geld.</p>
+ 	<p style="hp">Dies ist eine Raketenbasis</p>
+ 	<img src="images/tiles/rocket5.png" halign="center"/>
+ 	<p style="hp">und das ihr Symbol</p>
+diff --git a/data/help/de/school.xml b/data/help/de/school.xml
+index d12e5614..17094cea 100644
+--- a/data/help/de/school.xml
++++ b/data/help/de/school.xml
+@@ -2,18 +2,18 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Schulen</p>
+ 	<p style="hp">Schulen benötigen ähnlich wie Universitäten Arbeiter und
+-    Waren um Technologie zu erzeugen. Sie brauchen viel weniger
+-    Arbeiter und Waren als die Unis, erzeugen aber auch viel weniger
++    Waren, um Technologie zu erzeugen. Sie brauchen viel weniger
++    Arbeiter und Waren als die Universitäten, erzeugen aber auch viel weniger
+     Technologie. Wenn Sie die Wahl zwischen vier oder fünf Schulen
+-    oder einer einzigen Uni in der gleichen Gegend haben sind Sie
+-    mit der Uni fast immer besser dran.</p>
++    oder einer einzigen Universität in der gleichen Gegend haben, sind Sie
++    mit der Universität fast immer besser dran.</p>
+ 	<p style="hp">Schulen müssen nicht mit Transportwegen verbunden
+-    sein, aber sie müssen sich in Reichweite eines Marktes befinden
++    sein, aber sie müssen sich in Reichweite eines Marktes befinden,
+     um sich mit den für den Schulbetrieb benötigten Waren und Arbeitern
+     auszustatten.</p>
+-	<p style="hp">Schulen zu betreiben kostet Geld. Sie können die
++	<p style="hp">Der Schulbetrieb kostet Geld. Sie können die
+     Gesamtkosten des <b>letzten</b> Jahres dem Jahresabschluss entnehmen.</p>
+-	<p style="hp">Ob eine Schule in Betrieb ist können Sie wie üblich durch 
++	<p style="hp">Ob eine Schule in Betrieb ist, können Sie wie üblich durch 
+     Anklicken der Schule erkennen.</p>
+ 	<p style="hp">Das ist eine Schule</p>
+ 	<img src="images/tiles/school0.png" halign="center"/>
+diff --git a/data/help/de/slow.xml b/data/help/de/slow.xml
+index fe47cb16..2832229c 100644
+--- a/data/help/de/slow.xml
++++ b/data/help/de/slow.xml
+@@ -2,7 +2,7 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Langsame Geschwindigkeit</p>
+ 	<img src="images/gui/speed/normal.png"/>
+-	<p style="hp">Dies ist der "Langsam"-Knopf. Er lässt das Spiel am langsamsten laufen.</p>
++	<p style="hp">Dies ist der »Langsam«-Knopf. Er lässt das Spiel am langsamsten laufen.</p>
+ 	<p style="hsubtitle">Siehe auch:</p>
+ 	<li><a href="medium">Normal</a></li>
+ 	<li><a href="fast">Schnell</a></li>
+diff --git a/data/help/de/steel.xml b/data/help/de/steel.xml
+index 52b25c67..3db4692f 100644
+--- a/data/help/de/steel.xml
++++ b/data/help/de/steel.xml
+@@ -2,15 +2,15 @@
+ <Document style="helpdocument">
+ 	<p style="htitle">Stahl</p>
+ 	<p style="hp">Stahl wird von der Schwerindustrie, den Stahlwerken hergestellt.
+-    Sie benötigen ein ausreichend hohes Technologieniveau um welche zu bauen. Davor
+-    sind die Köhlereien Ihre einzige Stahlquelle. Köhlereien erzeugen auch eine kleine
+-    Menge Stahl aus Erz. Normalerweise benötigen Sie einige Köhlereien um ihren
++    Sie benötigen ein ausreichend hohes Technologieniveau, um welche zu bauen. Davor
++    sind die Köhlereien Ihre einzige Stahlquelle. Köhlereien produzieren auch eine kleine
++    Menge Stahl aus Erz. Normalerweise benötigen Sie einige Köhlereien, um ihren
+     Stahlbedarf zu decken.</p>
+ 	<p style="hp">Stahl wird von den Schmieden zu Waren verarbeitet. Auch die
+-    Industriebetriebe benötigen Stahl um Werkzeuge und Produkte (Waren) herzustellen.
+-    Industriebetriebe können auch ohne Stahl produzieren, dann allerdings weniger.</p>
++    Leichtindustrie benötigt Stahl, um Werkzeuge und Produkte (Waren) herzustellen.
++    Leichtindustrie kann auch ohne Stahl produzieren, dann allerdings weniger.</p>
+ 	<p style="hp">Der Bau von Raketen erfordert eine Menge Stahl, hauptsächlich
+-    für die Abschussbasis.</p>
++    für die Raketenbasis.</p>
+ 	<p style="hp">Auch der Erhalt von Eisenbahngleisen verbraucht Stahl.</p>
+ 
+ 	<p style="hsubtitle">Siehe auch:</p>
+@@ -18,6 +18,6 @@
+ 	<li><a href="blacksmith">Schmiede</a></li>
+ 	<li><a href="goods">Waren</a></li>
+ 	<li><a href="industryh">Schwerindustrie</a></li>
+-	<li><a href="industryl">Industriebetrieb</a></li>
++	<li><a href="industryl">Leichtindustrie</a></li>
+ 	<li><a href="rail">Eisenbahn</a></li>
+ </Document>
+diff --git a/data/help/de/substation.xml b/data/help/de/substation.xml
+index 76e6846e..6472df2a 100644
+--- a/data/help/de/substation.xml
++++ b/data/help/de/substation.xml
+@@ -1,11 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Umspannhäuschen</p>
+-	<p style="hp">Umspannhäuschen verteilen den Strom aus den Leitungen
++	<p style="htitle">Umspannwerke</p>
++	<p style="hp">Umspannwerke verteilen den Strom aus den Leitungen
+     auf die Gebäude in der Umgebung. Um festzustellen, ob beispielsweise
+     ein Wohngebiet mit Strom versorgt wird, klicken Sie es an und achten
+     Sie auf die Statusanzeige.</p>
+-	<p style="hp">So sieht ein Umspannhäuschen aus</p>
++	<p style="hp">So sieht ein Umspannwerk aus</p>
+ 	<img src="images/tiles/substation-G.png" halign="center"/>
+ 	<p style="hp">und so sein Symbol</p>
+ 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+diff --git a/data/help/de/sustain.xml b/data/help/de/sustain.xml
+index 1fccacfc..e608a12d 100644
+--- a/data/help/de/sustain.xml
++++ b/data/help/de/sustain.xml
+@@ -18,23 +18,23 @@
+         Gebäuden bauen.
+ 	</li>
+ 	<li>
+-		<span color="blue">Leute</span> (blau) Ihre Bevölkerungszahl weicht
++		<span color="blue">Einwohner</span> (blau) Ihre Bevölkerungszahl weicht
+         um maximal 2% von der Zahl in dem Jahr ab, in dem die 180 Jahre 
+         begonnen haben. Wenn die Bevölkerungszahl außerhalb dieses 
+         Bandes liegt springt der Zähler auf Null und die aktuelle 
+         Bevölkerungszahl ist der neue Richtwert. Außerdem brauchen
+-        sie mindestens 5000 Leute.
++        sie mindestens 5000 Einwohner.
+ 	</li>
+ 	<li>
+ 		<span color="yellow">Tech</span> (gelb) Das Technologieniveau ist 
+         ansteigend oder es fällt nur unwesentlich. Wenn es um mehr als 1%
+ 		fällt, wird der Zähler zurückgesetzt. Außerdem brauchen Sie
+-        mindestens ein Technologieniveau von 50%.
++        ein Technologieniveau von mindestens 50%.
+ 	</li>
+ 	<li>
+ 		<span color="red">Feuer</span> (red) Alle brennbaren Gebiete werden
+-        von der Feuerwehr geschützt. Monumente, Erzgruben, Stromleitungen
++        von der Feuerwehr geschützt. Denkmäler, Erzbergwerke, Stromleitungen
+         und Raketenbasen brauchen *nicht* geschützt zu werden.
+ 	</li>
+-	<p style="hp">Jahre bis zur Nachhaltigkeit: Bergbau=180 Handel=180 Geld=60 Leute=60 Tech=120 Feuer=60</p>
++	<p style="hp">Jahre bis zur Nachhaltigkeit: Bergbau=180, Handel=180, Geld=60, Einwohner=60, Tech=120, Feuer=60</p>
+ </Document>
+diff --git a/data/help/de/tech-level.xml b/data/help/de/tech-level.xml
+index 33632871..abb12e31 100644
+--- a/data/help/de/tech-level.xml
++++ b/data/help/de/tech-level.xml
+@@ -4,11 +4,11 @@
+ 	<p style="hp">Das Technologieniveau Ihrer Stadt beeinflusst unter anderem,
+      welche Gebäude Sie bauen können und den Wirkungsgrad verschiedener
+     Vorgänge.</p>
+-	<p style="hp">Um an mehr Technologie zu gelangen müssen Sie Monumente, 
++	<p style="hp">Um an mehr Technologie zu gelangen, müssen Sie Denkmäler
+     Schulen und Universitäten bauen und versorgen.</p>
+-	<p style="hp">Auf niedrigem Technologieniveau können Sie nur Monumente bauen.
++	<p style="hp">Auf niedrigem Technologieniveau können Sie nur Denkmäler bauen.
+     Nachdem Sie davon ein paar eine Zeit lang haben, werden Sie Schulen <i>erfinden</i>.
+-    Schulen erzeugen mehr Technologie als Monumente.</p>
++    Schulen erzeugen mehr Technologie als Denkmäler.</p>
+ 	<p style="hp">Nachdem Sie ein noch höheres Technologieniveau erreicht haben,
+     werden Sie Universitäten <i>erfinden</i>. Diese erzeugen noch mehr Technologie
+     als Schulen, sind aber auch <b>sehr</b> ressourcenhungrig.</p>
+@@ -16,7 +16,7 @@
+     Wissen <i>verloren</i>. Das bedeutet, Sie brauchen um so mehr Schulen und 
+     Universitäten, je höher das angestrebte Technologieniveau ist. </p>
+ 	<p style="hp">Beachten Sie auch, dass wenn Sie beispielsweise eine oder zwei
+-    Unis abreissen (oder Sie nicht mehr genügend Ressourcen für deren Betrieb haben)
++    Unis abreißen (oder Sie nicht mehr genügend Ressourcen für deren Betrieb haben),
+     Ihr Technologieniveau vermutlich <b>fallen</b> wird.</p>
+     <p style="hp">Die Wahrscheinlichkeit für den erfolgreichen Start einer Rakete
+     entspricht dem Technologieniveau.</p>
+diff --git a/data/help/de/tip.xml b/data/help/de/tip.xml
+index 631688bc..11be1d53 100644
+--- a/data/help/de/tip.xml
++++ b/data/help/de/tip.xml
+@@ -1,16 +1,16 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Müllkippe</p>
+-	<p style="hp">Müllkippen sind Plätze, an denen Abfall deponiert werden kann.
++	<p style="htitle">Mülldeponie</p>
++	<p style="hp">Mülldeponien sind Plätze, an denen Abfall deponiert werden kann.
+     Wenn sich zu viel Abfall in den Märkten sammelt, sind diese gezwungen, einen Teil 
+     davon zu verbrennen. Das erzeugt recht viel Verschmutzung, weshalb Sie das vermeiden sollten.</p>
+-	<p style="hp">Während sich die Müllkippe füllt, wird sie langsam zu einem Hügel. 
+-    Wenn die Deponie voll ist wird der Hügel begrünt.</p>
++	<p style="hp">Während sich die Mülldeponie füllt, wird sie langsam zu einem Hügel. 
++    Wenn die Deponie voll ist, wird der Hügel begrünt.</p>
+ 	<p style="hp">Verkehrsanbindung wie üblich über die Nordwestecke.</p>
+-	<p style="hp">Sie können erkennen, ob die Müllkippe in Betrieb ist, indem
++	<p style="hp">Sie können erkennen, ob die Mülldeponie in Betrieb ist, indem
+     Sie sie anklicken.</p>
+ 	
+-	<p style="hp">So sieht eine Müllkippe aus</p>
++	<p style="hp">So sieht eine Mülldeponie aus</p>
+ 	<img src="images/tiles/tip0.png" halign="center"/>
+ 	<p style="hp">und so das Symbol</p>
+ 	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
+diff --git a/data/help/de/transport.xml b/data/help/de/transport.xml
+index b520c888..24db7e6c 100644
+--- a/data/help/de/transport.xml
++++ b/data/help/de/transport.xml
+@@ -5,7 +5,7 @@
+     Straßen und Eisenbahnen. Es gibt eine vierte Möglichkeit, Dinge zu transportieren,
+     indem sie einfach über die Wiese getragen werden. Dieser Handel über kurze Distanzen
+     gehört nicht zu den Verkehrswegen, ist aber trotzdem wichtig.</p>
+-	<p style="hp">Leute können sich Nahrung, Waren und Arbeitsplätze in Märkten
++	<p style="hp">Einwohner können sich Nahrung, Waren und Arbeitsplätze in Märkten
+     besorgen, die in Laufreichweite ihrer Wohngebiete liegen.</p>
+ 	<p style="hp">Alle Gebäude, die Arbeiter benötigen, können diese über
+     Märkte beziehen. Stahlwerke beispielsweise können ihre Arbeiter
+@@ -13,23 +13,23 @@
+     Verkehrsweg erhalten.</p>
+ 	<p style="hp">Bauernhöfe verkaufen ihre Nahrung direkt an Märkte, sie
+     benötigen überhaupt keine Verkehrsanbindung.</p>
+-	<p style="hp">Spinnereien, Töpfereien und Schmieden verkaufen Waren direkt
++	<p style="hp">Fabriken, Töpfereien und Schmieden verkaufen Waren direkt
+     auf dem Markt in der Nähe, von dem sie auch ihre Rohstoffe beziehen.</p>
+ 	<p style="hp">Die folgenden Gebäude handeln sowohl über Verkehrswege als auch
+     über Märkte. Es bleibt Ihnen überlassen, was Sie verwenden möchten. 
+     Märkte haben eine größere <i>Lagerkapazität</i> als Transportwege.</p>
+-	<p style="hp">Industriegebiete, Erzgruben, Müllkippen, Kohleminen,
+-    Schwerindustrie (Stahlwerke) und Recyclingwerke stellen die Verbindung zu 
++	<p style="hp">Leichtindustrie, Erzgruben, Mülldeponien, Kohlebergwerke,
++    Schwerindustrie (Stahlwerke) und Recyclingzentren stellen die Verbindung zu 
+     Verkehrswegen an der Nordwestecke des Gebäudes her. Das ist die in der 
+     Hauptansicht oben liegende Ecke.</p>
+ 	<p style="hp">Das Kohlekraftwerk ist eine Ausnahme. Hier ist der Stromanschluss
+     an der Nordwestecke, die Anbindung an Transportwege erfolgt über die Felder
+     eins weiter südlich und eins weiter östlich.</p>
+-	<p style="hp">Wege, Straßen und Eisenbahnen werden benötigt um Nahrung, Arbeiter,
+-    Waren, Kohle, Erz und Stahl sowie Abfall zwischen den verschiedenen Bereichen zu transportieren.
++	<p style="hp">Wege, Straßen und Eisenbahnen werden benötigt, um Nahrung, Arbeiter,
++    Waren, Kohle, Erz und Stahl sowie Müll zwischen den verschiedenen Bereichen zu transportieren.
+     Wichtig: die verschiedenen Transportwege sind untereinander nicht verbunden,
+     nur mit Hilfe von Märkten können Dinge von einem Transportweg auf einen anderen kommen.</p>
+-	<p style="hp">Um einen Fluss mit einem Transportweg zu überqueren bauen Sie ihn einfach darüber.
++	<p style="hp">Um einen Fluss mit einem Transportweg zu überqueren, bauen Sie ihn einfach darüber.
+     Es wird eine Brücke gebaut. Brücken sind deutlich teurer als normale Transportwege.</p>
+     <p style="hp">Straßen und Eisenbahnen verursachen jährliche Kosten für 
+     Wartung und verschmutzen die Umwelt. Wenn Sie viel Müll transportieren,
+@@ -38,11 +38,11 @@
+ 	<li><a href="residential">Wohngebiet</a></li>
+ 	<li><a href="market">Markt</a></li>
+ 	<li><a href="farm">Bauernhof</a></li>
+-	<li><a href="mill">Spinnerei</a></li>
++	<li><a href="mill">Fabrik</a></li>
+ 	<li><a href="pottery">Töpferei</a></li>
+-	<li><a href="industryl">Industriebetrieb</a></li>
++	<li><a href="industryl">Leichtindustrie</a></li>
+ 	<li><a href="oremine">Erzgrube</a></li>
+-	<li><a href="tip">Müllkippe</a></li>
++	<li><a href="tip">Mülldeponie</a></li>
+ 	<li><a href="port">Hafen</a></li>
+ 	<li><a href="industryh">Schwerindustrie</a></li>
+ 	<li><a href="recycle">Recyclingwerk</a></li>
+diff --git a/data/help/de/tutorial-advanced.xml b/data/help/de/tutorial-advanced.xml
+index ee1f779c..d718bf86 100644
+--- a/data/help/de/tutorial-advanced.xml
++++ b/data/help/de/tutorial-advanced.xml
+@@ -9,28 +9,28 @@ den Markt geholt, der Lagerbestand im Markt steigt</li>
+ <li>Waren, die verkauft werden, gibt der Markt an Transportwege und Verbraucher
+ ab, der Lagerbestand im Markt sinkt.</li>
+ 
+-<p style="hp">Normalerweise behält man die Grundeinstellung "alles
+-kaufen und verkaufen" bei. Nur wenn Sie gezielt etwas verhindern
+-wollen kann es sinnvoll sein, die Einstellung einzelner Märkte
++<p style="hp">Normalerweise behält man die Grundeinstellung »alles
++kaufen und verkaufen« bei. Nur wenn Sie gezielt etwas verhindern
++wollen, kann es sinnvoll sein, die Einstellung einzelner Märkte
+ anzupassen.</p>
+ 
+ <p style="hsubtitle">Nachhaltige Wirtschftsweise</p>
+ <p style="hp">Die vierte Registerkarte in
+ der rechten unteren Ecke enthält die <a
+-href="sustain">Nachhaltigkeitsfortschrittsanzeige</a>.  Es wird
+-dringend empfohlen, den Spielstand abzuspeichern bevor Sie das Spiel
+-längere Zeit unbeaufsichtigt laufen lassen, um zu sehen ob Ihre
++href="sustain">Nachhaltigkeitsfortschrittsanzeige</a>. Es wird
++dringend empfohlen, den Spielstand abzuspeichern, bevor Sie das Spiel
++längere Zeit unbeaufsichtigt laufen lassen, um zu sehen, ob Ihre
+ Wirtschaft nachhaltig ist. Wenn etwas schief geht (z.B. weil es zu
+ einer Hungersnot kommt), können Sie das Spiel nochmal laden.</p>
+ 
+-<p style="hp">Behalten Sie die Gesammtlagerbestände in der <a href="pbar">
+-Statusanzeige</a> im Auge. Das sollte Sie vor Ärger schützen. </p>
++<p style="hp">Behalten Sie die Gesamtlagerbestände in der <a href="pbar">
++Statusanzeige</a> im Auge. Das sollte Sie vor Ärger schützen.</p>
+ 
+ <li>Hinweis: Lassen Sie es nicht zu Barackensiedlungen kommen und lagern
+ Sie nicht zu viel Müll in den Märkten.</li>
+ <p style="hp"></p>
+ 
+-<p style="hp"><a href="tutorial">Tutorium</a></p>
++<p style="hp"><a href="tutorial">Einführung</a></p>
+    	<li><a href="tutorial-aim">Spielziel</a></li>
+ 	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+ 	<li><a href="tutorial-basics">Erste Schritte</a></li>
+diff --git a/data/help/de/tutorial-aim.xml b/data/help/de/tutorial-aim.xml
+index 64ca35ee..19773e95 100644
+--- a/data/help/de/tutorial-aim.xml
++++ b/data/help/de/tutorial-aim.xml
+@@ -1,25 +1,25 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Document style="helpdocument">
+-<p style="htitle">Spielziel </p>
+-<p style="hp">Es gibt zwei Möglichkeiten zu gewinnen:
+-Entweder betreiben Sie eine <a href="sustain">nachhaltige Wirtschaft </a>, 
+-wenn Sie das erreicht haben, können Sie trotzdem weiterspielen. Oder Sie  
+-evakuieren die gesammte Bevölkerung mit <a href="rocket">Raumschiffen</a> 
+-auf einen anderen Planeten. Dann ist das Spiel zu Ende. Ist ja keiner mehr
++<p style="htitle">Spielziel</p>
++<p style="hp">Es gibt zwei Möglichkeiten, zu gewinnen:
++Entweder betreiben Sie eine <a href="sustain">nachhaltige Wirtschaft</a>, 
++wenn Sie das erreicht haben, können Sie trotzdem weiterspielen. Oder Sie
++evakuieren die gesamte Bevölkerung mit <a href="rocket">Raketen</a> auf
++einen anderen Planeten. Dann ist das Spiel zu Ende. Ist ja keiner mehr
+ da, mit dem Sie spielen können.</p>
+ 
+ <p style="hp">Zur Zeit kann man nur auf eine Weise verlieren: Wenn
+-alle Leute tot sind. Also sehen Sie zu, daß ihre Bevölkerung
++alle Einwohner tot sind. Also sehen Sie zu, dass ihre Bevölkerung
+ nicht verhungert oder aufgrund zu hoher Umweltbelastung vergiftet
+ wird.</p> <p style="hp"></p>
+ 
+-<p style="hp">Um mehr Baumöglichkeiten zu erhalten müssen Sie das 
++<p style="hp">Um mehr Baumöglichkeiten zu erhalten, müssen Sie das 
+ Technologieniveau Ihrer Stadt erhöhen. Sie müssen das Bevölkerungswachstum
+ managen, sich um die unterschiedlichen Anforderungen kümmern und die 
+ Wirtschaft im Auge behalten.</p>
+ <p style="hp"></p>
+ 
+-<p style="hp"><a href="tutorial">Tutorium</a></p>
++<p style="hp"><a href="tutorial">Einführung</a></p>
+ 	<li>Spielziel</li>
+ 	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+ 	<li><a href="tutorial-basics">Erste Schritte</a></li>
+diff --git a/data/help/de/tutorial-basics.xml b/data/help/de/tutorial-basics.xml
+index 1e11a1e0..06bb9358 100644
+--- a/data/help/de/tutorial-basics.xml
++++ b/data/help/de/tutorial-basics.xml
+@@ -1,11 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Document style="helpdocument">
+ <p style="htitle">Erste Schritte</p>
+-<p style="hp">Wählen sie "Neues Spiel" &gt; "mit zufälligem Dorf beginnen".
+-In Ihrem neuen Dorf gibt es bereits die grundlegenden Elemente: </p>
+-<li>Bauernhöfe, die die Märkte mit Nahrung beliefern </li>
+-<li>Köhlereien, die Holzkohle sowie geringe Mengen Erz und Stahl erzeugen </li>
+-<li>Einen Brunnen um die Leute mit Wasser zu versorgen</li>
++<p style="hp">Wählen sie »Neues Spiel« &gt; »mit zufälligem Dorf beginnen«.
++In Ihrem neuen Dorf gibt es bereits die grundlegenden Elemente:</p>
++<li>Bauernhöfe, die die Märkte mit Nahrung beliefern</li>
++<li>Köhlereien, die Holzkohle sowie geringe Mengen Erz und Stahl produzieren</li>
++<li>Einen Brunnen, um die Einwohner mit Wasser zu versorgen</li>
+ <li>Wohngebiete</li>
+ <li>eine Töpferei, die Waren produziert</li>
+ <li>Wege</li>
+@@ -16,8 +16,8 @@ Gebäude an.</p>
+ 
+ <p style="hsubtitle">Märkte</p>
+ <p style="hp">Der Markt ist ein zentrales Gebäude im Spiel. Er ist für fast
+-allen lokalen Warenaustausch zwingend erforderlich. 
+-Lesen Sie unbedingt die Hilfsseite um <a href="market">Markt</a>.
++den gesamten lokalen Warenaustausch zwingend erforderlich. 
++Lesen Sie unbedingt die Hilfsseite zum <a href="market">Markt</a>.
+ <i>Wenn ein Markt leer ist, kann er natürlich keine Waren mehr abgeben. Wenn
+ das Lager voll ist, wird er keine Waren des jeweiligen Typs mehr ankaufen. Das
+ ist oft der Grund dafür, dass manchmal ein Gebäude nicht arbeitet. Entweder
+@@ -32,9 +32,9 @@ wird dann aber auf der eintsprechende Hilfeseite erwähnt.
+ Genau wie Märkte haben Verkehrswege eine begrenzte Kapazität.
+ Köhlereien beispielsweie benötigen immer eine Verkehrsanbindung.</p>
+ 
+-<p style="hp">Wenn sich ein 'gewöhnliches' Gebäude nicht im Einzugsbereich 
+-eines Marktes befindet braucht es eine Verkehrsanbindung. Aber bedenken Sie,
+-daß Straßen und Eisenbahnen laufende Kosten verursachen. Wenn Sie also
++<p style="hp">Wenn sich ein »gewöhnliches« Gebäude nicht im Einzugsbereich 
++eines Marktes befindet, braucht es eine Verkehrsanbindung. Aber bedenken Sie,
++dass Straßen und Eisenbahnen laufende Kosten verursachen. Wenn Sie also
+ nicht gerade ein isolierte Einzelgebäude (z.B. ein Denkmal) bauen, ist es
+ normalerweise besser und billiger, Märkte zu verwenden.</p>
+ 
+@@ -44,18 +44,18 @@ Köhlereien benötigt. Alle anderne Aktivitäten erfordern nur einen Markt.</p>
+ <p style="hsubtitle">Geld</p>
+ <p style="hp">Produktion wird besteuert und bringt so Geld in die Stadtkasse.
+ Auf der dritten Registerkarte im Infobereich rechts unten ist die
+-<a href="finance">Finanzenübersicht</a>. 
++<a href="finance">Finanzübersicht</a>. 
+ Investieren Sie nicht zu schnell viel Geld: sobald Ihr Kontostand 
+-negativ ist müssen sie Kreditzinsen bezahlen. Auch lassen sich nicht alle
+-Gebäude auf Pump errichten. Zu welchen Problemen das führen kann sehen Sie
+-im (see <a href="tutorial-scenario">"bad_times" Szenario</a>.</p>
++negativ ist, müssen sie Kreditzinsen bezahlen. Auch lassen sich nicht alle
++Gebäude auf Pump errichten. Zu welchen Problemen das führen kann, sehen Sie
++im <a href="tutorial-scenario">Szenario »Schlechte Zeiten«</a>.</p>
+ 
+-<p style="hsubtitle">Stadtentwicklung </p>
++<p style="hsubtitle">Stadtentwicklung</p>
+ 
+-<p style="hp">Nicht vergessen, dass die Leute ohne Nahrung
+-verhungern und ohne Wasser verdursten. Um das Bevölkerungswachstum zu regulieren müssen
++<p style="hp">Vergessen Sie nicht, dass die Leute ohne Nahrung
++verhungern und ohne Wasser verdursten. Um das Bevölkerungswachstum zu regulieren, müssen
+ Sie ein Gleichgewicht aus den verschiedenen Arten von <a
+-href="residential"> Wohngebieten </a> bauen. Diese haben
++href="residential">Wohngebieten</a> bauen. Diese haben
+ verschiedene Geburten- und Sterberaten. Neue Bürger stellen mehr
+ Arbeitskräfte, wollen aber auch mehr Nahrung, mehr Waren, mehr
+ Arbeitsplätze, ...</p>
+@@ -66,9 +66,9 @@ sicherstellen. Also brauchen Sie eine entsprechende Anzahl an Köhlereien.</p>
+ 
+ <p style="hp">Um neue, modernere Gebäude bauen zu können, müssen Sie das
+ <a href="tech-level">Technologieniveau</a> der Stadt erhöhen.</p>
+-<p style="hp"> Irgendwann werden Sie sich über Ihr Ziel klar werden müssen.
++<p style="hp">Irgendwann werden Sie sich über Ihr Ziel klar werden müssen.
+ Streben sie eine <a href="sustain">nachhaltige Wirtschaft</a> an, oder 
+-Evakuierung Sie vor dem Zusammenbruch alle mit <a href="rocket">Raumschiffen</a>?</p>
++Evakuierung Sie vor dem Zusammenbruch alle mit <a href="rocket">Raketen</a>?</p>
+ 
+ <p style="hp">Behalten Sie die <a href="pbar">Statusanzeige</a> im Auge.
+ Auch die Minikarte gibt Ihnen wertvolle Hinweise zur Wirtschaftslage. Für
+@@ -84,10 +84,10 @@ Wirtschaftsindikatoren verändern.</li>
+ <p style="hp"></p>
+ 
+ <p style="hp">Siehe auch:</p>
+-<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
+-<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
++<li><a href="msb-starve">Hunger-Ebene</a></li>
++<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
+ 
+-<p style="hp"><a href="tutorial">Tutorium</a></p>
++<p style="hp"><a href="tutorial">Einführung</a></p>
+    	<li><a href="tutorial-aim">Spielziel</a></li>
+ 	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+ 	<li>Erste Schritte</li>
+diff --git a/data/help/de/tutorial-overview.xml b/data/help/de/tutorial-overview.xml
+index 305c82be..7b8c7933 100644
+--- a/data/help/de/tutorial-overview.xml
++++ b/data/help/de/tutorial-overview.xml
+@@ -3,24 +3,24 @@
+ <p style="htitle">Bildschirmelemente</p>
+ 
+ <p style="hp"><b>Links oben</b> sind die Symbole für die verschiedenen
+-Werkzeuge zum Erbauen, Überprüfen und Abreißen von Gebäuden. Ein Linksklick
++Werkzeuge zum Bauen, Abfragen und Abreißen von Gebäuden. Ein Linksklick
+ öffnet das Untermenü jeder Gebäudegruppe, ein Rechtsklick wählt das
+ vordere Werkzeug aus. Im Untermenü öffnet ein Rechtsklick die Hilfeseite
+ zum jeweiligen Werkzeug. Lassen Sie den Mauszeiger kurz über einem
+-Schalter Stehen, um den Tooltip anzeigen zu lassen.</p>
++Schalter stehen, um einen Hilfetext anzeigen zu lassen.</p>
+ 
+ <p style="hp"><b>Links unten</b> ist die Einstellung für die
+-Spielgeschwindigkeit </p>
++Spielgeschwindigkeit.</p>
+ 
+ <p style="hp"><b>Rechts unten</b> sind alle
+-"Informationswerkzeuge": Die Minikarte mit vier Registerkarten, darunter kleine
++»Informationswerkzeuge«: Die Minikarte mit vier Registerkarten, darunter kleine
+ Symbole, mit denen verschiedene Informationen auf der Minikarte angezeigt werden.
+ </p> 
+ 
+ <p style="hp">Siehe auch:</p>
+ <li><a href="keys">Maus und Tastatur</a></li>
+ 
+-<p style="hp"><a href="tutorial">Tutorium</a></p>
++<p style="hp"><a href="tutorial">Einführung</a></p>
+ 	<li><a href="tutorial-aim">Spielziel</a></li>
+ 	<li>Bildschirmelemente</li>
+ 	<li><a href="tutorial-basics">Erste Schritte</a></li>
+diff --git a/data/help/de/tutorial-scenario.xml b/data/help/de/tutorial-scenario.xml
+index 7716c05c..74112153 100644
+--- a/data/help/de/tutorial-scenario.xml
++++ b/data/help/de/tutorial-scenario.xml
+@@ -1,32 +1,32 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Document style="helpdocument">
+ <p style="htitle">Szenarien</p>
+-<p style="hp">Szenarien lassen sich über das Hauptmenü mit "Neues Spiel" auswählen.</p>
++<p style="hp">Szenarien lassen sich über das Hauptmenü mit »Neues Spiel« auswählen.</p>
+ 
+ <p style="hsubtitle">Einfach</p>
+-<li>"Strand": Eine große Strandfläche ganz ohne störende Flüsse zum bebauen.
+-Häfen lassen sich später immer noch direkt am Meer bauen. Wenn man die Leute
++<li>»Strand«: Eine große Strandfläche ganz ohne störende Flüsse zum Bebauen.
++Häfen lassen sich später immer noch direkt am Meer bauen. Wenn man die Einwohner
+ nicht gleich am Anfang verhungern lässt, ist die Zukunft offen.</li>
+ 
+-<li>"Gute Zeiten": Eine teilweise ausgebaute, relativ moderne Stadt, viel Geld
++<li>»Gute Zeiten«: Eine teilweise ausgebaute, relativ moderne Stadt, viel Geld
+     und genügend Platz, um eigene Ideen zu verwirklichen.</li>
+ 
+ <p style="hsubtitle">Schwierig</p>
+-<li>"Schlechte Zeiten": Der gleiche Aufbau wie bei "Gute Zeiten", nur ist Ihre Stadt
++<li>»Schlechte Zeiten«: Der gleiche Aufbau wie bei »Gute Zeiten«, nur ist Ihre Stadt
+     überschuldet. Können Sie sie sanieren? Eine eingehende Analyse der gesamten
+     Stadt, sowie drastische Sparmaßnahmen sind erforderlich, um den Bankrott
+     abzuwenden. Schwer aber lösbar. Selbst Nachhaltigkeit ist möglich.</li>
+ 
+-<li>"Trockengebiet": Die Landschaft ist sehr wasserarm, der Standort von
+-    Bauernhöfe und Köhlereien muss sorgfältig gewählt werden, um eine effiziente
+-    Produnktion zu gewährleisten.</li>
++<li>»Trockengebiet«: Die Landschaft ist sehr wasserarm, der Standort von
++    Bauernhöfen und Köhlereien muss sorgfältig gewählt werden, um eine effiziente
++    Produktion zu gewährleisten.</li>
+ 
+-<li>"Feuchtgebiet": Auf dieser an vielen Stellen überfluteten Landschaft ist
++<li>»Feuchtgebiet«: Auf dieser an vielen Stellen überfluteten Landschaft ist
+     es sehr schwierig, eine Stadt zu bauen.</li>
+ 
+ <p style="hp"></p>
+ 
+-<p style="hp"><a href="tutorial">Tutorium</a></p>
++<p style="hp"><a href="tutorial">Einführung</a></p>
+    	<li><a href="tutorial-aim">Spielziel</a></li>
+ 	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+ 	<li><a href="tutorial-basics">Erste Schritte</a></li>
+diff --git a/data/help/de/tutorial.xml b/data/help/de/tutorial.xml
+index 776b75db..6c739622 100644
+--- a/data/help/de/tutorial.xml
++++ b/data/help/de/tutorial.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Document style="helpdocument">
+-	<p style="htitle">Tutorium</p>
++	<p style="htitle">Einführung</p>
+ 
+ 	<li><a href="tutorial-aim">Spielziel</a></li>
+ 	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+diff --git a/data/help/de/university.xml b/data/help/de/university.xml
+index 0c2c9300..b6f93976 100644
+--- a/data/help/de/university.xml
++++ b/data/help/de/university.xml
+@@ -3,9 +3,9 @@
+ 	<p style="htitle">Universität</p>
+ 	<p style="hp">Universitäten tragen zur Erhöhung des Technologieniveaus bei.
+     Dafür benötigen sie Waren und Arbeiter. Sie erzeugen mit der gleichen Menge Waren
+-    und Arbeiter mehr Technologie als Schulen. Allerdings benötigt eine Uni viel mehr
+-    Waren und Arbeiter, zudem kostet der Universitätsbetrieb einen Haufen Geld. Sie
+-    sollten also über genügend Industrie und Kapital verfügen um die Uni zu versorgen.</p>
++    und Arbeiter mehr Technologie als Schulen. Allerdings benötigt eine Universität viel
++    mehr Waren und Arbeiter, zudem kostet der Universitätsbetrieb ein Haufen Geld. Sie
++    sollten also über genügend Industrie und Kapital verfügen, um sie zu versorgen.</p>
+ 	<p style="hp">Sie werden einige Universitäten benötigen, um ein Technologieniveau
+     im Bereich von 100% zu erreichen.</p>
+ 	<p style="hp">Universitäten müssen nicht an das Verkehrsnetz angeschlossen sein, sie
+diff --git a/data/help/de/waste.xml b/data/help/de/waste.xml
+new file mode 100644
+index 00000000..7b71ef98
+--- /dev/null
++++ b/data/help/de/waste.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Müll</p>
++	<p style="hp">Müll wird produziert, wenn Waren konsumiert werden. Müll kann auf eine Mülldeponie gebracht werden, an Recyclingzentren verarbeitet werden oder er stapelt sich einfach an Transportfeldern und Märkten auf. Jedoch wird er, falls sich zu viel Müll stapelt, Feuer fangen und somit schwere Luftverschmutzung verursachen.</p>
++	<p style="hp">Elektrifizierte Bauernhöfe und Wälder (auch bekannt als »Köhlereien«) können eine geringe Menge an Müll biologisch abbauen.</p>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="commodities">Verbrauchsgüter</a></li>
++	<li><a href="tip">Mülldeponien</a></li>
++	<li><a href="recycle">Recyclingzentren</a></li>
++	<li><a href="commune">Wälder</a></li>
++	<li><a href="farm">Bauernhöfe</a></li>
++</Document>
+diff --git a/data/help/de/water.xml b/data/help/de/water.xml
+new file mode 100644
+index 00000000..47d8946e
+--- /dev/null
++++ b/data/help/de/water.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0"?>
++<Document style="helpdocument">
++	<p style="htitle">Wasser</p>
++	<p style="hp">Wasser wird von Brunnen zur Verfügung gestellt und fließt in Rohren unterhalb Ihres Transportnetzwerks der Stadt. Wohngebiete müssen mit Wasserrohren verbunden sein. Wälder (auch bekannt als »Köhlereien«) und elektrifizierte Bauernhöfe können Wasser benutzen, um ihre Fruchtbarkeit mit Bewässerung zu maximieren.</p>
++	<p style="hp">Elektrifizierte Bauernhöfe und Wälder (auch bekannt als »Köhlereien«) können eine geringe Menge Müll biologisch abbauen.</p>
++
++  <p style="hsubtitle">Siehe auch:</p>
++	<li><a href="commodities">Verbrauchsgüter</a></li>
++	<li><a href="waterwell">Brunnen</a></li>
++	<li><a href="residential">Wohngebiet</a></li>
++	<li><a href="commune">Wälder</a></li>
++	<li><a href="farm">Bauernhöfe</a></li>
++</Document>
+diff --git a/data/help/de/waterwell.xml b/data/help/de/waterwell.xml
+index 2bdd6e1f..26ff6b39 100644
+--- a/data/help/de/waterwell.xml
++++ b/data/help/de/waterwell.xml
+@@ -3,10 +3,10 @@
+ 	<p style="htitle">Brunnen</p>
+         <p style="hp">Versorgen die Häuser im Einzugsbereich mit Wasser. 
+         Wassermangel hat die gleichen Folgen wie Nahrungsmangel. Informationen
+-        zur Versorgung gibt es in der Nahrungsversorgungsübersicht der
++        zur Versorgung gibt es in der Nahrungs-Ebene der
+         Miniaturkarte.</p>
+ 
+ 	<p style="hp">Siehe auch:</p>
+ 	<li><a href="food">Nahrung</a></li>
+-	<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
++	<li><a href="msb-starve">Hunger-Ebene</a></li>
+ </Document>
+diff --git a/data/help/de/windmill.xml b/data/help/de/windmill.xml
+index c20669e8..ac0542de 100644
+--- a/data/help/de/windmill.xml
++++ b/data/help/de/windmill.xml
+@@ -6,34 +6,34 @@
+         Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung
+         herzustellen und machen Wohngebiete attraktiver.</p>
+ 
+-    <p style="hp">Die Bewohner von Wohngebiete, die mit Energie
+-        versorgt werden verbrauchen mehr Waren.</p>
++    <p style="hp">Die Bewohner von Wohngebieten, die mit Energie
++        versorgt werden, verbrauchen mehr Waren.</p>
+ 
+     <p style="hp">Die altmodischen Windmühlen erzeugen
+         <b>keine</b> Energie für die Industrie. (Die
+         Schwerindustrie kann Energie aus Kohle gewinnen,
+-        Industriegebiete benötigen <i>elektrischen Strom</i>,
+-        sie funktionieren auch ohne, aber mit deutlich geringerer
++        die Leichtindustrie benötigt <i>elektrischen Strom</i>,
++        sie funktioniert auch ohne, aber mit deutlich geringerer
+         Produktion.) Windmühlen können weder die Industrie noch die
+-        Wertstoffhöfe direkt versorgen.</p>
++        Recyclingzentren direkt versorgen.</p>
+ 
+-    <p style="hp">Windmühlen benötigen Arbeitskräfte um Energie
++    <p style="hp">Windmühlen benötigen Arbeitskräfte, um Energie
+         zu erzeugen. Sind nicht genügend Arbeiter da, wird weniger
+         Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
+ 
+ 	<p style="hp">Es gibt zwei Arten von Windmühlen.</p>
+ 	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+-	<p style="hp">Die Erste ist eine altmodische Holzwindmühle.</p>
++	<p style="hp">Die erste ist eine altmodische Holzwindmühle.</p>
+ 	<img src="images/tiles/windmill1w.png" halign="center"/>
+-	<p style="hp">Die Zweite ist ein modernes Windkraftwerk.</p>
++	<p style="hp">Die zweite ist ein modernes Windkraftwerk.</p>
+ 	<img src="images/tiles/windmill1g.png" halign="center"/>
+ 	<p style="hp">Die Art der Windmühle hängt vom Techniveau zur Bauzeit ab.</p>
+ 	<p style="hp">Die moderne Windmühle kann Strom ins Leitungsnetz einspeisen.</p>
+     <p style="hsubtitle">Siehe auch:</p>
+-	<li><a href="substation">Umspannhäuschen</a></li>
++	<li><a href="substation">Umspannwerke</a></li>
+ 	<li><a href="powerline">Stromleitungen</a></li>
+ 	<li><a href="residential">Wohngebiete</a></li>
+ 	<li><a href="tech-level">Technologieniveau</a></li>
+-	<li><a href="msb-power">Stromversorgungskarte</a></li>
++	<li><a href="msb-power">Energie-Ebene</a></li>
+     <li><a href="powersolar">Solarkraftwerke</a></li>
+ </Document>
