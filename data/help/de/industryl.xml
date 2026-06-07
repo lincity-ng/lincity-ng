@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Leichtindustrie</p>
-	<p style="hp">Die Leichtindustrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
-	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der hauptsächliche Ausstoß der Leichtindustrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, sowie von den zur Verfügung stehenden Arbeitskräften.</p>
-	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen, um Erz, Stahl und Waren zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
-	<p style="hp">Diese Gebiete können <b>NUR</b> an der oberen linken Ecke mit dem Verkehr verbunden werden. Es gibt eine Abzweigung im Verkehrsweg, wenn das Gebäude angeschlossen ist.</p>
+	<p style="htitle">Leichtindustriegebiete</p>
+	<p style="hp">Die Leichtindustrie wandelt Erz in Waren um. Diese Verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls die Produktionsmenge. Ineffiziente Niedrigspannungsenergie kann über Verkehrswege angeliefert werden. Windmühlen werden kaum ausreichend Niedrigspannungsenergie zur Verfügung stellen können.</p>
+	<p style="hp">Als Faustregel gilt: die Produktion der Leichtindustrie hängt hauptsächlich vom verfügbaren Rohmaterial ab, inklusive Arbeit, die sie erhalten kann, und außerdem die Anzahl an Waren, welche abtransportiert werden können.</p>
+	<p style="hp">Diese Gebiete verbinden sich direkt mit Transportwegen, um Arbeit, Erz, Stahl, Energie und Waren zu beziehen. Sie brauchen eventuell einen Markt, um auf voller Leistung laufen zu können.</p>
+	<p style="hp">Die Leichtindustrie verursacht schwere Verschmutzung.</p>
 	
 	<p style="hp">Dies ist die Leichtindustrie</p>
 	<img src="images/tiles/industryl-low.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">59 Arbeit + 250 Erz + 12 Stahl + (4500 Hochspannung oder 9000 Niedrigspannung) =&gt; 1800 Waren</p>
+        <p style="hp">40 Arbeit + 250 Erz + (4500 Hochspannung oder 9000 Niedrigspannung) =&gt; 900 Waren</p>
+        <p style="hp">59 Arbeit + 125 Erz + 12 Stahl =&gt; 450 Waren</p>
+        <p style="hp">40 Arbeit + 125 Erz =&gt; 225 Waren</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="road">Straße</a></li>
 	<li><a href="rail">Schienen</a></li>
 	<li><a href="market">Markt</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 </Document>

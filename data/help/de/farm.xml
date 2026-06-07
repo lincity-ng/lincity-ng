@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Bauernhof</p>
-	<p style="hp">Bauernhöfe produzieren Nahrung für ihre Bevölkerung und Rohstoffe für Fabriken. Bauern können das Essen an Märkte verkaufen, sie transportieren es mit dem Traktor, weshalb sie nicht ans Verkehrsnetz angeschlossen sein müssen. Sie können den Verkehr aber auch zum Verkauf nutzen, natürlich müssen Sie dabei sichergehen, dass der Markt in Reichweite liegt.</p>
+	<p style="hp">Bauernhöfe produzieren Nahrung für ihre Bevölkerung und Rohstoffe für Fabriken.</p>
+	<p style="hp">Die Produktion eines Bauernhofs hängt vom Grundwasser ab. Kacheln mit Wasser sind grün, andere sind gelbbraun (wie die Wüste oder nackte Erde).</p>
 	
 	<p style="hp">Dies ist ein Bauernhof</p>
 	<img src="images/tiles/farm0.png" halign="center"/>
-	<p style="hp">und das seinSymbol</p>
+	<p style="hp">und das sein Symbol</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">Bauernhöfe brauchen Arbeitsplätze, um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen, steigert die Produktion ebenfalls. Energie beinhaltet auch »altmodische« Windmühlen, die helfen, mehr Nahrung zu produzieren und dabei keine Verschmutzung verursachen.</p>
-	<p style="hp">Die landwirtschaftliche Produktion hängt vom Grundwasser ab, 
-    Felder mit Grundwasser sind grün, andere gelbbraun wie die Wüste.</p>
+	<p style="hp">Bauernhöfe brauchen Arbeit, um mehr als nur eine minimale Menge an Nahrung zu produzieren. Die Bauernhöfe mit (Niedrigspannungs-)Energie zu versorgen, steigert die Produktion. Mit Energie versorgte Bauernhöfe können trockenen Boden bewässern und verbrauchen außerdem Müll. Beachten Sie den Wasserverbrauch der Landwirtschaft.</p>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">13 Arbeit + 50 Niedrigspannungsenergie =&gt; 550 Nahrung + 5,5 Nahrung * Tech</p>
+        <p style="hp">13 Arbeit =&gt; 132 Nahrung</p>
+        <p style="hp">Falls ein Bauernhof weniger als 100% Fruchtbarkeit hat, wird er verhältnismäßig weniger Nahrung produzieren. Eine mit Energie versorgter Bauernhof kann fehlende Fruchtbarkeit kompensieren, indem 50 Wasser je Wüstenkachel verbraucht wird.</p>
+        <p style="hp">Anders als andere Gebäude wird ein Bauernhof die Formeln im Verhältnis skalieren, wenn er nicht vollständig versorgt werden kann.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="food">Nahrung</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="transport">Verkehr</a></li>
-	<li><a href="windmill">Windmühle</a></li>
-	<li><a href="food">Nahrung</a></li>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="power">Energie</a></li>
 </Document>

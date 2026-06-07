@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Köhlerei</p>
-	<p style="hp">Köhlereien sind Plätze, auf denen durch das Verbrennen von Bäumen Holzkohle gewonnen wird (Lincity-NG unterscheidet nicht zwischen den einzelnen Kohlearten). Sie produzieren außerdem kleine Mengen an Erz und Stahl.</p>
+	<p style="hp">Köhlereien (auch »Wälder« genannt) sind Plätze, auf denen durch das Verbrennen von Bäumen Holzkohle gewonnen wird (Holzkohle gilt als Kohle). Sie produzieren außerdem kleine Mengen an Erz und Stahl.</p>
 	<p style="hp">Sie werden wahrscheinlich »ein paar« Köhlereien brauchen, um genug Kohle und Stahl für z.B. Töpfereien, Schmieden und Fabriken zu produzieren.</p>
-	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr produziert, wird sie geschlossen und sie verwandelt sich in einen Park.</p>
-	<p style="hp">Köhlereien können an jeder Stelle mit dem Verkehr verbunden werden, nicht nur am Tor!</p>
-	<p style="hp">Die Produktion der Köhlerei hängt vom Grundwasser ab. Felder mit Grundwasser sind grün, die anderen gelbbraun wie die Wüste.</p>
+	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr produziert, wird sie geschlossen und ihr Gebiet verwandelt sich in Parks.</p>
+	<p style="hp">Die Produktion der Köhlerei hängt vom Grundwasser ab, es sei denn, sie erhalten mittels Transport Süßwasser (Felder mit Grundwasser sind grün, die anderen gelbbraun wie die Wüste)</p>
 	
 	<p style="hp">Dies ist eine Köhlerei</p>
 	<img src="images/tiles/commune1.png" halign="center"/>
 	<p style="hp">und dies ihr Symbol</p>
 	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">0 =&gt; 3 Kohle + 6 Erz + 2 (alle 20 Tage) Stahl</p>
+        <p style="hp">Falls es nicht genug Kapazität gibt, um ein bestimmtes Verbrauchsgut zu produzieren, dann werden die anderen trotzdem produziert.</p>
+        <p style="hp">Falls eine Köhlerei weniger als 100% Fruchtbarkeit hat, wird sie verhältnismäßig weniger Kohle produzieren. Das Fehlen von Fruchtbarkeit kann kompensiert werden, indem 5 Wasser je Wüstenfeld konsumiert werden.</p>
+        <p style="hp">Falls eine Köhlerei mindestens 15% Müllinventar hat, wird sie 20 Müll konsumieren und kann daraus 1 Erz produzieren.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="pottery">Töpferei</a></li>
-	<li><a href="blacksmith">Schmiede</a></li>
-	<li><a href="mill">Fabrik</a></li>
+	<li><a href="pottery">Töpfereien</a></li>
+	<li><a href="blacksmith">Schmieden</a></li>
+	<li><a href="mill">Fabriken</a></li>
 	<li><a href="oremine">Erzbergwerk</a></li>
 	<li><a href="steel">Stahl</a></li>
 </Document>

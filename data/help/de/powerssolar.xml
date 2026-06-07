@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Solarkraftwerke</p>
+	<p style="htitle">Solarkraftwerk</p>
 	<p style="hp">Solarkraftwerke speisen Strom ins angeschlossene Netz 
-    ein. Die Menge des erzeugten Stromes hängt vom Technologieniveau zum
+    über Stromleitungen ein. Die Menge des erzeugten Stromes hängt vom Technologieniveau zum
     <b>Bauzeitpunkt</b> ab.</p>
 	<p style="hp">Solarkraftwerke benötigen zudem Arbeitskräfte für 
-    Wartungsarbeiten. Ganz ohne Arbeiter werden sie keinen Strom erzeugen.</p>
+    die Stromproduktion. Ganz ohne Arbeiter werden sie keinen Strom erzeugen.</p>
 	
 	<p style="hp">Das ist ein Solarkraftwerk</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>
-	<p style="hp">und das das Symbol</p>
+	<p style="hp">und dies ist sein Symbol</p>
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+
+	<p style="hsubtitle">Formeln</p>
+	<p style="hp">50 Arbeit =&gt; 900 Hochspannung + 9 Hochspannung * Tech</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="substation">Umspannwerke</a></li>
+	<li><a href="power">Energie</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
-	<li><a href="residential">Wohngebiete</a></li>
 	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="msb-power">Energie-Ebene</a></li>
 	<li><a href="windmill">Windmühlen</a></li>

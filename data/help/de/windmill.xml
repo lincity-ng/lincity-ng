@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Windmühle</p>
+	<p style="htitle">Windmühlen</p>
 
     <p style="hp">Windmühlen erzeugen Energie für Wohngebiete und
         Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung
         herzustellen und machen Wohngebiete attraktiver.</p>
 
     <p style="hp">Die Bewohner von Wohngebieten, die mit Energie
-        versorgt werden, verbrauchen mehr Waren.</p>
+        versorgt werden, verbrauchen mehr Waren. Falls eine
+        Windmühle nicht genügend Arbeit hat, wird sie weniger
+        Energie produzieren. Wird sie gar nicht mit Arbeit
+        versorgt, produziert sie gar keine Energie.</p>
 
-    <p style="hp">Die altmodischen Windmühlen erzeugen
-        <b>keine</b> Energie für die Industrie. (Die
-        Schwerindustrie kann Energie aus Kohle gewinnen,
-        die Leichtindustrie benötigt <i>elektrischen Strom</i>,
-        sie funktioniert auch ohne, aber mit deutlich geringerer
-        Produktion.) Windmühlen können weder die Industrie noch die
-        Recyclingzentren direkt versorgen.</p>
+    <p style="hp">Es gibt zwei Arten von Windmühlen:</p>
 
-    <p style="hp">Windmühlen benötigen Arbeitskräfte, um Energie
-        zu erzeugen. Sind nicht genügend Arbeiter da, wird weniger
-        Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
+    <img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+    <p style="hp">Die erste ist eine altmodische Windmühle aus Holz.
+    Sie stellt Niedrigspannungsenergie für die örtliche Nachbarschaft zur Verfügung:</p>
 
-	<p style="hp">Es gibt zwei Arten von Windmühlen.</p>
-	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
-	<p style="hp">Die erste ist eine altmodische Holzwindmühle.</p>
-	<img src="images/tiles/windmill1w.png" halign="center"/>
-	<p style="hp">Die zweite ist ein modernes Windkraftwerk.</p>
+    <img src="images/tiles/windmill1w.png" halign="center"/>
+
+    <p style="hp">Die zweite ist ein modernes Windkraftwerk. Sie produziert
+    Hochspannungsenergie für das Stromnetz der Stadt:</p>
 	<img src="images/tiles/windmill1g.png" halign="center"/>
-	<p style="hp">Die Art der Windmühle hängt vom Techniveau zur Bauzeit ab.</p>
-	<p style="hp">Die moderne Windmühle kann Strom ins Leitungsnetz einspeisen.</p>
+
+	<p style="hp">Die Art der Windmühle hängt vom Techniveau zum Bauzeitpunkt ab.</p>
+
+    <p style="hsubtitle">Formeln</p>
+    <p style="hp">Altmodisch: 10 Arbeit =&gt; 450 Niedrigspannung + 4,5 Niedrigspannung * Tech</p>
+    <p style="hp">Modern: 15 Arbeit =&gt; 450 Hochspannung + 4,5 Hochspannung * Tech</p>
+
     <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="power">Energie</a></li>
 	<li><a href="substation">Umspannwerke</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
-	<li><a href="residential">Wohngebiete</a></li>
 	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="msb-power">Energie-Ebene</a></li>
-    <li><a href="powersolar">Solarkraftwerke</a></li>
+    <li><a href="powerscoal">Kohlekraftwerk</a></li>
+    <li><a href="powerssolar">Solarkraftwerk</a></li>
 </Document>

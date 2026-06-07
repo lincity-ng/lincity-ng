@@ -4,7 +4,7 @@
 	<p style="hp">Schulen benötigen ähnlich wie Universitäten Arbeiter und
     Waren, um Technologie zu erzeugen. Sie brauchen viel weniger
     Arbeiter und Waren als die Universitäten, erzeugen aber auch viel weniger
-    Technologie. Wenn Sie die Wahl zwischen vier oder fünf Schulen
+    Technologiepunkte. Wenn Sie die Wahl zwischen vier oder fünf Schulen
     oder einer einzigen Universität in der gleichen Gegend haben, sind Sie
     mit der Universität fast immer besser dran.</p>
 	<p style="hp">Schulen müssen nicht mit Transportwegen verbunden
@@ -12,18 +12,23 @@
     um sich mit den für den Schulbetrieb benötigten Waren und Arbeitern
     auszustatten.</p>
 	<p style="hp">Der Schulbetrieb kostet Geld. Sie können die
-    Gesamtkosten des <b>letzten</b> Jahres dem Jahresabschluss entnehmen.</p>
+    Gesamtkosten des letzten Jahres erhalten, indem Sie auf den Geldknopf klicken.</p>
 	<p style="hp">Ob eine Schule in Betrieb ist, können Sie wie üblich durch 
     Anklicken der Schule erkennen.</p>
 	<p style="hp">Das ist eine Schule</p>
 	<img src="images/tiles/school0.png" halign="center"/>
-	<p style="hp">und das ihr Symbol</p>
+	<p style="hp">und dies ist ihr Symbol</p>
 	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
-	
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">200 Arbeit + 75 Waren =&gt; 0,0002 Tech + 25 Müll</p>
+        <p style="hp">Eine Schule kann bis zu ca. 10 Tech &lt;100 oder ca. 5 Tech&gt;100 vorhalten.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="university">Universität</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="goods">Waren</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 </Document>

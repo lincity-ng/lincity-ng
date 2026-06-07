@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Schwerindustrie</p>
-	<p style="hp">Die Schwerindustrie produziert Stahl aus Erz, Energie und Arbeitsplätzen. Das Erz wird direkt vom Verkehrsnetz bezogen, genauso wird der produzierte Stahl ans Verkehrsnetz übergeben. Arbeitsplätze werden über einen örtlichen Markt bezogen. Mit dem Verkehr verbunden wird die Schwerindustrie an der linken oberen Ecke.</p>
-	<p style="hp">Die Energie kann auf zwei verschiedene Art und Weisen zugeführt werden: 
-		1. Durch Kohle, die direkt aus dem Verkehrsnetz bezogen wird
-		2. Über das Stromnetz, hierzu muss mind. ein Umspannwerk in der Reichweite sein. (Windmühlen können <b>keine</b> Energie an die Schwerindustrie liefern, sie sind zu schwach.)</p>
-	<p style="hp">Die Schwerindustrie verschmutzt die Umwelt.</p>
-	<p style="hp">Sie können auf die gewöhnliche Weise sehen, ob die Schwerindustrie arbeitet: Indem Sie darauf klicken – außerdem ist sie animiert.</p>
+	<p style="htitle">Schwerindustrie (Stahlwerke)</p>
+	<p style="hp">Die Stahlwerke produzieren Stahl aus Erz, Energie und Arbeit. Erz und Arbeit werden vom verbundenen Verkehrsnetz oder Märkten bezogen.</p>
+	<p style="hp">Die Energie kann den Stahlwerken auf zwei verschiedene Arten zugeführt werden. Die erste ist das Verbrennen von Kohle. Die zweite ist aus Elektrizität, entweder von ineffizienter Niedrigspannungsenergie von verbundenen Verkehrswegen oder von Hochspannungsenergie direkt aus Stromleitungen. Das Verbrennen von Kohle in den Stahlwerken ist arbeitslastiger. Windmühlen werden kaum ausreichend Energie produzieren.</p>
+	<p style="hp">Die Schwerindustrie verschmutzt die Umwelt stark. Sie können auf die gewöhnliche Weise sehen, ob die Schwerindustrie arbeitet: Indem Sie darauf klicken – außerdem ist sie animiert.</p>
 	
-	<p style="hp">Dies ist ein Gebäude der Schwerindustrie</p>
+	<p style="hp">Dies sind Stahlwerke</p>
 	<img src="images/tiles/industryhl1.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">(3600 Hochspannung oder 7200 Niedrigspannung) + 28 Arbeit + 612 Erz =&gt; 36 Stahl</p>
+        <p style="hp">(3600 Hochspannung oder 7200 Niedrigspannung oder 72 Kohle) + 46 Arbeit + 612 Erz =&gt; 36 Stahl</p>
+        <p style="hp">28 Arbeit + 612 Erz =&gt; 7 Stahl</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="pollution">Verschmutzung</a></li>

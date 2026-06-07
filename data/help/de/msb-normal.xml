@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Normale Ebene</p>
+	<p style="htitle">Landnutzungs-Ebene</p>
 	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
-	<p style="hp">Die normale Ebene zeigt Straßen, Wasser und Grünflächen in der Stadt.</p>
+	<p style="hp">Die Landnutzungs-Ebene zeigt Straßen, Wasser und Grünflächen in der Stadt.</p>
 
     <p style="hp">Linksklick auf die Miniaturansicht, um
         zur entsprechenden Stelle auf der Hauptansicht zu

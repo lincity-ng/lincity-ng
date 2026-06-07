@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Mülldeponie</p>
-	<p style="hp">Mülldeponien sind Plätze, an denen Abfall deponiert werden kann.
-    Wenn sich zu viel Abfall in den Märkten sammelt, sind diese gezwungen, einen Teil 
+	<p style="htitle">Mülldeponien</p>
+	<p style="hp">Mülldeponien sind Plätze, an denen Müll deponiert werden kann.
+    Wenn sich zu viel Müll in den Märkten sammelt, sind diese gezwungen, einen Teil 
     davon zu verbrennen. Das erzeugt recht viel Verschmutzung, weshalb Sie das vermeiden sollten.</p>
 	<p style="hp">Während sich die Mülldeponie füllt, wird sie langsam zu einem Hügel. 
     Wenn die Deponie voll ist, wird der Hügel begrünt.</p>
-	<p style="hp">Verkehrsanbindung wie üblich über die Nordwestecke.</p>
+        <p style="hp">Wenn Sie Ihre Stadt aufräumen, kann der Müll aus der Deponie wieder
+        ausgegraben und in Köhlereien, elektrifizierten Bauernhöfen und Recyclingzentren
+        verarbeitet werden.</p>
 	<p style="hp">Sie können erkennen, ob die Mülldeponie in Betrieb ist, indem
     Sie sie anklicken.</p>
 	
@@ -14,7 +16,17 @@
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">und so das Symbol</p>
 	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">1: 200 Müll =&gt; 200 vergrabener Müll</p>
+        <p style="hp">2: 200 vergrabener Müll =&gt; 200 Müll</p>
+        <p style="hp">Mülldeponien streben ein Müllinventar von 20% an. Falls es mehr als 20% Müllinventar gibt, wird Formel 1 angewendet. Wenn es weniger als 20% Müllinventar gibt, wird Formel 2 angewendet.</p>
+        <p style="hp">Der vergrabene Müll baut sich täglich mit einer Rate von 0,5% pro Jahr ab.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="market">Markt</a></li>
+	<li><a href="waste">Müll</a></li>
+	<li><a href="market">Märkte</a></li>
+	<li><a href="commune">Köhlereien</a></li>
+	<li><a href="farm">Bauernhöfe</a></li>
+	<li><a href="recycle">Recyclingzentren</a></li>
 </Document>

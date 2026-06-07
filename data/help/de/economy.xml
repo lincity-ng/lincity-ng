@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Wirtschaftsübersicht</p>
+	<p style="htitle">Wirtschaftsgraph</p>
 	<p style="hp">Dieses Diagramm enthält vier farbige Linien. Sie zeigen die wichtigsten Wirtschaftsfaktoren.</p>
-	<li>
-		<span color="brown">Bevölkerung</span> (Braun)
+	<li><span color="brown">Bevölkerung</span> (Braun)
         Die braune Linie repräsentiert die Bevölkerung.
-	</li>
-	<li>
-		<span color="blue">Obdachlos</span> (Blau)
-        Die blaue Linie repräsentiert das Bedürfnis 
+	Sie wird mit einer logarithmischen Skala angezeigt.</li>
+	<li><span color="blue">Obdachlos</span> (Blau)
+        Die blaue Linie repräsentiert die Nachfrage
         nach einer Behausung. Die Höhe dieser Linie ist
 	proportional zur Quadratwurzel der obdachlosen
-	Bevölkerung.
-	</li>
-	<li>
-		<span color="yellow">Arbeitslosigkeit</span> (Gelb)
+	Bevölkerung.</li>
+	<li><span color="yellow">Arbeitslosigkeit</span> (Gelb)
         Die ausgefüllten Hintergrund-»Balken« zeigen, dass es
 	Arbeitslosigkeit gibt. Der Maßstab dieser Balken
-	ändert sich mit der Bevölkerung. Diese Balken sind
-	ausgefüllt, um die Aufmerksamkeit auf sich zu ziehen.
-	</li>
-	<li>
-		<span color="red">Hungernd</span> (Rot)
+	ändert sich mit der Bevölkerung. Diese Anzeige ist
+	ausgefüllt, um die Aufmerksamkeit auf sich zu ziehen.</li>
+	<li><span color="red">Hungernd</span> (Rot)
         Die ausgefüllten roten »Balken« zeigen, dass in Ihrer
 	Stadt Menschen an Hunger leiden und/oder verhungern!
 	Der Maßstab dieser Balken ändert sich mit der
-	Bevölkerung. Diese Balken übermalen die Arbeitslosigkeit,
-	da sie am Wichtigsten sind!
-	</li>
+	Bevölkerung. Diese Anzeige ist ausgefüllt, um die Aufmerksamkeit
+	auf sich zu ziehen. Sie übermalt die Arbeitslosigkeit.</li>
 </Document>

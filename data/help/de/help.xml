@@ -6,15 +6,20 @@
     eines der blauen Wörter unten, um Informationen zu einem Thema angezeigt
     zu bekommen. Mit dem Pfeil links oben können Sie zum vorherigen Thema
     zurückblättern.</p>
+    <p style="hp">Während Sie das Spiel spielen, können Sie Hilfe über die
+    meisten Dinge mit dem Hilfe-Knopf erhalten, oder mit einem Rechtsklick
+    auf ein bestimmtes Gebäudesymbol in der Seitenleiste oben links.</p>
 
-    <li><a href="tutorial">Einführung</a></li>
-    <li><a href="keys">Tastaturbefehle</a></li>
-	<li><a href="button-index">Hilfe zu den Gebäuden</a></li>
-	<li><a href="mini-screen">Hilfe zur Miniaturkarte</a></li>
-    <li><a href="dialogs">Hilfe zu den Dialogen</a></li>
-	<p style="hp"></p>
-        <p style="hp">Während des Spiels können Sie sich mit dem »Hilfe«-Knopf
-        Informationen zu den jeweiligen Objekten verschaffen. Ein Rechtsklick
-        öffnet zu den meisten Knöpfen die entsprechende Hilfeseite.</p>
-    <li><a href="index">Index</a></li>
+  <p style="hsubtitle">Siehe auch:</p>
+        <li><a href="tutorial">Einführung</a></li>
+        <li><a href="controls">Steuerung</a></li>
+        <li><a href="button-index">Symbol-Verzeichnis</a></li>
+        <li><a href="commodities">Verbrauchsgüter</a></li>
+        <li><a href="mini-screen">Miniaturansicht</a></li>
+        <li><a href="dialogs">Informationen zu den Registerkarten</a></li>
+        <li><a href="index">Index</a></li>
+
+        <p style="hsubtitle">Ziel</p>
+        <p style="hp">Sie können Lincity gewinnen, indem Sie entweder eine <a href="sustain">nachhaltige Wirtschaft</a> errichten, oder, indem Sie alle Bürger mit <a href="rocket">Raketen</a> evakuieren.</p>
+
 </Document>

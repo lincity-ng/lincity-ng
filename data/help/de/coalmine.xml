@@ -3,7 +3,7 @@
 	<p style="htitle">Kohlebergwerk</p>
 	<p style="hp">Kohlebergwerke bauen unter der Erde Kohle ab. Sie müssen in der Nähe einer Kohleader gebaut werden, damit sie produktiv arbeiten. Um zu sehen, wo eine Kohleader liegt, müssen Sie auf den Kohleknopf unter der Miniaturansicht klicken.</p>
 	<p style="hp">Beim ersten mal kostet dies 1 Million €, anschließend ist die Ansicht kostenlos. Sie müssen die Ansicht nicht verwenden, müssen dann aber versuchen, auf gut Glück eine Ader zu finden.</p>
-	<p style="hp">Kohlebergwerke brauchen Arbeitsplätze, damit Kohle abgebaut werden kann.</p>
+	<p style="hp">Kohlebergwerke brauchen <a href="labor">Arbeit</a>, damit Kohle abgebaut werden kann.</p>
 
 	<p style="hp">Dies ist ein Kohlebergwerk</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>
@@ -13,9 +13,18 @@
 	<p style="hp">Die Grafik zeigt die Anzahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager des Kohlebergwerks komplett gefüllt.</p>
 	<p style="hp">Ein Klick auf das Kohlebergwerk verrät, wieviel Kohle sich im Lager befindet und (noch viel wichtiger!) wieviel Kohle die Ader noch zu bieten hat.</p>
 
+        <p style="hp">Kohlebergwerke produzieren <a href="pollution">Verschmutzung</a>.</p>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">1: 918 Arbeit + 1 Kohlereserve =&gt; 1000 Kohle</p>
+        <p style="hp">2: 918 Arbeit + 1000 Kohle =&gt; 1 Kohlereserve</p>
+        <p style="hp">Kohlebergwerke streben ein Kohleinventar von 80% an. Falls die Produktion von 1000 Kohle nicht 80% Inventar überschreiten würde, dann wird Formel 1 angewandt. Falls der Verbrauch von 1000 Kohle das verbleibende Inventar nicht unter 80% bringen würde, dann wird Formel 2 angewandt.</p>
+        <p style="hp">Wenn ein Kohlebergwerk alle unterirdischen Reserven aufgebraucht hat, wird sie geräumt. Wenn alle unterirdischen Reserven aufgebraucht sind und es kein Inventar gibt, dann wird das Kohlebergwerk von der Karte entfernt. Daher wird, wenn ein Kohlebergwerk dort gebaut wird, wo es keine Reserven gibt, dieses sofort von der Karte entfernt.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="coal">Kohle</a></li>
 	<li><a href="powerscoal">Kohlekraftwerk</a></li>
 	<li><a href="transport">Verkehr</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
+	<li><a href="pollution">Verschmutzung</a></li>
 </Document>

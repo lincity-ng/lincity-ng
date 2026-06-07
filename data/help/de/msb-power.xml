@@ -6,7 +6,7 @@
     <p style="hp">Gebäude, die mechanische Energie von altmodischen Windmühlen
         benutzen, werden dunkelgrün dargestellt.</p>
 
-	<p style="hp">Die Gebäude, die am Stromnetz hängen, werden hellgrün dargestellt.</p>
+	<p style="hp">Die Gebäude, die am Hauptstromnetz hängen, werden hellgrün dargestellt.</p>
 
 	<p style="hp">Die unversorgten Gebäude werden rot dargestellt.</p>
 
@@ -22,7 +22,7 @@
 	<li><a href="msb-cricket">Sport-Ebene</a></li>
 	<li><a href="msb-fire">Feuer-Ebene</a></li>
 	<li><a href="msb-health">Gesundheits-Ebene</a></li>
-	<li><a href="msb-normal">Normale Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
 	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
 	<li><a href="msb-starve">Hunger-Ebene</a></li>
 	<li><a href="msb-transport">Transport-Ebene</a></li>

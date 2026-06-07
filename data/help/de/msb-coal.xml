@@ -3,15 +3,15 @@
 	<p style="htitle">Kohle-Ebene</p>
 	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
 
-    <p style="hp">Die Kohle-Ebene zeigt die Kohlereserven nahe
+    <p style="hp">Die Kohle-Ebene zeigt die Kohlereserven unter
         der Stadt. Die Kohleadern werden in rot und grün auf grauem Grund
         angezeigt. Sie müssen ein Kohlebergwerk in die Nähe einer
         Ader bauen, um effektiv Kohle abbauen zu können.</p>
 
     <p style="hp">Das erste Mal, wenn Sie diese
-        Ansicht aktivieren, wird Ihnen eine Million €
-        abgezogen, um die unterirdischen Untersuchungen zu
-        finanzieren. Anschließend ist die Betrachtung der Ansicht
+        Ansicht aktivieren, müssen Sie eine Prospektion
+        beauftragen, was Sie eine Million Währungseinheiten kostet.
+        Anschließend ist die Betrachtung der Ansicht
         kostenlos.</p>
 
     <p style="hp">Linksklick auf die Miniaturansicht, um
@@ -25,7 +25,7 @@
 	<li><a href="msb-cricket">Sport-Ebene</a></li>
 	<li><a href="msb-fire">Feuer-Ebene</a></li>
 	<li><a href="msb-health">Gesundheits-Ebene</a></li>
-	<li><a href="msb-normal">Normale Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
 	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
 	<li><a href="msb-power">Energie-Ebene</a></li>
 	<li><a href="msb-starve">Hunger-Ebene</a></li>

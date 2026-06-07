@@ -3,11 +3,12 @@
 	<p style="htitle">Nahrung</p>
 	<p style="hp">Nahrung wird auf Bauernhöfen angebaut oder kann über einen Hafen importiert werden.</p>
 	<p style="hp">Ihre Bewohner brauchen Nahrung, um zu überleben. Wenn Sie sie hungern lassen, werden sie die Stadt verlassen oder gar zu Tode verhungern.</p>
-	<p style="hp">Fabriken benötigen ebenfalls Nahrung. Sie wandeln z.B. Schafe in Kleider um. Sie können u.U. <i>sehr viel</i> Nahrung verbrauchen – geben sie Acht darauf!</p>
+	<p style="hp">Fabriken benötigen ebenfalls Nahrung. Sie wandeln z.B. Baumwolle in Stoffe um. Sie können u.U. <i>sehr viel</i> Nahrung verbrauchen – geben sie Acht darauf!</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="farm">Bauernhof</a></li>
-	<li><a href="port">Hafen</a></li>
-	<li><a href="mill">Fabrik</a></li>
-	<li><a href="steel">Stahl</a></li>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="farm">Bauernhöfe</a></li>
+	<li><a href="residential">Wohngebiet</a></li>
+	<li><a href="mill">Fabriken</a></li>
+	<li><a href="port">Häfen</a></li>
 </Document>

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Denkmal</p>
+	<p style="htitle">Denkmäler</p>
 	<p style="hp">Denkmäler sind ein wichtiger Platz für die Inspiration und die Studien von Erfindern. Jedes Denkmal wird die Rate, mit der die Technologie wächst, steigern, jedoch wird sie ab 40% Technologieniveau auf 0 fallen. Ab diesem Punkt können nur noch Schulen und Universitäten das Technologieniveau steigern.</p>
-	<p style="hp">Um ein Denkmal zu bauen, braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich, um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Arbeiter mehr benötigt werden.</p>
-	<p style="hp">Sie können sehen, wie weit der Bau vorangeschritten ist, indem Sie auf das Denkmal klicken und im Statusfenster nachsehen. Bis das Denkmal bei 100% ist, gibt es insgesamt 6 Grafiken.</p>
-	<p style="hp"><b>Tipp</b>: Um zu verhindern, dass der Bau eines Denkmals zuviele Arbeitskräfte in einer Region kostet, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden.</p>
+	<p style="hp">Um ein Denkmal zu bauen, braucht es <b>sehr viel</b> Arbeit. Deshalb ist ein Denkmal ganz nützlich, um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine kurzzeitige Lösung, da nach der Fertigstellung keine Arbeiter mehr benötigt werden.</p>
+	<p style="hp">Sie können sehen, wie weit der Bau vorangeschritten ist, indem Sie auf das Denkmal klicken und im Statistikfenster nachsehen (oben links der Mitte). Bis das Denkmal zu 100% fertiggestellt ist, gibt es insgesamt 6 Grafiken.</p>
+	<p style="hp"><b>Tipp</b>: Um zu verhindern, dass der Bau eines Denkmals zuviele Arbeitskräfte in einer Region kostet, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden. Zur Not können Sie auch das Räumungswerkzeug verwenden.</p>
 
 	<p style="hp">Dies ist ein Denkmal</p>
 	<img src="images/tiles/monument5.png" halign="center"/>
+
 	<p style="hp">und das sein Symbol</p>
 	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
 
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">100 Arbeit =&gt; 0 (während des Baus)</p>
+        <p style="hp">Ein Denkmal kann bis zu 0,0001 Tech alle 3 Tage produzieren; die Anzahl der Tage zwischen der Tech-Produktion erhöht sich proportional mit dem Techniveau.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="market">Markt</a></li>
-	<li><a href="ore">Erz</a></li>
-	<li><a href="commune">Köhlerei</a></li>
-	<li><a href="steel">Stahl</a></li>
-	<li><a href="labor">Arbeitskräfte</a></li>
+	<li><a href="labor">Arbeit</a></li>
+	<li><a href="evacuate">Räumen</a></li>
 </Document>

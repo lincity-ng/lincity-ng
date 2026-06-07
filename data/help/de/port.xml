@@ -2,32 +2,50 @@
 <Document style="helpdocument">
 	<p style="htitle">Häfen</p>
 	<p style="hp">Mit einem Hafen können Sie Waren, Stahl, Erz, Kohle und
-    Nahrung im- und exportieren. Import kostet Geld, mit Exporten verdienen
-    Sie welches.</p>
-	<p style="hp">Damit ein Hafen funktioniert, muss er mit einem Transportweg
-    verbunden sein. Stellen Sie ein, was Sie kaufen und verkaufen möchten,
-    indem Sie auf den Hafen doppelklicken. Das öffnet ein Menü, in dem Sie
-    eine Auswahl treffen können.</p>
-	<p style="hp">Häfen <b>müssen</b> an schiffbaren Gewässern liegen. Das
-    heißt, die ganze Ostseite des Hafens muss am Wasser liegen.</p>
-	<p style="hp">Solange Sie es nicht im Menü eingestellt haben, 
-    wird nichts ge- oder verkauft.</p>
-	<p style="hp">Es wird so viel wie möglich verkauft. Wenn Sie die Menge
-    beschränken wollen, sollten Sie nur einen Transportweg mit geringer
-    Kapazität zum Hafen bauen.</p>
+    Nahrung im- und exportieren, im Austausch für Geld.</p>
+        <p style="hp">Sie können wählen, was gehandelt werden soll, indem Sie
+    auf den Hafen doppelklicken. Das öffnet ein Dialogfenster mit Boxen, mit
+    denen Sie auswählen können, was importiert und exportiert werden soll.
+    Wenn sowohl »Kauf« als auch »Verkauf« für ein Verbrauchsgut angekreuzt oder nicht
+    angekreuzt sind, wird dieses Verbrauchsgut weder importiert noch exportiert.
+    Ein Hafen wird nichts importieren oder exportieren, bis Sie das dazugehörige
+    Kästchen angekreuzt haben.</p>
+        <p style="hp">Aufgrund der Fluktuationen der internationalen Handelspolitik und
+    dem Angebot und der Nachfrage kann manchmal der Handel bestimmter Verbrauchsgüter
+    zufällig für viele Jahre eingeschränkt sein. Wenn der Handel eingeschränkt ist,
+    wird das dazugehörige Kästchen rot erscheinen. Falls Sie in Ihrer Stadt mehrere
+    Häfen haben, wirken sich die selben Handelsrestriktionen auf alle Häfen aus.</p>
+        <p style="hp">Der Import kostet Geld, mit Export verdienen Sie welches. Der Preis
+        von großen Exporten ist reduziert, also werden Sie weniger Geld pro
+        Einheit verdienen, wenn Sie viel eines bestimmten Verbrauchsguts exportieren.
+        Es gibt keinen Rabatt auf Großimporte.</p>
+	<p style="hp">Die ganze Ostseite des Hafens muss am Wasser liegen.</p>
 	<p style="hp">Über einen aktiven Hafen erhält man ein bisschen Technologie.
     Achtung: Wenn viel exportiert wird, sinkt der Verkaufspreis.</p>
+	<p style="hp">Häfen können viel Kapazität importieren und Exportieren.
+    Wenn Sie die Import- oder Exportmenge beschränken wollen, ziehen Sie in Betracht,
+    den Hafen mit den Rest der Stadt mit einem Transportweg mit geringer Kapazität
+    zu verbinden (z.B. einen Weg oder einer Straße), oder bauen Sie den Hafen in
+    im Einzugsgebiet eines Marktes.</p>
 
 	<p style="hp">Das ist ein Hafen.</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>
-	<p style="hp">und das das Symbol</p>
+	<p style="hp">und dies ist sein Symbol</p>
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">Export: 50% des Inventars =&gt; Geld</p>
+        <p style="hp">Import: Geld =&gt; 50% der verbleibenden Kapazität</p>
+        <p style="hp">Damit Import oder Export passiert, muss 100 Arbeit verbraucht werden.</p>
+        <p style="hp">Wenn es sowohl Import als auch Export gibt, wird 0,0002 Tech produziert. Dies kann bis zu ca. 10 Tech &lt;100 oder ca. 5 Tech &gt;100 anwachsen.</p>
+        <p style="hp">Falls es weniger als 6,67% Inventar eines Verbrauchsguts gibt, dann wird es nicht exportiert. Falls es mehr als 93,33% eines Verbrauchsguts gibt, dann wird es nicht importiert.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
     <li><a href="export">Import und Export</a></li>
-	<li><a href="rivers">Flüsse</a></li>
+	<li><a href="rivers">Flüsse/Wasser</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="market">Markt</a></li>
+	<li><a href="food">Nahrung</a></li>
 	<li><a href="coal">Kohle</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="goods">Waren</a></li>

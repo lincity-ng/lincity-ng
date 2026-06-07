@@ -5,6 +5,12 @@
 	<p style="hp">Die Transport-Ebene zeigt die Menge von Waren,
     die sich auf den <a href="track">Wegen</a>, <a href="road">Straßen</a>
     und <a href="rail">Eisenbahnen</a> der Stadt befinden.</p>
+        <p style="hp">Klicken Sie auf das Symbol, um zwischen Verkehrsflüssen
+        und Verkehrsdichte umzuschalten. Benutzen Sie die Scrollknöpfe (rauf und runter),
+        um zwischen den verschiedenen Verbrauchsgütern zu wechseln. Sie können auch
+        die Tasten »M« und »N« drücken, oder einfach das Mausrad benutzen, wenn
+        der Mauszeiger über der Miniaturansicht liegt.</p>
+
 	<p style="hp">Die bläulichen Farben sind Gebäude, die sich in der
     Reichweite eines <a href="market">Marktes</a> befinden.</p>
 
@@ -20,7 +26,7 @@
 	<li><a href="msb-cricket">Sport-Ebene</a></li>
 	<li><a href="msb-fire">Feuer-Ebene</a></li>
 	<li><a href="msb-health">Gesundheits-Ebene</a></li>
-	<li><a href="msb-normal">Normale Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
 	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
 	<li><a href="msb-power">Energie-Ebene</a></li>
 	<li><a href="msb-starve">Hunger-Ebene</a></li>

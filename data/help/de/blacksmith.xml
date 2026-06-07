@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Schmiede</p>
-	<p style="hp">Schmieden wandeln Stahl und Kohle in Waren um. Sie werden gerade am Anfang des Spiels Verwendung finden. Sie bieten natürlich auch Arbeitsplätze.</p>
+	<p style="hp">Schmieden wandeln Stahl und Kohle in Waren um. Sie werden gerade am Anfang des Spiels Verwendung finden. Sie bieten natürlich auch Arbeit.</p>
 	<p style="hp">Bevor Sie Stahlwerke haben, müssen Sie sich auf die Köhlereien verlassen. 5 oder 6 Köhlereien pro Schmiede sind empfohlen.</p>
 	<p style="hp">Schmieden brauchen keinen Anschluss ans Verkehrsnetz. Sie können alles, was sie brauchen, von einem Markt beziehen, der in ihrer Reichweite ist.</p>
-	<p style="hp">Indem Sie auf die Schmiede linksklicken, können Sie sehen, ob diese arbeitet und ausgelastet ist.</p>
+	<p style="hp">Indem Sie auf die Schmiede linksklicken, können Sie sehen, ob diese arbeitet und ausgelastet ist. Ab und zu erscheint auch eine Animation.</p>
 
 	<p style="hp">Dies ist eine Schmiede</p>
 	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">und dies ihr Symbol</p>
 	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 
+	<p style="hsubtitle">Formeln</p>
+	<p style="hp">1 Kohle + 1 Stahl + 35 Arbeit =&gt; 50 Waren</p>
+	<p style="hp">Alle 100 Tage Arbeit wird 1 <a href="pollution">Verschmutzung</a> erzeugt.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="steel">Stahl</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 </Document>

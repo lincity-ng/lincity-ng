@@ -3,45 +3,45 @@
 	<p style="htitle">Krankenhaus</p>
 
     <p style="hp">Krankenhäuser stellen die medizinische
-        Versorgung für die Wohngebiete, die in ihrem Einzugsbereich
-        liegen, sicher.</p>
+        Versorgung für Wohngebiete sicher.</p>
 
-    <p style="hp">Ein Krankenhaus macht ein Wohngebiet
+    <p style="hp">Die Abdeckung der Gesundheitsversorgung macht ein Wohngebiet
         attraktiver, weniger Menschen sterben an den Folgen von
         Verschmutzung, außerdem arbeiten Menschen im
-        Einzugsgebiet eines Krankenhauses produktiver! (Sie sind
-        weniger krankgeschrieben.)</p>
+        Einzugsgebiet eines Krankenhauses produktiver (sie sind
+        weniger krankgeschrieben).</p>
 
-    <p style="hp">Krankenhäuser sind sehr teuer, 60.000€ pro
-        Jahr. Sie reduzieren jedoch die Kosten von »unnatürlichen
-        Todesfällen« und können extra Steuern einbringen (solange
+    <p style="hp">Krankenhäuser sind sehr teuer.
+        Sie reduzieren jedoch die Kosten von »unnatürlichen
+        Todesfällen« und können extra Einkommenssteuern einbringen (solange
         es Arbeit für die Einwohner gibt).</p>
 
     <p style="hp">Nach dem Bau eines Krankenhauses braucht es
-        ungefähr drei Monate, bis dieses mit all seinen Geräten
-        einsatzbereit ist. Zum Betrieb benötigt es Waren.</p>
+        drei Monate, bis dieses einsatzbereit ist.</p>
 
-    <p style="hp">Krankenhäuser müssen nicht an das
-        Verkehrssystem angebunden werden, sie müssen dann jedoch in
+    <p style="hp">Krankenhäuser müssen an das
+        Verkehrssystem angebunden werden oder in
         der Reichweite eines Markts liegen.</p>
 
         <p style="hp">Um zu sehen, welche Gebiete vom Krankenhaus
         abgedeckt werden, klicken Sie auf das Gesundheits-
-        Symbol unter der Miniaturansicht. Die Bereiche, die
-        normal dargestellt werden, sind von einem Krankenhaus
-        abgedeckt.</p>
+        Symbol unter der Miniaturansicht (unten rechts der Mitte
+	der Anzeige).</p>
 
 	<p style="hp">Dies ist ein Krankenhaus</p>
 	<img src="images/tiles/health.png" halign="center"/>
 	<p style="hp">und das sein Symbol</p>
 	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
-	<p style="hp">und dies das Ansichts-Symbol</p>
+	<p style="hp">und dies das Ebenensymbol</p>
 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 
+	<p style="hsubtitle">Formeln</p>
+	<p style="hp">6 Arbeit + 40 Waren =&gt; 13 Müll</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="residential">Wohngebiete</a></li>
+	<li><a href="residential">Wohngebiet</a></li>
 	<li><a href="pollution">Verschmutzung</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 	<li><a href="goods">Waren</a></li>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="msb-health">Gesundheits-Ebene</a></li>

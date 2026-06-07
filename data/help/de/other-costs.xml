@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Sonstige Kosten</p>
-	<p style="hp">Dieser Teil der Finanzansicht zeigt sonstige Ausgaben.</p>
-	<p style="hp">Es wird eine genauere Aufschlüsselung der Ausgaben, die
-    auf der Gewinn- und Verlustrechnung als »Sonstige Ausgaben« auftauchen, dargestellt.</p>
-	<p style="hp">Durch Klick auf den Reiter können Sie zwischen den 
-    verschiedenen Finanzansichten wechseln.</p>
+	<p style="hp">Dies ist das Fenster für sonstige Kosten.</p>
+	<p style="hp">Dies zeigt eine Übersicht der »sonstigen Kosten«, welche im Finanzfenster angezeigt werden.</p>
+
+        <p style="hp">Zinskosten</p>
+        <p style="hp">Schulkosten</p>
+        <p style="hp">Universitätskosten</p>
+        <p style="hp">Kosten unnatürlicher Tode</p>
+        <p style="hp">Windmühlenkosten</p>
+        <p style="hp">Gesundheitskosten</p>
+        <p style="hp">Raketenkosten</p>
+        <p style="hp">Feuerwehrkosten</p>
+        <p style="hp">Sportkosten</p>
+        <p style="hp">Recyclingkosten</p>
+
+	<p style="hp">Durch Linksklick auf diesen Fenstertitel können Sie zwischen den 
+    verschiedenen Ansichten wechseln: Finanzen, sonstige Kosten, Behausung.</p>
 </Document>

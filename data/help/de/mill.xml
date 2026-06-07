@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Fabrik</p>
-	<p style="hp">Fabriken wandeln Nahrung, Kohle und Arbeit in Waren um. Nahrung? Nun ja, Wolle und Stoff werden in diesem Spiel als Nahrung gezählt.</p>
+	<p style="hp">Fabriken wandeln Nahrung, Kohle und Arbeit in Waren um. Nahrung? Nun ja, Baumwolle und Wolle werden in diesem Spiel als Nahrung gezählt.</p>
 	<p style="hp">Fabriken verbrauchen eine ganze Menge Nahrung, so kann es leicht passieren, dass es zu Engpässen kommt, wenn Sie nicht vorsichtig sind! (Das ist weniger ein Problem, wenn Sie Windmühlen haben, da diese die Bauernhöfe mit Energie versorgen können, welche diese effizienter macht.)</p>
-	<p style="hp">Fabriken müssen nicht ans Verkehrsnetz angeschlossen sein, aber in Reichweite eines Markts stehen, der sie mit Kohle, Arbeitskräften und Nahrung versorgt. An den Rauchwolken über dem Gebäude können Sie sehen, ob es arbeitet oder nicht.</p>
+	<p style="hp">Fabriken müssen nicht ans Verkehrsnetz angeschlossen sein, aber in Reichweite eines Markts stehen, der sie mit Kohle, Arbeit und Nahrung versorgt. An den Rauch- und Dampfwolken über dem Gebäude können Sie sehen, ob es arbeitet oder nicht.</p>
 
-	<p style="hp">Dies ist eine arbeitende Fabrik</p>
+	<p style="hp">Dies ist eine Fabrik</p>
 	<img src="images/tiles/mill1.png" halign="center"/>
 	<p style="hp">Dies ist eine <b>nicht</b> arbeitende Fabrik</p>
 	<img src="images/tiles/mill0.png" halign="center"/>
 	<p style="hp">und dies ihr Symbol</p>
 	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">(1 Kohle oder 60 Niedrigspannung) + 37 Nahrung + 35 Arbeit =&gt; 75 Waren</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="goods">Waren</a></li>
 	<li><a href="food">Nahrung</a></li>
 	<li><a href="coal">Kohle</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="windmill">Windmühlen</a></li>
 </Document>

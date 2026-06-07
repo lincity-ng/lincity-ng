@@ -6,7 +6,7 @@
     berücksichtigt.</p>
 	<p style="hp">Hellgrün bedeutet, dass genügend Nahrung von den Märkten und 
     Wasser von erreichbaren Brunnen für alle Bewohner
-     vorhanden ist. Dunkelgrün und hellrot zeigen zunehmende Unterversorgung
+     vorhanden ist. Hellrot zeigt eine Unterversorgung in jedem Wohngebiet
      an.</p>
     <p style="hp">Der Einzugsbereich von Brunnen wird dunkelblau angezeigt.</p>
 
@@ -22,7 +22,7 @@
 	<li><a href="msb-cricket">Sport-Ebene</a></li>
 	<li><a href="msb-fire">Feuer-Ebene</a></li>
 	<li><a href="msb-health">Gesundheits-Ebene</a></li>
-	<li><a href="msb-normal">Normale Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
 	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
 	<li><a href="msb-transport">Transport-Ebene</a></li>
 	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
