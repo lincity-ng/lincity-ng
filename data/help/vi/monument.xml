@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Tượng đài</p>
+	<p style="hp">Tượng đài là điểm hội tụ cho việc dạy dỗ và truyền cảm hứng cho các nhà phát minh. Mỗi tượng đài bạn xây sẽ tăng tốc độ phát triển công nghệ, nhưng hiệu quả của chúng giảm về không khi bạn tiến tới 40% cấp công nghệ.</p>
+	<p style="hp">Để xây tượng đài bạn cần cung cấp lao động. Rất nhiều lao động. Vì lý do này chúng hữu ích để kiểm soát thất nghiệp. Đây chỉ là giải pháp ngắn hạn cho vấn đề thất nghiệp vì tượng đài không dùng lao động nào sau khi xây xong.</p>
+	<p style="hp">Bạn có thể biết việc xây dựng tiến triển tới đâu bằng cách bấm vào tượng đài và nhìn cửa sổ thống kê (trên trái của trung tâm). Hình ảnh cũng thay đổi khi nó được xây. Có 6 hình ảnh thể hiện các giai đoạn xây dựng từ 0% đến 100%</p>
+	<p style="hp">Gợi ý: Làm sao để việc xây tượng đài không hút quá nhiều lao động khỏi một khu vực và do đó bỏ đói lao động của các khu vực khác: hoặc xây tượng đài xa các khu vực khác hoặc dùng công cụ sơ tán trong trường hợp khẩn cấp.</p>
+
+  <p style="hp">Đây là một tượng đài</p>
+   <img src="images/tiles/monument5.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/parks/monument.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">100 lao động =&gt; 0 (trong khi xây dựng)</p>
+	<p style="hp">Một tượng đài có thể sản xuất tới .0001 công nghệ mỗi 3 ngày, và số ngày giữa các lần sản xuất công nghệ tăng theo tỉ lệ với cấp công nghệ.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="evacuate">Sơ tán</a></li>
+</Document>

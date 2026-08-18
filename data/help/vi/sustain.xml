@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cửa sổ tiến độ bền vững</p>
+	<p style="hp">Cửa sổ này chứa sáu đường màu. Khi tất cả chạm tới cạnh phải của cửa sổ, bạn đã có nền kinh tế bền vững.</p>
+	<li><span color="orange">Khai khoáng</span> (cam) bạn không đào quặng hay than, và không đổ rác ra bãi rác.</li>
+	<li><span color="gray">Thương mại</span>	(đen) bạn không nhập hay xuất khẩu.</li>
+	<li><span color="green">Tiền</span> (xanh lá) tiền của bạn ổn định hoặc tăng, điều này nghĩa là bạn không thể xây gì ngoài những khu vực rẻ nhất.</li>
+	<li><span color="blue">Dân số</span> (xanh dương) dân số của bạn ổn định trong phạm vi 2% so với giá trị khi bắt đầu đếm 180 năm. Nếu vượt ra ngoài biên độ này, dân số mới sẽ là giá trị mới và số năm bị đặt về không. Ngoài ra, dân số phải ít nhất 5000.</li>
+	<li><span color="yellow">Công nghệ</span> (vàng) công nghệ của bạn chỉ tăng hoặc giảm rất ít. Nếu tụt quá 1%, số năm bị đặt về không. Ngoài ra, cấp công nghệ phải ít nhất 50%.</li>
+	<li><span color="red">Hỏa hoạn</span> (đỏ) mọi khu vực có thể bắt lửa đều có	vùng phủ cứu hỏa. Các khu vực sau KHÔNG cần vùng phủ cứu hỏa: tượng đài, mỏ quặng, đường dây điện, đường ray, đường bộ, đường sắt và tên lửa.</li>
+	<p style="hp">Số năm cần cho bền vững: Khai khoáng=180 Thương mại=180 Tiền=60 Dân số=60 Công nghệ=120 Hỏa hoạn=60</p>
+</Document>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cối xay gió</p>
+	<p style="hp">Cối xay gió bằng gỗ cung cấp điện cho nhà ở và nông trại. Chúng giúp nông dân chế biến lương thực hiệu quả hơn và khiến nhà ở hấp dẫn hơn.</p>
+	<p style="hp">Cấp điện cho nhà ở khiến người dân ở đó dùng nhiều hàng hóa hơn.</p>
+	<p style="hp">Cối xay gió cũng cần nhân lực để sản xuất điện. Nếu cối xay gió không đủ lao động, nó sẽ sản xuất ít điện hơn, và sẽ không sản xuất được điện nào nếu không có lao động.</p>
+	<p style="hp">Có hai dạng cối xay gió.</p>
+
+  <p style="hp">Có hai dạng cối xay gió:</p>
+   <img src="images/gui/buttonpanel/power/windmills.png" halign="center" />
+
+  <p style="hp">Dạng thứ nhất là cối xay gió 'bằng gỗ' công nghệ thấp. Nó cung cấp điện hạ thế cho khu vực lân cận:</p>
+   <img src="images/tiles/windmill1w.png" halign="center" />
+
+  <p style="hp">Dạng thứ hai là loại 'trang trại gió' hiện đại. Nó cung cấp điện cao thế cho lưới điện thành phố:</p>
+   <img src="images/tiles/windmill1g.png" halign="center" />
+	<p style="hp">Loại bạn có được phụ thuộc vào cấp công nghệ khi bạn xây nó.</p>
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">công nghệ thấp: 10 lao động =&gt; 450 lo-volt + 4.5 lo-volt * công nghệ</p>
+	<p style="hp">công nghệ cao: 15 lao động =&gt; 450 hi-volt + 4.5 hi-volt * công nghệ</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="power">Điện</a></li>
+	<li><a href="substation">Trạm biến áp</a></li>
+	<li><a href="powerline">Đường dây điện</a></li>
+	<li><a href="tech-level">Cấp công nghệ</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="powerssolar">Nhà máy điện mặt trời</a></li>
+</Document>

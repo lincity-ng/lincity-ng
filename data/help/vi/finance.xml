@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cửa sổ tài chính</p>
+	<p style="hp">Bấm trái vào cửa sổ này sẽ mở các cửa sổ 'cân đối tài chính toàn cục', chi tiết cái gọi là 'chi phí khác' trong cửa sổ trước, và 'chi phí dân số'. Dùng nút cuộn lên xuống để chuyển giữa chúng.</p>
+	<p style="hp">Cửa sổ tài chính được cập nhật mỗi ngày 1 tháng 1. Các con số tương ứng với thu hoặc chi của năm trước.</p>
+	<p style="hp">Con số 'Tổng' là số tiền trong tài khoản của bạn. Có một số việc bạn không thể làm khi đang 'âm tiền'.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="housing">Cửa sổ dân số</a></li>
+	<li><a href="other-costs">Chi phí khác</a></li>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cấp công nghệ</p>
+	<p style="hp">Cấp công nghệ của thành phố quyết định nhiều thứ, như những gì bạn có thể xây và hiệu suất của một số quy trình.</p>
+	<p style="hp">Để tăng công nghệ, bạn phải xây (và cung cấp đầu vào thích hợp) Tượng đài, Trường học và Đại học.</p>
+	<p style="hp">Khi cấp công nghệ rất thấp bạn chỉ có thể xây tượng đài. Khi vài cái đã tồn tại một thời gian, bạn sẽ phát minh ra trường học. Trường học sản xuất nhiều công nghệ hơn tượng đài.</p>
+	<p style="hp">Khi cấp công nghệ đạt giá trị cao hơn nữa, bạn sẽ phát minh ra đại học. Đại học sản xuất nhiều công nghệ hơn cả trường học, nhưng rất ngốn tài nguyên.</p>
+	<p style="hp">Bạn càng có nhiều công nghệ, nó càng mau mòn. Điều này nghĩa là bạn muốn cấp công nghệ càng cao, bạn càng cần nhiều trường học và đại học.</p>
+	<p style="hp">Ngoài ra, hãy lưu ý rằng nếu vì lý do nào đó bạn phải dỡ bỏ, chẳng hạn, một hai đại học (hoặc chúng đột nhiên bị thiếu tài nguyên), cấp công nghệ của bạn có thể bắt đầu tụt.</p>
+	<p style="hp">Phần trăm cơ hội phóng tên lửa thành công bằng cấp công nghệ của bạn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="monument">Tượng đài</a></li>
+	<li><a href="school">Trường học</a></li>
+	<li><a href="university">Đại học</a></li>
+	<li><a href="rocket">Bệ phóng tên lửa</a></li>
+</Document>

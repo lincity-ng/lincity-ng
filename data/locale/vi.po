@@ -1,0 +1,2248 @@
+# #-#-#-#-#  vi.po (lincity-ng)  #-#-#-#-#
+# Vietnamese translation for lincity-ng
+# This file is distributed under the same license as the lincity-ng package.
+# Copyright (C) 2026 THE LINCITY-NG'S COPYRIGHT HOLDER.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lincity-ng-2.15.0\n"
+"Report-Msgid-Bugs-To: https://github.com/lincity-ng/lincity-ng/issues\n"
+"POT-Creation-Date: 2026-08-18 00:00+0700\n"
+"PO-Revision-Date: 2026-08-18 00:00+0700\n"
+"Last-Translator: sontm810 <sontm810@users.noreply.github.com>\n"
+"Language-Team: Vietnamese <https://github.com/sontm810>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid " To build "
+msgstr " Để xây "
+
+msgid " [Click right for help.]"
+msgstr " [Bấm chuột phải để xem trợ giúp.]"
+
+msgid " of them "
+msgstr " trong số đó "
+
+msgid "$"
+msgstr "$"
+
+msgid "$."
+msgstr "$."
+
+msgid "% Complete"
+msgstr "% Hoàn thành"
+
+msgid "% Filled"
+msgstr "% Đã đầy"
+
+msgid "%s (Techlevel %.1f required.)"
+msgstr "%s (cần cấp công nghệ %.1f.)"
+
+msgid "%s is disabled (loaded old game)."
+msgstr "%s bị tắt (đã nạp game cũ)."
+
+msgid ", to bulldoze "
+msgstr ", để ủi "
+
+msgid "----- IN TEST MODE -------"
+msgstr "----- CHẾ ĐỘ THỬ NGHIỆM -------"
+
+msgid ".       Tracks %4d           Roads %4d             Rail %4d"
+msgstr ".       Đường ray %4d           Đường bộ %4d             Đường sắt %4d"
+
+msgid ".    Monuments %4d         Schools %4d     Universities %4d"
+msgstr ".    Tượng đài %4d         Trường học %4d     Đại học %4d"
+
+msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
+msgstr ".    Lò gốm %4d     Lò rèn %4d            Nhà máy dệt %4d"
+
+msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
+msgstr ".    Cối xay gió %4d     Điện than %4d     Điện mặt trời %4d"
+
+msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
+msgstr ".   Mỏ than %4d       Mỏ quặng %4d         Xưởng làng %4d"
+
+msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
+msgstr ".   CN nhẹ %4d      CN nặng %4d        Tái chế %4d"
+
+msgid ".   Residences %4d         Markets %4d            Farms %4d"
+msgstr ".   Nhà ở %4d         Chợ %4d            Nông trại %4d"
+
+msgid ".  Substations %4d     Power lines %4d            Ports %4d"
+msgstr ".  Trạm biến áp %4d     Đường dây điện %4d            Cảng %4d"
+
+msgid ".  Water wells %4d"
+msgstr ".  Giếng nước %4d"
+
+msgid ".Deaths by starvation %7d   History %8.3f"
+msgstr ".Chết vì đói %7d   Lịch sử %8.3f"
+
+msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
+msgstr ".Trạm cứu hỏa %4d           Công viên %4d    Sân thể thao %4d"
+
+msgid ": 100 tenants, high birthrate, low deathrate"
+msgstr ": 100 cư dân, sinh cao, tử thấp"
+
+msgid ": 100 tenants, low birthrate, high deathrate"
+msgstr ": 100 cư dân, sinh thấp, tử cao"
+
+msgid ": 200 tenants, high birthrate, high deathrate"
+msgstr ": 200 cư dân, sinh cao, tử cao"
+
+msgid ": 200 tenants, high birthrate, low deathrate"
+msgstr ": 200 cư dân, sinh cao, tử thấp"
+
+msgid ": 400 tenants, high birthrate, high deathrate"
+msgstr ": 400 cư dân, sinh cao, tử cao"
+
+msgid ": 50 tenants, low birthrate, high deathrate"
+msgstr ": 50 cư dân, sinh thấp, tử cao"
+
+msgid ": Cost to build "
+msgstr ": Chi phí xây "
+
+msgid "<dir>"
+msgstr "<thư mục>"
+
+msgid "<file>"
+msgstr "<tệp>"
+
+msgid "<width>x<height>"
+msgstr "<rộng>x<cao>"
+
+msgid "A Fire has Started"
+msgstr "Một đám cháy đã bùng phát"
+
+msgid "A Fire has started"
+msgstr "Một đám cháy đã bùng phát"
+
+msgid "A Rocket is Ready for Launch"
+msgstr "Một tên lửa đã sẵn sàng phóng"
+
+msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
+msgstr "Một đám cháy bùng phát tại khu ổ chuột. Nó nằm trong vùng phòng cháy và có vẻ ĐANG được kiểm soát. "
+
+msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
+msgstr "Một đám cháy bùng phát tại khu ổ chuột. Đám cháy NGOÀI TẦM KIỂM SOÁT và có thể lan sang khu vực khác. "
+
+msgid "A fire has broken out in a {}! You should address this promptly before the whole city burns down."
+msgstr "Một đám cháy đã bùng phát trong một {}! Bạn nên xử lý ngay trước khi cả thành phố cháy rụi."
+
+msgid "A {} needs water, but this space is desert."
+msgstr "Một {} cần nước, nhưng khu vực này là sa mạc."
+
+msgid "A. Cap."
+msgstr "Sức chứa KK"
+
+msgid "Activity"
+msgstr "Hoạt động"
+
+msgid "Air Pollution"
+msgstr "Ô nhiễm không khí"
+
+msgid "Apr"
+msgstr "T4"
+
+msgid "Aug"
+msgstr "T8"
+
+msgid "Back"
+msgstr "Quay lại"
+
+msgid "Background Music"
+msgstr "Nhạc nền"
+
+msgid "Bad Times"
+msgstr "Thời khó khăn"
+
+msgid "Basketball Court"
+msgstr "Sân bóng rổ"
+
+msgid "Basketball Courts"
+msgstr "Sân bóng rổ"
+
+msgid "Basketball Courts available"
+msgstr "Có sân bóng rổ"
+
+msgid "Basketball court"
+msgstr "Sân bóng rổ"
+
+msgid "Beach"
+msgstr "Bãi biển"
+
+msgid "Binary Saving"
+msgstr "Lưu dạng nhị phân"
+
+msgid "Binary mode"
+msgstr "Chế độ nhị phân"
+
+msgid "Binary saving"
+msgstr "Lưu dạng nhị phân"
+
+msgid "Births p.a."
+msgstr "Sinh mỗi năm"
+
+msgid "Births per year"
+msgstr "Sinh mỗi năm"
+
+msgid "Blacksmith"
+msgstr "Lò rèn"
+
+msgid "Blacksmiths"
+msgstr "Lò rèn"
+
+msgid "Blacksmiths available"
+msgstr "Có lò rèn"
+
+msgid "Bull. Cost"
+msgstr "Chi phí ủi"
+
+msgid "Bulldoze Cost"
+msgstr "Chi phí ủi"
+
+msgid "Bulldoze Cost: "
+msgstr "Chi phí ủi: "
+
+msgid "Bulldozer"
+msgstr "Máy ủi"
+
+msgid "Bulldozer: remove building -price varies-"
+msgstr "Máy ủi: xóa công trình - giá thay đổi -"
+
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Ủi tượng đài tốn rất nhiều tiền."
+
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Ủi một đoạn sông tốn rất nhiều tiền."
+
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "Ủi khu ổ chuột tốn rất nhiều tiền và có thể gây hỏa hoạn."
+
+msgid "Bulldozing a {} costs a lot of money."
+msgstr "Ủi một {} tốn rất nhiều tiền."
+
+msgid "Burnt"
+msgstr "Cháy trụi"
+
+msgid "Buy"
+msgstr "Mua"
+
+msgid "Can't open"
+msgstr "Không thể mở"
+
+msgid "Can't open <%s> (gzipped)"
+msgstr "Không mở được <%s> (nén gzip)"
+
+msgid "Can't open save file!"
+msgstr "Không mở được tệp lưu!"
+
+msgid "Cannot Build"
+msgstr "Không thể xây"
+
+msgid "Cannot Bulldoze"
+msgstr "Không thể ủi"
+
+msgid "Cannot Evacuate"
+msgstr "Không thể sơ tán"
+
+msgid "Cannot build a {} here."
+msgstr "Không thể xây một {} ở đây."
+
+msgid "Cannot build a {}."
+msgstr "Không thể xây một {}."
+
+msgid "Cannot bulldoze this {}."
+msgstr "Không thể ủi {} này."
+
+msgid "Cannot evacuate {}."
+msgstr "Không thể sơ tán {}."
+
+msgid "Capacity"
+msgstr "Sức chứa"
+
+msgid "Cases"
+msgstr "Ca bệnh"
+
+msgid "Center"
+msgstr "Trung tâm"
+
+msgid "Changing the language requires restarting LinCity for changes to take full effect."
+msgstr "Đổi ngôn ngữ cần khởi động lại LinCity để thay đổi có hiệu lực đầy đủ."
+
+msgid "Choose Scenario"
+msgstr "Chọn bản đồ"
+
+msgid "Claims"
+msgstr "Yêu cầu"
+
+msgid "Click right for help."
+msgstr "Bấm chuột phải để xem trợ giúp."
+
+msgid "Coal"
+msgstr "Than"
+
+msgid "Coal Fired Power Stations available"
+msgstr "Có nhà máy điện than"
+
+msgid "Coal Mine"
+msgstr "Mỏ than"
+
+msgid "Coal Mine available"
+msgstr "Có mỏ than"
+
+msgid "Coal Mines"
+msgstr "Mỏ than"
+
+msgid "Coal PS"
+msgstr "NM than"
+
+msgid "Coal Power Station"
+msgstr "Nhà máy điện than"
+
+msgid "Coal Power Stations"
+msgstr "Nhà máy điện than"
+
+msgid "Coal Reserve"
+msgstr "Trữ lượng than"
+
+msgid "Coal Survey"
+msgstr "Khảo sát than"
+
+msgid "Coal mines"
+msgstr "Mỏ than"
+
+msgid "Coal powers"
+msgstr "Điện than"
+
+msgid "Coalmine"
+msgstr "Mỏ than"
+
+msgid "Code"
+msgstr "Mã nguồn"
+
+msgid "Commodities"
+msgstr "Hàng hóa"
+
+msgid "Commune"
+msgstr "Xưởng làng"
+
+msgid "Communes"
+msgstr "Xưởng làng"
+
+msgid "Completion"
+msgstr "Hoàn thành"
+
+msgid "Congradulations! You have successfully evacuated everyone from the city and won the game."
+msgstr "Chúc mừng! Bạn đã sơ tán thành công toàn bộ người dân khỏi thành phố và thắng game."
+
+msgid "Continue"
+msgstr "Tiếp tục"
+
+msgid "Could not load {}."
+msgstr "Không thể nạp {}."
+
+msgid "Couldn't create the save directory"
+msgstr "Không tạo được thư mục lưu"
+
+msgid "Couldn't create the save directory '%s'\n"
+msgstr "Không tạo được thư mục lưu '%s'\n"
+
+msgid "Coverage"
+msgstr "Phủ sóng"
+
+msgid "Credits"
+msgstr "Ghi công"
+
+msgid "Culture exchanged"
+msgstr "Văn hóa trao đổi"
+
+msgid "Current Output"
+msgstr "Sản lượng hiện tại"
+
+msgid "Current production"
+msgstr "Sản xuất hiện tại"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
+msgstr "Ngày %s %04d  Tiền %8d   Công nghệ %5.1f (%5.1f)"
+
+msgid "Days degenerating"
+msgstr "Số ngày xuống cấp"
+
+msgid "Death p.a."
+msgstr "Tử mỗi năm"
+
+msgid "Death per year"
+msgstr "Tử vong mỗi năm"
+
+msgid "Deaths"
+msgstr "Tử vong"
+
+msgid "Deaths by starvation"
+msgstr "Chết vì đói"
+
+msgid "Deaths by starvation %7d   History %8.3f"
+msgstr "Chết vì đói %7d   Lịch sử %8.3f"
+
+msgid "Deaths from pollution"
+msgstr "Chết vì ô nhiễm"
+
+msgid "Deaths from pollution %7d   History %8.3f"
+msgstr "Chết vì ô nhiễm %7d   Lịch sử %8.3f"
+
+msgid "Deaths p.a."
+msgstr "Tử vong/năm"
+
+msgid "Debug info"
+msgstr "Thông tin gỡ lỗi"
+
+msgid "Dec"
+msgstr "T12"
+
+msgid "Demand"
+msgstr "Nhu cầu"
+
+msgid "Deposits"
+msgstr "Trữ lượng"
+
+msgid "Desert"
+msgstr "Sa mạc"
+
+msgid "Desireability"
+msgstr "Sức hấp dẫn"
+
+msgid "Do coal survey?"
+msgstr "Khảo sát than?"
+
+msgid "Doing well."
+msgstr "Đang phát triển tốt."
+
+msgid "Drinkable"
+msgstr "Uống được"
+
+msgid "EMPTY"
+msgstr "TRỐNG"
+
+msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr "LỖI: nhóm không tồn tại. Điều này không nên xảy ra! Vui lòng báo lỗi cho đội ngũ lincity-ng, kèm game đã lưu và những gì bạn đã làm :-) "
+
+msgid "Eco"
+msgstr "Kinh tế"
+
+msgid "Economy Overview:"
+msgstr "Tổng quan kinh tế:"
+
+msgid "Economy Sustainable"
+msgstr "Nền kinh tế bền vững"
+
+msgid "Economy Sustainable."
+msgstr "Nền kinh tế bền vững."
+
+msgid "Economy is sustainable"
+msgstr "Nền kinh tế bền vững"
+
+msgid "Efficiency"
+msgstr "Hiệu suất"
+
+msgid "Efficiency Ore"
+msgstr "Hiệu suất quặng"
+
+msgid "Efficiency Steel"
+msgstr "Hiệu suất thép"
+
+msgid "Elementary School"
+msgstr "Trường tiểu học"
+
+msgid "Elementary Schools"
+msgstr "Trường tiểu học"
+
+msgid "Employed"
+msgstr "Có việc làm"
+
+msgid "Empty"
+msgstr "Trống"
+
+msgid "Error"
+msgstr "Lỗi"
+
+msgid "Error verifying package. Can't find colour.pal."
+msgstr "Lỗi kiểm tra gói. Không tìm thấy colour.pal."
+
+msgid "Error. Can't find LINCITY_HOME"
+msgstr "Lỗi. Không tìm thấy LINCITY_HOME"
+
+msgid "Error: Failed to load game."
+msgstr "Lỗi: Không nạp được game."
+
+msgid "Estimated Bulldoze Cost: "
+msgstr "Chi phí ủi ước tính: "
+
+msgid "Evacuate"
+msgstr "Sơ tán"
+
+msgid "Evacuation Launch Good"
+msgstr "Phóng sơ tán tốt"
+
+msgid "Evacuation Launch Successful"
+msgstr "Phóng sơ tán thành công"
+
+msgid "Evacuation of commodities is for free."
+msgstr "Sơ tán hàng hóa miễn phí."
+
+msgid "Everyone Died!"
+msgstr "Mọi người đều đã chết!"
+
+msgid "Expenses"
+msgstr "Chi phí"
+
+msgid "Export"
+msgstr "Xuất khẩu"
+
+msgid "Extreme Arid"
+msgstr "Cực khô hạn"
+
+msgid "Extreme Wetland"
+msgstr "Cực ngập nước"
+
+msgid "Failed to chown"
+msgstr "Không đổi chủ sở hữu được"
+
+msgid "Failed to chown '%s'\n"
+msgstr "Không đổi chủ sở hữu được '%s'\n"
+
+msgid "Farm"
+msgstr "Nông trại"
+
+msgid "Farms"
+msgstr "Nông trại"
+
+msgid "Feb"
+msgstr "T2"
+
+msgid "Fed"
+msgstr "Được ăn"
+
+msgid "Fertile"
+msgstr "Màu mỡ"
+
+msgid "Fertility"
+msgstr "Độ màu mỡ"
+
+msgid "Filled"
+msgstr "Đã đầy"
+
+msgid "Fire"
+msgstr "Hỏa hoạn"
+
+msgid "Fire Protection"
+msgstr "Phòng cháy"
+
+msgid "Fire Station"
+msgstr "Trạm cứu hỏa"
+
+msgid "Fire Stations"
+msgstr "Trạm cứu hỏa"
+
+msgid "Fire Stations available"
+msgstr "Có trạm cứu hỏa"
+
+msgid "Fire Stn"
+msgstr "Trạm cứu hỏa"
+
+msgid "Fire sta'n"
+msgstr "Trạm cứu hỏa"
+
+msgid "Fire stations"
+msgstr "Trạm cứu hỏa"
+
+msgid "Fire!"
+msgstr "Cháy!"
+
+msgid "Fires"
+msgstr "Các đám cháy"
+
+msgid "Food"
+msgstr "Lương thực"
+
+msgid "For year"
+msgstr "Năm"
+
+msgid "Forest"
+msgstr "Rừng"
+
+msgid "Forests"
+msgstr "Rừng"
+
+msgid "Frames per Second:"
+msgstr "Khung hình mỗi giây:"
+
+msgid "Fullscreen"
+msgstr "Toàn màn hình"
+
+msgid "Game statistics from LinCity-NG Version"
+msgstr "Thống kê game từ LinCity-NG Phiên bản"
+
+msgid "Game statistics from LinCity-NG Version %s"
+msgstr "Thống kê game từ LinCity-NG Phiên bản %s"
+
+msgid "Gamestats"
+msgstr "Thống kê game"
+
+msgid "Go back to Main Menu"
+msgstr "Về menu chính"
+
+msgid "Good Times"
+msgstr "Thời tốt đẹp"
+
+msgid "Goods"
+msgstr "Hàng hóa"
+
+msgid "Graphics"
+msgstr "Đồ họa"
+
+msgid "Grid"
+msgstr "Lưới"
+
+msgid "Grid ID"
+msgstr "Mã lưới"
+
+msgid "Grid Status"
+msgstr "Trạng thái lưới"
+
+msgid "Harbour Trade Settings"
+msgstr "Cài đặt thương mại cảng"
+
+msgid "Health"
+msgstr "Y tế"
+
+msgid "Health Care"
+msgstr "Chăm sóc sức khỏe"
+
+msgid "Health Centre"
+msgstr "Trung tâm y tế"
+
+msgid "Health Centres available"
+msgstr "Có trung tâm y tế"
+
+msgid "Health Cvr"
+msgstr "Y tế phủ"
+
+msgid "Health Service"
+msgstr "Dịch vụ y tế"
+
+msgid "Health centre"
+msgstr "Trung tâm y tế"
+
+msgid "Health centres"
+msgstr "Trung tâm y tế"
+
+msgid "Health centres %4d            Tips %4d         Shanties %4d"
+msgstr "Trung tâm y tế %4d            Bãi rác %4d         Ổ chuột %4d"
+
+msgid "Heavy"
+msgstr "Nặng"
+
+msgid "Heavy Industry"
+msgstr "Công nghiệp nặng"
+
+msgid "Heavy Industry available"
+msgstr "Có công nghiệp nặng"
+
+msgid "Heavy inds"
+msgstr "CN nặng"
+
+msgid "Help"
+msgstr "Trợ giúp"
+
+msgid "Hi-Volt"
+msgstr "Hi-Volt"
+
+msgid "High Voltage"
+msgstr "Điện cao thế"
+
+msgid "History"
+msgstr "Lịch sử"
+
+msgid "Homeless"
+msgstr "Vô gia cư"
+
+msgid "Hospital"
+msgstr "Bệnh viện"
+
+msgid "Hospitals"
+msgstr "Bệnh viện"
+
+msgid "Housed"
+msgstr "Có nhà"
+
+msgid "Housing"
+msgstr "Nhà ở"
+
+msgid "Hv. Industry"
+msgstr "CN nặng"
+
+msgid "Import"
+msgstr "Nhập khẩu"
+
+msgid "Import/Export available"
+msgstr "Có xuất/nhập khẩu"
+
+msgid "Imports"
+msgstr "Nhập khẩu"
+
+msgid "Income"
+msgstr "Thu nhập"
+
+msgid "Industry"
+msgstr "Công nghiệp"
+
+msgid "Initial loaded scene"
+msgstr "Bản đồ ban đầu"
+
+msgid "Initial loaded scene - %s"
+msgstr "Bản đồ ban đầu - %s"
+
+msgid "Interest"
+msgstr "Lãi"
+
+msgid "Inventory"
+msgstr "Tồn kho"
+
+msgid "Inventory:"
+msgstr "Kho:"
+
+msgid "It's at a blacksmith."
+msgstr "Nó ở lò rèn."
+
+msgid "It's at a coal mine."
+msgstr "Nó ở mỏ than."
+
+msgid "It's at a coal power station."
+msgstr "Nó ở nhà máy điện than."
+
+msgid "It's at a commune."
+msgstr "Nó ở xưởng làng."
+
+msgid "It's at a farm."
+msgstr "Nó ở nông trại."
+
+msgid "It's at a fire station!!!."
+msgstr "Nó ở trạm cứu hỏa!!!."
+
+msgid "It's at a health centre."
+msgstr "Nó ở trung tâm y tế."
+
+msgid "It's at a market."
+msgstr "Nó ở chợ."
+
+msgid "It's at a mill."
+msgstr "Nó ở nhà máy dệt."
+
+msgid "It's at a port."
+msgstr "Nó ở cảng."
+
+msgid "It's at a pottery."
+msgstr "Nó ở lò gốm."
+
+msgid "It's at a power line."
+msgstr "Nó ở đường dây điện."
+
+msgid "It's at a railway."
+msgstr "Nó ở đường sắt."
+
+msgid "It's at a recycle centre."
+msgstr "Nó ở trung tâm tái chế."
+
+msgid "It's at a residential area."
+msgstr "Nó ở khu dân cư."
+
+msgid "It's at a road."
+msgstr "Nó ở đường bộ."
+
+msgid "It's at a rocket site."
+msgstr "Nó ở bệ phóng tên lửa."
+
+msgid "It's at a school."
+msgstr "Nó ở trường học."
+
+msgid "It's at a shanty town."
+msgstr "Nó ở khu ổ chuột."
+
+msgid "It's at a solar power station."
+msgstr "Nó ở nhà máy điện mặt trời."
+
+msgid "It's at a sports field!!!."
+msgstr "Nó ở sân thể thao!!!."
+
+msgid "It's at a steel works."
+msgstr "Nó ở nhà máy thép."
+
+msgid "It's at a substation."
+msgstr "Nó ở trạm biến áp."
+
+msgid "It's at a tip."
+msgstr "Nó ở bãi rác."
+
+msgid "It's at a track."
+msgstr "Nó ở đường ray."
+
+msgid "It's at a university."
+msgstr "Nó ở đại học."
+
+msgid "It's at a windmill."
+msgstr "Nó ở cối xay gió."
+
+msgid "It's at light industry."
+msgstr "Nó ở công nghiệp nhẹ."
+
+msgid "Jan"
+msgstr "T1"
+
+msgid "Job"
+msgstr "Việc"
+
+msgid "Jobs"
+msgstr "Việc làm"
+
+msgid "Jul"
+msgstr "T7"
+
+msgid "Jun"
+msgstr "T6"
+
+msgid "Labor"
+msgstr "Lao động"
+
+msgid "Lake"
+msgstr "Hồ"
+
+msgid "Land Fill"
+msgstr "Bãi chôn lấp"
+
+msgid "Land Fills"
+msgstr "Bãi chôn lấp"
+
+msgid "Landfill"
+msgstr "Bãi chôn lấp"
+
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+msgid "Last Month"
+msgstr "Tháng trước"
+
+msgid "Launch Failure"
+msgstr "Phóng thất bại"
+
+msgid "Launch Successfull"
+msgstr "Phóng thành công"
+
+msgid "Launch now?"
+msgstr "Phóng ngay bây giờ?"
+
+msgid "Launchsite"
+msgstr "Bệ phóng"
+
+msgid "Lessons Learned"
+msgstr "Bài học tiếp thu"
+
+msgid "Lessons learned"
+msgstr "Bài học tiếp thu"
+
+msgid "License"
+msgstr "Giấy phép"
+
+msgid "Light"
+msgstr "Nhẹ"
+
+msgid "Light Industries"
+msgstr "Công nghiệp nhẹ"
+
+msgid "Light Industry"
+msgstr "Công nghiệp nhẹ"
+
+msgid "Light Industry available"
+msgstr "Có công nghiệp nhẹ"
+
+msgid "Light inds"
+msgstr "CN nhẹ"
+
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "LinCity xác nhận bạn đã có nền kinh tế bền vững."
+
+msgid "Lo-Volt"
+msgstr "Lo-Volt"
+
+msgid "Load"
+msgstr "Mở"
+
+msgid "Load Game"
+msgstr "Mở game"
+
+msgid "Loading scene"
+msgstr "Đang tải bản đồ"
+
+msgid "Local Demand"
+msgstr "Nhu cầu địa phương"
+
+msgid "Local Status"
+msgstr "Trạng thái địa phương"
+
+msgid "Looks like your rocket technology leaves some to be desired. Thankfully this was a test flight, so no people were on board. The scientists say they have identified the cause of the crash and are confident future launches will go smoothly."
+msgstr "Có vẻ công nghệ tên lửa của bạn vẫn còn cần cải thiện. May thay đây là chuyến bay thử nghiệm, nên không có người trên khoang. Các nhà khoa học cho biết họ đã xác định nguyên nhân vụ rơi và tự tin các lần phóng sau sẽ suôn sẻ."
+
+msgid "Low Voltage"
+msgstr "Điện hạ thế"
+
+msgid "Lt. Industry"
+msgstr "CN nhẹ"
+
+msgid "M"
+msgstr "Tr"
+
+msgid "MM"
+msgstr "MM"
+
+msgid "MWh"
+msgstr "MWh"
+
+msgid "Map"
+msgstr "Bản đồ"
+
+msgid "Map Size"
+msgstr "Kích thước bản đồ"
+
+msgid "Mar"
+msgstr "T3"
+
+msgid "Market"
+msgstr "Chợ"
+
+msgid "Market Range"
+msgstr "Phạm vi chợ"
+
+msgid "Markets"
+msgstr "Chợ"
+
+msgid "Max Output"
+msgstr "Sản lượng tối đa"
+
+msgid "Max population"
+msgstr "Dân số tối đa"
+
+msgid "Max population %d  Number evacuated %d Total births %d"
+msgstr "Dân số tối đa %d  Đã sơ tán %d  Tổng sinh %d"
+
+msgid "May"
+msgstr "T5"
+
+msgid "Mill"
+msgstr "Nhà máy dệt"
+
+msgid "Mills"
+msgstr "Nhà máy dệt"
+
+msgid "Mills available"
+msgstr "Có nhà máy dệt"
+
+msgid "Minimap: coal deposits"
+msgstr "Minimap: trữ lượng than"
+
+msgid "Minimap: coal depots"
+msgstr "Minimap: mỏ than"
+
+msgid "Minimap: commodities"
+msgstr "Minimap: hàng hóa"
+
+msgid "Minimap: commodities:"
+msgstr "Minimap: hàng hóa:"
+
+msgid "Minimap: firedepartment cover"
+msgstr "Minimap: phủ sóng cứu hỏa"
+
+msgid "Minimap: medical care"
+msgstr "Minimap: y tế"
+
+msgid "Minimap: nourishments"
+msgstr "Minimap: lương thực & nước"
+
+msgid "Minimap: outline map"
+msgstr "Minimap: bản đồ viền"
+
+msgid "Minimap: pollution"
+msgstr "Minimap: ô nhiễm"
+
+msgid "Minimap: power supply"
+msgstr "Minimap: cung cấp điện"
+
+msgid "Minimap: sport cover"
+msgstr "Minimap: phủ sóng thể thao"
+
+msgid "Minimap: traffic density"
+msgstr "Minimap: mật độ giao thông"
+
+msgid "Minimap: traffic density:"
+msgstr "Minimap: mật độ giao thông:"
+
+msgid "Minimap: unemployment"
+msgstr "Minimap: thất nghiệp"
+
+msgid "Mining"
+msgstr "Khai khoáng"
+
+msgid "Modern Windmills available"
+msgstr "Có cối xay gió hiện đại"
+
+msgid "Money"
+msgstr "Tiền"
+
+msgid "Monthly Births"
+msgstr "Sinh hằng tháng"
+
+msgid "Monthly Deaths"
+msgstr "Tử vong hằng tháng"
+
+msgid "Monument"
+msgstr "Tượng đài"
+
+msgid "Monuments"
+msgstr "Tượng đài"
+
+msgid "N tiles with water"
+msgstr "N ô có nước"
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "NO"
+msgstr "KHÔNG"
+
+msgid "NO "
+msgstr "KHÔNG "
+
+msgid "Navigable"
+msgstr "Đi lại được"
+
+msgid "Net"
+msgstr "Ròng"
+
+msgid "New Game"
+msgstr "Game mới"
+
+msgid "New Invention"
+msgstr "Phát minh mới"
+
+msgid "New Invention!"
+msgstr "Phát minh mới!"
+
+msgid "Next Step"
+msgstr "Bước tiếp theo"
+
+msgid "No"
+msgstr "Không"
+
+msgid "No Credit Available"
+msgstr "Không được nợ"
+
+msgid "Nobody Home"
+msgstr "Không có ai ở nhà"
+
+msgid "Not Allowed"
+msgstr "Không cho phép"
+
+msgid "Not enough students, build more schools."
+msgstr "Không đủ học sinh, hãy xây thêm trường học."
+
+msgid "Nov"
+msgstr "T11"
+
+msgid "Number evacuated"
+msgstr "Số người đã sơ tán"
+
+msgid "Oct"
+msgstr "T10"
+
+msgid "Ok"
+msgstr "Đồng ý"
+
+msgid "Okay"
+msgstr "Đồng ý"
+
+msgid "Options"
+msgstr "Tùy chọn"
+
+msgid "Ore"
+msgstr "Quặng"
+
+msgid "Ore Mine"
+msgstr "Mỏ quặng"
+
+msgid "Ore Mines"
+msgstr "Mỏ quặng"
+
+msgid "Ore Reserve"
+msgstr "Trữ lượng quặng"
+
+msgid "Ore mine"
+msgstr "Mỏ quặng"
+
+msgid "Ore mines"
+msgstr "Mỏ quặng"
+
+msgid "Organic Farm"
+msgstr "Nông trại hữu cơ"
+
+msgid "Original Idea and Code"
+msgstr "Ý tưởng và mã gốc"
+
+msgid "Other Costs"
+msgstr "Chi phí khác"
+
+msgid "Others"
+msgstr "Khác"
+
+msgid "Out of Credit"
+msgstr "Hết hạn mức nợ"
+
+msgid "Out of Money"
+msgstr "Hết tiền"
+
+msgid "Out of memory: malloc failure\n"
+msgstr "Hết bộ nhớ: lỗi malloc\n"
+
+msgid "Output"
+msgstr "Sản lượng"
+
+msgid "Overall Progress"
+msgstr "Tiến độ tổng thể"
+
+msgid "Park"
+msgstr "Công viên"
+
+msgid "Park (Pond)"
+msgstr "Công viên (Ao)"
+
+msgid "Parks"
+msgstr "Công viên"
+
+msgid "Parks (Pond)"
+msgstr "Công viên (Ao)"
+
+msgid "Parks available"
+msgstr "Có công viên"
+
+msgid "Pause the game"
+msgstr "Tạm dừng game"
+
+msgid "People"
+msgstr "Người"
+
+msgid "Percent"
+msgstr "Phần trăm"
+
+msgid "Pol. mortality"
+msgstr "Tử vong do ô nhiễm"
+
+msgid "Pollution"
+msgstr "Ô nhiễm"
+
+msgid "Pond"
+msgstr "Ao"
+
+msgid "Popul."
+msgstr "Dân số"
+
+msgid "Population"
+msgstr "Dân số"
+
+msgid "Population  %d  of which  %d  are not housed."
+msgstr "Dân số %d  trong đó %d không có nhà."
+
+msgid "Port"
+msgstr "Cảng"
+
+msgid "Port must be connected to river all along right side."
+msgstr "Cảng phải nối với sông dọc theo toàn bộ cạnh phải."
+
+msgid "Ports"
+msgstr "Cảng"
+
+msgid "Potteries"
+msgstr "Lò gốm"
+
+msgid "Potteries available"
+msgstr "Có lò gốm"
+
+msgid "Pottery"
+msgstr "Lò gốm"
+
+msgid "Power"
+msgstr "Điện"
+
+msgid "Power Line"
+msgstr "Đường dây điện"
+
+msgid "Power Lines"
+msgstr "Đường dây điện"
+
+msgid "Power Station"
+msgstr "Nhà máy điện"
+
+msgid "Power Substation"
+msgstr "Trạm biến áp"
+
+msgid "Power Substations"
+msgstr "Trạm biến áp"
+
+msgid "Power line"
+msgstr "Đường dây điện"
+
+msgid "Power lines"
+msgstr "Đường dây điện"
+
+msgid "Press this button to show statistics"
+msgstr "Bấm nút này để xem thống kê"
+
+msgid "Prod"
+msgstr "SX"
+
+msgid "Prod."
+msgstr "SX."
+
+msgid "Product"
+msgstr "Sản phẩm"
+
+msgid "Production:"
+msgstr "Sản xuất:"
+
+msgid "Public Sports"
+msgstr "Thể thao công cộng"
+
+msgid "Public sports"
+msgstr "Thể thao công cộng"
+
+msgid "Query Tool"
+msgstr "Công cụ tra cứu"
+
+msgid "Query Tool: Show information about selected building."
+msgstr "Công cụ tra cứu: Xem thông tin công trình đã chọn."
+
+msgid "Quit"
+msgstr "Thoát"
+
+msgid "Rail"
+msgstr "Đường sắt"
+
+msgid "Rail (Bridge)"
+msgstr "Đường sắt (Cầu)"
+
+msgid "Rail Bridge"
+msgstr "Cầu đường sắt"
+
+msgid "Rails"
+msgstr "Đường sắt"
+
+msgid "Rails (Bridge)"
+msgstr "Đường sắt (Cầu)"
+
+msgid "Railway"
+msgstr "Đường sắt"
+
+msgid "Railways available"
+msgstr "Có đường sắt"
+
+msgid "Rate"
+msgstr "Tỉ lệ"
+
+msgid "Recycle"
+msgstr "Tái chế"
+
+msgid "Recyclers"
+msgstr "Trung tâm tái chế"
+
+msgid "Recycling"
+msgstr "Tái chế"
+
+msgid "Recycling Center"
+msgstr "Trung tâm tái chế"
+
+msgid "Recycling Centers"
+msgstr "Trung tâm tái chế"
+
+msgid "Recycling Centre"
+msgstr "Trung tâm tái chế"
+
+msgid "Recycling Centres available"
+msgstr "Có trung tâm tái chế"
+
+msgid "Reserve"
+msgstr "Dự trữ"
+
+msgid "Residence"
+msgstr "Nhà ở"
+
+msgid "Residences"
+msgstr "Nhà ở"
+
+msgid "Residential HH"
+msgstr "Nhà ở mật độ cao (CN cao)"
+
+msgid "Residential HL"
+msgstr "Nhà ở mật độ cao (CN thấp)"
+
+msgid "Residential LH"
+msgstr "Nhà ở mật độ thấp (CN cao)"
+
+msgid "Residential LL"
+msgstr "Nhà ở mật độ thấp (CN thấp)"
+
+msgid "Residential MH"
+msgstr "Nhà ở mật độ TB (CN cao)"
+
+msgid "Residential ML"
+msgstr "Nhà ở mật độ TB (CN thấp)"
+
+msgid "Residential: 100 denizens, high birthrate, low deathrate"
+msgstr "Nhà ở: 100 cư dân, sinh cao, tử thấp"
+
+msgid "Residential: 100 denizens, low birthrate, high deathrate"
+msgstr "Nhà ở: 100 cư dân, sinh thấp, tử cao"
+
+msgid "Residential: 200 denizens, high birthrate, high deathrate"
+msgstr "Nhà ở: 200 cư dân, sinh cao, tử cao"
+
+msgid "Residential: 200 denizens, high birthrate, low deathrate"
+msgstr "Nhà ở: 200 cư dân, sinh cao, tử thấp"
+
+msgid "Residential: 400 denizens, high birthrate, high deathrate"
+msgstr "Nhà ở: 400 cư dân, sinh cao, tử cao"
+
+msgid "Residential: 50 denizens, low birthrate, high deathrate"
+msgstr "Nhà ở: 50 cư dân, sinh thấp, tử cao"
+
+msgid "Resolution"
+msgstr "Độ phân giải"
+
+msgid "Restart Required"
+msgstr "Cần khởi động lại"
+
+msgid "River"
+msgstr "Sông"
+
+msgid "Rivers available"
+msgstr "Có sông"
+
+msgid "Road"
+msgstr "Đường bộ"
+
+msgid "Road (Bridge)"
+msgstr "Đường bộ (Cầu)"
+
+msgid "Road Bridge"
+msgstr "Cầu đường bộ"
+
+msgid "Roads"
+msgstr "Đường bộ"
+
+msgid "Roads (Bridge)"
+msgstr "Đường bộ (Cầu)"
+
+msgid "Roads available"
+msgstr "Có đường bộ"
+
+msgid "Rocket 98"
+msgstr "Rocket 98"
+
+msgid "Rocket Crashed"
+msgstr "Tên lửa rơi"
+
+msgid "Rocket Launch Pad available"
+msgstr "Có bệ phóng tên lửa"
+
+msgid "Rocket Launched"
+msgstr "Tên lửa đã phóng"
+
+msgid "Rocket Pad"
+msgstr "Bệ phóng tên lửa"
+
+msgid "Rocket Pads"
+msgstr "Bệ phóng tên lửa"
+
+msgid "Rocket Ready"
+msgstr "Tên lửa sẵn sàng"
+
+msgid "Rocket pad"
+msgstr "Bệ phóng tên lửa"
+
+msgid "Rocket ready to launch"
+msgstr "Tên lửa sẵn sàng phóng"
+
+msgid "Rocket_98"
+msgstr "Rocket 98"
+
+msgid "Rockets"
+msgstr "Tên lửa"
+
+msgid "Rockets launched"
+msgstr "Tên lửa đã phóng"
+
+msgid "Rockets launched %2d  Successful launches %2d"
+msgstr "Tên lửa đã phóng %2d  Phóng thành công %2d"
+
+msgid "Rubbish tip"
+msgstr "Bãi rác"
+
+msgid "Run the simulation with fast speed"
+msgstr "Chạy mô phỏng tốc độ nhanh"
+
+msgid "Run the simulation with normal speed"
+msgstr "Chạy mô phỏng tốc độ thường"
+
+msgid "Run the simulation with very fast speed"
+msgstr "Chạy mô phỏng tốc độ rất nhanh"
+
+msgid "Save"
+msgstr "Lưu"
+
+msgid "Save Game"
+msgstr "Lưu game"
+
+msgid "Save file"
+msgstr "Lưu tệp"
+
+msgid "Save file <%s> - "
+msgstr "Tệp lưu <%s> - "
+
+msgid "School"
+msgstr "Trường học"
+
+msgid "Schools"
+msgstr "Trường học"
+
+msgid "Schools available"
+msgstr "Có trường học"
+
+msgid "See the help screen for more information on coal mines and coal surveys."
+msgstr "Xem màn hình trợ giúp để biết thêm về mỏ than và khảo sát than."
+
+msgid "See the help screen for more information."
+msgstr "Xem màn hình trợ giúp để biết thêm."
+
+msgid "Seed Saving"
+msgstr "Lưu hạt giống"
+
+msgid "Seed saving"
+msgstr "Lưu hạt giống"
+
+msgid "Sell"
+msgstr "Bán"
+
+msgid "Send out Prospectors"
+msgstr "Cử người thăm dò"
+
+msgid "Sep"
+msgstr "T9"
+
+msgid "Shanties"
+msgstr "Ổ chuột"
+
+msgid "Shanty Town"
+msgstr "Khu ổ chuột"
+
+msgid "Shanty Towns"
+msgstr "Khu ổ chuột"
+
+msgid "Shanty town"
+msgstr "Khu ổ chuột"
+
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr "Xem thu nhập và chi phí. Bấm lại tab này để chuyển chế độ xem."
+
+msgid "Show Income and Expenses. Use scroll buttons to cylce through views."
+msgstr "Xem thu nhập và chi phí. Dùng nút cuộn để chuyển chế độ xem."
+
+msgid "Show coal depots"
+msgstr "Xem mỏ than"
+
+msgid "Show economy graphs."
+msgstr "Xem đồ thị kinh tế."
+
+msgid "Show fire department cover"
+msgstr "Xem vùng phủ cứu hỏa"
+
+msgid "Show map outline"
+msgstr "Xem viền bản đồ"
+
+msgid "Show medical care"
+msgstr "Xem vùng y tế"
+
+msgid "Show nourishments"
+msgstr "Xem lương thực & nước"
+
+msgid "Show pollution density"
+msgstr "Xem mật độ ô nhiễm"
+
+msgid "Show power supply"
+msgstr "Xem nguồn điện"
+
+msgid "Show resources."
+msgstr "Xem tài nguyên."
+
+msgid "Show resources. Use scroll buttons to cycle through views."
+msgstr "Xem tài nguyên. Dùng nút cuộn để chuyển chế độ xem."
+
+msgid "Show resources. Use scroll buttons to cylce through views."
+msgstr "Xem tài nguyên. Dùng nút cuộn để chuyển chế độ xem."
+
+msgid "Show sport cover"
+msgstr "Xem vùng thể thao"
+
+msgid "Show the MiniMap"
+msgstr "Hiện minimap"
+
+msgid "Show traffic density"
+msgstr "Xem mật độ giao thông"
+
+msgid "Show unemployment"
+msgstr "Xem thất nghiệp"
+
+msgid "Silly! You cannot build outside the map."
+msgstr "Không được! Bạn không thể xây ngoài bản đồ."
+
+msgid "Solar"
+msgstr "Mặt trời"
+
+msgid "Solar PS"
+msgstr "NM mặt trời"
+
+msgid "Solar Power Plant"
+msgstr "Nhà máy điện mặt trời"
+
+msgid "Solar Power Plants"
+msgstr "Nhà máy điện mặt trời"
+
+msgid "Solar Power Stations available"
+msgstr "Có nhà máy điện mặt trời"
+
+msgid "Solar power station"
+msgstr "Nhà máy điện mặt trời"
+
+msgid "Solar powers"
+msgstr "Điện mặt trời"
+
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Xin lỗi, bạn không thể ủi bãi rác."
+
+msgid "Sorry, the game you wanted is too old. Cannot load it. Still play with previous game."
+msgstr "Xin lỗi, game bạn muốn mở quá cũ. Không thể mở. Vẫn chơi với game trước."
+
+msgid "Sound Effects"
+msgstr "Hiệu ứng âm thanh"
+
+msgid "Sound and Music"
+msgstr "Âm thanh và nhạc"
+
+msgid "Sport"
+msgstr "Thể thao"
+
+msgid "Sports field"
+msgstr "Sân thể thao"
+
+msgid "Sports fields"
+msgstr "Sân thể thao"
+
+msgid "Start"
+msgstr "Bắt đầu"
+
+msgid "Start with empty board."
+msgstr "Bắt đầu với bản đồ trống."
+
+msgid "Start with random village."
+msgstr "Bắt đầu với ngôi làng ngẫu nhiên."
+
+msgid "Starvation"
+msgstr "Nạn đói"
+
+msgid "Stats"
+msgstr "Thống kê"
+
+msgid "Steel"
+msgstr "Thép"
+
+msgid "Steel Works"
+msgstr "Nhà máy thép"
+
+msgid "Stock"
+msgstr "Kho"
+
+msgid "Store"
+msgstr "Lưu trữ"
+
+msgid "Substation"
+msgstr "Trạm biến áp"
+
+msgid "Substations"
+msgstr "Trạm biến áp"
+
+msgid "Successful launches"
+msgstr "Phóng thành công"
+
+msgid "Sustainability:"
+msgstr "Tính bền vững:"
+
+msgid "T. Cap."
+msgstr "Sức chứa T."
+
+msgid "Tax Income"
+msgstr "Thuế thu"
+
+msgid "Tech"
+msgstr "Công nghệ"
+
+msgid "Tech Level"
+msgstr "Cấp công nghệ"
+
+msgid "Tech Produced"
+msgstr "Công nghệ tạo ra"
+
+msgid "Tech researched"
+msgstr "Công nghệ đã nghiên cứu"
+
+msgid "Tech-level"
+msgstr "Cấp công nghệ"
+
+msgid "Techlevel"
+msgstr "Cấp công nghệ"
+
+msgid "Techn."
+msgstr "Công nghệ"
+
+msgid "Tenants"
+msgstr "Cư dân"
+
+msgid "Test Launch Successful"
+msgstr "Phóng thử nghiệm thành công"
+
+msgid "Textile Mill"
+msgstr "Nhà máy dệt"
+
+msgid "Textile Mills"
+msgstr "Nhà máy dệt"
+
+msgid "The rocket at {} has finished construction and is ready for takeoff. You may choose to launch now or later. If you choose to wait, beware it costs money to keep the rocket in tip-top shape until launch day."
+msgstr "Tên lửa tại {} đã xây xong và sẵn sàng cất cánh. Bạn có thể chọn phóng ngay hoặc để sau. Nếu chọn đợi, hãy lưu ý rằng việc duy trì tên lửa trong trạng thái tốt nhất tới ngày phóng tốn tiền."
+
+msgid "The rocket successfully completed a test flight."
+msgstr "Tên lửa đã hoàn thành chuyến bay thử nghiệm thành công."
+
+msgid "There are no ore reserves left here."
+msgstr "Nơi này không còn trữ lượng quặng."
+
+msgid "There are no people left in this city."
+msgstr "Không còn người nào trong thành phố này."
+
+msgid "This space is occupied."
+msgstr "Khu vực này đã có công trình."
+
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr "Lần đầu tốn 1 triệu. Sau đó gọi lại miễn phí."
+
+msgid "Tips"
+msgstr "Mẹo"
+
+msgid "Tons"
+msgstr "Tấn"
+
+msgid "Too many markets. You cannot build one more"
+msgstr "Quá nhiều chợ. Bạn không thể xây thêm"
+
+msgid "Too many substations + windmills. You cannot build one more"
+msgstr "Quá nhiều trạm biến áp + cối xay gió. Bạn không thể xây thêm"
+
+msgid "Total"
+msgstr "Tổng"
+
+msgid "Total Evacuation Complete."
+msgstr "Sơ tán toàn bộ hoàn tất."
+
+msgid "Total births"
+msgstr "Tổng số sinh"
+
+msgid "Track"
+msgstr "Đường ray"
+
+msgid "Track (Bridge)"
+msgstr "Đường ray (Cầu)"
+
+msgid "Track Bridge"
+msgstr "Cầu ray"
+
+msgid "Tracks"
+msgstr "Đường ray"
+
+msgid "Tracks (Bridge)"
+msgstr "Đường ray (Cầu)"
+
+msgid "Trade"
+msgstr "Thương mại"
+
+msgid "Trade Settings"
+msgstr "Cài đặt thương mại"
+
+msgid "Traffic"
+msgstr "Giao thông"
+
+msgid "Translation"
+msgstr "Bản dịch"
+
+msgid "Transport"
+msgstr "Giao thông"
+
+msgid "Tree"
+msgstr "Cây"
+
+msgid "Trees"
+msgstr "Cây cối"
+
+msgid "UNKNOWN!"
+msgstr "KHÔNG RÕ!"
+
+msgid "Unemp."
+msgstr "Thất nghiệp"
+
+msgid "Unemployment"
+msgstr "Thất nghiệp"
+
+msgid "Univers."
+msgstr "Đại học"
+
+msgid "Universities"
+msgstr "Đại học"
+
+msgid "University"
+msgstr "Đại học"
+
+msgid "University available"
+msgstr "Có đại học"
+
+msgid "Unn Dths"
+msgstr "Tử bất thường"
+
+msgid "Unnat. Deaths"
+msgstr "Tử vong bất thường"
+
+msgid "Unnat. mortality"
+msgstr "Tử vong bất thường"
+
+msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
+msgstr "Nâng cấp từ game cũ. Bạn có 10 năm để xây giếng nước nơi cần thiết. Sau đó, nạn đói sẽ xảy ra! Bạn nên xem minimap nạn đói và đọc trang trợ giúp về giếng nước :-)"
+
+msgid "Used"
+msgstr "Đã dùng"
+
+msgid "Village"
+msgstr "Ngôi làng"
+
+msgid "Want to bulldoze?"
+msgstr "Muốn ủi không?"
+
+msgid "Warning"
+msgstr "Cảnh báo"
+
+msgid "Warning!"
+msgstr "Cảnh báo!"
+
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Cảnh báo: Ủi tượng đài rất tốn kém"
+
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Cảnh báo: Ủi ổ chuột rất nguy hiểm."
+
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Cảnh báo: Ủi mặt nước rất tốn kém"
+
+msgid "Waste"
+msgstr "Rác thải"
+
+msgid "Water"
+msgstr "Nước"
+
+msgid "Water Tower"
+msgstr "Tháp nước"
+
+msgid "Water Towers"
+msgstr "Tháp nước"
+
+msgid "Water tower"
+msgstr "Tháp nước"
+
+msgid "Water well"
+msgstr "Giếng nước"
+
+msgid "Water wells"
+msgstr "Giếng nước"
+
+msgid "Water_well"
+msgstr "Giếng_nước"
+
+msgid "Well done you have evacuated all your people."
+msgstr "Làm tốt lắm, bạn đã sơ tán toàn bộ người dân."
+
+msgid "Well done! Thanks to your excellent leadership, the city council has determined the economy is sustainable and (at least theoretically) may continue indefinitely in prosperity. Therefore, you may retire from your position -- of course with a substantial pension."
+msgstr "Làm tốt lắm! Nhờ sự lãnh đạo xuất sắc của bạn, hội đồng thành phố đã xác nhận nền kinh tế bền vững và (ít nhất về lý thuyết) có thể tiếp tục thịnh vượng vô hạn. Vì vậy, bạn có thể về hưu — tất nhiên là kèm một khoản lương hưu hậu hĩnh."
+
+msgid "Wind Power"
+msgstr "Điện gió"
+
+msgid "Wind powers"
+msgstr "Điện gió"
+
+msgid "Windmill"
+msgstr "Cối xay gió"
+
+msgid "Windmills"
+msgstr "Cối xay gió"
+
+msgid "Windmills available"
+msgstr "Có cối xay gió"
+
+msgid "Wisdom Bestowed"
+msgstr "Trí tuệ ban tặng"
+
+msgid "Wisdom bestowed"
+msgstr "Trí tuệ ban tặng"
+
+msgid "Without trees"
+msgstr "Không có cây"
+
+msgid "YES"
+msgstr "CÓ"
+
+msgid "Years of unemployment"
+msgstr "Số năm thất nghiệp"
+
+msgid "Years of unemployment %7d   History %8.3f"
+msgstr "Số năm thất nghiệp %7d   Lịch sử %8.3f"
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "You Evacuated Everyone!"
+msgstr "Bạn đã sơ tán toàn bộ mọi người!"
+
+msgid "You Lost!"
+msgstr "Bạn thua!"
+
+msgid "You Won!"
+msgstr "Bạn thắng!"
+
+msgid "You are deep in debt and at the end of yourcredit line. You are about to find out what happens when government checks bounce."
+msgstr "Bạn đang nợ sâu và đã dùng hết hạn mức tín dụng. Bạn sắp biết chuyện gì xảy ra khi séc chính phủ bị trả lại."
+
+msgid "You are not allowed to bulldoze this {}, but we're not exactly sure why."
+msgstr "Bạn không được phép ủi {} này, nhưng chúng tôi không chắc chắn lý do."
+
+msgid "You are not allowed to bulldoze {}."
+msgstr "Bạn không được phép ủi {}."
+
+msgid "You are not allowed to evacuate {}."
+msgstr "Bạn không được phép sơ tán {}."
+
+msgid "You better go and look for it"
+msgstr "Bạn nên đi tìm nó"
+
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "Bạn có thể phóng tên lửa ngay hoặc đợi sau. Nếu đợi, tên lửa sẽ tiếp tục tốn tiền để duy trì trạng thái sẵn sàng. Phóng sau bằng cách bấm vào khu vực tên lửa."
+
+msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
+msgstr "Bạn giờ có thể nhập và xuất than, hàng hóa, quặng và thép. Đọc các trang trợ giúp về các chủ đề này để biết cách dùng. "
+
+msgid "You can't build a mine here: This area was once a landfill"
+msgstr "Không thể xây mỏ ở đây: khu vực này từng là bãi chôn lấp"
+
+msgid "You can't build a mine here: there is no ore left at this site"
+msgstr "Không thể xây mỏ ở đây: chỗ này không còn quặng"
+
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr "Không thể xây công viên ở đây: đây là sa mạc, công viên cần nước"
+
+msgid "You can't build a tip here: this area was once a landfill"
+msgstr "Không thể xây bãi rác ở đây: khu vực này từng là bãi chôn lấp"
+
+msgid "You can't build a water well here: it is all desert."
+msgstr "Không thể xây giếng nước ở đây: toàn là sa mạc."
+
+msgid "You cannot build this item on credit!"
+msgstr "Bạn không thể xây công trình này bằng nợ!"
+
+msgid "You cannot build this on credit."
+msgstr "Bạn không thể xây thứ này bằng nợ."
+
+msgid "You cannot bulldoze this land fill because it is full of waste."
+msgstr "Bạn không thể ủi bãi chôn lấp này vì nó đầy rác thải."
+
+msgid "You cannot bulldoze this monument because it is still under construction."
+msgstr "Bạn không thể ủi tượng đài này vì nó vẫn đang xây dựng."
+
+msgid "You do not have sufficient credit to build this."
+msgstr "Bạn không có đủ hạn mức nợ để xây thứ này."
+
+msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
+msgstr "Bạn đang thâm hụt ngân sách. Hội đồng sẽ không cho phép bạn xây công viên bằng nợ."
+
+msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
+msgstr "Bạn đang thâm hụt ngân sách. Hội đồng sẽ không cho phép bạn xây trung tâm tái chế bằng nợ."
+
+msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
+msgstr "Bạn đang thâm hụt ngân sách. Hội đồng sẽ không cho phép bạn xây bệ phóng tên lửa bằng nợ."
+
+msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
+msgstr "Bạn đang thâm hụt ngân sách. Hội đồng sẽ không cho phép bạn xây nhà máy điện mặt trời bằng nợ."
+
+msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
+msgstr "Bạn đang thâm hụt ngân sách. Hội đồng sẽ không cho phép bạn xây đại học bằng nợ."
+
+msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
+msgstr "Bạn đã sơ tán 1000 người. Bạn có thể muốn thu nhỏ nền kinh tế cho phù hợp với dân số còn lại. "
+
+msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây lò rèn. Lò rèn dùng việc làm và thép để tạo hàng hóa."
+
+msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use labor and steel to make goods."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây lò rèn. Lò rèn dùng lao động và thép để tạo hàng hóa."
+
+msgid "You have reached the tech level which enables you to build coal fired power stations."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây nhà máy điện than."
+
+msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây trạm cứu hỏa. Trạm cứu hỏa ngăn phần lớn đám cháy bùng phát. Nếu chưa có đám cháy nào, bạn có thể nghĩ mình không cần chúng."
+
+msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây trung tâm y tế. Trung tâm y tế giảm số người chết vì ô nhiễm và tăng năng suất chung."
+
+msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây công nghiệp nặng (nhà máy thép). Công nghiệp nặng sản xuất thép. "
+
+msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây công nghiệp nhẹ. Công nghiệp nhẹ sản xuất hàng hóa. "
+
+msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây nhà máy dệt. Nhà máy dệt dùng việc làm và lương thực để tạo hàng hóa. Cẩn thận, chúng có thể dùng rất nhiều lương thực! "
+
+msgid "You have reached the tech level which enables you to build mills. Mills use labor and food to make goods. Watch out, they can use a lot of food! "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây nhà máy dệt. Nhà máy dệt dùng lao động và lương thực để tạo hàng hóa. Cẩn thận, chúng có thể dùng rất nhiều lương thực! "
+
+msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây cối xay gió hiện đại, hiệu quả hơn. "
+
+msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây công viên. Công viên dùng để hấp thụ ô nhiễm. "
+
+msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây lò gốm. Lò gốm dùng việc làm và quặng để tạo hàng hóa. (Bạn cần mỏ quặng để lấy quặng) "
+
+msgid "You have reached the tech level which enables you to build potteries. Potteries use labor and ore to make goods. (You need ore mines to get ore) "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây lò gốm. Lò gốm dùng lao động và quặng để tạo hàng hóa. (Bạn cần mỏ quặng để lấy quặng) "
+
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây đường sắt. "
+
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây sông. "
+
+msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây đường bộ. Xem màn hình trợ giúp để biết thêm."
+
+msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây bệ phóng tên lửa. Tên lửa cho phép sơ tán dân số và là một cách để 'thắng' game."
+
+msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây trường học. Trường học dùng việc làm và hàng hóa để tăng cấp công nghệ. "
+
+msgid "You have reached the tech level which enables you to build schools. Schools use labor and goods to increase tech level. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây trường học. Trường học dùng lao động và hàng hóa để tăng cấp công nghệ. "
+
+msgid "You have reached the tech level which enables you to build solar power stations. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây nhà máy điện mặt trời. "
+
+msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây đại học. Đại học tạo ra tiến sĩ, những người tạo ra nhiều công nghệ hơn. "
+
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây cối xay gió. "
+
+msgid "You have reached the tech level which enables you to build {}. See the help screen for more information about this type of building."
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây {}. Xem màn hình trợ giúp để biết thêm về loại công trình này."
+
+msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgstr "Bạn đã đạt cấp công nghệ cho phép đào mỏ than sâu."
+
+msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
+msgstr "Bạn đã đạt cấp công nghệ cho phép xây trung tâm tái chế. Trung tâm tái chế biến hàng hóa đã dùng trở lại thành quặng. "
+
+msgid "You have successfully evacuated 1000 people. You may consider reducing the size of your economy appropriately."
+msgstr "Bạn đã sơ tán thành công 1000 người. Bạn có thể cân nhắc thu nhỏ nền kinh tế cho phù hợp."
+
+msgid "You have too many power grids. Join some of them"
+msgstr "Bạn có quá nhiều lưới điện. Hãy nối chúng lại"
+
+msgid "You have won the game."
+msgstr "Bạn đã thắng game."
+
+msgid "You just spent all your money."
+msgstr "Bạn vừa tiêu hết tiền."
+
+msgid "You just spent all your money. Further spending will require you to take out a loan which you must pay interest on. And certain projects you are not allowed to pay for with credit. The legislative council strongly advises you learn to budget."
+msgstr "Bạn vừa tiêu hết tiền. Chi tiêu tiếp theo sẽ buộc bạn phải vay nợ và trả lãi. Và một số dự án không được phép trả bằng nợ. Hội đồng lập pháp khuyên bạn nên học cách chi tiêu có kế hoạch."
+
+msgid "You lose."
+msgstr "Bạn thua."
+
+msgid "You should start a new career elsewhere."
+msgstr "Bạn nên bắt đầu sự nghiệp mới ở nơi khác."
+
+msgid "Your leadership drove the city to ruin, and all the people died."
+msgstr "Sự lãnh đạo của bạn đã đẩy thành phố tới diệt vong, và toàn bộ người dân đã chết."
+
+msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgstr "Người dân của bạn đã phát minh ra bóng rổ. Sân bóng rổ dùng một ít việc làm và hàng hóa, giúp người dân khu vực xung quanh (khoảng 10 ô mỗi hướng) vui vẻ hơn."
+
+msgid "Your people have invented basketball. Basketball Courts use a some labor and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgstr "Người dân của bạn đã phát minh ra bóng rổ. Sân bóng rổ dùng một ít lao động và hàng hóa, giúp người dân khu vực xung quanh (khoảng 10 ô mỗi hướng) vui vẻ hơn."
+
+msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
+msgstr "Tên lửa của bạn rơi ngay sau khi phóng. Người dân không còn tin tưởng công nghệ sơ tán nữa. Bạn phải phóng thêm năm tên lửa không người lái để khôi phục lòng tin."
+
+msgid "Your tech level is too low. Building a {} here requires {:.1f} tech level, but you have only {:.1f} tech level."
+msgstr "Cấp công nghệ của bạn quá thấp. Xây một {} ở đây cần {:.1f} cấp công nghệ, nhưng bạn chỉ có {:.1f}."
+
+msgid "Your tech level is too low. Building a {} requires {:.1f} tech level, but you have only {:.1f} tech level."
+msgstr "Cấp công nghệ của bạn quá thấp. Xây một {} cần {:.1f} cấp công nghệ, nhưng bạn chỉ có {:.1f}."
+
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] Phóng to để thấy ít công trình hơn nhưng chi tiết rõ hơn"
+
+msgid "[-] Zoom out"
+msgstr "[-] Thu nhỏ"
+
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Bấm nút này để được trợ giúp"
+
+msgid "[h] Hide high buildings."
+msgstr "[h] Ẩn nhà cao tầng."
+
+msgid "[h] Hide high buildings. "
+msgstr "[h] Ẩn nhà cao tầng. "
+
+msgid "[m] Scroll up."
+msgstr "[m] Cuộn lên."
+
+msgid "[n] Scroll down."
+msgstr "[n] Cuộn xuống."
+
+msgid "[v] Cycle through MiniMap overlay modes."
+msgstr "[v] Chuyển chế độ phủ của minimap."
+
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Chuyển chế độ phủ của minimap. "
+
+msgid "app data location"
+msgstr "vị trí dữ liệu ứng dụng"
+
+msgid "are not housed"
+msgstr "không có nhà"
+
+msgid "bad"
+msgstr "xấu"
+
+msgid "bad_times"
+msgstr "Thời khó khăn"
+
+msgid "build something here"
+msgstr "xây thứ gì đó ở đây"
+
+msgid "burnt down"
+msgstr "cháy rụi"
+
+msgid "busy"
+msgstr "bận"
+
+msgid "clear"
+msgstr "trong lành"
+
+msgid "configuration file location"
+msgstr "vị trí tệp cấu hình"
+
+msgid "death!"
+msgstr "chết!"
+
+msgid "degraded"
+msgstr "xuống cấp"
+
+msgid "empty"
+msgstr "Trống"
+
+msgid "extreme_arid"
+msgstr "Cực khô hạn"
+
+msgid "extreme_wetland"
+msgstr "Cực ngập nước"
+
+msgid "fair"
+msgstr "tạm được"
+
+msgid "good"
+msgstr "tốt"
+
+msgid "good_times"
+msgstr "Thời tốt đẹp"
+
+msgid "ground level"
+msgstr "mặt đất"
+
+msgid "gzipped"
+msgstr "nén gzip"
+
+msgid "k"
+msgstr "k"
+
+msgid "kWh"
+msgstr "kWh"
+
+msgid "lazy months"
+msgstr "tháng trì trệ"
+
+msgid "lowest edge"
+msgstr "mép thấp nhất"
+
+msgid "max with power&water"
+msgstr "tối đa khi có điện&nước"
+
+msgid "maximum"
+msgstr "tối đa"
+
+msgid "minimum"
+msgstr "tối thiểu"
+
+msgid "mute audio"
+msgstr "tắt âm thanh"
+
+msgid "n/a"
+msgstr "không có"
+
+msgid "no further information available"
+msgstr "không có thêm thông tin"
+
+msgid "of which"
+msgstr "trong đó"
+
+msgid "poor"
+msgstr "nghèo nàn"
+
+msgid "query"
+msgstr "tra cứu"
+
+msgid "random empty board"
+msgstr "bản đồ trống ngẫu nhiên"
+
+msgid "random village"
+msgstr "ngôi làng ngẫu nhiên"
+
+msgid "required"
+msgstr "yêu cầu"
+
+msgid "requires"
+msgstr "yêu cầu"
+
+msgid "river delta"
+msgstr "Đồng bằng sông"
+
+msgid "run fullscreen"
+msgstr "chạy toàn màn hình"
+
+msgid "run in window"
+msgstr "chạy trong cửa sổ"
+
+msgid "saddle point"
+msgstr "điểm yên ngựa"
+
+msgid "save to selected slot"
+msgstr "lưu vào ô đã chọn"
+
+msgid "semi desert"
+msgstr "Bán sa mạc"
+
+msgid "show this text and exit"
+msgstr "hiện văn bản này và thoát"
+
+msgid "show version and exit"
+msgstr "hiện phiên bản và thoát"
+
+msgid "smelly"
+msgstr "hôi"
+
+msgid "smoggy"
+msgstr "khói mù"
+
+msgid "smokey"
+msgstr "khói"
+
+msgid "specify screensize (eg. -S 1024x768)"
+msgstr "chỉ định kích thước màn hình (vd. -S 1024x768)"
+
+msgid "starting {} ..."
+msgstr "đang khởi động {} ..."
+
+msgid "swamp"
+msgstr "Đầm lầy"
+
+msgid "tech level"
+msgstr "cấp công nghệ"
+
+msgid "temperate"
+msgstr "Ôn đới"
+
+msgid "toggle terrain height rendering"
+msgstr "bật/tắt hiển thị độ cao địa hình"
+
+msgid "unrecognized reason"
+msgstr "lý do không xác định"
+
+msgid "ups, Bulldozer found a dangling reportingConstruction"
+msgstr "ối, Máy ủi phát hiện reportingConstruction lơ lửng"
+
+msgid "usage"
+msgstr "sử dụng"
+
+msgid "use OpenGL"
+msgstr "dùng OpenGL"
+
+msgid "use SDL"
+msgstr "dùng SDL"
+
+msgid "user data location"
+msgstr "vị trí dữ liệu người dùng"
+
+msgid "very bad"
+msgstr "rất xấu"
+
+msgid "village in semi desert"
+msgstr "ngôi làng bán sa mạc"
+
+msgid "village in swamp"
+msgstr "ngôi làng đầm lầy"
+
+msgid "village in temperate area"
+msgstr "ngôi làng vùng ôn đới"
+
+msgid "will cost about "
+msgstr "sẽ tốn khoảng "
+
+msgid "{} Available"
+msgstr "Có {}"

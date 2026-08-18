@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Giếng nước</p>
+	<p style="hp">Giếng nước cung cấp nước ngọt. Nước chảy trong ống ngầm dọc theo giao thông. Thiếu nước sẽ gây hậu quả giống như thiếu lương thực. Thông tin được hiển thị trong lớp phủ/minimap nạn đói. Cẩn thận, ô nhiễm quá nặng sẽ khiến nước không uống được.</p>
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">0 =&gt; 1600 nước</p>
+	<p style="hp">Sản xuất nước bị giảm theo tỉ lệ nếu một số ô dưới giếng là sa mạc.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="food">Lương thực</a></li>
+	<li><a href="water">Nước</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+</Document>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Tra cứu</p>
+	<p style="hp">Để xem thông tin về một công trình, dùng công cụ này và bấm vào công trình cần xem.</p>
+	<p style="hp">Thông tin được hiển thị ở góc dưới phải, thay cho minimap.</p>
+	<p style="hp">Bấm 'g' để xem thông tin dưới lòng đất. 'm' và 'n' chuyển qua các trang tùy chọn</p>
+	<p style="hp">Không tốn chi phí để dùng công cụ này. Ngoài ra có thể dùng nút chuột giữa hoặc bấm 'g' để hiển thị thông tin trên mặt đất.</p>
+
+  <p style="hp">Tra cứu:</p>
+   <img src="images/gui/buttonpanel/base/pointer.png" halign="center" />
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="controls">Điều khiển</a></li>
+	<li><a href="help">Trợ giúp Lincity</a></li>
+</Document>

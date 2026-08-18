@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lò gốm</p>
+	<p style="hp">Lò gốm dùng quặng, than và lao động để làm hàng hóa. Chúng không bắt buộc nối với giao thông nhưng tất nhiên phải nằm trong phạm vi một chợ có quặng, than và lao động, và có thể nhận hàng hóa.</p>
+	<p style="hp">Bạn có thể biết lò gốm đang hoạt động nhờ lò nung bốc khói.</p>
+
+  <p style="hp">Đây là một lò gốm</p>
+   <img src="images/tiles/pottery0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/industry/pottery.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">11 quặng + 2 than + 35 lao động =&gt; 35 hàng hóa</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="market">Chợ</a></li>
+</Document>
