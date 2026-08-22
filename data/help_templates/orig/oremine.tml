@@ -17,6 +17,6 @@ SUBH: Formulas
 
 2: 209 labor + 5000 ore =&gt; 1 ore reserve
 
-Ore mines target 80% coal inventory. If producing 5000 ore would not exceed 80% inventory, then formula 1 is applied. If consuming 5000 ore would not make the remaining inventory less than 80%, then formula 2 is applied.
+Ore mines target 80% ore inventory. If producing 5000 ore would not exceed 80% inventory, then formula 1 is applied. If consuming 5000 ore would not make the remaining inventory less than 80%, then formula 2 is applied.
 
 ALSO[See also:]: ore, goods, steel
