@@ -8,7 +8,8 @@
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="data/help/transport.xml">Verkeer</a></li>
-	<li><a href="data/help/river.xml">Rivieren</a></li>
+	<li><a href="evacuate">Evacuatie</a></li>
+	<li><a href="transport">Verkeer</a></li>
+	<li><a href="river">Rivieren</a></li>
 </Document>
 
