@@ -14,28 +14,28 @@
         margin-left="50" margin-right="50" margin-bottom ="5"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
         margin-right="20"/>
-    <Image src="images/mainmenu/credits_back.png" resizable="yes"/>
+    <Image src="images/mainmenu/credits_back.png" resizable="yes" lockRatio="no"/>
     <TableLayout rows="2" cols="1">
         <rowsize row="2" relative=".1"/>
         <cell row="1" col="1" valign="top" halign="left">
             <ScrollView name="CreditsHelpScrollView">
             <scrollbar width="20">
                     <button1>
-                            <image src="images/gui/buttons/round/button-round-20.png"/>
-                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
-                            <image-caption src="images/gui/scrollbar/arrow_up.png"/>
+                            <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
+                            <image-caption src="images/gui/scrollbar/arrow_up.png" width="15" height="13"/>
                     </button1>
                     <button2>
-                            <image src="images/gui/buttons/round/button-round-20.png"/>
-                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
-                            <image-caption src="images/gui/scrollbar/arrow_down.png"/>
+                            <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
+                            <image-caption src="images/gui/scrollbar/arrow_down.png" width="15" height="13"/>
                     </button2>
                     <scroller>
-                            <image src="images/gui/buttons/round/button-round-20.png"/>
-                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+                            <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png" width="20" height="20"/>
                     </scroller>
             </scrollbar>
             <contents>
@@ -46,9 +46,9 @@
         <cell row="2" col="1" halign="center">
             <Button name="BackButton">
                 <text-caption style="button" translatable="yes">Back</text-caption>
-                <image src="images/mainmenu/buttons/back.png"/>
-                <image-hover src="images/mainmenu/buttons/back-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
+                <image src="images/mainmenu/buttons/back.png" width="267" height="62"/>
+                <image-hover src="images/mainmenu/buttons/back-hover.png" width="267" height="62"/>
+                <image-clicked src="images/mainmenu/buttons/back-clicked.png" width="267" height="62"/>
             </Button>
         </cell>
     </TableLayout>

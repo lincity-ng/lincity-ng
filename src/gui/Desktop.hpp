@@ -62,6 +62,9 @@ public:
     void freeSystemCursor(SDL_SystemCursor id);
     void freeAllSystemCursors();
 
+    void setScale(Vector2 scale) { this->scale = scale; }
+    Vector2 getScale() { return scale; }
+
 protected:
     void setDirty(const Rect2D& rect);
 
@@ -73,6 +76,8 @@ private:
     SDL_Cursor *cursor;
     Component *cursorOwner;
     SDL_Cursor *systemCursors[SDL_SYSTEM_CURSOR_COUNT] = {0};
+
+    Vector2 scale;
 };
 
 #endif

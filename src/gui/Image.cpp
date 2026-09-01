@@ -36,17 +36,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Rect2D.hpp"                     // for Rect2D
 #include "Texture.hpp"                    // for Texture
 #include "TextureManager.hpp"             // for TextureManager, texture_man...
-#include "Vector2.hpp"                    // for Vector2
 #include "util/xmlutil.hpp"               // for xmlParse, missingXmlAttribute
 
 Image::Image()
-    : texture(0)
-{
-}
+  : lockRatio(true)
+{ }
 
-Image::~Image()
-{
-}
+Image::~Image() { }
 
 void
 Image::parse(xmlpp::TextReader& reader) {
@@ -78,6 +74,8 @@ Image::parse(xmlpp::TextReader& reader) {
     }
     else if(name == "resizable")
       resizable = xmlParse<bool>(value);
+    else if(name == "lockRatio")
+      lockRatio = xmlParse<bool>(value);
     else
       unexpectedXmlAttribute(reader);
   }
@@ -89,52 +87,40 @@ Image::parse(xmlpp::TextReader& reader) {
   texture = texture_manager->load(filename.string(),
     grey ? TextureManager::FILTER_GREY : TextureManager::NO_FILTER);
 
-  if(width <= 0 || height <= 0) {
-      width = texture->getWidth();
-      height = texture->getHeight();
-  }
+  assert(resizable || width && height);
 
-  if(resizable) {
+  if(resizable)
     flags |= FLAG_RESIZABLE;
-    texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
-  }
 }
 
 void
-Image::resize(float width, float height)
-{
-    if(width < 0) width = 0;
-    if(height < 0) height = 0;
-    this->width = width;
-    this->height = height;
+Image::resize(float width, float height) {
+  int tw = texture->getWidth();
+  int th = texture->getHeight();
+  if(lockRatio)
+    if(height * tw >= width * th)
+      height = width * th / tw;
+    else
+      width = height * tw / th;
+
+  this->width = width;
+  this->height = height;
 }
 
 void
 Image::draw(Painter& painter) {
-  if(flags & FLAG_RESIZABLE)
-    painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
-  else
-    painter.drawTexture(texture, Vector2(0, 0));
+  painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
 }
 
-std::filesystem::path Image::getFilename() const
-{
-    return filename;
+std::filesystem::path Image::getFilename() const {
+  return filename;
 }
 
-void Image::setFile(const std::filesystem::path &pfilename)
-{
-    filename=pfilename;
-    texture = 0;
-    texture = texture_manager->load(pfilename.string());
-
-    if(width <= 0 || height <= 0) {
-      width = texture->getWidth() + 1;
-      height = texture->getHeight() + 1;
-    }
-    if(flags & FLAG_RESIZABLE) {
-      texture->setScaleMode(Texture::ScaleMode::ANISOTROPIC);
-    }
+void Image::setFile(const std::filesystem::path &pfilename) {
+  filename = pfilename;
+  texture = texture_manager->load(pfilename.string());
+  // width = texture->getWidth();
+  // height = texture->getHeight();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Image)

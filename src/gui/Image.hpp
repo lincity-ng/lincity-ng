@@ -51,9 +51,9 @@ public:
     void setFile(const std::filesystem::path &filename);
 
 private:
-    Texture* texture;
-    bool tiling;
+    Texture *texture;
     std::filesystem::path filename;
+    bool lockRatio;
 };
 
 #endif

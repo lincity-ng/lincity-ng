@@ -277,6 +277,7 @@ void
 WindowManager::addWindowInternal(std::unique_ptr<Window>&& window) {
   Child& child = addChild(std::move(window));
   child.setPos((getSize() - child.getComponent()->getSize()) / 2);
+  child.getComponent()->reLayoutDeep();
 }
 
 void

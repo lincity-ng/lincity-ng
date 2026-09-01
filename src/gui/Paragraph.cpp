@@ -49,18 +49,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "util/gettextutil.hpp"           // for _
 #include "util/xmlutil.hpp"               // for unexpectedXmlAttribute, xml...
 
-Paragraph::Paragraph()
-    : texture(0)
-{
-    setFlags(FLAG_RESIZABLE);
+Paragraph::Paragraph() {
+  setFlags(FLAG_RESIZABLE);
 }
 
-Paragraph::~Paragraph()
-{
-    // for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
-    //     delete *i;
-    delete texture;
-}
+Paragraph::~Paragraph() { }
 
 void
 Paragraph::parse(xmlpp::TextReader& reader)
@@ -184,24 +177,16 @@ Paragraph::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
  * Reflows the text and renders it onto a texture
  * Cleaning this big code up a bit more is always nice. However be very careful
  * when doing so and test it alot, as the code very easily breaks...
+ *
+ * TODO:
+ *   - properly handle whitespace at the end of a span
+ *   - should use pixel coordinates instead of display coordinates
+ *   - no span alignment --> use TableLayout instead
+ *   - option for no auto-flow
+ *   - handle newline characters as manual line breaks
  */
 void
-Paragraph::resize(float width, float height)
-{
-    // free old texture
-    if(texture)
-    {
-        delete texture;
-        texture = 0;
-    }
-
-    if(width == 0 || textspans.empty()) {
-        this->width = 0;
-        this->height = 0;
-        texture = 0;
-        return;
-    }
-
+Paragraph::resize(float width, float height) {
     // y coordinates for all the lines
     std::vector<int> ycoords;
     // surfaces of all the lines rendered
@@ -216,13 +201,20 @@ Paragraph::resize(float width, float height)
 
 
     TextSpans::iterator i = textspans.begin();
+    if(i == textspans.end()) {
+      texture.reset();
+      this->width = 0;
+      this->height = 0;
+      return;
+    }
 
     const TextSpan* span = i->get();
     const std::string* text = &(span->text);
-    TTF_Font* font = fontManager->getFont(span->style);
+    const Vector2 scale = getScale();
+    TTF_Font* font = fontManager->getFont(span->style, scale);
     std::string::size_type p = 0;
     std::string::size_type linestart = 0;
-    lineheight = TTF_GetFontHeight(font);
+    lineheight = TTF_GetFontHeight(font) / scale.y;
     // string that should be rendered next
     std::string line;
     // current rendering position
@@ -254,7 +246,7 @@ Paragraph::resize(float width, float height)
         bool render = false;
         bool linefeed = false;
         // we need a linefeed if width isn't enough for current span
-        if(width > 0 && pos.x + render_width >= width - style.margin_left - style.margin_right)
+        if(width > 0 && pos.x + render_width / scale.x >= width - style.margin_left - style.margin_right)
         {
             render = true;
             linefeed = true;
@@ -280,10 +272,10 @@ Paragraph::resize(float width, float height)
 
         if(render && line != "")
         {
-            if(TTF_GetFontHeight(font) > lineheight)
+            if(TTF_GetFontHeight(font) / scale.y > lineheight)
             {
-                lineheight = TTF_GetFontHeight(font);
-                baseline = TTF_GetFontAscent(font);
+                lineheight = TTF_GetFontHeight(font) / scale.y;
+                baseline = TTF_GetFontAscent(font) / scale.y;
             }
 
             // render span
@@ -295,7 +287,7 @@ Paragraph::resize(float width, float height)
                 msg << "Error rendering text: " << SDL_GetError();
                 throw std::runtime_error(msg.str());
             }
-            SDL_SetSurfaceAlphaMod(spansurface, 255);
+            SDL_SetSurfaceAlphaMod(spansurface, 255); // is this needed?
             //remember individual margins of spans
             float xoffset;
             bool new_column = false;
@@ -308,14 +300,14 @@ Paragraph::resize(float width, float height)
             {
                 new_column = (span->style.margin_left!=0);
                 if (new_column)
-                {   xoffset = (width + span->style.margin_left - span->style.margin_right - spansurface->w)/2;}
+                {   xoffset = (width + span->style.margin_left - span->style.margin_right - spansurface->w / scale.x)/2;}
                 else
                 {   xoffset = 0;}
             }
             else
             {
                 new_column = true; //always new column for right adjustment
-                xoffset = (width - spansurface->w - span->style.margin_right);
+                xoffset = (width - spansurface->w / scale.x - span->style.margin_right);
             }
             float yoffset = span->style.margin_top;
             if (new_column)
@@ -325,20 +317,20 @@ Paragraph::resize(float width, float height)
             pos.y += yoffset;
             spanxoffset.push_back(pos.x);
             spanimages.push_back(spansurface);
-            spanbaselines.push_back(TTF_GetFontAscent(font));
+            spanbaselines.push_back(TTF_GetFontAscent(font) / scale.y);
 
             // remember span position if it is a link
             if(span->style.href != "") {
                 LinkRectangle link;
                 link.rect = Rect2D (pos.x , pos.y,
-                                    pos.x + spansurface->w,
-                                    pos.y + spansurface->h);
+                                    pos.x + spansurface->w / scale.x,
+                                    pos.y + spansurface->h / scale.y);
                 link.span = span;
                 linerectangles.push_back(link);
             }
 
 
-            pos.x += spansurface->w;
+            pos.x += spansurface->w / scale.x;
             line = "";
         }
 
@@ -348,8 +340,8 @@ Paragraph::resize(float width, float height)
             if(spanimages.size() == 1) {
                 lineimages.push_back(spanimages.back());
             } else {
-                SDL_Surface* lineimage = SDL_CreateSurface((int) pos.x,
-                        (int) lineheight, SDL_PIXELFORMAT_ABGR8888);
+                SDL_Surface* lineimage = SDL_CreateSurface(pos.x * scale.x,
+                        lineheight * scale.y, SDL_PIXELFORMAT_ABGR8888);
                 if(lineimage == 0) {
                     throw std::runtime_error(
                             "Out of memory when composing line image");
@@ -358,8 +350,8 @@ Paragraph::resize(float width, float height)
 
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
-                    rect.x = (Sint16) spanxoffset[i];
-                    rect.y = baseline - spanbaselines[i] + textspans[i]->style.margin_top;
+                    rect.x = spanxoffset[i] * scale.x;
+                    rect.y = (baseline - spanbaselines[i] + textspans[i]->style.margin_top) * scale.y;
                     if(rect.y < 0)
                     {   rect.y = 0;}
 
@@ -377,9 +369,9 @@ Paragraph::resize(float width, float height)
             if(style.alignment == Style::ALIGN_LEFT) {
                 xoffset = style.margin_left;
             } else if(style.alignment == Style::ALIGN_CENTER) {
-                xoffset = (width + style.margin_left - style.margin_right - lineimages.back()->w)/2;
+                xoffset = (width + style.margin_left - style.margin_right - lineimages.back()->w / scale.x)/2;
             } else {
-                xoffset = (width - lineimages.back()->w  - style.margin_right);
+                xoffset = (width - lineimages.back()->w / scale.x  - style.margin_right);
             }
             for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
                 i != linerectangles.end(); ++i) {
@@ -394,8 +386,8 @@ Paragraph::resize(float width, float height)
             ycoords.push_back(static_cast<int> (pos.y + style.margin_top));
             pos.y += lineheight;
 
-            lineheight = TTF_GetFontHeight(font);
-            baseline = TTF_GetFontAscent(font);
+            lineheight = TTF_GetFontHeight(font) / scale.y;
+            baseline = TTF_GetFontAscent(font) / scale.y;
         }
 
         // advance to next span if necessary
@@ -405,7 +397,7 @@ Paragraph::resize(float width, float height)
             {   break;}
             span = i->get();
             text = &(span->text);
-            font = fontManager->getFont(span->style);
+            font = fontManager->getFont(span->style, scale);
             linestart = p = 0;
             line = "";
         }
@@ -426,34 +418,41 @@ Paragraph::resize(float width, float height)
 
     /* Step2: compose all lines to the final image */
     if(width < 0) {
-        width = lineimages[0]->w;
+        width = lineimages[0]->w / scale.x;
     }
-    SDL_Surface* result = SDL_CreateSurface((int) width, (int) height,
+    SDL_Surface* result = SDL_CreateSurface((int)(width * scale.x), (int)(height * scale.y),
                                             SDL_PIXELFORMAT_ABGR8888);
     if(result == 0) {
         throw std::runtime_error("Out of memory when creating text image");
+    }
+    if(!result->w || !result->h) {
+      SDL_DestroySurface(result);
+      texture.reset();
+      this->width = 0;
+      this->height = 0;
+      return;
     }
     //apply margins of paragraph
     for(size_t i = 0; i < lineimages.size(); ++i) {
         SDL_Rect rect;
 
         if(style.alignment == Style::ALIGN_LEFT) {
-            rect.x = (Sint16) style.margin_left;
+            rect.x = style.margin_left * scale.x;
         } else if(style.alignment == Style::ALIGN_CENTER) {
-            rect.x = (Sint16) (width + style.margin_left - style.margin_right - lineimages[i]->w) / 2;
+            rect.x = ((width + style.margin_left - style.margin_right) * scale.x - lineimages[i]->w) / 2;
         } else {
-            rect.x = (Sint16) (width - lineimages[i]->w - style.margin_right);
+            rect.x = (width - style.margin_right) * scale.x - lineimages[i]->w;
         }
-        rect.y = (Sint16) ycoords[i];
+        rect.y = ycoords[i] * scale.y;
         SDL_BlitSurface(lineimages[i], 0, result, &rect);
         SDL_DestroySurface(lineimages[i]);
     }
     SDL_Surface* surface = SDL_ConvertSurface(result, SDL_PIXELFORMAT_RGBA8888);
     SDL_DestroySurface(result);
     if(surface == NULL)
-    {   throw std::runtime_error("Out of memory when creating text image(d)");}
+    {   throw std::runtime_error("Out of memory when creating text image");}
 
-    texture = texture_manager->create(surface);
+    texture.reset(texture_manager->create(surface));
     SDL_DestroySurface(surface);
     this->width = width;
     this->height = height;
@@ -462,31 +461,33 @@ Paragraph::resize(float width, float height)
 }
 
 void
-Paragraph::draw(Painter& painter)
-{
-    if(!texture)
-    {   return;}
-    painter.drawTexture(texture, Vector2(0, 0));
+Paragraph::draw(Painter& painter) {
+  if(texture)
+    painter.drawTexture(texture.get(), Vector2(0, 0));
 }
 
 void
 Paragraph::event(const Event& event)
 {
-    if(event.type != Event::MOUSEMOTION &&
-       event.type != Event::MOUSEBUTTONDOWN)
-        return;
-    if(!event.inside)
-        return;
+  switch(event.type) {
+  case Event::MOUSEMOTION:
+  case Event::MOUSEBUTTONDOWN: {
+    if(!event.inside) break;
     for(LinkRectangles::iterator i = linkrectangles.begin();
-        i != linkrectangles.end(); ++i) {
-        if(i->rect.inside(event.mousepos)) {
-            if(event.type == Event::MOUSEMOTION) {
-                // TODO change mouse cursor
-            } else if(event.type == Event::MOUSEBUTTONDOWN) {
-                linkClicked(this, i->span->style.href);
-            }
+      i != linkrectangles.end(); ++i
+    ) {
+      if(i->rect.inside(event.mousepos)) {
+        if(event.type == Event::MOUSEMOTION) {
+          // TODO change mouse cursor
+        } else if(event.type == Event::MOUSEBUTTONDOWN) {
+          linkClicked(this, i->span->style.href);
         }
+      }
     }
+  } break;
+  }
+
+  Component::event(event);
 }
 
 void

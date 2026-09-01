@@ -116,7 +116,9 @@ void initVideo(int width, int height)
 {
     Uint32 flags = 0;
 
-    flags = SDL_WINDOW_RESIZABLE;
+    flags =
+      SDL_WINDOW_RESIZABLE |
+      SDL_WINDOW_HIGH_PIXEL_DENSITY;
 #ifndef DISABLE_GL_MODE
     if(getConfig()->useOpenGL.get()) {
         flags |= SDL_WINDOW_OPENGL;

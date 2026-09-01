@@ -38,7 +38,7 @@ class Component;
 class Child
 {
 public:
-    Child(std::unique_ptr<Component>&& _component = 0);
+    Child(Component* parent, std::unique_ptr<Component>&& _component = nullptr);
     ~Child();
 
     Component* getComponent() const
@@ -80,7 +80,8 @@ private:
     bool enabled;
     bool useClipRect;
     Rect2D clipRect;
-    Component* component;
+    Component *component = nullptr;
+    Component *parent;
 };
 
 /**

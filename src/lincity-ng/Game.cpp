@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -471,10 +471,17 @@ Game::run() {
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
       throw std::runtime_error("Toplevel component is not a Desktop");
-    gui->resize(getConfig()->videoX.get(), getConfig()->videoY.get());
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
     world->setUpdated(World::Updatable::MONEY);
+    {
+      int width, height;
+      SDL_GetWindowSizeInPixels(window, &width, &height);
+      float scale = SDL_GetWindowDisplayScale(window);
+      desktop->setScale(Vector2(scale, scale));
+      desktop->resize(width / scale, height / scale);
+      desktop->reLayoutDeep();
+    }
 
     getButtonPanel().selectQueryTool();
 
@@ -497,20 +504,29 @@ Game::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
                     videoSizeChanged(event.window.data1, event.window.data2);
-                    gui->resize(event.window.data1, event.window.data2);
+                    Vector2 scale = desktop->getScale();
+                    desktop->resize(
+                      event.window.data1 / scale.x,
+                      event.window.data2 / scale.y);
                     getConfig()->videoX.session = event.window.data1;
                     getConfig()->videoY.session = event.window.data2;
                     getConfig()->videoX.sessionToConfig();
                     getConfig()->videoY.sessionToConfig();
-                    break;
+                } break;
+                case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+                  float scale = SDL_GetWindowDisplayScale(window);
+                  desktop->setScale(Vector2(scale, scale));
+                  int width, height;
+                  SDL_GetWindowSizeInPixels(window, &width, &height);
+                  desktop->resize(width / scale, height / scale);
+                  desktop->reLayoutDeep();
+                } break;
                 case SDL_EVENT_WINDOW_MOUSE_ENTER:
                 case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
-                    Event gui_event(event);
-                    gui->event(gui_event);
-                    break;
-                    }
+                    desktop->event(Event(event));
+                } break;
                 case SDL_EVENT_KEY_UP: {
                   Event gui_event(event);
                   if(gui_event.key == SDLK_ESCAPE) {

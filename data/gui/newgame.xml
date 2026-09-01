@@ -2,7 +2,7 @@
 <?xml-stylesheet href="identity.xsl" type="text/xsl"?>
 <Panel name="newgame-menu" resizable="true">
     <DefineStyle name="random-button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
-    <Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
+    <Image src="images/mainmenu/newgame_back.png" resizable="yes" lockRatio="no"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
     <TableLayout rows="3" cols="1">
         <rowsize row="1" relative="3"/>
@@ -41,10 +41,10 @@
 <!--
             <CheckButton name="RandomEmpty">
             <text-caption style="button">Newgame 1234567890</text-caption>
-            <image src="images/gui/buttons/randombutton.png"/>
-            <image-hover src="images/gui/buttons/randombutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/randombutton-checked.png"/>
+            <image src="images/gui/buttons/randombutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/randombutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/randombutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/randombutton-checked.png" width="400" height="50"/>
             </CheckButton>
             -->
                 <TableLayout rows="2" cols="2">
@@ -53,8 +53,8 @@
                     </cell>
                     <cell row="1" col="2">
                         <CheckButton name="WithVillage">
-                            <image src="images/gui/checkbox/checkbox.png"/>
-                            <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+                            <image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+                            <image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
                         </CheckButton>
                     </cell>
                     <cell row="2" col="1">
@@ -62,8 +62,8 @@
                     </cell>
                     <cell row="2" col="2">
                         <CheckButton name="WithoutTrees">
-                            <image src="images/gui/checkbox/checkbox.png"/>
-                            <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+                            <image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+                            <image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
                         </CheckButton>
                     </cell>
                 </TableLayout>
@@ -71,37 +71,37 @@
             <cell row="2" col="2">
             <CheckButton name="RiverDelta" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
-            <image src="images/gui/buttons/randombutton.png"/>
-            <image-hover src="images/gui/buttons/randombutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/randombutton-checked.png"/>
+            <image src="images/gui/buttons/randombutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/randombutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/randombutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/randombutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="3" col="2">
             <CheckButton name="DesertArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
-            <image src="images/gui/buttons/randombutton.png"/>
-            <image-hover src="images/gui/buttons/randombutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/randombutton-checked.png"/>
+            <image src="images/gui/buttons/randombutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/randombutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/randombutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/randombutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="4" col="2">
             <CheckButton name="TemperateArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
-            <image src="images/gui/buttons/randombutton.png"/>
-            <image-hover src="images/gui/buttons/randombutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/randombutton-checked.png"/>
+            <image src="images/gui/buttons/randombutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/randombutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/randombutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/randombutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="5" col="2">
             <CheckButton name="SwampArea" auto-uncheck="false">
             <text-caption style="random-button">Newgame 1234567890</text-caption>
-            <image src="images/gui/buttons/randombutton.png"/>
-            <image-hover src="images/gui/buttons/randombutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/randombutton-checked.png"/>
+            <image src="images/gui/buttons/randombutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/randombutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/randombutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/randombutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
 
@@ -110,55 +110,55 @@
             <cell row="7" col="2">
             <CheckButton name="File0" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="8" col="2">
             <CheckButton name="File1" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="9" col="2">
             <CheckButton name="File2" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="10" col="2">
             <CheckButton name="File3" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="11" col="2">
             <CheckButton name="File4" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
             <cell row="12" col="2">
             <CheckButton name="File5" auto-uncheck="false">
             <text-caption style="button">Savegame 1234567890</text-caption>
-            <image src="images/gui/buttons/savebutton.png"/>
-            <image-hover src="images/gui/buttons/savebutton-hover.png"/>
-            <image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
-            <image-checked src="images/gui/buttons/savebutton-checked.png"/>
+            <image src="images/gui/buttons/savebutton.png" width="400" height="50"/>
+            <image-hover src="images/gui/buttons/savebutton-hover.png" width="400" height="50"/>
+            <image-clicked src="images/gui/buttons/savebutton-clicked.png" width="400" height="50"/>
+            <image-checked src="images/gui/buttons/savebutton-checked.png" width="400" height="50"/>
             </CheckButton>
             </cell>
         </TableLayout>
@@ -170,17 +170,17 @@
             <cell row="2" col="1" halign="left">
             <Button name="BackButton">
                 <text-caption style="button" translatable="yes">Back</text-caption>
-                <image src="images/mainmenu/buttons/back.png"/>
-                <image-hover src="images/mainmenu/buttons/back-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
+                <image src="images/mainmenu/buttons/back.png" width="267" height="62"/>
+                <image-hover src="images/mainmenu/buttons/back-hover.png" width="267" height="62"/>
+                <image-clicked src="images/mainmenu/buttons/back-clicked.png" width="267" height="62"/>
             </Button>
             </cell>
             <cell row="2" col="2" halign="right">
             <Button name="StartButton">
                 <text-caption style="button" translatable="yes">Start</text-caption>
-                <image src="images/mainmenu/buttons/start.png"/>
-                <image-hover src="images/mainmenu/buttons/start-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/start-clicked.png"/>
+                <image src="images/mainmenu/buttons/start.png" width="267" height="62"/>
+                <image-hover src="images/mainmenu/buttons/start-hover.png" width="267" height="62"/>
+                <image-clicked src="images/mainmenu/buttons/start-clicked.png" width="267" height="62"/>
             </Button>
             </cell>
         </TableLayout>

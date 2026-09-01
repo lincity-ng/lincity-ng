@@ -31,11 +31,11 @@ class TextureSDL : public Texture {
 public:
   virtual ~TextureSDL();
 
-  int getWidth() const override {
-    return width;
+  float getWidth() const override {
+    return tx->w;
   }
-  int getHeight() const override {
-    return height;
+  float getHeight() const override {
+    return tx->h;
   }
 
   virtual void setScaleMode(ScaleMode mode) override;
@@ -46,7 +46,6 @@ private:
   TextureSDL(SDL_Texture *tx);
 
   SDL_Texture *tx = nullptr;
-  mutable int width = 0, height = 0;
 };
 
 #endif

@@ -78,6 +78,7 @@ public:
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();
+    void reLayoutDeep();
 
     /**
      * @return true if the component is opaque at this place.
@@ -129,9 +130,12 @@ public:
     }
     Component* findComponent(const std::string& name);
     Desktop* getDesktop() const {
-        return desktop;
+      if(!desktop && parent) desktop = parent->getDesktop();
+      return desktop;
     }
     Child *getParentChild() const;
+
+    Vector2 getScale() const;
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -167,12 +171,14 @@ protected:
     }
 
     Component* parent;
-    Desktop *desktop;
+    mutable Desktop *desktop;
     int flags;
     Vector2 size;
     float &width = size.x;
     float &height = size.y;
     std::string name;
+
+    friend Child;
 };
 
 #endif

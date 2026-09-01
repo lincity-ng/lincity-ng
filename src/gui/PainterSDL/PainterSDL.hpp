@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,9 @@ public:
 
   void updateScreen() override;
 
+  void setScale(Vector2 scale) override;
+  Vector2 getScale();
+
   void translate(Vector2 tl) override;
   void pushTransform() override;
   void popTransform() override;
@@ -71,15 +74,18 @@ public:
   void pushClipRect(const Rect2D& region) override;
   void popClipRect() override;
 
-
 private:
   SDL_Renderer* renderer;
 
   struct Transform {
     Vector2 translation;
 
-    Vector2 apply(const Vector2& v) const {
-      return v - translation;
+    Vector2 apply(Vector2 v) const {
+      return v + translation;
+    }
+
+    void translate(Vector2 t) {
+      translation = apply(t);
     }
   };
   // the stack used by push-/popTransform
