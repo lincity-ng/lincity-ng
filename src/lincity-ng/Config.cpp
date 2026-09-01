@@ -221,7 +221,8 @@ void Config::load(std::filesystem::path configFile) {
           language.config = xmlParseConfig<std::string>(xml_val);
         else if(xml_tag == "WorldSideLen")
           worldSize.config =
-            validateRange(xmlParseConfig<int>(xml_val), 50, 10000);
+            validateRange(xmlParseConfig<int>(
+              xml_val), Config::worldSizeMin, Config::worldSizeMax);
         else if(xml_tag == "carsEnabled")
           carsEnabled.config = xmlParseConfig<bool>(xml_val);
         else if(xml_tag == "appDataDir")
