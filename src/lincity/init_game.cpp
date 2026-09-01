@@ -204,6 +204,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     d2w_min = r * r;
     alt0 = *water(p.x,p.y);
 
+    arid = global_aridity; // reset per tile; must not carry over from the previous tile
     /* near river lower aridity */
     if (arid > 0) {
       if (d2w_min < 5)
