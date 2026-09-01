@@ -478,7 +478,7 @@ static void new_setup_river_ground(Map& map,
                 if(!*f1(endx, midy))
                 {
                     float right_center;
-                    if ( l < k-1) //inside map
+                    if (l < n-1) //inside map
                     {                                                         //to the right             //middle
                         right_center = (right_top + right_down + center + *f1(midx + size, midy))/4;
                     }
@@ -493,7 +493,7 @@ static void new_setup_river_ground(Map& map,
                 if (!*f1(midx, endy))
                 {
                     float down_center;
-                    if (m < k-1) //inside map
+                    if (m < n-1) //inside map
                     {                                                         //middle            // downwards
                         down_center = (left_down + right_down + center + *f1(midx, midy + size ))/4;
                     }
