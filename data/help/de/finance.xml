@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Finanzübersicht</p>
-	<p style="hp">Dies ist die Finanzübersicht.</p>
-	<p style="hp">Die Finanzübersicht wird jeden Januar aktualisiert. Die Zahlen unter "Einkommen" und "Ausgaben" zeigen die Einnahmen und Ausgaben des letzten Jahres.</p>
-	<p style="hp">Die Zahl neben "Netto" gibt die totale Bewegung an. Es gibt gewisse Dinge, die Sie nicht tun können, wenn sie "in den roten Zahlen" sind.</p>
+	<p style="hp">Ein Linksklick auf dieses Fenster wird Fenster für die »globale Finzanzbilanz« öffnen, Details über »sonstige Kosten« oder »Bevölkerungskosten« öffnen. Benutzen Sie die Scroll-Buttons (rauf und runter), um zwischen ihnen zu wechseln.</p>
+	<p style="hp">Die Finanzübersicht wird immer am 1. Januar aktualisiert. Die Zahlen zeigen die Einnahmen und Ausgaben des letzten Jahres.</p>
+	<p style="hp">Die Zahl neben »Netto« gibt die totale Bewegung an. Es gibt gewisse Dinge, die Sie nicht tun können, wenn sie »in den roten Zahlen« sind.</p>
 	<!-- Im deutschen werden keine Abkürzungen benutzt.. die Einträge sind selbsterklärend...
 	<p style="hp">Die Bedeutung der Abkürzungen sind:</p>
 	<p style="hp">Income:</p>
@@ -17,7 +17,6 @@
 	<li>TC = Transport costs.</li>
 	<li>IP = Import costs.</li>
 	-->
-	<p style="hp">Durch wiederholtes Klicken auf dieses Fenster schalten Sie durch die Übersichten für Finanzen, andere Kosten und Wohnungskosten.</p>
     <p style="hsubtitle">Siehe auch:</p>
     <li><a href="housing">Bevölkerungsanzeige</a></li>
     <li><a href="other-costs">Sonstige Kosten</a></li>

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Bevölkerungsanzeige</p>
-	<p style="hp">Die Bevölkerungsanzeige wird erreicht, indem man mehrmals auf das €-Symbol über der Miniaturansicht klickt</p>
-	<p style="hp">Die Anzeige zeigt folgende Statistiken:</p>
-	<li>Gesamt - Zeigt die Gesamtbevölkerung in ihrer Stadt. Dies zählt Einwohner mit und ohne Wohnung.</li>
-	<li>mit Wohnung - Zeigt die Anzahl der Einwohner mit einer Wohnung.</li>
-	<li>Obdachlos - Zeigt die Anzahl der Leute ohne Wohnung.</li>
+	<p style="hp">Dies ist die Bevölkerungsanzeige.</p>
+	<p style="hp">Das Fenster zeigt 9 Statistiken:</p>
+	<li>Gesamt – Zeigt die Gesamtbevölkerung in ihrer Stadt.</li>
+	<li>Mit Wohnung – Zeigt die Anzahl der Einwohner mit einer Wohnung.</li>
+	<li>Obdachlos – Zeigt die Anzahl der Einwohner, die keine Wohung haben oder in einer Barackensiedlung leben.</li>
 	<li>Barackensiedlungen: Zeigt die Anzahl der Barackensiedlungen in der Stadt.</li>
-	<li>Unn Tdsfl - Zeigt die Anzahl der unnatürlichen Todesfälle, also die Leute die im letzten Monat durch Hunger oder Verschmutzung zu Tode gekommen sind.</li>
-	<li>Arbeitslosigkeit - Ansprüche zeigt die absolute Zahl, die im letzten Monat Anspruch auf Arbeitslosengeld hatten.
-        Die Rate ist der Prozentsatz der Einwohner, die ohne Arbeit sind. </li>
-	<li>Verhungert - Fälle zeigt die tatsächlichen Todesfälle an, Rate den Prozentsatz der hungernden Bevölkerung.</li>
+	<li>Unnat. Todesfälle – Zeigt die Anzahl der unnatürlichen Todesfälle, also die Einwohner, die im letzten Monat durch Hunger oder Verschmutzung zu Tode gekommen sind.</li>
+	<li>Arbeitslosigkeit – Zeigt die absolute Zahl derer, die im letzten Monat arbeitslos waren.</li>
+	<li>Rate – Zeigt den Prozentsatz der Arbeitslosen in Ihrer Bevölkerung.</li>
+	<li>Hungernd – Zeigt an, wie viele Menschen im letzten Monat Hunger leideten.</li>
+	<li>Rate – Zeigt den Prozentsatz der im letzten Monat hungernden Bevölkerung an.</li>
 
-    <p style="hp">Durch Klick auf den Reiter können Sie zwischen den 
-        verschiedenen Finanzansichten wechseln.</p>
+    <p style="hp">Durch Linksklick auf den Fenstertitel können Sie zwischen den 
+        verschiedenen Ansichten wechseln: Finanzen, sonstige Kosten und Behausung.</p>
 
     <p style="hsubtitle">Siehe auch:</p>
     <li><a href="finance">Finanzübersicht</a></li>

@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Umspannhäuschen</p>
-	<p style="hp">Umspannhäuschen verteilen den Strom aus den Leitungen
-    auf die Gebäude in der Umgebung. Um festzustellen, ob beispielsweise
-    ein Wohngebiet mit Strom versorgt wird, klicken Sie es an und achten
-    Sie auf die Statusanzeige.</p>
-	<p style="hp">So sieht ein Umspannhäuschen aus</p>
+	<p style="htitle">Umspannwerke</p>
+	<p style="hp">Umspannwerke verteilen den Strom aus den Stromleitungen
+    (Hochspannung) auf benachbarte Transportwege (Niedrigspannung). Um festzustellen,
+    wo Sie mehr Energie benötigen, benutzen Sie die Energie-Ebene. Die Transformatoren
+    benötigen keine Arbeit für Ihre Funktion.</p>
+
+	<p style="hp">So sieht ein Umspannwerk aus</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
 	<p style="hp">und so sein Symbol</p>
 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">1500 Hochspannung =&gt; 3000 Niedrigspannung</p>
+        <p style="hp">Falls es nicht ausreichend Hochspannungsenergie gibt, wird die Formel eventuell herunterskaliert.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="msb-power">Energie-Ebene</a></li>
+	<li><a href="power">Energie</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
+	<li><a href="windmill">Windmühlen</a></li>
+	<li><a href="powerscoal">Kohlekraftwerk</a></li>
 	<li><a href="powerssolar">Solarkraftwerk</a></li>
-    <li><a href="powerscoal">Kohlekraftwerk</a></li>
-	<li><a href="commune">Köhlerei</a></li>
-	<li><a href="steel">Stahl</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
 </Document>
 

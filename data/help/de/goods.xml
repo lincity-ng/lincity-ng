@@ -3,12 +3,12 @@
 	<p style="htitle">Waren</p>
 	<p style="hp">Waren werden für den Betrieb der meisten Gebäude benötigt. Außerdem mag die Bevölkerung gerne viel davon und fühlt sich von Plätzen angezogen, wo sie selbige bekommen kann.</p>
 	<p style="hp">Waren werden versteuert. Wenn Sie viel produzieren, helfen Sie damit Ihren Finanzen.</p>
-	<p style="hp">Waren werden von Töpfereien, Schmieden, Spinnereien und Leichtindustrie hergestellt.</p>
-	<p style="hp">Jedoch <b>nicht</b> von der Schwerindustrie, diese stellt lediglich Stahl her.</p>
+	<p style="hp">Waren werden von Töpfereien, Schmieden, Fabriken und der Leichtindustrie hergestellt.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="pottery">Töpferei</a></li>
-	<li><a href="blacksmith">Schmiede</a></li>
-	<li><a href="mills">Spinnerei</a></li>
-	<li><a href="industryl">Leichtindustrie</a></li>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="pottery">Töpfereien</a></li>
+	<li><a href="blacksmith">Schmieden</a></li>
+	<li><a href="mills">Fabriken</a></li>
+	<li><a href="industryl">Leichtindustriegebiete</a></li>
 </Document>

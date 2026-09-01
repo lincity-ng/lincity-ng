@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Abfragewerkzeug</p>
-	<p style="hp">Um Informationen über ein Gebäude zu erhalten klicken
+	<p style="htitle">Abfrage</p>
+	<p style="hp">Um Informationen über ein Gebäude zu erhalten, klicken
     Sie es mit diesem Werkzeug an.</p>
-	<p style="hp">Die Informationen werden rechts unten anstelle der Minikarte
+	<p style="hp">Die Informationen werden rechts unten anstelle der Miniaturansicht
     angezeigt.</p>
+        <p style="hp">Drücken Sie »G« oder alternativ die mittlere Maustaste, um Infos über den Untergrund anzuzeigen. »M« und »N« wechseln durch die optionalen Seiten.</p>
 	<p style="hp">Die Anwendung dieses Werkzeugs ist kostenlos.</p>
+
+        <p style="hp">Abfrage:</p>
 	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+
 	<p style="hsubtitle">Siehe auch:</p>
-    <li><a href="keys">Tastaturbefehle</a></li>
-	<li><a href="help">Index</a></li>
+    <li><a href="controls">Steuerung</a></li>
+	<li><a href="help">Lincity-Hilfe</a></li>
 </Document>
 

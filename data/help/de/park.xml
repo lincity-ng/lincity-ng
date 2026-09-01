@@ -3,15 +3,17 @@
 	<p style="htitle">Parks</p>
 	<p style="hp">Parks funktionieren ganz einfach: sie reduzieren Verschmutzung.</p>
 	<p style="hp">Eine ganze Menge Gebiete erzeugen Verschmutzung. Beispielsweise
-    Straßen, Eisenbahnen, Kohlebergwerke, Industriegebiete, Schwerindustrie  
+    Straßen, Eisenbahnen, Kohlebergwerke, Leichtindustrie, Schwerindustrie  
     und Kohlekraftwerke. Manche erzeugen mehr Verschmutzung als andere.</p>
-	<p style="hp">Sie können Parks verwenden um Ihre Wohngebiete
+	<p style="hp">Sie können Parks verwenden, um Ihre Wohngebiete
     abzuschirmen, oder um zu verhindern, dass sich die Verschmutzung 
-    über ihr Entstehungsgebiet hinaus ausbreitet. </p>
-	<p style="hp">Der Wind kommt <b>von</b> Südwest, also sollten Sie die Parks
+    über ihr Entstehungsgebiet hinaus ausbreitet.</p>
+	<p style="hp">Der Wind kommt von Südwest, also sollten Sie die Parks
     entsprechend bauen.</p>
-	<p style="hp">Parks benötigen Grundwasser, sie können also nur auf "grünen"
-    Feldern gebaut werden.</p>
+        <p style="hp">Parks sind viel effektiver als Wälder (Köhlereien) oder Bauernhöfe,
+        aber benötigen Grundwasser, sie können also nur auf Grünflächen gebaut werden.</p>
+        <p style="hp">Tipp: Halten Sie die Taste »W« gedrückt, während Sie einen Park
+        bauen, um einen kleinen Teich zu erhalten.</p>
 	
 	<p style="hp">Das ist ein Park</p>
 	<img src="images/tiles/parkland-plane.png" halign="center"/>
@@ -20,9 +22,9 @@
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="pollution">Verschmutzung</a></li>
-	<li><a href="road">Straßen</a></li>
-	<li><a href="rail">Eisenbahnen</a></li>
-	<li><a href="coalmine">Kohlebergwerke</a></li>
-	<li><a href="industryh">Schwerindustrie</a></li>
-	<li><a href="industryl">Industriegebiete</a></li>
+	<li><a href="farms">Bauernhöfe</a></li>
+	<li><a href="commune">Köhlereien (Wälder)</a></li>
+	<li><a href="industryh">Schwerindustrie (Stahlwerke)</a></li>
+	<li><a href="industryl">Leichtindustriegebiete</a></li>
+	<li><a href="powerscoal">Kohlekraftwerk</a></li>
 </Document>

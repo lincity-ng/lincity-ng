@@ -2,15 +2,15 @@
 <Document style="helpdocument">
 	<p style="htitle">Erz</p>
 	<p style="hp">Erz ist einer der Rohstoffe in diesem Spiel.
-    Köhlereien, Erzgruben und Recyclinghöfe erzeugen Erz.</p>
-	<p style="hp">Töpfereien, Industriebetriebe und Schwerindustrie benötigen
+    Köhlereien, Erzbergwerke und Recyclingzentren produzieren Erz.</p>
+	<p style="hp">Töpfereien, Leichtindustrie und Schwerindustrie benötigen
     Erz.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="commune">Köhlerei</a></li>
-	<li><a href="oremine">Erzgrube</a></li>
-	<li><a href="recycle">Recyclinghöfe</a></li>
+	<li><a href="oremine">Erzbergwerk</a></li>
+	<li><a href="recycle">Recyclingzentren</a></li>
 	<li><a href="pottery">Töpfereien</a></li>
-	<li><a href="indistryl">Industriebetriebe</a></li>
+	<li><a href="indistryl">Leichtindustrie</a></li>
 	<li><a href="indistryh">Schwerindustrie</a></li>
 </Document>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Töpferei</p>
+	<p style="htitle">Töpfereien</p>
 	<p style="hp">Töpfereien erzeugen aus Erz und Kohle mit der Hilfe von
-    Arbeitern Waren. Sie müssen nicht mit einem Transportweg verbunden sein,
+    Arbeit Waren. Sie müssen nicht mit einem Transportweg verbunden sein,
     aber dann müssen sie sich in Reichweite eines Marktes befinden,
     von dem sie Erz, Kohle und Arbeiter beziehen und auf dem sie ihre Waren
     abgeben können.</p>
@@ -14,10 +14,13 @@
 	<p style="hp">und so das Symbol</p>
 	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 	
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">11 Erz + 2 Kohle + 35 Arbeit =&gt; 35 Waren</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="coal">Kohle</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 	<li><a href="market">Märkte</a></li>
 </Document>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Miniaturansicht</p>
-	<p style="hp">Die Miniaturansicht zeigt in verkleinerter Fassung das komplette Spielgebiet. Die Buttons darunter geben Ihnen wichtige Informationen über die Situation in Ihrer Stadt, z.B. Verschmutzung, gesundheitliche Versorgung, etc.</p>
-	<p style="hp">Klicken Sie auf den <i>Hilfe Knopf</i> und anschließend auf die Layer-Symbole unterhalb der Miniaturansicht um weitere Informationen über sie zu erhalten.</p>
+	<p style="hp">Die Miniaturansicht zeigt in verkleinerter Fassung das gesamte Spielgebiet. Die Knöpfe darunter geben Ihnen wichtige Informationen über die Situation in Ihrer Stadt, z.B. Verschmutzung im gesamten Spielgebiet.</p>
+	<p style="hp">Rechtsklicken Sie auf einen der Knöpfe unter der Miniaturansicht, um ihre Hilfeseiten zu aktivieren.</p>
 	<p style="hp">Das weiße Quadrat zeigt den aktuellen Bildschirmausschnitt.</p>
-    <p style="hp">Mit 'v' oder dem großen Kopf am linken unteren Eck der Minikarte können Sie die Minikarte über die Hauptkarte legen.</p>
+    <p style="hp">Mit großen Ebenenknopf können Sie die Minikarte über die Hauptkarte legen.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="msb-coal">Kohle Layer</a></li>
-	<li><a href="msb-cricket">Sport Layer</a></li>
-	<li><a href="msb-fire">Feuer Layer</a></li>
-	<li><a href="msb-health">Gesundheits Layer</a></li>
-	<li><a href="msb-normal">Normaler Layer</a></li>
-	<li><a href="msb-pol">Verschmutzung Layer</a></li>
-	<li><a href="msb-power">Energie Layer</a></li>
-	<li><a href="msb-starve">Hunger Layer</a></li>
-	<li><a href="msb-transport">Verkehrs Layer</a></li>
-	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+	<li><a href="msb-coal">Kohle-Ebene</a></li>
+	<li><a href="msb-cricket">Sport-Ebene</a></li>
+	<li><a href="msb-fire">Feuer-Ebene</a></li>
+	<li><a href="msb-health">Gesundheits-Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
+	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
+	<li><a href="msb-power">Energie-Ebene</a></li>
+	<li><a href="msb-starve">Hunger-Ebene</a></li>
+	<li><a href="msb-transport">Transport-Ebene</a></li>
+	<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
 </Document>
 
 

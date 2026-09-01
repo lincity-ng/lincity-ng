@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Stahl</p>
-	<p style="hp">Stahl wird von der Schwerindustrie, den Stahlwerken hergestellt.
-    Sie benötigen ein ausreichend hohes Technologieniveau um welche zu bauen. Davor
-    sind die Köhlereien Ihre einzige Stahlquelle. Köhlereien erzeugen auch eine kleine
-    Menge Stahl aus Erz. Normalerweise benötigen Sie einige Köhlereien um ihren
+	<p style="hp">Stahl wird hauptsächlich von der Schwerindustrie (den Stahlwerken) hergestellt.
+    Sie benötigen ein ausreichend hohes Technologieniveau, um welche zu bauen. Davor
+    sind die Köhlereien Ihre einzige Stahlquelle. Köhlereien produzieren auch eine kleine
+    Menge Stahl aus Erz. Normalerweise benötigen Sie einige Köhlereien, um anfangs ihren
     Stahlbedarf zu decken.</p>
 	<p style="hp">Stahl wird von den Schmieden zu Waren verarbeitet. Auch die
-    Industriebetriebe benötigen Stahl um Werkzeuge und Produkte (Waren) herzustellen.
-    Industriebetriebe können auch ohne Stahl produzieren, dann allerdings weniger.</p>
+    Leichtindustrie benötigt Stahl, um Werkzeuge und Produkte (Waren) herzustellen.
+    Die Leichtindustrie kann auch ohne Stahl produzieren, dann allerdings weniger.</p>
 	<p style="hp">Der Bau von Raketen erfordert eine Menge Stahl, hauptsächlich
-    für die Abschussbasis.</p>
+    für die Raketenbasis.</p>
 	<p style="hp">Auch der Erhalt von Eisenbahngleisen verbraucht Stahl.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="commune">Köhlerei</a></li>
-	<li><a href="blacksmith">Schmiede</a></li>
-	<li><a href="goods">Waren</a></li>
-	<li><a href="industryh">Schwerindustrie</a></li>
-	<li><a href="industryl">Industriebetrieb</a></li>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="commune">Köhlereien</a></li>
+	<li><a href="blacksmith">Schmieden</a></li>
+	<li><a href="industryh">Schwerindustrie (Stahlwerke)</a></li>
+	<li><a href="industryl">Leichtindustriegebiete</a></li>
 	<li><a href="rail">Eisenbahn</a></li>
 </Document>

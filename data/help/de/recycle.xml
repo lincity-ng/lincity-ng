@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Recyclinghöfe</p>
-	<p style="hp">Gebrauchte Waren erzeugen Abfall.</p>
-	<p style="hp">Auf Recyclinghöfen werden gebrauchte Waren zu Erz verarbeitet.
-    Sie werden an der Nordwestecke mit Transportwegen verbunden. Es werden
-    Arbeiter und Geld benötigt um Abfall einzusammeln und ihn in Erz
-    umzuwandeln.</p>
-	<p style="hp">Auch wenn Ihre Recyclinghöfe keinen Wirkungsgrad von 100%
-    haben, können Sie eine nachhaltige Wirtschaft betreiben, indem Sie
-    mittels Spinnereien die 'verlorenen' Waren ersetzen. </p>
+	<p style="htitle">Recyclingzentren</p>
+	<p style="hp">Auf Recyclingzentren wird Müll zu Erz verarbeitet.
+    Arbeit, elektrischer Strom (Niedrigspannung) und Geld werden verwendet, um den
+    Müll aufzusammeln und ihn zu reinem Erz umzuwandeln. Sie können benutzt werden,
+    um ehemals gefüllte Müllkippen zu leeren.</p>
+	<p style="hp">Auch wenn Ihre Recyclingzentren nicht 100% effizient
+    sind, können Sie eine nachhaltige Wirtschaft betreiben (d.h. keine weiteren
+    Erze werden geschürft), indem Sie mittels Fabriken den Verlust kompensieren.</p>
 	
-	<p style="hp">Das ist ein Recyclinghof</p>
+	<p style="hp">Das ist ein Recyclingzentrum</p>
 	<img src="images/tiles/recycle-centre.png" halign="center"/>
-	<p style="hp">und das das Symbol</p>
+	<p style="hp">und dies ist sein Symbol</p>
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
-	
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">34 Arbeit + 250 Niedrigspannung + 500 Müll =&gt; (500 Erz + 10 Stahl) * Effizienz</p>
+        <p style="hp">Effizienz = 0,1 + 0,005 * Tech (maximal 0,8 bei 140 Tech)</p>
+        <p style="hp">Wenn es keinen Inventarplatz für das Erz bzw. den Stahl gibt, wird es zerstört, damit der Müll immer noch beseitigt werden kann. Beachten Sie, dass dies für eine verschwenderische Produktion in naheliegenden Stahlwerken sorgen kann, da es Stahl produziert, während das Recyclingzentrum den Stahl zerstört.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="goods">Waren</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="transport">Transport</a></li>
-    <li><a href="sustain">nachhaltige Wirtschaft</a></li>
+    <li><a href="sustain">Nachhaltige Wirtschaft</a></li>
 </Document>
