@@ -7,12 +7,17 @@
 	<p style="hp">Brandweerkazernes verhogen het welzijn van woonwijken binnen hun bereik.</p>
 	<p style="hp">Brandweerkazernes tonen elke drie maanden een animatie om te laten zien dat ze werken.</p>
 
-	<p style="hp">Dit is een brandweerkazernes</p>
-	<img src="images/tiles/firestation1.png" halign="center"/>
-	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
-	<p style="hp">en dit is de brandpreventie-knop</p>
-	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+  <p style="hp">Dit is een brandweerkazernes</p>
+   <img src="images/tiles/firestation1.png" halign="center"/>
+
+  <p style="hp">en dit is het icoontje</p>
+   <img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+
+  <p style="hp">en dit is de brandpreventie-knop</p>
+   <img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Formule's</p>
+	<p style="hp">6 werk + 3 goederen =&gt; 1 afval</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Mini-kaart</a></li>

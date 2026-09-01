@@ -3,11 +3,11 @@
 	<p style="htitle">Icoon index</p>
 
 	<!--<p style="subtitle">Power</p>-->
-	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+   <img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
 	<p><a href="powerline">Electriciteitsdraad</a></p>
-	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+   <img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	<p><a href="powerssolar">Zonne-energiecentrale</a></p>
-	<img src="images/gui/buttonpanel/power/substation.png"/>
+   <img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 	<p><a href="substation">Transformatorhuisje</a></p>
 
 	<!--<p style="subtitle">Residences</p>-->
