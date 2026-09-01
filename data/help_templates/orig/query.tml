@@ -2,12 +2,11 @@ Query
 
 To show informations about a building use this tool and click on the Building in question.
 
-The information is shown int the lower right corner, instead of the minimap.
+The information is shown in the lower right corner, instead of the minimap.
 
-Press 'g' to show underground information. 'm' and 'n' cycle through optional pages
+Press 'g' to show underground information. 'm' and 'n' cycle through optional pages. Alternatively use the right mouse key.
 
-There are no costs to use this tool.  the Alternatively use the middle mouse key or press 'g'
-display information on the ground.
+There are no costs to use this tool.
 
 IMG_1[Query:]: images/gui/buttonpanel/base/pointer.png
 

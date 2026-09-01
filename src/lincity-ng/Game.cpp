@@ -718,7 +718,7 @@ Game::handleMessage(Message::ptr message_) {
         DialogBuilder()
           .titleText(_("Warning!"))
           .messageAddTextBold(_("Out of Credit"))
-          .messageAddText(_("You are deep in debt and at the end of your"
+          .messageAddText(_("You are deep in debt and at the end of your "
             "credit line. You are about to find out what happens when "
             "government checks bounce."))
           .imageFile("images/gui/dialogs/warning.png") // TODO: money icon
@@ -797,7 +797,7 @@ Game::handleMessage(Message::ptr message_) {
       dialog
         .titleText("You Won!")
         .messageAddTextBold(_("You Evacuated Everyone!"))
-        .messageAddText(_("Congradulations! You have successfully evacuated "
+        .messageAddText(_("Congratulations! You have successfully evacuated "
           "everyone from the city and won the game."));
       break;
     default:
