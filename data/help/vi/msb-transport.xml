@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lớp phủ giao thông</p>
+   <img src="images/gui/mapview/roundbuttons/round_road.png" halign="center" />
+	<p style="hp">Màn hình mini giao thông cho thấy lượng hàng hóa trên <a href="track">đường ray</a>, <a href="road">đường bộ</a> và <a href="rail">đường sắt</a>.</p>
+	<p style="hp">Bấm biểu tượng để chuyển giữa luồng và mức. Dùng nút cuộn lên xuống để duyệt qua các loại hàng hóa. Bạn cũng có thể bấm phím 'm'/'n', hoặc đơn giản lăn chuột khi rà lên minimap</p>
+	<p style="hp">Màu xanh lam chỉ các công trình nằm trong phạm vi của một <a href="market">chợ</a>.</p>
+	<p style="hp">Bấm trái vào màn hình mini để di chuyển cửa sổ chính. Bật/tắt chế độ lớp phủ bằng phím 'v' hoặc bấm vào nút lớp phủ lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Lớp phủ than</a></li>
+	<li><a href="msb-cricket">Lớp phủ thể thao</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+	<li><a href="msb-health">Lớp phủ y tế</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

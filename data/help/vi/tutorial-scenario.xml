@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Các bản đồ định sẵn</p>
+	<p style="hp">Trong "new game" (game mới)</p>
+
+	<p style="hsubtitle">Dễ</p>
+	<li>Thời tốt đẹp</li>
+	<li>Bãi biển (hãy nhớ người dân ăn lương thực nếu không sẽ chết ;-)</li>
+
+	<p style="hsubtitle">Khó</p>
+	<li>"hard-time": cố tránh phá sản. Cần phân tích kỹ toàn thành phố, và phải có biện pháp quyết liệt để cắt giảm chi phí và kiếm tiền. Khó nhưng có thể, thậm chí có thể đạt phát triển bền vững.</li>
+	<li>"extreme_arid" (cực khô hạn): đất rất thiếu nước, nên nông trại và xưởng làng phải được đặt cẩn thận để tối đa hiệu quả.</li>
+	<li>"extrem_wetland" (cực ngập nước): đất gần như ngập lụt, nên rất khó xây dựng thành phố.</li>
+</Document>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Chợ</p>
+	<p style="hp">Chợ là công trình then chốt trong Lincity.</p>
+	<p style="hp">Chợ có lẽ là cái tên không phù hợp cho các khu vực này. Chúng giống như trung tâm việc làm, cửa hàng, kho bãi và chợ gộp lại làm một. Chúng mua bán lương thực, lao động, than, hàng hóa, quặng và thép với khu vực xung quanh, và với giao thông kề bên như đường bộ.</p>
+	<p style="hp">Trong phạm vi một chợ, mọi trao đổi được thực hiện từ xa. Dùng lớp phủ Giao thông để kiểm tra một công trình có nằm trong phạm vi chợ không. Người dân có thể nhận lương thực, hàng hóa và việc làm từ chợ trong khoảng cách đi bộ từ khu dân cư. Mọi khu vực cần lao động (nhân viên) đều lấy từ chợ. Nông trại có thể bán lương thực trực tiếp cho chợ. Nhà máy dệt, Lò gốm và lò rèn bán hàng hóa trực tiếp cho chợ gần đó, chúng cũng lấy nguyên liệu từ chính các chợ đó.</p>
+	<p style="hp">Nếu không có chợ nào, các công trình này cần kết nối với giao thông.</p>
+
+	<p style="hsubtitle">Điều khiển việc chợ mua và bán gì</p>
+	<p style="hp">Bạn có thể điều khiển chức năng của một chợ bằng cách chọn những gì được mua và bán từ giao thông. Bấm hai lần vào một chợ (không phải nút chọn) và ở phía trên trái sẽ hiện một cửa sổ cho phép bạn chọn những gì được giao dịch. Mặc định là giao dịch tất cả.</p>
+
+  <p style="hp">Đây là một chợ</p>
+   <img src="images/tiles/market-empty.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/industry/market.png" halign="center" />
+
+  <p style="hp">Điều này nghĩa là giao dịch được phép.</p>
+   <img src="images/gui/checkbox/checkbox_checked.png" halign="center" />
+
+  <p style="hp">Điều này nghĩa là giao dịch <b>không</b> được phép.</p>
+   <img src="images/gui/checkbox/checkbox.png" halign="center" />
+	<p style="hp">Các con số giữa chữ Mua và Bán là tọa độ bản đồ của chợ đó.</p>
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">Một chợ tiêu thụ lao động để giao dịch các hàng hóa khác. Số lao động tiêu thụ phụ thuộc vào lượng tồn kho của mọi hàng hóa tại chợ.</p>
+	<p style="hp">0% đến 10% kho: 1 lao động =&gt; 0</p>
+	<p style="hp">10% đến 20% kho: 5 lao động =&gt; 0</p>
+	<p style="hp">2% đến 50% kho: 12 lao động =&gt; 0</p>
+	<p style="hp">50% đến 100% kho: 28 lao động =&gt; 0</p>
+	<p style="hp">Nếu một chợ có hơn 85% rác thải, nó sẽ đốt 2867 rác và tạo ra 204 ô nhiễm.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+</Document>

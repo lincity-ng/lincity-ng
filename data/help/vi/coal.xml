@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Than</p>
+	<p style="hp">Than được nhà máy điện than dùng để tạo điện. Nó cũng được lò gốm, nhà máy dệt và lò rèn dùng trong quá trình làm hàng hóa. Công nghiệp nặng (nhà máy thép) dùng than khi không có điện.</p>
+	<p style="hp">Than được mỏ than đào từ lòng đất. Trữ lượng than có hạn, bạn có thể xem bằng nút trữ lượng than (xem mỏ than).</p>
+	<p style="hp">Xưởng làng cũng cung cấp một ít 'than'. Thực chất đó là than củi từ rừng chặt luân canh. Chúng chỉ cung cấp lượng nhỏ, đủ cho vài lò gốm và lò rèn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="coalmine">Mỏ than</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="pottery">Lò gốm</a></li>
+	<li><a href="blacksmith">Lò rèn</a></li>
+	<li><a href="msb-coal">Lớp phủ than</a></li>
+</Document>

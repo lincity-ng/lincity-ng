@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Tính năng nâng cao</p>
+
+	<p style="hsubtitle">Chợ và giao thông</p>
+	<p style="hp">Bấm đúp vào một chợ trên màn hình chính sẽ mở một cửa sổ. Cửa sổ này dùng để điều khiển <b> trao đổi giữa chợ và giao thông</b>.</p>
+	<li>mua là những gì chợ mua từ giao thông (nên kho của chợ sẽ tăng)</li>
+	<li>bán là ngược lại.</li>
+	<p style="hp">Tính năng này ít khi dùng, trừ khi bạn muốn ngăn chặn chính xác một điều gì đó xảy ra.</p>
+
+	<p style="hsubtitle">Phát triển bền vững</p>
+	<p style="hp">Tab thứ tư của cửa sổ mini cho thấy các thanh tiến độ phát triển bền vững.</p>
+	<p style="hp">Rất nên lưu game trước khi để nó chạy lâu và xem liệu bạn đã đạt trạng thái bền vững chưa. Nếu có gì đó sai nghiêm trọng (ví dụ nạn đói), bạn có thể nạp lại từ game đã lưu :-)</p>
+	<p style="hp">Theo dõi tổng kho của các chợ (cửa sổ mini với thanh tiến độ) sẽ giúp tránh được rắc rối lớn. Thỉnh thoảng kiểm tra tiến độ bền vững trong cửa sổ mini ECO là đủ.</p>
+	<li>Gợi ý: Cẩn thận với ổ chuột và rác thải trong chợ...</li>
+</Document>

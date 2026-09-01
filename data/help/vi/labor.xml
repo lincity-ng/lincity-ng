@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lao động</p>
+	<p style="hp">Người sống trong khu dân cư cung cấp lao động. Lao động được hầu hết khu vực dùng để hoạt động.</p>
+	<p style="hp">Lao động có thể được cung cấp bởi chợ; bạn có thể đặt một chợ trong phạm vi khu vực muốn cung cấp. Tất nhiên, chợ phải lấy lao động từ đâu đó. Chợ lấy lao động theo hai cách. Thứ nhất, nếu có khu dân cư trong phạm vi, nó sẽ cung cấp lao động cho chợ theo tỉ lệ dân số và số chợ phải chia sẻ lao động. Cách thứ hai là qua giao thông. Một chợ ở xa có thừa lao động sẽ đưa một phần lên giao thông. Các chợ thiếu lao động được nối với giao thông đó sẽ lấy lao động chảy dọc theo đường ray, đường bộ hoặc đường sắt.</p>
+	<p style="hp">Nếu một chợ trở nên 'đầy' lao động, nó sẽ ngừng nhận từ khu dân cư. Khi điều này xảy ra, nếu không có chợ nào khác chưa đầy trong phạm vi, người dân sẽ thất nghiệp.</p>
+	<p style="hp">Một trung tâm y tế trong phạm vi khu dân cư sẽ tăng số lao động được cung cấp cho các chợ địa phương.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="residential">Khu dân cư</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="market">Chợ</a></li>
+</Document>

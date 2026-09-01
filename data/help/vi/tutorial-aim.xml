@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Mục tiêu của game</p>
+	<p style="hp">Có 2 cách để "thắng" game:</p>
+	<li>Đạt <a href="sustain">nền kinh tế bền vững</a> (bạn vẫn có thể chơi tiếp sau đó)</li>
+	<li>Sơ tán toàn bộ dân số bằng <a href="rocket">tàu vũ trụ</a> đến hành tinh khác, rồi game dừng lại.</li>
+	<p style="hp">Hiện chỉ có một cách thua:</p>
+	<li>Mọi người chết vì đói hoặc ô nhiễm. (bạn biết là cần ít nhất 2 người để tạo nên dân số ;-)</li>
+	<p style="hp">Bạn sẽ cần tăng cấp công nghệ để mở các công trình và ngành công nghiệp mới. Bạn phải quản lý sự tăng trưởng dân số, đáp ứng các nhu cầu khác nhau và giữ cân bằng kinh tế.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tutorial-basics">Những bước đầu</a></li>
+	<li><a href="tutorial-advanced">Tính năng nâng cao</a></li>
+	<li><a href="tutorial-scenario">Các bản đồ định sẵn</a></li>
+</Document>

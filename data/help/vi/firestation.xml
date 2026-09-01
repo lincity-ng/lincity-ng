@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trạm cứu hỏa</p>
+	<p style="hp">Trạm cứu hỏa ngăn chặn sự bùng phát và lan rộng của hỏa hoạn trong phạm vi phủ sóng. Chúng cần được cung cấp hàng hóa và lao động để hoạt động. Chúng cũng tốn tiền vận hành.</p>
+	<p style="hp">Khi bạn xây trạm cứu hỏa, nó không hoạt động ngay. Thường phải đợi ba tháng trước khi vùng phủ chống cháy được cung cấp.</p>
+	<p style="hp">Để xem khu vực trạm cứu hỏa phủ sóng, bấm vào nút trạm cứu hỏa bên dưới màn hình mini.</p>
+	<p style="hp">Trạm cứu hỏa tăng sức hấp dẫn của khu dân cư trong phạm vi của chúng.</p>
+	<p style="hp">Trạm cứu hỏa chạy một chuỗi hoạt ảnh mỗi ba tháng để cho thấy chúng đang hoạt động.</p>
+
+  <p style="hp">Đây là một trạm cứu hỏa</p>
+   <img src="images/tiles/firestation1.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/misc/fire.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng lớp phủ bản đồ của nó</p>
+   <img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">6 lao động + 3 hàng hóa =&gt; 1 rác thải</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+</Document>

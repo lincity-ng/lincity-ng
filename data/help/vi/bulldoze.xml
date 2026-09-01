@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Ủi đất</p>
+	<p style="hp">Để phá hủy một khu vực bạn chọn nút ủi đất rồi bấm vào khu vực muốn dọn. Phá hủy tốn tiền. Khi bạn xây một khu vực, chi phí xây và phá hủy nó được hiển thị ở góc dưới trái màn hình.</p>
+	<p style="hp">Một số thứ, như tượng đài, rất tốn kém để phá hủy. Chi phí phá hủy không chỉ tính chi phí vật chất xử lý, mà còn cả chi phí chính trị. Ví dụ, để phá một tượng đài, bạn sẽ có người biểu tình và cả chi phí tòa án.</p>
+	<p style="hp">Nếu bạn giữ phím ctrl trong khi ủi đất, bạn có thể ủi một khu vực lớn hơn.</p>
+
+  <p style="hp">Đây là biểu tượng máy ủi</p>
+   <img src="images/gui/buttonpanel/base/bulldozer.png" halign="center" />
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="evacuate">Sơ tán</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="river">Sông/Nước</a></li>
+</Document>

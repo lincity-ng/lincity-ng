@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Tốc độ nhanh</p>
+   <img src="images/gui/speed/faster.png" halign="center" />
+	<p style="hp">Đây là nút tốc độ nhanh. Nó khiến game chạy nhanh nhất có thể. Cần thận trọng khi dùng chế độ nhanh trên máy cấu hình cao; 'tình huống' có thể phát triển rất nhanh!</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="pause">Nút tạm dừng</a></li>
+	<li><a href="medium">Tốc độ trung bình</a></li>
+	<li><a href="slow">Tốc độ chậm</a></li>
+</Document>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Nhà máy điện mặt trời</p>
+	<p style="hp">Nhà máy điện mặt trời xuất điện ra đường dây theo gói. Lượng điện sản xuất được tăng theo cấp công nghệ tại thời điểm xây.</p>
+	<p style="hp">Nhà máy điện mặt trời cũng cần nhân lực để sản xuất điện. Nếu nhà máy điện mặt trời không có lao động, nó sẽ không sản xuất được điện.</p>
+
+  <p style="hp">Đây là một nhà máy điện mặt trời</p>
+   <img src="images/tiles/powerssolar.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/power/solarpower.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">50 lao động =&gt; 900 hi-volt + 9 hi-volt * công nghệ</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="substation">Trạm biến áp</a></li>
+	<li><a href="power">Điện</a></li>
+	<li><a href="powerline">Đường dây điện</a></li>
+	<li><a href="tech-level">Cấp công nghệ</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="windmill">Cối xay gió</a></li>
+</Document>

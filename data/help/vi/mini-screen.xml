@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Minimap</p>
+	<p style="hp">Minimap hiển thị thu nhỏ toàn bộ khu vực chơi của bạn. Các nút nhỏ bên dưới, khi bạn bấm vào, hiển thị thông tin như mức ô nhiễm trên toàn khu vực chơi.</p>
+	<p style="hp">Bấm phải vào từng nút bên dưới minimap để mở trang trợ giúp của chúng.</p>
+	<p style="hp">Hình vuông viền trắng thể hiện khu vực được màn hình chính bao phủ.</p>
+	<p style="hp">Nút lớp phủ lớn phủ nội dung minimap lên màn hình chính</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="msb-coal">Lớp phủ than</a></li>
+	<li><a href="msb-cricket">Lớp phủ thể thao</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+	<li><a href="msb-health">Lớp phủ y tế</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

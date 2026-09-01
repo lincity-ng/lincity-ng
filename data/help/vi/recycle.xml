@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trung tâm tái chế</p>
+	<p style="hp">Trung tâm tái chế biến rác thải thành quặng. Lao động, điện (hạ thế) và tiền được dùng để thu gom rác và biến nó thành quặng thô. Chúng có thể được dùng để dọn sạch các bãi rác đã đầy trước đó.</p>
+	<p style="hp">Có thể vận hành một nền kinh tế bền vững (tức không khai thác quặng nữa, v.v.) với trung tâm tái chế hiệu suất dưới 100% nếu bạn có vài nhà máy dệt để bù đắp phần thất thoát.</p>
+
+  <p style="hp">Đây là một trung tâm tái chế</p>
+   <img src="images/tiles/recycle-centre.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">34 lao động + 250 lo-volt + 500 rác =&gt; (500 quặng + 10 thép) * hiệu suất</p>
+	<p style="hp">hiệu suất = .1 + .005 * công nghệ (tối đa .8 tại 140 công nghệ)</p>
+	<p style="hp">Nếu không còn sức chứa kho cho quặng/thép, thì chúng bị vứt bỏ, để rác vẫn được xử lý. Lưu ý điều này có thể gây sản xuất lãng phí tại nhà máy thép gần đó vì nó sản xuất thép trong khi trung tâm tái chế đang vứt bỏ thép.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="power">Điện</a></li>
+	<li><a href="transport">Giao thông</a></li>
+</Document>

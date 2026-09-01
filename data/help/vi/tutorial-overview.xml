@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Tổng quan màn hình</p>
+	<p style="hp"><b>Trên trái</b> là khay biểu tượng chứa các công cụ (tra cứu và ủi đất) cùng tất cả công trình bạn có thể có trong game.</p>
+	<li>Bấm trái vào biểu tượng để mở ngăn kéo và xem thêm.</li>
+	<li>Bấm phải vào biểu tượng để xem trợ giúp liên quan.</li>
+	<li>Chỉ cần rà chuột sẽ hiện một thông báo trợ giúp nhỏ.</li>
+	<p style="hp"><b>Dưới trái</b> là điều khiển tốc độ game</p>
+	<p style="hp"><b>Dưới phải</b> chứa tất cả "công cụ thông tin": màn hình mini với 4 tab và 2 nút cuộn, bên dưới là các biểu tượng nhỏ cho nhiều loại thông tin. Bấm vào chúng để xem điều gì xảy ra.</p>
+	<p style="hp">Hãy thử bàn phím và chuột (bấm trái, giữa, phải và lăn...), F1 để mở trợ giúp.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tutorial-basics">Những bước đầu</a></li>
+	<li><a href="tutorial-advanced">Tính năng nâng cao</a></li>
+	<li><a href="tutorial-scenario">Các bản đồ định sẵn</a></li>
+</Document>
