@@ -31,6 +31,7 @@
 #include "UserOperation.hpp"     // for UserOperation
 #include "gui/Signal.hpp"        // for Signal
 #include "lincity/messages.hpp"  // for Message
+#include "gui/Paragraph.hpp"
 
 class ButtonPanel;
 class Component;
@@ -45,6 +46,7 @@ class MpsFinance;
 class MpsMap;
 class WindowManager;
 class World;
+class Paragraph;
 
 class Game {
 public:
@@ -71,6 +73,7 @@ public:
     LCPBar& getPBar1() const;
     LCPBar& getPBar2() const;
     ButtonPanel& getButtonPanel() const;
+    Paragraph& getStatusParagraph() const;
 
 private:
     std::unique_ptr<World> world;
@@ -85,6 +88,7 @@ private:
     LCPBar *pbar1 = nullptr;
     LCPBar *pbar2 = nullptr;
     ButtonPanel *buttonpanel = nullptr;
+    Paragraph *statusParagraph = nullptr;
 
     UserOperation userOperation;
     void setUserOperation(const UserOperation& op);

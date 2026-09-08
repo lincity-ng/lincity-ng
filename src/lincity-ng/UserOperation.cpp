@@ -33,6 +33,7 @@
 #include "lincity/modules/windmill.hpp"   // for WindmillConstructionGroup
 #include "lincity/modules/windpower.hpp"  // for WindpowerConstructionGroup
 #include "lincity/world.hpp"              // for World, Map, MapTile
+#include "lincity/modules/track_road_rail.hpp"
 
 UserOperation::UserOperation() {
   constructionGroup = NULL;
@@ -52,7 +53,7 @@ bool
 UserOperation::isAllowed(World& world, Message::ptr& message) const {
   switch(action) {
   case ACTION_BUILD:
-    return constructionGroup->can_build(world, message);
+    return actualConstructionGroup(world)->can_build(world, message);
   case ACTION_QUERY:
   case ACTION_BULLDOZE:
   case ACTION_EVACUATE:
@@ -74,9 +75,11 @@ UserOperation::isAllowedHere(World& world, MapPoint point, Message::ptr& message
   switch(action) {
   case ACTION_QUERY:
     return true;
-  case ACTION_BUILD:
-    return constructionGroup->can_build(world, message)
-      && constructionGroup->can_build_here(world, point, message);
+  case ACTION_BUILD: {
+    ConstructionGroup *actual = actualConstructionGroup(world, point);
+    return actual->can_build(world, message)
+      && actual->can_build_here(world, point, message);
+  }
   case ACTION_BULLDOZE: {
     if(Construction *cst = world.map(point)->reportingConstruction) {
       return cst->can_bulldoze(message);
@@ -128,18 +131,7 @@ UserOperation::execute(World& world, MapPoint point) {
 
   case UserOperation::ACTION_BUILD: {
     assert(constructionGroup);
-
-    //double check windmill tech
-    if(constructionGroup == &windmillConstructionGroup
-      || constructionGroup == &windpowerConstructionGroup
-    ) {
-      if(world.tech_level >= windpowerConstructionGroup.tech)
-        constructionGroup = &windpowerConstructionGroup;
-      else
-        constructionGroup = &windmillConstructionGroup;
-    }
-
-    world.buildConstruction(*constructionGroup, point);
+    world.buildConstruction(*actualConstructionGroup(world, point), point);
     break;
   }
 
@@ -161,5 +153,55 @@ UserOperation::execute(World& world, MapPoint point) {
   default: {
     assert(false);
   }
+  }
+}
+
+ConstructionGroup *
+UserOperation::actualConstructionGroup(
+  const World& world, MapPoint point
+) const {
+  if(constructionGroup == &windmillConstructionGroup
+    || constructionGroup == &windpowerConstructionGroup
+  ) {
+    if(world.tech_level >= windpowerConstructionGroup.tech)
+      return &windpowerConstructionGroup;
+    else
+      return &windmillConstructionGroup;
+  }
+  else if(TransportConstructionGroup *transport =
+    dynamic_cast<TransportConstructionGroup *>(constructionGroup)
+  ) {
+    if(world.map.is_visible(point) &&
+      transport->isBridge() != world.map(point)->is_water()
+    ) {
+      switch(transport->group) {
+      case GROUP_TRACK: return &trackbridgeConstructionGroup;
+      case GROUP_ROAD: return &roadbridgeConstructionGroup;
+      case GROUP_RAIL: return &railbridgeConstructionGroup;
+      case GROUP_TRACK_BRIDGE: return &trackConstructionGroup;
+      case GROUP_ROAD_BRIDGE: return &roadConstructionGroup;
+      case GROUP_RAIL_BRIDGE: return &railConstructionGroup;
+      default: assert(false);
+      }
+    }
+  }
+  return constructionGroup;
+}
+
+int
+UserOperation::cost(const World& world, MapPoint point) const {
+  switch(action) {
+  case ACTION_BUILD:
+    return actualConstructionGroup(world, point)->getCosts(world);
+  case ACTION_BULLDOZE:
+    return world.map(point)->getTileConstructionGroup()->bul_cost;
+  case ACTION_FLOOD:
+    return GROUP_WATER_COST;
+  case ACTION_QUERY:
+  case ACTION_EVACUATE:
+    return 0;
+  default:
+    assert(false);
+    return 0;
   }
 }

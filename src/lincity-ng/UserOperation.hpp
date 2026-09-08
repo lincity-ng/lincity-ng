@@ -52,6 +52,9 @@ public:
   bool isAllowed(World& world, Message::ptr& message) const;
   void execute(World& world, MapPoint point);
   unsigned short cursorSize() const;
+  ConstructionGroup *actualConstructionGroup(
+    const World& world, MapPoint point = MapPoint()) const;
+  int cost(const World& world, MapPoint point = MapPoint()) const;
 };
 
 

@@ -970,13 +970,22 @@ static void random_start(World& world, bool without_trees) {
 
   /* build tracks */
   for(int x = 2; x < 23; x++) {
-    trackConstructionGroup.placeItem(world, p.e(x).s(11));
+    (map(p.e(x).s(11))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(x).s(11));
   }
   for(int y = 2; y < 11; y++) {
-    trackConstructionGroup.placeItem(world, p.e(13).s(y));
+    (map(p.e(13).s(y))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(13).s(y));
   }
   for(int y = 12; y < 23; y++) {
-    trackConstructionGroup.placeItem(world, p.e(15).s(y));
+    (map(p.e(15).s(y))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(15).s(y));
   }
 
   /* build communes */

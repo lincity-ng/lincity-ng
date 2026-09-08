@@ -72,11 +72,8 @@ public:
     //scroll the map
     void scroll(float elapsedTime);
 
-    //size in Tiles of marking under Cursor
-    void setCursorSize( int size );
-
-    //Show informations about selected Tool (and price to build several tiles)
-    void showToolInfo( int number = 0 );
+    // notifies that the user's tool has changed
+    void toolChanged();
 
     //evaluate main_screen_originx and main_screen_originy
     void readOrigin( bool redraw = true );
@@ -148,8 +145,8 @@ private:
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
 
-    int bulldozeCost( MapPoint tile );
-    int buildCost( MapPoint tile );
+    // updates status bar about selected tool
+    void showToolInfo();
 
     GraphicsInfo blankGraphicsInfo;
 
@@ -158,15 +155,15 @@ private:
     SDL_Thread* loaderThread;
     bool stopThread;
 
-    MapPoint tileUnderMouse;
     bool mouseInGameView;
-    bool dragging;
+    bool panning;
     Vector2 scrollCorrection;
 
-    bool roadDragging, ctrDrag, leftButtonDown;
-    // NOTE: leftButtonDown indicates whether the middle button is down
-    //       (I didn't bother to refactor the name.)
-    MapPoint startRoad;
+    // bulk ops
+    MapPoint tileUnderMouse;
+    MapPoint selectionStart;
+    bool leftButtonDown;
+    int ctrlDown;
     bool areaBulldoze;
 
     static const float defaultTileWidth;
@@ -189,10 +186,74 @@ private:
     bool refreshMap;
 
     MapPoint realTile( MapPoint tile );
-    std::string lastStatusMessage;
 
     void setPanningCursor();
     void setDefaultCursor();
+
+  // iterator for bulk operations
+  template<bool forward = true>
+  class SelIt {
+    MapPoint p;
+    const GameView& gv;
+
+    template<typename MP = MapPoint>
+    inline auto& comp(bool c, MP& p) const {
+      return forward == gv.ctrlDown == c ? p.x : p.y;
+    }
+    inline int step(bool d, bool c) const {
+      return (forward == d ? 0 : -2) ^ comp(c, gv.selItStep);
+    }
+    inline const MapPoint& bound(bool d) const {
+      return forward == d ? gv.selectionStart : gv.tileUnderMouse;
+    }
+    inline void advance(bool d) {
+      bool c = comp(false, p) == comp(false, bound(!d));
+      comp(c, p) += step(d, c);
+      if(c && blockSelect())
+        comp(false, p) = comp(false, bound(d));
+    }
+    bool blockSelect() const;
+    void updateStep() {
+      gv.selItStep.x = gv.selectionStart.x <= gv.tileUnderMouse.x ? 1 : -1;
+      gv.selItStep.y = gv.selectionStart.y <= gv.tileUnderMouse.y ? 1 : -1;
+    }
+
+  public:
+    SelIt(const GameView& gv, bool begin = true) : gv(gv) {
+      updateStep();
+      p = bound(begin);
+      if(!begin) ++*this;
+    }
+    SelIt(const GameView& gv, MapPoint begin) : gv(gv) {
+      updateStep();
+      p = begin;
+    }
+    MapPoint operator*() const { return p; }
+    SelIt<forward>& operator++() {
+      advance(true);
+      return *this;
+    }
+    SelIt<forward> operator++(int) {
+      SelIt<forward> old = *this;
+      advance(true);
+      return old;
+    }
+    SelIt<forward>& operator--() {
+      advance(false);
+      return *this;
+    }
+    SelIt<forward> operator--(int) {
+      SelIt<forward> old = *this;
+      advance(false);
+      return old;
+    }
+    template<typename OtherSelIt>
+    bool operator==(const OtherSelIt& o) { return p == o.p; }
+    template<typename OtherSelIt>
+    bool operator!=(const OtherSelIt& o) { return p != o.p; }
+  };
+  using RSelIt = SelIt<false>;
+  mutable MapPoint selItStep;
 };
 
 Uint32 autoScroll( Uint32 interval, void *param );
