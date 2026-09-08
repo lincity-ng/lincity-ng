@@ -73,6 +73,7 @@
 #include "lincity/world.hpp"              // for Map, World, MapTile, Ground
 #include "util/gettextutil.hpp"           // for _
 #include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
+#include "lincity/modules/track_road_rail.hpp"
 
 using namespace std::placeholders;
 
@@ -135,20 +136,15 @@ GameView::parse(xmlpp::TextReader& reader) {
   tileHeight = defaultTileHeight * zoom;
 
   mouseInGameView = false;
-  dragging = false;
+  panning = false;
   leftButtonDown = false;
-  roadDragging = false;
-  ctrDrag = false;
-  areaBulldoze = false;
-  startRoad = MapPoint(0, 0);
-  tileUnderMouse = MapPoint(0, 0);
+  ctrlDown = false;
   hideHigh = false;
   showTerrainHeight = false;
   cursorSize = 0;
 
   mapOverlay = overlayNone;
   buttonsConnected = false;
-  lastStatusMessage = "";
   refreshMap = true;
 }
 
@@ -222,19 +218,6 @@ void GameView::buttonClicked( Button* button ){
         return;
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
-}
-
-/*
- * size in Tiles of marking under Cursor
- * atm 0 is an outlined Version of size 1.
- */
-void GameView::setCursorSize( int size )
-{
-    if( size != cursorSize )
-    {
-        cursorSize = size;
-        setDirty();
-    }
 }
 
 /*
@@ -617,7 +600,7 @@ void
 GameView::event(const Event& event) {
   switch(event.type) {
   case Event::MOUSEMOTION: {
-    if(dragging) {
+    if(panning) {
       viewport -= event.mousemove;
       constrainViewportPosition(true);
       viewportUpdated();
@@ -647,153 +630,77 @@ GameView::event(const Event& event) {
     mouseInGameView = true;
 
     MapPoint tile = getTile(event.mousepos);
-    if(!roadDragging && leftButtonDown && cursorSize == 1
-      && getUserOperation()->action != UserOperation::ACTION_EVACUATE
-    ) {
-      roadDragging = true;
-      startRoad = tile;
-      areaBulldoze = (SDL_GetModState() & SDL_KMOD_CTRL);
-    }
+    if(tile != tileUnderMouse) {
+      if(leftButtonDown && !areaBulldoze &&
+        getUserOperation()->action == UserOperation::ACTION_BULLDOZE
+      ) { // bulldoze immediately while dragging
+        game->executeUserOperation(tileUnderMouse);
+      }
 
-    if(roadDragging && cursorSize != 1) {
-      roadDragging = false;
-      areaBulldoze = false;
-      ctrDrag = false;
-    }
-    // bulldoze at once while still dragging
-
-    if(roadDragging && !areaBulldoze
-      && getUserOperation()->action == UserOperation::ACTION_BULLDOZE
-      && tile != startRoad
-    ) {
-      game->executeUserOperation(startRoad);
-      startRoad = tile;
-    }
-
-    if(tileUnderMouse != tile) {
       tileUnderMouse = tile;
-      setDirty();
-      //update mps target
+      if(!leftButtonDown || !(
+        (getUserOperation()->action == UserOperation::ACTION_BUILD &&
+          getUserOperation()->cursorSize() == 1) ||
+        (getUserOperation()->action == UserOperation::ACTION_BULLDOZE &&
+          areaBulldoze))
+      )
+        selectionStart = tile;
+
       if(getUserOperation()->action == UserOperation::ACTION_EVACUATE)
         game->getMpsMap().setTile(
           game->getWorld().map.is_visible(tile)
           ? game->getWorld().map(tile)
           : nullptr
         );
+
+      showToolInfo();
+
+      setDirty();
     }
   } break;
   case Event::MOUSEBUTTONDOWN: {
     if(!event.inside);
     else if(event.mousebutton == SDL_BUTTON_MIDDLE) {
-      dragging = true;
-      ctrDrag = false;
+      panning = true;
       mouseScrollState = SCROLL_NONE;
     }
     else if(event.mousebutton == SDL_BUTTON_LEFT) {
-      roadDragging = false;
-      areaBulldoze = false;
-      ctrDrag = false;
       leftButtonDown = true;
+      areaBulldoze = ctrlDown &&
+        getUserOperation()->action == UserOperation::ACTION_BULLDOZE;
     }
   } break;
   case Event::MOUSEBUTTONUP: {
-    if(event.mousebutton == SDL_BUTTON_MIDDLE) {
-      if(dragging) {
-        dragging = false;
+    switch(event.mousebutton) {
+    case SDL_BUTTON_MIDDLE: {
+      if(panning) {
+        panning = false;
         setDefaultCursor();
         break;
       }
-      dragging = false;
-    }
-    if(event.mousebutton == SDL_BUTTON_LEFT) {
-      if(roadDragging && event.inside) {
-        MapPoint endRoad = getTile(event.mousepos);
-        roadDragging = false;
-        areaBulldoze = false;
-        leftButtonDown = false;
-        if(cursorSize != 1)
-          //roadDragging was aborted with Escape
-          break;
-        if(blockingDialogIsOpen)
-          break;
-
-        //build last tile first to play the sound
-        Message::ptr dummyMsg;
-        // check if allowed to avoid many dialogs for bulk ops
-        if(getUserOperation()->isAllowedHere(
-          game->getWorld(), endRoad, dummyMsg)
-        ) {
-          game->executeUserOperation(endRoad);
-        }
-        MapPoint currentTile = startRoad;
-        int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
-        int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-        if(getUserOperation()->action ==
-          UserOperation::ACTION_BULLDOZE
-        ) {
-          for(currentTile.x = startRoad.x;
-            currentTile.x != endRoad.x + stepx;
-            currentTile.x += stepx
-          )
-          for(currentTile.y = startRoad.y;
-            currentTile.y != endRoad.y + stepy;
-            currentTile.y += stepy
-          ) {
-            if(getUserOperation()->isAllowedHere(
-              game->getWorld(), currentTile, dummyMsg)
-            ) {
-              game->executeUserOperation(currentTile);
-            }
-          }
-        }
-        else if(getUserOperation()->action ==
-          UserOperation::ACTION_BUILD
-        ) {
-          int* v1 = ctrDrag ? &currentTile.y : &currentTile.x;
-          int* v2 = ctrDrag ? &currentTile.x : &currentTile.y;
-          int* l1 = ctrDrag ? &endRoad.y : &endRoad.x;
-          int* l2 = ctrDrag ? &endRoad.x : &endRoad.y;
-          int* s1 = ctrDrag ? &stepy : &stepx;
-          int* s2 = ctrDrag ? &stepx : &stepy;
-
-          while(*v1 != *l1) {
-            if(getUserOperation()->isAllowedHere(
-              game->getWorld(), currentTile, dummyMsg)
-            ) {
-              game->executeUserOperation(currentTile);
-            }
-            *v1 += *s1;
-          }
-          while(*v2 != *l2) {
-            if(getUserOperation()->isAllowedHere(
-              game->getWorld(), currentTile, dummyMsg)
-            ) {
-              game->executeUserOperation(currentTile);
-            }
-            *v2 += *s2;
-          }
-        }
-        break;
-      }
-      roadDragging = false;
-      ctrDrag = false;
-      areaBulldoze = false;
+      panning = false;
+    } break;
+    case SDL_BUTTON_LEFT: {
       leftButtonDown = false;
-    }
-    if(!event.inside)
-      break;
-
-    if(event.mousebutton == SDL_BUTTON_LEFT) {
-      if(!blockingDialogIsOpen) {
-        game->executeUserOperation(getTile(event.mousepos));
-      }
-    }
-    else if(event.mousebutton == SDL_BUTTON_RIGHT) {
+      if(!event.inside || blockingDialogIsOpen) break;
+      MapPoint selectionEnd = getTile(event.mousepos);
+      Message::ptr dummyMsg;
+      //build last tile first to play the sound
+      for(RSelIt it(*this), end(*this, false); it != end; ++it)
+        // check if allowed to avoid many dialogs for bulk ops
+        if(selectionStart == selectionEnd ||
+          getUserOperation()->isAllowedHere(
+            game->getWorld(), *it, dummyMsg)
+        ) game->executeUserOperation(*it);
+    } break;
+    case SDL_BUTTON_RIGHT: {
+      if(!event.inside) break;
       // show info on the clicked thing
       MapPoint point = getTile(event.mousepos);
       if(!inCity(point)) break;
       game->getMpsMap().query(game->getWorld().map(point));
       game->getMiniMap().switchView("MapMPS");
+    } break;
     }
   } break;
   case Event::MOUSEWHEEL: {
@@ -814,8 +721,8 @@ GameView::event(const Event& event) {
     switch(event.scancode) {
     case SDL_SCANCODE_LCTRL:
     case SDL_SCANCODE_RCTRL:
-      if(roadDragging)
-        ctrDrag = !ctrDrag;
+      ctrlDown = true;
+      showToolInfo();
       break;
     case SDL_SCANCODE_KP_8:
     case SDL_SCANCODE_UP:
@@ -865,6 +772,11 @@ GameView::event(const Event& event) {
   } break;
   case Event::KEYUP: {
     switch(event.scancode) {
+    case SDL_SCANCODE_LCTRL:
+    case SDL_SCANCODE_RCTRL:
+      ctrlDown = false;
+      showToolInfo();
+      break;
     case SDL_SCANCODE_G: {
       MpsMap& mps = game->getMpsMap();
       if(mps.page == MpsMap::Page::GROUND)
@@ -873,8 +785,7 @@ GameView::event(const Event& event) {
         mps.page = MpsMap::Page::GROUND;
       mps.refresh();
       game->getMiniMap().switchView("MapMPS");
-      break;
-    }
+    } break;
     case SDL_SCANCODE_H: {
       hideHigh = !hideHigh;
       setDirty();
@@ -1469,200 +1380,96 @@ void GameView::draw(Painter& painter)
       game->getMpsMap().refresh();
       game->getMiniMap().switchView("MapMPS");
     }
-    //Mark Tile under Mouse // TODO: handle showTerrainHeight
-    if(mouseInGameView && !blockingDialogIsOpen) {
-        MapPoint lastRazed( -1,-1 );
-        int tiles = 0;
-        if( roadDragging && ( cursorSize == 1 ) &&
-        (getUserOperation()->action == UserOperation::ACTION_BUILD || getUserOperation()->action == UserOperation::ACTION_BULLDOZE))
-        {
-            //use same method to find all Tiles as in GameView::event(const Event& event)
-            int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
-            int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
-            currentTile = startRoad;
 
-            if (getUserOperation()->action == UserOperation::ACTION_BULLDOZE)
-            {
-                for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
-                    for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
-                        markTile( painter, currentTile );
-                        if( realTile( currentTile ) != lastRazed ){
-                            cost += bulldozeCost( currentTile );
-                            lastRazed = realTile( currentTile );
-                        }
-                        tiles++;
-                    }
-                }
-            }
-            else if (getUserOperation()->action == UserOperation::ACTION_BUILD)
-            {
-                int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
-                int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
-                int* l1 = ctrDrag ? &tileUnderMouse.y :&tileUnderMouse.x;
-                int* l2 = ctrDrag ? &tileUnderMouse.x :&tileUnderMouse.y;
-                int* s1 = ctrDrag ? &stepy: &stepx;
-                int* s2 = ctrDrag ? &stepx: &stepy;
-
-                while( *v1 != *l1)
-                {
-                    markTile( painter, currentTile );
-                    cost += buildCost( currentTile );
-                    tiles++;
-                    *v1 += *s1;
-                }
-                while( *v2 != *l2 + *s2 )
-                {
-                    markTile( painter, currentTile );
-                    cost += buildCost( currentTile );
-                    tiles++;
-                    *v2 += *s2;
-                }
-
-            }
-        }
-        else
-        {
-            markTile( painter, tileUnderMouse );
-            tiles++;
-            if( (getUserOperation()->action == UserOperation::ACTION_BULLDOZE ) && realTile( currentTile ) != lastRazed ) {
-                    cost += bulldozeCost( tileUnderMouse );
-            } else {
-                cost += buildCost( tileUnderMouse );
-            }
-        }
-        std::stringstream prize;
-        if( getUserOperation()->action == UserOperation::ACTION_BULLDOZE ){
-            if( roadDragging ){
-                prize << _("Estimated Bulldoze Cost: ");
-            } else {
-                prize << _("Bulldoze Cost: ");
-            }
-            if( cost > 0 ) {
-                prize << cost << _("$");
-            } else {
-                prize << _("n/a");
-            }
-            printStatusMessage( prize.str() );
-        }
-        else if( getUserOperation()->action == UserOperation::ACTION_BUILD)
-        {
-            std::string buildingName =  getUserOperation()->constructionGroup->name;
-            prize << _(buildingName);
-            prize << _(": Cost to build ");
-            if( cost > 0 ) {
-                prize << cost << _("$");
-        } else {
-                prize << _("n/a");
-            }
-            printStatusMessage( prize.str() );
-        } else {
-           showToolInfo( tiles );
-        }
-    }
+    // mark selected tiles
+    if(mouseInGameView && !blockingDialogIsOpen)
+      for(SelIt it(*this), end(*this, false); it != end; ++it)
+        markTile(painter, *it);
 }
 
-/*
- * Show informatiosn about selected Tool
- */
-void GameView::showToolInfo( int number /*= 0*/ )
-{
-    std::stringstream infotextstream;
+void
+GameView::toolChanged() {
+  cursorSize = getUserOperation()->cursorSize();
+  leftButtonDown = false;
+  selectionStart = tileUnderMouse;
 
-    if( getUserOperation()->action == UserOperation::ACTION_QUERY ) //query
-    {
-        infotextstream << _("Query Tool: Show information about selected building.");
-    }
-    else if( getUserOperation()->action == UserOperation::ACTION_BULLDOZE ) //bulldoze
-    {
-        infotextstream << _("Bulldozer: remove building -price varies-");
-    }
-    else if( getUserOperation()->action == UserOperation::ACTION_BUILD )
-    {
-        infotextstream << getUserOperation()->constructionGroup->getName();
-        infotextstream << _(": Cost to build ") << getUserOperation()->constructionGroup->getCosts(getWorld()) <<_("$");
-        infotextstream << _(", to bulldoze ") << getUserOperation()->constructionGroup->bul_cost <<_("$") << ".";
-        if( number > 1 ){
-            infotextstream << _(" To build ") << number << _(" of them ");
-            infotextstream << _("will cost about ") << number*getUserOperation()->constructionGroup->getCosts(getWorld()) << _("$") << "-";
+  showToolInfo();
+  setDirty();
+}
+
+void GameView::showToolInfo() {
+  std::string message;
+  switch(getUserOperation()->action) {
+    case UserOperation::ACTION_QUERY: {
+      message = _("Query Tool: Show information about selected building.");
+    } break;
+    case UserOperation::ACTION_BUILD:
+    case UserOperation::ACTION_BULLDOZE:
+    case UserOperation::ACTION_FLOOD: {
+      Message::ptr dummyMsg;
+      int count = 0, cost = 0;
+      for(SelIt it(*this), end(*this, false); it != end; ++it)
+        if(getUserOperation()->isAllowedHere(
+          game->getWorld(), *it, dummyMsg)
+        ) {
+          count++;
+          cost += getUserOperation()->cost(game->getWorld(), *it);
         }
-    }
-    else if ( getUserOperation()->action == UserOperation::ACTION_EVACUATE )
-    {
-        infotextstream << _("Evacuation of commodities is for free.");
-    }
-    else if ( getUserOperation()->action == UserOperation::ACTION_FLOOD )
-    {
-        infotextstream <<  _("Water") << _(": Cost to build ") << GROUP_WATER_COST << _("$");
-        infotextstream << _(", to bulldoze ") << GROUP_WATER_BUL_COST << _("$") << ".";
-    }
+      if(!count)
+        cost = getUserOperation()->cost(game->getWorld());
 
-    printStatusMessage( infotextstream.str() );
-}
-
-/*
- * Print a Message to the StatusBar.
- */
-// TODO: this method should be moved to the Game class
-void GameView::printStatusMessage( std::string message ){
-    if( message == lastStatusMessage ){
-        return;
-    }
-    Component* root = this;
-    while( root->getParent() )
-        root = root->getParent();
-    Desktop* desktop = dynamic_cast<Desktop*> (root);
-    if(!desktop) {
-        std::cerr << "Root not a desktop!?!\n";
-        return;
-    }
-
-    try {
-        Paragraph* statusParagraph = getParagraph( *root, "statusParagraph");
-        statusParagraph->setText( message );
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't print status message '" << message  << "': "
-            << e.what() << "\n";
-        return;
-    }
-    lastStatusMessage = message;
-}
-
-int GameView::bulldozeCost( MapPoint tile ){
-
-    if (!getWorld().map.is_visible(tile))
-    {   return 0;}
-    Construction *reportingConstruction = getWorld().map(tile)->reportingConstruction;
-    if (reportingConstruction)
-    {   return reportingConstruction->constructionGroup->bul_cost;}
-    else
-    {
-        int group = getWorld().map(tile)->getGroup();
-        if (group == GROUP_DESERT)
-        {   return 0;}
-        else if (group == GROUP_WATER)
-        {   return GROUP_WATER_BUL_COST;}
-        else
-        {   return 1;}
-    }
-    return 0;
-}
-
-int GameView::buildCost(MapPoint tile) {
-  Message::ptr tmp;
-  if(!getUserOperation()->isAllowedHere(getWorld(), tile, tmp)
-    || getUserOperation()->action == UserOperation::ACTION_QUERY
-    || getUserOperation()->action == UserOperation::ACTION_EVACUATE
-  )
-    return 0;
-  if(getUserOperation()->action == UserOperation::ACTION_BUILD) {
-    if (getWorld().map(tile)->is_water()) //building a bridge
-      return BRIDGE_FACTOR * getUserOperation()->constructionGroup->getCosts(getWorld());
-    else //building on land
-      return getUserOperation()->constructionGroup->getCosts(getWorld());
+      switch(getUserOperation()->action) {
+      case UserOperation::ACTION_BUILD: {
+        message = fmt::format(
+          count ?
+            ngettext(
+              "{0}: Estimated cost to build a {1} here: ${3}",
+              "{0}: Estimated cost to build {2} {1} here: ${3}",
+              count
+            ) :
+            _("{0}: Estimated cost to build a {0}: ${3}"),
+          _(getUserOperation()->constructionGroup->name),
+          ngettext(
+            getUserOperation()->constructionGroup->name.c_str(),
+            getUserOperation()->constructionGroup->name_plural.c_str(),
+            count
+          ),
+          count,
+          cost
+        );
+      } break;
+      case UserOperation::ACTION_BULLDOZE: {
+        message = fmt::format(
+          count ?
+            _("Bulldozer: Estimated cost to bulldoze this: ${}") :
+            _("Bulldozer"),
+          cost
+        );
+      } break;
+      case UserOperation::ACTION_FLOOD: {
+        message = fmt::format(
+          count ?
+            _("Water: Estimated cost to flood this: ${}") :
+            _("Water: Estimated cost to flood a tile: ${} "),
+          cost
+        );
+      } break;
+      default: assert(false);
+      }
+    } break;
+    case UserOperation::ACTION_EVACUATE: {
+      message = _("Evacuate: Clearing commodities from an area is free.");
+    } break;
+    default: assert(false);
   }
-  if(getUserOperation()->action == UserOperation::ACTION_FLOOD)
-    return GROUP_WATER_COST;
-  return 0;
+  game->getStatusParagraph().setText(message);
+}
+
+template<bool forward>
+bool
+GameView::SelIt<forward>::blockSelect() const {
+  return !dynamic_cast<TransportConstructionGroup *>(
+    gv.getUserOperation()->constructionGroup);
 }
 
 //Register as Component

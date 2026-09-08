@@ -1035,19 +1035,20 @@ MiniMap::updateStatusMessage() {
   case MiniMap::COAL:
     m = _("Minimap: coal deposits");
     break;
-  case MiniMap::TRAFFIC: {
-    m = _("Minimap: traffic density");
-  } // fallthrough
-  case MiniMap::COMMODITIES: {
-    if(m.empty())
-      m = _("Minimap: commodities");
-    m = fmt::format("{}: {}", m, commodityNames[stuff_ID]);
-  } break;
+  case MiniMap::TRAFFIC:
+    m = fmt::format(_("Minimap: traffic density: {}"),
+      commodityNames[stuff_ID]);
+    break;
+  case MiniMap::COMMODITIES:
+    m = fmt::format(_("Minimap: commodities: {}"), commodityNames[stuff_ID]);
+    break;
   default:
-    std::cerr << "error: unknown minimap mode: " << mMode << std::endl;
+    fmt::println(stderr, "error: unknown minimap mode: {}",
+      static_cast<std::underlying_type_t<DisplayMode>>(mMode)
+    );
     assert(false);
   }
-  game->getGameView().printStatusMessage(m);
+  game->getStatusParagraph().setText(m);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(MiniMap)

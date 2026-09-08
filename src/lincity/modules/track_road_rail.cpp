@@ -155,7 +155,30 @@ TransportConstructionGroup::placeItem(World& world, MapPoint point) {
   ConstructionGroup::placeItem(world, point);
 }
 
-Transport::Transport(World& world, ConstructionGroup *cstgrp) :
+
+bool
+TransportConstructionGroup::can_build_here(
+  const World& world, const MapPoint point, Message::ptr& message
+) const {
+  if(ConstructionGroup::can_build_here(world, point, message)) return true;
+  if(!dynamic_message_cast<SpaceOccupiedMessage>(message)) return false;
+
+  const MapTile& tile = *world.map(point);
+  if(tile.getGroup() == GROUP_POWER_LINE) return true;
+  else if(tile.getGroup() == group) return false;
+  else if(isBridge() && tile.is_water()) return true;
+  else return false;
+}
+
+bool
+TransportConstructionGroup::isBridge() const {
+  return
+    group == GROUP_TRACK_BRIDGE ||
+    group == GROUP_ROAD_BRIDGE ||
+    group == GROUP_RAIL_BRIDGE;
+}
+
+Transport::Transport(World& world, TransportConstructionGroup *cstgrp) :
   Construction(world)
 {
   this->constructionGroup = cstgrp;
@@ -367,6 +390,8 @@ void Transport::init_resources() {
 void Transport::place(MapPoint point) {
   // set the constructionGroup to build bridges iff over water
   if(world.map(point)->is_water()) {
+    assert(dynamic_cast<TransportConstructionGroup *>(constructionGroup)
+      ->isBridge()); // player was billed wrong
     switch (constructionGroup->group) {
       case GROUP_TRACK:
         constructionGroup = &trackbridgeConstructionGroup;
@@ -380,6 +405,8 @@ void Transport::place(MapPoint point) {
     }
   }
   else {
+    assert(!dynamic_cast<TransportConstructionGroup *>(constructionGroup)
+      ->isBridge()); // player was billed wrong
     switch (constructionGroup->group) {
       case GROUP_TRACK_BRIDGE:
         constructionGroup = &trackConstructionGroup;
