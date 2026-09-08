@@ -17,8 +17,8 @@ See the in-game help [F1] for how to play.
 For best results, follow the instructions included in your version of the
 source. That is, consult your local version of README.md. Following instructions
 for a different version than what you are building can cause build failures.
-Notably, the build system was changed between versions 2.9.0 and 2.10.0, so
-following instructions for the wrong build system will definitely cause issues.
+Notably, the build system was changed in version 2.10.0, and following
+instructions for the wrong build system will definitely cause issues.
 
 ### Dependencies
 
@@ -62,7 +62,7 @@ As an alternative to building from source, there are several places to get
 pre-built binary packages:
 
 - Linux distribution repositories. This is likely the best way to install
-  LinCity-NG pre-built binaries for Linux users. However, LTS and stable
+  LinCity-NG pre-built binaries for Linux users. However, LTS and "stable"
   distributions, by their very nature, may not offer the latest version of
   LinCity-NG.
 - [Flathub](https://flathub.org/apps/io.github.lincity_ng.lincity-ng). As of
@@ -122,6 +122,8 @@ View the project on GitHub: https://github.com/lincity-ng/lincity-ng.
 
 Report bugs and suggest features:
   https://github.com/lincity-ng/lincity-ng/issues.
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for contributing guidelines.
 
 ## License
 

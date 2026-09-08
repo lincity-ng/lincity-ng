@@ -62,8 +62,8 @@ We just want to ensure that the project maintains the highest quality possible
 
 The format of the LinCity-NG changelog is inspired by [keepachangelog.com](
 https://keepachangelog.com). Whenever you contribute meaningfully to the
-project, write a changelog entry with a short summary of what you changed with
-respect to the most recent release.
+project, please take a moment to write a brief changelog entry to sumarize your
+changes with respect to the most recent release.
 
 To avoid git merge conflicts from everyone modifying the same `CHANGELOG.md`
 file. Instead of directly adding to the changelog, you will write your entry in
@@ -75,8 +75,8 @@ merged, as part of routine maintenance, I will compile all the entries from the
 Changelog entries should be categorized into one of four sections:
 - **Gameplay** for changes affecting the game rules
 - **User Interface** for changes affecting look-and-feel or controls
-- **Internal** for implementation changes that not directly visible to user such
-  as performance improvements
+- **Internal** for implementation changes that are not directly visible to the
+  user such as performance improvements
 - **Documentation / Translation** for updates to documentation or translation
 
 Each entry should be written in complete sentences in the past tense and
@@ -90,14 +90,19 @@ preferably start with one of the following five keywords:
 Additionally, add a **[SECURITY]** tag to the beginning of your entry if it
   addresses a security vulnerability.
 
+Please only make changelog entries for changes that are with respect to the most
+recent release. E.g. fixing a bug that appeared since the most recent release
+should not have a changelog entry.
+
 ### Attribution, Copyright, and Licensing
 
-If this is your first time contributing to LinCity-NG, please add your name to
-the [credits list](data/gui/creditslist.xml). Add your name, the current year,
-and (optionally) your email, following the same format of other entries. Note,
-the entries are ordered by last name. If you already have an entry in the
-credits list, take a moment to update the year and/or email address of your
-entry.
+LinCity-NG has a credits screen that is accessible from the main menu. When you
+contribute to the game, please add yourself to the credits list by adding an
+entry to [data/gui/creditslist.xml](data/gui/creditslist.xml). If you already
+have an entry in the list, just make sure the email and year are up-to-date.
+The entry should include your name, your email, and the calander year that you
+made your contribution. Entries are categorized into several sections for
+different types of contributions and ordered by last name.
 
 Every file should have a uniform header that includes the relative file
 location, a statement that the file is part of LinCity-NG, copyright
