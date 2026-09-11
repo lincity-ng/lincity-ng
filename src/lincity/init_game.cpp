@@ -177,9 +177,10 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     int water_alt = *water(p.x,p.y);
     for(MapPoint pt : {p.w(), p.n(), p.e(), p.s()}) {
       if(!map.is_visible(pt)) continue;
-      int old_eco = (*dist(pt.x,pt.y) * *dist(pt.x,pt.y)/5 + 1) + arid +
+      int old_eco =
+        (*dist(pt.x,pt.y) * *dist(pt.x,pt.y)/5 + 1) + global_aridity +
         (map(pt)->ground.altitude - *water(pt.x,pt.y)) * 50 / map.alt_step;
-      int next_eco = (next_dist * next_dist/5 + 1) + arid +
+      int next_eco = (next_dist * next_dist/5 + 1) + global_aridity +
           (map(pt)->ground.altitude - water_alt) * 50 / map.alt_step;
       if(map.is_visible(pt) && next_eco < old_eco) {
         *dist(pt.x,pt.y) = next_dist;
@@ -196,6 +197,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     int d2w_min = 2 * area;
     int r;
     int alt0 = 0;
+    int arid = global_aridity;
 
     /* test against IS_RIVER to prevent terrible recursion */
     if((map(p)->flags & FLAG_IS_RIVER) || !map(p)->is_bare())
@@ -204,7 +206,6 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     d2w_min = r * r;
     alt0 = *water(p.x,p.y);
 
-    arid = global_aridity; // reset per tile; must not carry over from the previous tile
     /* near river lower aridity */
     if (arid > 0) {
       if (d2w_min < 5)
