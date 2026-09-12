@@ -913,6 +913,9 @@ MainMenu::run() {
                 case SDL_EVENT_MOUSE_WHEEL:
                 case SDL_EVENT_KEY_DOWN: {
                     Event gui_event(event);
+                    float scale = SDL_GetDisplayContentScale(
+                      SDL_GetDisplayForWindow(window));
+                    gui_event.applyScale(Vector2(scale, scale));
                     menu->event(gui_event);
                 } break;
                 case SDL_EVENT_KEY_UP: {

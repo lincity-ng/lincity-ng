@@ -581,6 +581,9 @@ Game::run() {
                 case SDL_EVENT_MOUSE_WHEEL:
                 case SDL_EVENT_KEY_DOWN: {
                     Event gui_event(event);
+                    float scale = SDL_GetDisplayContentScale(
+                      SDL_GetDisplayForWindow(window));
+                    gui_event.applyScale(Vector2(scale, scale));
                     gui->event(gui_event);
                     break;
                 }

@@ -87,6 +87,8 @@ public:
     /** For update events this is the time that has elapsed since the last frame
      */
     float elapsedTime;
+
+  void applyScale(Vector2 scale);
 };
 
 // TODO: Some day, I want to implement a decent mouse-/keyboard-focus system.

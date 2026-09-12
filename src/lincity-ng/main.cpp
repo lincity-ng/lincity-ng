@@ -211,7 +211,6 @@ setLang(const std::string& lang) {
     unsetenv("LANGUAGE");
 #endif
   }
-#define GETTEXT_HAS_
 
 #ifdef HAVE_NL_MSG_CAT_CNTR
   // glibc gettext magic
