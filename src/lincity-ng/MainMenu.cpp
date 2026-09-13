@@ -980,8 +980,8 @@ MainMenu::launchGame() {
   float scale = SDL_GetWindowDisplayScale(window);
   menu->setScale(Vector2(scale, scale));
   int w, h;
-  SDL_GetWindowSize(window, &w, &h);
-  menu->resize(w, h);
+  SDL_GetWindowSizeInPixels(window, &w, &h);
+  menu->resize(w / scale, h / scale);
   menu->reLayoutDeep();
   DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
     menu->findComponent("windowManager")));
