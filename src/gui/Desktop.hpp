@@ -47,11 +47,12 @@ public:
 
     void parse(xmlpp::TextReader& reader);
 
-    void resize(float width, float height);
-    void event(const Event& event);
+    virtual void resize(float width, float height) override;
+    using Component::resize;
+    virtual void event(const Event& event) override;
+    virtual void draw(Painter& painter) override;
+    virtual bool opaque(const Vector2& pos) const override;
     bool needsRedraw() const;
-    void draw(Painter& painter);
-    bool opaque(const Vector2& pos) const;
 
     Vector2 getPos(Component* component);
 

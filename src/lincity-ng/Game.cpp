@@ -504,99 +504,99 @@ Game::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
-                    videoSizeChanged(event.window.data1, event.window.data2);
-                    Vector2 scale = desktop->getScale();
-                    desktop->resize(
-                      event.window.data1 / scale.x,
-                      event.window.data2 / scale.y);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
-                    getConfig()->videoX.sessionToConfig();
-                    getConfig()->videoY.sessionToConfig();
-                } break;
-                case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
-                  float scale = SDL_GetWindowDisplayScale(window);
-                  desktop->setScale(Vector2(scale, scale));
-                  int width, height;
-                  SDL_GetWindowSizeInPixels(window, &width, &height);
-                  desktop->resize(width / scale, height / scale);
-                  desktop->reLayoutDeep();
-                } break;
-                case SDL_EVENT_WINDOW_MOUSE_ENTER:
-                case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
-                    desktop->event(Event(event));
-                } break;
-                case SDL_EVENT_KEY_UP: {
-                  Event gui_event(event);
-                  if(gui_event.key == SDLK_ESCAPE) {
-                    getButtonPanel().selectQueryTool();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_B) {
-                    getButtonPanel().toggleBulldozeTool();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_F1) {
-                    helpWindow->showTopic("help");
-                      break;
-                  }
-                  if(gui_event.key == SDLK_F12) {
-                    quickSave();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_F9) {
-                    quickLoad();
-                    break;
-                  }
-#ifdef DEBUG
-                  if(gui_event.key == SDLK_F5) {
-                    testAllHelpFiles();
-                    break;
-                  }
-#endif
-                  int need_break=true;
-                  switch(gui_event.key) {
-                    case SDLK_GRAVE: getMiniMap().mapViewChangeDisplayMode(MiniMap::NORMAL); break;
-                    case SDLK_1: getMiniMap().mapViewChangeDisplayMode(MiniMap::STARVE); break;
-                    case SDLK_2: getMiniMap().mapViewChangeDisplayMode(MiniMap::UB40); break;
-                    case SDLK_3: getMiniMap().mapViewChangeDisplayMode(MiniMap::POWER); break;
-                    case SDLK_4: getMiniMap().mapViewChangeDisplayMode(MiniMap::FIRE); break;
-                    case SDLK_5: getMiniMap().mapViewChangeDisplayMode(MiniMap::CRICKET); break;
-                    case SDLK_6: getMiniMap().mapViewChangeDisplayMode(MiniMap::HEALTH); break;
-                    case SDLK_7: getMiniMap().mapViewChangeDisplayMode(MiniMap::TRAFFIC); break;
-                    case SDLK_8: getMiniMap().mapViewChangeDisplayMode(MiniMap::POLLUTION); break;
-                    case SDLK_9: getMiniMap().mapViewChangeDisplayMode(MiniMap::COAL); break;
-                    case SDLK_0: getMiniMap().mapViewChangeDisplayMode(MiniMap::COMMODITIES); break;
-                    default:  need_break=false;
-                  }
-                  if (need_break) break;
-
-                  gui->event(gui_event);
+            case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
+              videoSizeChanged(event.window.data1, event.window.data2);
+              Vector2 scale = desktop->getScale();
+              Vector2 size(event.window.data1, event.window.data2);
+              size.descale(scale);
+              desktop->resize(size);
+            } break;
+            case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+              float scale = SDL_GetWindowDisplayScale(window);
+              desktop->setScale(Vector2(scale, scale));
+              desktop->resize(getVirtualWindowSize(window));
+              desktop->reLayoutDeep();
+            } break;
+            case SDL_EVENT_WINDOW_RESIZED: {
+              getConfig()->videoX.session = event.window.data1;
+              getConfig()->videoY.session = event.window.data2;
+              getConfig()->videoX.sessionToConfig();
+              getConfig()->videoY.sessionToConfig();
+            } break;
+            case SDL_EVENT_WINDOW_MOUSE_ENTER:
+            case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
+              desktop->event(Event(event));
+            } break;
+            case SDL_EVENT_KEY_UP: {
+              Event gui_event(event);
+              if(gui_event.key == SDLK_ESCAPE) {
+                getButtonPanel().selectQueryTool();
+                break;
+              }
+              if(gui_event.key == SDLK_B) {
+                getButtonPanel().toggleBulldozeTool();
+                break;
+              }
+              if(gui_event.key == SDLK_F1) {
+                helpWindow->showTopic("help");
                   break;
-                }
-                case SDL_EVENT_MOUSE_MOTION:
-                case SDL_EVENT_MOUSE_BUTTON_UP:
-                case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                case SDL_EVENT_MOUSE_WHEEL:
-                case SDL_EVENT_KEY_DOWN: {
-                    Event gui_event(event);
-                    float scale = SDL_GetDisplayContentScale(
-                      SDL_GetDisplayForWindow(window));
-                    gui_event.applyScale(Vector2(scale, scale));
-                    gui->event(gui_event);
-                    break;
-                }
-                case SDL_EVENT_QUIT: {
-                    saveCityNG(*world, getConfig()->userDataDir.get()
-                      / "9_currentGameNG.scn.gz");
-                    // push the QUIT event back for main menu to handle
-                    int s = SDL_PushEvent(&event);
-                    assert(s == 1);
-                    return;
-                }
-                default:
-                    break;
+              }
+              if(gui_event.key == SDLK_F12) {
+                quickSave();
+                break;
+              }
+              if(gui_event.key == SDLK_F9) {
+                quickLoad();
+                break;
+              }
+#ifdef DEBUG
+              if(gui_event.key == SDLK_F5) {
+                testAllHelpFiles();
+                break;
+              }
+#endif
+              int need_break=true;
+              switch(gui_event.key) {
+                case SDLK_GRAVE: getMiniMap().mapViewChangeDisplayMode(MiniMap::NORMAL); break;
+                case SDLK_1: getMiniMap().mapViewChangeDisplayMode(MiniMap::STARVE); break;
+                case SDLK_2: getMiniMap().mapViewChangeDisplayMode(MiniMap::UB40); break;
+                case SDLK_3: getMiniMap().mapViewChangeDisplayMode(MiniMap::POWER); break;
+                case SDLK_4: getMiniMap().mapViewChangeDisplayMode(MiniMap::FIRE); break;
+                case SDLK_5: getMiniMap().mapViewChangeDisplayMode(MiniMap::CRICKET); break;
+                case SDLK_6: getMiniMap().mapViewChangeDisplayMode(MiniMap::HEALTH); break;
+                case SDLK_7: getMiniMap().mapViewChangeDisplayMode(MiniMap::TRAFFIC); break;
+                case SDLK_8: getMiniMap().mapViewChangeDisplayMode(MiniMap::POLLUTION); break;
+                case SDLK_9: getMiniMap().mapViewChangeDisplayMode(MiniMap::COAL); break;
+                case SDLK_0: getMiniMap().mapViewChangeDisplayMode(MiniMap::COMMODITIES); break;
+                default:  need_break=false;
+              }
+              if (need_break) break;
+
+              gui->event(gui_event);
+              break;
+            }
+            case SDL_EVENT_MOUSE_MOTION:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_WHEEL:
+            case SDL_EVENT_KEY_DOWN: {
+              Event gui_event(event);
+              float scale = SDL_GetDisplayContentScale(
+                SDL_GetDisplayForWindow(window));
+              gui_event.applyScale(Vector2(scale, scale));
+              gui->event(gui_event);
+              break;
+            }
+            case SDL_EVENT_QUIT: {
+              saveCityNG(*world, getConfig()->userDataDir.get()
+                / "9_currentGameNG.scn.gz");
+              // push the QUIT event back for main menu to handle
+              int s = SDL_PushEvent(&event);
+              assert(s == 1);
+              return;
+            }
+            default:
+              break;
             }
 
             if(desktop->needsRedraw())

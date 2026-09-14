@@ -88,7 +88,7 @@ public:
      */
     float elapsedTime;
 
-  void applyScale(Vector2 scale);
+  void applyScale(const Vector2& scale);
 };
 
 // TODO: Some day, I want to implement a decent mouse-/keyboard-focus system.

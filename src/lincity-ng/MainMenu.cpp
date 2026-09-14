@@ -62,7 +62,7 @@
 #include "lincity/lintypes.hpp"         // for NUMOF_DAYS_IN_MONTH
 #include "lincity/stats.hpp"            // for Stat, Stats
 #include "lincity/world.hpp"            // for World
-#include "main.hpp"                     // for resizeVideo, painter, videoSi...
+#include "main.hpp"                     // for painter, videoSi...
 #include "util/gettextutil.hpp"
 #include "config.h"
 #include "util/ptrutil.hpp"
@@ -261,20 +261,15 @@ MainMenu::updateOptionsMenu() {
   musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
   musicParagraph->setText(getSound()->currentTrack.title);
 
+  getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+    fmt::format(getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
+      getConfig()->videoX.get(),
+      getConfig()->videoY.get()
+    )
+  );
 
-  int width = 0, height = 0;
-  SDL_GetWindowSize(window, &width, &height);
-
-  std::stringstream mode;
-  if(getConfig()->useFullScreen.get()) {
-    mode << "fullscreen";
-  } else {
-    mode << width << "x" << height;
-  }
-  getParagraph(*optionsMenu, "resolutionParagraph")->setText(mode.str());
-  mode.str("");
-  mode << getConfig()->worldSize.get();
-  getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
+  getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
+    fmt::format("{}", getConfig()->worldSize.get()));
 
 #if ENABLE_NLS
   languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
@@ -478,23 +473,16 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
       getConfig()->language.sessionToConfig();
 #endif
     } else if(buttonName == "Fullscreen") {
-        getSound()->playSound("Click");
-        getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
-        getConfig()->useFullScreen.sessionToConfig();
-        getConfig()->save();
-        resizeVideo(
-          getConfig()->videoX.get(),
-          getConfig()->videoY.get(),
-          getConfig()->useFullScreen.get()
-        );
-        // switching to/from fullscreen may change the window size
-        // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
+      getSound()->playSound("Click");
+      getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
+      getConfig()->useFullScreen.sessionToConfig();
+      changedResolution = true;
     } else if(buttonName == "TrackPrev") {
-        changeTrack(false);
+      changeTrack(false);
     } else if(buttonName == "TrackNext") {
-        changeTrack(true);
+      changeTrack(true);
     } else {
-        std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
+      std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }
 }
 
@@ -560,13 +548,17 @@ void MainMenu::changeResolution(bool next) {
         new_mode = 0;
     }
 
-    mode.str("");
-    mode << resolutions[new_mode].first << "x" << resolutions[new_mode].second;
-
-    getSound()->playSound("Click");
-    getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
     getConfig()->videoX.session = resolutions[new_mode].first;
     getConfig()->videoY.session = resolutions[new_mode].second;
+    changedResolution = true;
+
+    getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+      fmt::format(getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
+        getConfig()->videoX.get(),
+        getConfig()->videoY.get()
+      )
+    );
+    getSound()->playSound("Click");
 }
 
 void
@@ -694,13 +686,13 @@ void
 MainMenu::optionsBackButtonClicked(Button *) {
   getSound()->playSound("Click");
   getConfig()->save();
-  int width = 0, height = 0;
-  SDL_GetWindowSize(window, &width, &height);
-  if(getConfig()->videoX.get() != width
-    || getConfig()->videoY.get() != height
-  ) {
-    resizeVideo(getConfig()->videoX.get(), getConfig()->videoY.get(),
-      getConfig()->useFullScreen.get());
+  if(changedResolution) {
+    SDL_SetWindowFullscreen(window, getConfig()->useFullScreen.get());
+    if (!getConfig()->useFullScreen.get()) {
+      SDL_SetWindowSize(window,
+        getConfig()->videoX.get(),
+        getConfig()->videoY.get());
+    }
   }
 #if ENABLE_NLS
   else if(currentLanguage != getConfig()->language.get())
@@ -877,63 +869,63 @@ MainMenu::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
-                    videoSizeChanged(event.window.data1, event.window.data2);
-                    Vector2 scale = menu->getScale();
-                    menu->resize(
-                      event.window.data1 / scale.x,
-                      event.window.data2 / scale.y);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
-                    getConfig()->videoX.sessionToConfig();
-                    getConfig()->videoY.sessionToConfig();
+            case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
+              videoSizeChanged(event.window.data1, event.window.data2);
+              Vector2 scale = menu->getScale();
+              Vector2 size(event.window.data1, event.window.data2);
+              size.descale(scale);
+              menu->resize(size);
+            } break;
+            case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+              float scale = SDL_GetWindowDisplayScale(window);
+              menu->setScale(Vector2(scale, scale));
+              menu->resize(getVirtualWindowSize(window));
+              menu->reLayoutDeep();
+            } break;
+            case SDL_EVENT_WINDOW_RESIZED: {
+              getConfig()->videoX.session = event.window.data1;
+              getConfig()->videoY.session = event.window.data2;
+              getConfig()->videoX.sessionToConfig();
+              getConfig()->videoY.sessionToConfig();
 
-                    if(menuSwitch->getActiveComponent() == optionsMenu) {
-                        std::stringstream mode;
-                        mode.str("");
-                        if (getConfig()->useFullScreen.get()) {
-                            mode << "fullscreen";
-                        } else {
-                            mode << event.window.data1 << "x" << event.window.data2;
-                        }
-                        getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-                    }
-                } break;
-                case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
-                  float scale = SDL_GetWindowDisplayScale(window);
-                  menu->setScale(Vector2(scale, scale));
-                  int width, height;
-                  SDL_GetWindowSizeInPixels(window, &width, &height);
-                  menu->resize(width / scale, height / scale);
-                  menu->reLayoutDeep();
-                } break;
-                case SDL_EVENT_MOUSE_MOTION:
-                case SDL_EVENT_MOUSE_BUTTON_UP:
-                case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                case SDL_EVENT_MOUSE_WHEEL:
-                case SDL_EVENT_KEY_DOWN: {
-                    Event gui_event(event);
-                    float scale = SDL_GetDisplayContentScale(
-                      SDL_GetDisplayForWindow(window));
-                    gui_event.applyScale(Vector2(scale, scale));
-                    menu->event(gui_event);
-                } break;
-                case SDL_EVENT_KEY_UP: {
-                    Event gui_event(event);
-                    //In menu ESC as well as ^c exits the game.
-                    //might come in handy if video-mode is not working as expected.
-                    if( ( gui_event.key == SDLK_ESCAPE ) ||
-                        ( gui_event.key == SDLK_C && ( gui_event.mod & SDL_KMOD_CTRL) ) ){
-                        state = State::QUIT;
-                        break;
-                    }
-                    menu->event(gui_event);
-                } break;
-                case SDL_EVENT_QUIT:
-                    state = State::QUIT;
-                    break;
-                default:
-                    break;
+              getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+                fmt::format(
+                  getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
+                  event.window.data1,
+                  event.window.data2
+                )
+              );
+            } break;
+            case SDL_EVENT_MOUSE_MOTION:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_WHEEL:
+            case SDL_EVENT_KEY_DOWN: {
+              Event gui_event(event);
+              float scale = SDL_GetDisplayContentScale(
+                SDL_GetDisplayForWindow(window));
+              gui_event.applyScale(Vector2(scale, scale));
+              menu->event(gui_event);
+            } break;
+            case SDL_EVENT_KEY_UP: {
+              Event gui_event(event);
+
+              //In menu ESC as well as ^c exits the game.
+              //might come in handy if video-mode is not working as expected.
+              if(gui_event.key == SDLK_ESCAPE ||
+                gui_event.key == SDLK_C && (gui_event.mod & SDL_KMOD_CTRL)
+              ) {
+                state = State::QUIT;
+                break;
+              }
+
+              menu->event(gui_event);
+            } break;
+            case SDL_EVENT_QUIT:
+              state = State::QUIT;
+              break;
+            default:
+              break;
             }
 
             if(menu->needsRedraw())

@@ -1,8 +1,8 @@
 /* ---------------------------------------------------------------------- *
- * src/gui/Vector2.cpp
+ * src/lincity-ng/Video.hpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,19 +19,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#include "Vector2.hpp"
+#ifndef __LINCITY_LINCITYNG_VIDEO_HPP__
+#define __LINCITY_LINCITYNG_VIDEO_HPP__
 
-#include <ostream>
+class Painter;
+class Vector2;
+struct SDL_Window;
 
-#include "Rect2D.hpp"
+extern Painter *painter;
+extern SDL_Window *window;
 
-Vector2&
-Vector2::constrain(const Rect2D &bounds) {
-  x = x < bounds.p1.x ? bounds.p1.x : x > bounds.p2.x ? bounds.p2.x : x;
-  y = y < bounds.p1.y ? bounds.p1.y : y > bounds.p2.y ? bounds.p2.y : y;
-  return *this;
-}
+Vector2 getVirtualWindowSize(SDL_Window *window);
+void initVideo();
+void deinitVideo();
+void videoSizeChanged(int width, int height);
 
-std::ostream& operator<<(std::ostream& os, const Vector2& vec) {
-  return os << "(" << vec.x << "," << vec.y << ")";
-}
+#endif // __LINCITY_LINCITYNG_VIDEO_HPP__

@@ -34,6 +34,8 @@ add_executable(lincity-ng
   UserOperation.hpp
   Util.cpp
   Util.hpp
+  Video.cpp
+  Video.hpp
 )
 
 target_link_libraries(lincity-ng
