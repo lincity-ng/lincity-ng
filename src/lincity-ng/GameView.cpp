@@ -1406,8 +1406,7 @@ void GameView::draw(Painter& painter)
     if (showTerrainHeight)
     {
         // printf("h = %f,     z = %f \n ", getHeight(), zoom);
-        // getHeight = size in pixel of the screen (eg 1024x768)
-        Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d ));
+        lowerLeft.y += getWorld().map.alt_max * scale3d * zoom / getWorld().map.alt_step;
     }
 
     //Find visible Tiles
