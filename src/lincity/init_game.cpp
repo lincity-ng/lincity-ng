@@ -149,7 +149,6 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   std::deque<MapPoint> line;
   Array2D<int> dist(len,len);
   Array2D<int> water(len,len);
-  int arid = global_aridity;
 
   std::cout << ".";
   std::cout.flush();
