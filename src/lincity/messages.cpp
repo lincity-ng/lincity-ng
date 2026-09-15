@@ -82,15 +82,15 @@ CannotEvacuateThisMessage::str() const {
 
 
 std::string
-FireStartedMessage::str() const {
-  return (std::stringstream() << "a fire has started: "
-    << group.getName() << " " << point).str();
+CannotEvacuateNothingMessage::str() const {
+  return (std::stringstream() << "cannot evacuate: nothing here: " << point).str();
 }
 
 
 std::string
-NothingHereMessage::str() const {
-  return (std::stringstream() << "nothing here: " << point).str();
+FireStartedMessage::str() const {
+  return (std::stringstream() << "a fire has started: "
+    << group.getName() << " " << point).str();
 }
 
 

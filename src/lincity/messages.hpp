@@ -35,6 +35,7 @@ class CannotBulldozeIncompleteMonumentMessage;
 class CannotBulldozeNonemptyTipMessage;
 class CannotBulldozeThisEverMessage;
 class CannotBulldozeThisMessage;
+class CannotEvacuateNothingMessage;
 class CannotEvacuateThisMessage;
 class ConstructionGroup;
 class DesertHereMessage;
@@ -44,7 +45,6 @@ class NoOreMessage;
 class NoPeopleLeftMessage;
 class NotEnoughStudentsMessage;
 class NotEnoughTechMessage;
-class NothingHereMessage;
 class OutOfMoneyMessage;
 class OutsideMapMessage;
 class PortRequiresRiverMessage;
@@ -247,6 +247,21 @@ protected:
 };
 
 
+class CannotEvacuateNothingMessage : public Message {
+public:
+  CannotEvacuateNothingMessage(MapPoint point) : point(point) { }
+
+  virtual std::string str() const override;
+
+  const MapPoint getPoint() { return point; }
+
+protected:
+  const MapPoint point;
+
+  DEFINE_MESSAGE_BOILERPLATE(CannotEvacuateNothingMessage, Message);
+};
+
+
 class FireStartedMessage : public Message {
 public:
   FireStartedMessage(MapPoint point, const ConstructionGroup& grp) :
@@ -291,21 +306,6 @@ public:
   }
 
   DEFINE_MESSAGE_BOILERPLATE(NoOreMessage, Message);
-};
-
-
-class NothingHereMessage : public Message {
-public:
-  NothingHereMessage(MapPoint point) : point(point) { }
-
-  virtual std::string str() const override;
-
-  const MapPoint getPoint() { return point; }
-
-protected:
-  const MapPoint point;
-
-  DEFINE_MESSAGE_BOILERPLATE(NothingHereMessage, Message);
 };
 
 
