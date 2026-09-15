@@ -113,6 +113,22 @@ void initVideo() {
   window = SDL_CreateWindow(PACKAGE_NAME " " PACKAGE_VERSION,
     getConfig()->videoX.get(), getConfig()->videoY.get(), flags);
 
+  if(getConfig()->videoX.isDefault() && getConfig()->videoY.isDefault()) {
+    // default window size assumed no scaling before the window is created
+    float scale = SDL_GetDisplayContentScale(SDL_GetDisplayForWindow(window));
+    if(!scale) {
+      fmt::println(stderr, "error: SDL_GetDisplayContentScale: {}",
+        SDL_GetError());
+      scale = 1.f;
+    }
+    getConfig()->videoX.session = getConfig()->videoX.get() * scale;
+    getConfig()->videoY.session = getConfig()->videoY.get() * scale;
+    SDL_SetWindowSize(window,
+      getConfig()->videoX.get(),
+      getConfig()->videoY.get()
+    );
+  }
+
 #ifndef DISABLE_GL_MODE
   if(getConfig()->useOpenGL.get()) {
     window_context = SDL_GL_CreateContext(window);

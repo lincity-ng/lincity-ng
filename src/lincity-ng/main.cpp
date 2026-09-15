@@ -130,10 +130,6 @@ getLang() {
   return "";
 }
 
-void mainLoop() {
-  MainMenu(window).run();
-}
-
 int
 main(int argc, char** argv) {
   // initialize XML parser early because it is needed for parsing the config
@@ -188,7 +184,7 @@ main(int argc, char** argv) {
   std::unique_ptr<Sound> sound(new Sound());
 
   // enter main loop
-  mainLoop();
+  MainMenu(window).run();
 
   // save the configuration
   getConfig()->save();
