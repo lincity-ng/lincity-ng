@@ -748,7 +748,7 @@ Game::handleMessage(Message::ptr message_) {
       .messageAddText(fmt::format(_("The rocket at {} has finished construction"
           " and is ready for takeoff. You may choose to launch now or later. If"
           " you choose to wait, beware it costs money to keep the rocket in"
-          " tip-top shape until launch day."),
+          " tip-top shape until launch day. Do you want to launch now?"),
         message->getPoint()))
       .messageAddText(_("Launch now?"))
       .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
