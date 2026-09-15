@@ -6,13 +6,14 @@
 	<p style="hp">Houtskoolbranderijen moeten verbonden zijn met transport.</p>
 	<p style="hp">Als een houtskoolbranderij gedurende 10 jaar niets produceert, wordt het gesloten en omgevormd tot een park.</p>
 	<p style="hp">De houtskoolproduktie van houtskoolbranderijen hangt af van grondwater. (tegels met water zijn groen, de andere zijn geel-bruin zoals de woestijn)</p>
-	
-	<p style="hp">Dit is een houtskoolbranderij</p>
-	<img src="images/tiles/commune1.png" halign="center"/>
-	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
-	
-	<p style="hsubtitle">Lees ook:</p>
+
+  <p style="hp">Dit is een houtskoolbranderij</p>
+   <img src="images/tiles/commune1.png" halign="center"/>
+
+  <p style="hp">en dit is het icoontje</p>
+   <img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+
+  <p style="hsubtitle">Lees ook:</p>
 	<li><a href="pottery">Pottenbakkerij</a></li>
 	<li><a href="blacksmith">Smidse</a></li>
 	<li><a href="mill">Textielfabriek</a></li>
