@@ -519,10 +519,12 @@ Game::run() {
               desktop->reLayoutDeep();
             } break;
             case SDL_EVENT_WINDOW_RESIZED: {
-              getConfig()->videoX.session = event.window.data1;
-              getConfig()->videoY.session = event.window.data2;
-              getConfig()->videoX.sessionToConfig();
-              getConfig()->videoY.sessionToConfig();
+              if(!getConfig()->useFullScreen.get()) {
+                getConfig()->videoX.session = event.window.data1;
+                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.sessionToConfig();
+                getConfig()->videoY.sessionToConfig();
+              }
             } break;
             case SDL_EVENT_WINDOW_MOUSE_ENTER:
             case SDL_EVENT_WINDOW_MOUSE_LEAVE: {

@@ -885,18 +885,15 @@ MainMenu::run() {
               menu->reLayoutDeep();
             } break;
             case SDL_EVENT_WINDOW_RESIZED: {
-              getConfig()->videoX.session = event.window.data1;
-              getConfig()->videoY.session = event.window.data2;
-              getConfig()->videoX.sessionToConfig();
-              getConfig()->videoY.sessionToConfig();
+              if(!getConfig()->useFullScreen.get()) {
+                getConfig()->videoX.session = event.window.data1;
+                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.sessionToConfig();
+                getConfig()->videoY.sessionToConfig();
 
-              getParagraph(*optionsMenu, "resolutionParagraph")->setText(
-                fmt::format(
-                  getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
-                  event.window.data1,
-                  event.window.data2
-                )
-              );
+                getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+                  fmt::format("{}x{}", event.window.data1, event.window.data2));
+              }
             } break;
             case SDL_EVENT_MOUSE_MOTION:
             case SDL_EVENT_MOUSE_BUTTON_UP:
