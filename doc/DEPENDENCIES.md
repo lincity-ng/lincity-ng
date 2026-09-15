@@ -61,6 +61,12 @@ Following is the list of dependencies for building and/or running LinCity-NG.
 
   xsltproc is provided by LibXslt
 
+* pkg-config
+
+  https://www.freedesktop.org/wiki/Software/pkg-config
+
+  Used to locate libxml++.
+
 * Header files for all [runtime dependencies](#runtime-dependencies)
 
   If you use packages from your distribution, header files are sometimes
