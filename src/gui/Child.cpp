@@ -23,8 +23,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "Child.hpp"
 
-#include "Component.hpp"
-#include "Event.hpp"
+#include <cassert>        // for assert
+#include <utility>        // for move
+
+#include "Component.hpp"  // for Component
+#include "Event.hpp"      // for Event
 
 Child::Child(Component *parent, std::unique_ptr<Component>&& component)
     : useClipRect(false), parent(parent)

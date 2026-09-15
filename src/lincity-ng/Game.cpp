@@ -23,15 +23,15 @@
 
 #include "Game.hpp"
 
-#include <SDL3/SDL.h>                       // for SDL_KeyCode, Uint32, SDL_...
+#include <SDL3/SDL.h>                       // for SDL_EventType, Uint32, SD...
 #include <assert.h>                         // for assert
-#include <fmt/format.h>                     // for format, native_formatter:...
+#include <fmt/format.h>                     // for format, native_formatter::format
 #include <stddef.h>                         // for NULL
 #include <algorithm>                        // for min
 #include <filesystem>                       // for path, operator/, director...
-#include <functional>                       // for function, bind, _1
+#include <functional>                       // for function, _Placeholder, bind, _1
 #include <initializer_list>                 // for initializer_list
-#include <iostream>                         // for basic_ostream, operator<<
+#include <iostream>                         // for basic_ostream, operator<<...
 #include <list>                             // for list
 #include <optional>                         // for optional
 #include <stdexcept>                        // for runtime_error
@@ -39,18 +39,19 @@
 #include <utility>                          // for move
 
 #include "ButtonPanel.hpp"                  // for ButtonPanel
-#include "Config.hpp"                       // for getConfig, Config
-#include "Dialog.hpp"                       // for Dialog, closeAllDialogs
+#include "Config.hpp"                       // for Config, getConfig
+#include "Dialog.hpp"                       // for Dialog, closeAllDialogs, ...
 #include "EconomyGraph.hpp"                 // for EconomyGraph
 #include "GameView.hpp"                     // for GameView
 #include "HelpWindow.hpp"                   // for HelpWindow
-#include "MainLincity.hpp"                  // for saveCityNG, loadCityNG
+#include "MainLincity.hpp"                  // for saveCityNG, simDelay, loa...
 #include "MiniMap.hpp"                      // for MiniMap
 #include "Mps.hpp"                          // for MpsMap, MpsFinance
 #include "PBar.hpp"                         // for LCPBar
-#include "Sound.hpp"                        // for getSound, Sound
+#include "Sound.hpp"                        // for Sound, getSound
 #include "TimerInterface.hpp"               // for get_real_time_with
 #include "Util.hpp"                         // for getButton
+#include "Video.hpp"                        // for painter, getVirtualWindow...
 #include "gui/Button.hpp"                   // for Button
 #include "gui/Component.hpp"                // for Component
 #include "gui/ComponentLoader.hpp"          // for loadGUIFile
@@ -59,15 +60,15 @@
 #include "gui/Event.hpp"                    // for Event
 #include "gui/Painter.hpp"                  // for Painter
 #include "gui/Signal.hpp"                   // for Signal
+#include "gui/Vector2.hpp"                  // for Vector2
 #include "gui/WindowManager.hpp"            // for WindowManager
 #include "lincity/MapPoint.hpp"             // for MapPoint, operator<<
-#include "lincity/groups.hpp"               // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/groups.hpp"               // for GROUP_MARKET, GROUP_MONUM...
 #include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIMATE_D...
 #include "lincity/lintypes.hpp"             // for ConstructionGroup, Constr...
 #include "lincity/messages.hpp"             // for dynamic_message_cast, Mes...
 #include "lincity/modules/all_modules.hpp"  // for RocketPad, ParklandConstr...
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "main.hpp"                         // for painter, videoSizeChanged
 #include "util/gettextutil.hpp"             // for _
 #include "util/ptrutil.hpp"                 // for dynamic_unique_cast
 

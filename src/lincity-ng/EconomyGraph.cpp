@@ -23,15 +23,16 @@
 
 #include "EconomyGraph.hpp"
 
-#include <SDL3/SDL.h>                     // for SDL_Surface
-#include <SDL3_ttf/SDL_ttf.h>             // for TTF_RenderText_Blended, TTF...
+#include <SDL3/SDL.h>                     // for SDL_DestroySurface, SDL_Sur...
+#include <SDL3_ttf/SDL_ttf.h>             // for TTF_Font, TTF_RenderText_Bl...
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
 #include <algorithm>                      // for min, max
 #include <cassert>                        // for assert
-#include <cmath>                          // for log, sqrt
+#include <cmath>                          // for logf, sqrt
 #include <cstddef>                        // for NULL
 #include <deque>                          // for deque
+#include <initializer_list>               // for initializer_list
 
 #include "Game.hpp"                       // for Game
 #include "Util.hpp"                       // for getCheckButton
@@ -44,7 +45,7 @@
 #include "gui/Rect2D.hpp"                 // for Rect2D
 #include "gui/Style.hpp"                  // for Style
 #include "gui/Texture.hpp"                // for Texture
-#include "gui/TextureManager.hpp"         // for TextureManager, texture_man...
+#include "gui/TextureManager.hpp"         // for TextureManager, texture_manager
 #include "gui/Vector2.hpp"                // for Vector2
 #include "lincity/lintypes.hpp"           // for NUMOF_DAYS_IN_MONTH
 #include "lincity/stats.hpp"              // for Stats
@@ -52,7 +53,6 @@
 #include "lincity/world.hpp"              // for World
 #include "util/gettextutil.hpp"           // for _
 #include "util/xmlutil.hpp"               // for xmlParse, unexpectedXmlAttr...
-#include "gui/Event.hpp"
 
 EconomyGraph::EconomyGraph() {
     labelTextureMIN = 0;

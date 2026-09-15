@@ -23,50 +23,52 @@
 
 #include "MainMenu.hpp"
 
-#include <SDL3/SDL.h>                   // for SDL_EventType, Uint32, SDL_Ge...
-#include <stdio.h>                      // for fprintf, size_t, stderr
-#include <algorithm>                    // for min, sort
-#include <array>                        // for array
-#include <cassert>                      // for assert
-#include <chrono>                       // for operator<, time_point
-#include <cstdlib>                      // for abs
-#include <functional>                   // for function, bind, _1, _2
-#include <initializer_list>             // for initializer_list
-#include <iomanip>                      // for operator<<, setfill, setw
-#include <iostream>                     // for basic_ostream, operator<<
-#include <sstream>                      // for basic_stringstream
-#include <stdexcept>                    // for invalid_argument, out_of_range
-#include <utility>                      // for pair, move
-#include <vector>                       // for vector
-#include <optional>
-#include <string>
+#include <SDL3/SDL.h>               // for SDL_EventType, Uint32, SDL_GetTic...
+#include <fmt/format.h>             // for format
+#include <algorithm>                // for min, sort
+#include <array>                    // for array
+#include <cassert>                  // for assert
+#include <chrono>                   // for time_point, operator<
+#include <cstdio>                   // for size_t, fprintf, stderr
+#include <cstdlib>                  // for abs
+#include <functional>               // for _Placeholder, function, _1, bind, _2
+#include <initializer_list>         // for initializer_list
+#include <iomanip>                  // for operator<<, setfill, setw
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <optional>                 // for optional
+#include <sstream>                  // for basic_stringstream
+#include <stdexcept>                // for invalid_argument, out_of_range
+#include <string>                   // for basic_string, char_traits, operat...
+#include <utility>                  // for pair, move
+#include <vector>                   // for vector
 
-#include "Config.hpp"                   // for getConfig, Config
-#include "Game.hpp"                     // for Game
-#include "MainLincity.hpp"              // for loadCityNG, saveCityNG
-#include "Sound.hpp"                    // for getSound, Sound, MusicTransport
-#include "Util.hpp"                     // for getCheckButton, getButton
-#include "gui/Button.hpp"               // for Button
-#include "gui/CheckButton.hpp"          // for CheckButton
-#include "gui/Component.hpp"            // for Component
-#include "gui/ComponentLoader.hpp"      // for loadGUIFile
-#include "gui/Desktop.hpp"              // for Desktop
-#include "gui/DialogBuilder.hpp"        // for DialogBuilder
-#include "gui/Event.hpp"                // for Event
-#include "gui/Painter.hpp"              // for Painter
-#include "gui/Paragraph.hpp"            // for Paragraph
-#include "gui/Signal.hpp"               // for Signal
-#include "gui/SwitchComponent.hpp"      // for SwitchComponent
-#include "gui/WindowManager.hpp"        // for WindowManager
-#include "lincity/init_game.hpp"        // for _CitySettings, new_city, city...
-#include "lincity/lintypes.hpp"         // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"            // for Stat, Stats
-#include "lincity/world.hpp"            // for World
-#include "main.hpp"                     // for painter, videoSi...
-#include "util/gettextutil.hpp"
-#include "config.h"
-#include "util/ptrutil.hpp"
-#include "gui/Vector2.hpp"
+#include "Config.hpp"               // for Config, getConfig
+#include "Game.hpp"                 // for Game
+#include "MainLincity.hpp"          // for loadCityNG, saveCityNG
+#include "Sound.hpp"                // for Sound, getSound, MusicTransport, song
+#include "Util.hpp"                 // for getCheckButton, getButton, getPar...
+#include "Video.hpp"                // for painter, getVirtualWindowSize, vi...
+#include "config.h"                 // for PACKAGE_NAME
+#include "gui/Button.hpp"           // for Button
+#include "gui/CheckButton.hpp"      // for CheckButton
+#include "gui/Component.hpp"        // for Component
+#include "gui/ComponentLoader.hpp"  // for loadGUIFile
+#include "gui/Desktop.hpp"          // for Desktop
+#include "gui/DialogBuilder.hpp"    // for DialogBuilder
+#include "gui/Event.hpp"            // for Event
+#include "gui/Painter.hpp"          // for Painter
+#include "gui/Paragraph.hpp"        // for Paragraph
+#include "gui/Signal.hpp"           // for Signal
+#include "gui/SwitchComponent.hpp"  // for SwitchComponent
+#include "gui/Vector2.hpp"          // for Vector2
+#include "gui/WindowManager.hpp"    // for WindowManager
+#include "lincity/init_game.hpp"    // for _CitySettings, city_settings, new...
+#include "lincity/lintypes.hpp"     // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"        // for Stat, Stats
+#include "lincity/world.hpp"        // for World
+#include "main.hpp"                 // for setLang
+#include "util/gettextutil.hpp"     // for _
+#include "util/ptrutil.hpp"         // for dynamic_unique_cast
 
 using namespace std::placeholders;
 using namespace std::string_literals;

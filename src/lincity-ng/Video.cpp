@@ -21,33 +21,22 @@
 
 #include "Video.hpp"
 
-#include <SDL3/SDL.h>                            // for SDL_GetError, SDL_Se...
-#include <SDL3_ttf/SDL_ttf.h>                    // for TTF_Init, TTF_Quit
+#include <SDL3/SDL.h>                            // for SDL_Window, SDL_Crea...
 #include <fmt/base.h>                            // for println
-#include <fmt/format.h>
-#include <gettext.h>                             // for bindtextdomain, text...
-#include <cassert>                               // for assert
-#include <clocale>                               // for NULL, setlocale, LC_ALL
 #include <cstdio>                                // for stderr
-#include <cstdlib>                               // for getenv, setenv, unse...
-#include <cstring>                               // for strcmp
-#include <filesystem>                            // for path, operator/
-#include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for unique_ptr
-#include <optional>                              // for optional, nullopt
-#include <stdexcept>                             // for runtime_error
-#include <string>                                // for basic_string, char_t...
+#include <optional>                              // for optional
 
-#include "Config.hpp"                            // for getConfig, Config
-#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
-#include "gui/FontManager.hpp"                   // for FontManager, fontMan...
+#include "Config.hpp"                            // for Config, getConfig
+#include "config.h"                              // for PACKAGE_NAME, PACKAG...
+#include "gui/FontManager.hpp"                   // for FontManager, fontManager
 #include "gui/Painter.hpp"                       // for Painter
 #include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
 #include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
 #include "gui/TextureManager.hpp"                // for texture_manager, Tex...
+#include "gui/Vector2.hpp"                       // for Vector2
 
 #ifndef DISABLE_GL_MODE
-#include <SDL3/SDL_opengl.h>                          // for glDisable, glLoadIde...
+#include <SDL3/SDL_opengl.h>                     // for glDisable, glLoadIde...
 
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL

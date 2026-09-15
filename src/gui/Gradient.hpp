@@ -27,9 +27,9 @@
 
 #include "Color.hpp"      // for Color
 #include "Component.hpp"  // for Component
-#include "Event.hpp"
 
 class Texture;
+
 namespace xmlpp {
 class TextReader;
 }  // namespace xmlpp

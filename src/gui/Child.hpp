@@ -24,8 +24,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __CHILD_HPP__
 #define __CHILD_HPP__
 
-#include <vector>       // for vector
 #include <memory>
+#include <vector>       // for vector
 
 #include "Rect2D.hpp"   // for Rect2D
 #include "Vector2.hpp"  // for Vector2

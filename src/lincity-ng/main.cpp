@@ -23,43 +23,37 @@
 
 #include "main.hpp"
 
-#include <SDL3/SDL.h>                            // for SDL_GetError, SDL_Se...
-#include <SDL3_ttf/SDL_ttf.h>                    // for TTF_Init, TTF_Quit
-#include <fmt/base.h>                            // for println
-#include <fmt/format.h>
-#include <gettext.h>                             // for bindtextdomain, text...
-#include <libxml/xmlversion.h>                   // for LIBXML_VERSION
-#include <cassert>                               // for assert
-#include <clocale>                               // for NULL, setlocale, LC_ALL
-#include <cstdio>                                // for stderr
-#include <cstdlib>                               // for getenv, setenv, unse...
-#include <cstring>                               // for strcmp
-#include <filesystem>                            // for path, operator/
-#include <iostream>                              // for basic_ostream, opera...
-#include <memory>                                // for unique_ptr
-#include <optional>                              // for optional, nullopt
-#include <stdexcept>                             // for runtime_error
-#include <string>                                // for basic_string, char_t...
+#include <SDL3/SDL.h>            // for SDL_GetError, SDL_SetHint, SDL_HINT_...
+#include <SDL3_ttf/SDL_ttf.h>    // for TTF_Init, TTF_Quit
+#include <fmt/base.h>            // for println
+#include <fmt/format.h>          // for format
+#include <gettext.h>             // for bindtextdomain, textdomain
+#include <libxml/xmlversion.h>   // for LIBXML_VERSION, LIBXML_TEST_VERSION
+#include <cassert>               // for assert
+#include <clocale>               // for setlocale, LC_ALL, LC_MESSAGES, NULL
+#include <cstdio>                // for stderr
+#include <cstdlib>               // for getenv, setenv, unsetenv
+#include <cstring>               // for strcmp
+#include <filesystem>            // for path, operator/
+#include <memory>                // for unique_ptr
+#include <optional>              // for optional, nullopt, nullopt_t
+#include <stdexcept>             // for runtime_error
+#include <string>                // for basic_string, string, operator!=
 
-#include "Config.hpp"                            // for getConfig, Config
-#include "MainLincity.hpp"                       // for initLincity
-#include "MainMenu.hpp"                          // for MainMenu
-#include "Sound.hpp"                             // for Sound, getSound, Mus...
-#include "config.h"                              // for PACKAGE_NAME, HAVE_N...
-#include "gui/FontManager.hpp"                   // for FontManager, fontMan...
-#include "gui/Painter.hpp"                       // for Painter
-#include "gui/PainterSDL/PainterSDL.hpp"         // for PainterSDL
-#include "gui/PainterSDL/TextureManagerSDL.hpp"  // for TextureManagerSDL
-#include "gui/TextureManager.hpp"                // for texture_manager, Tex...
-#include "util/gettextutil.hpp"                  // for _
-#include "Video.hpp"
+#include "Config.hpp"            // for Config, getConfig
+#include "MainLincity.hpp"       // for initLincity
+#include "MainMenu.hpp"          // for MainMenu
+#include "Sound.hpp"             // for Sound
+#include "Video.hpp"             // for deinitVideo, initVideo, window
+#include "config.h"              // for HAVE_NL_MSG_CAT_CNTR, PACKAGE_NAME, ...
+#include "util/gettextutil.hpp"  // for _
 
 #if LIBXML_VERSION < 21400
 #include <libxml/parser.h>                       // for xmlInitParser, xmlCl...
 #endif
 
 #ifndef DISABLE_GL_MODE
-#include <SDL3/SDL_opengl.h>                          // for glDisable, glLoadIde...
+#include <SDL3/SDL_opengl.h>                     // for glDisable, glLoadIde...
 
 #include "gui/PainterGL/PainterGL.hpp"           // for PainterGL
 #include "gui/PainterGL/TextureManagerGL.hpp"    // for TextureManagerGL

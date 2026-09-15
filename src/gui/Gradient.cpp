@@ -24,10 +24,10 @@
 #include <SDL3/SDL.h>                     // for SDL_Surface, SDL_CreateRGBS...
 #include <libxml++/parsers/textreader.h>  // for TextReader
 #include <libxml++/ustring.h>             // for ustring
-#include <stdexcept>                      // for runtime_error
-#include <string>                         // for basic_string, operator==
 #include <cmath>
 #include <cstdint>
+#include <stdexcept>                      // for runtime_error
+#include <string>                         // for basic_string, operator==
 
 #include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "Gradient.hpp"
