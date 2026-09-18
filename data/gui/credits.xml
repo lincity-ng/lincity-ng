@@ -6,10 +6,8 @@
         margin-left="20" margin-bottom ="5"/>
     <DefineStyle name="person" color="black" margin-left="50" font-size="20"
         margin-top="5"/>
-    <DefineStyle name="email" color="blue" font-size="20" font-style="italic"
-        margin-top="5"/>
-    <DefineStyle name="year" color="black" font-size="20" font-style="italic"
-        margin-top="5"/>
+    <DefineStyle name="email" color="blue" font-size="20" font-style="italic"/>
+    <DefineStyle name="year" color="black" font-size="20" font-style="italic"/>
     <DefineStyle name="license" color="black" margin-top="5" font-size="20"
         margin-left="50" margin-right="50" margin-bottom ="5"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
