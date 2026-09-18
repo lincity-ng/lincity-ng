@@ -1200,7 +1200,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         resgrp = getWorld().map(upperLeft)->getTileResourceGroup();
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile(tile.e(size-1));
-        unsigned short textureType = getWorld().map(upperLeft)->getTopType();
 
         // if we hide high buildings, hide trees as well
         if (hideHigh && (cstgrp == &treeConstructionGroup
