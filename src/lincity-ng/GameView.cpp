@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
- * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify

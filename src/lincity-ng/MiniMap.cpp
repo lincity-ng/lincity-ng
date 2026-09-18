@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
- * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -216,7 +216,7 @@ void MiniMap::attachButtons()
     if(alreadyAttached)
     {   return;}
     alreadyAttached=true;
-    
+
     Component *root=findRoot(this);
 
     for(int i = 0; mapViewButtons[i] != 0; ++i)
