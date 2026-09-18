@@ -88,7 +88,7 @@ UserOperation::isAllowedHere(World& world, MapPoint point, Message::ptr& message
   }
   case ACTION_EVACUATE:
     if(!world.map(point)->reportingConstruction) {
-      message = NothingHereMessage::create(point);
+      message = CannotEvacuateNothingMessage::create(point);
       return false;
     }
     if(world.map(point)->reportingConstruction->flags & FLAG_NEVER_EVACUATE) {
