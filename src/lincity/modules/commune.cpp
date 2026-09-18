@@ -80,12 +80,10 @@ Commune::Commune(World& world, ConstructionGroup *cstgrp) :
 
 void
 Commune::update() {
-  int tmpUgwCount = ugwCount;
   int tmpCoalprod = coalprod;
   const unsigned short s = constructionGroup->size;
   const unsigned short a = s*s;
   if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST) {
-    tmpUgwCount = a;
     tmpCoalprod = COMMUNE_COAL_MADE;
     consumeStuff(STUFF_WATER, (a-ugwCount)*WATER_FOREST);
   }

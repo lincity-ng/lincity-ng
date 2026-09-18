@@ -115,8 +115,6 @@ private:
     SDL_Surface* readImage(const std::filesystem::path& filename);
     void preReadImages(void);
     Texture* readTexture(const std::filesystem::path& filename);
-    //void loadTextures();
-    //void preReadCityTexture(int textureType, const std::string& filename);
 
     float tileWidth, tileHeight, zoom;
 
