@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,15 +23,15 @@
 
 #include "Game.hpp"
 
-#include <SDL3/SDL.h>                       // for SDL_KeyCode, Uint32, SDL_...
+#include <SDL3/SDL.h>                       // for SDL_EventType, Uint32, SD...
 #include <assert.h>                         // for assert
-#include <fmt/format.h>                     // for format, native_formatter:...
+#include <fmt/format.h>                     // for format, native_formatter::format
 #include <stddef.h>                         // for NULL
 #include <algorithm>                        // for min
 #include <filesystem>                       // for path, operator/, director...
-#include <functional>                       // for function, bind, _1
+#include <functional>                       // for function, _Placeholder, bind, _1
 #include <initializer_list>                 // for initializer_list
-#include <iostream>                         // for basic_ostream, operator<<
+#include <iostream>                         // for basic_ostream, operator<<...
 #include <list>                             // for list
 #include <optional>                         // for optional
 #include <stdexcept>                        // for runtime_error
@@ -39,18 +39,19 @@
 #include <utility>                          // for move
 
 #include "ButtonPanel.hpp"                  // for ButtonPanel
-#include "Config.hpp"                       // for getConfig, Config
-#include "Dialog.hpp"                       // for Dialog, closeAllDialogs
+#include "Config.hpp"                       // for Config, getConfig
+#include "Dialog.hpp"                       // for Dialog, closeAllDialogs, ...
 #include "EconomyGraph.hpp"                 // for EconomyGraph
 #include "GameView.hpp"                     // for GameView
 #include "HelpWindow.hpp"                   // for HelpWindow
-#include "MainLincity.hpp"                  // for saveCityNG, loadCityNG
+#include "MainLincity.hpp"                  // for saveCityNG, simDelay, loa...
 #include "MiniMap.hpp"                      // for MiniMap
 #include "Mps.hpp"                          // for MpsMap, MpsFinance
 #include "PBar.hpp"                         // for LCPBar
-#include "Sound.hpp"                        // for getSound, Sound
+#include "Sound.hpp"                        // for Sound, getSound
 #include "TimerInterface.hpp"               // for get_real_time_with
 #include "Util.hpp"                         // for getButton
+#include "Video.hpp"                        // for painter, getVirtualWindow...
 #include "gui/Button.hpp"                   // for Button
 #include "gui/Component.hpp"                // for Component
 #include "gui/ComponentLoader.hpp"          // for loadGUIFile
@@ -59,15 +60,15 @@
 #include "gui/Event.hpp"                    // for Event
 #include "gui/Painter.hpp"                  // for Painter
 #include "gui/Signal.hpp"                   // for Signal
+#include "gui/Vector2.hpp"                  // for Vector2
 #include "gui/WindowManager.hpp"            // for WindowManager
 #include "lincity/MapPoint.hpp"             // for MapPoint, operator<<
-#include "lincity/groups.hpp"               // for GROUP_MARKET, GROUP_MONUMENT
+#include "lincity/groups.hpp"               // for GROUP_MARKET, GROUP_MONUM...
 #include "lincity/lin-city.hpp"             // for MAX_TECH_LEVEL, ANIMATE_D...
 #include "lincity/lintypes.hpp"             // for ConstructionGroup, Constr...
 #include "lincity/messages.hpp"             // for dynamic_message_cast, Mes...
 #include "lincity/modules/all_modules.hpp"  // for RocketPad, ParklandConstr...
 #include "lincity/world.hpp"                // for World, Map, MapTile
-#include "main.hpp"                         // for painter, videoSizeChanged
 #include "util/gettextutil.hpp"             // for _
 #include "util/ptrutil.hpp"                 // for dynamic_unique_cast
 
@@ -471,10 +472,17 @@ Game::run() {
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
       throw std::runtime_error("Toplevel component is not a Desktop");
-    gui->resize(getConfig()->videoX.get(), getConfig()->videoY.get());
     DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
       desktop->findComponent("windowManager")));
     world->setUpdated(World::Updatable::MONEY);
+    {
+      int width, height;
+      SDL_GetWindowSizeInPixels(window, &width, &height);
+      float scale = SDL_GetWindowDisplayScale(window);
+      desktop->setScale(Vector2(scale, scale));
+      desktop->resize(width / scale, height / scale);
+      desktop->reLayoutDeep();
+    }
 
     getButtonPanel().selectQueryTool();
 
@@ -497,87 +505,101 @@ Game::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
-                    videoSizeChanged(event.window.data1, event.window.data2);
-                    gui->resize(event.window.data1, event.window.data2);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
-                    getConfig()->videoX.sessionToConfig();
-                    getConfig()->videoY.sessionToConfig();
-                    break;
-                case SDL_EVENT_WINDOW_MOUSE_ENTER:
-                case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
-                    Event gui_event(event);
-                    gui->event(gui_event);
-                    break;
-                    }
-                case SDL_EVENT_KEY_UP: {
-                  Event gui_event(event);
-                  if(gui_event.key == SDLK_ESCAPE) {
-                    getButtonPanel().selectQueryTool();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_B) {
-                    getButtonPanel().toggleBulldozeTool();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_F1) {
-                    helpWindow->showTopic("help");
-                      break;
-                  }
-                  if(gui_event.key == SDLK_F12) {
-                    quickSave();
-                    break;
-                  }
-                  if(gui_event.key == SDLK_F9) {
-                    quickLoad();
-                    break;
-                  }
-#ifdef DEBUG
-                  if(gui_event.key == SDLK_F5) {
-                    testAllHelpFiles();
-                    break;
-                  }
-#endif
-                  int need_break=true;
-                  switch(gui_event.key) {
-                    case SDLK_GRAVE: getMiniMap().mapViewChangeDisplayMode(MiniMap::NORMAL); break;
-                    case SDLK_1: getMiniMap().mapViewChangeDisplayMode(MiniMap::STARVE); break;
-                    case SDLK_2: getMiniMap().mapViewChangeDisplayMode(MiniMap::UB40); break;
-                    case SDLK_3: getMiniMap().mapViewChangeDisplayMode(MiniMap::POWER); break;
-                    case SDLK_4: getMiniMap().mapViewChangeDisplayMode(MiniMap::FIRE); break;
-                    case SDLK_5: getMiniMap().mapViewChangeDisplayMode(MiniMap::CRICKET); break;
-                    case SDLK_6: getMiniMap().mapViewChangeDisplayMode(MiniMap::HEALTH); break;
-                    case SDLK_7: getMiniMap().mapViewChangeDisplayMode(MiniMap::TRAFFIC); break;
-                    case SDLK_8: getMiniMap().mapViewChangeDisplayMode(MiniMap::POLLUTION); break;
-                    case SDLK_9: getMiniMap().mapViewChangeDisplayMode(MiniMap::COAL); break;
-                    case SDLK_0: getMiniMap().mapViewChangeDisplayMode(MiniMap::COMMODITIES); break;
-                    default:  need_break=false;
-                  }
-                  if (need_break) break;
-
-                  gui->event(gui_event);
+            case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
+              videoSizeChanged(event.window.data1, event.window.data2);
+              Vector2 scale = desktop->getScale();
+              Vector2 size(event.window.data1, event.window.data2);
+              size.descale(scale);
+              desktop->resize(size);
+            } break;
+            case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+              float scale = SDL_GetWindowDisplayScale(window);
+              desktop->setScale(Vector2(scale, scale));
+              desktop->resize(getVirtualWindowSize(window));
+              desktop->reLayoutDeep();
+            } break;
+            case SDL_EVENT_WINDOW_RESIZED: {
+              if(!getConfig()->useFullScreen.get()) {
+                getConfig()->videoX.session = event.window.data1;
+                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.sessionToConfig();
+                getConfig()->videoY.sessionToConfig();
+              }
+            } break;
+            case SDL_EVENT_WINDOW_MOUSE_ENTER:
+            case SDL_EVENT_WINDOW_MOUSE_LEAVE: {
+              desktop->event(Event(event));
+            } break;
+            case SDL_EVENT_KEY_UP: {
+              Event gui_event(event);
+              if(gui_event.key == SDLK_ESCAPE) {
+                getButtonPanel().selectQueryTool();
+                break;
+              }
+              if(gui_event.key == SDLK_B) {
+                getButtonPanel().toggleBulldozeTool();
+                break;
+              }
+              if(gui_event.key == SDLK_F1) {
+                helpWindow->showTopic("help");
                   break;
-                }
-                case SDL_EVENT_MOUSE_MOTION:
-                case SDL_EVENT_MOUSE_BUTTON_UP:
-                case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                case SDL_EVENT_MOUSE_WHEEL:
-                case SDL_EVENT_KEY_DOWN: {
-                    Event gui_event(event);
-                    gui->event(gui_event);
-                    break;
-                }
-                case SDL_EVENT_QUIT: {
-                    saveCityNG(*world, getConfig()->userDataDir.get()
-                      / "9_currentGameNG.scn.gz");
-                    // push the QUIT event back for main menu to handle
-                    int s = SDL_PushEvent(&event);
-                    assert(s == 1);
-                    return;
-                }
-                default:
-                    break;
+              }
+              if(gui_event.key == SDLK_F12) {
+                quickSave();
+                break;
+              }
+              if(gui_event.key == SDLK_F9) {
+                quickLoad();
+                break;
+              }
+#ifdef DEBUG
+              if(gui_event.key == SDLK_F5) {
+                testAllHelpFiles();
+                break;
+              }
+#endif
+              int need_break=true;
+              switch(gui_event.key) {
+                case SDLK_GRAVE: getMiniMap().mapViewChangeDisplayMode(MiniMap::NORMAL); break;
+                case SDLK_1: getMiniMap().mapViewChangeDisplayMode(MiniMap::STARVE); break;
+                case SDLK_2: getMiniMap().mapViewChangeDisplayMode(MiniMap::UB40); break;
+                case SDLK_3: getMiniMap().mapViewChangeDisplayMode(MiniMap::POWER); break;
+                case SDLK_4: getMiniMap().mapViewChangeDisplayMode(MiniMap::FIRE); break;
+                case SDLK_5: getMiniMap().mapViewChangeDisplayMode(MiniMap::CRICKET); break;
+                case SDLK_6: getMiniMap().mapViewChangeDisplayMode(MiniMap::HEALTH); break;
+                case SDLK_7: getMiniMap().mapViewChangeDisplayMode(MiniMap::TRAFFIC); break;
+                case SDLK_8: getMiniMap().mapViewChangeDisplayMode(MiniMap::POLLUTION); break;
+                case SDLK_9: getMiniMap().mapViewChangeDisplayMode(MiniMap::COAL); break;
+                case SDLK_0: getMiniMap().mapViewChangeDisplayMode(MiniMap::COMMODITIES); break;
+                default:  need_break=false;
+              }
+              if (need_break) break;
+
+              gui->event(gui_event);
+              break;
+            }
+            case SDL_EVENT_MOUSE_MOTION:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_WHEEL:
+            case SDL_EVENT_KEY_DOWN: {
+              Event gui_event(event);
+              float scale = SDL_GetDisplayContentScale(
+                SDL_GetDisplayForWindow(window));
+              gui_event.applyScale(Vector2(scale, scale));
+              gui->event(gui_event);
+              break;
+            }
+            case SDL_EVENT_QUIT: {
+              saveCityNG(*world, getConfig()->userDataDir.get()
+                / "9_currentGameNG.scn.gz");
+              // push the QUIT event back for main menu to handle
+              int s = SDL_PushEvent(&event);
+              assert(s == 1);
+              return;
+            }
+            default:
+              break;
             }
 
             if(desktop->needsRedraw())

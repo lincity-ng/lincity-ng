@@ -43,7 +43,7 @@
 -->
   <SwitchComponent name="menu-switch">
     <Panel name="main-menu" resizable="yes">
-      <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
+      <Image src="images/mainmenu/menu_back.png" resizable="yes" lockRatio="no"/>
       <TableLayout rows="8" cols="3">
         <colsize col="1" relative="1"/>
         <colsize col="2" relative="0.5"/>
@@ -59,58 +59,58 @@
         <cell row="3" col="3">
             <Button name="NewGameButton">
                 <text-caption translatable="yes" style="normal">New Game</text-caption>
-                <image src="images/mainmenu/buttons/new.png"/>
-                <image-hover src="images/mainmenu/buttons/new-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/new-clicked.png"/>
+                <image src="images/mainmenu/buttons/new.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/new-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/new-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
         <cell row="2" col="3">
             <Button name="ContinueButton">
                 <text-caption translatable="yes" style="normal">Continue</text-caption>
-                <image src="images/mainmenu/buttons/continue.png"/>
-                <image-hover src="images/mainmenu/buttons/continue-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/continue-clicked.png"/>
+                <image src="images/mainmenu/buttons/continue.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/continue-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/continue-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
         <cell row="4" col="3">
             <Button name="LoadButton">
                 <text-caption translatable="yes" style="normal">Load</text-caption>
-                <image src="images/mainmenu/buttons/load.png"/>
-                <image-hover src="images/mainmenu/buttons/load-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
+                <image src="images/mainmenu/buttons/load.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/load-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/load-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
         <cell row="5" col="3">
             <Button name="SaveButton">
                 <text-caption translatable="yes" style="normal">Save</text-caption>
-                <image src="images/mainmenu/buttons/save.png"/>
-                <image-hover src="images/mainmenu/buttons/save-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/save-clicked.png"/>
+                <image src="images/mainmenu/buttons/save.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/save-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/save-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
 
         <cell row="6" col="3">
             <Button name="OptionsButton">
                 <text-caption translatable="yes" style="normal">Options</text-caption>
-                <image src="images/mainmenu/buttons/options.png"/>
-                <image-hover src="images/mainmenu/buttons/options-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/options-clicked.png"/>
+                <image src="images/mainmenu/buttons/options.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/options-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/options-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
         <cell row="7" col="3">
             <Button name="CreditsButton">
                 <text-caption translatable="yes" style="normal">Credits</text-caption>
-                <image src="images/mainmenu/buttons/credits.png"/>
-                <image-hover src="images/mainmenu/buttons/credits-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/credits-clicked.png"/>
+                <image src="images/mainmenu/buttons/credits.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/credits-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/credits-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
         <cell row="8" col="3">
             <Button name="QuitButton">
                 <text-caption translatable="yes" style="normal">Quit</text-caption>
-                <image src="images/mainmenu/buttons/quit.png"/>
-                <image-hover src="images/mainmenu/buttons/quit-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/quit-clicked.png"/>
+                <image src="images/mainmenu/buttons/quit.png" width="320" height="64"/>
+                <image-hover src="images/mainmenu/buttons/quit-hover.png" width="320" height="64"/>
+                <image-clicked src="images/mainmenu/buttons/quit-clicked.png" width="320" height="64"/>
             </Button>
         </cell>
       </TableLayout>

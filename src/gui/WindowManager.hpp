@@ -22,11 +22,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <memory>         // for unique_ptr
 #include <vector>         // for vector
 
-#include "Child.hpp"      // for Child
 #include "Component.hpp"  // for Component
 #include "Vector2.hpp"    // for Vector2
 
+class Child;
 class Window;
+
 namespace xmlpp {
 class TextReader;
 }  // namespace xmlpp

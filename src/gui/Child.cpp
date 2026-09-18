@@ -1,35 +1,38 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-/**
- * @author Matthias Braun
- * @file Child.cpp
- */
+/* ---------------------------------------------------------------------- *
+ * src/gui/Chile.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include "Child.hpp"
 
-#include "Component.hpp"
-#include "Event.hpp"
+#include <cassert>        // for assert
+#include <utility>        // for move
 
-Child::Child(std::unique_ptr<Component>&& _component)
-    : useClipRect(false), component(_component.release())
+#include "Component.hpp"  // for Component
+#include "Event.hpp"      // for Event
+
+Child::Child(Component *parent, std::unique_ptr<Component>&& component)
+    : useClipRect(false), parent(parent)
 {
-    enabled = component != nullptr;
+  assert(parent);
+  setComponent(std::move(component));
 }
 
 Child::~Child()
@@ -59,11 +62,14 @@ Child::enable(bool enabled) {
   if(enabled == this->enabled)
     return;
 
-  // Somewhat hacky way to tell the component that they definitely lost mouse
-  // focus. This is necessary because, once disabled, they cannot receive
-  // MOUSEMOTION events which could be necessary to tell a component they are no
-  // longer hovered.
-  if(!enabled) {
+  if(enabled) {
+    component->reLayoutDeep();
+  }
+  else {
+    // Somewhat hacky way to tell the component that they definitely lost mouse
+    // focus. This is necessary because, once disabled, they cannot receive
+    // MOUSEMOTION events which could be necessary to tell a component they are no
+    // longer hovered.
     Event event(Event::MOUSEMOTION);
     event.inside = false;
     component->event(event);
@@ -74,8 +80,15 @@ Child::enable(bool enabled) {
 
 void
 Child::setComponent(std::unique_ptr<Component>&& component) {
+  if(this->component) delete this->component;
   enabled = !!component;
   this->component = component.release();
+  if(this->component) {
+    this->component->parent = parent;
+    this->component->desktop = parent->desktop;
+    this->component->setDirty();
+    this->component->reLayoutDeep();
+  }
 }
 
 //---------------------------------------------------------------------------

@@ -71,7 +71,7 @@ CheckButton::parse(xmlpp::TextReader& reader) {
   reader.move_to_element();
 
   // we need 6 child components
-  childs.assign(6, Child());
+  childs.assign(6, Child(this));
 
   // parse contents of the xml-element
   if(!reader.is_empty_element() && reader.read())

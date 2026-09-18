@@ -28,24 +28,24 @@
 			<cell row="2" col="2">
 				<SwitchComponent name="BuyFood">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
 			<cell row="2" col="3">
 				<SwitchComponent name="SellFood">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
@@ -56,24 +56,24 @@
 			<cell row="3" col="2">
 				<SwitchComponent name="BuyCoal">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
 			<cell row="3" col="3">
 				<SwitchComponent name="SellCoal">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
@@ -84,24 +84,24 @@
 			<cell row="4" col="2">
 				<SwitchComponent name="BuyOre">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
 			<cell row="4" col="3">
 				<SwitchComponent name="SellOre">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
@@ -112,24 +112,24 @@
 			<cell row="5" col="2">
 				<SwitchComponent name="BuyGoods">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
 			<cell row="5" col="3">
 				<SwitchComponent name="SellGoods">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
@@ -140,24 +140,24 @@
 			<cell row="6" col="2">
 				<SwitchComponent name="BuySteel">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
 			<cell row="6" col="3">
 				<SwitchComponent name="SellSteel">
 					<CheckButton name="green">
-						<image src="images/gui/checkbox/checkbox.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+						<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 					</CheckButton>
 					<CheckButton name="red">
-						<image src="images/gui/checkbox/checkbox_red.png"/>
-						<image-checked src="images/gui/checkbox/checkbox_red_checked.png"/>
+						<image src="images/gui/checkbox/checkbox_red.png" width="32" height="32"/>
+						<image-checked src="images/gui/checkbox/checkbox_red_checked.png" width="32" height="32"/>
 					</CheckButton>
 				</SwitchComponent>
 			</cell>
@@ -167,12 +167,12 @@
 		<TableLayout rows="1" cols="2">
 			<cell row="1" col="1">
 				<Button name="goto">
-					<image src="images/gui/info/info.png"/>
+					<image src="images/gui/info/info.png" width="24" height="24"/>
 				</Button>
 			</cell>
 			<cell row="1" col="2">
 				<Button name="Apply">
-					<image src="images/gui/dialogs/okaybutton.png"/>
+					<image src="images/gui/dialogs/okaybutton.png" width="58" height="53"/>
 				</Button>
 			</cell>
 		</TableLayout>
