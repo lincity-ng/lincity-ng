@@ -73,6 +73,8 @@ public:
   Option<std::string> language;
   Option<std::string> musicTheme;
 
+  static constexpr int worldSizeMin = 50;
+  static constexpr int worldSizeMax = 10000;
   Option<int> worldSize;
 
   void load(std::filesystem::path configPath = std::filesystem::path());
