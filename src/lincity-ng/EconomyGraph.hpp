@@ -45,6 +45,7 @@ public:
 
     void parse(xmlpp::TextReader& reader);
     void draw(Painter& painter);
+    virtual void resize(float w, float h) override { createLabels(); }
     void newFPS( int frame );
     void setDirty() { Component::setDirty(); }
 
