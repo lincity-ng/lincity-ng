@@ -545,8 +545,6 @@ void MainMenu::changeResolution(bool next) {
         }
     }
 
-    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
-
     std::stringstream mode;
     mode.str("");
     mode << resolutions[closest_mode].first << "x" << resolutions[closest_mode].second;
