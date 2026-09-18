@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đường bộ</p>
+	<p style="hp">Đường bộ chở được nhiều hơn đường ray, nhưng không bằng đường sắt. Chúng cũng tạo ô nhiễm nhiều hơn đường sắt. Chúng rẻ hơn đường sắt để xây và bảo trì - chắc chắn phải có lý do cho chúng!</p>
+
+  <p style="hp">Đây là một đường bộ</p>
+   <img src="images/tiles/roadud.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/transport/road.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">3 lo-volt =&gt; 0</p>
+	<p style="hp">1/32 hàng hóa =&gt; 1/32 rác thải</p>
+	<p style="hp">Nếu một đường bộ có hơn 90% rác thải, nó sẽ tiêu thụ 100 rác và tạo ra 50 ô nhiễm.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+</Document>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Nước</p>
+	<p style="hp">Nước được cung cấp bởi giếng nước và chảy trong ống ngầm dưới mạng lưới giao thông của thành phố. Khu dân cư phải được nối với ống nước. Rừng (xưởng làng) và nông trại có điện có thể dùng nước để tưới tiêu tối đa độ màu mỡ.</p>
+	<p style="hp">Nông trại có điện và rừng (xưởng làng) có thể phân hủy sinh học một ít rác thải.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="waterwell">Giếng nước</a></li>
+	<li><a href="residential">Khu dân cư</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="farm">Nông trại</a></li>
+</Document>

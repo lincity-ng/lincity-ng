@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Sân bóng rổ</p>
+	<p style="hp">Sân bóng rổ mang lại thể thao và giải trí cho cư dân. Chúng cần hàng hóa và lao động để hoạt động. Chúng không bắt buộc nối với giao thông, nhưng nếu không, chúng phải nằm trong phạm vi một chợ có thể cung cấp lao động và hàng hóa. Chúng cũng tốn tiền vận hành.</p>
+	<p style="hp">Khi bạn xây sân bóng rổ, nó không hoạt động ngay. Thường phải đợi ba tháng trước khi rổ được lắp đặt.</p>
+	<p style="hp">Để xem phạm vi phủ sóng của sân bóng rổ, bấm vào nút thể thao bên dưới 'màn hình mini'. Khu vực có phủ sóng hiển thị bình thường, khu vực không được phủ chỉ màu xanh lá đậm.</p>
+	<p style="hp">Sân bóng rổ tăng sức hấp dẫn của khu dân cư trong phạm vi của chúng.</p>
+	<p style="hp">Sân bóng rổ chạy một chuỗi hoạt ảnh mỗi ba tháng để cho thấy chúng đang hoạt động.</p>
+
+  <p style="hp">Đây là một sân bóng rổ</p>
+   <img src="images/tiles/cricket1.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/misc/sports.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng lớp phủ bản đồ của nó</p>
+   <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">8 lao động + 3 hàng hóa =&gt; 1 rác thải</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="msb-cricket">Lớp phủ thể thao</a></li>
+</Document>

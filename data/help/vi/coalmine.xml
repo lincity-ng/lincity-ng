@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Mỏ than</p>
+	<p style="hp">Mỏ than đào <a href="coal">than</a> từ dưới lòng đất. Phải có mạch than gần mỏ. Để xem mạch than ở đâu bạn có thể bấm vào nút than bên dưới minimap.</p>
+	<p style="hp">Lần đầu dùng nút này tốn 1 triệu. Sau đó miễn phí. Bạn không bắt buộc dùng nút này, nhưng sẽ phải tìm than bằng cách thử sai.</p>
+	<p style="hp">Mỏ than cần <a href="labor">lao động</a> để đào than.</p>
+	<p style="hp">Nếu nền kinh tế của bạn dư than, mỏ than có thể đưa than vào các mạch ngầm mới.</p>
+
+  <p style="hp">Đây là một mỏ than</p>
+   <img src="images/tiles/coalmine-full.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/mining/coalmine.png" halign="center" />
+	<p style="hp">Hình ảnh cho thấy lượng than đã đào nhưng chưa đưa lên giao thông. Mỏ than ở trên đang có kho tối đa.</p>
+	<p style="hp">Bấm vào mỏ than sẽ hiển thị, trong cửa sổ thống kê ô bản đồ, kho than tại hầm mỏ, và quan trọng hơn, trữ lượng than còn có thể đào.</p>
+	<p style="hp">Mỏ than sản xuất <a href="pollution">ô nhiễm</a>.</p>
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1: 918 lao động + 1 trữ lượng than =&gt; 1000 than</p>
+	<p style="hp">2: 918 lao động + 1000 than =&gt; 1 trữ lượng than</p>
+	<p style="hp">Mỏ than nhắm mục tiêu 80% kho than. Nếu sản xuất 1000 than không vượt quá 80% kho, thì áp dụng công thức 1. Nếu tiêu thụ 1000 than không làm kho còn lại dưới 80%, thì áp dụng công thức 2.</p>
+	<p style="hp">Khi một mỏ than cạn kiệt toàn bộ trữ lượng ngầm, nó sẽ sơ tán. Khi mọi trữ lượng ngầm đã cạn và không còn hàng tồn kho, mỏ than bị gỡ khỏi bản đồ. Vì vậy, xây mỏ than nơi không có trữ lượng sẽ khiến nó bị gỡ khỏi bản đồ ngay lập tức.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="coal">Than</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+</Document>

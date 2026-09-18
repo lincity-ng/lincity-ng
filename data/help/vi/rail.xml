@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đường sắt</p>
+	<p style="hp">Đường sắt chở được nhiều hơn cả đường bộ. Chúng tạo ra ô nhiễm ít hơn đường bộ một chút. Tuy nhiên chúng khá đắt để xây và bảo trì. Chúng rất đáng tiền khi bạn cần vận chuyển nhiều qua quãng đường dài.</p>
+
+  <p style="hp">Đây là một đường sắt</p>
+   <img src="images/tiles/railud.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/transport/rails2.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">3 lo-volt =&gt; 0</p>
+	<p style="hp">1/16 hàng hóa =&gt; 1/16 rác thải</p>
+	<p style="hp">1/128 thép =&gt; 1/128 rác thải</p>
+	<p style="hp">Nếu một đường sắt có hơn 90% rác thải, nó sẽ tiêu thụ 100 rác và tạo ra 50 ô nhiễm.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+</Document>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Điều khiển</p>
+	<p style="hp">Bấm 'F1' để mở cửa sổ trợ giúp.</p>
+
+	<p style="hsubtitle">Di chuyển bản đồ</p>
+	<p style="hp">Di chuyển bản đồ bằng phím mũi tên, bàn phím số ('1', '2', '3', '4', '6', '7', '8', '9'), hoặc WASD. Giữ SHIFT để di chuyển nhanh hơn.</p>
+	<p style="hp">Kéo bằng nút chuột giữa để di chuyển màn hình.</p>
+	<p style="hp">Di chuột ra mép màn hình để di chuyển theo hướng đó.</p>
+	<p style="hp">Về giữa bản đồ bằng phím '5' trên bàn phím số.</p>
+	<p style="hp">Bấm vào minimap để di chuyển tới khu vực đã chọn của bản đồ.</p>
+	<p style="hp">Bấm 'P' để đưa màn hình vào giữa một công trình. (Hữu ích khi tìm một ngôi làng nhỏ trên bản đồ lớn.) Bấm 'P' lần nữa để chuyển qua các công trình khác.</p>
+	<p style="hp">Phóng to/thu nhỏ bằng lăn chuột hoặc phím '+' / '-' trên bàn phím số. Bấm ENTER trên bàn phím số để đưa zoom về 100%.</p>
+
+	<p style="hsubtitle">Xây dựng</p>
+	<p style="hp">Dùng chuột (nút trái) để chọn một công trình từ menu bên trái. Sau khi chọn, bấm trái lên bản đồ để xây nó.</p>
+	<p style="hp">Bấm 'B' để chuyển sang công cụ ủi đất. Khi công cụ ủi được kích hoạt, bấm trái vào một công trình để ủi nó. Bấm 'B' lần nữa để chuyển về.</p>
+
+	<p style="hsubtitle">Công cụ tra cứu</p>
+	<p style="hp">Bấm ESC để kích hoạt công cụ tra cứu. Dùng công cụ tra cứu bằng cách bấm trái vào một công trình để xem thông tin về nó. Bấm lại cùng công trình để chuyển loại thông tin hiển thị. Bạn có thể dùng công cụ tra cứu mà không cần kích hoạt bằng cách bấm nút phải chuột thay vì nút trái.</p>
+	<p style="hp">Lưu ý: Trên chợ và cảng, bấm lần thứ hai sẽ mở hộp thoại thương mại.</p>
+	<p style="hp">Bấm 'G' để bật/tắt thông tin về ô đất bên dưới một công trình, ví dụ thông tin ô nhiễm.</p>
+
+	<p style="hsubtitle">Minimap và lớp phủ</p>
+	<p style="hp">Bấm '1' đến '9' hoặc dấu huyền ('`') để chọn chế độ minimap. Bấm '7' để chuyển giữa chế độ giao thông và hàng hóa. Bạn cũng có thể đổi chế độ bằng cách bấm vào các nút bên dưới minimap.</p>
+	<p style="hp">Khi ở chế độ minimap giao thông hoặc hàng hóa, bạn có thể chuyển qua các loại hàng hóa bằng cách rà chuột lên minimap và lăn. Bạn cũng có thể chuyển hàng hóa bằng cách bấm nút mũi tên lên/xuống ở góc trên phải minimap hoặc bấm 'M'/'N'.</p>
+	<p style="hp">Bấm 'H' để hiện/ẩn nhà cao tầng.</p>
+	<p style="hp">Bấm 'V' để chuyển chế độ lớp phủ (tắt -&gt; trong suốt -&gt; đặc -&gt; tắt).</p>
+
+	<p style="hsubtitle">Mô phỏng</p>
+	<p style="hp">Bấm các nút ở góc dưới trái màn hình để đổi tốc độ mô phỏng hoặc thoát về menu chính. Từ menu chính, bạn có thể lưu tiến trình.</p>
+	<p style="hp">Bấm 'F12' để lưu nhanh.</p>
+	<p style="hp">Bấm 'F9' để nạp nhanh.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="button-index">Danh sách nút chọn</a></li>
+	<li><a href="bulldoze">Ủi đất</a></li>
+	<li><a href="query">Tra cứu</a></li>
+	<li><a href="mini-screen">Minimap</a></li>
+</Document>

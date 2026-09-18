@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Bệ phóng tên lửa</p>
+	<p style="hp">Tên lửa cho phép bạn sơ tán dân số tới một thế giới khác, và qua đó kết thúc game.</p>
+	<p style="hp">Bạn phải có năm lần phóng không người lái thành công trước khi có thể bắt đầu sơ tán. Mỗi tên lửa sơ tán thành công chở 1000 người.</p>
+	<p style="hp">Cấp công nghệ tại thời điểm phóng chính là xác suất phóng thành công. Nghĩa là nếu cấp công nghệ của bạn là 80%, bạn chỉ có bốn trên năm cơ hội thành công. 100% trở lên nghĩa là phóng luôn thành công. Bạn phải xây một bệ phóng mới cho mỗi tên lửa.</p>
+	<p style="hp">Bệ phóng tên lửa không cần nối với giao thông, chúng có thể nhận mọi thứ cần thiết từ chợ địa phương. Chúng dùng lượng lớn thép, hàng hóa, lao động và tiền để xây. Khi tên lửa được xây xong, bạn sẽ nhận được thông báo hỏi có muốn phóng ngay hay để sau. Nếu chọn để sau, bạn có thể phóng bất cứ khi nào muốn bằng cách bấm vào khu vực đó. Bạn có thể có bao nhiêu tên lửa chờ phóng cũng được.</p>
+	<p style="hp">Khi tên lửa đã xây xong nhưng chờ phóng, nó không còn dùng thép, hàng hóa hay lao động, nhưng vẫn tiếp tục tốn rất nhiều tiền.</p>
+	<p style="hp">Gợi ý, dùng công cụ sơ tán để thu hồi tài nguyên chưa dùng trước khi phá một bệ phóng đã dùng.</p>
+
+  <p style="hp">Đây là một bệ phóng tên lửa</p>
+   <img src="images/tiles/rocket5.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/transport/rocket.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">xây dựng: 200 lao động + 10000 hàng hóa + 240 thép =&gt; 3333 rác + 2 bước hoàn thành</p>
+	<p style="hp">Công thức được áp dụng càng nhiều lần càng tốt mỗi ngày.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="evacuate">Sơ tán</a></li>
+</Document>

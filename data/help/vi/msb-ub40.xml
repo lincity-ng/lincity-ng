@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lớp phủ thất nghiệp</p>
+   <img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center" />
+	<p style="hp">Màn hình mini thất nghiệp hiển thị khu dân cư (đỏ hoặc xanh lá) và công trình (vàng hoặc xám)</p>
+	<p style="hp">Xanh lá tươi nghĩa là khu dân cư đó không có thất nghiệp. Xanh lá đậm hơn và đỏ tươi thể hiện thất nghiệp ngày càng nghiêm trọng tại mỗi khu dân cư hiển thị. (quá nhiều người so với số lao động)</p>
+	<p style="hp">Vàng tươi nghĩa là một công trình cần lao động nhưng không nhận được (nơi này quá ít người). Công trình được hiển thị màu xám trong minimap này khi chúng không có vấn đề gì về lao động.</p>
+	<p style="hp">Bấm trái vào màn hình mini để di chuyển cửa sổ chính. Bật/tắt chế độ lớp phủ bằng phím 'v' hoặc bấm vào nút lớp phủ lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+</Document>

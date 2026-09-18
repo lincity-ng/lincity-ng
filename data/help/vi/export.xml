@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Khu vực nhập và xuất khẩu</p>
+	<p style="hp">Nhập và xuất khẩu hoạt động giống nhau, ngoại trừ việc nhập tốn tiền còn xuất kiếm tiền. Cả hai đều cần một Cảng. Vì lý do đó, chỉ xuất khẩu sẽ được trình bày chi tiết.</p>
+	<p style="hp">Để xuất khẩu, cảng phải được nối với đường bộ.</p>
+	<p style="hp">Chúng <b>phải</b> được nối với sông dọc theo toàn bộ cạnh phải.</p>
+	<p style="hp">Khu vực xuất khẩu sẽ nhận bao nhiêu tùy được cung cấp. Nếu bạn cần xuất khẩu nhưng muốn hạn chế số lượng, bạn có thể dùng loại giao thông có sức chứa nhỏ hơn, dùng một đoạn dài hoặc cho sản phẩm đi qua một chợ. Bạn sẽ cần thử nghiệm để có cấu hình giao thông phù hợp.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="port">Cảng</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="steel">Thép</a></li>
+</Document>

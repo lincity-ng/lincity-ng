@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Nhà máy dệt</p>
+	<p style="hp">Nhà máy dệt biến lương thực, than và lao động thành hàng hóa. Lương thực?... ừm, bông và len được tính là lương thực trong game này.</p>
+	<p style="hp">Nhà máy dệt dùng khá nhiều lương thực, nên bạn dễ rơi vào thiếu lương thực nếu không tính đến điều này. (Vấn đề nhẹ hơn khi bạn có cối xay gió, vì chúng cấp điện cho nông trại khiến nông trại hiệu quả hơn)</p>
+	<p style="hp">Nhà máy dệt không bắt buộc nối với giao thông. Nếu không, chúng phải nằm trong phạm vi một chợ có than, lao động và lương thực. Bạn có thể biết nhà máy dệt đang hoạt động nhờ khói và hơi nước bốc ra từ tòa nhà.</p>
+
+  <p style="hp">Đây là một nhà máy dệt</p>
+   <img src="images/tiles/mill1.png" halign="center" />
+
+  <p style="hp">Đây là một nhà máy dệt không hoạt động</p>
+   <img src="images/tiles/mill0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/parks/mills.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">(1 than hoặc 60 lo-volt) + 37 lương thực + 35 lao động =&gt; 75 hàng hóa</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="food">Lương thực</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="windmill">Cối xay gió</a></li>
+</Document>
