@@ -113,22 +113,23 @@ public:
     // overriding method that creates a transport tile
     virtual Construction *createConstruction(World& world) override;
     virtual void placeItem(World& world, MapPoint point) override;
+    virtual bool can_build_here(const World& world, const MapPoint point,
+      Message::ptr& message) const;
+
+    bool isBridge() const;
 };
 
-extern TransportConstructionGroup trackConstructionGroup, roadConstructionGroup, railConstructionGroup;
-extern TransportConstructionGroup trackbridgeConstructionGroup, roadbridgeConstructionGroup, railbridgeConstructionGroup;
-
-//Dummies for counting SubTypes of Transport
-class Track{};
-class Road{};
-class Rail{};
-class TrackBridge{};
-class RoadBridge{};
-class RailBridge{};
+extern TransportConstructionGroup
+  trackConstructionGroup,
+  roadConstructionGroup,
+  railConstructionGroup,
+  trackbridgeConstructionGroup,
+  roadbridgeConstructionGroup,
+  railbridgeConstructionGroup;
 
 class Transport : public Construction {
 public:
-    Transport(World& world, ConstructionGroup *cstgrp);
+    Transport(World& world, TransportConstructionGroup *cstgrp);
     ~Transport();
     virtual void update() override;
     virtual void report(Mps& mps, bool production) const override;

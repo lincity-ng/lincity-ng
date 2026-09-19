@@ -94,26 +94,26 @@ void Game::quickLoad(){
   closeAllDialogs();
 
   //load file
-  getGameView().printStatusMessage("quick load...");
+  getStatusParagraph().setText("quick load...");
   std::string filename("quicksave.scn.gz");
   if(std::unique_ptr<World> world =
     loadCityNG(getConfig()->userDataDir.get() / filename)
   ) {
     setWorld(std::move(world));
-    getGameView().printStatusMessage("quick load successful.");
+    getStatusParagraph().setText("quick load successful.");
   } else {
-    getGameView().printStatusMessage("quick load failed!");
+    getStatusParagraph().setText("quick load failed!");
   }
 }
 
 void Game::quickSave(){
   //save file
-  getGameView().printStatusMessage("quick save...");
+  getStatusParagraph().setText("quick save...");
   saveCityNG(*world, getConfig()->userDataDir.get() / "quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){
-  getGameView().printStatusMessage("Testing Help Files...");
+  getStatusParagraph().setText("Testing Help Files...");
 
   std::filesystem::path dir = getConfig()->appDataDir.get() / "help" / "en";
   for(auto& dirEntry : std::filesystem::directory_iterator(dir)) {
@@ -129,16 +129,18 @@ Game::loadGui() {
 
   gameview = dynamic_cast<GameView *>(gui->findComponent("GameView"));
   minimap = dynamic_cast<MiniMap *>(gui->findComponent("MiniMap"));
-  buttonpanel =
-    dynamic_cast<ButtonPanel *>(gui->findComponent("ButtonPanel"));
-  economygraph =
-    dynamic_cast<EconomyGraph *>(gui->findComponent("EconomyGraph"));
+  buttonpanel = dynamic_cast<ButtonPanel *>(
+    gui->findComponent("ButtonPanel"));
+  economygraph = dynamic_cast<EconomyGraph *>(
+    gui->findComponent("EconomyGraph"));
   windowmanager = dynamic_cast<WindowManager *>(
     gui->findComponent("windowManager"));
   mpsmap = dynamic_cast<MpsMap *>(gui->findComponent("MapMPS"));
   mpsfinance = dynamic_cast<MpsFinance *>(gui->findComponent("GlobalMPS"));
   pbar1 = dynamic_cast<LCPBar *>(gui->findComponent("PBar"));
   pbar2 = dynamic_cast<LCPBar *>(gui->findComponent("PBar2nd"));
+  statusParagraph = dynamic_cast<Paragraph *>(
+    gui->findComponent("statusParagraph"));
   gameview->setGame(this);
   minimap->setGame(this);
   buttonpanel->setGame(this);
@@ -272,9 +274,8 @@ Game::setUserOperation(const UserOperation& op) {
   userOperation = op;
 
   for(auto w : {&warnBullWater, &warnBullShanty, &warnBullMonument})
-    w->accepted = false;;
-  getGameView().setCursorSize(userOperation.cursorSize());
-  getGameView().showToolInfo();
+    w->accepted = false;
+  getGameView().toolChanged();
 }
 
 void
@@ -459,6 +460,11 @@ Game::getPBar2() const {
 ButtonPanel&
 Game::getButtonPanel() const {
   return *buttonpanel;
+}
+
+Paragraph&
+Game::getStatusParagraph() const {
+  return *statusParagraph;
 }
 
 
