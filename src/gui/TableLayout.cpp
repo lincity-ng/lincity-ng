@@ -88,6 +88,7 @@ TableLayout::parse(xmlpp::TextReader& reader) {
       parseRowColProperties(reader, false);
     } else if(element == "cell") {
       int row, col;
+      bool hasRow = false, hasCol = false;
       int colspan = 1, rowspan = 1;
       Cell::Alignment halign = Cell::CENTER;
       Cell::Alignment valign = Cell::CENTER;
@@ -96,10 +97,14 @@ TableLayout::parse(xmlpp::TextReader& reader) {
         xmlpp::ustring name = reader.get_name();
         xmlpp::ustring value = reader.get_value();
         if(parseAttribute(reader));
-        else if(name == "row")
+        else if(name == "row") {
           row = xmlParse<int>(value) - 1;
-        else if(name == "col")
+          hasRow = true;
+        }
+        else if(name == "col") {
           col = xmlParse<int>(value) - 1;
+          hasCol = true;
+        }
         else if(name == "rowspan")
           rowspan = xmlParse<int>(value);
         else if(name == "colspan")
@@ -137,6 +142,10 @@ TableLayout::parse(xmlpp::TextReader& reader) {
       }
       reader.move_to_element();
 
+      if(!hasRow)
+        missingXmlAttribute(reader, "row");
+      if(!hasCol)
+        missingXmlAttribute(reader, "col");
       if(row < 0 || row >= rows)
         throw std::runtime_error(fmt::format("invalid row: {}", row));
       if(col < 0 || col >= cols)

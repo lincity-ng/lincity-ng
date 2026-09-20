@@ -41,41 +41,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity-ng/Config.hpp"          // for getConfig, Config
 #include "util/xmlutil.hpp"               // for unexpectedXmlElement
 
-//void initFactories();
-
 std::unique_ptr<Component>
 createComponent(const std::string& type, xmlpp::TextReader& reader) {
-    //static int depth = 0;
-    //initFactories();
-    //Component * component = 0;
-    if(component_factories == 0)
-        throw std::runtime_error("No component factories registered");
-
-    ComponentFactories::iterator i = component_factories->find(type);
-    if(i == component_factories->end()) {
-        std::stringstream msg;
-        msg << "Couldn't find a component factory for '" << type << "'";
-        throw std::runtime_error(msg.str());
-    }
-/*
-    for(int i=0;i<depth;++i)
-        std::cout << "\t";
-    std::cout << type << ": begin" <<std::endl;
-    std::cout.flush();
-    ++depth;
-    component = i->second->createComponent(reader);
-    --depth;
-    for(int i=0;i<depth;++i)
-        std::cout << "\t";
-    std::cout << type << ": end" << std::endl;
-*/
-    return i->second->createComponent(reader);
-    try {
-    } catch(std::exception& e) {
-        std::stringstream msg;
-        msg << "Error while parsing component '" << type << "': " << e.what();
-        throw std::runtime_error(msg.str());
-    }
+  assert(component_factories);
+  ComponentFactories::iterator i = component_factories->find(type);
+  if(i == component_factories->end())
+    throw std::runtime_error(
+      fmt::format("no component factory for {:?}", type));
+  return i->second->createComponent(reader);
 }
 
 std::unique_ptr<Component> loadGUIFile(const std::filesystem::path& filename) {
