@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      David Kamphausen <david.kamphausen@web.de>
- * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -645,14 +645,20 @@ void MiniMap::draw(Painter &painter) {
     mFullRefresh = false;
   }
   painter.pushClipRect(Rect2D(Vector2(0,0), getSize()));
-  painter.drawTexture(mTexture.get(), (-anchor + Vector2(1,1)) * tilesize);
+  int len = game->getWorld().map.len();
+  Rect2D textureRect(1, 1, len - 1, len - 1);
+  textureRect.move(-anchor);
+  textureRect.p1 *= tilesize;
+  textureRect.p2 *= tilesize;
+  painter.drawStretchTexture(mTexture.get(), textureRect);
   painter.popClipRect();
 }
 
 void MiniMap::refreshTexture(Painter& painter) {
-  const int textureSize = (game->getWorld().map.len() - 2) * tilesize;
-  if(!mTexture || mTexture->getWidth() != textureSize) {
+  if(!mTexture) {
+    const float textureSize = game->getWorld().map.len() - 2;
     mTexture = painter.createTargetTexture(textureSize, textureSize);
+    mTexture->setScaleMode(Texture::ScaleMode::NEAREST);
   }
 
   painter.pushRenderTarget(mTexture.get());
@@ -670,10 +676,10 @@ void MiniMap::refreshTexture(Painter& painter) {
     const int size = tileMode ? 1 : tile.getConstructionGroup()->size;
     painter.setFillColor(getColor(tile));
     painter.fillRectangle(Rect2D(
-      (tile.point.x - 1) * tilesize,
-      (tile.point.y - 1) * tilesize,
-      (tile.point.x - 1 + size) * tilesize,
-      (tile.point.y - 1 + size) * tilesize
+      tile.point.x - 1,
+      tile.point.y - 1,
+      tile.point.x - 1 + size,
+      tile.point.y - 1 + size
     ));
   }
 

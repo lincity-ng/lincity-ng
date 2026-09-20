@@ -79,4 +79,10 @@ Event::Event(Type type)
     : type(type)
 {}
 
+void
+Event::applyScale(const Vector2& scale) {
+  mousepos.descale(scale);
+  mousemove.descale(scale);
+}
+
 /** @file gui/Event.cpp */

@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,49 +23,52 @@
 
 #include "MainMenu.hpp"
 
-#include <SDL3/SDL.h>                   // for SDL_EventType, Uint32, SDL_Ge...
-#include <stdio.h>                      // for fprintf, size_t, stderr
-#include <algorithm>                    // for min, sort
-#include <array>                        // for array
-#include <cassert>                      // for assert
-#include <chrono>                       // for operator<, time_point
-#include <cstdlib>                      // for abs
-#include <functional>                   // for function, bind, _1, _2
-#include <initializer_list>             // for initializer_list
-#include <iomanip>                      // for operator<<, setfill, setw
-#include <iostream>                     // for basic_ostream, operator<<
-#include <sstream>                      // for basic_stringstream
-#include <stdexcept>                    // for invalid_argument, out_of_range
-#include <utility>                      // for pair, move
-#include <vector>                       // for vector
-#include <optional>
-#include <string>
+#include <SDL3/SDL.h>               // for SDL_EventType, Uint32, SDL_GetTic...
+#include <fmt/format.h>             // for format
+#include <algorithm>                // for min, sort
+#include <array>                    // for array
+#include <cassert>                  // for assert
+#include <chrono>                   // for time_point, operator<
+#include <cstdio>                   // for size_t, fprintf, stderr
+#include <cstdlib>                  // for abs
+#include <functional>               // for _Placeholder, function, _1, bind, _2
+#include <initializer_list>         // for initializer_list
+#include <iomanip>                  // for operator<<, setfill, setw
+#include <iostream>                 // for basic_ostream, operator<<, basic_...
+#include <optional>                 // for optional
+#include <sstream>                  // for basic_stringstream
+#include <stdexcept>                // for invalid_argument, out_of_range
+#include <string>                   // for basic_string, char_traits, operat...
+#include <utility>                  // for pair, move
+#include <vector>                   // for vector
 
-#include "Config.hpp"                   // for getConfig, Config
-#include "Game.hpp"                     // for Game
-#include "MainLincity.hpp"              // for loadCityNG, saveCityNG
-#include "Sound.hpp"                    // for getSound, Sound, MusicTransport
-#include "Util.hpp"                     // for getCheckButton, getButton
-#include "gui/Button.hpp"               // for Button
-#include "gui/CheckButton.hpp"          // for CheckButton
-#include "gui/Component.hpp"            // for Component
-#include "gui/ComponentLoader.hpp"      // for loadGUIFile
-#include "gui/Desktop.hpp"              // for Desktop
-#include "gui/DialogBuilder.hpp"        // for DialogBuilder
-#include "gui/Event.hpp"                // for Event
-#include "gui/Painter.hpp"              // for Painter
-#include "gui/Paragraph.hpp"            // for Paragraph
-#include "gui/Signal.hpp"               // for Signal
-#include "gui/SwitchComponent.hpp"      // for SwitchComponent
-#include "gui/WindowManager.hpp"        // for WindowManager
-#include "lincity/init_game.hpp"        // for _CitySettings, new_city, city...
-#include "lincity/lintypes.hpp"         // for NUMOF_DAYS_IN_MONTH
-#include "lincity/stats.hpp"            // for Stat, Stats
-#include "lincity/world.hpp"            // for World
-#include "main.hpp"                     // for resizeVideo, painter, videoSi...
-#include "util/gettextutil.hpp"
-#include "config.h"
-#include "util/ptrutil.hpp"
+#include "Config.hpp"               // for Config, getConfig
+#include "Game.hpp"                 // for Game
+#include "MainLincity.hpp"          // for loadCityNG, saveCityNG
+#include "Sound.hpp"                // for Sound, getSound, MusicTransport, song
+#include "Util.hpp"                 // for getCheckButton, getButton, getPar...
+#include "Video.hpp"                // for painter, getVirtualWindowSize, vi...
+#include "config.h"                 // for PACKAGE_NAME
+#include "gui/Button.hpp"           // for Button
+#include "gui/CheckButton.hpp"      // for CheckButton
+#include "gui/Component.hpp"        // for Component
+#include "gui/ComponentLoader.hpp"  // for loadGUIFile
+#include "gui/Desktop.hpp"          // for Desktop
+#include "gui/DialogBuilder.hpp"    // for DialogBuilder
+#include "gui/Event.hpp"            // for Event
+#include "gui/Painter.hpp"          // for Painter
+#include "gui/Paragraph.hpp"        // for Paragraph
+#include "gui/Signal.hpp"           // for Signal
+#include "gui/SwitchComponent.hpp"  // for SwitchComponent
+#include "gui/Vector2.hpp"          // for Vector2
+#include "gui/WindowManager.hpp"    // for WindowManager
+#include "lincity/init_game.hpp"    // for _CitySettings, city_settings, new...
+#include "lincity/lintypes.hpp"     // for NUMOF_DAYS_IN_MONTH
+#include "lincity/stats.hpp"        // for Stat, Stats
+#include "lincity/world.hpp"        // for World
+#include "main.hpp"                 // for setLang
+#include "util/gettextutil.hpp"     // for _
+#include "util/ptrutil.hpp"         // for dynamic_unique_cast
 
 using namespace std::placeholders;
 using namespace std::string_literals;
@@ -260,20 +263,15 @@ MainMenu::updateOptionsMenu() {
   musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
   musicParagraph->setText(getSound()->currentTrack.title);
 
+  getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+    fmt::format(getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
+      getConfig()->videoX.get(),
+      getConfig()->videoY.get()
+    )
+  );
 
-  int width = 0, height = 0;
-  SDL_GetWindowSize(window, &width, &height);
-
-  std::stringstream mode;
-  if(getConfig()->useFullScreen.get()) {
-    mode << "fullscreen";
-  } else {
-    mode << width << "x" << height;
-  }
-  getParagraph(*optionsMenu, "resolutionParagraph")->setText(mode.str());
-  mode.str("");
-  mode << getConfig()->worldSize.get();
-  getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
+  getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
+    fmt::format("{}", getConfig()->worldSize.get()));
 
 #if ENABLE_NLS
   languageParagraph = getParagraph(*optionsMenu, "languageParagraph");
@@ -477,23 +475,16 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
       getConfig()->language.sessionToConfig();
 #endif
     } else if(buttonName == "Fullscreen") {
-        getSound()->playSound("Click");
-        getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
-        getConfig()->useFullScreen.sessionToConfig();
-        getConfig()->save();
-        resizeVideo(
-          getConfig()->videoX.get(),
-          getConfig()->videoY.get(),
-          getConfig()->useFullScreen.get()
-        );
-        // switching to/from fullscreen may change the window size
-        // that will be handled by a SDL_WINDOWEVENT_SIZE_CHANGED
+      getSound()->playSound("Click");
+      getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
+      getConfig()->useFullScreen.sessionToConfig();
+      changedResolution = true;
     } else if(buttonName == "TrackPrev") {
-        changeTrack(false);
+      changeTrack(false);
     } else if(buttonName == "TrackNext") {
-        changeTrack(true);
+      changeTrack(true);
     } else {
-        std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
+      std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }
 }
 
@@ -559,13 +550,17 @@ void MainMenu::changeResolution(bool next) {
         new_mode = 0;
     }
 
-    mode.str("");
-    mode << resolutions[new_mode].first << "x" << resolutions[new_mode].second;
-
-    getSound()->playSound("Click");
-    getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
     getConfig()->videoX.session = resolutions[new_mode].first;
     getConfig()->videoY.session = resolutions[new_mode].second;
+    changedResolution = true;
+
+    getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+      fmt::format(getConfig()->useFullScreen.get() ? _("fullscreen") : "{}x{}",
+        getConfig()->videoX.get(),
+        getConfig()->videoY.get()
+      )
+    );
+    getSound()->playSound("Click");
 }
 
 void
@@ -693,13 +688,13 @@ void
 MainMenu::optionsBackButtonClicked(Button *) {
   getSound()->playSound("Click");
   getConfig()->save();
-  int width = 0, height = 0;
-  SDL_GetWindowSize(window, &width, &height);
-  if(getConfig()->videoX.get() != width
-    || getConfig()->videoY.get() != height
-  ) {
-    resizeVideo(getConfig()->videoX.get(), getConfig()->videoY.get(),
-      getConfig()->useFullScreen.get());
+  if(changedResolution) {
+    SDL_SetWindowFullscreen(window, getConfig()->useFullScreen.get());
+    if (!getConfig()->useFullScreen.get()) {
+      SDL_SetWindowSize(window,
+        getConfig()->videoX.get(),
+        getConfig()->videoY.get());
+    }
   }
 #if ENABLE_NLS
   else if(currentLanguage != getConfig()->language.get())
@@ -853,8 +848,11 @@ MainMenu::run() {
 
     {
       int width, height;
-      SDL_GetWindowSize(window, &width, &height);
-      menu->resize(width, height);
+      SDL_GetWindowSizeInPixels(window, &width, &height);
+      float scale = SDL_GetWindowDisplayScale(window);
+      menu->setScale(Vector2(scale, scale));
+      menu->resize(width / scale, height / scale);
+      menu->reLayoutDeep();
     }
     int frame = 0;
     Uint32 next_gui = 0, next_fps = 0;
@@ -873,51 +871,60 @@ MainMenu::run() {
             if(!status) break; // timed out
 
             switch(event.type) {
-                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
-                    videoSizeChanged(event.window.data1, event.window.data2);
-                    menu->resize(event.window.data1, event.window.data2);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
-                    getConfig()->videoX.sessionToConfig();
-                    getConfig()->videoY.sessionToConfig();
+            case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: {
+              videoSizeChanged(event.window.data1, event.window.data2);
+              Vector2 scale = menu->getScale();
+              Vector2 size(event.window.data1, event.window.data2);
+              size.descale(scale);
+              menu->resize(size);
+            } break;
+            case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: {
+              float scale = SDL_GetWindowDisplayScale(window);
+              menu->setScale(Vector2(scale, scale));
+              menu->resize(getVirtualWindowSize(window));
+              menu->reLayoutDeep();
+            } break;
+            case SDL_EVENT_WINDOW_RESIZED: {
+              if(!getConfig()->useFullScreen.get()) {
+                getConfig()->videoX.session = event.window.data1;
+                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.sessionToConfig();
+                getConfig()->videoY.sessionToConfig();
 
-                    if(menuSwitch->getActiveComponent() == optionsMenu) {
-                        std::stringstream mode;
-                        mode.str("");
-                        if (getConfig()->useFullScreen.get()) {
-                            mode << "fullscreen";
-                        } else {
-                            mode << event.window.data1 << "x" << event.window.data2;
-                        }
-                        getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-                    }
-                    break;
-                case SDL_EVENT_MOUSE_MOTION:
-                case SDL_EVENT_MOUSE_BUTTON_UP:
-                case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                case SDL_EVENT_MOUSE_WHEEL:
-                case SDL_EVENT_KEY_DOWN:{
-                    Event gui_event(event);
-                    menu->event(gui_event);
-                    break;
-                }
-                case SDL_EVENT_KEY_UP: {
-                    Event gui_event(event);
-                    //In menu ESC as well as ^c exits the game.
-                    //might come in handy if video-mode is not working as expected.
-                    if( ( gui_event.key == SDLK_ESCAPE ) ||
-                        ( gui_event.key == SDLK_C && ( gui_event.mod & SDL_KMOD_CTRL) ) ){
-                        state = State::QUIT;
-                        break;
-                    }
-                    menu->event(gui_event);
-                    break;
-                }
-                case SDL_EVENT_QUIT:
-                    state = State::QUIT;
-                    break;
-                default:
-                    break;
+                getParagraph(*optionsMenu, "resolutionParagraph")->setText(
+                  fmt::format("{}x{}", event.window.data1, event.window.data2));
+              }
+            } break;
+            case SDL_EVENT_MOUSE_MOTION:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_WHEEL:
+            case SDL_EVENT_KEY_DOWN: {
+              Event gui_event(event);
+              float scale = SDL_GetDisplayContentScale(
+                SDL_GetDisplayForWindow(window));
+              gui_event.applyScale(Vector2(scale, scale));
+              menu->event(gui_event);
+            } break;
+            case SDL_EVENT_KEY_UP: {
+              Event gui_event(event);
+
+              //In menu ESC as well as ^c exits the game.
+              //might come in handy if video-mode is not working as expected.
+              if(gui_event.key == SDLK_ESCAPE ||
+                gui_event.key == SDLK_C && (gui_event.mod & SDL_KMOD_CTRL)
+              ) {
+                state = State::QUIT;
+                break;
+              }
+
+              menu->event(gui_event);
+            } break;
+            case SDL_EVENT_QUIT:
+              state = State::QUIT;
+              break;
+            default:
+              break;
             }
 
             if(menu->needsRedraw())
@@ -961,6 +968,12 @@ MainMenu::launchGame() {
   game->run();
   state = State::MENU;
   switchMenu(mainMenu);
+  float scale = SDL_GetWindowDisplayScale(window);
+  menu->setScale(Vector2(scale, scale));
+  int w, h;
+  SDL_GetWindowSizeInPixels(window, &w, &h);
+  menu->resize(w / scale, h / scale);
+  menu->reLayoutDeep();
   DialogBuilder::setDefaultWindowManager(dynamic_cast<WindowManager *>(
     menu->findComponent("windowManager")));
 }

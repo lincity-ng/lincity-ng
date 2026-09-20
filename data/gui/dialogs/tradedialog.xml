@@ -27,14 +27,14 @@
 			</cell>
 			<cell row="2" col="2">
 				<CheckButton name="BuyLabor">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="2" col="3">
 				<CheckButton name="SellLabor">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 
@@ -44,14 +44,14 @@
 			</cell>
 			<cell row="3" col="2">
 				<CheckButton name="BuyFood">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="3" col="3">
 				<CheckButton name="SellFood">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="4" col="1">
@@ -60,14 +60,14 @@
 			</cell>
 			<cell row="4" col="2">
 				<CheckButton name="BuyCoal">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="4" col="3">
 				<CheckButton name="SellCoal">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="5" col="1">
@@ -76,14 +76,14 @@
 			</cell>
 			<cell row="5" col="2">
 				<CheckButton name="BuyOre">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="5" col="3">
 				<CheckButton name="SellOre">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="6" col="1">
@@ -92,14 +92,14 @@
 			</cell>
 			<cell row="6" col="2">
 				<CheckButton name="BuyGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="6" col="3">
 				<CheckButton name="SellGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="7" col="1">
@@ -108,14 +108,14 @@
 			</cell>
 			<cell row="7" col="2">
 				<CheckButton name="BuySteel">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="7" col="3">
 				<CheckButton name="SellSteel">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="8" col="1">
@@ -124,14 +124,14 @@
 			</cell>
 			<cell row="8" col="2">
 				<CheckButton name="BuyWaste">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="8" col="3">
 				<CheckButton name="SellWaste">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="9" col="1">
@@ -140,14 +140,14 @@
 			</cell>
 			<cell row="9" col="2">
 				<CheckButton name="BuyWater">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 			<cell row="9" col="3">
 				<CheckButton name="SellWater">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+					<image src="images/gui/checkbox/checkbox.png" width="32" height="32"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png" width="32" height="32"/>
 				</CheckButton>
 			</cell>
 		</TableLayout>
@@ -156,12 +156,12 @@
 		<TableLayout rows="1" cols="2">
 			<cell row="1" col="1">
 				<Button name="goto">
-					<image src="images/gui/info/info.png"/>
+					<image src="images/gui/info/info.png" width="24" height="24"/>
 				</Button>
 			</cell>
 			<cell row="1" col="2">
 				<Button name="Apply">
-					<image src="images/gui/dialogs/okaybutton.png"/>
+					<image src="images/gui/dialogs/okaybutton.png" width="58" height="53"/>
 				</Button>
 			</cell>
 		</TableLayout>

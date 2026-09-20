@@ -3,6 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Wolfgang Becker <uafr@gmx.de>
+ * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +46,7 @@ public:
 
     void parse(xmlpp::TextReader& reader);
     void draw(Painter& painter);
+    virtual void resize(float w, float h) override { createLabels(); }
     void newFPS( int frame );
     void setDirty() { Component::setDirty(); }
 
@@ -71,16 +73,17 @@ private:
     void drawSustBarGraph( Painter& painter, Rect2D mg );
     void drawFPSGraph( Painter& painter, Rect2D fpsRect );
 
-    Texture* labelTextureMIN;
-    Texture* labelTexturePRT;
-    Texture* labelTextureMNY;
-    Texture* labelTexturePOP;
-    Texture* labelTextureTEC;
-    Texture* labelTextureFIR;
+    void createLabels();
+    Texture* labelTextureMIN = nullptr;
+    Texture* labelTexturePRT = nullptr;
+    Texture* labelTextureMNY = nullptr;
+    Texture* labelTexturePOP = nullptr;
+    Texture* labelTextureTEC = nullptr;
+    Texture* labelTextureFIR = nullptr;
 
-    Texture* labelTextureEconomy;
-    Texture* labelTextureSustainability;
-    Texture* labelTextureFPS;
+    Texture* labelTextureEconomy = nullptr;
+    Texture* labelTextureSustainability = nullptr;
+    Texture* labelTextureFPS = nullptr;
 
     CheckButton* switchEconomyGraphButton;
     std::string switchEconomyGraphText;

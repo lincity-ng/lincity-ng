@@ -10,40 +10,40 @@
 			<TableLayout rows="1" cols="5">
 				<cell row="1" col="1" valign="bottom">
 					<CheckButton name="SwitchMiniMap" checked="true">
-						<image src="images/gui/buttons/tabbed/tabbed.png"/>
-						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
-						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<image src="images/gui/buttons/tabbed/tabbed.png" width="40" height="33"/>
+						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png" width="40" height="33"/>
+						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
+						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
 						<text-caption font-size="16" translatable="yes">Map</text-caption>
 						<tooltip translatable="yes">Show the MiniMap</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="2" valign="bottom">
 					<CheckButton name="SwitchPBar">
-						<image src="images/gui/buttons/tabbed/tabbed.png"/>
-						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
-						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<image src="images/gui/buttons/tabbed/tabbed.png" width="40" height="33"/>
+						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png" width="40" height="33"/>
+						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
+						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
 						<text-caption font-size="16" translatable="yes">Stats</text-caption>
 						<tooltip translatable="yes">Show resources. Use scroll buttons to cycle through views.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="3" valign="bottom">
 					<CheckButton name="SwitchGlobalMPS">
-						<image src="images/gui/buttons/tabbed/tabbed.png"/>
-						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
-						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<image src="images/gui/buttons/tabbed/tabbed.png" width="40" height="33"/>
+						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png" width="40" height="33"/>
+						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
+						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
 						<text-caption font-size="16" translatable="yes">$</text-caption>
 						<tooltip translatable="yes">Show Income and Expenses. Use scroll buttons to cylce through views.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="4" valign="bottom">
 					<CheckButton name="SwitchEconomyGraph">
-						<image src="images/gui/buttons/tabbed/tabbed.png"/>
-						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
-						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<image src="images/gui/buttons/tabbed/tabbed.png" width="40" height="33"/>
+						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png" width="40" height="33"/>
+						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
+						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" width="40" height="33"/>
 						<text-caption font-size="16" translatable="yes">Eco</text-caption>
 						<tooltip translatable="yes">Show economy graphs.</tooltip>
 					</CheckButton>
@@ -52,19 +52,19 @@
 					<TableLayout rows="1" cols="2" border="false">
 						<cell row="1" col="1" valign="bottom">
 							<Button name="ScrollPageUp">
-								<image src="images/gui/buttons/round/button-round-20.png"/>
-								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
-								<image-caption src="images/gui/scrollbar/arrow_up.png"/>
+								<image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+								<image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png" width="20" height="20"/>
+								<image-caption src="images/gui/scrollbar/arrow_up.png" width="15" height="13"/>
 								<tooltip translatable="yes">[m] Scroll up.</tooltip>
 							</Button>
 						</cell>
 						<cell row="1" col="2" valign="bottom">
 							<Button name="ScrollPageDown">
-								<image src="images/gui/buttons/round/button-round-20.png"/>
-								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
-								<image-caption src="images/gui/scrollbar/arrow_down.png"/>
+								<image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+								<image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png" width="20" height="20"/>
+								<image-caption src="images/gui/scrollbar/arrow_down.png" width="15" height="13"/>
 								<tooltip translatable="yes">[n] Scroll down.</tooltip>
 							</Button>
 						</cell>
@@ -82,28 +82,28 @@
 				<colsize col="3" fixed="35"/>
 				<cell row="2" col="3">
 					<Button name="ZoomInButton">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/zoom/zoomin.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/zoom/zoomin.png" width="32" height="32"/>
 						<tooltip translatable="yes">[+] Zoom in view so that less buildings but more details are visible</tooltip>
 					</Button>
 				</cell>
 				<cell row="3" col="2">
 					<Button name="ZoomOutButton">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/zoom/zoomout.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/zoom/zoomout.png" width="32" height="32"/>
 						<tooltip translatable="yes">[-] Zoom out</tooltip>
 					</Button>
 				</cell>
 				<cell row="3" col="3" halign="center" valign="bottom">
 					<Button name="showTerrainHeight">
-                        <image src="images/gui/buttons/round/button-round-20.png"/>
-                        <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
-                        <image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
-						<image-caption src="images/gui/info/terrainheight.png"/>
+                        <image src="images/gui/buttons/round/button-round-20.png" width="20" height="20"/>
+                        <image-hover src="images/gui/buttons/round/button-round-hover-20.png" width="20" height="20"/>
+                        <image-clicked src="images/gui/buttons/round/button-round-clicked-20.png" width="20" height="20"/>
+						<image-caption src="images/gui/info/terrainheight.png" width="14" height="14"/>
 						<tooltip translatable="yes">toggle terrain height rendering</tooltip>
 					</Button>
 				</cell>
@@ -118,37 +118,37 @@
 				<colsize col="5" fixed="39"/>
 				<cell row="1" col="2">
 					<Button name="HelpButton">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/info/info.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/info/info.png" width="24" height="24"/>
 						<tooltip translatable="yes">[F1] Press this button to get help</tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="3">
 					<Button name="hideHighBuildings">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/info/hidehigh.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/info/hidehigh.png" width="24" height="24"/>
 						<tooltip translatable="yes">[h] Hide high buildings.</tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="4">
 					<Button name="StatButton">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/info/statistics.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/info/statistics.png" width="24" height="24"/>
 						<tooltip translatable="yes">Press this button to show statistics</tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="5">
 					<Button name="mapOverlay">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-caption src="images/gui/info/mapoverlay.png"/>
+						<image src="images/gui/buttons/round/button-round-40.png" width="40" height="40"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png" width="40" height="40"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png" width="40" height="40"/>
+						<image-caption src="images/gui/info/mapoverlay.png" width="24" height="24"/>
 						<tooltip translatable="yes">[v] Cycle through MiniMap overlay modes.</tooltip>
 					</Button>
 				</cell>

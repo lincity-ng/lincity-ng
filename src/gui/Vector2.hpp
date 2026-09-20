@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2004      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2024-2025 David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,28 +85,28 @@ public:
     return Vector2(-x, -y);
   }
 
-  const Vector2& operator +=(const Vector2& other)
+  Vector2& operator +=(const Vector2& other)
   {
     x += other.x;
     y += other.y;
     return *this;
   }
 
-  const Vector2& operator -=(const Vector2& other)
+  Vector2& operator -=(const Vector2& other)
   {
     x -= other.x;
     y -= other.y;
     return *this;
   }
 
-  const Vector2& operator *=(float val)
+  Vector2& operator *=(float val)
   {
     x *= val;
     y *= val;
     return *this;
   }
 
-  const Vector2& operator /=(float val)
+  Vector2& operator /=(float val)
   {
     x /= val;
     y /= val;
@@ -121,7 +121,22 @@ public:
 
   // ... add the other operators as needed, I'm too lazy now ...
 
-  const Vector2& constrain(const Rect2D &bounds);
+  Vector2 scaled(const Vector2& s) const {
+    return Vector2(x * s.x, y * s.x);
+  }
+  Vector2 descaled(const Vector2& s) const {
+    return Vector2(x / s.x, y / s.x);
+  }
+  Vector2& scale(const Vector2& s) {
+    x *= s.x; y *= s.y;
+    return *this;
+  }
+  Vector2& descale(const Vector2& s) {
+    x /= s.x; y /= s.y;
+    return *this;
+  }
+
+  Vector2& constrain(const Rect2D &bounds);
 
   friend std::ostream& operator<<(std::ostream& os, const Vector2& vec);
 

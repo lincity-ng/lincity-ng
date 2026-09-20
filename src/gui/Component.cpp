@@ -1,26 +1,24 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-/**
- * @file Component.cpp
- * @author Matthias Braun
- */
+/* ---------------------------------------------------------------------- *
+ * src/gui/Component.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #include <assert.h>                       // for assert
 #include <libxml++/parsers/textreader.h>  // for TextReader
@@ -34,9 +32,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Event.hpp"                      // for Event
 #include "Painter.hpp"                    // for Painter
 #include "util/xmlutil.hpp"               // for xmlParse
+#include "Desktop.hpp"
 
 Component::Component() :
-  parent(0), desktop(NULL), flags(0)
+  parent(nullptr), desktop(nullptr), flags(0)
 {
 }
 
@@ -123,11 +122,18 @@ Component::event(const Event& event) {
 }
 
 void
-Component::reLayout()
-{
-    if(getFlags() & FLAG_RESIZABLE) {
-        resize(getWidth(), getHeight());
-    }
+Component::reLayout() {
+  resize(width, height);
+}
+
+void
+Component::reLayoutDeep() {
+  for(Childs::reverse_iterator i = childs.rbegin(); i != childs.rend(); ++i) {
+    if(i->enabled && i->component)
+      i->component->reLayoutDeep();
+  }
+
+  reLayout();
 }
 
 Component*
@@ -160,6 +166,11 @@ Component::getParentChild() const {
 }
 
 Vector2
+Component::getScale() const {
+  return getDesktop() ? desktop->getScale() : Vector2(1, 1);
+}
+
+Vector2
 Component::relative2Global(const Vector2& pos)
 {
     if(!parent)
@@ -173,26 +184,15 @@ Child&
 Component::addChild(std::unique_ptr<Component>&& component) {
   assert(!component->parent);
   Component *comp = component.get();
-  childs.push_back(Child(std::move(component)));
-  comp->parent = this;
-  comp->desktop = this->desktop;
-  comp->setDirty();
+  childs.push_back(Child(this, std::move(component)));
   return childs.back();
 }
 
 void
-Component::resetChild(Child& child, std::unique_ptr<Component>&& component)
-{
-    assert(child.component != component.get());
-
-    delete child.component;
-    child.component = component.release();
-    if(child.component != 0) {
-        child.component->parent = this;
-        child.component->desktop = this->desktop;
-        child.component->setDirty();
-        child.enabled = true;
-    }
+Component::resetChild(Child& child, std::unique_ptr<Component>&& component) {
+  assert(child.component != component.get() || !child.component);
+  assert(child.parent == this);
+  child.setComponent(std::move(component));
 }
 
 void
@@ -233,7 +233,8 @@ Component::setChildDirty(Component* childComponent, const Rect2D& area)
         return;
     }
 
-    assert(false);
+    // Maybe the child is being constructed and not yet in the childs list.
+    setDirty();
 }
 
 

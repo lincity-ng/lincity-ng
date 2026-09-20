@@ -12,23 +12,23 @@
 		<TableLayout rows="1" cols="3">
 			<cell row="1" col="1">
 				<Button name="goto">
-					<image src="images/gui/info/info.png"/>
+					<image src="images/gui/info/info.png" width="24" height="24"/>
 				</Button>
 			</cell>
 			<cell row="1" col="2">
 				<Button name="No">
 					<text-caption style="dialogbutton" translatable="yes">No</text-caption>
-					<image src="images/gui/dialogs/nobutton.png"/>
-					<image-hover src="images/gui/dialogs/nobutton-hover.png"/>
-					<image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
+					<image src="images/gui/dialogs/nobutton.png" width="100" height="23"/>
+					<image-hover src="images/gui/dialogs/nobutton-hover.png" width="100" height="23"/>
+					<image-clicked src="images/gui/dialogs/nobutton-clicked.png" width="100" height="23"/>
 				</Button>
 			</cell>
 			<cell row="1" col="3">
 				<Button name="Yes">
 					<text-caption style="dialogbutton" translatable="yes">Yes</text-caption>
-					<image src="images/gui/dialogs/yesbutton.png"/>
-					<image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
-					<image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+					<image src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+					<image-hover src="images/gui/dialogs/yesbutton-hover.png" width="100" height="23"/>
+					<image-clicked src="images/gui/dialogs/yesbutton-clicked.png" width="100" height="23"/>
 				</Button>
 			</cell>
 		</TableLayout>
