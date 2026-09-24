@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đường ray</p>
+	<p style="hp">Đường ray là hình thức giao thông đơn giản và rẻ nhất. Chúng cũng có sức chứa thấp nhất. Mặt khác, chúng không tạo ô nhiễm.</p>
+
+  <p style="hp">Đây là một đường ray</p>
+   <img src="images/tiles/trackud.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/transport/tracks.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">3 lo-volt =&gt; 0</p>
+	<p style="hp">Nếu một đường ray có hơn 90% rác thải, nó sẽ tiêu thụ 100 rác và tạo ra 50 ô nhiễm.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="transport">Giao thông</a></li>
+</Document>

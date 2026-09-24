@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trợ giúp Lincity</p>
+	<p style="hp">Đây là hệ thống trợ giúp Lincity. Vui lòng chọn một chủ đề bằng cách bấm vào một trong các từ màu xanh bên dưới. Từ màu xanh thường là liên kết tới tài liệu khác. Dùng mũi tên trên trái để quay lại trang trợ giúp trước.</p>
+	<p style="hp">Trong khi chơi, bạn có thể nhận trợ giúp về hầu hết mọi thứ bằng nút trợ giúp, hoặc bấm phải vào biểu tượng công trình cụ thể trong khay trên trái.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tutorial">Hướng dẫn</a></li>
+	<li><a href="controls">Điều khiển</a></li>
+	<li><a href="button-index">Danh sách nút chọn</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="dialogs">Trợ giúp các tab thông tin</a></li>
+	<li><a href="index">Mục lục</a></li>
+
+	<p style="hsubtitle">Mục tiêu</p>
+	<p style="hp">Bạn có thể thắng Lincity bằng cách xây một <a href="sustain">nền kinh tế bền vững</a> hoặc sơ tán toàn bộ công dân bằng <a href="rocket">tàu vũ trụ</a>.</p>
+</Document>

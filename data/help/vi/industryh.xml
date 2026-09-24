@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Công nghiệp nặng (Nhà máy thép)</p>
+	<p style="hp">Nhà máy thép sản xuất thép từ quặng, điện và lao động. Quặng và lao động được lấy từ giao thông kết nối hoặc chợ.</p>
+	<p style="hp">Điện có thể được cấp cho nhà máy thép theo hai cách. Cách thứ nhất là đốt than. Cách thứ hai là từ điện, hoặc điện hạ thế kém hiệu quả từ giao thông kết nối hoặc điện cao thế trực tiếp từ đường dây điện. Đốt than tại chỗ vất vả hơn. Cối xay gió khó mà cung cấp đủ điện.</p>
+	<p style="hp">Nhà máy thép gây ô nhiễm nặng. Bạn có thể biết Công nghiệp nặng đang hoạt động theo cách thông thường, bằng cách bấm vào nó, và thỉnh thoảng hoạt ảnh sẽ chuyển động.</p>
+
+  <p style="hp">Đây là một nhà máy thép</p>
+   <img src="images/tiles/industryhl1.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">(3600 hi-volt hoặc 7200 lo-volt) + 28 lao động + 612 quặng =&gt; 36 thép</p>
+	<p style="hp">(3600 hi-volt hoặc 7200 lo-volt hoặc 72 than) + 46 lao động + 612 quặng =&gt; 36 thép</p>
+	<p style="hp">28 lao động + 612 quặng =&gt; 7 thép</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="pollution">Ô nhiễm</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="power">Điện</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="ore">Quặng</a></li>
+</Document>

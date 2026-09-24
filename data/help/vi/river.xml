@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Sông/Nước</p>
+	<p style="hp">Sông ở đây chủ yếu để cản đường bạn. Chúng tốn kém để bắc cầu, đào và phá hủy. Công dụng duy nhất là cảng phải nối với sông.</p>
+	<p style="hp">Có hai loại nước. Hồ là nước không nối với hệ thống sông; sông là nước có nối với hệ thống sông. Sông được định nghĩa là toàn bộ nước có mặt lúc bắt đầu game. Ví dụ, khi một mỏ quặng cạn kiệt và trở thành nước, nó trở thành một đoạn sông nếu nối với sông. Ngược lại nó trở thành hồ.</p>
+	<p style="hp">Nếu bạn phá một đoạn sông, cả hai bên khoảng trống vẫn thuộc hệ thống sông.</p>
+	<p style="hp">Bạn có thể xây cầu bằng cách xây giao thông trên sông.</p>
+	<p style="hp">Một khi một vùng nước thuộc hệ thống sông, nó không thể trở lại thành hồ. Nước thuộc sông được công cụ tra cứu chỉ ra là có thể đi lại được.</p>
+	<p style="hp">Đường dây điện có thể truyền điện bên dưới một vùng sông giống như cách nó chui qua giao thông.</p>
+</Document>

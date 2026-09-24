@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Ô nhiễm</p>
+	<p style="hp">Hầu hết khu vực tạo ra một ít ô nhiễm. Sau đây là các khu vực có thể gây ô nhiễm nặng:</p>
+	<li>Công nghiệp nặng.</li>
+	<li>Công nghiệp nhẹ.</li>
+	<li>Nhà máy điện than.</li>
+	<li>Mỏ than.</li>
+	<li>Chợ đầy rác thải.</li>
+	<li>Đường bộ/Đường sắt, đặc biệt khi đầy rác thải.</li>
+	<p style="hp">Người dân không thích sống ở khu vực ô nhiễm. Họ sẽ chuyển đi, thậm chí bị bệnh và chết.</p>
+	<p style="hp">Gió chủ đạo thổi từ hướng Tây Nam. Vì vậy ô nhiễm có xu hướng trôi về hướng Đông Bắc.</p>
+	<p style="hp">Nhìn chung bạn nên xây dựng chiến lược để người dân không phải tiếp xúc với ô nhiễm. Tuy nhiên điều này không phải lúc nào cũng khả thi. Nếu vậy thì công viên tạo thành một hàng rào khá tốt. Càng nhiều công viên, khả năng bảo vệ càng lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="industryh">Công nghiệp nặng (Nhà máy thép)</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="coalmine">Mỏ than</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="rail">Đường sắt</a></li>
+	<li><a href="road">Đường bộ</a></li>
+	<li><a href="park">Công viên</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+</Document>

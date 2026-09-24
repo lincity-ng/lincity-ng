@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Khu dân cư</p>
+	<p style="hp">Đây là nơi người dân sống. Để khuyến khích người dân sống ở khu vực này, họ phải có nước và lương thực. Cung cấp nơi làm việc, điện và hàng hóa cũng giúp ích. Họ phải được nối với giao thông. Nằm trong phạm vi chợ có lợi. Sân thể thao tăng sức hấp dẫn. Giữ người dân tránh xa ô nhiễm</p>
+	<p style="hp">Nếu cư dân thiếu lương thực hoặc nước hoặc khu vực ô nhiễm nặng, họ sẽ chết. Khi cư dân chết, nơi ở bị chấm điểm sức hấp dẫn rất thấp, nên người dân không muốn chuyển vào, thậm chí có thể chuyển ra.</p>
+	<p style="hp">Có 3 loại khu dân cư khác nhau: nhà ở mật độ thấp, trung bình và cao. Chúng có tỉ lệ sinh và tử khác nhau. Điều này cho bạn một số quyền kiểm soát dân số. Trung tâm y tế cũng ảnh hưởng tới tỉ lệ sinh và tử.</p>
+	<p style="hp">Về sau trong game, nếu bạn có đủ công nghệ, bạn có thể xây nhà ở 'hiện đại' hơn, thậm chí nhà cao tầng.</p>
+
+  <p style="hp">Đây là nhà ở mật độ thấp (công nghệ cao)</p>
+   <img src="images/tiles/reslowhi.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center" />
+
+  <p style="hp">Đây là nhà ở mật độ trung bình (công nghệ cao)</p>
+   <img src="images/tiles/resmedhi.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center" />
+
+  <p style="hp">Đây là nhà ở mật độ cao (công nghệ cao)</p>
+   <img src="images/tiles/reshihi.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">không đói: (1 lương thực + 1 nước =&gt; 0) * dân</p>
+	<p style="hp">điện: 30 lo-volt + 3 lo-volt * dân =&gt; 0</p>
+	<p style="hp">việc làm: (0 =&gt; .69 lao động + swing) * dân (khi có phủ y tế và thể thao)</p>
+	<p style="hp">swing = .05 * phần sức chứa lao động còn lại (khi có phủ y tế và thể thao)</p>
+	<p style="hp">hàng hóa: (.25 hàng hóa =&gt; .0833 rác) * dân (chỉ khi có việc làm)</p>
+	<p style="hp">điện thêm: (.5 lo-volt =&gt; 0) * dân (chỉ khi dùng hàng hóa)</p>
+	<p style="hp">hàng hóa thêm: (.25 hàng hóa =&gt; .0833 rác) * dân (chỉ khi dùng điện thêm)</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="waterwell">Giếng nước</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+	<li><a href="farm">Nông trại</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="health">Trung tâm y tế</a></li>
+	<li><a href="cricket">Sân bóng rổ</a></li>
+</Document>

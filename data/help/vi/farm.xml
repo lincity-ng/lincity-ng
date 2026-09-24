@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Nông trại</p>
+	<p style="hp">Nông trại trồng lương thực cho người ăn và cung cấp nguyên liệu cho nhà máy dệt.</p>
+	<p style="hp">Sản xuất của nông trại phụ thuộc vào nước ngầm. Ô có nước màu xanh lá, ô khác màu vàng nâu (như sa mạc hoặc đất trống).</p>
+
+  <p style="hp">Đây là một nông trại</p>
+   <img src="images/tiles/farm0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/parks/farm.png" halign="center" />
+	<p style="hp">Nông trại cần lao động để sản xuất nhiều hơn mức lương thực tối thiểu. Cấp điện (lo-volt) tăng sản lượng. Nông trại có điện có thể tưới đất khô và cũng tiêu thụ rác thải. Cẩn thận với lượng nước nông nghiệp tiêu thụ.</p>
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">13 lao động + 50 lo-volt =&gt; 550 lương thực + 5.5 lương thực * công nghệ</p>
+	<p style="hp">13 lao động =&gt; 132 lương thực</p>
+	<p style="hp">Nếu nông trại có độ màu mỡ dưới 100%, nó sẽ sản xuất ít lương thực theo tỉ lệ. Nông trại có điện có thể bù thiếu màu mỡ bằng cách tiêu thụ 50 nước cho mỗi ô sa mạc.</p>
+	<p style="hp">Không giống hầu hết công trình khác, nông trại co giãn công thức theo tỉ lệ khi chúng không thể áp dụng trọn vẹn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="food">Lương thực</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="tech-level">Cấp công nghệ</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="power">Điện</a></li>
+</Document>

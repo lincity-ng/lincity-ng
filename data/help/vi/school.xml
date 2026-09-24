@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trường học</p>
+	<p style="hp">Trường học dùng lao động và hàng hóa để sản xuất công nghệ theo cách tương tự đại học. Chúng dùng ít lao động và hàng hóa hơn nhiều so với đại học, nhưng tạo ra ít điểm công nghệ hơn nhiều. Khi có lựa chọn giữa đặt bốn hoặc năm trường học trong một khu vực, hay một đại học duy nhất, thường (nhưng không phải lúc nào) tốt hơn nên đặt đại học.</p>
+	<p style="hp">Trường học không cần nối với giao thông, nhưng cần nằm trong phạm vi một chợ có thể cung cấp lượng lao động và hàng hóa để trường hoạt động.</p>
+	<p style="hp">Trường học tốn tiền vận hành. Bạn có thể xem tổng chi phí năm trước bằng cách bấm vào nút tiền.</p>
+	<p style="hp">Bạn có thể biết trường học đang hoạt động theo cách thông thường, bằng cách bấm vào nó.</p>
+
+  <p style="hp">Đây là một trường học</p>
+   <img src="images/tiles/school0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/misc/book.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">200 lao động + 75 hàng hóa =&gt; .0002 công nghệ + 25 rác</p>
+	<p style="hp">Một trường học có thể duy trì tới ~10 công nghệ ở mức &lt;100 hoặc ~5 ở mức &gt;100</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tech-level">Cấp công nghệ</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="university">Đại học</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="labor">Lao động</a></li>
+</Document>

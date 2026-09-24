@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Thống kê</p>
+	<p style="hp">Đây là tab thứ hai của cửa sổ mini</p>
+	<p style="hp">Nó hiển thị một số thống kê toàn thành phố và diễn biến gần đây của chúng.</p>
+	<p style="hp">Thanh bên phải biểu thị sự tăng. Thanh bên trái biểu thị sự giảm. Kích thước thanh biểu thị mức thay đổi. Thay đổi tốt màu xanh lá, xấu màu đỏ. Nhưng hãy cẩn thận rằng quá nhiều thứ tốt không phải lúc nào cũng tốt.</p>
+	<p style="hp">Dùng nút cuộn lên xuống để xem các thanh khác nhau.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+</Document>

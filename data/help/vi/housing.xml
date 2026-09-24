@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cửa sổ dân số</p>
+	<p style="hp">Đây là cửa sổ dân số.</p>
+	<p style="hp">Cửa sổ hiển thị 9 chỉ số:</p>
+	<li>Tổng - thể hiện dân số của thành phố bạn.</li>
+	<li>Có nhà - thể hiện tổng số người trong thành phố sống trong nhà ở.</li>
+	<li>Vô gia cư - thể hiện số người vô gia cư hoặc sống trong ổ chuột.</li>
+	<li>Ổ chuột - thể hiện số khu ổ chuột trong thành phố.</li>
+	<li>Tử bất thường - thể hiện số người chết vì đói hoặc ô nhiễm trong tháng trước.</li>
+	<li>Yêu cầu thất nghiệp - thể hiện số người thất nghiệp trong tháng trước.</li>
+	<li>Tỉ lệ - thể hiện phần trăm dân số của bạn thất nghiệp.</li>
+	<li>Ca đói - thể hiện số người bị đói trong tháng trước.</li>
+	<li>Tỉ lệ - thể hiện phần trăm dân số của bạn đang đói.</li>
+	<p style="hp">Bấm trái vào tiêu đề cửa sổ này sẽ chuyển qua các cửa sổ tài chính, chi phí khác và nhà ở.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="finance">Cửa sổ tài chính</a></li>
+	<li><a href="other-costs">Chi phí khác</a></li>
+</Document>

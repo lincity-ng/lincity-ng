@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Thép</p>
+	<p style="hp">Thép thường được làm bởi công nghiệp nặng (nhà máy thép). Bạn phải đạt đủ cấp công nghệ để xây nhà máy thép. Trước đó, xưởng làng là nguồn thép duy nhất của bạn. Xưởng làng sản xuất một lượng nhỏ thép (từ quặng), nên bạn thường cần một số xưởng làng để có đủ thép cho nhu cầu.</p>
+	<p style="hp">Thép được lò rèn dùng để làm hàng hóa. Thép được công nghiệp nhẹ dùng cho công cụ và sản phẩm (hàng hóa). Công nghiệp nhẹ vẫn hoạt động được không cần thép, dù sản lượng giảm nhiều.</p>
+	<p style="hp">Tên lửa dùng rất nhiều thép, chủ yếu để xây bệ phóng.</p>
+	<p style="hp">Đường sắt cũng dùng thép để bảo trì</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="blacksmith">Lò rèn</a></li>
+	<li><a href="industryh">Công nghiệp nặng (Nhà máy thép)</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+	<li><a href="rail">Đường sắt</a></li>
+</Document>
