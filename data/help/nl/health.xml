@@ -9,14 +9,19 @@
 	<p style="hp">Ziekenhuizen hoeven niet verbonden te zijn met verkeer, maar ze moeten dan wel in de buurt van een markt liggen.</p>
 	<p style="hp">Om het welzijnspeil van uw stad te bekijken moet u klikken op het welzijnsicoon onder de minikaart. Deze gebieden die normaal worden getoond hebben beschikking tot een ziekenhuizen.</p>
 
-	<p style="hp">Dit is een ziekenhuis</p>
-	<img src="images/tiles/health.png" halign="center"/>
-	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
-	<p style="hp">en dit is het welzijnsicoon</p>
-	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+  <p style="hp">Dit is een ziekenhuis</p>
+   <img src="images/tiles/health.png" halign="center"/>
 
-	<p style="hsubtitle">Lees ook:</p>
+  <p style="hp">en dit is het icoontje</p>
+   <img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+
+  <p style="hp">en dit is het welzijnsicoon</p>
+   <img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Formule's</p>
+	<p style="hp">6 werk + 40 goederen =&gt; 13 afval</p>
+
+  <p style="hsubtitle">Lees ook:</p>
 	<li><a href="residential">Woonwijk</a></li>
 	<li><a href="pollution">Vervuiling</a></li>
 	<li><a href="labor">Werk</a></li>

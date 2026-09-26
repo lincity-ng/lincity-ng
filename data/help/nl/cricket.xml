@@ -7,12 +7,14 @@
 	<p style="hp">Basketbalvelden verhogen het welzijn van woonwijken in hun bereik.</p>
 	<p style="hp">Basketbalvelden tonen elke drie maanden een animatie als ze werken.</p>
 
-	<p style="hp">Dit is een basketbalveld</p>
-	<img src="images/tiles/cricket1.png" halign="center"/>
-	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
-	<p style="hp">en dit is de stadsplattegrond overlay knop</p>
-	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+  <p style="hp">Dit is een basketbalveld</p>
+   <img src="images/tiles/cricket1.png" halign="center"/>
+
+  <p style="hp">en dit is het icoontje</p>
+   <img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+
+  <p style="hp">en dit is de stadsplattegrond overlay knop</p>
+   <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Mini-kaart</a></li>
