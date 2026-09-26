@@ -570,7 +570,7 @@ void MainMenu::changeResolution(bool next) {
 
 void
 MainMenu::changeWorldLen(bool next) {
-  getConfig()->worldSize.session = getConfig()->worldSize.get() + (next?25:-25);
+  getConfig()->worldSize.trySetValue(getConfig()->worldSize.get() + (next?25:-25));
   getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
     std::to_string(getConfig()->worldSize.get()));
 }
