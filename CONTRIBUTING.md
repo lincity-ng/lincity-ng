@@ -151,8 +151,8 @@ ugly.
 - Indent 2 spaces
 - Open braces go on the same line with a preceding space
 - Binary operators deserve a space on either side (except `.` and `->`)
-- Open parenthesis is not proceeded by whitespace (except for a preceding binary
-  operator)
+- Open parentheses for functions and control statements is not preceded by
+  whitespace
 - Line continuations get an indent
 - No trailing whitespace (just a newline character)
 - Unix line endings
