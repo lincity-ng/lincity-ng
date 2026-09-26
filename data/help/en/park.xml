@@ -7,7 +7,7 @@
 	<p style="hp">You can use parks to shield residential areas or to stop pollution escaping from the local area of the source.</p>
 	<p style="hp">The wind comes from the south west, so build your parks accordingly.</p>
 	<p style="hp">Parks are much more effective then forests or farms but require underground water, so they can only be built on "green" tiles.</p>
-	<p style="hp">Hint: hold the 'w' key pressed while building a park to get a small pond.</p>
+	<p style="hp">Hint: hold the 'k' key pressed while building a park to get a small pond.</p>
 
   <p style="hp">This is a park</p>
    <img src="images/tiles/parkland-plane.png" halign="center"/>

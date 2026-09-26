@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Arbeitslosenübersicht</p>
+	<p style="htitle">Arbeitslosigkeits-Ebene</p>
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
-	<p style="hp">Die Arbeitslosenübersicht erfasst nur Wohngebiete.</p>
-	<p style="hp">Hellgrün bedeutet keine Arbeitslosigkeit, dunkelgrün bis
-    hellrot zeigt zunehmende Anzahl von Arbeitslosen an.</p>
+	<p style="hp">Die Arbeitslosigkeits-Ebene erfasst Wohngebiete (rot oder grün) und Gebäude (gelb oder grau).</p>
+	<p style="hp">Hellgrün bedeutet, dass es keine Arbeitslosigkeit in diesem Wohngebiet
+        gibt. Dunkelgrün bis hellrot zeigt Arbeitslosigkeit von zunehmender Schwere an
+        (zu viele Einwohner, zu wenig Arbeit).</p>
+        <p style="hp">Hellgelb bedeutet, dass ein Gebäude Arbeit benötigt, aber keine bekommt
+        (zu wenige Leute sind hier). Gebäude, die grau angezeigt werden, haben kein
+        Arbeitsproblem.</p>
 	
-	<p style="hp">Linksklick auf die Minikarte bewegt die Hauptansicht zur
-    gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
-    drücken Sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
-	
+    <p style="hp">Linksklick auf die Miniaturansicht, um
+        zur entsprechenden Stelle auf der Hauptansicht zu
+        springen. Linksklick auf ein anderes Symbol aktiviert eine
+        andere Ebene. Mit »v« können Sie die aktive Ebene auf die
+        Hauptansicht legen.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="mini-screen">Minikarte</a></li>
-	<li><a href="msb-coal">Kohlenflözekarte</a></li>
-	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
-	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
-	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
-	<li><a href="msb-normal">Normale Ansicht</a></li>
-	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
-	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
-	<li><a href="msb-transport">Transportübersicht</a></li>
-	<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
+	<li><a href="mini-screen">Miniaturansicht</a></li>
+	<li><a href="msb-coal">Kohle-Ebene</a></li>
+	<li><a href="msb-cricket">Sport-Ebene</a></li>
+	<li><a href="msb-fire">Feuer-Ebene</a></li>
+	<li><a href="msb-health">Gesundheits-Ebene</a></li>
+	<li><a href="msb-normal">Landnutzungs-Ebene</a></li>
+	<li><a href="msb-pol">Verschmutzungs-Ebene</a></li>
+	<li><a href="msb-power">Energie-Ebene</a></li>
+	<li><a href="msb-transport">Transport-Ebene</a></li>
+	<li><a href="msb-starve">Hunger-Ebene</a></li>
 </Document>

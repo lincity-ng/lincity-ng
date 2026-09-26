@@ -2,30 +2,34 @@
 <Document style="helpdocument">
 	<p style="htitle">Universität</p>
 	<p style="hp">Universitäten tragen zur Erhöhung des Technologieniveaus bei.
-    Dafür benötigen sie Waren und Arbeiter. Sie erzeugen mit der gleichen Menge Waren
-    und Arbeiter mehr Technologie als Schulen. Allerdings benötigt eine Uni viel mehr
-    Waren und Arbeiter, zudem kostet der Universitätsbetrieb einen Haufen Geld. Sie
-    sollten also über genügend Industrie und Kapital verfügen um die Uni zu versorgen.</p>
+    Dafür benötigen sie Waren und Arbeit. Sie erzeugen mit der gleichen Menge Waren
+    und Arbeit mehr Technologie als Schulen. Allerdings benötigt eine Universität viel
+    mehr Waren und Arbeit, zudem kostet der Universitätsbetrieb ein Haufen Geld. Sie
+    sollten also über genügend Industrie und Kapital verfügen, um sie zu versorgen.</p>
 	<p style="hp">Sie werden einige Universitäten benötigen, um ein Technologieniveau
     im Bereich von 100% zu erreichen.</p>
 	<p style="hp">Universitäten müssen nicht an das Verkehrsnetz angeschlossen sein, sie
     können sich alles von Märkten holen, solange welche in Reichweite sind, die genügend
-    Waren und Arbeitskräfte haben.</p>
+    Waren und Arbeit haben.</p>
 
-	<p style="hsubtitle">Hinweis</p>
-	<p style="hp">Sie <b>müssen</b> für jede Universität fünf Schulen haben, die für
+	<p style="hsubtitle">HINWEIS</p>
+	<p style="hp">Sie müssen für jede Universität 4 Schulen haben, die für
     die erforderliche Menge Studenten sorgen.</p>
 
 	<p style="hp">Das ist eine Universität</p>
 	<img src="images/tiles/university.png" halign="center"/>
-	<p style="hp">und das das zugehörige Symbol</p>
+	<p style="hp">und dies ist das zugehörige Symbol</p>
 	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">250 Arbeit + 750 Waren =&gt; 0,0004 Tech + 250 Müll</p>
+        <p style="hp">Eine Universität kann bis zu ca. 20 Tech &lt;100 oder ca. 10 Tech &gt;100 vorhalten</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="goods">Waren</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="labor">Arbeit</a></li>
 	<li><a href="schools">Schulen</a></li>
-	<li><a href="tech-level">Technologieniveau</a></li>
 </Document>

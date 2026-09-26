@@ -953,23 +953,6 @@ ConstructionGroup::can_build_here(const World& world, const MapPoint point,
     return false;
   }
 
-  //handle transport quickly
-  if(world.map.is_visible(point) && (
-    group == GROUP_TRACK ||
-    group == GROUP_ROAD ||
-    group == GROUP_RAIL)
-  ) {
-    bool open = world.map(point)->is_bare() ||
-      world.map(point)->getGroup() == GROUP_POWER_LINE ||
-      world.map(point)->is_water() && !world.map(point)->is_transport() ||
-      world.map(point)->is_transport() &&
-        world.map(point)->getTransportGroup() != group;
-
-    if(!open)
-      message = SpaceOccupiedMessage::create(point);
-    return open;
-  }
-
   //At last check for bare building site
   for(int j = 0; j<size; j++) {
     for(int i = 0; i<size; i++) {

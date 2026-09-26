@@ -94,7 +94,19 @@ Paragraph::commit_changes(
 ) {
   if(!currentspan) return;
   if(translatable) {
-    currentspan->text = _(currentspan->text);
+    std::string& text = currentspan->text;
+    if(text.length() >= 2) {
+      bool frontspace = text.front() == ' ';
+      bool backspace = text.back() == ' ';
+      if(frontspace) text.erase(0, 1);
+      if(backspace) text.pop_back();
+      text = _(text);
+      if(frontspace) text.insert(0, " ");
+      if(backspace) text.push_back(' ');
+    }
+    else {
+      text = _(text);
+    }
   }
   textspans.push_back(std::unique_ptr<TextSpan>(currentspan.release()));
 }

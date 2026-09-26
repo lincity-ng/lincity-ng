@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Müll</p>
+	<p style="hp">Müll wird produziert, wenn Waren konsumiert werden. Müll kann auf eine Mülldeponie gebracht werden, an Recyclingzentren verarbeitet werden oder er stapelt sich einfach an Transportfeldern und Märkten auf. Jedoch wird er, falls sich zu viel Müll stapelt, Feuer fangen und somit schwere Luftverschmutzung verursachen.</p>
+	<p style="hp">Elektrifizierte Bauernhöfe und Wälder (auch bekannt als »Köhlereien«) können eine geringe Menge an Müll biologisch abbauen.</p>
+
+  <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="tip">Mülldeponien</a></li>
+	<li><a href="recycle">Recyclingzentren</a></li>
+	<li><a href="commune">Wälder (Köhlereien)</a></li>
+	<li><a href="farm">Bauernhöfe</a></li>
+</Document>

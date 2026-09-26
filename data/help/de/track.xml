@@ -8,8 +8,11 @@
 	<img src="images/tiles/trackud.png" halign="center"/>
 	<p style="hp">und das ist das Symbol dazu</p>
 	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">3 Niedrigspannung =&gt; 0</p>
+        <p style="hp">Falls ein Weg mehr als 90% Müll hat, dann konsumiert er 100 Müll und verursacht 50 Verschmutzung.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="commune">Köhlerei</a></li>
 </Document>

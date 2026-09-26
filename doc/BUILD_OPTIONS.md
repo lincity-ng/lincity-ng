@@ -36,9 +36,12 @@ Allowed values are:
   times as much as possible
 - `DebugOpt`: This is for development when a faster binary is useful.
   This is the same as `Debug` except the -O2 optimization level is used.
-- Specifying any other build type not listed above will prevent
-  per-configuration build flags from being used. This may be useful when
-  supplying flags via `CMAKE_<LANG>_FLAGS`.
+- `None`: This build type adds no additional compiler options, and it should be
+  used in conjunction with `CMAKE_<lang>_FLAGS` to specify custom compiler
+  options. This may be useful for distribution maintainers that want to use
+  specific compiler options. You should only use this build type if you know
+  what you are doing.
+- Specifying any other build type not listed above is deprecated.
 
 
 ## CMAKE_INSTALL_PREFIX

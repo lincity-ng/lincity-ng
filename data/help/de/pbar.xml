@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Statusanzeige</p>
-	<p style="hp">Diese Anzeige liegt auf der "Stat." Registerkarte.
-    Sie zeigt die Änderungen an Ressourcen und den Lagerbestand in Märkten.</p>
-	<p style="hp">Ein roter Balken links bedeutet Abnahme, ein grüner Balken
-    rechts bedeutet Zunahme. Die Länge des Balkens gibt den Betrag 
-    der Änderung an.</p>
-	<p style="hp">Die Zahl in der Mitte ist die Gesamtmenge.</p>
+	<p style="htitle">Statistikanzeige</p>
+	<p style="hp">Diese Anzeige liegt auf der »Stat.«-Registerkarte. Sie ist das
+        zweite Register der Miniaturansicht.</p>
+        <p style="hp">Sie zeigt einige stadtweite Statistiken und ihre neulichen Entwicklungen.</p>
+	<p style="hp">Ein Balken links bedeutet Abnahme, ein Balken
+        rechts bedeutet Zunahme. Gute Änderungen sind grün, schlechte sind rot. Aber beachten Sie,
+        dass es manchmal auch zuviel des Guten geben kann.</p>
+	<p style="hp">Benutzen Sie die Scrollknöpfe (rauf und runter), um verschiedene Balken zu sehen</p>
+          <p style="hsubtitle">Siehe auch:</p>
+        <li><a href="commodities">Verbrauchsgüter</a></li>
+        <li><a href="msb-transport">Transport-Ebene</a></li>
 </Document>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Steuerung</p>
+	<p style="hp">Drücken Sie »F1«, um das Hilfefenster zu öffnen.</p>
+
+	<p style="hsubtitle">Kartennavigation</p>
+	<p style="hp">Bewegen Sie sich in der Karte mit den Pfeiltasten, dem Ziffernblock (»1«, »2«, »3«, »4«, »5«, »6«, »7«, »8«, »9«) oder WASD herum. Halten Sie Umschalt, um sich schneller zu bewegen.</p>
+	<p style="hp">Verschieben Sie die Ansicht, indem Sie mit der mittleren Maustaste ziehen.</p>
+	<p style="hp">Bewegen Sie die Maus zur Bildschirmkante, um sich in diese Richtung zu bewegen.</p>
+	<p style="hp">Gehen Sie zur Mitte der Karte, indem Sie »5« auf dem Ziffernblock drücken.</p>
+	<p style="hp">Klicken Sie auf die Übersichtskarte, um sich zum gewählten Teil der Karte zu bewegen.</p>
+	<p style="hp">Drücken Sie »P«, um den Bildschirm auf einer Baustelle zu zentrieren. (Kann nützlich sein, um ein kleines Dorf in einer großen Karte zu finden.) Drücken Sie »P« erneut, um durch verschiedene zu zentrierende Baustellen zu wechseln.</p>
+	<p style="hp">Vergrößern oder verkleinern Sie die Ansicht (Zoom) mit »+« oder »-« auf dem Ziffernblock. Drücken Sie Enter auf dem Ziffernblock, um den Zoom auf 100% zurückzusetzen.</p>
+
+	<p style="hsubtitle">Bauen</p>
+	<p style="hp">Benutzen Sie die Maus (linke Taste), um ein Modul aus dem Menü der linken Seite auszuwählen. Sobald ein Modul ausgewählt wurde, linksklicken Sie auf die Karte, um es zu bauen.</p>
+	<p style="hp">Drücken Sie »B«, um zum Bulldozerwerkzeug zu wechseln. Mit dem aktivierten Bulldozerwerkzeug klicken Sie mit der linken Maustaste auf ein Gebäude, um es abzureißen. Drücken Sie »B« erneut, um zurück zu wechseln.</p>
+
+	<p style="hsubtitle">Abfragewerkzeug</p>
+	<p style="hp">Drücken Sie Esc, um das Abfragewerkzeug zu aktivieren. Benutzen Sie das Abfragewerkzeug, indem Sie auf ein Gebäude linksklicken, um Informationen darüber anzeigen zu lassen. Wird das selbe Gebäude erneut angeklickt, wird die Art der angezeigten Information gewechselt. Sie können das Abfragewerkzeug benutzen, ohne es zu aktivieren, indem Sie die rechte Maustaste statt der linken benutzen.</p>
+	<p style="hp">Hinweis: Auf Märkten und Häfen wird der zweite Klick das Handelsdialogfenster öffnen.</p>
+	<p style="hp">Drücken Sie »G«, um Informationen (z.B. Verschmutzungsinformationen) über die Kachel unterhalb eines Gebäudes anzuzeigen oder diese Information wieder zu verbergen.</p>
+
+	<p style="hsubtitle">Übersichtskarte und Ansicht</p>
+	<p style="hp">Drücken Sie »1« bis »9« oder das rückwärts geneigte Hochkomma (»`«), um den Übersichtskartenmodus auszuwählen. Mit der »7« wird zwischen den Verkehrs- und Verbrauchsgütermodi gewechselt. Sie können außerden den Modus wechseln, indem Sie die Knöpfe unterhalb der Übersichtskarte anklicken.</p>
+	<p style="hp">Wenn der Übersichtskartenmodus für den Verkehr oder Verbrauchsgüter aktiv ist, können Sie durch die Verbrauchsgüter wechseln, indem Sie auf die Übersichtskarte zeigen und scrollen. Sie können auch die Verbrauchsgüter wechseln, indem Sie den Pfeil nach oben oder unten in der oberen rechten Ecke der Übersichtskarte anklicken, oder die Tasten »M« oder »N« drücken.</p>
+	<p style="hp">Drücken Sie »H«, um hohe Gebäude anzuzeigen/zu verbergen.</p>
+	<p style="hp">Drücken Sie »V«, um durch Ansichtsmodi zu wechseln (aus -&gt; transparent -&gt; undurchsichtig -&gt; aus.</p>
+
+	<p style="hsubtitle">Simulation</p>
+	<p style="hp">Drücken Sie die Knöpfe in der linken unteren Bildschirmecke, um die Simulationsgeschwindigkeit zu ändern oder ins Hauptmenü zu verlassen. Im Hauptmenü können Sie Ihren Fortschritt speichern.</p>
+	<p style="hp">Drücken Sie »F12« zum Schnellspeichern.</p>
+	<p style="hp">Drücken Sie »F9« zum Schnellladen.</p>
+
+  <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="button-index">Symbol-Verzeichnis</a></li>
+	<li><a href="bulldoze">Bulldozer</a></li>
+	<li><a href="query">Abfrage</a></li>
+	<li><a href="mini-screen">Übersichtskarte</a></li>
+</Document>

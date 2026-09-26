@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
 <p style="htitle">Erste Schritte</p>
-<p style="hp">Wählen sie "Neues Spiel" &gt; "mit zufälligem Dorf beginnen".
-In Ihrem neuen Dorf gibt es bereits die grundlegenden Elemente: </p>
-<li>Bauernhöfe, die die Märkte mit Nahrung beliefern </li>
-<li>Köhlereien, die Holzkohle sowie geringe Mengen Erz und Stahl erzeugen </li>
-<li>Einen Brunnen um die Leute mit Wasser zu versorgen</li>
+<p style="hp">Wählen sie »Neues Spiel« &gt; »Zufälliges Dorf«.
+Andere Szenarien sind für mehr oder weniger erfahrene Spieler.</p>
+<p style="hp">Das Zufallsdorf hat einige grundlegende Ressourcen:</p>
+
+<li>Bauernhöfe, die die Märkte mit Nahrung beliefern</li>
+<li>Einen Brunnen, um die Einwohner mit Wasser zu versorgen</li>
+<li>Köhlereien, die Holzkohle sowie geringe Mengen Erz und Stahl produzieren</li>
 <li>Wohngebiete</li>
-<li>eine Töpferei, die Waren produziert</li>
+<li>Töpferei</li>
 <li>Wege</li>
 
 <p style="hp">Ein Klick mit dem Abfragewerkzeug auf ein Gebäude auf dem 
 Hauptbildschirm zeigt im Infofenster unten rechts Detailangaben zu diesem 
 Gebäude an.</p>
 
-<p style="hsubtitle">Märkte</p>
-<p style="hp">Der Markt ist ein zentrales Gebäude im Spiel. Er ist für fast
-allen lokalen Warenaustausch zwingend erforderlich. 
-Lesen Sie unbedingt die Hilfsseite um <a href="market">Markt</a>.
-<i>Wenn ein Markt leer ist, kann er natürlich keine Waren mehr abgeben. Wenn
-das Lager voll ist, wird er keine Waren des jeweiligen Typs mehr ankaufen. Das
+<p style="hsubtitle">Markt</p>
+<p style="hp">Der Markt ist ein zentrales Gebäude in Lincity. Er ist für fast
+den gesamten lokalen Warenaustausch zwingend erforderlich. 
+Sie <b>müssen</b> unbedingt die Hilfsseite zum <a href="market">Markt</a> lesen. :-)
+<i>Wenn ein Markt leer ist, kann er natürlich keine Waren mehr verkaufen. Wenn
+das Lager voll ist, wird er keine Waren des jeweiligen Typs mehr kaufen. Das
 ist oft der Grund dafür, dass manchmal ein Gebäude nicht arbeitet. Entweder
 erhält es nicht alle notwendigen Rohstoffe, oder es wird die Produktion
-nicht los.</i> </p>
+nicht los.</i></p>
 
 <p style="hsubtitle">Transportwege</p>
 <p style="hp"><a href="transport">Transport</a> wird für den
 Warenaustausch über größere Entfernungen benötigt. Auch manche
 Großverbraucher benötigen zwingend eine Verkehrsanbindung. Das
-wird dann aber auf der eintsprechende Hilfeseite erwähnt.
-Genau wie Märkte haben Verkehrswege eine begrenzte Kapazität.
-Köhlereien beispielsweie benötigen immer eine Verkehrsanbindung.</p>
+wird dann aber auf der entsprechenden Hilfeseite erwähnt, z.B. Köhlereien.
+Genau wie Märkte haben Verkehrswege eine begrenzte Kapazität.</p>
 
-<p style="hp">Wenn sich ein 'gewöhnliches' Gebäude nicht im Einzugsbereich 
-eines Marktes befindet braucht es eine Verkehrsanbindung. Aber bedenken Sie,
-daß Straßen und Eisenbahnen laufende Kosten verursachen. Wenn Sie also
+<p style="hp">Wenn sich ein »gewöhnliches« Gebäude nicht im Einzugsbereich 
+eines Marktes befindet, braucht es eine Verkehrsanbindung. Aber bedenken Sie,
+dass Straßen und Eisenbahnen laufende Kosten verursachen. Wenn Sie also
 nicht gerade ein isolierte Einzelgebäude (z.B. ein Denkmal) bauen, ist es
 normalerweise besser und billiger, Märkte zu verwenden.</p>
 
@@ -44,54 +45,48 @@ Köhlereien benötigt. Alle anderne Aktivitäten erfordern nur einen Markt.</p>
 <p style="hsubtitle">Geld</p>
 <p style="hp">Produktion wird besteuert und bringt so Geld in die Stadtkasse.
 Auf der dritten Registerkarte im Infobereich rechts unten ist die
-<a href="finance">Finanzenübersicht</a>. 
+<a href="finance">Finanzübersicht</a>. 
 Investieren Sie nicht zu schnell viel Geld: sobald Ihr Kontostand 
-negativ ist müssen sie Kreditzinsen bezahlen. Auch lassen sich nicht alle
-Gebäude auf Pump errichten. Zu welchen Problemen das führen kann sehen Sie
-im (see <a href="tutorial-scenario">"bad_times" Szenario</a>.</p>
+negativ ist, müssen sie Kreditzinsen bezahlen. Auch lassen sich nicht alle
+Gebäude auf Pump errichten, und Sie haben jährliche Kosten aufgrund der
+Schulden. Das kann zum Bankrott führen
+(siehe das <a href="tutorial-scenario">Szenario »Schlechte Zeiten«</a>).</p>
 
-<p style="hsubtitle">Stadtentwicklung </p>
+<p style="hsubtitle">Stadtentwicklung</p>
 
-<p style="hp">Nicht vergessen, dass die Leute ohne Nahrung
-verhungern und ohne Wasser verdursten. Um das Bevölkerungswachstum zu regulieren müssen
+<p style="hp">Vergessen Sie nicht, dass die Leute ohne Nahrung
+verhungern und ohne Wasser verdursten. Um das Bevölkerungswachstum zu regulieren, müssen
 Sie ein Gleichgewicht aus den verschiedenen Arten von <a
-href="residential"> Wohngebieten </a> bauen. Diese haben
+href="residential">Wohngebieten</a> bauen. Diese haben
 verschiedene Geburten- und Sterberaten. Neue Bürger stellen mehr
 Arbeitskräfte, wollen aber auch mehr Nahrung, mehr Waren, mehr
-Arbeitsplätze, ...</p>
+Arbeit, ...</p>
 
-<p style="hp">Sie werden Ihre Produnktion verbessern müssen. Errichten
+<p style="hp">Sie werden Ihre Produktion verbessern müssen. Errichten
 Sie weitere Töpfereien und Schmieden. Gleichzeitig müssen Sie deren Vorsorgung
 sicherstellen. Also brauchen Sie eine entsprechende Anzahl an Köhlereien.</p>
 
 <p style="hp">Um neue, modernere Gebäude bauen zu können, müssen Sie das
 <a href="tech-level">Technologieniveau</a> der Stadt erhöhen.</p>
-<p style="hp"> Irgendwann werden Sie sich über Ihr Ziel klar werden müssen.
+<p style="hp">Irgendwann werden Sie sich über Ihr Ziel klar werden müssen.
 Streben sie eine <a href="sustain">nachhaltige Wirtschaft</a> an, oder 
-Evakuierung Sie vor dem Zusammenbruch alle mit <a href="rocket">Raumschiffen</a>?</p>
+evakuieren Sie die Bevölkerung mit <a href="rocket">Raketen</a>?</p>
 
-<p style="hp">Behalten Sie die <a href="pbar">Statusanzeige</a> im Auge.
+<p style="hp">Behalten Sie die <a href="pbar">Gesamtmarktbestände</a> im Auge.
 Auch die Minikarte gibt Ihnen wertvolle Hinweise zur Wirtschaftslage. Für
-Detailauskünfte klicken Sie die Gebäude auf dem Hauptbildschirm an.
-Naturlich <b>nicht</b> mit dem Bulldozer.</p>
+Detailauskünfte klicken Sie die Gebäude auf dem Hauptbildschirm an, damit
+erhalten Sie Infos im Infofenster unten rechts.</p>
 
 <li>Hinweis: Machen Sie ein oder zwei Änderungen und warten Sie ein bisschen
 ab, wie sich die Sache entwickelt. Lesen Sie so lange die Hilfetexte oder
 schalten Sie auf hohe Spielgeschwindigkeit um und beobachten Sie, wie sich die
 Wirtschaftsindikatoren verändern.</li>
-<p style="hp"></p>
 <p style="hp">Viel Spaß.</p>
-<p style="hp"></p>
 
 <p style="hp">Siehe auch:</p>
-<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
-<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
-
-<p style="hp"><a href="tutorial">Tutorium</a></p>
-   	<li><a href="tutorial-aim">Spielziel</a></li>
-	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
-	<li>Erste Schritte</li>
-	<li><a href="tutorial-advanced">Fortgeschrittene</a></li>
-	<li><a href="tutorial-scenario">Szenarien</a></li>
+<li><a href="tutorial-advanced">Fortgeschrittenes</a></li>
+<li><a href="tutorial-scenario">Vordefinierte Szenarien</a></li>
+<li><a href="msb-starve">Hunger-Ebene</a></li>
+<li><a href="msb-ub40">Arbeitslosigkeits-Ebene</a></li>
 </Document>
 

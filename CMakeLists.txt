@@ -66,19 +66,28 @@ endif()
 
 
 ### build configurations
-set(BUILD_TYPES Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt)
+set(BUILD_TYPES Release MinSizeRel RelWithDebInfo BetaTest Debug DebugOpt None)
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${BUILD_TYPES})
+string(TOUPPER "${BUILD_TYPES}" BUILD_TYPES_UPPER)
+string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE_UPPER)
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release)
 	message(STATUS "No build type specified, defaulting to ${CMAKE_BUILD_TYPE}.")
+elseif(NOT BUILD_TYPE_UPPER IN_LIST BUILD_TYPES_UPPER)
+  # Make this an error eventually
+  message(WARNING "Unrecognized build type: ${CMAKE_BUILD_TYPE}."
+    " Use of unrecognized build types is deprecated."
+    " See doc/BUILD_OPTIONS.md for a list of supported build types."
+  )
+	set(CMAKE_BUILD_TYPE None)
 endif()
-string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE_UPPER)
 set(CMAKE_CXX_FLAGS_RELEASE        "-O3 -w -DNDEBUG")
 set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -w -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
 set(CMAKE_CXX_FLAGS_BETATEST       "-O3 -g -w")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g -DDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUGOPT       "-O2 -g -DDEBUG")
+set(CMAKE_CXX_FLAGS_NONE           "")
 foreach(BType ${BUILD_TYPES})
 	string(TOUPPER ${BType} BTYPE)
 	set(CMAKE_CXX_FLAGS_${BTYPE} ${CMAKE_CXX_FLAGS_${BTYPE}}
@@ -86,6 +95,13 @@ foreach(BType ${BUILD_TYPES})
 	set(CMAKE_C_FLAGS_${BCONFIG} ${CMAKE_CXX_FLAGS_${BTYPE}}
 		CACHE STRING "Flags used by the C compiler for ${BTYPE} builds.")
 endforeach()
+set(VERSION_RELEASE "")
+set(VERSION_MINSIZEREL "")
+set(VERSION_RELWITHDEBINFO "debinfo")
+set(VERSION_BETATEST "beta")
+set(VERSION_DEBUG "debug")
+set(VERSION_DEBUGOPT "debug")
+set(VERSION_NONE "")
 
 
 ### options
@@ -159,16 +175,10 @@ else()
 		set(FULL_PROJECT_VERSION "${PROJECT_VERSION}-unknown")
 	endif()
 endif()
-set(VERSION_RELEASE "")
-set(VERSION_MINSIZEREL "")
-set(VERSION_RELWITHDEBINFO "debinfo")
-set(VERSION_BETATEST "beta")
-set(VERSION_DEBUG "debug")
-set(VERSION_DEBUGOPT "debug")
 if(VERSION_${BUILD_TYPE_UPPER})
-	set(FULL_PROJECT_VERSION ${FULL_PROJECT_VERSION}-${VERSION_${BUILD_TYPE_UPPER}})
-elseif(NOT DEFINED VERSION_${BUILD_TYPE_UPPER})
-	message(WARNING "unrecognized build type")
+  set(FULL_PROJECT_VERSION
+    "${FULL_PROJECT_VERSION}-${VERSION_${BUILD_TYPE_UPPER}}"
+  )
 endif()
 message(STATUS "LinCity-NG version: ${FULL_PROJECT_VERSION}")
 

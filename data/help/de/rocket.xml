@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Raketenbasis</p>
-	<p style="hp">Raketenbasen erlauben es Ihnen Ihre Bevölkerung auf einen anderen Planeten zu evakuieren und dadurch das Spiel zu gewinnen.</p>
+	<p style="hp">Raketen erlauben es Ihnen, Ihre Bevölkerung auf einen anderen Planeten zu evakuieren und dadurch das Spiel zu gewinnen.</p>
 	<p style="hp">Sie müssen fünf erfolgreiche unbemannte Raketenstarts haben, bevor Sie mit der Evakuierung beginnen können. Jede erfolgreich gestartete Evakuierungsrakete kann 1000 Menschen transportieren.</p>
-	<p style="hp">Falls ein Start fehlschlägt, müssen Sie weitere 5 unbemannte Raketen abschicken, bevor Sie weiter evakuieren können.</p>
-	<p style="hp">Das Technologieniveau ist ausschlaggebend für den Erfolg eines Raketenstarts. Ein 80%iges Technologieniveau bedeutet, das nur 4 von 5 Raketen erfolgreich starten. Ein 100%iges Technologieniveau dagegen bedeutet, dass jede Rakete in den Himmel kommt (Beachte: Bei den <i>ersten 5</i> Starts kann es trotzdem zu Abstürzen kommen!).</p>
-	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Waren, Arbeitskräfte und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefgragt, ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen, können Sie durch Klicken auf die Rakete diesen Dialog erneut anzeigen.</p>
-	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht abgeschossen wurde, benötigt sie zwar keinen Stahl, keine Waren und Arbeitskräfte mehr, kostet aber trotzdem sehr viel Geld.</p>
+	<p style="hp">Das Technologieniveau ist ausschlaggebend für den Erfolg eines Raketenstarts. Ein 80%iges Technologieniveau bedeutet, das nur 4 von 5 Raketen erfolgreich starten. Ein 100%iges Technologieniveau dagegen bedeutet, dass jede Rakete in den Himmel kommt. Sie müssen für jede Rakete, die Sie bauen, eine neue Raketenbasis bauen.</p>
+	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Waren, Arbeit und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefragt, ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen, können Sie durch Klicken auf die Rakete diesen Dialog erneut anzeigen. Sie können eine beliebige Anzahl von startklaren Raketen haben.</p>
+	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht gestartet wurde, benötigt sie zwar keinen Stahl, keine Waren und keine Arbeit mehr, aber sie kostet trotzdem sehr viel Geld.</p>
+
+	<p style="hp">Tipp: Benutzen Sie das Räumungswerkzeug, um die unbenutzten Ressourcen zurück zu erhalten, bevor Sie die gebrauchte Raketenbasis abreißen.</p>
+
 	<p style="hp">Dies ist eine Raketenbasis</p>
 	<img src="images/tiles/rocket5.png" halign="center"/>
-	<p style="hp">und das ihr Symbol</p>
+	<p style="hp">und dies ist ihr Symbol</p>
 	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
 	
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">Bau: 200 Arbeit + 10000 Güter + 240 Stahl =&gt; 3333 Müll + 2 Fertigstellungsschritte</p>
+        <p style="hp">Die Formel wird jeden Tag so oft wie möglich angewendet.</p>
+
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
-	<li><a href="ore">Erz</a></li>
-	<li><a href="commune">Köhlerei</a></li>
-	<li><a href="steel">Stahl</a></li>
-	<li><a href="labor">Arbeitsplätze</a></li>
+	<li><a href="commodities">Verbrauchsgüter</a></li>
+	<li><a href="evacuate">Räumen</a></li>
 </Document>

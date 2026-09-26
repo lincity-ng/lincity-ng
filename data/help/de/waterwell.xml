@@ -1,12 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Brunnen</p>
-        <p style="hp">Versorgen die Häuser im Einzugsbereich mit Wasser. 
+        <p style="hp">Brunnen versorgen die Häuser im Einzugsbereich mit Trinkwasser. 
+        Wasser fließt in unterirdischen Rohren entlang den Transportwegen.
         Wassermangel hat die gleichen Folgen wie Nahrungsmangel. Informationen
-        zur Versorgung gibt es in der Nahrungsversorgungsübersicht der
-        Miniaturkarte.</p>
+        zur Versorgung gibt es in der Hunger-Ebene der
+        Miniaturkarte. Achtung, eine zu hohe Verschmutzung macht das Wasser zum
+        Trinken ungeeignet.</p>
+
+	<p style="hsubtitle">Formeln</p>
+	<p style="hp">0 =&gt; 1600 Wasser</p>
+	<p style="hp">Die Wasserproduktion wird proportional reduziert, falls einige Kacheln unter dem Brunnen Wüste sind.</p>
 
 	<p style="hp">Siehe auch:</p>
 	<li><a href="food">Nahrung</a></li>
-	<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
+	<li><a href="water">Wasser</a></li>
+	<li><a href="transport">Verkehr</a></li>
+	<li><a href="msb-starve">Hunger-Ebene</a></li>
+	<li><a href="pollution">Verschmutzung</a></li>
 </Document>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Verbrauchsgüter</p>
+	<p style="hp">
+Verbrauchsgüter sind die Dinge, welche in Ihrer Stadt produziert, transportiert, gelagert, verarbeitet werden können. Die Statusanzeige jedes Gebäudes oder Transportfelds listet immer die relevanten Verbrauchsgüter auf. Die Pfeile am Anfang der Linien zeigen Rohstoffe, Produkte und transportierbare Güter an.</p>
+	<p style="hp">
+In den meisten Fällen muss mindestens 5% des Rohstoffs verfügbar sein, damit sie zu 5% Produkten umgewandelt werden können.</p>
+	<p style="hp">Die zweite Registerkarte der Übersichtskarte zeigt stadtweite Statistiken und ihre neuesten Änderungen mit Fortschrittsbalken an. Gemeinsam mit der Transport-Ebene können diese Ihnen viel über Ihre wirtschaftliche Entwicklung sagen.</p>
+
+  <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="pbar">Statistiken</a></li>
+	<li><a href="msb-transport">Transport-Ebene</a></li>
+	<li><a href="food">Nahrung</a></li>
+	<li><a href="labor">Arbeit</a></li>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="waste">Müll</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="steel">Stahl</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="water">Wasser</a></li>
+	<li><a href="power">Energie</a></li>
+</Document>

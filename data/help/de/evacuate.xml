@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Räumung</p>
+	<p style="hp">Um ein Gebäude zu räumen, wählen Sie den Räumungsknopf aus, dann benutzen Sie den Besen, um alle wertvollen Verbrauchsgüter zu räumen. Die Räumung ist kostenlos und verschiebt alle gelagerten Dinge auf benachbarte Transportkacheln und Märkte in der Nachbarschaft.</p>
+	<p style="hp">Die Konsequenzen reichen vom Produktionsstopp, Verschmutzung und/oder einer Hungersnot der örtlichen Einwohner.</p>
+	<p style="hp">Einige Gebäude, wie Wege, Straßen, Eisenbahnschienen, Müllkippen und andere können nicht geräumt werden.</p>
+	<p style="hp">Erschöpfte Erz- und Kohlebergwerkte werden vor ihrem Einsturz automatisch geräumt.</p>
+
+  <p style="hp">Dies ist das Räumungssymbol</p>
+   <img src="images/gui/buttonpanel/base/broom.png" halign="center"/>
+
+  <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="bulldoze">Bulldozer</a></li>
+</Document>

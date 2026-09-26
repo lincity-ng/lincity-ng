@@ -6,13 +6,18 @@
     teuer, sowohl in der Anschaffung als auch im Unterhalt. Aber sie sind es
     wert, wenn Sie viel über eine weite Strecke transportieren müssen.</p>
 
-	<p style="hp">Das ist eine Schiene</p>
+	<p style="hp">Das ist eine Eisenbahnschiene</p>
 	<img src="images/tiles/railud.png" halign="center"/>
-	<p style="hp">und das das Symbol</p>
+	<p style="hp">und dies ist ihr Symbol</p>
 	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+
+        <p style="hsubtitle">Formeln</p>
+        <p style="hp">3 Niedrigspannung =&gt; 0</p>
+        <p style="hp">1/16 Waren =&gt; 1/16 Müll</p>
+        <p style="hp">1/128 Stahl =&gt; 1/128 Müll </p>
+        <p style="hp">Wenn eine Eisenbahnschiene über 90% Müll hat, dann verbraucht sie 100 Müll und verursacht 50 Verschmutzung.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="pollution">Verschmutzung</a></li>
 </Document>
