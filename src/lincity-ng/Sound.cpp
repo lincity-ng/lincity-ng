@@ -77,7 +77,6 @@ Sound::loadWaves() {
         fmt::format("file doesn't contain XML data: {}", xmlfile));
   }
 
-  std::filesystem::path filename;
   std::filesystem::path fullname;
   std::vector<ResourceGroup*> resGrpVec;
   resGrpVec.clear();

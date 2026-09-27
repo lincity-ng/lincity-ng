@@ -332,7 +332,6 @@ static void new_setup_river_ground(Map& map,
       *
       */
     const int len = map.len();
-    const int area = len * len;
     const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT
     int ii = 2;
     int sz = 4;

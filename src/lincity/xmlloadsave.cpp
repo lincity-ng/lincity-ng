@@ -100,7 +100,6 @@ static void readPbar_old(xmlpp::TextReader& xmlReader,
 
 void
 World::save(const std::filesystem::path& filename) const {
-  std::string gz_name;
   gzFile gz_file = gzopen(filename.string().c_str(), "wb");
   if(!gz_file)
     throw std::runtime_error(

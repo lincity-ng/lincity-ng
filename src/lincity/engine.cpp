@@ -117,7 +117,6 @@ void
 World::scan_pollution() {
   const int len = map.len();
   const int area = len * len;
-  std::unordered_set<MapPoint>::iterator it;
   stats.total_pollution = 0;
   map.polluted.clear();
   for(int index = 0; index < area; ++index) {
