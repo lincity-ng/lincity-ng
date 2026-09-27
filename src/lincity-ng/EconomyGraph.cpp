@@ -188,6 +188,8 @@ EconomyGraph::drawHistoryLineGraph(Painter& painter, Rect2D space) {
       space.p2 - Vector2(i+1, space.getHeight() * std::min(1.f, val)),
       space.p2 - Vector2(i, 0)));
 
+    if(!i) continue;
+
     // glEnable(GL_LINE_SMOOTH);
     val = std::max(0.f, logf((float)pop) + popScale0) * popScale1;
     valP = !popPrev ? val :
@@ -195,9 +197,9 @@ EconomyGraph::drawHistoryLineGraph(Painter& painter, Rect2D space) {
     painter.setLineColor(brown);
     painter.drawLine(
       space.p2 - half
-        - Vector2(i, (space.getHeight()-1) * std::min(1.f, val)),
+        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, val)),
       space.p2 - half
-        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, valP)));
+        - Vector2(i, (space.getHeight()-1) * std::min(1.f, valP)));
 
     val = 2 * sqrt((float)history.ppool[i] / pop);
     valP = !popPrev ? val :
@@ -205,9 +207,9 @@ EconomyGraph::drawHistoryLineGraph(Painter& painter, Rect2D space) {
     painter.setLineColor(blue);
     painter.drawLine(
       space.p2 - half
-        - Vector2(i, (space.getHeight()-1) * std::min(1.f, val)),
+        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, val)),
       space.p2 - half
-        - Vector2(i+1, (space.getHeight()-1) * std::min(1.f, valP)));
+        - Vector2(i, (space.getHeight()-1) * std::min(1.f, valP)));
 
     // glDisable(GL_LINE_SMOOTH);
   }
