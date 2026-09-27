@@ -471,7 +471,7 @@ World::evacuateArea(MapPoint point) {
     OutsideMapMessage::create(point)->throwEx();
   Construction *cst = map(point)->reportingConstruction;
   if(!cst)
-    NothingHereMessage::create(point)->throwEx();
+    CannotEvacuateNothingMessage::create(point)->throwEx();
   if(cst->flags & FLAG_NEVER_EVACUATE)
     CannotEvacuateThisMessage::create(point,
       *cst->constructionGroup)->throwEx();
