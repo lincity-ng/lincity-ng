@@ -47,16 +47,16 @@ public:
     std::optional<T> config = std::nullopt;
     std::optional<T> session = std::nullopt;
 
-    std::function<bool(const T&)> valueRange = nullptr;
+    std::function<bool(const T&)> validator = nullptr;
 
     const T& get() const;
     bool isDefault() const;
 
     void sessionToConfig();
-    void setValue(const T& value);
-    bool trySetValue(const T& value);
-    void setConfigValue(const std::optional<T>& value);
-    bool trySetConfigValue(const std::optional<T>& value);
+    void set(const T& value);
+    bool trySet(const T& value);
+    void setConfig(const std::optional<T>& value);
+    bool trySetConfig(const std::optional<T>& value);
 
   private:
     Option();
@@ -64,7 +64,7 @@ public:
 
     friend Config;
 
-    bool inRange(const T& value) const;
+    bool validate(const T& value) const;
     void throwValidationError(const T& value) const;
   };
 

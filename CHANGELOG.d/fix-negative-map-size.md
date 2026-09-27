@@ -7,11 +7,11 @@
 
 ###### Internal
 - Added the following methods for input validation to Config::Option:
-  - `setValue()`
-  - `trySetValue()`
-  - `setConfigValue()`
-  - `trySetConfigValue()`
-- Added public `std::function` `valueRange` and assigned it in `Config.cpp`
+  - `set()`
+  - `trySet()`
+  - `setConfig()`
+  - `trySetConfig()`
+- Added public `std::function` `validator` and assigned it in `Config.cpp`
 - Replaced `validateRange()` from `Config.cpp` by the new methods above
 
 ###### Documentation / Translation
