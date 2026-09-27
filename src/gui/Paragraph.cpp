@@ -164,6 +164,7 @@ Paragraph::parse(xmlpp::TextReader& reader, const Style& parentstyle) {
       }
       reader.move_to_element();
 
+      style.toSpan();
       stylestack.push_back(style);
     } break;
     case xmlpp::TextReader::NodeType::Text: {
@@ -329,12 +330,10 @@ Paragraph::resize(float width, float height)
                 new_column = true; //always new column for right adjustment
                 xoffset = (width - spansurface->w - span->style.margin_right);
             }
-            float yoffset = span->style.margin_top;
             if (new_column)
             {   pos.x = xoffset;}//fixed columns
             else
             {   pos.x += xoffset;}
-            pos.y += yoffset;
             spanxoffset.push_back(pos.x);
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_GetFontAscent(font));
@@ -371,7 +370,7 @@ Paragraph::resize(float width, float height)
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
                     rect.x = (Sint16) spanxoffset[i];
-                    rect.y = baseline - spanbaselines[i] + textspans[i]->style.margin_top;
+                    rect.y = baseline - spanbaselines[i];
                     if(rect.y < 0)
                     {   rect.y = 0;}
 
