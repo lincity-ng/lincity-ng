@@ -29,9 +29,6 @@
 
 TextureSDL::TextureSDL(SDL_Texture *tx) : tx(tx) {
   assert(tx);
-  width = tx->w;
-  height = tx->h;
-  assert(width && height);
 }
 
 TextureSDL::~TextureSDL() {

@@ -19,7 +19,6 @@ add_executable(lincity-ng
   MainLincity.hpp
   MainMenu.cpp
   MainMenu.hpp
-  MapPoint.hpp
   MiniMap.cpp
   MiniMap.hpp
   Mps.cpp
@@ -35,6 +34,8 @@ add_executable(lincity-ng
   UserOperation.hpp
   Util.cpp
   Util.hpp
+  Video.cpp
+  Video.hpp
 )
 
 target_link_libraries(lincity-ng

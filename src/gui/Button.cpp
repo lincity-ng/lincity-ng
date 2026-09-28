@@ -64,7 +64,7 @@ Button::parse(xmlpp::TextReader& reader) {
   reader.move_to_element();
 
   // we need 4 child components
-  childs.assign(4, Child());
+  childs.assign(4, Child(this));
 
   // parse contents of the xml-element
   if(!reader.is_empty_element() && reader.read())

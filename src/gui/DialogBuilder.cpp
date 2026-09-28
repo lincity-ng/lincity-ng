@@ -26,6 +26,7 @@
 #include <memory>               // for unique_ptr
 #include <stdexcept>            // for runtime_error
 #include <utility>              // for move
+#include <cmath>
 
 #include "Button.hpp"           // for Button
 #include "Child.hpp"            // for Child
@@ -90,6 +91,7 @@ DialogBuilder::imageFile(const std::filesystem::path& image) {
     _image.reset(new Image());
   }
   _image->setFile(image);
+  _image->resize(50, INFINITY);
 
   return *this;
 }

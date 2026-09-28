@@ -181,7 +181,7 @@ private:
     bool buttonsConnected;
 
     std::unique_ptr<Texture> mapTexture;
-    bool refreshMap;
+    bool refreshMap, refreshMapSize;
 
     MapPoint realTile( MapPoint tile );
 

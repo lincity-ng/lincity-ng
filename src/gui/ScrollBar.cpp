@@ -69,7 +69,7 @@ ScrollBar::parse(xmlpp::TextReader& reader) {
 
   // we have 3 child components
   while(childs.size() < 3)
-      childs.push_back(Child());
+      childs.push_back(Child(this));
 
   if(!reader.is_empty_element() && reader.read())
   while(reader.get_node_type() != xmlpp::TextReader::NodeType::EndElement) {

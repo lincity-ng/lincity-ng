@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,6 +62,8 @@ public:
   virtual void popRenderTarget() = 0;
 
   virtual void updateScreen() = 0;
+
+  virtual void setScale(Vector2 scale) = 0;
 
   // transform
   virtual void translate(Vector2 tl) = 0;

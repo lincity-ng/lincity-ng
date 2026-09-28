@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  * Copyright (C) 2026      Marc Young <myoung008@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@
 #endif
 
 #define HANDLE_ERR(SDL_CALL) do { \
-  if(!SDL_CALL) \
+  if(!(SDL_CALL)) \
     throw std::runtime_error(std::string(#SDL_CALL": ") + SDL_GetError()); \
 } while(0)
 
@@ -65,11 +65,12 @@ PainterSDL::drawTexture(const Texture *texture, Vector2 pos) {
   // We need to round the screen position to avoid sampling on pixel boundaries.
   // Really, we only need to do this when NEAREST sampling is used.
   Vector2 screenpos = transform.apply(pos);
+  Vector2 scale = getScale();
   SDL_FRect drect = {
-    .x = std::round(screenpos.x),
-    .y = std::round(screenpos.y),
-    .w = (float)texture->getWidth(),
-    .h = (float)texture->getHeight(),
+    .x = std::roundf(screenpos.x),
+    .y = std::roundf(screenpos.y),
+    .w = textureSDL->tx->w / scale.x,
+    .h = textureSDL->tx->h / scale.y,
   };
 
   HANDLE_ERR(SDL_RenderTexture(renderer, textureSDL->tx, NULL, &drect));
@@ -204,7 +205,7 @@ PainterSDL::updateScreen() {
 
 void
 PainterSDL::translate(Vector2 tl) {
-  transform.translation -= tl;
+  transform.translate(tl);
 }
 
 void
@@ -250,21 +251,20 @@ PainterSDL::updateClipRect() {
   }
   else {
     SDL_Rect clip = {
-      .x = (int)lround(cliprectStack.back().p1.x),
-      .y = (int)lround(cliprectStack.back().p1.y),
-      .w = (int)lround(cliprectStack.back().p2.x),
-      .h = (int)lround(cliprectStack.back().p2.y),
+      .x = (int)std::roundf(cliprectStack.back().p1.x),
+      .y = (int)std::roundf(cliprectStack.back().p1.y),
+      .w = (int)std::roundf(cliprectStack.back().getWidth()),
+      .h = (int)std::roundf(cliprectStack.back().getHeight()),
     };
-    clip.w -= clip.x;
-    clip.h -= clip.y;
     HANDLE_ERR(SDL_SetRenderClipRect(renderer, &clip));
   }
 }
 
 std::unique_ptr<Texture>
-PainterSDL::createTargetTexture(int width, int height) {
+PainterSDL::createTargetTexture(int w, int h) {
+  if(!w || !h) return std::unique_ptr<Texture>();
   SDL_Texture *texture = SDL_CreateTexture(renderer,
-    SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, width, height);
+    SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, w, h);
   HANDLE_ERR(texture);
   HANDLE_ERR(SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND));
   return std::unique_ptr<Texture>(new TextureSDL(texture));
@@ -309,6 +309,18 @@ PainterSDL::popRenderTarget() {
 
   transform = transformStack.back();
   transformStack.pop_back();
+}
+
+void
+PainterSDL::setScale(Vector2 scale) {
+  HANDLE_ERR(SDL_SetRenderScale(renderer, scale.x, scale.y));
+}
+
+Vector2
+PainterSDL::getScale() {
+  Vector2 scale;
+  HANDLE_ERR(SDL_GetRenderScale(renderer, &scale.x, &scale.y));
+  return scale;
 }
 
 

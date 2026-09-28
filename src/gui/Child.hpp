@@ -1,31 +1,30 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-/**
- * @author Matthias Braun
- * @file Child.hpp
- */
+/* ---------------------------------------------------------------------- *
+ * src/gui/Chile.cpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
 #ifndef __CHILD_HPP__
 #define __CHILD_HPP__
 
-#include <vector>       // for vector
 #include <memory>
+#include <vector>       // for vector
 
 #include "Rect2D.hpp"   // for Rect2D
 #include "Vector2.hpp"  // for Vector2
@@ -38,7 +37,7 @@ class Component;
 class Child
 {
 public:
-    Child(std::unique_ptr<Component>&& _component = 0);
+    Child(Component* parent, std::unique_ptr<Component>&& _component = nullptr);
     ~Child();
 
     Component* getComponent() const
@@ -80,7 +79,8 @@ private:
     bool enabled;
     bool useClipRect;
     Rect2D clipRect;
-    Component* component;
+    Component *component = nullptr;
+    Component *parent;
 };
 
 /**
