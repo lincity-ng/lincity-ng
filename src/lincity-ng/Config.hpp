@@ -26,7 +26,6 @@
 #include <filesystem>  // for path
 #include <optional>
 #include <string>      // for basic_string, string
-#include <fmt/format.h>
 #include <stdexcept>
 #include <functional>
 

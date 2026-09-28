@@ -433,7 +433,7 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
       }
       getConfig()->musicVolume.sessionToConfig();
     } else if(buttonName == "SoundFX") {
-      getConfig()->soundEnabled.session = !getConfig()->soundEnabled.get();
+      getConfig()->soundEnabled.trySet(!getConfig()->soundEnabled.get());
       getSound()->playSound("Click");
       getConfig()->soundEnabled.sessionToConfig();
     } else if(buttonName == "FXVolumePlus") {
@@ -478,7 +478,7 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
 #endif
     } else if(buttonName == "Fullscreen") {
         getSound()->playSound("Click");
-        getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
+        getConfig()->useFullScreen.trySet(!getConfig()->useFullScreen.get());
         getConfig()->useFullScreen.sessionToConfig();
         getConfig()->save();
         resizeVideo(
@@ -564,8 +564,8 @@ void MainMenu::changeResolution(bool next) {
 
     getSound()->playSound("Click");
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    getConfig()->videoX.session = resolutions[new_mode].first;
-    getConfig()->videoY.session = resolutions[new_mode].second;
+    getConfig()->videoX.trySet(resolutions[new_mode].first);
+    getConfig()->videoY.trySet(resolutions[new_mode].second);
 }
 
 void
@@ -608,7 +608,7 @@ MainMenu::changeLanguage(bool next) {
 
   std::string newLang = *i;
   languageParagraph->setText(newLang);
-  getConfig()->language.session = newLang;
+  getConfig()->language.trySet(newLang);
   setLang(newLang);
   getSound()->playSound("Click");
 }
@@ -876,8 +876,8 @@ MainMenu::run() {
                 case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
                     videoSizeChanged(event.window.data1, event.window.data2);
                     menu->resize(event.window.data1, event.window.data2);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
+                    getConfig()->videoX.trySet(event.window.data1);
+                    getConfig()->videoY.trySet(event.window.data2);
                     getConfig()->videoX.sessionToConfig();
                     getConfig()->videoY.sessionToConfig();
 

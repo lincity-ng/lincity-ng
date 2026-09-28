@@ -33,7 +33,6 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for getenv
 #include <cassert>                        // for assert
-#include <climits>                        // for INT_MAX, INT_MIN
 #include <cstdio>                         // for stderr, NULL, sscanf
 #include <iostream>                       // for basic_ostream, endl, operat...
 #include <memory>                         // for shared_ptr

@@ -506,8 +506,8 @@ Game::run() {
                 case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
                     videoSizeChanged(event.window.data1, event.window.data2);
                     gui->resize(event.window.data1, event.window.data2);
-                    getConfig()->videoX.session = event.window.data1;
-                    getConfig()->videoY.session = event.window.data2;
+                    getConfig()->videoX.trySet(event.window.data1);
+                    getConfig()->videoY.trySet(event.window.data2);
                     getConfig()->videoX.sessionToConfig();
                     getConfig()->videoY.sessionToConfig();
                     break;
