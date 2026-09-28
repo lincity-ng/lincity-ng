@@ -97,13 +97,8 @@ public:
         int colspan;
         int rowspan;
     };
-    void addRow(const RowColProperties& props);
-    void addColumn(const RowColProperties& props);
-    void addComponent(size_t col, size_t row,
-      std::unique_ptr<Component>&& component);
 
 private:
-    void removeComponents();
     void parseRowColProperties(xmlpp::TextReader& reader, bool isRow);
 
     typedef std::vector<RowColProperties> Properties;

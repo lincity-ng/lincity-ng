@@ -64,7 +64,6 @@ public:
     void executeUserOperation(MapPoint point);
 
     Component& getGui() const;
-    WindowManager& getWindowManager() const;
     GameView& getGameView() const;
     MiniMap& getMiniMap() const;
     EconomyGraph& getEconomyGraph() const;

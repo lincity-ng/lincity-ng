@@ -162,10 +162,6 @@ public:
       return *this;
     }
 
-    int percent() {
-      if(capacity == 0) return 0;
-      return amount * 1000L / capacity;
-    }
   };
 
   std::array<Inventory<Stat<>>, STUFF_COUNT> inventory;

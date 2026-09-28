@@ -75,11 +75,6 @@ public:
     // notifies that the user's tool has changed
     void toolChanged();
 
-    //evaluate main_screen_originx and main_screen_originy
-    void readOrigin( bool redraw = true );
-    //set main_screen_originx and main_screen_originy
-    void writeOrigin();
-
     void printStatusMessage( std::string message );
 
     void fetchTextures(void);

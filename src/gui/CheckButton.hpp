@@ -62,12 +62,9 @@ public:
     void check();
     void uncheck();
     void tryCheck();
-    void tryUncheck();
     bool isChecked() const;
-    void setAutoCheck(bool check, bool uncheck);
 
     void enable(bool enabled = true);
-    void disable() { enable(false); }
     bool isEnabled() const;
 
 private:

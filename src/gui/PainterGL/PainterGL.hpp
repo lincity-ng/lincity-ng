@@ -46,14 +46,9 @@ public:
     void pushTransform();
     void popTransform();
 
-    void setClipRectangle(const Rect2D& rect);
-    void clearClipRectangle();
-
     void translate(const Vector2& vec);
     void setFillColor(Color color);
     void setLineColor(Color color);
-
-    Painter* createTexturePainter(Texture* texture);
 
     void updateScreen();
 

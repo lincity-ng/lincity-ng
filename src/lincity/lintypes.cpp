@@ -185,16 +185,6 @@ void Construction::init_resources()
 #endif
 }
 
-void Construction::bootstrap_commodities(int percent)
-{
-    for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++)
-    {
-        CommodityRule& rule = constructionGroup->commodityRuleCount[stuff];
-        if (rule.maxload && stuff != STUFF_WASTE)
-        {   commodityCount[stuff] = percent * rule.maxload /100;}
-    }
-}
-
 void Construction::report_commodities(void) {
   for(Commodity stuff = STUFF_INIT ; stuff < STUFF_COUNT ; stuff++) {
     world.stats.inventory[stuff] += (Stats::Inventory<>){
@@ -963,17 +953,6 @@ ConstructionGroup::can_build_here(const World& world, const MapPoint point,
     }
   }
   return true;
-}
-
-
-
-void ConstructionGroup::printGroups()
-{
-    std::map<unsigned short, ConstructionGroup *>::iterator iterator;
-    for (iterator = groupMap.begin(); iterator != groupMap.end(); iterator++)
-    {
-        std::cout << "group #" << iterator->first << ": " << iterator->second->name << std::endl;
-    }
 }
 
 std::map<unsigned short, ConstructionGroup *> ConstructionGroup::groupMap;

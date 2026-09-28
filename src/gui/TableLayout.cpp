@@ -198,13 +198,6 @@ TableLayout::opaque(const Vector2& pos) const
 }
 
 void
-TableLayout::removeComponents()
-{
-    cells.clear();
-    childs.clear();
-}
-
-void
 TableLayout::parseRowColProperties(xmlpp::TextReader& reader, bool isRow) {
   RowColProperties props;
   props.type = RowColProperties::TYPE_RELATIVE;
@@ -398,39 +391,6 @@ TableLayout::draw(Painter& painter)
     }
 }
 
-void
-TableLayout::addRow(const RowColProperties& props)
-{
-    removeComponents();
-    rowproperties.push_back(props);
-    cells.assign(rowproperties.size() * colproperties.size(), Cell());
-}
-
-void
-TableLayout::addColumn(const RowColProperties& props)
-{
-    removeComponents();
-    colproperties.push_back(props);
-    cells.assign(rowproperties.size() * colproperties.size(), Cell());
-}
-
-void
-TableLayout::addComponent(size_t col, size_t row,
-  std::unique_ptr<Component>&& component
-) {
-    if(row >= rowproperties.size())
-        throw std::runtime_error("row out of range");
-    if(col >= colproperties.size())
-        throw std::runtime_error("col out of range");
-
-    if(cells[row * colproperties.size() + col].childid >= 0)
-        throw std::runtime_error("Already a component in this cell.");
-
-    addChild(std::move(component));
-    cells[row * colproperties.size() + col] = Cell(childs.size()-1);
-}
-
 IMPLEMENT_COMPONENT_FACTORY(TableLayout)
-
 
 /** @file gui/TableLayout.cpp */

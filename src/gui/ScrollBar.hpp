@@ -58,10 +58,6 @@ public:
     {
         return maxVal;
     }
-    float getValue() const
-    {
-        return currentVal;
-    }
     void setValue(float value);
 
     Signal<ScrollBar*, float> valueChanged;

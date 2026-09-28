@@ -66,7 +66,6 @@ public:
     void switchView(const std::string& viewname);
     void scrollPageDown(bool down);
 
-    Commodity getStuffID();
     void toggleStuffID(int step);
 
     void mapViewChangeDisplayMode(DisplayMode mode);
@@ -87,12 +86,10 @@ private:
     void scrollPageUpButtonClicked(Button* button);
 
     void switchButton(CheckButton* button, int);
-    void switchMapViewButton(const std::string &pName);
 
     void attachButtons();
     Component *findRoot(Component *c);
 //FIXME
-    Vector2 mapPointToVector(MapPoint p);
     void updateStatusMessage();
 
     void constrainPosition();

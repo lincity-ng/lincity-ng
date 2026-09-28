@@ -149,27 +149,6 @@ ConstructionGroup* MapTile::getConstructionGroup() const //constructionGroup of 
 ConstructionGroup* MapTile::getTopConstructionGroup() const //constructionGroup of bare land or the actual construction
 {   return (construction ? construction->constructionGroup : getTileConstructionGroup());}
 
-ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup() const
-{
-    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
-    {   return getTileConstructionGroup();}
-    else
-    {   return getConstructionGroup();}
-}
-
-unsigned short MapTile::getType() const //type of bare land or the covering construction
-{   return (reportingConstruction ? reportingConstruction->frameIt->frame : type);}
-
-unsigned short MapTile::getTopType() const //type of bare land or the actual construction
-{   return (construction ? construction->frameIt->frame : type);}
-
-unsigned short MapTile::getLowerstVisibleType() const {
-    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
-    {   return type;}
-    else
-    {   return reportingConstruction->frameIt->frame;}
-}
-
 unsigned short MapTile::getGroup() const //group of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
 
@@ -303,11 +282,6 @@ bool Map::is_inside(MapPoint point) const {
 bool Map::is_border(MapPoint point) const {
   return (point.x == 0 || point.y == 0
     || point.x == side_len-1 || point.y == side_len-1);
-}
-
-bool Map::is_edge(MapPoint point) const {
-  return (point.x == 1 || point.y == 1
-    || point.x == side_len-2 || point.y == side_len -2);
 }
 
 bool

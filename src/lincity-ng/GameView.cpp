@@ -221,20 +221,6 @@ void GameView::buttonClicked( Button* button ){
 }
 
 /*
- * evaluate main_screen_originx and main_screen_originy
- */
-void GameView::readOrigin( bool redraw /* = true */ ) {
-  show(getWorld().map.recentPoint, redraw);
-}
-
-/*
- * set main_screen_originx and main_screen_originy
- */
-void GameView::writeOrigin() {
-  getWorld().map.recentPoint = getCenter().x;
-}
-
-/*
  *  Get Tile in Center of Screen.
  */
 MapPoint GameView::getCenter(){

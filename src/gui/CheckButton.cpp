@@ -172,13 +172,6 @@ CheckButton::check() {
 }
 
 void
-CheckButton::tryUncheck() {
-  if(mdisabled)
-    return;
-  uncheck();
-}
-
-void
 CheckButton::tryCheck() {
   if(mdisabled)
     return;
@@ -188,12 +181,6 @@ CheckButton::tryCheck() {
 bool
 CheckButton::isChecked() const {
   return mchecked;
-}
-
-void
-CheckButton::setAutoCheck(bool check, bool uncheck) {
-  autoCheck = check;
-  autoUncheck = uncheck;
 }
 
 void

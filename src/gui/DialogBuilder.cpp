@@ -109,13 +109,6 @@ DialogBuilder::windowManager(WindowManager *windowManager) {
 }
 
 DialogBuilder&
-DialogBuilder::onOk(std::function<void()> callback) {
-  okCallbacks.push_back(callback);
-
-  return *this;
-}
-
-DialogBuilder&
 DialogBuilder::onYes(std::function<void()> callback) {
   yesCallbacks.push_back(callback);
 

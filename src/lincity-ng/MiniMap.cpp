@@ -129,12 +129,6 @@ MiniMap::setGame(Game *game) {
   this->game = game;
 }
 
-Commodity
-MiniMap::getStuffID()
-{
-    return stuff_ID;
-}
-
 void
 MiniMap::toggleStuffID(int step)
 {
@@ -313,27 +307,6 @@ MiniMap::switchView(const std::string& viewname)
     }
 }
 
-void
-MiniMap::switchMapViewButton(const std::string &buttonName)
-{
-    return; //no switch atm
-    std::string switchName;
-    if(buttonName=="MapViewFood" || buttonName=="MapViewUB40") {
-        switchName = "FoodSwitch";
-    } else if(buttonName=="MapViewTraffic" || buttonName=="MapViewPollution") {
-        switchName = "TrafficSwitch";
-    } else if(buttonName=="MapViewPower" || buttonName=="MapViewHealth"
-            || buttonName=="MapViewFire" || buttonName=="MapViewSport") {
-        switchName = "PowerSwitch";
-    }
-
-    if(switchName != "") {
-        SwitchComponent *switchComponent
-            = getSwitchComponent(*(findRoot(this)), switchName);
-        switchComponent->switchComponent(buttonName);
-    }
-}
-
 MiniMap::DisplayMode getMode(const std::string &pName)
 {
     if(pName=="MapViewNormal")
@@ -427,7 +400,6 @@ void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
     }
 
     mMode=newMode;
-    //switchMapViewButton(name);
     switchView("MiniMap");
     setDirty();
     setMapDirty();
@@ -590,13 +562,6 @@ MiniMap::scrollPageDown(bool down) {
       assert(false);
   }
 #endif
-}
-
-
-Vector2
-MiniMap::mapPointToVector(MapPoint p)
-{
-    return Vector2((p.x - anchor.x) * tilesize , (p.y - anchor.y) * tilesize);
 }
 
 void MiniMap::constrainPosition() {

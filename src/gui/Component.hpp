@@ -109,11 +109,6 @@ public:
         return name;
     }
 
-    void setName(const std::string& name)
-    {
-        this->name = name;
-    }
-
     /** @return The component flags (this is a bitfield). */
     int getFlags() const
     {
@@ -128,9 +123,6 @@ public:
         return parent;
     }
     Component* findComponent(const std::string& name);
-    Desktop* getDesktop() const {
-        return desktop;
-    }
     Child *getParentChild() const;
 
     /**

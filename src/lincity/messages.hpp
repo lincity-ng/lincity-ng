@@ -70,21 +70,6 @@ public:
 
   virtual ~Message() = default;
 
-  static ptr fromException(std::exception_ptr exception) {
-    try { std::rethrow_exception(exception); }
-    catch(const Message::Exception& ex) {
-      return ex.getMessage();
-    }
-    catch(...) {
-      // return ExceptionMessage::create(exception);
-      return std::static_pointer_cast<const Message>(
-        std::make_shared<const ExceptionMessage>(exception));
-    }
-  }
-  static ptr fromCurrentException() {
-    return fromException(std::current_exception());
-  }
-
   /**
    * Returns a string briefly describing the message. This string is not meant
    * to be user-facing.
@@ -133,14 +118,9 @@ public:
   static ptr create(std::exception_ptr exception) {
     return std::make_shared<const ExceptionMessage>(exception);
   }
-  static ptr createCurrent() {
-    return create(std::current_exception());
-  }
 
   virtual std::string str() const override;
   virtual std::exception_ptr exception() const override { return exception_; }
-
-  std::exception_ptr getException() const { return exception_; }
 
 protected:
   std::exception_ptr exception_;
@@ -403,8 +383,6 @@ public:
 
   virtual std::string str() const override;
 
-  int getTime() { return time; }
-
 protected:
   const int time;
 
@@ -417,8 +395,6 @@ public:
   NoPeopleLeftMessage(int time) : time(time) { }
 
   virtual std::string str() const override;
-
-  int getTime() { return time; }
 
 protected:
   const int time;

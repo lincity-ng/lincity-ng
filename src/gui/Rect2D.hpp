@@ -58,9 +58,6 @@ public:
   constexpr float getHeight() const
   { return p2.y - p1.y; }
 
-  constexpr Vector2 getMiddle() const
-  { return Vector2((p1.x+p2.x)/2, (p1.y+p2.y)/2); }
-
   void setPos(const Vector2& v)
   {
     move(v-p1);

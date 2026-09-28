@@ -22,7 +22,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL3/SDL.h>  // for Uint32
 
 void reset_start_time();
-void get_real_time(void);
 void get_real_time_with(Uint32 sdl_tick);
 
 #endif

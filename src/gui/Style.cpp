@@ -125,16 +125,6 @@ Style::parseAttribute(xmlpp::TextReader& reader) {
   return true;
 }
 
-void
-Style::parseAttributes(xmlpp::TextReader& reader) {
-  while(reader.move_to_next_attribute()) {
-    if(parseAttribute(reader));
-    else
-      unexpectedXmlAttribute(reader);
-  }
-  reader.move_to_element();
-}
-
 void parseStyleDef(xmlpp::TextReader& reader) {
   Style style;
   std::string name;

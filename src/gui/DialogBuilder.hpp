@@ -48,7 +48,6 @@ public:
   DialogBuilder& buttonSet(ButtonSet buttonSet);
   DialogBuilder& windowManager(WindowManager *windowManager);
 
-  DialogBuilder& onOk(std::function<void()> callback);
   DialogBuilder& onYes(std::function<void()> callback);
   DialogBuilder& onNo(std::function<void()> callback);
 

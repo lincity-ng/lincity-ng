@@ -67,7 +67,3 @@ void RadioButtonGroup::buttonUnchecked(CheckButton *btn) {
 void RadioButtonGroup::select(CheckButton *button) {
   button->check();
 }
-
-void RadioButtonGroup::trySelect(CheckButton *button) {
-  button->tryCheck();
-}

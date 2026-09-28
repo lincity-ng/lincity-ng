@@ -98,9 +98,6 @@ public:
                                                   //to be used by Contstructions and Vehicles
   void killframe(const std::list<ExtraFrame>::iterator& it); //kills an extraframe
 
-  unsigned short getType() const;          //type of bare land or the covering construction
-  unsigned short getTopType() const;       //type of bare land or the actual construction
-  unsigned short getLowerstVisibleType() const ; //like getType but type of terrain underneath transparent constructions
   unsigned short getGroup() const;        //group of bare land or the covering construction
   unsigned short getTopGroup() const;     //group of bare land or the actual construction
   unsigned short getLowerstVisibleGroup() const; //like getGroup but group of terrain underneath transparent constructions
@@ -109,7 +106,6 @@ public:
   ResourceGroup*     getTileResourceGroup() const;     //resourceGroup of a tile
   ConstructionGroup* getConstructionGroup() const;     //constructionGroup of maptile or the covering construction
   ConstructionGroup* getTopConstructionGroup() const;  //constructionGroup of maptile or the actual construction
-  ConstructionGroup* getLowerstVisibleConstructionGroup() const;
 
   bool is_bare() const;                    //true if we there is neither a covering construction nor water
   bool is_lake() const;                    //true on lakes (also under bridges)
@@ -130,7 +126,6 @@ public:
   MapTile* operator()(MapPoint point);
   bool is_inside(MapPoint loc) const;
   bool is_border(MapPoint loc) const;
-  bool is_edge(MapPoint point) const;
   bool is_visible(MapPoint loc) const;
   int len() const; //tells the actual world.side_len
   bool maximum(MapPoint point) const;

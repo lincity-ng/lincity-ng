@@ -45,7 +45,6 @@ public:
     ~Style();
 
     bool parseAttribute(xmlpp::TextReader& reader);
-    void parseAttributes(xmlpp::TextReader& reader);
 
     std::string href;
 

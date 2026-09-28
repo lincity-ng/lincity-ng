@@ -341,7 +341,6 @@ EconomyGraph::drawFPSGraph(Painter& painter, Rect2D space) {
   Color grey, blue;
   blue.parse("blue");
   grey.parse("#A9A9A9FF");
-  // painter.setClipRectangle(space);
 
   painter.setFillColor(grey);
   painter.fillRectangle(space);
@@ -355,8 +354,6 @@ EconomyGraph::drawFPSGraph(Painter& painter, Rect2D space) {
       space.p2 - Vector2(i, 0)
     ));
   }
-
-  // painter.clearClipRectangle();
 }
 
 void

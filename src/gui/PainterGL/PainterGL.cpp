@@ -195,46 +195,6 @@ PainterGL::popTransform()
     glPopMatrix();
 }
 
-void
-PainterGL::setClipRectangle(const Rect2D& rect)
-{
-    assert(rect.getWidth() > 0 && rect.getHeight() > 0);
-    GLfloat matrix[16];
-    glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
-
-    int screenWidth = 0, screenHeight = 0;
-    SDL_GetWindowSize(window, &screenWidth, &screenHeight);
-    glViewport((GLint) (rect.p1.x + matrix[12]),
-               (GLint) (screenHeight - rect.getHeight() - (rect.p1.y + matrix[13])),
-               (GLsizei) rect.getWidth(),
-               (GLsizei) rect.getHeight());
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(rect.p1.x + matrix[12], rect.p1.x + matrix[12] + rect.getWidth(),
-            rect.p1.y + matrix[13] + rect.getHeight(),
-            rect.p1.y + matrix[13], -1, 1);
-}
-
-void
-PainterGL::clearClipRectangle()
-{
-    int width = 0, height = 0;
-    SDL_GetWindowSize(window, &width, &height);
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, width, height, 0, -1, 1);
-}
-
-Painter*
-PainterGL::createTexturePainter(Texture* texture)
-{
-    (void) texture;
-    // TODO
-    return 0;
-}
-
-
 void checkGlErrors()
 {
     GLenum glerror = glGetError();

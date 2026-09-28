@@ -159,7 +159,6 @@ public:
   int levelStuff(Commodity stuff_id, int amt);    // sets inventory level and updates production counter
   void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
   void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
-  void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
 
   virtual void detach();      //removes all references from world, ::constructionCount
   void deneighborize(); //cancells all neighbors and partners mutually
@@ -276,12 +275,6 @@ public:
             return groupMap[group];
         else
             return NULL;
-    }
-
-    static void printGroups();
-
-    static int countConstructionGroup(unsigned short group) {
-        return groupMap.count(group);
     }
 
     static std::map<std::string, ConstructionGroup*> resourceMap;

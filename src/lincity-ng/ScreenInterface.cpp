@@ -105,25 +105,6 @@ Game::updateMoney() const {
 }
 
 /*
- *  A DialogBox with a Progressbar.
- *  see oldgui/screen.cpp: prog_box (char *title, int percent)
- *  is used to open a Dialog with given Title an a Progressbar,
- *  showing percent completed, but is also used to update
- *  the current Progressbar.
- */
-
-void prog_box (const char *title, int percent)
-{
-    (void) title;
-    (void) percent;
-#ifdef DEBUG
-    std::ostringstream text;
-    text << "prog_box:'" << title << "' " << percent << "%\n";
-    std::cout << text.str();
-#endif
-}
-
-/*
 void refresh_main_screen()
 {
 }

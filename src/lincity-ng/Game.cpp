@@ -414,11 +414,6 @@ Game::getGui() const {
   return *gui;
 }
 
-WindowManager&
-Game::getWindowManager() const {
-  return *windowmanager;
-}
-
 GameView&
 Game::getGameView() const {
   assert(gameview);
