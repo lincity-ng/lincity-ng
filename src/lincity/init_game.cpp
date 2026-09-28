@@ -149,7 +149,6 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
   std::deque<MapPoint> line;
   Array2D<int> dist(len,len);
   Array2D<int> water(len,len);
-  int arid = global_aridity;
 
   std::cout << ".";
   std::cout.flush();
@@ -177,9 +176,10 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     int water_alt = *water(p.x,p.y);
     for(MapPoint pt : {p.w(), p.n(), p.e(), p.s()}) {
       if(!map.is_visible(pt)) continue;
-      int old_eco = (*dist(pt.x,pt.y) * *dist(pt.x,pt.y)/5 + 1) + arid +
+      int old_eco =
+        (*dist(pt.x,pt.y) * *dist(pt.x,pt.y)/5 + 1) + global_aridity +
         (map(pt)->ground.altitude - *water(pt.x,pt.y)) * 50 / map.alt_step;
-      int next_eco = (next_dist * next_dist/5 + 1) + arid +
+      int next_eco = (next_dist * next_dist/5 + 1) + global_aridity +
           (map(pt)->ground.altitude - water_alt) * 50 / map.alt_step;
       if(map.is_visible(pt) && next_eco < old_eco) {
         *dist(pt.x,pt.y) = next_dist;
@@ -196,6 +196,7 @@ void setup_land(Map& map, int global_aridity, bool without_trees) {
     int d2w_min = 2 * area;
     int r;
     int alt0 = 0;
+    int arid = global_aridity;
 
     /* test against IS_RIVER to prevent terrible recursion */
     if((map(p)->flags & FLAG_IS_RIVER) || !map(p)->is_bare())
@@ -332,7 +333,6 @@ static void new_setup_river_ground(Map& map,
       *
       */
     const int len = map.len();
-    const int area = len * len;
     const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT
     int ii = 2;
     int sz = 4;
@@ -970,13 +970,22 @@ static void random_start(World& world, bool without_trees) {
 
   /* build tracks */
   for(int x = 2; x < 23; x++) {
-    trackConstructionGroup.placeItem(world, p.e(x).s(11));
+    (map(p.e(x).s(11))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(x).s(11));
   }
   for(int y = 2; y < 11; y++) {
-    trackConstructionGroup.placeItem(world, p.e(13).s(y));
+    (map(p.e(13).s(y))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(13).s(y));
   }
   for(int y = 12; y < 23; y++) {
-    trackConstructionGroup.placeItem(world, p.e(15).s(y));
+    (map(p.e(15).s(y))->is_water() ?
+      trackbridgeConstructionGroup :
+      trackConstructionGroup)
+    .placeItem(world, p.e(15).s(y));
   }
 
   /* build communes */

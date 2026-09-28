@@ -373,11 +373,11 @@ void Construction::deneighborize()
         std::vector<Construction*> *neib = &(neighbors[i]->neighbors);
         std::vector<Construction*>::iterator neib_it = neib->begin();
         while(neib_it != neib->end() && *neib_it != this)
-            {++neib_it;}
-/*#ifdef DEBUG
-        assert(neib_it != neib->end());
-#endif*/
-        neib->erase(neib_it);
+          ++neib_it;
+        if(neib_it != neib->end())
+          neib->erase(neib_it);
+        else
+          assert(false);
     }
     neighbors.clear();
     for(size_t i = 0; i < partners.size(); ++i)
@@ -385,11 +385,11 @@ void Construction::deneighborize()
         std::vector<Construction*> *partner = &(partners[i]->partners);
         std::vector<Construction*>::iterator partner_it = partner->begin();
         while(partner_it != partner->end() && *partner_it != this)
-            {++partner_it;}
-/*#ifdef DEBUG
-        assert(partner_it != partner->end());
-#endif*/
-        partner->erase(partner_it);
+          ++partner_it;
+        if(partner_it != partner->end())
+          partner->erase(partner_it);
+        else
+          assert(false);
     }
     partners.clear();
     if (constructionGroup->group == GROUP_POWER_LINE)
@@ -951,23 +951,6 @@ ConstructionGroup::can_build_here(const World& world, const MapPoint point,
   ) {
     message = OutsideMapMessage::create(point);
     return false;
-  }
-
-  //handle transport quickly
-  if(world.map.is_visible(point) && (
-    group == GROUP_TRACK ||
-    group == GROUP_ROAD ||
-    group == GROUP_RAIL)
-  ) {
-    bool open = world.map(point)->is_bare() ||
-      world.map(point)->getGroup() == GROUP_POWER_LINE ||
-      world.map(point)->is_water() && !world.map(point)->is_transport() ||
-      world.map(point)->is_transport() &&
-        world.map(point)->getTransportGroup() != group;
-
-    if(!open)
-      message = SpaceOccupiedMessage::create(point);
-    return open;
   }
 
   //At last check for bare building site

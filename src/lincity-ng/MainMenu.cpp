@@ -431,7 +431,7 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
       }
       getConfig()->musicVolume.sessionToConfig();
     } else if(buttonName == "SoundFX") {
-      getConfig()->soundEnabled.session = !getConfig()->soundEnabled.get();
+      getConfig()->soundEnabled.trySet(!getConfig()->soundEnabled.get());
       getSound()->playSound("Click");
       getConfig()->soundEnabled.sessionToConfig();
     } else if(buttonName == "FXVolumePlus") {
@@ -476,7 +476,7 @@ void MainMenu::optionsMenuButtonClicked(CheckButton* button, int) {
 #endif
     } else if(buttonName == "Fullscreen") {
       getSound()->playSound("Click");
-      getConfig()->useFullScreen.session = !getConfig()->useFullScreen.get();
+      getConfig()->useFullScreen.trySet(!getConfig()->useFullScreen.get());
       getConfig()->useFullScreen.sessionToConfig();
       changedResolution = true;
     } else if(buttonName == "TrackPrev") {
@@ -536,8 +536,6 @@ void MainMenu::changeResolution(bool next) {
         }
     }
 
-    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
-
     std::stringstream mode;
     mode.str("");
     mode << resolutions[closest_mode].first << "x" << resolutions[closest_mode].second;
@@ -550,8 +548,8 @@ void MainMenu::changeResolution(bool next) {
         new_mode = 0;
     }
 
-    getConfig()->videoX.session = resolutions[new_mode].first;
-    getConfig()->videoY.session = resolutions[new_mode].second;
+    getConfig()->videoX.trySet(resolutions[new_mode].first);
+    getConfig()->videoY.trySet(resolutions[new_mode].second);
     changedResolution = true;
 
     getParagraph(*optionsMenu, "resolutionParagraph")->setText(
@@ -565,7 +563,7 @@ void MainMenu::changeResolution(bool next) {
 
 void
 MainMenu::changeWorldLen(bool next) {
-  getConfig()->worldSize.session = getConfig()->worldSize.get() + (next?25:-25);
+  getConfig()->worldSize.trySet(getConfig()->worldSize.get() + (next?25:-25));
   getParagraph(*optionsMenu, "WorldLenParagraph")->setText(
     std::to_string(getConfig()->worldSize.get()));
 }
@@ -603,7 +601,7 @@ MainMenu::changeLanguage(bool next) {
 
   std::string newLang = *i;
   languageParagraph->setText(newLang);
-  getConfig()->language.session = newLang;
+  getConfig()->language.trySet(newLang);
   setLang(newLang);
   getSound()->playSound("Click");
 }
@@ -886,8 +884,8 @@ MainMenu::run() {
             } break;
             case SDL_EVENT_WINDOW_RESIZED: {
               if(!getConfig()->useFullScreen.get()) {
-                getConfig()->videoX.session = event.window.data1;
-                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.trySet(event.window.data1);
+                getConfig()->videoY.trySet(event.window.data2);
                 getConfig()->videoX.sessionToConfig();
                 getConfig()->videoY.sessionToConfig();
 

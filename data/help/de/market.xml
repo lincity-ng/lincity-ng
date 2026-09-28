@@ -45,7 +45,7 @@
         <p style="hp">Ein Markt verbraucht Arbeit, um mit anderen Verbrauchsgütern handeln zu können. Die verbrauchte Menge Arbeit hängt vom Inventar aller Verbrauchsgüter im Markt ab.</p>
         <p style="hp">0% bis 10% Inventar: 1 Arbeit =&gt; 0</p>
         <p style="hp">10% bis 20% Inventar: 5 Arbeit =&gt; 0</p>
-        <p style="hp">2% bis 50% Inventar: 12 Arbeit =&gt; 0</p>
+        <p style="hp">20% bis 50% Inventar: 12 Arbeit =&gt; 0</p>
         <p style="hp">50% bis 100% Inventar: 28 Arbeit =&gt; 0</p>
         <p style="hp">Falls ein Markt mehr als 85% Müll hat, wird er 2867 Müll verbrennen und 204 Verschmutzung verursachen.</p>
 

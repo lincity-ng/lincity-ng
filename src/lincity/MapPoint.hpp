@@ -25,11 +25,8 @@
 #include <fmt/base.h>     // for formatter
 #include <fmt/ostream.h>  // for ostream_formatter
 #include <cstddef>        // for size_t
+#include <functional>     // for std::hash
 #include <ostream>        // for ostream
-
-namespace std {
-template<class Key> struct hash; // IWYU pragma: keep
-}  // namespace std
 
 class MapPoint {
 public:

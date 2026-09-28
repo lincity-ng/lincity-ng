@@ -95,26 +95,26 @@ void Game::quickLoad(){
   closeAllDialogs();
 
   //load file
-  getGameView().printStatusMessage("quick load...");
+  getStatusParagraph().setText("quick load...");
   std::string filename("quicksave.scn.gz");
   if(std::unique_ptr<World> world =
     loadCityNG(getConfig()->userDataDir.get() / filename)
   ) {
     setWorld(std::move(world));
-    getGameView().printStatusMessage("quick load successful.");
+    getStatusParagraph().setText("quick load successful.");
   } else {
-    getGameView().printStatusMessage("quick load failed!");
+    getStatusParagraph().setText("quick load failed!");
   }
 }
 
 void Game::quickSave(){
   //save file
-  getGameView().printStatusMessage("quick save...");
+  getStatusParagraph().setText("quick save...");
   saveCityNG(*world, getConfig()->userDataDir.get() / "quicksave.scn.gz");
 }
 
 void Game::testAllHelpFiles(){
-  getGameView().printStatusMessage("Testing Help Files...");
+  getStatusParagraph().setText("Testing Help Files...");
 
   std::filesystem::path dir = getConfig()->appDataDir.get() / "help" / "en";
   for(auto& dirEntry : std::filesystem::directory_iterator(dir)) {
@@ -130,16 +130,18 @@ Game::loadGui() {
 
   gameview = dynamic_cast<GameView *>(gui->findComponent("GameView"));
   minimap = dynamic_cast<MiniMap *>(gui->findComponent("MiniMap"));
-  buttonpanel =
-    dynamic_cast<ButtonPanel *>(gui->findComponent("ButtonPanel"));
-  economygraph =
-    dynamic_cast<EconomyGraph *>(gui->findComponent("EconomyGraph"));
+  buttonpanel = dynamic_cast<ButtonPanel *>(
+    gui->findComponent("ButtonPanel"));
+  economygraph = dynamic_cast<EconomyGraph *>(
+    gui->findComponent("EconomyGraph"));
   windowmanager = dynamic_cast<WindowManager *>(
     gui->findComponent("windowManager"));
   mpsmap = dynamic_cast<MpsMap *>(gui->findComponent("MapMPS"));
   mpsfinance = dynamic_cast<MpsFinance *>(gui->findComponent("GlobalMPS"));
   pbar1 = dynamic_cast<LCPBar *>(gui->findComponent("PBar"));
   pbar2 = dynamic_cast<LCPBar *>(gui->findComponent("PBar2nd"));
+  statusParagraph = dynamic_cast<Paragraph *>(
+    gui->findComponent("statusParagraph"));
   gameview->setGame(this);
   minimap->setGame(this);
   buttonpanel->setGame(this);
@@ -273,9 +275,8 @@ Game::setUserOperation(const UserOperation& op) {
   userOperation = op;
 
   for(auto w : {&warnBullWater, &warnBullShanty, &warnBullMonument})
-    w->accepted = false;;
-  getGameView().setCursorSize(userOperation.cursorSize());
-  getGameView().showToolInfo();
+    w->accepted = false;
+  getGameView().toolChanged();
 }
 
 void
@@ -462,6 +463,11 @@ Game::getButtonPanel() const {
   return *buttonpanel;
 }
 
+Paragraph&
+Game::getStatusParagraph() const {
+  return *statusParagraph;
+}
+
 
 void
 Game::run() {
@@ -520,8 +526,8 @@ Game::run() {
             } break;
             case SDL_EVENT_WINDOW_RESIZED: {
               if(!getConfig()->useFullScreen.get()) {
-                getConfig()->videoX.session = event.window.data1;
-                getConfig()->videoY.session = event.window.data2;
+                getConfig()->videoX.trySet(event.window.data1);
+                getConfig()->videoY.trySet(event.window.data2);
                 getConfig()->videoX.sessionToConfig();
                 getConfig()->videoY.sessionToConfig();
               }
@@ -740,7 +746,7 @@ Game::handleMessage(Message::ptr message_) {
         DialogBuilder()
           .titleText(_("Warning!"))
           .messageAddTextBold(_("Out of Credit"))
-          .messageAddText(_("You are deep in debt and at the end of your"
+          .messageAddText(_("You are deep in debt and at the end of your "
             "credit line. You are about to find out what happens when "
             "government checks bounce."))
           .imageFile("images/gui/dialogs/warning.png") // TODO: money icon
@@ -770,7 +776,7 @@ Game::handleMessage(Message::ptr message_) {
       .messageAddText(fmt::format(_("The rocket at {} has finished construction"
           " and is ready for takeoff. You may choose to launch now or later. If"
           " you choose to wait, beware it costs money to keep the rocket in"
-          " tip-top shape until launch day."),
+          " tip-top shape until launch day. Do you want to launch now?"),
         message->getPoint()))
       .messageAddText(_("Launch now?"))
       .imageFile("images/gui/dialogs/info.png") // TODO: rocket icon
@@ -819,7 +825,7 @@ Game::handleMessage(Message::ptr message_) {
       dialog
         .titleText("You Won!")
         .messageAddTextBold(_("You Evacuated Everyone!"))
-        .messageAddText(_("Congradulations! You have successfully evacuated "
+        .messageAddText(_("Congratulations! You have successfully evacuated "
           "everyone from the city and won the game."));
       break;
     default:
@@ -873,16 +879,27 @@ Game::handleMessage(Message::ptr message_) {
         _(message->getGroup().name)))
       .imageFile("images/gui/dialogs/warning.png")
       .buttonSet(DialogBuilder::ButtonSet::OK);
-    if(OutOfMoneyMessage::ptr reason =
-      dynamic_message_cast<OutOfMoneyMessage>(reason_)
+
+    if(DesertHereMessage::ptr reason =
+      dynamic_message_cast<DesertHereMessage>(reason_)
     ) {
-      if(reason->isOutOfCredit()) {
-        dialog.messageAddText(_("You do not have sufficient credit to build "
-          "this."));
-      }
-      else {
-        dialog.messageAddText(_("You cannot build this on credit."));
-      }
+      dialog.messageAddText(fmt::format(
+        _("A {} needs water, but this space is desert."),
+        _(message->getGroup().name)));
+    }
+    else if(NoOreMessage::ptr reason =
+      dynamic_message_cast<NoOreMessage>(reason_)
+    ) {
+      dialog.messageAddText(_("There are no ore reserves left here."));
+    }
+    else if(NotEnoughStudentsMessage::ptr reason =
+      dynamic_message_cast<NotEnoughStudentsMessage>(reason_)
+    ) {
+      dialog.messageAddText(fmt::format(
+        _("There are not enough students to build a {}."
+          " You should build some schools first"),
+        _(message->getGroup().name)
+      ));
     }
     else if(NotEnoughTechMessage::ptr reason =
       dynamic_message_cast<NotEnoughTechMessage>(reason_)
@@ -897,27 +914,31 @@ Game::handleMessage(Message::ptr message_) {
         reason->getRequiredTech() * 100.0f / MAX_TECH_LEVEL,
         reason->getCurrentTech() * 100.0f / MAX_TECH_LEVEL));
     }
-    else if(SpaceOccupiedMessage::ptr reason =
-      dynamic_message_cast<SpaceOccupiedMessage>(reason_)
+    else if(OutOfMoneyMessage::ptr reason =
+      dynamic_message_cast<OutOfMoneyMessage>(reason_)
     ) {
-      dialog.messageAddText(_("This space is occupied."));
+      if(reason->isOutOfCredit()) {
+        dialog.messageAddText(_("You do not have sufficient credit to build "
+          "this."));
+      }
+      else {
+        dialog.messageAddText(_("You cannot build this on credit."));
+      }
     }
     else if(OutsideMapMessage::ptr reason =
       dynamic_message_cast<OutsideMapMessage>(reason_)
     ) {
       dialog.messageAddText(_("Silly! You cannot build outside the map."));
     }
-    else if(DesertHereMessage::ptr reason =
-      dynamic_message_cast<DesertHereMessage>(reason_)
+    else if(PortRequiresRiverMessage::ptr reason =
+      dynamic_message_cast<PortRequiresRiverMessage>(reason_)
     ) {
-      dialog.messageAddText(fmt::format(
-        _("A {} needs water, but this space is desert."),
-        _(message->getGroup().name)));
+      dialog.messageAddText(_("A port requires a river along the east side."));
     }
-    else if(NoOreMessage::ptr reason =
-      dynamic_message_cast<NoOreMessage>(reason_)
+    else if(SpaceOccupiedMessage::ptr reason =
+      dynamic_message_cast<SpaceOccupiedMessage>(reason_)
     ) {
-      dialog.messageAddText(_("There are no ore reserves left here."));
+      dialog.messageAddText(_("This space is occupied."));
     }
     else if(!reason_) {
 // #ifdef DEBUG
@@ -1003,6 +1024,17 @@ Game::handleMessage(Message::ptr message_) {
         _(message->getGroup().name)))
       .messageAddText(fmt::format(_("You are not allowed to evacuate {}."),
         _(message->getGroup().name_plural)))
+      .build();
+  }
+  else if(CannotEvacuateNothingMessage::ptr message =
+    dynamic_message_cast<CannotEvacuateNothingMessage>(message_)
+  ) {
+    DialogBuilder()
+      .titleText(_("Cannot Evacuate"))
+      .imageFile("images/gui/dialogs/warning.png")
+      .buttonSet(DialogBuilder::ButtonSet::OK)
+      .messageAddTextBold(_("Cannot evacuate."))
+      .messageAddText(_("There is nothing here to evacuate."))
       .build();
   }
   else {

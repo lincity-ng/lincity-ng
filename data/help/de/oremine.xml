@@ -22,7 +22,7 @@
         <p style="hsubtitle">Formeln</p>
         <p style="hp">1: 209 Arbeit + 1 Erzreserve =&gt; 5000 Erz</p>
         <p style="hp">2: 209 Arbeit + 5000 Erz =&gt; 1 Erzreserve</p>
-        <p style="hp">Erzbergwerke streben 80% Kohleinventar an. Falls die Produktion von 5000 Erz 80% Inventar nicht übersteigen würde, wird Formel 1 angewendet. Falls der Verbrauch von 5000 Erz das verbleibende Inventar nicht unter 80% fallen lassen wurde, wird Formel 2 angewendet.</p>
+        <p style="hp">Erzbergwerke streben 80% Erzinventar an. Falls die Produktion von 5000 Erz 80% Inventar nicht übersteigen würde, wird Formel 1 angewendet. Falls der Verbrauch von 5000 Erz das verbleibende Inventar nicht unter 80% fallen lassen wurde, wird Formel 2 angewendet.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="ore">Erz</a></li>

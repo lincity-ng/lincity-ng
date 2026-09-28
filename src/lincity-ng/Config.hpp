@@ -26,10 +26,19 @@
 #include <filesystem>  // for path
 #include <optional>
 #include <string>      // for basic_string, string
+#include <stdexcept>
+#include <functional>
+
 
 class Config
 {
 public:
+  class ValidationError : public std::runtime_error {
+    public:
+      explicit ValidationError(const std::string& message)
+        : std::runtime_error(message) {}
+  };
+
   template<typename T>
   class Option {
   public:
@@ -37,16 +46,25 @@ public:
     std::optional<T> config = std::nullopt;
     std::optional<T> session = std::nullopt;
 
+    std::function<bool(const T&)> validator = nullptr;
+
     const T& get() const;
     bool isDefault() const;
 
     void sessionToConfig();
+    void set(const T& value);
+    bool trySet(const T& value);
+    void setConfig(const std::optional<T>& value);
+    bool trySetConfig(const std::optional<T>& value);
 
   private:
     Option();
     Option(const T& default_);
 
     friend Config;
+
+    bool validate(const T& value) const;
+    void throwValidationError(const T& value) const;
   };
 
   Config();

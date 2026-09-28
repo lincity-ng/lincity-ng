@@ -110,8 +110,8 @@ void initVideo() {
         SDL_GetError());
       scale = 1.f;
     }
-    getConfig()->videoX.session = getConfig()->videoX.get() * scale;
-    getConfig()->videoY.session = getConfig()->videoY.get() * scale;
+    getConfig()->videoX.trySet(getConfig()->videoX.get() * scale);
+    getConfig()->videoY.trySet(getConfig()->videoY.get() * scale);
     SDL_SetWindowSize(window,
       getConfig()->videoX.get(),
       getConfig()->videoY.get()

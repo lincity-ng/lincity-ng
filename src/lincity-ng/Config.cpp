@@ -33,7 +33,6 @@
 #include <libxml/xmlwriter.h>             // for xmlTextWriterWriteElement
 #include <stdlib.h>                       // for getenv
 #include <cassert>                        // for assert
-#include <climits>                        // for INT_MAX, INT_MIN
 #include <cstdio>                         // for stderr, NULL, sscanf
 #include <iostream>                       // for basic_ostream, endl, operat...
 #include <memory>                         // for shared_ptr
@@ -52,8 +51,6 @@ template<typename V>
 static std::optional<V> xmlParseConfig(const xmlpp::ustring& s);
 template<typename V>
 static xmlStrF xmlFormatConfig(const std::optional<V>& option);
-static std::optional<int> validateRange(const std::optional<int>& value,
-  int minValue = INT_MIN, int maxValue = INT_MAX);
 
 Config *configPtr = nullptr;
 Config *getConfig() {
@@ -65,18 +62,28 @@ Config::Config() {
   useOpenGL.default_ = false;
   useFullScreen.default_ = true;
   videoX.default_ = 1024;
+  videoX.validator = [](const int &value) {
+    return value >= 640; };
   videoY.default_ = 768;
+  videoY.validator = [](const int &value) {
+    return value >= 480; };
   showVersion.default_ = false;
   showHelp.default_ = false;
 
   soundVolume.default_ = 100;
+  soundVolume.validator = [](const int &value) {
+    return value >= 0 && value <= 100; };
   musicVolume.default_ = 50;
+  musicVolume.validator = [](const int &value) {
+    return value >= 0 && value <= 100; };
   soundEnabled.default_ = true;
   musicEnabled.default_ = true;
   musicTheme.default_ = "default";
 
   carsEnabled.default_ = true;
   worldSize.default_ = WORLD_SIDE_LEN;
+  worldSize.validator = [](const int &value) {
+    return value >= 50 && value <= 10000; };
   language.default_ = "autodetect";
 
   { // configFile.default_
@@ -164,9 +171,9 @@ void Config::load(std::filesystem::path configFile) {
         if(xml_tag == "useOpenGL")
           useOpenGL.config = xmlParseConfig<bool>(xml_val);
         else if(xml_tag == "x")
-          videoX.config = validateRange(xmlParseConfig<int>(xml_val), 640);
+          videoX.setConfig(xmlParseConfig<int>(xml_val));
         else if(xml_tag == "y")
-          videoY.config = validateRange(xmlParseConfig<int>(xml_val), 480);
+          videoY.setConfig(xmlParseConfig<int>(xml_val));
         else if(xml_tag == "fullscreen")
           useFullScreen.config = xmlParseConfig<bool>(xml_val);
         else
@@ -188,11 +195,9 @@ void Config::load(std::filesystem::path configFile) {
         xmlpp::ustring xml_tag = xmlReader.get_name();
         xmlpp::ustring xml_val = xmlReader.read_inner_xml();
         if(xml_tag == "soundVolume")
-          soundVolume.config =
-            validateRange(xmlParseConfig<int>(xml_val), 0, 100);
+          soundVolume.setConfig(xmlParseConfig<int>(xml_val));
         else if(xml_tag == "musicVolume")
-          musicVolume.config =
-            validateRange(xmlParseConfig<int>(xml_val), 0, 100);
+          musicVolume.setConfig(xmlParseConfig<int>(xml_val));
         else if(xml_tag == "soundEnabled")
           soundEnabled.config = xmlParseConfig<bool>(xml_val);
         else if(xml_tag == "musicEnabled")
@@ -220,8 +225,7 @@ void Config::load(std::filesystem::path configFile) {
         if(xml_tag == "language")
           language.config = xmlParseConfig<std::string>(xml_val);
         else if(xml_tag == "WorldSideLen")
-          worldSize.config =
-            validateRange(xmlParseConfig<int>(xml_val), 50, 10000);
+          worldSize.setConfig(xmlParseConfig<int>(xml_val));
         else if(xml_tag == "carsEnabled")
           carsEnabled.config = xmlParseConfig<bool>(xml_val);
         else if(xml_tag == "appDataDir")
@@ -468,6 +472,53 @@ Config::Option<T>::sessionToConfig() {
   config = session;
 }
 
+template<typename T>
+void Config::Option<T>::set(const T& value) {
+  if(!validate(value)) {
+    throwValidationError(value);
+  }
+  session = value;
+}
+
+template<typename T>
+bool Config::Option<T>::trySet(const T& value) {
+  if(!validate(value)) {
+    return false;
+  }
+  session = value;
+  return true;
+}
+
+template<typename T>
+void Config::Option<T>::setConfig(const std::optional<T>& value) {
+  if(value) {
+    if(!validate(*value)) {
+      throwValidationError(*value);
+    }
+    config = value;
+  }
+}
+
+template<typename T>
+bool Config::Option<T>::trySetConfig(const std::optional<T>& value) {
+  if(!value || !validate(*value)) {
+    return false;
+  }
+  config = value;
+  return true;
+}
+
+template<typename T>
+bool Config::Option<T>::validate(const T& value) const {
+  return !validator || validator(value);
+}
+
+template<typename T>
+void Config::Option<T>::throwValidationError(const T& value) const {
+  throw ValidationError(fmt::format(
+    "value {} is outside the allowed range", value));
+}
+
 template<typename V>
 static std::optional<V>
 xmlParseConfig(const xmlpp::ustring& s) {
@@ -477,18 +528,6 @@ xmlParseConfig(const xmlpp::ustring& s) {
 template<typename V>
 static xmlStrF xmlFormatConfig(const std::optional<V>& option) {
   return option ? xmlFormat<V>(*option) : xmlStrF("default");
-}
-
-static std::optional<int>
-validateRange(const std::optional<int>& value,
-  int minValue /*= INT_MIN*/, int maxValue /*= INT_MAX*/
-) {
-  if(value && (*value < minValue || *value > maxValue)) {
-    throw std::runtime_error(fmt::format(
-      "error: value {:d} is outside range {:d}..{:d}",
-      *value, minValue, maxValue));
-  }
-  return value;
 }
 
 template class Config::Option<int>;
