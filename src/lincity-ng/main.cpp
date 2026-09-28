@@ -138,8 +138,8 @@ void initVideo(int width, int height)
     if(getConfig()->useFullScreen.get()) {
       // actual window size may be different than requested
       SDL_GetWindowSize(window, &width, &height);
-      getConfig()->videoX.session = width;
-      getConfig()->videoY.session = height;
+      getConfig()->videoX.trySet(width);
+      getConfig()->videoY.trySet(height);
     }
 
 #ifndef DISABLE_GL_MODE

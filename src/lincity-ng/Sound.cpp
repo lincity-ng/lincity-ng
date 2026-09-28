@@ -471,7 +471,7 @@ Sound::playMusic()
 void
 Sound::enableMusic(bool enabled) {
   bool old = getConfig()->musicEnabled.get();
-  getConfig()->musicEnabled.session = enabled;
+  getConfig()->musicEnabled.trySet(enabled);
 
   if(old == enabled)
     return;
@@ -492,7 +492,7 @@ void
 Sound::setMusicVolume(int vol)
 {
     assert(vol >= 0 && vol <= 100);
-    getConfig()->musicVolume.session = vol;
+    getConfig()->musicVolume.trySet(vol);
     float volvalue = .01f * vol;
     MIX_SetTrackGain(musicTrack, volvalue);
 }
@@ -501,7 +501,7 @@ void
 Sound::setSoundVolume(int vol)
 {
     assert(vol >= 0 && vol <= 100);
-    getConfig()->soundVolume.session = vol;
+    getConfig()->soundVolume.trySet(vol);
     float volvalue = .01f * vol;
     MIX_SetTrackGain(soundTrack, volvalue);
 }
