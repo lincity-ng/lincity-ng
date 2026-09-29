@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trợ giúp các tab thông tin</p>
+
+	<p style="hsubtitle">Tab Bản đồ</p>
+	<li><a href="mini-screen">Minimap</a></li>
+
+	<p style="hsubtitle">Tab Chợ</p>
+	<li><a href="pbar">Thanh trạng thái tài nguyên</a></li>
+
+	<p style="hsubtitle">Tab $</p>
+	<li><a href="finance">Tài chính</a></li>
+	<li><a href="other-costs">Chi phí khác</a></li>
+	<li><a href="housing">Dân số</a></li>
+
+	<p style="hsubtitle">Tab Kinh tế</p>
+	<li><a href="economy">Đồ thị kinh tế</a></li>
+	<li><a href="sustain">Cửa sổ tiến độ bền vững</a></li>
+</Document>

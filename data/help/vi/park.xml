@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Công viên</p>
+	<p style="hp">Công viên rất đơn giản: chúng làm sạch ô nhiễm.</p>
+	<p style="hp">Một số khu vực tạo ra ô nhiễm. Đó là đường bộ, đường sắt, mỏ than và công nghiệp nhẹ và nặng. Một số tạo nhiều hơn số khác.</p>
+	<p style="hp">Bạn có thể dùng công viên để che chắn khu dân cư hoặc ngăn ô nhiễm thoát khỏi khu vực địa phương của nguồn.</p>
+	<p style="hp">Gió thổi từ hướng tây nam, vì vậy hãy xây công viên cho phù hợp.</p>
+	<p style="hp">Công viên hiệu quả hơn nhiều so với rừng hoặc nông trại nhưng cần nước ngầm, nên chúng chỉ có thể xây trên các ô "xanh".</p>
+	<p style="hp">Gợi ý: giữ phím 'w' trong khi xây công viên để có một cái ao nhỏ.</p>
+
+  <p style="hp">Đây là một công viên</p>
+   <img src="images/tiles/parkland-plane.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/parks/tree.png" halign="center" />
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="pollution">Ô nhiễm</a></li>
+	<li><a href="farm">Nông trại</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="industryh">Công nghiệp nặng (Nhà máy thép)</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+</Document>

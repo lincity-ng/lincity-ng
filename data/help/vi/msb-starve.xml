@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lớp phủ nạn đói</p>
+   <img src="images/gui/mapview/roundbuttons/round_food.png" halign="center" />
+	<p style="hp">Màn hình mini nạn đói chỉ hiển thị khu dân cư.</p>
+	<p style="hp">Xanh lá tươi nghĩa là khu dân cư đó có đủ lương thực (từ chợ) và nước (trong phạm vi giếng nước). Đỏ tươi thể hiện nạn đói tại mỗi khu dân cư hiển thị.</p>
+	<p style="hp">Vùng phủ giếng nước được hiển thị màu xanh dương đậm</p>
+	<p style="hp">Bấm trái vào màn hình mini để di chuyển cửa sổ chính. Bật/tắt chế độ lớp phủ bằng phím 'v' hoặc bấm vào nút lớp phủ lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Lớp phủ than</a></li>
+	<li><a href="msb-cricket">Lớp phủ thể thao</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+	<li><a href="msb-health">Lớp phủ y tế</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Rừng</p>
+	<p style="hp">Rừng (xưởng làng) là khu vực nơi thợ đốt than chặt cây để làm than củi (ở đây tính như than). Chúng cũng sản xuất một lượng nhỏ quặng và thép.</p>
+	<p style="hp">Bạn có lẽ sẽ cần một 'vài' xưởng làng để cung cấp đủ than và thép cho các khu vực như lò gốm, lò rèn và nhà máy dệt.</p>
+	<p style="hp">Nếu một xưởng làng không sản xuất gì trong 10 năm, nó sẽ đóng cửa và khu vực biến thành công viên.</p>
+	<p style="hp">Sản xuất than của xưởng làng phụ thuộc vào nước ngầm trừ khi chúng nhận nước ngọt qua giao thông. (ô có nước màu xanh lá, ô khác màu vàng nâu như sa mạc)</p>
+
+  <p style="hp">Đây là một xưởng làng</p>
+   <img src="images/tiles/commune1.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/mining/commune.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">0 =&gt; 3 than + 6 quặng + 2 thép (mỗi 20 ngày)</p>
+	<p style="hp">Nếu không đủ sức chứa để sản xuất một loại hàng hóa nào đó, các loại khác vẫn có thể được sản xuất.</p>
+	<p style="hp">Nếu xưởng làng có độ màu mỡ dưới 100%, nó sẽ sản xuất ít than theo tỉ lệ. Thiếu màu mỡ có thể bù bằng cách tiêu thụ 5 nước cho mỗi ô sa mạc.</p>
+	<p style="hp">Nếu xưởng làng có ít nhất 15% kho rác thải, nó sẽ tiêu thụ 20 rác và có thể sản xuất 1 quặng.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="pottery">Lò gốm</a></li>
+	<li><a href="blacksmith">Lò rèn</a></li>
+	<li><a href="mill">Nhà máy dệt</a></li>
+	<li><a href="oremine">Mỏ quặng</a></li>
+	<li><a href="steel">Thép</a></li>
+</Document>

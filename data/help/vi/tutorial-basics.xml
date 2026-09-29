@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Những bước đầu</p>
+	<p style="hp">Chọn "new game" &gt; "random village" (ngôi làng ngẫu nhiên). Các bản đồ khác dành cho người chơi có kinh nghiệm hơn hoặc kém hơn.</p>
+	<p style="hp">Lưu ý rằng ngôi làng ngẫu nhiên có sẵn các tài nguyên cơ bản:</p>
+	<li>Nông trại cung cấp lương thực cho chợ</li>
+	<li>Giếng nước cho người dân</li>
+	<li>Xưởng làng sản xuất than củi và một lượng nhỏ quặng và thép</li>
+	<li>Khu dân cư</li>
+	<li>Lò gốm</li>
+	<li>Đường ray</li>
+	<p style="hp">Bấm vào một công trình (trên màn hình chính) sẽ hiển thị thông tin về nó trong cửa sổ thông tin ở góc dưới phải.</p>
+
+	<p style="hsubtitle">Chợ</p>
+	<p style="hp">Chợ là công trình then chốt trong Lincity. Chúng bắt buộc có cho gần như mọi giao dịch địa phương. Bạn <b> phải</b> đọc trang trợ giúp về <a href="market">chợ</a> :-). <i>Tất nhiên, khi chợ trống thì không thể bán mặt hàng tương ứng, và khi đầy thì không thể mua thêm. Điều này có thể giúp bạn hiểu vì sao một công trình nào đó không hoạt động (có thể chúng không tìm được thứ cần, hoặc không bán được sản phẩm)</i></p>
+
+	<p style="hsubtitle">Giao thông</p>
+	<p style="hp"><a href="transport">Giao thông</a> là cần thiết cho trao đổi đường dài, và cho một số hoạt động cụ thể (khi đó sẽ được ghi trong trang trợ giúp tương ứng, ví dụ xưởng làng). Giống như chợ, chúng có sức chứa hạn chế và có thể bị quá tải.</p>
+	<p style="hp">Nếu một công trình 'bình thường' không nằm trong phạm vi chợ, thì nó phải được nối với giao thông. Nhưng hãy nhớ rằng đường bộ và đường sắt có chi phí hằng năm, nên trừ khi bạn thực sự muốn cô lập một công trình (ví dụ tượng đài), nhìn chung dùng chợ sẽ tốt hơn (và rẻ hơn).</p>
+	<p style="hp">Trong ngôi làng ban đầu không cần đường ray. Nhưng chúng sẽ hữu ích khi làng phát triển.</p>
+
+	<p style="hsubtitle">Tiền</p>
+	<p style="hp">Sản xuất bị đánh thuế và nhờ đó bạn kiếm được tiền. Trong cửa sổ mini, tab thứ ba là <a href="finance"> cửa sổ Tài chính</a>. Hãy cẩn thận đừng đầu tư quá nhiều quá nhanh: khi tiền âm, bạn không xây được một số thứ, và phải trả chi phí hằng năm do nợ. Điều này có thể dẫn tới phá sản (xem <a href="tutorial-scenario"> bản đồ Hard-time</a>.</p>
+
+	<p style="hsubtitle">Phát triển thành phố</p>
+	<p style="hp">Hãy nhớ người dân ăn lương thực và uống nước, nếu không sẽ chết. Để kiểm soát tăng trưởng dân số, bạn phải tìm sự cân bằng trong loại <a href="residential"> khu dân cư</a> bạn xây (chúng có tỉ lệ sinh/tử khác nhau). Dân số mới sẽ cho thêm lao động, nhưng cũng cần thêm lương thực, hàng hóa, lao động...</p>
+	<p style="hp">Bạn sẽ phải tăng sản xuất (thêm lò gốm, lò rèn) đồng thời đảm bảo chúng được cung cấp đủ. Vì vậy bạn cũng cần thêm xưởng làng tương ứng.</p>
+	<p style="hp">Để mở công trình mới bạn phải nâng <a href="tech-level"> cấp công nghệ</a>.</p>
+	<p style="hp">Đến một lúc nào đó bạn phải chọn mục tiêu: hoặc <a href="sustain"> nền kinh tế bền vững</a> hoặc sơ tán bằng <a href="rocket"> tàu vũ trụ</a>.</p>
+	<p style="hp">Bạn sẽ phải kiểm tra rất thường xuyên <a href="pbar"> tổng kho của các chợ</a>. Ngoài ra minimap có thể cho bạn cái nhìn rõ hơn về nền kinh tế, và để xem xét chính xác hãy nhớ rằng bấm vào một công trình (trên màn hình chính) sẽ hiển thị thông tin về nó trong cửa sổ thông tin ở góc dưới phải.</p>
+	<li>Gợi ý: Làm một hoặc hai thay đổi rồi đợi một chút (đọc các file trợ giúp ;-) hoặc chỉnh game chạy nhanh hơn, và quan sát các chỉ số kinh tế thay đổi thế nào.</li>
+	<p style="hp">Chúc vui vẻ.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tutorial-advanced">Tính năng nâng cao</a></li>
+	<li><a href="tutorial-scenario">Các bản đồ định sẵn</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

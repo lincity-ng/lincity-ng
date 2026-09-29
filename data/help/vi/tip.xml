@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Bãi rác (bãi chôn rác)</p>
+	<p style="hp">Bãi rác cung cấp nơi để đổ rác của bạn. Nếu rác tích tụ quá nhiều ở chợ, chợ buộc phải đốt bớt. Điều này tạo ra khá nhiều ô nhiễm nên bạn nên cẩn thận để rác không tích tụ.</p>
+	<p style="hp">Khi bãi rác được lấp đầy, nó dần biến thành một ngọn đồi, được phủ cỏ khi đầy.</p>
+	<p style="hp">Nếu bạn dọn dẹp thành phố, rác từ bãi rác có thể được đào lại và xử lý tại rừng, nông trại có điện và trung tâm tái chế.</p>
+	<p style="hp">Bạn có thể biết bãi rác đang hoạt động theo cách thông thường, bằng cách bấm vào nó</p>
+
+  <p style="hp">Đây là một bãi rác</p>
+   <img src="images/tiles/tip0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/mining/trash.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1: 200 rác =&gt; 200 rác chôn</p>
+	<p style="hp">2: 200 rác chôn =&gt; 200 rác</p>
+	<p style="hp">Bãi rác nhắm mục tiêu 20% kho rác. Nếu kho rác trên 20%, áp dụng công thức 1. Nếu kho rác dưới 20%, áp dụng công thức 2.</p>
+	<p style="hp">Rác chôn phân hủy hằng ngày với tỉ lệ 0.5% mỗi năm.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="waste">Rác thải</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="farm">Nông trại</a></li>
+	<li><a href="recycle">Trung tâm tái chế</a></li>
+</Document>

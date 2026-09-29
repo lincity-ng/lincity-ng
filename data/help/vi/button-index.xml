@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Danh sách nút chọn</p>
+   <img src="images/gui/buttonpanel/power/powerlines.png" halign="center" />
+	<p style="hp"><a href="powerline">Đường dây điện</a></p>
+   <img src="images/gui/buttonpanel/power/solarpower.png" halign="center" />
+	<p style="hp"><a href="powerssolar">Nhà máy điện mặt trời</a></p>
+   <img src="images/gui/buttonpanel/power/substation.png" halign="center" />
+	<p style="hp"><a href="substation">Trạm biến áp</a></p>
+   <img src="images/gui/buttonpanel/residence/residence.png" halign="center" />
+	<p style="hp"><a href="residential">Khu dân cư</a></p>
+   <img src="images/gui/buttonpanel/waterwell.png" halign="center" />
+	<p style="hp"><a href="waterwell">Giếng nước</a></p>
+   <img src="images/gui/buttonpanel/parks/farm.png" halign="center" />
+	<p style="hp"><a href="farm">Nông trại</a></p>
+   <img src="images/gui/buttonpanel/industry/market.png" halign="center" />
+	<p style="hp"><a href="market">Chợ</a></p>
+   <img src="images/gui/buttonpanel/base/bulldozer.png" halign="center" />
+	<p style="hp"><a href="bulldoze">Ủi đất</a></p>
+   <img src="images/gui/buttonpanel/base/broom.png" halign="center" />
+	<p style="hp"><a href="evacuate">Sơ tán</a></p>
+   <img src="images/gui/buttonpanel/transport/tracks.png" halign="center" />
+	<p style="hp"><a href="track">Đường ray</a></p>
+   <img src="images/gui/buttonpanel/mining/coalmine.png" halign="center" />
+	<p style="hp"><a href="coalmine">Mỏ than</a></p>
+   <img src="images/gui/buttonpanel/transport/rails2.png" halign="center" />
+	<p style="hp"><a href="rail">Đường sắt</a></p>
+   <img src="images/gui/buttonpanel/power/coalpower.png" halign="center" />
+	<p style="hp"><a href="powerscoal">Nhà máy điện than</a></p>
+   <img src="images/gui/buttonpanel/transport/road.png" halign="center" />
+	<p style="hp"><a href="road">Đường bộ</a></p>
+   <img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center" />
+	<p style="hp"><a href="industryl">Khu công nghiệp nhẹ</a></p>
+   <img src="images/gui/buttonpanel/misc/university.png" halign="center" />
+	<p style="hp"><a href="university">Đại học</a></p>
+   <img src="images/gui/buttonpanel/mining/commune.png" halign="center" />
+	<p style="hp"><a href="commune">Xưởng làng</a></p>
+   <img src="images/gui/buttonpanel/mining/oremine.png" halign="center" />
+	<p style="hp"><a href="oremine">Mỏ quặng</a></p>
+   <img src="images/gui/buttonpanel/transport/port.png" halign="center" />
+	<p style="hp"><a href="export">Nhập và Xuất khẩu</a></p>
+   <img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center" />
+	<p style="hp"><a href="industryh">Công nghiệp nặng (nhà máy thép)</a></p>
+   <img src="images/gui/buttonpanel/parks/tree.png" halign="center" />
+	<p style="hp"><a href="park">Đất công viên</a></p>
+   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center" />
+	<p style="hp"><a href="recycle">Trung tâm tái chế</a></p>
+   <img src="images/gui/buttonpanel/parks/water.png" halign="center" />
+	<p style="hp"><a href="river">Nước/Sông</a></p>
+   <img src="images/gui/buttonpanel/misc/health.png" halign="center" />
+	<p style="hp"><a href="health">Trung tâm y tế</a></p>
+   <img src="images/gui/buttonpanel/transport/rocket.png" halign="center" />
+	<p style="hp"><a href="rocket">Bệ phóng tên lửa</a></p>
+   <img src="images/gui/buttonpanel/power/windmills.png" halign="center" />
+	<p style="hp"><a href="windmill">Cối xay gió</a></p>
+   <img src="images/gui/buttonpanel/parks/monument.png" halign="center" />
+	<p style="hp"><a href="monument">Tượng đài</a></p>
+   <img src="images/gui/buttonpanel/misc/book.png" halign="center" />
+	<p style="hp"><a href="school">Trường học</a></p>
+   <img src="images/gui/buttonpanel/parks/mills.png" halign="center" />
+	<p style="hp"><a href="mill">Nhà máy dệt</a></p>
+   <img src="images/gui/buttonpanel/industry/pottery.png" halign="center" />
+	<p style="hp"><a href="pottery">Lò gốm</a></p>
+   <img src="images/gui/buttonpanel/misc/fire.png" halign="center" />
+	<p style="hp"><a href="firestation">Trạm cứu hỏa</a></p>
+   <img src="images/gui/buttonpanel/misc/sports.png" halign="center" />
+	<p style="hp"><a href="cricket">Sân bóng rổ</a></p>
+   <img src="images/gui/buttonpanel/transport/port.png" halign="center" />
+	<p style="hp"><a href="port">Cảng</a></p>
+</Document>

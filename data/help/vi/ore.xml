@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Quặng</p>
+	<p style="hp">Quặng là một trong những nguyên liệu thô cơ bản của game. Xưởng làng, mỏ quặng và trung tâm tái chế sản xuất quặng.</p>
+	<p style="hp">Lò gốm, công nghiệp nhẹ và công nghiệp nặng dùng quặng.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="oremine">Mỏ quặng</a></li>
+	<li><a href="recycle">Trung tâm tái chế</a></li>
+	<li><a href="pottery">Lò gốm</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+	<li><a href="industryh">Công nghiệp nặng (Nhà máy thép)</a></li>
+</Document>

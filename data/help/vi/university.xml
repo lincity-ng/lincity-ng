@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đại học</p>
+	<p style="hp">Đại học giúp tăng cấp công nghệ của bạn. Trong quá trình đó chúng tiêu thụ hàng hóa và lao động. Với cùng lượng hàng hóa/lao động đầu vào, chúng tạo ra nhiều hơn trường học. Tuy nhiên chúng tiêu thụ rất nhiều hàng hóa và lao động, và cũng tốn khá nhiều tiền để vận hành, nên bạn cần đủ năng lực kinh tế và công nghiệp để cung cấp.</p>
+	<p style="hp">Bạn sẽ cần một số đại học để đạt cấp công nghệ gần 100%</p>
+	<p style="hp">Đại học không cần nối với giao thông; chúng có thể nhận mọi thứ cần thiết từ chợ trong phạm vi có đủ lao động và hàng hóa.</p>
+
+	<p style="hsubtitle">LƯU Ý</p>
+	<p style="hp">Bạn phải có 4 trường học cho mỗi đại học để cung cấp sinh viên.</p>
+
+  <p style="hp">Đây là một trường đại học</p>
+   <img src="images/tiles/university.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/misc/university.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">250 lao động + 750 hàng hóa =&gt; .0004 công nghệ + 250 rác thải</p>
+	<p style="hp">Một đại học có thể duy trì tới ~20 công nghệ ở mức &lt;100 hoặc ~10 ở mức &gt;100</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="tech-level">Cấp công nghệ</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="school">Trường học</a></li>
+</Document>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Nút tạm dừng</p>
+	<p style="hp">Đây là nút tạm dừng. Nó tạm dừng game.</p>
+	<p style="hp">Bạn có thể tiếp tục game bằng cách bấm lại vào nó.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="slow">Tốc độ chậm</a></li>
+	<li><a href="medium">Tốc độ trung bình</a></li>
+	<li><a href="fast">Tốc độ nhanh</a></li>
+</Document>

@@ -21,7 +21,7 @@
 
 
 set(LINGUAS
-  ca cs da de el es fr gd gl hu ja nl pl pt_BR ru sv tr zh_CN
+  ca cs da de el es fr gd gl hu ja nl pl pt_BR ru sv tr vi zh_CN
 )
 
 if(DEFINED ENV{LINGUAS})
