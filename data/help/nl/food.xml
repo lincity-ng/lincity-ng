@@ -4,10 +4,11 @@
 	<p style="hp">Voedsel groeit op boerderijen, maar kan ook geïmporteerd worden via havens.</p>
 	<p style="hp">De bevolking heeft voedsel nodig om te kunnen overleven. Als ze verhongeren zullen ze verhuizen naar een ander gebied, maar ze kunnen ook uitsterven.</p>
 	<p style="hp">Textielfabrieken gebruiken ook voedsel. Ze maken kleren van katoen. Wees voorzichtig, textielfabrieken kunnen <i>heel</i> veel voedsel verbruiken.</p>
-	
-	<p style="hsubtitle">Lees ook:</p>
+
+  <p style="hsubtitle">Lees ook:</p>
+	<li><a href="commodities">Commodities</a></li>
 	<li><a href="farm">Boerderij</a></li>
-	<li><a href="port">Haven</a></li>
+	<li><a href="residential">Wonen</a></li>
 	<li><a href="mill">Textielfabriek</a></li>
-	<!--Waarom staat staal hiertussen?--><li><a href="steel">Staal</a></li>
+	<li><a href="port">Haven</a></li>
 </Document>

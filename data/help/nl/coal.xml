@@ -5,7 +5,8 @@
 	<p style="hp">Steenkool wordt opgegraven uit de grond door steenkoolmijnen. Er is een beperkte reserve, u kunt raadplegen door gebruik van de steenkoolreserve knop lees meer:(<a href="coalmine">steenkoolmijn</a>).</p>
 	<p style="hp">Houtskoolbranderijen leveren ook een kleine hoeveelheid steenkool. Eigenlijk is dit houtskool gemaakt van verbrand hout. Houtskoolbranderijen leveren alleen kleine hoeveelheden, genoeg voor een paar pottenbakkerijen en smidsen. </p>
 
-	<p style="hsubtitle">Lees ook:</p>
+  <p style="hsubtitle">Lees ook:</p>
+	<li><a href="commodities">Commodities</a></li>
 	<li><a href="coalmine">Steenkoolmijn</a></li>
 	<li><a href="powerscoal">Steenkoolcentrale</a></li>
 	<li><a href="commune">Houtskoolbranderij</a></li>

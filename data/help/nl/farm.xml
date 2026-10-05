@@ -11,10 +11,11 @@
 	
 	<p style="hp">Boerderijen hebben werkers nodig om meer dan het minimum van voedsel te produceren . De boerderij verbinden met het electriciteitsnetwerk verhoogt ook de hoeveelheid voedsel dat geproduceerd wordt. Energie kan ook geleverd worden aan boerderijen door 'oude' windmolens, dit vermindert de verspilling.</p>
 
-	<p style="hsubtitle">Lees ook:</p>
+  <p style="hsubtitle">Lees ook:</p>
+	<li><a href="food">Voedsel</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="tech-level">Technologie level</a></li>
 	<li><a href="transport">Verkeer</a></li>
 	<li><a href="windmill">Windmolen</a></li>
-	<li><a href="food">Voedsel</a></li>
+	<li><a href="power">Energie</a></li>
 </Document>
