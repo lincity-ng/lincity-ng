@@ -3,7 +3,7 @@
  * This file is part of Lincity-NG.
  *
  * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
- * Copyright (C) 2025      David Bears <dbear4q@gmail.com>
+ * Copyright (C) 2025-2026 David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,11 @@ class TextureSDL : public Texture {
 public:
   virtual ~TextureSDL();
 
-  int getWidth() const override {
-    return width;
+  float getWidth() const override {
+    return tx->w;
   }
-  int getHeight() const override {
-    return height;
+  float getHeight() const override {
+    return tx->h;
   }
 
   virtual void setScaleMode(ScaleMode mode) override;
@@ -46,7 +46,6 @@ private:
   TextureSDL(SDL_Texture *tx);
 
   SDL_Texture *tx = nullptr;
-  mutable int width = 0, height = 0;
 };
 
 #endif

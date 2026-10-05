@@ -115,6 +115,8 @@ private:
     void changeTrack( bool next);
 
     void changeResolution( bool next);
+    bool changedResolution = false;
+
     void changeWorldLen(bool next);
 
 #if ENABLE_NLS

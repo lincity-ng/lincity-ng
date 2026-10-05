@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"            // for createComponent
 #include "Style.hpp"                      // for parseStyleDef
 #include "util/xmlutil.hpp"               // for unexpectedXmlAttribute
+#include "Painter.hpp"
 
 Desktop::Desktop()
 {
@@ -43,6 +44,7 @@ Desktop::Desktop()
     desktop = this;
     cursor = SDL_GetDefaultCursor();
     cursorOwner = NULL;
+    scale = Vector2(1,1);
 }
 
 Desktop::~Desktop() {
@@ -87,14 +89,14 @@ Desktop::needsRedraw() const
 }
 
 void
-Desktop::draw(Painter& painter)
-{
-    if(dirtyRectangles.size() > 0) {
-        Component::draw(painter);
-        if(cursor != SDL_GetCursor())
-            SDL_SetCursor(cursor);
-    }
-    dirtyRectangles.clear();
+Desktop::draw(Painter& painter) {
+  if(dirtyRectangles.size() > 0) {
+    painter.setScale(scale);
+    Component::draw(painter);
+    if(cursor != SDL_GetCursor())
+      SDL_SetCursor(cursor);
+  }
+  dirtyRectangles.clear();
 }
 
 bool

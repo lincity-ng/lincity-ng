@@ -1,21 +1,25 @@
-/*
-Copyright (C) 2005 Matthias Braun <matze@braunis.de>
-Copyright (C) 2024 David Bears <dbear4q@gmail.com>
+/* ---------------------------------------------------------------------- *
+ * src/gui/Component.hpp
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
@@ -74,10 +78,11 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(const Event& event);
     virtual void resize(float width, float height);
-    void resize(Vector2 newSize) {resize(newSize.x, newSize.y);}
+    void resize(const Vector2& newSize) { resize(newSize.x, newSize.y); }
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();
+    void reLayoutDeep();
 
     /**
      * @return true if the component is opaque at this place.
@@ -129,9 +134,12 @@ public:
     }
     Component* findComponent(const std::string& name);
     Desktop* getDesktop() const {
-        return desktop;
+      if(!desktop && parent) desktop = parent->getDesktop();
+      return desktop;
     }
     Child *getParentChild() const;
+
+    Vector2 getScale() const;
 
     /**
      * Maps a relative coordinate from this component to a global one.
@@ -167,12 +175,14 @@ protected:
     }
 
     Component* parent;
-    Desktop *desktop;
+    mutable Desktop *desktop;
     int flags;
     Vector2 size;
     float &width = size.x;
     float &height = size.y;
     std::string name;
+
+    friend Child;
 };
 
 #endif

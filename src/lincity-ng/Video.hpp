@@ -1,8 +1,7 @@
 /* ---------------------------------------------------------------------- *
- * src/gui/Image.hpp
+ * src/lincity-ng/Video.hpp
  * This file is part of Lincity-NG.
  *
- * Copyright (C) 2005      Matthias Braun <matze@braunis.de>
  * Copyright (C) 2026      David Bears <dbear4q@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,42 +19,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ** ---------------------------------------------------------------------- */
 
-#ifndef __IMAGE_HPP__
-#define __IMAGE_HPP__
+#ifndef __LINCITY_LINCITYNG_VIDEO_HPP__
+#define __LINCITY_LINCITYNG_VIDEO_HPP__
 
-#include <filesystem>
+class Painter;
+class Vector2;
+struct SDL_Window;
 
-#include "Component.hpp"  // for Component
+extern Painter *painter;
+extern SDL_Window *window;
 
-class Texture;
-namespace xmlpp {
-class TextReader;
-}  // namespace xmlpp
+Vector2 getVirtualWindowSize(SDL_Window *window);
+void initVideo();
+void deinitVideo();
+void videoSizeChanged(int width, int height);
 
-/**
- * @class Image
- */
-class Image : public Component
-{
-public:
-    Image();
-    virtual ~Image();
-
-    void parse(xmlpp::TextReader& reader);
-
-    void resize(float width, float height);
-    void draw(Painter& painter);
-
-    std::filesystem::path getFilename() const;
-    void setFile(const std::filesystem::path &filename);
-
-private:
-    Texture *texture;
-    std::filesystem::path filename;
-    bool lockRatio;
-};
-
-#endif
-
-
-/** @file gui/Image.hpp */
+#endif // __LINCITY_LINCITYNG_VIDEO_HPP__

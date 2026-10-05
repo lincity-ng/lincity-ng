@@ -338,9 +338,9 @@
 	<buttonbar>
 		<Button name="Okay">
 			<text-caption style="dialogbutton" translatable="yes">Okay</text-caption>
-			<image src="images/gui/dialogs/yesbutton.png"/>
-			<image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
-			<image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+			<image src="images/gui/dialogs/yesbutton.png" width="100" height="23"/>
+			<image-hover src="images/gui/dialogs/yesbutton-hover.png" width="100" height="23"/>
+			<image-clicked src="images/gui/dialogs/yesbutton-clicked.png" width="100" height="23"/>
 		</Button>
 	</buttonbar>
 </Dialog>

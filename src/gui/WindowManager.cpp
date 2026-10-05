@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>                      // for runtime_error
 #include <utility>                        // for move
 
+#include "Child.hpp"                      // for Child, Childs
 #include "ComponentFactory.hpp"           // for IMPLEMENT_COMPONENT_FACTORY
 #include "Desktop.hpp"                    // for Desktop
 #include "Event.hpp"                      // for Event
@@ -277,6 +278,7 @@ void
 WindowManager::addWindowInternal(std::unique_ptr<Window>&& window) {
   Child& child = addChild(std::move(window));
   child.setPos((getSize() - child.getComponent()->getSize()) / 2);
+  child.getComponent()->reLayoutDeep();
 }
 
 void
