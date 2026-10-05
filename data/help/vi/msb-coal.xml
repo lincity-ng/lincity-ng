@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lớp phủ than</p>
+   <img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center" />
+	<p style="hp">Màn hình mini than hiển thị trữ lượng than bên dưới thành phố của bạn. Các mạch than được hiển thị màu đỏ và xanh lá trên nền xám. Bạn sẽ phải xây mỏ than gần một trong các mạch này để khai thác than.</p>
+	<p style="hp">Lần đầu bạn hỏi thông tin này, bạn phải tiến hành khảo sát than tốn một triệu đơn vị tiền tệ. Sau đó xem lại thông tin miễn phí.</p>
+	<p style="hp">Bấm trái vào màn hình mini để di chuyển cửa sổ chính. Bật/tắt chế độ lớp phủ bằng phím 'v' hoặc bấm vào nút lớp phủ lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-cricket">Lớp phủ thể thao</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+	<li><a href="msb-health">Lớp phủ y tế</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

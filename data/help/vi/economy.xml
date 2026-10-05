@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đồ thị kinh tế</p>
+	<p style="hp">Đồ thị này chứa bốn đường màu. Chúng thể hiện các yếu tố kinh tế quan trọng nhất.</p>
+	<li><span color="brown">Dân số</span>	(nâu) Đường nâu thể hiện dân số của bạn. Nó được vẽ theo thang log.</li>
+	<li><span color="blue">Vô gia cư</span> (xanh dương) Đường xanh dương thể hiện nhu cầu nhà ở. Độ cao của đồ thị tỉ lệ với căn bậc hai của dân số 'vô gia cư'.</li>
+	<li><span color="yellow">Thất nghiệp</span> (vàng) Các 'cột' vàng đặc cho thấy có thất nghiệp. Thang của đồ thị này thay đổi theo dân số. Đồ thị này vẽ đặc để thu hút sự chú ý của bạn.</li>
+	<li><span color="red">Nạn đói</span> (đỏ) Các 'cột' đỏ đặc cho thấy có nạn đói. Thang của đồ thị này thay đổi theo dân số. Đồ thị này vẽ đặc để thu hút sự chú ý. Cột này được vẽ đè lên cột thất nghiệp.</li>
+</Document>

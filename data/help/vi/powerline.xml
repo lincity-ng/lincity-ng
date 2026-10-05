@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Đường dây điện</p>
+	<p style="hp">Đường dây điện truyền điện từ nhà máy điện mặt trời, điện than và cối xay gió hiện đại tới trạm biến áp hoặc khu công nghiệp.</p>
+	<p style="hp">Đường dây điện chui qua bên dưới đường ray, đường bộ, đường sắt và sông (tất cả bề rộng 1). Nếu một đường dây điện được đặt ở một bên của khu giao thông hoặc sông, chúng hoạt động như được nối với nhau. Thường bạn sẽ phải ủi một đoạn sông để băng qua - tốn kém lắm! Các đường dây điện nối với nhau khi thẳng hàng và các gói điện nhảy từ bên này sang bên kia</p>
+
+  <p style="hp">Đây là một đường dây điện</p>
+   <img src="images/tiles/powerlvd.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/power/powerlines.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng lớp phủ bản đồ của nó</p>
+   <img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1 hi-volt =&gt; 0</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="power">Điện</a></li>
+	<li><a href="substation">Trạm biến áp</a></li>
+	<li><a href="windmill">Cối xay gió</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="powerssolar">Nhà máy điện mặt trời</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+</Document>

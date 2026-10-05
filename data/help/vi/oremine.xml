@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Mỏ quặng</p>
+	<p style="hp">Mỏ quặng cung cấp quặng để làm hàng hóa và thép. Bạn có thể xây mỏ quặng ở bất cứ đâu. Quặng dưới khu vực bị tiêu thụ dần; bạn không thể ủi nó và xây mỏ khác rồi hy vọng có thêm quặng.</p>
+	<p style="hp">Nếu nền kinh tế của bạn dư quặng, mỏ quặng có thể trữ tới 150% trữ lượng quặng tự nhiên</p>
+	<p style="hp">Khi một mỏ quặng cạn kiệt, nó biến thành hồ. Nếu sau đó bạn muốn cải tạo đất này, bạn sẽ phải ủi 16 ô nước!</p>
+	<p style="hp">Tốc độ hoạt ảnh thể hiện mức hoạt động của các mỏ quặng.</p>
+
+  <p style="hp">Đây là một mỏ quặng</p>
+   <img src="images/tiles/oremine1.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/mining/oremine.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1: 209 lao động + 1 trữ lượng quặng =&gt; 5000 quặng</p>
+	<p style="hp">2: 209 lao động + 5000 quặng =&gt; 1 trữ lượng quặng</p>
+	<p style="hp">Mỏ quặng nhắm mục tiêu 80% kho. Nếu sản xuất 5000 quặng không vượt quá 80% kho, thì áp dụng công thức 1. Nếu tiêu thụ 5000 quặng không làm kho còn lại dưới 80%, thì áp dụng công thức 2.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="steel">Thép</a></li>
+</Document>

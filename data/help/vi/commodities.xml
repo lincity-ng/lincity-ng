@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Hàng hóa</p>
+	<p style="hp">Hàng hóa là những thứ có thể sản xuất, vận chuyển, lưu trữ, chế biến và tiêu thụ trong thành phố của bạn. Màn hình trạng thái của mọi công trình hoặc ô giao thông luôn liệt kê các hàng hóa liên quan. Các mũi tên ở đầu dòng chỉ nguyên liệu thô, sản phẩm và vật phẩm trung chuyển</p>
+	<p style="hp">Trong hầu hết trường hợp, phải có ít nhất 5% nguyên liệu thô để biến chúng thành 5% sản phẩm.</p>
+	<p style="hp">Tab thứ hai của minimap hiển thị thống kê toàn thành phố và các thay đổi gần đây bằng thanh tiến độ. Kết hợp với lớp phủ giao thông, chúng cho bạn biết nhiều điều về phát triển kinh tế.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="pbar">Thống kê</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="food">Lương thực</a></li>
+	<li><a href="labor">Lao động</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="waste">Rác thải</a></li>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="steel">Thép</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="water">Nước</a></li>
+	<li><a href="power">Điện</a></li>
+</Document>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Điện</p>
+	<p style="hp">Điện có hai loại: hạ thế và cao thế. Điện hạ thế chảy trong cáp ngầm dọc theo mạng lưới giao thông của thành phố. Điện cao thế chảy trên đường dây điện.</p>
+	<p style="hp">Điện hạ thế được sản xuất bởi cối xay gió công nghệ thấp hoặc được cung cấp bởi trạm biến áp. Nó có thể cấp điện cho khu dân cư, nông trại, nhà máy dệt, công nghiệp nhẹ và công nghiệp nặng (nhà máy thép).</p>
+	<p style="hp">Điện cao thế được sản xuất bởi nhà máy điện than, mặt trời hoặc gió, và có thể được đưa tới trạm biến áp hoặc trực tiếp tới công nghiệp nhẹ hoặc công nghiệp nặng (nhà máy thép).</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="windmill">Cối xay gió</a></li>
+	<li><a href="residential">Khu dân cư</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="farm">Nông trại</a></li>
+	<li><a href="powerline">Đường dây điện</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="powerssolar">Nhà máy điện mặt trời</a></li>
+	<li><a href="substation">Trạm biến áp</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+	<li><a href="industryh">Công nghiệp nặng (Nhà máy thép)</a></li>
+</Document>

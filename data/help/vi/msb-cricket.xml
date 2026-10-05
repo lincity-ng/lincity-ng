@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lớp phủ thể thao</p>
+   <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center" />
+	<p style="hp">Khu vực có sân thể thao trong phạm vi được hiển thị màu xanh lá đậm.</p>
+	<p style="hp">Khu vực ngoài phạm vi sân bóng rổ được hiển thị bình thường.</p>
+	<p style="hp">Nhớ rằng, sân bóng rổ mất ba tháng để hoạt động.</p>
+	<p style="hp">Bấm trái vào màn hình mini để di chuyển cửa sổ chính. Bật/tắt chế độ lớp phủ bằng phím 'v' hoặc bấm vào nút lớp phủ lớn.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Lớp phủ than</a></li>
+	<li><a href="msb-fire">Lớp phủ hỏa hoạn</a></li>
+	<li><a href="msb-health">Lớp phủ y tế</a></li>
+	<li><a href="msb-normal">Lớp phủ sử dụng đất</a></li>
+	<li><a href="msb-pol">Lớp phủ ô nhiễm</a></li>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="msb-starve">Lớp phủ nạn đói</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+	<li><a href="msb-ub40">Lớp phủ thất nghiệp</a></li>
+</Document>

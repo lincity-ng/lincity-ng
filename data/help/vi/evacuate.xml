@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Sơ tán</p>
+	<p style="hp">Để sơ tán một công trình bạn chọn nút sơ tán rồi dùng cây chổi	để sơ tán toàn bộ hàng hóa quý giá. Sơ tán miễn phí và đẩy toàn bộ đồ lưu trữ ra các ô giao thông kề bên và chợ trong vùng lân cận.</p>
+	<p style="hp">Hậu quả trải từ ngừng sản xuất và/hoặc ô nhiễm tới nạn đói của cư dân địa phương</p>
+	<p style="hp">Một số công trình, như đường ray, đường bộ, đường sắt, bãi chôn lấp, và một số khác không thể sơ tán.</p>
+	<p style="hp">Mỏ quặng và mỏ than cạn kiệt được tự động sơ tán trước khi chúng sụp đổ</p>
+
+  <p style="hp">Đây là biểu tượng sơ tán</p>
+   <img src="images/gui/buttonpanel/base/broom.png" halign="center" />
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="bulldoze">Ủi đất</a></li>
+</Document>

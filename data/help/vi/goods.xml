@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Hàng hóa</p>
+	<p style="hp">Hàng hóa cần thiết để hầu hết khu vực hoạt động. Người dân cũng thích thật nhiều hàng hóa và bị thu hút tới những nơi có thể mua được chúng.</p>
+	<p style="hp">Hàng hóa bị đánh thuế, nên sản xuất nhiều sẽ giúp ích tài chính của bạn.</p>
+	<p style="hp">Hàng hóa được sản xuất bởi Lò gốm, Lò rèn, Nhà máy dệt và Công nghiệp nhẹ.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="pottery">Lò gốm</a></li>
+	<li><a href="blacksmith">Lò rèn</a></li>
+	<li><a href="mill">Nhà máy dệt</a></li>
+	<li><a href="industryl">Khu công nghiệp nhẹ</a></li>
+</Document>

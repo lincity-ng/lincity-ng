@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Trạm biến áp</p>
+	<p style="hp">Trạm biến áp nhận các gói điện từ đường dây điện (cao thế) và phân phối điện tới giao thông kề bên (hạ thế). Kiểm tra lớp phủ điện để xem bạn cần thêm điện ở đâu. Các máy biến áp không cần lao động nào để hoạt động.</p>
+
+  <p style="hp">Đây là một trạm biến áp</p>
+   <img src="images/tiles/substation-G.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/power/substation.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1500 hi-volt =&gt; 3000 lo-volt</p>
+	<p style="hp">Nếu không đủ điện cao thế, công thức có thể bị thu nhỏ tỉ lệ.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="msb-power">Lớp phủ điện</a></li>
+	<li><a href="power">Điện</a></li>
+	<li><a href="powerline">Đường dây điện</a></li>
+	<li><a href="windmill">Cối xay gió</a></li>
+	<li><a href="powerscoal">Nhà máy điện than</a></li>
+	<li><a href="powerssolar">Nhà máy điện mặt trời</a></li>
+</Document>

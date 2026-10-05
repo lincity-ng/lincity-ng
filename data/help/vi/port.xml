@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Cảng</p>
+	<p style="hp">Cảng cho phép bạn nhập và xuất hàng hóa, thép, quặng, than và lương thực để đổi lấy tiền.</p>
+	<p style="hp">Bạn có thể chọn giao dịch gì bằng cách bấm đúp vào cảng. Một hộp thoại hiện ra với các ô để chọn nhập gì và xuất gì. Nếu "mua" và "bán" cùng được đánh dấu hoặc cùng bỏ trống cho một loại hàng hóa, thì loại đó sẽ không được nhập hay xuất. Cảng sẽ không nhập hoặc xuất gì cho đến khi bạn đánh dấu vào ô thích hợp.</p>
+	<p style="hp">Do biến động cung cầu quốc tế và chính trị, đôi khi việc buôn bán một số loại hàng hóa có thể bị hạn chế ngẫu nhiên trong nhiều năm. Khi bị hạn chế, ô đánh dấu tương ứng trong hộp thoại cảng sẽ hiện màu đỏ. Nếu bạn có nhiều cảng trong thành phố, các hạn chế thương mại tương tự áp dụng cho tất cả cảng.</p>
+	<p style="hp">Nhập khẩu tốn tiền còn xuất khẩu kiếm tiền. Giá xuất khẩu số lượng lớn bị chiết khấu, nên bạn kiếm ít tiền hơn trên mỗi đơn vị nếu xuất thật nhiều một loại hàng. Nhập khẩu số lượng lớn không bị chiết khấu.</p>
+	<p style="hp">Cảng phải được nối với sông dọc theo toàn bộ cạnh phía đông.</p>
+	<p style="hp">Một cảng hoạt động cung cấp một ít công nghệ. Lưu ý: Người xuất khẩu chiết khấu các lô hàng lớn.</p>
+	<p style="hp">Cảng có thể nhập và xuất với sức chứa rất lớn. Nếu bạn muốn hạn chế lượng nhập hoặc xuất, hãy cân nhắc nối cảng với phần còn lại của thành phố bằng loại giao thông có sức chứa nhỏ hơn như đường bộ hoặc đường ray, hoặc đặt nó trong phạm vi một chợ.</p>
+
+  <p style="hp">Đây là một cảng</p>
+   <img src="images/tiles/ex_port.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/transport/port.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">xuất: 50% kho =&gt; tiền</p>
+	<p style="hp">nhập: tiền =&gt; 50% sức chứa còn lại</p>
+	<p style="hp">Để nhập hoặc xuất xảy ra, 100 lao động phải được tiêu thụ.</p>
+	<p style="hp">Nếu có cả nhập và xuất, thì .0002 công nghệ được sản xuất, đủ duy trì tới ~10 công nghệ ở mức &lt;100 hoặc ~5 ở mức &gt;100.</p>
+	<p style="hp">Nếu kho của một loại hàng hóa dưới 6.67%, thì loại đó sẽ không được xuất. Nếu kho trên 93.33%, thì loại đó sẽ không được nhập.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="river">Sông/Nước</a></li>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="food">Lương thực</a></li>
+	<li><a href="coal">Than</a></li>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="goods">Hàng hóa</a></li>
+	<li><a href="steel">Thép</a></li>
+</Document>

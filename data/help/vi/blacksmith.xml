@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Lò rèn</p>
+	<p style="hp">Lò rèn biến thép và than thành hàng hóa. Bạn sẽ dùng chúng chủ yếu vào đầu game. Tất nhiên chúng cũng dùng lao động.</p>
+	<p style="hp">Trước khi có nhà máy thép, bạn phải dựa vào thép do xưởng làng sản xuất. Nên có 5 hoặc 6 xưởng làng cho mỗi lò rèn.</p>
+	<p style="hp">Bạn có thể biết lò rèn đang hoạt động theo cách thông thường, bằng cách bấm vào nó, và thỉnh thoảng hoạt ảnh sẽ chuyển động.</p>
+
+  <p style="hp">Đây là một lò rèn</p>
+   <img src="images/tiles/blacksmith0.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">1 than + 1 thép + 35 lao động =&gt; 50 hàng hóa</p>
+	<p style="hp">Mỗi 100 ngày làm việc, 1 <a href="pollution">ô nhiễm</a> được sản xuất.</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="ore">Quặng</a></li>
+	<li><a href="commune">Rừng</a></li>
+	<li><a href="steel">Thép</a></li>
+	<li><a href="labor">Lao động</a></li>
+</Document>

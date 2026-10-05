@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Khu công nghiệp nhẹ</p>
+	<p style="hp">Công nghiệp nhẹ biến quặng thành hàng hóa. Việc chuyển hóa hiệu quả hơn nếu có thêm thép. Điện làm tăng sản lượng hơn nữa. Điện hạ thế kém hiệu quả có thể được giao qua giao thông. Điện cao thế có thể được cấp trực tiếp bằng đường dây điện. Cối xay gió khó mà cung cấp đủ điện hạ thế.</p>
+	<p style="hp">Theo kinh nghiệm, sản lượng của một khu công nghiệp nhẹ chủ yếu phụ thuộc vào lượng nguyên liệu, gồm cả lao động, mà nó nhận được, và cả lượng hàng hóa có thể lấy đi.</p>
+	<p style="hp">Các khu vực này kết nối trực tiếp với giao thông để trao đổi lao động, quặng, thép, điện và hàng hóa. Chúng có thể cần một chợ để chạy hết công suất.</p>
+	<p style="hp">Công nghiệp nhẹ tạo ra ô nhiễm nặng.</p>
+
+  <p style="hp">Đây là khu công nghiệp nhẹ</p>
+   <img src="images/tiles/industryl-low.png" halign="center" />
+
+  <p style="hp">và đây là biểu tượng của nó</p>
+   <img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center" />
+
+	<p style="hsubtitle">Công thức</p>
+	<p style="hp">59 lao động + 250 quặng + 12 thép + (4500 hi-volt hoặc 9000 lo-volt) =&gt; 1800 hàng hóa</p>
+	<p style="hp">40 lao động + 250 quặng + (4500 hi-volt hoặc 9000 lo-volt) =&gt; 900 hàng hóa</p>
+	<p style="hp">59 lao động + 125 quặng + 12 thép =&gt; 450 hàng hóa</p>
+	<p style="hp">40 lao động + 125 quặng =&gt; 225 hàng hóa</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="transport">Giao thông</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="pollution">Ô nhiễm</a></li>
+</Document>

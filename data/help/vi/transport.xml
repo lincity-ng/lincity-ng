@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
+<Document style="helpdocument">
+	<p style="htitle">Giao thông</p>
+	<p style="hp">Có ba loại giao thông trong Lincity: đường ray, đường bộ và đường sắt.</p>
+	<p style="hp">Có dạng thứ tư gồm việc 'băng qua cánh đồng' để tới một chợ. Đây là dạng trao đổi tầm rất ngắn và sẽ không được nhắc tới như giao thông nữa. Tuy nhiên, nó rất quan trọng, nên bạn nên đọc lại <a href="market"> chợ</a>.</p>
+	<p style="hp">Đường ray, đường bộ và đường sắt được dùng để chở lương thực, lao động, hàng hóa, than, quặng, thép và rác thải giữa các khu vực. Giao thông giữa các chợ, giao thông cho công trình ngoài phạm vi chợ (nhìn chung đây là ý tồi) và giao thông cho công trình thực sự cần nó:</p>
+	<p style="hp">Mạng lưới giao thông có thể nhận, phân phối và giao bất kỳ loại hàng hóa nào, trừ điện cao thế chảy trong đường dây điện. Mọi bước tới, trong và ra khỏi mạng lưới giao thông đều yêu cầu kề cận trực tiếp. Chợ hoạt động khác đi.</p>
+	<p style="hp">Để băng qua sông bằng giao thông, chỉ cần xây giao thông qua sông và bạn sẽ tạo ra một cây cầu. Cầu đắt hơn nhiều so với giao thông thường.</p>
+	<p style="hp">Đường bộ và đường sắt gây chi phí hằng năm (bảo trì) và ô nhiễm (và ô nhiễm nhiều hơn nếu chúng chở nhiều rác).</p>
+
+  <p style="hsubtitle">Xem thêm:</p>
+	<li><a href="track">Đường ray</a></li>
+	<li><a href="road">Đường bộ</a></li>
+	<li><a href="rail">Đường sắt</a></li>
+	<li><a href="market">Chợ</a></li>
+	<li><a href="powerline">Đường dây điện</a></li>
+	<li><a href="commodities">Hàng hóa</a></li>
+	<li><a href="finance">Cửa sổ tài chính</a></li>
+	<li><a href="msb-transport">Lớp phủ giao thông</a></li>
+</Document>
