@@ -1,4 +1,25 @@
 #!/usr/bin/env amm
+/* ---------------------------------------------------------------------- *
+ * CHANGELOG.d/apply-changelog.sc
+ * This file is part of Lincity-NG.
+ *
+ * Copyright (C) 2024-2026 David Bears <dbear4q@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** ---------------------------------------------------------------------- */
+
 // This script requires Ammonite, running Scala 2.13 and Java 11+
 
 import $ivy.`info.picocli:picocli:4.7+`
@@ -102,7 +123,13 @@ object ApplyChangelog extends java.util.concurrent.Callable[Int] {
     entries.map(_.version).find(_ != "Unreleased").foreach(v =>
       throw new RuntimeException(s"only 'Unreleased' version supported: '$v'"))
 
-    entries.map(_.version).find(_ == "Change or delete me.").foreach{t =>
+    val placeholderRe = "- (Fix|Add|Remov|Chang)ed\\.\\.\\.".r.anchored
+    entries
+    .map(_.text)
+    .filter(_.sizeIs == 1)
+    .map(_(0))
+    .find(placeholderRe.matches(_))
+    .foreach{t =>
       throw new RuntimeException(s"encountered placeholder entry: '$t'")
     }
 

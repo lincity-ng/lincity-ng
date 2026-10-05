@@ -84,7 +84,7 @@ inadvertently break it by moving/copying the binary away from other installed
 files.
 
 
-#### LINCITYNG_VERSION_SUFFIX
+## LINCITYNG_VERSION_SUFFIX
 
 ```
 cmake -B build -DLINCITYNG_VERSION_SUFFIX=<suffix>
