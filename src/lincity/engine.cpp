@@ -56,7 +56,7 @@ World::expense(int amt, Stat<int>& account, bool allowCredit) {
   assert(amt >= 0);
   int newBal = total_money - amt;
   if(newBal < (allowCredit ? -2000000000 : 0) || newBal > total_money)
-    throw OutOfMoneyMessage::create(allowCredit)->exception();
+    OutOfMoneyMessage::create(allowCredit)->throwEx();
   total_money = newBal;
   account += amt;
   setUpdated(Updatable::MONEY);
