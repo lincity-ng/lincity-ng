@@ -74,7 +74,7 @@ automatically detect the app-data location based on the binary location. This
 makes the package such that it need not necessarily be installed to the
 `CMAKE_INSTALL_PREFIX`, and the installed files may even be moved after
 installation as long as the app data stays alongside the binary. Default is
-`OFF`.
+`ON` for Windows and macOS and `OFF` otherwise.
 
 Some systems do not support binary relocation; in that case,
 `CMAKE_INSTALL_PREFIX` is used as a fallback for discovering the app data
@@ -82,6 +82,17 @@ location (which is unlikely to work if the binary is expected to be
 relocatable). Some systems may also not expect a binary behave this way and may
 inadvertently break it by moving/copying the binary away from other installed
 files.
+
+
+## macOS Packaging
+
+If `LINCITYNG_RELOCATABLE` is enabled on macOS, `cmake --install` produces
+`lincity-ng.app` with its dylibs in `Contents/Frameworks`, and `cpack` packages
+it in a `.dmg`. Requires macOS 26 or later. Bundled dylibs keep their minimum
+macOS version, so build on the oldest macOS to be supported.
+
+The bundle is only ad-hoc signed, not notarized. To run it, approve it under
+System Settings > Privacy & Security after the first launch attempt.
 
 
 ## LINCITYNG_VERSION_SUFFIX
