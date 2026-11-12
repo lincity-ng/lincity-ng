@@ -113,7 +113,7 @@ if(ENABLE_NLS AND NOT (Intl_FOUND AND Gettext_FOUND))
 endif()
 
 set(RELOCATABLE_DEFAULT NO)
-if(WIN32)
+if(WIN32 OR APPLE)
   set(RELOCATABLE_DEFAULT YES)
 endif()
 set(LINCITYNG_RELOCATABLE ${RELOCATABLE_DEFAULT} CACHE BOOL "Build a relocatable binary")
@@ -132,6 +132,12 @@ if(WIN32)
 endif()
 if(APPLE)
 	add_compile_definitions("APPLE")
+endif()
+
+if(APPLE AND LINCITYNG_RELOCATABLE)
+  set(LINCITYNG_MACOS_BUNDLE ON)
+  set(CMAKE_MACOSX_BUNDLE ON)
+  set(LINCITYNG_MACOS_BUNDLE_NAME "${PROJECT_NAME}.app")
 endif()
 
 include(CheckCSourceCompiles)
@@ -182,11 +188,26 @@ if(VERSION_${BUILD_TYPE_UPPER})
 endif()
 message(STATUS "LinCity-NG version: ${FULL_PROJECT_VERSION}")
 
+if(LINCITYNG_MACOS_BUNDLE)
+  if(CMAKE_OSX_DEPLOYMENT_TARGET)
+    set(LINCITYNG_MACOS_MINIMUM_SYSTEM_VERSION
+      "<key>LSMinimumSystemVersion</key>\n  <string>${CMAKE_OSX_DEPLOYMENT_TARGET}</string>")
+  endif()
+  configure_file(mk/cmake/Info.plist.in
+    "${CMAKE_CURRENT_BINARY_DIR}/Info.plist" @ONLY)
+endif()
+
 
 ### compute installation directories
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_APPDATADIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME})
 set(CMAKE_INSTALL_FULL_APPDATADIR ${CMAKE_INSTALL_FULL_DATADIR}/${CMAKE_PROJECT_NAME})
+if(LINCITYNG_MACOS_BUNDLE)
+  # BUNDLE DESTINATION installs the whole .app.
+  set(CMAKE_INSTALL_BINDIR ".")
+  set(CMAKE_INSTALL_APPDATADIR "${LINCITYNG_MACOS_BUNDLE_NAME}/Contents/Resources")
+  set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_APPDATADIR}/doc")
+endif()
 set(CMAKE_BINARY_BINDIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 set(CMAKE_BINARY_DATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR})
 set(CMAKE_BINARY_APPDATADIR ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_APPDATADIR})
@@ -200,10 +221,16 @@ add_subdirectory(lib)
 
 
 ### runtime dependency installation for Windows
+if(LINCITYNG_MACOS_BUNDLE)
+  set_target_properties(lincity-ng PROPERTIES
+    MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
+  )
+endif()
 set_target_properties(lincity-ng PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_BINDIR})
 install(TARGETS lincity-ng
 	RUNTIME_DEPENDENCY_SET dll_dependencies
 	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 if(WIN32)
 	# from https://gitlab.kitware.com/cmake/cmake/-/issues/20753#note_870046
@@ -224,6 +251,59 @@ if(WIN32)
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 	)
 endif()
+if(LINCITYNG_MACOS_BUNDLE)
+  install(RUNTIME_DEPENDENCY_SET dll_dependencies
+    DESTINATION "${LINCITYNG_MACOS_BUNDLE_NAME}/Contents/Frameworks"
+    PRE_EXCLUDE_REGEXES "^/usr/lib/.*" "^/System/Library/.*"
+    POST_EXCLUDE_REGEXES ".*"
+    POST_INCLUDE_REGEXES ".*"
+  )
+  # Not [[bracket]]: the bundle name substitutes at configure time.
+  install(CODE "
+    include(BundleUtilities)
+    fixup_bundle(
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${LINCITYNG_MACOS_BUNDLE_NAME}\"
+      \"\"
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${LINCITYNG_MACOS_BUNDLE_NAME}/Contents/Frameworks\"
+    )
+  ")
+
+  # Remove CMake bookkeeping copied in with the bundle.
+  install(CODE "
+    file(GLOB_RECURSE _lincityng_cmake_build_artifacts
+      LIST_DIRECTORIES true
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${LINCITYNG_MACOS_BUNDLE_NAME}/Contents/Resources/*\"
+    )
+    foreach(_artifact \${_lincityng_cmake_build_artifacts})
+      get_filename_component(_artifact_name \"\${_artifact}\" NAME)
+      if(_artifact_name STREQUAL \"CMakeFiles\"
+          OR _artifact_name STREQUAL \"Makefile\"
+          OR _artifact_name STREQUAL \"cmake_install.cmake\")
+        file(REMOVE_RECURSE \"\${_artifact}\")
+      endif()
+    endforeach()
+  ")
+
+  # Homebrew installs dylibs read-only, which would block clearing quarantine.
+  install(CODE "
+    execute_process(
+      COMMAND chmod -R u+w \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${LINCITYNG_MACOS_BUNDLE_NAME}\"
+      COMMAND_ERROR_IS_FATAL ANY
+    )
+  ")
+
+  # fixup_bundle() invalidates the signatures.
+  install(CODE "
+    execute_process(
+      COMMAND codesign --force --deep --sign - \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${LINCITYNG_MACOS_BUNDLE_NAME}\"
+      RESULT_VARIABLE _lincityng_codesign_result
+      ERROR_VARIABLE _lincityng_codesign_error
+    )
+    if(NOT _lincityng_codesign_result EQUAL 0)
+      message(FATAL_ERROR \"codesign failed (\${_lincityng_codesign_result}): \${_lincityng_codesign_error}\")
+    endif()
+  ")
+endif()
 # if (WIN32)
 # 	install(FILES $<TARGET_PDB_FILE:lincity-ng> DESTINATION . OPTIONAL)
 # endif()
@@ -241,6 +321,9 @@ set(CPACK_SOURCE_GENERATOR ${CPACK_GENERATOR})
 if(WIN32 AND LINCITYNG_RELOCATABLE)
 	list(APPEND CPACK_GENERATOR NSIS)
 endif()
+if(LINCITYNG_MACOS_BUNDLE)
+	set(CPACK_GENERATOR DragNDrop)
+endif()
 set(CPACK_PACKAGE_CHECKSUM SHA256)
 
 # package metadata
@@ -255,6 +338,12 @@ set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL YES)
 set(CPACK_NSIS_MODIFY_PATH YES)
 set(CPACK_NSIS_IGNORE_LICENSE_PAGE YES)
 set(CPACK_NSIS_DISPLAY_NAME "LinCity-NG")
+
+# DragNDrop generator
+if(LINCITYNG_MACOS_BUNDLE)
+	set(CPACK_PACKAGE_ICON "${CMAKE_BINARY_APPDATADIR}/${APPSTREAM_ID}.icns")
+	set(CPACK_DMG_SLA_USE_RESOURCE_FILE_LICENSE OFF)
+endif()
 
 # misc packaging options
 if(CMAKE_CXX_FLAGS_${BUILD_TYPE_UPPER} MATCHES "(^| )-g( |$)")

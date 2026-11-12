@@ -124,6 +124,33 @@ getLang() {
   return "";
 }
 
+#if ENABLE_NLS && defined(APPLE)
+// LaunchServices sets LANG=C.UTF-8, hiding the user's language from gettext.
+static void
+useSystemLanguage() {
+  const char *lang = getenv("LANG");
+  if(getenv("LC_ALL") || getenv("LC_MESSAGES") || getenv("LANGUAGE") ||
+    (lang && strcmp(lang, "C.UTF-8"))
+  ) return;
+
+  // gettext ignores LANGUAGE in the C locale.
+  setenv("LC_MESSAGES", "en_US.UTF-8", 1);
+
+  int count = 0;
+  SDL_Locale **locales = SDL_GetPreferredLocales(&count);
+  if(!locales) return;
+  if(count > 0 && locales[0]->language) {
+    // drop any script subtag, e.g. zh-Hans
+    std::string language = locales[0]->language;
+    language = language.substr(0, language.find('-'));
+    if(locales[0]->country)
+      language += std::string("_") + locales[0]->country;
+    setenv("LANGUAGE", language.c_str(), 1);
+  }
+  SDL_free(locales);
+}
+#endif
+
 int
 main(int argc, char** argv) {
   // initialize XML parser early because it is needed for parsing the config
@@ -138,6 +165,9 @@ main(int argc, char** argv) {
 
   // set the preferred language
 #if ENABLE_NLS
+#ifdef APPLE
+  useSystemLanguage();
+#endif
   if(const char *old = getenv("LANGUAGE")) oldLanguage = old;
   setlocale(LC_ALL, "");
   if(getConfig()->language.get() != "autodetect")

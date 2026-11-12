@@ -107,21 +107,35 @@ Config::Config() {
     appDataDir.default_ = std::filesystem::path(INSTALL_FULL_APPDATADIR);
 
     #ifdef LINCITYNG_RELOCATABLE
-    const std::filesystem::path invBin =
-      std::filesystem::path().lexically_relative(INSTALL_BINDIR);
     const std::filesystem::path basePath(SDL_GetBasePath());
-    const std::filesystem::path relocPrefix =
-      (basePath / invBin).lexically_normal();
-    if(!relocPrefix.empty()) {
-      appDataDir.default_ = relocPrefix / INSTALL_APPDATADIR;
-    }
-    else {
-      fmt::println(stderr,
-        "error: failed to compute the relocation prefix: {}\n"
-        "  Falling back to the install prefix.",
-        SDL_GetError()
-      );
-    }
+    #ifdef APPLE
+      // Contents/Resources/ in a bundle
+      if(!basePath.empty()) {
+        appDataDir.default_ = basePath;
+      }
+      else {
+        fmt::println(stderr,
+          "error: failed to compute the relocation prefix: {}\n"
+          "  Falling back to the install prefix.",
+          SDL_GetError()
+        );
+      }
+    #else
+      const std::filesystem::path invBin =
+        std::filesystem::path().lexically_relative(INSTALL_BINDIR);
+      const std::filesystem::path relocPrefix =
+        (basePath / invBin).lexically_normal();
+      if(!relocPrefix.empty()) {
+        appDataDir.default_ = relocPrefix / INSTALL_APPDATADIR;
+      }
+      else {
+        fmt::println(stderr,
+          "error: failed to compute the relocation prefix: {}\n"
+          "  Falling back to the install prefix.",
+          SDL_GetError()
+        );
+      }
+    #endif
     #endif
   }
 }

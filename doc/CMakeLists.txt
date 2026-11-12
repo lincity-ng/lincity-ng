@@ -36,6 +36,9 @@ set(docFiles
 if(WIN32)
   list(APPEND docFiles COPYING-dll.txt)
 endif()
+if(LINCITYNG_MACOS_BUNDLE)
+  list(APPEND docFiles COPYING-dylib.txt)
+endif()
 
 foreach(docFile ${docFiles})
   cmake_path(GET docFile FILENAME docName)
